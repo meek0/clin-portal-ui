@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { PageHeader, Dropdown, Menu, Button, Space } from 'antd';
-import { ReadOutlined, HomeOutlined, FileTextOutlined } from '@ant-design/icons';
+import { MedicineBoxOutlined, HomeOutlined, FileTextOutlined } from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
 import Gravatar from 'components/uiKit/Gravatar';
 import HeaderLink from 'components/Layout/Header/HeaderLink';
@@ -44,7 +44,7 @@ const Header = () => {
             key="prescriptions"
             currentPathName={currentPathName}
             to={STATIC_ROUTES.PRESCRIPTION_SEARCH}
-            icon={<ReadOutlined />}
+            icon={<MedicineBoxOutlined />}
             title={intl.get('layout.main.menu.prescriptions')}
           />
           <HeaderLink
