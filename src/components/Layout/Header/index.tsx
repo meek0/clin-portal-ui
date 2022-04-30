@@ -1,92 +1,97 @@
-import React from 'react';
-import cx from 'classnames';
-import { Button, Divider, Dropdown, PageHeader, Menu } from 'antd';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { PageHeader, Dropdown, Menu, Button, Space } from 'antd';
+import { ReadOutlined, HomeOutlined, FileTextOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
+import Gravatar from 'components/uiKit/Gravatar';
+import HeaderLink from 'components/Layout/Header/HeaderLink';
+import { STATIC_ROUTES } from 'utils/routes';
 import intl from 'react-intl-universal';
-import TranslateIcon from 'components/icons/TranslateIcon';
-import AccountCircleIcon from 'components/icons/AccountCircleIcon';
-import SupervisorIcon from 'components/icons/SupervisorIcon';
-import LangMenu from 'components/Layout/Header/LangMenu';
-import { useGlobals } from 'store/global';
 import { useKeycloak } from '@react-keycloak/web';
-import styles from 'components/Layout/Header/index.module.scss';
-import { showTranslationBtn } from 'utils/config';
-import { LogoutOutlined } from '@ant-design/icons';
-import { logout } from 'auth/keycloak';
+import { IncludeKeycloakTokenParsed } from 'utils/tokenTypes';
+import { useHistory } from 'react-router-dom';
+import EnvironmentVariables from 'utils/EnvVariables';
+import { useDispatch } from 'react-redux';
+import { globalActions, useLang } from 'store/global';
+import { LANG } from 'utils/constants';
 
-const userMenu = () => (
-  <Menu>
-    <Menu.Item key="logout">
-      <Button
-        id="logout-button"
-        onClick={() => logout()}
-        type="text"
-        icon={<LogoutOutlined />}
-        className={styles.dropdownNav}
-      >
-        {`${intl.get('logout')}`}
-      </Button>
-    </Menu.Item>
-  </Menu>
-);
+import styles from './index.module.scss';
 
 const Header = () => {
   const { keycloak } = useKeycloak();
-  const { lang } = useGlobals();
-
-  const title = intl.get('header.title');
-  const langText = intl.get(`lang.${lang}.short`);
-  // @ts-ignore: custom property not recognized (given_name)
+  const lang = useLang();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const currentPathName = history.location.pathname;
+  const tokenParsed = keycloak.tokenParsed as IncludeKeycloakTokenParsed;
   const userFirstname = keycloak?.tokenParsed?.given_name || '';
-
-  const getExtra = () => {
-    const extras = [];
-
-    extras.push(
-      <Button
-        key="0"
-        className={styles.navBtn}
-        size="small"
-        type="link"
-        href={'/patient/search'}
-        icon={<SupervisorIcon />}
-      >
-        {intl.get('header.navigation.patient')}
-      </Button>,
-      <Divider key="1" className={styles.divider} type="vertical" />,
-      <Dropdown overlay={userMenu()} trigger={['click']} key="2">
-        <Button
-          className={cx(styles.navBtn, styles.noMargin)}
-          size="small"
-          type="text"
-          icon={<AccountCircleIcon />}
-        >
-          {userFirstname}
-        </Button>
-      </Dropdown>,
-    );
-    if (showTranslationBtn) {
-      extras.push(
-        <Dropdown
-          key="3"
-          overlay={<LangMenu selectedLang={lang!} />}
-          trigger={['click']}
-          getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode as HTMLElement}
-        >
-          <Button size="small" className={styles.navBtn} type="text" icon={<TranslateIcon />}>
-            {langText}
-          </Button>
-        </Dropdown>,
-      );
-    }
-
-    return extras;
-  };
+  const targetLang = lang === LANG.FR ? LANG.EN : LANG.FR;
 
   return (
     <PageHeader
-      className={styles.pageHeader}
-      title={<img className={styles.logo} alt={title} src="/assets/logos/cqgc-white.svg" />}
-      extra={getExtra()}
+      title={
+        <img className={styles.logo} alt={'Clin Portal UI'} src="/assets/logos/cqgc-white.svg" />
+      }
+      subTitle={
+        <nav className={styles.headerList}>
+          <HeaderLink
+            key="home"
+            currentPathName={currentPathName}
+            to={STATIC_ROUTES.DASHBOARD}
+            icon={<HomeOutlined />}
+            title={intl.get('layout.main.menu.home')}
+          />
+          <HeaderLink
+            key="prescriptions"
+            currentPathName={currentPathName}
+            to={STATIC_ROUTES.PRESCRIPTION_SEARCH}
+            icon={<ReadOutlined />}
+            title={intl.get('layout.main.menu.prescriptions')}
+          />
+          <HeaderLink
+            key="archives"
+            currentPathName={currentPathName}
+            to={STATIC_ROUTES.ARCHIVE_EXPLORATION}
+            icon={<FileTextOutlined />}
+            title={intl.get('layout.main.menu.archives')}
+          />
+        </nav>
+      }
+      extra={
+        <Space className={styles.extras} size={12}>
+          <Dropdown
+            key="user-menu"
+            trigger={['click']}
+            overlay={
+              <Menu>
+                <Menu.Item key="logout" onClick={() => keycloak.logout()}>
+                  {intl.get('logout')}
+                </Menu.Item>
+              </Menu>
+            }
+          >
+            <a className={styles.userMenuTrigger} onClick={(e) => e.preventDefault()} href="">
+              <Gravatar
+                className={styles.userGravatar}
+                circle
+                email={tokenParsed.email || tokenParsed.identity_provider_identity}
+              />
+              <span className={styles.userName}>{userFirstname}</span>
+              <DownOutlined />
+            </a>
+          </Dropdown>
+          {EnvironmentVariables.configFor('SHOW_TRANSLATION_BTN') === 'true' && (
+            <Button
+              size="small"
+              className={styles.langBtn}
+              type="text"
+              onClick={() => dispatch(globalActions.changeLang(targetLang))}
+            >
+              {targetLang.toUpperCase()}
+            </Button>
+          )}
+        </Space>
+      }
+      className={styles.mainHeader}
     />
   );
 };

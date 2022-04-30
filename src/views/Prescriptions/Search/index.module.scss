@@ -1,0 +1,14 @@
+@import 'layout';
+
+.prescriptionLayout {
+  display: flex;
+
+  .pageWrapper {
+    height: calc(100vh - #{$main-header-height} - #{$page-header-height});
+    display: flex;
+  }
+
+  .scrollContent {
+    width: 100%;
+  }
+}

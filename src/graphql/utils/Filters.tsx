@@ -40,6 +40,7 @@ export interface IGenerateFilter {
   filterFooter?: boolean;
   showSearchInput?: boolean;
   useFilterSelector?: boolean;
+  index?: string;
 }
 
 const isTermAgg = (obj: TermAggs) => !!obj.buckets;
@@ -54,6 +55,7 @@ export const generateFilters = ({
   filterFooter = false,
   showSearchInput = false,
   useFilterSelector = false,
+  index,
 }: IGenerateFilter) =>
   Object.keys(aggregations || []).map((key) => {
     const found = (extendedMapping?.data || []).find(
@@ -85,6 +87,7 @@ export const generateFilters = ({
               queryBuilderId,
               filterGroup: fg,
               selectedFilters: f,
+              index,
             })
           }
           searchInputVisible={showSearchInput}
@@ -99,6 +102,9 @@ const translateWhenNeeded = (group: string, key: string) =>
     .get(`filters.options.${underscoreToDot(group)}.${keyEnhance(key)}`)
     .defaultMessage(keyEnhance(key));
 
+const keyEnhanceBooleanOnlyExcept = (field: string, fkey: string) =>
+  ['chromosome'].includes(field) ? fkey : keyEnhanceBooleanOnly(fkey);
+
 export const getFilters = (aggregations: Aggregations | null, key: string): IFilter[] => {
   if (!aggregations || !key) return [];
   if (isTermAgg(aggregations[key])) {
@@ -109,7 +115,7 @@ export const getFilters = (aggregations: Aggregations | null, key: string): IFil
         return {
           data: {
             count: f.doc_count,
-            key: keyEnhanceBooleanOnly(f.key),
+            key: keyEnhanceBooleanOnlyExcept(key, f.key),
           },
           id: f.key,
           name: transformNameIfNeeded(key, f.key, name),

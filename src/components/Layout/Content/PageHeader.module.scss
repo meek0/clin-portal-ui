@@ -1,0 +1,13 @@
+@import 'src/style/themes/clin/colors';
+@import 'src/style/themes/clin/layout';
+@import 'layout';
+
+.contentHeader {
+  background-color: $gray-1 !important;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 16px 24px;
+  height: $page-header-height;
+  display: flex;
+  align-items: center;
+}

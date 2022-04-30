@@ -29,6 +29,7 @@ $gray-9: #233750;
 $gray-10: #0f1824;
 
 $red-0: #fef4f4;
+$red-1: #fcf6f5;
 $red-2: #ffccc7;
 $red-5: #ff4d4f;
 $red-6: #f5222d;
@@ -47,6 +48,7 @@ $volcano-9: #871400;
 $purple-2: #efdbff;
 $purple-9: #531dab;
 
+$green-1: #f5ffeb;
 $green-2: #d9f7be;
 $green-6: #52c41a;
 $green-7: #389e0d;
@@ -57,6 +59,7 @@ $cyan-2: #b5f5ec;
 $cyan-7: #08979c;
 $cyan-9: #00474f;
 
+$orange-1: #fff7e6;
 $orange-2: #ffe7ba;
 $orange-5: #f79122;
 $orange-7: #d46b08;
@@ -69,7 +72,7 @@ $magenta-6: #eb2f96;
 $magenta-7: #c41d7f;
 $magenta-9: #6b0547;
 
-$border: #abbed3;
+$border: $gray-5;
 $layoutBG: #edf0f3;
 
 $primary-color: $blue-base;

@@ -11,6 +11,8 @@ import intl from 'react-intl-universal';
 import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { VARIANT_QB_ID } from 'views/Variants/utils/constant';
 
+import style from './index.module.scss';
+
 type Props = {
   variantId: string;
   hcComplements?: HcComplementHits | PossiblyHcComplementHits;
@@ -56,6 +58,7 @@ export const HcComplementDescription = ({ defaultText, hcComplements, variantId 
           >
             <Button
               type="link"
+              className={style.hcCountLink}
               onClick={() =>
                 addQuery({
                   queryBuilderId: VARIANT_QB_ID,

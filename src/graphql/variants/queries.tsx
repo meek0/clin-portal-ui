@@ -1,9 +1,5 @@
 import { gql } from '@apollo/client';
 
-import { ExtendedMapping } from 'graphql/models';
-import { dotToUnderscore, underscoreToDot } from '@ferlab/ui/core/data/arranger/formatting';
-import { MappingResults } from 'graphql/variants/actions';
-
 export const VARIANT_QUERY = gql`
   query VariantInformation($sqon: JSON, $pageSize: Int, $offset: Int, $sort: [Sort]) {
     Variants {
@@ -534,43 +530,3 @@ export const VARIANT_STATS_QUERY = gql`
     }
   }
 `;
-
-export const VARIANT_AGGREGATION_QUERY = (aggList: string[], mappingResults: MappingResults) => {
-  if (!mappingResults || mappingResults.loadingMapping) return gql``;
-
-  const aggListDotNotation = aggList.map((i) => underscoreToDot(i));
-
-  const extendedMappingsFields = aggListDotNotation.flatMap((i) =>
-    (mappingResults?.extendedMapping || []).filter((e) => e.field === i),
-  );
-
-  return gql`
-      query VariantInformation($sqon: JSON) {
-        Variants {
-           aggregations (filters: $sqon, include_missing:false){
-            ${generateAggregations(extendedMappingsFields)}
-          }
-        }
-      }
-    `;
-};
-
-const generateAggregations = (extendedMappingFields: ExtendedMapping[]) => {
-  const aggs = extendedMappingFields.map((f) => {
-    if (['keyword', 'id'].includes(f.type)) {
-      return (
-        dotToUnderscore(f.field) + ' {\n     buckets {\n      key\n        doc_count\n    }\n  }'
-      );
-    } else if (['long', 'float', 'integer', 'date'].includes(f.type)) {
-      return dotToUnderscore(f.field) + '{\n    stats {\n  max\n   min\n    }\n    }';
-    } else if (['boolean'].includes(f.type)) {
-      return (
-        dotToUnderscore(f.field) +
-        ' {\n      buckets {\n       key\n       doc_count\n     }\n    }'
-      );
-    } else {
-      return '';
-    }
-  });
-  return aggs.join(' ');
-};

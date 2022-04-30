@@ -1,10 +1,8 @@
 import React from 'react';
-import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { Route, RouteProps } from 'react-router-dom';
 import { useKeycloak } from '@react-keycloak/web';
 import ConditionalWrapper from 'components/utils/ConditionalWrapper';
-import { STATIC_ROUTES } from 'utils/routes';
-import { useUser } from 'store/user';
-import { REDIRECT_URI_KEY } from 'common/constants';
+import Spinner from 'components/uiKit/Spinner';
 
 type OwnProps = Omit<RouteProps, 'component' | 'render' | 'children'> & {
   layout?: (children: any) => React.ReactElement;
@@ -12,29 +10,14 @@ type OwnProps = Omit<RouteProps, 'component' | 'render' | 'children'> & {
 };
 
 const ProtectedRoute = ({ children, layout, ...routeProps }: OwnProps) => {
-  const { userInfo, error } = useUser();
-  const { keycloak } = useKeycloak();
+  const { keycloak, initialized } = useKeycloak();
   const RouteLayout = layout!;
-  const userNeedsToLogin = !userInfo || !keycloak.authenticated;
-  const currentPath = routeProps.path;
+  const keycloakIsReady = keycloak && initialized;
+  const showLogin = keycloakIsReady && !keycloak.authenticated;
 
-  if (error) {
-    return <Redirect to={STATIC_ROUTES.ERROR} />;
-  }
-
-  if (userNeedsToLogin) {
-    return (
-      <Redirect
-        to={{
-          pathname: STATIC_ROUTES.LOGIN,
-          search: `${REDIRECT_URI_KEY}=${routeProps.location?.pathname}${routeProps.location?.search}`,
-        }}
-      />
-    );
-  }
-
-  if (currentPath === STATIC_ROUTES.LOGIN) {
-    return <Redirect to={STATIC_ROUTES.DASHBOARD} />;
+  if (showLogin) {
+    keycloak.login();
+    return <Spinner size={'large'} />;
   }
 
   return (

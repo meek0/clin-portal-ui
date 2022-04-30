@@ -42,6 +42,5 @@ export const fields = [
   'state',
   'analysis__code',
   'prescriber__lastNameFirstName',
-  'approver__lastNameFirstName',
   'organization__name',
 ];

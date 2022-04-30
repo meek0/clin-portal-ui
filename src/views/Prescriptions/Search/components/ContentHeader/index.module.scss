@@ -1,0 +1,18 @@
+@import 'src/style/themes/clin/colors';
+
+.patientContentHeader {
+  .autoComplete {
+    width: 100%;
+  }
+
+  .autoCompleteRow {
+    border-bottom: 1px solid $gray-5;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -5px;
+
+    .optionMrn {
+      font-size: 12px;
+    }
+  }
+}

@@ -16,6 +16,7 @@ import { getProTableDictionary } from 'utils/translation';
 import styles from './index.module.scss';
 import { Link } from 'react-router-dom';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import PositionTag from 'components/uiKit/PositionTag';
 
 interface OwnProps {
   className?: string;
@@ -107,12 +108,7 @@ const getPatientPanelColumns = (
     key: 'is_proband',
     dataIndex: 'is_proband',
     title: intl.get('screen.variantDetails.patientsTab.relation'),
-    render: (is_proband: boolean) =>
-      is_proband ? (
-        <Tag color="red">{intl.get('proband')}</Tag>
-      ) : (
-        <Tag color="geekblue">{intl.get('parent')}</Tag>
-      ),
+    render: (isProband: boolean) => <PositionTag isProband={isProband} />,
     filters: [
       {
         text: intl.get('proband'),
@@ -126,7 +122,7 @@ const getPatientPanelColumns = (
     onFilter: (value, record: DonorsEntity) => value === record.is_proband,
   },
   {
-    key: 'is_proband',
+    key: 'affected_status',
     dataIndex: 'affected_status',
     title: intl.get('screen.variantDetails.patientsTab.status'),
     render: (affected_status: boolean) =>

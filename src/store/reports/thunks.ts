@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ReportsApi } from 'api/reports';
 import { downloadFile } from 'utils/helper';
 import { notification } from 'antd';
 import intl from 'react-intl-universal';
@@ -7,6 +6,7 @@ import capitalize from 'lodash/capitalize';
 import { MIME_TYPES } from 'utils/constants';
 import { ApiResponse } from 'api';
 import { v4 as uuid } from 'uuid';
+import { ReportsApi } from 'api/report';
 
 const extractFilename = (contentDisposition: string = '') => {
   const split = contentDisposition.split(';');
@@ -52,16 +52,16 @@ const proceedToDownload = async (
   }
 };
 
-const fetchTranscriptsReport = createAsyncThunk<
-  void,
-  { patientId: string; variantId: string }
->('report/fetchTranscriptsReport', async ({ patientId, variantId }) => {
-  await proceedToDownload(
-    intl.get('report.name.interpretation'),
-    `transcripts_${uuid()}.xlsx`,
-    ReportsApi.fetchPatientTranscriptsReport(patientId, variantId),
-  );
-});
+const fetchTranscriptsReport = createAsyncThunk<void, { patientId: string; variantId: string }>(
+  'report/fetchTranscriptsReport',
+  async ({ patientId, variantId }) => {
+    await proceedToDownload(
+      intl.get('report.name.interpretation'),
+      `transcripts_${uuid()}.xlsx`,
+      ReportsApi.fetchPatientTranscriptsReport(patientId, variantId),
+    );
+  },
+);
 
 const fetchNanuqSequencingReport = createAsyncThunk<void, { srIds: string[] }>(
   'report/fetchNanuqSequencingReport',

@@ -1,4 +1,4 @@
-import { ARRANGER_API_PROJECT_URL } from 'providers/apollo';
+import { ARRANGER_API_PROJECT_URL } from 'providers/ApolloProvider';
 import { sendRequest } from 'api';
 
 const graphqlRequest = <T = any>(data: { query: any; variables: any }) =>
