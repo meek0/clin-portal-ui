@@ -3,15 +3,12 @@ import { Tooltip } from 'antd';
 import Status, { StatusOptions } from '@ferlab/ui/core/components/labels/Status';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { formatDate } from 'utils/date';
-import {
-  ITablePrescriptionResult,
-  PrescriptionResult,
-} from 'graphql/prescriptions/models/Prescription';
+import { ITablePrescriptionResult } from 'graphql/prescriptions/models/Prescription';
 import PositionTag from 'components/uiKit/PositionTag';
-
-import './tableColumn.scss';
 import { PATIENT_POSITION } from 'utils/constants';
 import { Link } from 'react-router-dom';
+
+import './tableColumn.scss';
 
 export const prescriptionsColumns = (): ProColumnType<ITablePrescriptionResult>[] => {
   const statusTranslation = {
@@ -51,18 +48,6 @@ export const prescriptionsColumns = (): ProColumnType<ITablePrescriptionResult>[
       ),
       summary: false,
       title: intl.get('screen.patientsearch.table.status'),
-      filters: [
-        {
-          text: intl.get('proband'),
-          value: PATIENT_POSITION.PROBAND,
-        },
-        {
-          text: intl.get('parent'),
-          value: PATIENT_POSITION.PARENT,
-        },
-      ],
-      onFilter: (value: any, record: PrescriptionResult) =>
-        value === record.patientInfo.position.toLowerCase(),
     },
     {
       name: 'timestamp',

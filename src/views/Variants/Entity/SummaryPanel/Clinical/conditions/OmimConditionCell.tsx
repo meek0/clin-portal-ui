@@ -2,6 +2,7 @@ import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { OmimConditions, OmimCondition } from 'graphql/variants/models';
 import { Typography } from 'antd';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import ExternalLink from 'components/uiKit/ExternalLink';
 
 interface OwnProps {
   conditions: OmimConditions;
@@ -19,14 +20,9 @@ const OmimConditionCell = ({ conditions }: OwnProps) => (
         return (
           <StackLayout key={index}>
             <Text>{geneOmimName}</Text>&nbsp;(MIM:
-            <a
-              key={index}
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`https://www.omim.org/entry/${omimId}`}
-            >
+            <ExternalLink key={index} href={`https://www.omim.org/entry/${omimId}`}>
               {omimId}
-            </a>
+            </ExternalLink>
             )
           </StackLayout>
         );

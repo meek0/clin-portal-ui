@@ -4,7 +4,7 @@ import cx from 'classnames';
 import intl from 'react-intl-universal';
 import { useTabPatientData } from 'graphql/variants/tabActions';
 import ServerError from 'components/Results/ServerError';
-import { Card, Spin, Tooltip } from 'antd';
+import { Tooltip } from 'antd';
 import { DonorsEntity, TTableDonorEntity } from 'graphql/variants/models';
 import { formatTimestampToISODate } from 'utils/helper';
 import { ArrangerEdge, ArrangerHits, ArrangerResultsTree } from 'graphql/models';
@@ -16,6 +16,7 @@ import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import PositionTag from 'components/uiKit/PositionTag';
 
 import styles from './index.module.scss';
+import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 
 interface OwnProps {
   className?: string;
@@ -202,8 +203,8 @@ const PatientPanel = ({ locus, className = '' }: OwnProps) => {
 
   return (
     <div className={cx(styles.patientPanel, className)}>
-      <Spin spinning={loading}>
-        <Card>
+      <GridCard
+        content={
           <ProTable<TTableDonorEntity>
             tableId="patient_panel_table"
             columns={getPatientPanelColumns(donorsHits)}
@@ -234,8 +235,8 @@ const PatientPanel = ({ locus, className = '' }: OwnProps) => {
               className: styles.patientPagination,
             }}
           />
-        </Card>
-      </Spin>
+        }
+      ></GridCard>
     </div>
   );
 };

@@ -14,3 +14,7 @@ body {
 #appContainer {
   height: 100vh;
 }
+
+*:focus-visible {
+  outline: none;
+}

@@ -27,6 +27,7 @@ import { DEFAULT_PAGE_SIZE } from 'views/Variants/utils/constant';
 import { Link } from 'react-router-dom';
 
 import style from './index.module.scss';
+import ExternalLink from 'components/uiKit/ExternalLink';
 
 type OwnProps = {
   results: IQueryResults<VariantEntity[]>;
@@ -61,7 +62,7 @@ const getVariantColumns = (
     render: (hgvsg: string, entity: VariantEntity) =>
       hgvsg ? (
         <Tooltip placement="topLeft" title={hgvsg}>
-          <Link target="_blank" to={`/variant/entity/${entity.locus}`}>
+          <Link to={`/variant/entity/${entity.locus}`}>
             {hgvsg}
           </Link>
         </Tooltip>
@@ -81,13 +82,9 @@ const getVariantColumns = (
     className: style.dbSnpTableCell,
     render: (rsNumber: string) =>
       rsNumber ? (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href={`https://www.ncbi.nlm.nih.gov/snp/${rsNumber}`}
-        >
+        <ExternalLink href={`https://www.ncbi.nlm.nih.gov/snp/${rsNumber}`}>
           {rsNumber}
-        </a>
+        </ExternalLink>
       ) : (
         TABLE_EMPTY_PLACE_HOLDER
       ),
@@ -108,13 +105,9 @@ const getVariantColumns = (
     className: cx(style.variantTableCell, style.variantTableCellElipsis),
     render: (clinVar: ClinVar) =>
       clinVar?.clin_sig && clinVar.clinvar_id ? (
-        <a
-          href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <ExternalLink href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}>
           {clinVar.clin_sig.join(', ')}
-        </a>
+        </ExternalLink>
       ) : (
         TABLE_EMPTY_PLACE_HOLDER
       ),
@@ -125,13 +118,9 @@ const getVariantColumns = (
     dataIndex: 'varsome',
     className: cx(style.variantTableCell, style.variantTableCellElipsis),
     render: (varsome: Varsome) => (
-      <a
-        href={`https://varsome.com/variant/${varsome?.variant_id}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <ExternalLink href={`https://varsome.com/variant/${varsome?.variant_id}`}>
         {varsome?.acmg.verdict.verdict ? varsome?.acmg.verdict.verdict : 'No Verdict'}
-      </a>
+      </ExternalLink>
     ),
   },
   {

@@ -7,6 +7,7 @@ import { ArrangerEdge } from 'graphql/models';
 import capitalize from 'lodash/capitalize';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { Link } from 'react-router-dom';
+import ExternalLink from 'components/uiKit/ExternalLink';
 
 import styles from './index.module.scss';
 
@@ -82,13 +83,11 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => (
             <Text className={styles.contentTitle}>ClinVar</Text>
             <Text className={styles.contentValue}>
               {variant?.clinvar?.clin_sig && variant?.clinvar.clinvar_id ? (
-                <a
+                <ExternalLink
                   href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${variant?.clinvar.clinvar_id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
                 >
                   {variant?.clinvar.clin_sig.join(', ')}
-                </a>
+                </ExternalLink>
               ) : (
                 TABLE_EMPTY_PLACE_HOLDER
               )}
@@ -98,13 +97,9 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => (
             <Text className={styles.contentTitle}>dbSNP</Text>
             <Text className={styles.contentValue}>
               {variant?.rsnumber ? (
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://www.ncbi.nlm.nih.gov/snp/${variant?.rsnumber}`}
-                >
+                <ExternalLink href={`https://www.ncbi.nlm.nih.gov/snp/${variant?.rsnumber}`}>
                   {variant?.rsnumber}
-                </a>
+                </ExternalLink>
               ) : (
                 TABLE_EMPTY_PLACE_HOLDER
               )}

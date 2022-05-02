@@ -7,6 +7,7 @@ import { columnsClinVar, columnsPhenotypes } from './columns';
 import CollapsePanel from 'components/containers/collapse';
 
 import styles from './index.module.scss';
+import ExternalLink from 'components/uiKit/ExternalLink';
 
 interface OwnProps {
   locus: string;
@@ -37,13 +38,11 @@ const ClinicalCard = ({ locus }: OwnProps) => {
               <Title level={4}>
                 ClinVar{' '}
                 {clinvarId ? (
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <ExternalLink
                     href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvarId}`}
                   >
                     {clinvarId}
-                  </a>
+                  </ExternalLink>
                 ) : (
                   ''
                 )}

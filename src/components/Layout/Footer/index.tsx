@@ -1,10 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
 import { Col, Layout, Row } from 'antd';
 import intl from 'react-intl-universal';
 import get from 'lodash/get';
 
 import styles from './index.module.scss';
+import ExternalLink from 'components/uiKit/ExternalLink';
 
 const ZEPLIN_URL = get(window, 'CLIN.zeplinUrl', process.env.REACT_APP_ZEPLIN_URL);
 const FHIR_CONSOLE_URL = get(window, 'CLIN.fhirConsoleUrl', process.env.REACT_APP_FHIR_CONSOLE_URL);
@@ -16,10 +15,12 @@ const Footer = () => (
         <nav>
           <ul>
             <li>
-              <a href={ZEPLIN_URL} target="_blank" rel="noreferrer">{intl.get('footer.navigation.zepplin')}</a>
+              <ExternalLink href={ZEPLIN_URL}>{intl.get('footer.navigation.zepplin')}</ExternalLink>
             </li>
             <li>
-              <a href={FHIR_CONSOLE_URL} target="_blank" rel="noreferrer">{intl.get('footer.navigation.fhir')}</a>
+              <ExternalLink href={FHIR_CONSOLE_URL}>
+                {intl.get('footer.navigation.fhir')}
+              </ExternalLink>
             </li>
           </ul>
         </nav>

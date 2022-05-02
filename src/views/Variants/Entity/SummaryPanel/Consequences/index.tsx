@@ -14,6 +14,7 @@ import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { getVepImpactTag } from '../..';
 
 import styles from '../index.module.scss';
+import ExternalLink from 'components/uiKit/ExternalLink';
 
 interface OwnProps {
   className?: string;
@@ -283,9 +284,7 @@ const columns = [
       return transcript.ids.map((id) => (
         <div key={id} className={styles.transcriptId}>
           {`${transcript.transcriptId} / `}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
+          <ExternalLink
             href={`https://www.ncbi.nlm.nih.gov/nuccore/${id}?report=graph`}
             className={styles.transcriptLink}
           >
@@ -293,7 +292,7 @@ const columns = [
             {transcript.isCanonical && (
               <CanonicalIcon className={styles.canonicalIcon} height="14" width="14" />
             )}
-          </a>
+          </ExternalLink>
         </div>
       ));
     },
@@ -339,13 +338,11 @@ const ResumePanel = ({ data, className = '' }: OwnProps) => {
                   <Space size={12}>
                     <Space size={4}>
                       <span>
-                        <a
+                        <ExternalLink
                           href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${symbol}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
                         >
                           {symbol}
-                        </a>
+                        </ExternalLink>
                       </span>
                     </Space>
                     <Space size={4}>
@@ -353,13 +350,9 @@ const ResumePanel = ({ data, className = '' }: OwnProps) => {
                         <>
                           <span>Omim</span>
                           <span>
-                            <a
-                              href={`https://omim.org/entry/${omim}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
+                            <ExternalLink href={`https://omim.org/entry/${omim}`}>
                               {omim}
-                            </a>
+                            </ExternalLink>
                           </span>
                         </>
                       )}

@@ -14,6 +14,7 @@ import NoData from 'views/Variants/Entity/NoData';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
 import styles from './index.module.scss';
+import ExternalLink from 'components/uiKit/ExternalLink';
 
 interface OwnProps {
   locus: string;
@@ -115,11 +116,7 @@ const externalFreqColumns = [
     render: (cohort: { cohortName: string; link?: string }) => {
       const cohortName = cohort.cohortName;
       if (['TopMed', 'Gnomad Genomes (v3)'].includes(cohortName)) {
-        return (
-          <a href={cohort.link} target="_blank" rel="noopener noreferrer">
-            {cohortName}
-          </a>
-        );
+        return <ExternalLink href={cohort.link!}>{cohortName}</ExternalLink>;
       }
       return cohortName;
     },

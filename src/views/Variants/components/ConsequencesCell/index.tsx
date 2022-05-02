@@ -1,4 +1,3 @@
-import React from 'react';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 
 import { generateConsequencesDataLines } from './consequences';
@@ -8,6 +7,7 @@ import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeI
 import ModifierBadgeIcon from 'components/icons/variantBadgeIcons/ModifierBadgeIcon';
 import { Consequence, Impact } from 'graphql/variants/models';
 import { toKebabCase } from 'utils/helper';
+import ExternalLink from 'components/uiKit/ExternalLink';
 
 import style from './index.module.scss';
 
@@ -41,14 +41,11 @@ const ConsequencesCell = ({ consequences }: OwnProps) => {
               </span>
               {node.symbol && (
                 <span key={toKebabCase(node.symbol)} className={style.symbol}>
-                  <a
-                    className={style.symbolLink}
+                  <ExternalLink
                     href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${node.symbol}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
                   >
                     {node.symbol}
-                  </a>
+                  </ExternalLink>
                 </span>
               )}
               {node.aa_change && <span>{node.aa_change}</span>}

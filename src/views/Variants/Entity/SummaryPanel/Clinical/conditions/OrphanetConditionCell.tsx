@@ -1,9 +1,7 @@
-import React from "react";
-import StackLayout from "@ferlab/ui/core/layout/StackLayout";
-import {
-  OrphanetCondition,
-  OrphanetConditions,
-} from "graphql/variants/models";
+import React from 'react';
+import StackLayout from '@ferlab/ui/core/layout/StackLayout';
+import { OrphanetCondition, OrphanetConditions } from 'graphql/variants/models';
+import ExternalLink from 'components/uiKit/ExternalLink';
 
 interface OwnProps {
   conditions: OrphanetConditions;
@@ -17,16 +15,14 @@ const OrphanetConditionCell = ({ conditions }: OwnProps) => (
         const disorderId = orphanetItem.disorderId;
         return (
           <StackLayout key={index}>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
+            <ExternalLink
               href={
-                "https://www.orpha.net/consor/cgi-bin/Disease_Search.php" +
+                'https://www.orpha.net/consor/cgi-bin/Disease_Search.php' +
                 `?lng=EN&data_id=${disorderId}`
               }
             >
               {panel}
-            </a>
+            </ExternalLink>
           </StackLayout>
         );
       })}

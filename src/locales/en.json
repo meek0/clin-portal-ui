@@ -331,6 +331,6 @@
   "home.variant.search.box.placeholder": "BRAF, 10-100063679-T-C, rs341",
   "home.variant.search.box.label": "Search by locus, dbSNP, Clinvar, Ensembl, refseq",
   "home.prescription.search.box.title": "Find a prescription",
-  "home.prescription.search.box.placeholder": "BRAF, 10-100063679-T-C, rs341",
+  "home.prescription.search.box.placeholder": "SR000000, RQ00000, 12345, AAAA 0000 0000, Roy",
   "home.prescription.search.box.label": "Search by prescription number, request, file, RAMQ, patient name"
 }

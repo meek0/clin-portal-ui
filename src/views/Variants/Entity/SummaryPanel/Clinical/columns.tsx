@@ -21,6 +21,7 @@ import DddConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/condit
 import CosmicConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/CosmicConditionCell';
 import OmimConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/OmimConditionCell';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import ExternalLink from 'components/uiKit/ExternalLink';
 
 const { Text } = Typography;
 
@@ -63,14 +64,7 @@ export const columnsPhenotypes = [
         return (
           <>
             <Text>{geneName}</Text>&nbsp;(MIM:
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={`https://www.omim.org/entry/${omimId}`}
-            >
-              {omimId}
-            </a>
-            )
+            <ExternalLink href={`https://www.omim.org/entry/${omimId}`}>{omimId}</ExternalLink>)
           </>
         );
       }
