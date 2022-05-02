@@ -9,7 +9,7 @@ import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { DocumentNode } from 'graphql';
 import { ArrangerApi } from 'api/arranger';
 import { get } from 'lodash';
-import { ISuggestionPayload } from 'components/uiKit/GlobalSearch/types';
+import { ISuggestionPayload } from 'api/arranger/models';
 
 interface IGlobalSearch<T> {
   query: DocumentNode;

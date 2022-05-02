@@ -1,24 +1,27 @@
 @import 'src/style/themes/clin/colors';
+@import 'layout';
 
 .footer {
-  padding:8px 24px;
+  padding: 8px 24px;
   font-size: 12px;
   background: $gray-4;
   border-top: 1px solid $gray-5;
-  ul{
-    list-style-type:none;
-    margin:0;
-    padding:0;
+  height: $main-footer-height;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    li{
+    li {
       margin-right: 24px;
-      a{
+      a {
         color: $gray-8;
       }
     }
   }
 
-  img{
+  img {
     height: 32px;
   }
 }

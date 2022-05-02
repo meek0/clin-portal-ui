@@ -326,5 +326,11 @@
   "global.search.genes.placeholder": "e.g. BRAF, ENSG00000157764",
   "global.search.genes.title": "Search by gene",
   "global.search.genes.emptyText": "No gene found",
-  "global.search.genes.tooltip": "Enter a Gene Symbol, Gene Alias ​​or Ensemble ID"
+  "global.search.genes.tooltip": "Enter a Gene Symbol, Gene Alias ​​or Ensemble ID",
+  "home.variant.search.box.title": "Find a variant",
+  "home.variant.search.box.placeholder": "BRAF, 10-100063679-T-C, rs341",
+  "home.variant.search.box.label": "Search by locus, dbSNP, Clinvar, Ensembl, refseq",
+  "home.prescription.search.box.title": "Find a prescription",
+  "home.prescription.search.box.placeholder": "BRAF, 10-100063679-T-C, rs341",
+  "home.prescription.search.box.label": "Search by prescription number, request, file, RAMQ, patient name"
 }

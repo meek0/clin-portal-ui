@@ -12,9 +12,9 @@ import { appendBearerIfToken } from 'utils/helper';
 import { useRpt } from 'hooks/useRpt';
 import EnvironmentVariables from 'utils/EnvVariables';
 
-const ARRANGER_API = EnvironmentVariables.configFor('ARRANGER_API');
-const PROJECT_ID = EnvironmentVariables.configFor('ARRANGER_PROJECT_ID');
-const FHIR_API = EnvironmentVariables.configFor('FHIR_API');
+export const ARRANGER_API = EnvironmentVariables.configFor('ARRANGER_API');
+export const PROJECT_ID = EnvironmentVariables.configFor('ARRANGER_PROJECT_ID');
+export const FHIR_API = EnvironmentVariables.configFor('FHIR_API');
 
 export const ARRANGER_API_PROJECT_URL = `${ARRANGER_API}/${PROJECT_ID}/graphql`;
 

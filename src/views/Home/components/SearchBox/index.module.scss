@@ -1,0 +1,76 @@
+@import 'colors';
+
+.searchBox {
+  width: 100%;
+
+  .searchCard {
+    &:global(.ant-card) {
+      padding: 32px 40px;
+    }
+
+    :global(.ant-card-body) {
+      overflow: unset !important;
+    }
+  }
+
+  .searchBoxIcon {
+    font-size: 48px;
+    color: $blue-8;
+    display: flex;
+    align-items: center;
+
+    svg {
+      height: 48px;
+      width: 48px;
+    }
+  }
+
+  .searchBoxTitle {
+    color: $blue-9;
+    font-size: 16px;
+    min-width: 220px;
+    width: 220px; 
+    display: flex;
+    justify-content: center;
+  }
+
+  .searchInputWrapper,
+  .searchInput {
+    width: 100%;
+  }
+
+  .searchWrapper {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .searchBox {
+    .searchWrapper {
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .searchHeader {
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .searchBoxTitle {
+      min-width: unset;
+      width: unset;
+    }
+
+    .searchBoxIcon {
+      font-size: 32px;
+
+      svg {
+        height: 32px;
+        width: 32px;
+      }
+    }
+  }
+}

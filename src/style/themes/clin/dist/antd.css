@@ -26060,7 +26060,8 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .ant-input::placeholder {
   color: #8b9db2 !important;
 }
-.ant-input-prefix {
+.ant-input-prefix,
+.ant-input-suffix {
   color: #8b9db2;
 }
 .ant-input-number,

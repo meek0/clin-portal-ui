@@ -1,14 +1,10 @@
-import React from "react";
-import cx from "classnames";
-import { IconProps } from ".";
+import React from 'react';
+import cx from 'classnames';
+import { IconProps } from '.';
 
-const LineStyleIcon = ({
-  className = "",
-  width = "24",
-  height = "24",
-}: IconProps) => (
+const LineStyleIcon = ({ className = '', width = '24', height = '24' }: IconProps) => (
   <svg
-      className={cx('anticon', className)}
+    className={cx('anticon', className)}
     width={width}
     height={height}
     viewBox="0 0 24 24"

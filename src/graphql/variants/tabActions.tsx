@@ -13,7 +13,7 @@ export const buildVariantIdSqon = (id: string) => ({
     {
       op: 'in',
       content: {
-        field: 'hash',
+        field: 'locus',
         value: id,
       },
     },

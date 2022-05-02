@@ -36,7 +36,7 @@ const Header = () => {
           <HeaderLink
             key="home"
             currentPathName={currentPathName}
-            to={STATIC_ROUTES.DASHBOARD}
+            to={STATIC_ROUTES.HOME}
             icon={<HomeOutlined />}
             title={intl.get('layout.main.menu.home')}
           />

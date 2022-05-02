@@ -19,7 +19,7 @@ import styles from './index.module.scss';
 
 interface OwnProps {
   className?: string;
-  hash: string;
+  locus: string;
 }
 
 const DEFAULT_PAGE_SIZE = 20;
@@ -188,10 +188,10 @@ const getPatientPanelColumns = (
   },
 ];
 
-const PatientPanel = ({ hash, className = '' }: OwnProps) => {
+const PatientPanel = ({ locus, className = '' }: OwnProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageSize, setCurrentPageSize] = useState(DEFAULT_PAGE_SIZE);
-  const { loading, data, error } = useTabPatientData(hash);
+  const { loading, data, error } = useTabPatientData(locus);
   const donorsHits = (data?.donors as ArrangerResultsTree<DonorsEntity>)?.hits;
 
   if (error) {

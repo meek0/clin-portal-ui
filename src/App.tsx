@@ -5,6 +5,7 @@ import {
   Route,
   RouteChildrenProps,
   RouteComponentProps,
+  Redirect,
 } from 'react-router-dom';
 import ContextProvider from 'providers/ContextProvider';
 import Empty from '@ferlab/ui/core/components/Empty';
@@ -22,16 +23,27 @@ import NotificationContextHolder from 'components/utils/NotificationContextHolde
 import { LANG } from 'utils/constants';
 import ErrorBoundary from 'components/ErrorBoundary';
 import intl from 'react-intl-universal';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchPractitionerRole } from 'store/user/thunks';
 
 const loadableProps = { fallback: <Spinner size="large" /> };
 const PrescriptionSearch = loadable(() => import('views/Prescriptions/Search'), loadableProps);
 const VariantEntity = loadable(() => import('views/Variants/Entity'), loadableProps);
 const VariantExploration = loadable(() => import('views/Variants'), loadableProps);
+const HomePage = loadable(() => import('views/Home'), loadableProps);
 
 const App = () => {
   const lang = useLang();
+  const dispatch = useDispatch();
   const { keycloak, initialized } = useKeycloak();
   const keycloakIsReady = keycloak && initialized;
+
+  useEffect(() => {
+    if (keycloakIsReady && keycloak.authenticated) {
+      dispatch(fetchPractitionerRole());
+    }
+  }, [keycloakIsReady, keycloak]);
 
   return (
     <ConfigProvider
@@ -42,8 +54,8 @@ const App = () => {
         {keycloakIsReady ? (
           <Router>
             <Switch>
-            <ProtectedRoute exact path={STATIC_ROUTES.DASHBOARD} layout={PageLayout}>
-                <>Home</>
+              <ProtectedRoute exact path={STATIC_ROUTES.HOME} layout={PageLayout}>
+                <HomePage />
               </ProtectedRoute>
               <ProtectedRoute exact path={STATIC_ROUTES.PRESCRIPTION_SEARCH} layout={PageLayout}>
                 <PrescriptionSearch />
@@ -57,12 +69,12 @@ const App = () => {
               <ProtectedRoute exact path={DYNAMIC_ROUTES.VARIANT_ENTITY} layout={PageLayout}>
                 {(
                   props: RouteChildrenProps<{
-                    hash: string;
+                    locus: string;
                     tabid: string | undefined;
                   }>,
                 ) => (
                   <VariantEntity
-                    hash={props.match?.params.hash!}
+                    locus={props.match?.params.locus!}
                     tabid={props.match?.params.tabid!}
                   />
                 )}
@@ -76,6 +88,7 @@ const App = () => {
                   <ErrorPage status={props.match.params.status} />
                 )}
               />
+              <Redirect from="*" to={STATIC_ROUTES.HOME} />
             </Switch>
             <NotificationContextHolder />
           </Router>

@@ -9,13 +9,13 @@ import CollapsePanel from 'components/containers/collapse';
 import styles from './index.module.scss';
 
 interface OwnProps {
-  hash: string;
+  locus: string;
 }
 
 const { Title } = Typography;
 
-const ClinicalCard = ({ hash }: OwnProps) => {
-  const { loading, data } = useTabClinicalData(hash);
+const ClinicalCard = ({ locus }: OwnProps) => {
+  const { loading, data } = useTabClinicalData(locus);
 
   const dataClinvar = data?.clinvar || {};
   const clinvarId = dataClinvar.clinvar_id;

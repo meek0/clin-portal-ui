@@ -16,6 +16,7 @@ import { RootState } from 'store/types';
 // Reducers
 import GlobalReducer from 'store/global';
 import ReportReducer from 'store/reports';
+import UserReducer from 'store/user';
 
 const devMode = process.env.NODE_ENV === 'development';
 
@@ -31,6 +32,7 @@ const persistConfig = {
 const rootReducer = combineReducers<RootState>({
   global: GlobalReducer,
   report: ReportReducer,
+  user: UserReducer,
 });
 
 const store: any = configureStore({

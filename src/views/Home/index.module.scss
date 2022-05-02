@@ -1,0 +1,25 @@
+@import 'layout';
+@import 'colors';
+
+.homePageWrapper {
+  height: calc(100vh - #{$main-header-height});
+
+  .contentWrapper {
+    padding: 24px;
+    height: 100%;
+
+    .contentCardWrapper {
+      height: 100%;
+
+      .contentCard {
+        &:global(.ant-card) {
+          padding: 48px;
+        }
+      }
+    }
+
+    .contentCol {
+      width: 100%;
+    }
+  }
+}

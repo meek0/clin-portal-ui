@@ -16,7 +16,7 @@ import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import styles from './index.module.scss';
 
 interface OwnProps {
-  hash: string;
+  locus: string;
 }
 
 type ExternalFreqDatum = number | string | null;
@@ -223,8 +223,8 @@ const isExternalFreqTableEmpty = (rows: ExternalFreqRow[]) =>
 
 const { Title } = Typography;
 
-const FrequencyCard = ({ hash }: OwnProps) => {
-  const { loading, data } = useTabFrequenciesData(hash);
+const FrequencyCard = ({ locus }: OwnProps) => {
+  const { loading, data } = useTabFrequenciesData(locus);
 
   let frequencies_by_analysis = makeRows(data.frequencies_by_analysis);
   frequencies_by_analysis.push({

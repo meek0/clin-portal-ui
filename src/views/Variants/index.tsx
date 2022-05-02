@@ -17,8 +17,8 @@ import OccurenceIcon from 'components/icons/OccurenceIcon';
 import { SCROLL_WRAPPER_ID, VARIANT_QB_ID } from './utils/constant';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import VariantGeneSearch from './components/VariantGeneSearch';
-import { SuggestionType } from 'graphql/variants/models';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
+import { SuggestionType } from 'api/arranger/models';
 
 import styles from './index.module.scss';
 

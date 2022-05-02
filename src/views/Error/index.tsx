@@ -44,7 +44,7 @@ const ErrorPage = ({ status }: OwnProps) => {
       className={styles.errorPage}
       {...getResultProps(status || '500')}
       extra={
-        <Button type="primary" onClick={() => (window.location.href = STATIC_ROUTES.DASHBOARD)}>
+        <Button type="primary" onClick={() => (window.location.href = STATIC_ROUTES.HOME)}>
           {intl.get('global.errors.backHome')}
         </Button>
       }

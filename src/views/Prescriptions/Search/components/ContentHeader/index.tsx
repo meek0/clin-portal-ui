@@ -79,7 +79,7 @@ const ContentHeader = ({
       >
         <Input
           placeholder={intl.get('screen.patientsearch.placeholder')}
-          prefix={<SearchOutlined />}
+          suffix={<SearchOutlined />}
           size="large"
         />
       </AutoComplete>

@@ -12,7 +12,7 @@ import styles from './index.module.scss';
 
 interface OwnProps {
   className?: string;
-  hash: string;
+  locus: string;
   data: {
     loading: boolean;
     variantData: VariantEntity | null;
@@ -32,7 +32,7 @@ export const shortToLongPrediction: Record<string, string> = {
   'lrt.u': 'unknown',
 };
 
-const ResumePanel = ({ data, hash, className = '' }: OwnProps) => {
+const ResumePanel = ({ data, locus, className = '' }: OwnProps) => {
   const variantData = data.variantData;
   const genes = (variantData?.genes as ArrangerResultsTree<GeneEntity>)?.hits.edges;
 
@@ -42,8 +42,8 @@ const ResumePanel = ({ data, hash, className = '' }: OwnProps) => {
         <SummaryCard loading={data.loading} variant={variantData} genes={genes} />
         <Consequecenses data={data} />
         <ACMGCriteria data={data} />
-        <FrequencyCard hash={hash} />
-        <ClinicalCard hash={hash} />
+        <FrequencyCard locus={locus} />
+        <ClinicalCard locus={locus} />
       </Space>
     </div>
   );

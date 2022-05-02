@@ -1,4 +1,4 @@
-import { useHistory, useLocation } from 'react-router';
+import { useHistory } from 'react-router';
 import { Tag, Tabs } from 'antd';
 import { TeamOutlined, BarChartOutlined } from '@ant-design/icons';
 import intl from 'react-intl-universal';
@@ -41,15 +41,13 @@ export enum TAB_ID {
 }
 
 interface OwnProps {
-  hash: string;
+  locus: string;
   tabid: string;
 }
 
-const VariantEntityPage = ({ hash, tabid }: OwnProps) => {
-  const { loading, data, error } = useTabSummaryData(hash);
-  const location = useLocation();
+const VariantEntityPage = ({ locus, tabid }: OwnProps) => {
+  const { loading, data, error } = useTabSummaryData(locus);
   const history = useHistory();
-  const patientId = new URLSearchParams(location.search).get('patientid');
 
   if (error) {
     return <ServerError />;
@@ -76,8 +74,8 @@ const VariantEntityPage = ({ hash, tabid }: OwnProps) => {
         className={styles.entitySections}
         activeKey={tabid}
         onChange={(key) => {
-          if (history.location.hash !== key) {
-            history.push(`/variant/entity/${hash}/${key}?patientid=${patientId || ''}`);
+          if (history.location.key !== key) {
+            history.push(`/variant/entity/${locus}/${key}`);
           }
         }}
       >
@@ -92,7 +90,7 @@ const VariantEntityPage = ({ hash, tabid }: OwnProps) => {
         >
           <ResumePanel
             className={styles.pageContainer}
-            hash={hash}
+            locus={locus}
             data={{
               loading: loading,
               variantData: data,
@@ -108,7 +106,7 @@ const VariantEntityPage = ({ hash, tabid }: OwnProps) => {
           }
           key={TAB_ID.PATIENTS}
         >
-          <PatientPanel className={styles.pageContainer} hash={hash} />
+          <PatientPanel className={styles.pageContainer} locus={locus} />
         </Tabs.TabPane>
       </Tabs>
     </ContentWithHeader>

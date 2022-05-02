@@ -1,5 +1,5 @@
 export enum STATIC_ROUTES {
-  DASHBOARD = '/',
+  HOME = '/',
   ERROR = '/error',
   PRESCRIPTION_SEARCH = '/prescription/search',
   ARCHIVE_EXPLORATION = '/archive-exploration',
@@ -8,6 +8,6 @@ export enum STATIC_ROUTES {
 
 export enum DYNAMIC_ROUTES {
   ERROR = '/error/:status?',
-  VARIANT_ENTITY = '/variant/entity/:hash/:tabid?',
+  VARIANT_ENTITY = '/variant/entity/:locus/:tabid?',
   PRESCRIPTION_ENTITY = '/prescription/entity/:id',
 }
