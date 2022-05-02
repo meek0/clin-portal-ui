@@ -22,6 +22,7 @@ interface OwnProps<T> {
   query: DocumentNode;
   sqon: ISqonGroupFilter;
   tooltipText?: string;
+  limit?: number;
   optionsFormatter: (options: T[], matchRegex: RegExp, search: string) => OptionsType[];
 }
 
@@ -37,6 +38,7 @@ const GlobalSearch = <T,>({
   sqon,
   optionsFormatter,
   tooltipText,
+  limit = 5,
 }: OwnProps<T>) => (
   <Search<T>
     onSelect={(values) =>
@@ -66,6 +68,7 @@ const GlobalSearch = <T,>({
       )
     }
     title={title}
+    limit={limit}
   />
 );
 

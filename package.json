@@ -5,8 +5,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@apollo/client": "^3.4.17",
-    "@ferlab/style": "^1.18.3",
-    "@ferlab/ui": "^3.6.4",
+    "@ferlab/style": "^1.18.4",
+    "@ferlab/ui": "^3.6.6",
     "@loadable/component": "^5.15.2",
     "@react-keycloak/web": "^3.4.0",
     "@reduxjs/toolkit": "^1.6.2",

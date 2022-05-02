@@ -55,6 +55,7 @@ const Search = <T,>({
   const { result: searchResult, loading } = useLazyResultQuery<any>(query, {
     variables: { sqon: searchSQON },
   });
+
   const previousData = usePrevious(searchResult);
 
   useEffect(() => {

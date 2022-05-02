@@ -36,7 +36,7 @@ const filterGroups: {
   [type: string]: FilterInfo;
 } = {
   [FilterTypes.Variant]: {
-    customSearches: [<VariantSearch queryBuilderId={VARIANT_QB_ID} />],
+    customSearches: [<VariantSearch key={0} queryBuilderId={VARIANT_QB_ID} />],
     groups: [
       {
         facets: [

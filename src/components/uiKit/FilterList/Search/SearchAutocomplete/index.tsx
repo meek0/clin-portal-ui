@@ -25,7 +25,7 @@ export interface ISearchAutocomplete {
   onSelect: (values: string[]) => void;
   onClose: () => void;
   selectedItems?: string[];
-  loading?: boolean
+  loading?: boolean;
 }
 
 const { Text } = Typography;
@@ -42,7 +42,7 @@ const SearchAutocomplete = ({
   selectedItems = [],
   title = 'Search',
   tooltipText = '',
-  loading = false
+  loading = false,
 }: ISearchAutocomplete) => {
   const [itemSelected, setItemSelected] = useState(selectedItems);
   const newOptions = take(options, limit);
@@ -60,9 +60,16 @@ const SearchAutocomplete = ({
   return (
     <div className={`${styles.container} ${className}`}>
       <span className={styles.titleWrapper}>
-        <Text strong className={styles.title}>{title}</Text>
+        <Text strong className={styles.title}>
+          {title}
+        </Text>
         {tooltipText && (
-          <Tooltip align={{offset: [5, 0]}} arrowPointAtCenter placement="topLeft" title={tooltipText}>
+          <Tooltip
+            align={{ offset: [-24, 0] }}
+            arrowPointAtCenter
+            placement="topLeft"
+            title={tooltipText}
+          >
             <InfoCircleOutlined className={styles.tooltipIcon} />
           </Tooltip>
         )}

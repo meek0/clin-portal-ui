@@ -1,3 +1,29 @@
+
+@select-item-selected-bg: @blue-1;
+@select-item-selected-font-weight: 400;
+
+.@{select-prefix-cls} {
+  &-selection-overflow-item {
+    &.@{select-prefix-cls}-selection-overflow-item-rest {
+      .@{select-prefix-cls}-selection-item {
+        background: @blue-8;
+        color: white;
+        border: none;
+        height: 20px;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  &-item-option-state {
+    * {
+      color: @gray-6;
+    }
+  }
+}
+
+
 .@{select-prefix-cls} {
   color: @gray-8;
 
@@ -51,20 +77,6 @@
         .@{select-prefix-cls}-selection-item {
           color: @gray-8;
         }
-      }
-    }
-  }
-
-  &-item {
-    &-option {
-      &-disabled {
-        &.@{select-prefix-cls}-item-option-selected {
-          background-color: @gray-4;
-        }
-      }
-
-      &-selected:not(&-disabled) {
-        background-color: @gray-4;
       }
     }
   }
