@@ -323,6 +323,11 @@ export type SearchText = string;
 
 export type SuggestionId = string;
 
+export enum SuggestionType {
+  VARIANTS = "variants",
+  GENES = "genes"
+}
+
 export type Suggestion = {
   locus: string | undefined;
   type: GenomicFeatureType;

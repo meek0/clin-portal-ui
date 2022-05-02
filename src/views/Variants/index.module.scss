@@ -1,9 +1,4 @@
-@import 'src/style/themes/clin/layout';
-
-.variantLayout {
-  display: flex;
-  height: calc(100vh - #{$main-header-height});
-
+.variantLayout {  
   .filterLoader {
     padding: 24px;
     width: 100%;

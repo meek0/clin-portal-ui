@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 
 const { Title } = Typography;
 
-type ContentHeaderProps = {
+export type ContentHeaderProps = {
   title: string;
   loading?: boolean;
   extra?: ReactNode[];

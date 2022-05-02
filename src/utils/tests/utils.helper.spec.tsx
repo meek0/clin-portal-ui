@@ -4,7 +4,6 @@ import {
     appendBearerIfToken,
     toKebabCase,
     formatTimestampToISODate,
-    navigateTo,
     getTopBodyElement,
     getPatientPosition,
     formatLocus} from '../helper';

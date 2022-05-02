@@ -14,7 +14,7 @@ import {
   ITableVariantEntity,
 } from 'graphql/variants/models';
 import { ArrangerResultsTree, ArrangerEdge, IQueryResults } from 'graphql/models';
-import { formatQuerySortList, navigateTo } from 'utils/helper';
+import { formatQuerySortList } from 'utils/helper';
 import { Varsome, VarsomeClassifications } from 'graphql/variants/models';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
@@ -24,6 +24,7 @@ import ConsequencesCell from 'views/Variants/components/ConsequencesCell';
 import OccurrenceDrawer from '../../../components/OccurrenceDrawer';
 import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
 import { DEFAULT_PAGE_SIZE } from 'views/Variants/utils/constant';
+import { Link } from 'react-router-dom';
 
 import style from './index.module.scss';
 
@@ -60,9 +61,9 @@ const getVariantColumns = (
     render: (hgvsg: string, entity: VariantEntity) =>
       hgvsg ? (
         <Tooltip placement="topLeft" title={hgvsg}>
-          <a onClick={() => navigateTo(`/variant/entity/${entity.hash}?patientid=${patientId}`)}>
+          <Link target="_blank" to={`/variant/entity/${entity.hash}`}>
             {hgvsg}
-          </a>
+          </Link>
         </Tooltip>
       ) : (
         TABLE_EMPTY_PLACE_HOLDER

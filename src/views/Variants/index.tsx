@@ -15,8 +15,10 @@ import DiseaseIcon from 'components/icons/DiseaseIcon';
 import FrequencyIcon from 'components/icons/FrequencyIcon';
 import OccurenceIcon from 'components/icons/OccurenceIcon';
 import { SCROLL_WRAPPER_ID, VARIANT_QB_ID } from './utils/constant';
-import VariantSearch from './components/VariantSearch';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
+import VariantGeneSearch from './components/VariantGeneSearch';
+import { SuggestionType } from 'graphql/variants/models';
+import ContentWithHeader from 'components/Layout/ContentWithHeader';
 
 import styles from './index.module.scss';
 
@@ -36,7 +38,13 @@ const filterGroups: {
   [type: string]: FilterInfo;
 } = {
   [FilterTypes.Variant]: {
-    customSearches: [<VariantSearch key={0} queryBuilderId={VARIANT_QB_ID} />],
+    customSearches: [
+      <VariantGeneSearch
+        key="variants"
+        type={SuggestionType.VARIANTS}
+        queryBuilderId={VARIANT_QB_ID}
+      />,
+    ],
     groups: [
       {
         facets: [
@@ -50,6 +58,9 @@ const filterGroups: {
     ],
   },
   [FilterTypes.Gene]: {
+    customSearches: [
+      <VariantGeneSearch key="genes" type={SuggestionType.GENES} queryBuilderId={VARIANT_QB_ID} />,
+    ],
     groups: [
       { facets: ['consequences__biotype', 'gene_external_reference'] },
       {
@@ -205,12 +216,15 @@ const VariantExploration = (props: OwnProps) => {
   ];
 
   return (
-    <div className={styles.variantLayout}>
+    <ContentWithHeader
+      headerProps={{ title: intl.get('screen.variantsearch.title') }}
+      className={styles.variantLayout}
+    >
       <SidebarMenu className={styles.sideMenu} menuItems={menuItems} />
       <ScrollContentWithFooter scrollId={SCROLL_WRAPPER_ID}>
         <PageContent variantMapping={variantMappingResults} />
       </ScrollContentWithFooter>
-    </div>
+    </ContentWithHeader>
   );
 };
 

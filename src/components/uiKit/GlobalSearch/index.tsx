@@ -1,11 +1,10 @@
 import { updateActiveQueryField } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISqonGroupFilter, MERGE_VALUES_STRATEGIES } from '@ferlab/ui/core/data/sqon/types';
 import { findSqonValueByField } from '@ferlab/ui/core/data/sqon/utils';
-import Search from 'components/uiKit/FilterList/Search';
+import Search, { TCustomHandleSearch } from 'components/uiKit/FilterList/Search';
 import { OptionsType } from 'components/uiKit/FilterList/Search/SearchAutocomplete';
 import { DocumentNode } from 'graphql';
 import { INDEXES } from 'graphql/constants';
-import { get } from 'lodash';
 
 export interface ICustomSearchProps {
   queryBuilderId: string;
@@ -23,6 +22,7 @@ interface OwnProps<T> {
   sqon: ISqonGroupFilter;
   tooltipText?: string;
   limit?: number;
+  handleSearch?: TCustomHandleSearch<T>;
   optionsFormatter: (options: T[], matchRegex: RegExp, search: string) => OptionsType[];
 }
 
@@ -38,7 +38,8 @@ const GlobalSearch = <T,>({
   sqon,
   optionsFormatter,
   tooltipText,
-  limit = 5,
+  limit,
+  handleSearch,
 }: OwnProps<T>) => (
   <Search<T>
     onSelect={(values) =>
@@ -52,17 +53,16 @@ const GlobalSearch = <T,>({
     }
     searchValueTransformer={(value) => value.toUpperCase()}
     index={index}
+    tooltipText={tooltipText}
     emptyDescription={emptyDescription}
     placeHolder={placeholder}
     query={query}
-    tooltipText={tooltipText}
     searchKey={searchFields ?? [field]}
     selectedItems={findSqonValueByField(field, sqon) as string[]}
+    customHandleSearch={handleSearch}
     setCurrentOptions={(options, search) =>
       optionsFormatter(
-        (get(options, `${index}.hits.edges`, []) as any[]).map(({ node }) => ({
-          ...node,
-        })),
+        options,
         new RegExp(search.replace(/[-/\\^$*+?.()|[\]{}]/g, ''), 'gi'),
         search,
       )

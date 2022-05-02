@@ -311,6 +311,7 @@
   "screen.variantdetails.tab.patients": "Patients",
   "screen.variantdetails.tab.summary": "Summary",
   "screen.variantsearch.table.gnomAd": "gnomAD ",
+  "screen.variantsearch.title": "Variants",
   "see.less": "See less",
   "see.more": "See more",
   "SNV": "SNV",
@@ -318,7 +319,12 @@
   "substitution": "Substitution",
   "transcript": "Transcript",
   "zygosity": "zygozity",
-  "global.search.variant.title": "Search by variant",
-  "global.search.variant.emptyText": "No variant found",
-  "global.search.variant.tooltip": "Enter Variant Locus, Gene Symbol, Gene Alias, Gene AA Change, dbSNP ID, Clinvar ID, Ensembl ID, refseq ID"
+  "global.search.variants.placeholder": "e.g. 10-100063679-T-C, rs341",
+  "global.search.variants.title": "Search by variant",
+  "global.search.variants.emptyText": "No variant found",
+  "global.search.variants.tooltip": "Enter Variant Locus, Gene Symbol, Gene Alias, Gene AA Change, dbSNP ID, Clinvar ID, Ensembl ID, refseq ID",
+  "global.search.genes.placeholder": "e.g. BRAF, ENSG00000157764",
+  "global.search.genes.title": "Search by gene",
+  "global.search.genes.emptyText": "No gene found",
+  "global.search.genes.tooltip": "Enter a Gene Symbol, Gene Alias ​​or Ensemble ID"
 }

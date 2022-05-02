@@ -23,9 +23,8 @@ export interface ISearchAutocomplete {
   limit?: number;
   onSearch: (value: string) => void;
   onSelect: (values: string[]) => void;
-  onClose: () => void;
+  onClose?: () => void;
   selectedItems?: string[];
-  loading?: boolean;
 }
 
 const { Text } = Typography;
@@ -42,7 +41,6 @@ const SearchAutocomplete = ({
   selectedItems = [],
   title = 'Search',
   tooltipText = '',
-  loading = false,
 }: ISearchAutocomplete) => {
   const [itemSelected, setItemSelected] = useState(selectedItems);
   const newOptions = take(options, limit);
@@ -78,7 +76,6 @@ const SearchAutocomplete = ({
         allowClear
         className={styles.search}
         filterOption={false}
-        loading={loading}
         maxTagCount="responsive"
         mode="multiple"
         onChange={(values: string[]) => {
@@ -86,7 +83,7 @@ const SearchAutocomplete = ({
           setItemSelected(values);
         }}
         onDropdownVisibleChange={(open) => {
-          if (!open) {
+          if (!open && onClose) {
             onClose();
           }
         }}
