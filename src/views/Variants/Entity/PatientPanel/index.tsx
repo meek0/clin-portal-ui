@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import cx from 'classnames';
 import intl from 'react-intl-universal';
 import { useTabPatientData } from 'graphql/variants/tabActions';
 import ServerError from 'components/Results/ServerError';
-import { Card, Spin, Tag, Tooltip } from 'antd';
+import { Card, Spin, Tooltip } from 'antd';
 import { DonorsEntity, TTableDonorEntity } from 'graphql/variants/models';
 import { formatTimestampToISODate } from 'utils/helper';
 import { ArrangerEdge, ArrangerHits, ArrangerResultsTree } from 'graphql/models';
@@ -12,11 +12,10 @@ import { ColumnFilterItem } from 'antd/lib/table/interface';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { getProTableDictionary } from 'utils/translation';
-
-import styles from './index.module.scss';
-import { Link } from 'react-router-dom';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import PositionTag from 'components/uiKit/PositionTag';
+
+import styles from './index.module.scss';
 
 interface OwnProps {
   className?: string;
@@ -69,7 +68,7 @@ const getPatientPanelColumns = (
     key: 'patient_id',
     dataIndex: 'patient_id',
     title: intl.get('screen.variantDetails.patientsTab.donor'),
-    render: (id) => <Link to={`/patient/${id}`} />,
+    render: (id) => id,
   },
   {
     key: 'analysis_code',
@@ -190,17 +189,10 @@ const getPatientPanelColumns = (
 ];
 
 const PatientPanel = ({ hash, className = '' }: OwnProps) => {
-  const [currentTotal, setTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageSize, setCurrentPageSize] = useState(DEFAULT_PAGE_SIZE);
   const { loading, data, error } = useTabPatientData(hash);
   const donorsHits = (data?.donors as ArrangerResultsTree<DonorsEntity>)?.hits;
-
-  useEffect(() => {
-    if (!loading) {
-      setTotal(donorsHits?.total!);
-    }
-  }, [donorsHits, loading]);
 
   if (error) {
     return <ServerError />;

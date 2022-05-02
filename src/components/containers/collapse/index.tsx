@@ -8,7 +8,7 @@ type Props = {
 };
 
 const CollapsePanel = ({ header, children, bordered = false }: Props): React.ReactElement => (
-  <Collapse bordered={bordered} headerBorderOnly defaultActiveKey="1">
+  <Collapse bordered={bordered} headerBorderOnly defaultActiveKey="1" arrowIcon="caretFilled">
     <FUICollapsePanel header={header} key={`1`}>
       {children}
     </FUICollapsePanel>

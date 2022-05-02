@@ -514,6 +514,21 @@ export const TAB_PATIENT_QUERY = gql`
   }
 `;
 
+export const VARIANT_SEARCH_QUERY = gql`
+  query VariantStats {
+    Variants {
+      hits {
+        edges {
+          node {
+            locus,
+            rsnumber
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const VARIANT_STATS_QUERY = gql`
   query VariantStats {
     variantStats {

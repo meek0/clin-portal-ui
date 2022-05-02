@@ -1,4 +1,4 @@
-import { ExtendedMappingResults, GqlResults, hydrateResults } from 'graphql/models';
+import { GqlResults, hydrateResults } from 'graphql/models';
 import { PatientFileResults, PatientResult } from 'graphql/patients/models/Patient';
 import { QueryVariable } from 'graphql/queries';
 import { useLazyResultQuery, useLazyResultQueryOnLoadOnly } from 'graphql/utils/query';

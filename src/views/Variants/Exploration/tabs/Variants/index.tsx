@@ -25,7 +25,7 @@ import OccurrenceDrawer from '../../../components/OccurrenceDrawer';
 import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
 import { DEFAULT_PAGE_SIZE } from 'views/Variants/utils/constant';
 
-import style from './VariantTableContainer.module.scss';
+import style from './index.module.scss';
 
 type OwnProps = {
   results: IQueryResults<VariantEntity[]>;

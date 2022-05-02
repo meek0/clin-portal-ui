@@ -10,3 +10,7 @@ body {
 .App {
   height: 100%;
 }
+
+#appContainer {
+  height: 100vh;
+}

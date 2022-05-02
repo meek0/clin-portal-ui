@@ -10,6 +10,8 @@ import { getProTableDictionary } from 'utils/translation';
 import { scrollToTop } from 'utils/helper';
 import { PRESCRIPTION_SCROLL_ID } from 'views/Prescriptions/Search/utils/contstant';
 
+import styles from "./PrescriptionTable.module.scss";
+
 interface OwnProps {
   results: GqlResults<PrescriptionResult> | null;
   total?: number;
@@ -29,6 +31,7 @@ const PrescriptionsTable = ({ results, loading = false }: OwnProps): React.React
       tableId="prescription_table"
       columns={prescriptionsColumns()}
       dataSource={results?.data.map((i) => ({ ...i, key: i.id }))}
+      className={styles.prescriptionTableWrapper}
       loading={loading}
       dictionary={getProTableDictionary()}
       showSorterTooltip={false}
@@ -52,6 +55,7 @@ const PrescriptionsTable = ({ results, loading = false }: OwnProps): React.React
         pageSize: currentPageSize,
         defaultPageSize: DEFAULT_PAGE_SIZE,
         total: results?.total ?? 0,
+        showSizeChanger: true
       }}
     />
   );

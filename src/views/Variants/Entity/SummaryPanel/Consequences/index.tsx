@@ -5,7 +5,7 @@ import intl from 'react-intl-universal';
 import capitalize from 'lodash/capitalize';
 import ExpandableTable from 'components/table/ExpandableTable';
 import ExpandableCell from 'components/table/ExpandableCell';
-import NoData from 'views/Variants/components/NoData';
+import NoData from 'views/Variants/Entity/NoData';
 import CanonicalIcon from 'components/icons/CanonicalIcon';
 import { ConsequenceEntity, GeneEntity, Impact, VariantEntity } from 'graphql/variants/models';
 import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
@@ -13,7 +13,7 @@ import CollapsePanel from 'components/containers/collapse';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { getVepImpactTag } from '../..';
 
-import styles from './index.module.scss';
+import styles from '../index.module.scss';
 
 interface OwnProps {
   className?: string;

@@ -1,6 +1,5 @@
 import SidebarMenu, { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import intl from 'react-intl-universal';
-import ScrollContent from '@ferlab/ui/core/layout/ScrollContent';
 import PageContent from 'views/Variants/Exploration';
 import ApolloProvider from 'providers/ApolloProvider';
 import { Spin } from 'antd';
@@ -16,6 +15,8 @@ import DiseaseIcon from 'components/icons/DiseaseIcon';
 import FrequencyIcon from 'components/icons/FrequencyIcon';
 import OccurenceIcon from 'components/icons/OccurenceIcon';
 import { SCROLL_WRAPPER_ID, VARIANT_QB_ID } from './utils/constant';
+import VariantSearch from './components/VariantSearch';
+import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 
 import styles from './index.module.scss';
 
@@ -35,6 +36,7 @@ const filterGroups: {
   [type: string]: FilterInfo;
 } = {
   [FilterTypes.Variant]: {
+    customSearches: [<VariantSearch queryBuilderId={VARIANT_QB_ID} />],
     groups: [
       {
         facets: [
@@ -51,7 +53,7 @@ const filterGroups: {
     groups: [
       { facets: ['consequences__biotype', 'gene_external_reference'] },
       {
-        title: 'screen.patientvariant.filter.grouptitle.genepanel',
+        title: intl.get('screen.patientvariant.filter.grouptitle.genepanel'),
         facets: [
           'panels',
           'genes__hpo__hpo_term_label',
@@ -74,7 +76,7 @@ const filterGroups: {
         ],
       },
       {
-        title: 'predictions',
+        title: 'Prédictions',
         facets: [
           'consequences__predictions__sift_pred',
           'consequences__predictions__polyphen2_hvar_pred',
@@ -90,7 +92,7 @@ const filterGroups: {
   [FilterTypes.Frequency]: {
     groups: [
       {
-        title: 'screen.patientvariant.filter.grouptitle.rqdmpatient',
+        title: intl.get('screen.patientvariant.filter.grouptitle.rqdmpatient'),
         facets: [
           'frequency_RQDM__total__af',
           'frequency_RQDM__affected__af',
@@ -98,7 +100,7 @@ const filterGroups: {
         ],
       },
       {
-        title: 'screen.patientvariant.filter.grouptitle.publiccohorts',
+        title: intl.get('screen.patientvariant.filter.grouptitle.publiccohorts'),
         facets: [
           'external_frequencies__gnomad_genomes_2_1_1__af',
           'external_frequencies__gnomad_genomes_3_0__af',
@@ -122,7 +124,7 @@ const filterGroups: {
         ],
       },
       {
-        title: 'screen.patientvariant.category_metric',
+        title: intl.get('screen.patientvariant.category_metric'),
         facets: [
           'donors__filters',
           'donors__qd',
@@ -205,9 +207,9 @@ const VariantExploration = (props: OwnProps) => {
   return (
     <div className={styles.variantLayout}>
       <SidebarMenu className={styles.sideMenu} menuItems={menuItems} />
-      <ScrollContent id={SCROLL_WRAPPER_ID} className={styles.scrollContent}>
+      <ScrollContentWithFooter scrollId={SCROLL_WRAPPER_ID}>
         <PageContent variantMapping={variantMappingResults} />
-      </ScrollContent>
+      </ScrollContentWithFooter>
     </div>
   );
 };

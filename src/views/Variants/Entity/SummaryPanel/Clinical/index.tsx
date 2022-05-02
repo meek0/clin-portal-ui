@@ -1,7 +1,7 @@
 import intl from 'react-intl-universal';
 import { useTabClinicalData } from 'graphql/variants/tabActions';
 import { Space, Table, Spin, Typography } from 'antd';
-import NoData from 'views/Variants/components/NoData';
+import NoData from 'views/Variants/Entity/NoData';
 import { makeClinVarRows, makeGenesOrderedRow } from './utils';
 import { columnsClinVar, columnsPhenotypes } from './columns';
 import CollapsePanel from 'components/containers/collapse';

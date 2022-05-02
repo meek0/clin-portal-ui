@@ -11,7 +11,7 @@ $query-default-action-focus-color: $gray-8;
 
 $query-builder-bg: $white;
 $query-builder-border-color: transparent;
-$query-builder-header-border-divider-color: #D8E1EB;
+$query-builder-header-border-divider-color: #d8e1eb;
 $query-builder-padding: 24px 24px;
 
 $query-bar-bg: #f8fafc;
@@ -40,13 +40,13 @@ $query-combiner-button-focus-color: $gray-8;
 // SidebarMenu
 $sidebar-menu-width: 180px;
 $sidebar-menu-collapsed-width: 50px;
-$sidebar-menu-background-color: #0a5085;
+$sidebar-menu-background-color: $blue-10;
 $sidebar-menu-toggle-icon-size: 21px;
 
 $sidebar-menu-item-icon-size: 24px;
 $sidebar-menu-item-height: 50px;
 $sidebar-menu-item-text-color: #fff;
-$sidebar-menu-item-active-background-color: $blue-8;
+$sidebar-menu-item-active-background-color: $blue-9;
 $sidebar-menu-item-active-color: #fff;
 $sidebar-menu-item-hover-color: #fff;
 $sidebar-menu-item-hover-opacity: 0.8;
@@ -54,13 +54,13 @@ $sidebar-menu-item-border-focus: none;
 $sidebar-menu-item-border-focus-color: white;
 
 $sidebar-quick-filter-input-box-shadow-hover: 0 0 0 2px #23a4d7;
-$sidebar-quick-filter-input-box-shadow-focus: 0 0 0 2px #0a5085, 0 0 0 3px white;
+$sidebar-quick-filter-input-box-shadow-focus: 0 0 0 2px $blue-10, 0 0 0 3px white;
 $sidebar-quick-filter-input-placeholder-color: #8b9db2;
 $sidebar-quick-filter-input-text-color: #364a63;
 
 $sidebar-content-panel-padding: 16px;
 $sidebar-content-panel-width: 320px;
-$sidebar-content-panel-close-icon-color: $blue-8;
+$sidebar-content-panel-close-icon-color: $blue-9;
 $sidebar-content-panel-right-border: 1px solid $gray-5;
 $sidebar-content-panel-background-color: transparent;
 $sidebar-content-panel-close-icon-width: 16px;

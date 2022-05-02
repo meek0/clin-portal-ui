@@ -3,6 +3,8 @@
   "layout.main.menu.prescriptions": "Prescriptions",
   "layout.main.menu.archives": "Archives",
   "chromosome": "Chromosome",
+  "components.filterList.collapseAll": "Collapse all",
+  "components.filterList.expandAll": "Expand all",
   "component.table.itemcount.results.multiple.pages": "Results <strong>{from}</strong> - <strong>{to}</strong> of <strong>{total}</strong>",
   "component.table.itemcount.results.one.page": "{count, plural, =0 {No result} other {<strong>#</strong> results}}",
   "compound.heterozygous": "{num, plural, =0 {compound heterozygous} other {compound heterozygous}}",
@@ -139,6 +141,7 @@
   "protable.selectAllResults": "Select all results",
   "protable.selected": "item selected",
   "protable.selectedPlural": "items selected",
+  "querybuilder.variant.filter.defaultTitle": "Variants filter",
   "querybuilder.actions.addQuery": "New query",
   "querybuilder.actions.changeOperatorTo": "Change operator to",
   "querybuilder.actions.clear.buttonTitle": "Clear all",
@@ -314,5 +317,8 @@
   "standard.format.date": "Format YYYY-MM-DD",
   "substitution": "Substitution",
   "transcript": "Transcript",
-  "zygosity": "zygozity"
+  "zygosity": "zygozity",
+  "global.search.variant.title": "Search by variant",
+  "global.search.variant.emptyText": "No variant found",
+  "global.search.variant.tooltip": "Enter Variant Locus, Gene Symbol, Gene Alias, Gene AA Change, dbSNP ID, Clinvar ID, Ensembl ID, refseq ID"
 }

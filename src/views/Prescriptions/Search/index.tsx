@@ -4,7 +4,7 @@ import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/
 import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
 import { usePrescription, usePrescriptionMapping } from 'graphql/prescriptions/actions';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
-import PageHeader from 'components/Layout/Content/PageHeader';
+import ContentHeader from 'components/Layout/ContentHeader';
 import { Space } from 'antd';
 import ContentContainer from './components/ContentContainer';
 import ApolloProvider from 'providers/ApolloProvider';
@@ -32,7 +32,7 @@ const PrescriptionSearch = (): React.ReactElement => {
 
   return (
     <Space className={styles.prescriptionLayout} direction="vertical" size={0}>
-      <PageHeader title={intl.get('screen.patientsearch.title')} />
+      <ContentHeader title={intl.get('screen.patientsearch.title')} />
       <div className={styles.pageWrapper}>
         <Sidebar
           queryBuilderId={PRESCRIPTION_QB_ID}

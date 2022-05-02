@@ -2,7 +2,7 @@ import { Space, Spin, Table, Tag, Typography } from 'antd';
 import intl from 'react-intl-universal';
 import { VariantEntity } from 'graphql/variants/models';
 import CollapsePanel from 'components/containers/collapse';
-import NoData from 'views/Variants/components/NoData';
+import NoData from 'views/Variants/Entity/NoData';
 
 const { Title } = Typography;
 

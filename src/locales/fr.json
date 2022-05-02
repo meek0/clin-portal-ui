@@ -3,6 +3,8 @@
   "layout.main.menu.prescriptions": "Prescriptions",
   "layout.main.menu.archives": "Archives",
   "chromosome": "Chromosome",
+  "components.filterList.collapseAll": "Tout fermer",
+  "components.filterList.expandAll": "Tout ouvrir",
   "component.table.itemcount.results.multiple.pages": "Résultats <strong>{from}</strong> - <strong>{to}</strong> sur <strong>{total}</strong>",
   "component.table.itemcount.results.one.page": "{count, plural, =0 {Aucun résultat} other {<strong>#</strong> résultats}}",
   "compound.heterozygous": "{num, plural, =0 {hétérozygote composé} other {hétérozygotes composés}}",
@@ -139,6 +141,7 @@
   "protable.selectAllResults": "Sélectionner tous les résultats",
   "protable.selected": "élément sélectionné",
   "protable.selectedPlural": "éléments sélectionnés",
+  "querybuilder.variant.filter.defaultTitle": "Requête de variants",
   "querybuilder.actions.addQuery": "Nouvelle requête",
   "querybuilder.actions.changeOperatorTo": "Changer l'opérateur à",
   "querybuilder.actions.clear.buttonTitle": "Tout effacer",
@@ -315,5 +318,8 @@
   "standard.format.date": "Format AAAA-MM-JJ",
   "substitution": "Substitution",
   "transcript": "Transcrit",
-  "zygosity": "zigosité"
+  "zygosity": "zigosité",
+  "global.search.variant.title": "Recherche par variant",
+  "global.search.variant.emptyText": "Aucun variant trouvé",
+  "global.search.variant.tooltip": "Entrer un Locus de Variant, Symbol de gène, Alias de gène, Gène AA Change, dbSNP ID, Clinvar ID, Ensembl ID, refseq ID"
 }

@@ -52,7 +52,7 @@ const Search = <T,>({
     content: searchFilter.content,
   };
 
-  const { result: searchResult } = useLazyResultQuery<any>(query, {
+  const { result: searchResult, loading } = useLazyResultQuery<any>(query, {
     variables: { sqon: searchSQON },
   });
   const previousData = usePrevious(searchResult);
@@ -77,6 +77,7 @@ const Search = <T,>({
       }}
       options={options}
       selectedItems={selectedItems}
+      loading={loading}
       {...props}
     />
   );

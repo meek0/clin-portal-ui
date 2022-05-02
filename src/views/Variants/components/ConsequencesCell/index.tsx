@@ -9,7 +9,7 @@ import ModifierBadgeIcon from 'components/icons/variantBadgeIcons/ModifierBadgeI
 import { Consequence, Impact } from 'graphql/variants/models';
 import { toKebabCase } from 'utils/helper';
 
-import style from './ConsequencesCell.module.scss';
+import style from './index.module.scss';
 
 type OwnProps = {
   consequences: Consequence[];

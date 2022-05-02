@@ -1,6 +1,8 @@
+@import "layout";
 
 .variantPageContent {
     width: 100%;
     display: flex;
     position: relative;
+    padding: $default-page-content-padding;
 }

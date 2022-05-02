@@ -82,7 +82,7 @@ const PageContent = ({ variantMapping }: OwnProps) => {
         headerConfig={{
           showHeader: true,
           showTools: false,
-          defaultTitle: intl.get('components.querybuilder.defaultTitle'),
+          defaultTitle: intl.get('querybuilder.variant.filter.defaultTitle'),
         }}
         facetFilterConfig={{
           enable: true,

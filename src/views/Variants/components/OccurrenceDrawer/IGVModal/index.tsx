@@ -17,9 +17,9 @@ import { DonorsEntity, VariantEntity } from 'graphql/variants/models';
 import { FhirDoc, PatientFileResults } from 'graphql/patients/models/Patient';
 import { IIGVTrack } from 'components/Igv/type';
 import ServerError from 'components/Results/ServerError';
-
-import style from 'views/screens/variant/OccurrenceDrawer/IGVModal/index.module.scss';
 import { GENDER, PARENT_TYPE, PATIENT_POSITION } from 'utils/constants';
+
+import style from './index.module.scss';
 
 interface OwnProps {
   donor: DonorsEntity;

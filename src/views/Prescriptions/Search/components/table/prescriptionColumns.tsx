@@ -2,7 +2,6 @@ import intl from 'react-intl-universal';
 import { Tooltip } from 'antd';
 import Status, { StatusOptions } from '@ferlab/ui/core/components/labels/Status';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
-import { PatientIdCell, PrescriptionIdCell } from './cell/LinkCell';
 import { formatDate } from 'utils/date';
 import {
   ITablePrescriptionResult,
@@ -12,6 +11,7 @@ import PositionTag from 'components/uiKit/PositionTag';
 
 import './tableColumn.scss';
 import { PATIENT_POSITION } from 'utils/constants';
+import { Link } from 'react-router-dom';
 
 export const prescriptionsColumns = (): ProColumnType<ITablePrescriptionResult>[] => {
   const statusTranslation = {
@@ -27,13 +27,13 @@ export const prescriptionsColumns = (): ProColumnType<ITablePrescriptionResult>[
     {
       name: ['cid'],
       render: (cid: string, prescription: any) => {
-        return <PrescriptionIdCell patientId={prescription.patientInfo?.cid || ''} text={cid} />;
+        return <Link to={`/prescription/entity/${cid}`}>{cid}</Link>;
       },
       title: intl.get('screen.patientsearch.table.prescription'),
     },
     {
       name: ['patientInfo', 'cid'],
-      render: (cid: string) => <PatientIdCell id={cid} />,
+      render: (cid: string) => cid,
       summary: false,
       title: intl.get('screen.patientsearch.table.patientId'),
     },

@@ -10,7 +10,7 @@ import { ArrangerEdge } from 'graphql/models';
 import { toExponentialNotation } from 'utils/helper';
 import CollapsePanel from 'components/containers/collapse';
 import { isEmpty } from 'lodash';
-import NoData from 'views/Variants/components/NoData';
+import NoData from 'views/Variants/Entity/NoData';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
 import styles from './index.module.scss';
