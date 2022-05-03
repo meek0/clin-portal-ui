@@ -13,6 +13,7 @@ import EnvironmentVariables from 'utils/EnvVariables';
 import { useDispatch } from 'react-redux';
 import { globalActions, useLang } from 'store/global';
 import { LANG } from 'utils/constants';
+import { getUserFirstName } from 'auth/keycloak';
 
 import styles from './index.module.scss';
 
@@ -23,7 +24,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const currentPathName = history.location.pathname;
   const tokenParsed = keycloak.tokenParsed as IncludeKeycloakTokenParsed;
-  const userFirstname = keycloak?.tokenParsed?.given_name || '';
   const targetLang = lang === LANG.FR ? LANG.EN : LANG.FR;
 
   return (
@@ -75,7 +75,7 @@ const Header = () => {
                 circle
                 email={tokenParsed.email || tokenParsed.identity_provider_identity}
               />
-              <span className={styles.userName}>{userFirstname}</span>
+              <span className={styles.userName}>{getUserFirstName()}</span>
               <DownOutlined />
             </a>
           </Dropdown>

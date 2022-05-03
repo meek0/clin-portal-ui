@@ -1,4 +1,5 @@
 {
+  "home.greeting": "Hello, {name}",
   "layout.main.menu.home": "Home Page",
   "layout.main.menu.prescriptions": "Prescriptions",
   "layout.main.menu.archives": "Archives",

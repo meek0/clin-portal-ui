@@ -2,7 +2,7 @@
 @import 'colors';
 
 .homePageWrapper {
-  height: calc(100vh - #{$main-header-height});
+  height: calc(100vh - #{$main-header-height} - #{$page-header-height});
 
   .contentWrapper {
     padding: 24px;
