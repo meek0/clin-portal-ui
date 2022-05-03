@@ -13,6 +13,13 @@
     }
   }
 
+  .searchHeader {
+    gap: 8px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
   .searchBoxIcon {
     font-size: 48px;
     color: $blue-8;
@@ -29,7 +36,7 @@
     color: $blue-9;
     font-size: 16px;
     min-width: 220px;
-    width: 220px; 
+    width: 220px;
     display: flex;
     justify-content: center;
   }
@@ -55,8 +62,6 @@
 
     .searchHeader {
       flex-direction: row;
-      width: 100%;
-      justify-content: center;
     }
 
     .searchBoxTitle {

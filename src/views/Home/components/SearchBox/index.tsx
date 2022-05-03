@@ -28,12 +28,12 @@ const SearchBox = ({
     wrapperClassName={styles.searchBox}
     content={
       <div className={styles.searchWrapper}>
-        <Space direction="vertical" align="center" className={styles.searchHeader}>
+        <div className={styles.searchHeader}>
           <span className={styles.searchBoxIcon}>{icon}</span>
           <Typography.Text strong className={styles.searchBoxTitle}>
             {title}
           </Typography.Text>
-        </Space>
+        </div>
         <Space direction="vertical" className={styles.searchInputWrapper}>
           <LabelWithInfo title={searchLabel} colon />
           {customAutoComplete ? (
