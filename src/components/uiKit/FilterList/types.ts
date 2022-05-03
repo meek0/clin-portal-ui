@@ -8,6 +8,7 @@ export interface FilterGroup {
 }
 
 export interface FilterInfo {
+  defaultOpenFacets?: string[];
   customSearches?: React.ReactNode[];
   groups: FilterGroup[];
 }

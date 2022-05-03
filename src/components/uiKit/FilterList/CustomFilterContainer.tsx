@@ -16,7 +16,7 @@ type OwnProps = {
   queryBuilderId: string;
   filterKey: string;
   extendedMappingResults: ExtendedMappingResults;
-  filtersOpen: boolean;
+  filterOpen: boolean;
   filterMapper?: TCustomFilterMapper;
 };
 
@@ -25,7 +25,7 @@ const CustomFilterContainer = ({
   index,
   queryBuilderId,
   filterKey,
-  filtersOpen,
+  filterOpen,
   extendedMappingResults,
   filterMapper,
 }: OwnProps) => {
@@ -56,10 +56,10 @@ const CustomFilterContainer = ({
     : [];
 
   return (
-    <div className={classname} key={`${filterKey}_${filtersOpen}`}>
+    <div className={classname} key={`${filterKey}_${filterOpen}`}>
       <FilterContainer
         maxShowing={5}
-        isOpen={filtersOpen}
+        isOpen={filterOpen}
         filterGroup={filterGroup}
         filters={filters}
         onChange={() => {}}

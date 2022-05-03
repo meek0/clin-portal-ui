@@ -64,7 +64,7 @@ const FilterList = ({
                   classname={cx(styles.customFilterContainer, styles.filter)}
                   filterKey={facet}
                   extendedMappingResults={extendedMappingResults}
-                  filtersOpen={filtersOpen}
+                  filterOpen={filterInfo.defaultOpenFacets?.includes(facet) ?? filtersOpen}
                   filterMapper={filterMapper}
                 />
               ) : (
