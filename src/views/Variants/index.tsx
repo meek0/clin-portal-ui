@@ -19,6 +19,7 @@ import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import VariantGeneSearch from './components/VariantGeneSearch';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import { SuggestionType } from 'api/arranger/models';
+import RqdmIcon from 'components/icons/RqdmIcon';
 
 import styles from './index.module.scss';
 
@@ -32,11 +33,21 @@ enum FilterTypes {
   Pathogenicity,
   Frequency,
   Occurrence,
+  Rqdm,
 }
 
 const filterGroups: {
   [type: string]: FilterInfo;
 } = {
+  [FilterTypes.Rqdm]: {
+    defaultOpenFacets: ['panels'],
+    groups: [
+      {
+        title: intl.get('screen.patientvariant.filter.grouptitle.genepanel'),
+        facets: ['panels'],
+      },
+    ],
+  },
   [FilterTypes.Variant]: {
     customSearches: [
       <VariantGeneSearch
@@ -62,11 +73,10 @@ const filterGroups: {
       <VariantGeneSearch key="genes" type={SuggestionType.GENES} queryBuilderId={VARIANT_QB_ID} />,
     ],
     groups: [
-      { facets: ['consequences__biotype', 'gene_external_reference'] },
       {
-        title: intl.get('screen.patientvariant.filter.grouptitle.genepanel'),
         facets: [
-          'panels',
+          'consequences__biotype',
+          'gene_external_reference',
           'genes__hpo__hpo_term_label',
           'genes__orphanet__panel',
           'genes__omim__name',
@@ -161,7 +171,7 @@ const filtersContainer = (
 
   return (
     <FilterList
-      key={index}
+      key={index + type}
       index={index}
       queryBuilderId={VARIANT_QB_ID}
       extendedMappingResults={mappingResults}
@@ -175,6 +185,12 @@ const VariantExploration = (props: OwnProps) => {
   const variantMappingResults = useGetExtendedMappings(INDEXES.VARIANT);
 
   const menuItems: ISidebarMenuItem[] = [
+    {
+      key: '0',
+      title: intl.get('screen.patientvariant.category_rqdm'),
+      icon: <RqdmIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(variantMappingResults, FilterTypes.Rqdm, INDEXES.VARIANT),
+    },
     {
       key: '1',
       title: intl.get('screen.patientvariant.category_variant'),

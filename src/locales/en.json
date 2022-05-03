@@ -209,6 +209,7 @@
   "screen.patientsearch.table.status": "Status",
   "screen.patientsearch.table.test": "Test",
   "screen.patientsearch.title": "Prescriptions",
+  "screen.patientvariant.category_rqdm": "RQDM",
   "screen.patientvariant.category_cohort": "Frequency",
   "screen.patientvariant.category_genomic": "Gene",
   "screen.patientvariant.category_metric": "Metrics",
