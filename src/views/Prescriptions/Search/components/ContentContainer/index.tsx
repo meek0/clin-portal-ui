@@ -4,11 +4,10 @@ import { Space, Tabs } from 'antd';
 import { MedicineBoxFilled } from '@ant-design/icons';
 import { GqlResults } from 'graphql/models';
 import { ExtendedMappingResults } from 'graphql/models';
-import { PatientResult } from 'graphql/patients/models/Patient';
 import { PrescriptionResult } from 'graphql/prescriptions/models/Prescription';
-import ContentHeader from 'views/Prescriptions/Search/components/ContentHeader';
 import PrescriptionsTable from 'views/Prescriptions/Search/components/table/PrescriptionsTable';
 import { TableTabs } from 'views/Prescriptions/Search/utils/contstant';
+import PrescriptionAutoComplete from 'components/uiKit/search/PrescriptionAutoComplete';
 
 import styles from './index.module.scss';
 
@@ -17,17 +16,17 @@ const { TabPane } = Tabs;
 export type PrescriptionResultsContainerProps = {
   prescriptions: GqlResults<PrescriptionResult>;
   extendedMapping: ExtendedMappingResults;
-  searchResults: GqlResults<PatientResult> | null;
   isLoading?: boolean;
 };
 
 const ContentContainer = ({
   prescriptions,
-  searchResults,
   isLoading = false,
 }: PrescriptionResultsContainerProps): React.ReactElement => (
   <Space direction="vertical" size="middle" className={styles.patientContentContainer}>
-    <ContentHeader searchResults={searchResults} />
+    <div className={styles.patientContentHeader}>
+      <PrescriptionAutoComplete />
+    </div>
     <Tabs type="card">
       <TabPane
         key={TableTabs.Prescriptions}

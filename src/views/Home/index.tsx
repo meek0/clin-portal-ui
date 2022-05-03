@@ -1,13 +1,12 @@
-import { SearchOutlined } from '@ant-design/icons';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Col, Row } from 'antd';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import { useUser } from 'store/user';
-import SearchBox from './components/SearchBox';
 import VariantSearchBox from './components/VariantSearchBox';
 import intl from 'react-intl-universal';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import { getUserFullName } from 'auth/keycloak';
+import PrescriptionSearchBox from './components/PrescriptionSearchBox';
 
 import styles from './index.module.scss';
 
@@ -28,12 +27,7 @@ const Home = () => {
             content={
               <Row gutter={[48, 48]}>
                 <Col xxl={12} className={styles.contentCol}>
-                  <SearchBox
-                    icon={<SearchOutlined />}
-                    title={intl.get('home.prescription.search.box.title')}
-                    searchPlaceholder={intl.get('home.prescription.search.box.placeholder')}
-                    searchLabel={intl.get('home.prescription.search.box.label')}
-                  />
+                  <PrescriptionSearchBox />
                 </Col>
                 <Col xxl={12} className={styles.contentCol}>
                   <VariantSearchBox />

@@ -1,5 +1,5 @@
 import { INDEXES } from 'graphql/constants';
-import GlobalSearch, { ICustomSearchProps } from 'components/uiKit/GlobalSearch';
+import GlobalSearch, { ICustomSearchProps } from 'components/uiKit/search/GlobalSearch';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
 import { VARIANT_SEARCH_QUERY } from 'graphql/variants/queries';

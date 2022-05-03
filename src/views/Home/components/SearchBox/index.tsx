@@ -9,8 +9,9 @@ interface OwnProps {
   icon: React.ReactNode;
   title: string;
   searchLabel: string;
-  searchPlaceholder: string;
+  searchPlaceholder?: string;
   autoCompleteProps?: Omit<AutoCompleteProps, 'className' | 'getPopupContainer'>;
+  customAutoComplete?: React.ReactNode;
 }
 
 const SearchBox = ({
@@ -19,6 +20,7 @@ const SearchBox = ({
   searchPlaceholder,
   searchLabel,
   autoCompleteProps,
+  customAutoComplete,
 }: OwnProps) => (
   <GridCard
     theme="shade"
@@ -34,13 +36,21 @@ const SearchBox = ({
         </Space>
         <Space direction="vertical" className={styles.searchInputWrapper}>
           <LabelWithInfo title={searchLabel} colon />
-          <AutoComplete
-            {...autoCompleteProps}
-            className={styles.searchInput}
-            getPopupContainer={(trigger) => trigger.parentElement!}
-          >
-            <Input suffix={<SearchOutlined />} size="large" placeholder={searchPlaceholder}></Input>
-          </AutoComplete>
+          {customAutoComplete ? (
+            customAutoComplete
+          ) : (
+            <AutoComplete
+              {...autoCompleteProps}
+              className={styles.searchInput}
+              getPopupContainer={(trigger) => trigger.parentElement!}
+            >
+              <Input
+                suffix={<SearchOutlined />}
+                size="large"
+                placeholder={searchPlaceholder}
+              ></Input>
+            </AutoComplete>
+          )}
         </Space>
       </div>
     }

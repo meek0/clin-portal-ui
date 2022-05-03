@@ -1,6 +1,6 @@
 import { Space, Typography } from 'antd';
 import { Suggestion, SuggestionType } from 'api/arranger/models';
-import SquareLabel from 'components/uiKit/GlobalSearch/SquareLabel';
+import SquareLabel from 'components/uiKit/search/GlobalSearch/SquareLabel';
 import cx from 'classnames';
 
 import styles from './index.module.scss';

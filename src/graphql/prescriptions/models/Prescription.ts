@@ -1,14 +1,14 @@
 import { ArrangerNodeData, ArrangerResultsTree } from 'graphql/models';
-import {
-  HealthProfessional,
-  Organization,
-  PatientResult,
-} from 'graphql/patients/models/Patient';
+import { HealthProfessional, Organization, PatientResult } from 'graphql/patients/models/Patient';
 
 export type DataCategory = {
   data_category: string;
   count: number;
 };
+
+export interface IParticipantResultTree {
+  Prescriptions: ArrangerResultsTree<PrescriptionResult>;
+}
 
 export type ITablePrescriptionResult = PrescriptionResult & {
   key: string;
@@ -29,13 +29,13 @@ export interface PrescriptionResult extends ArrangerNodeData {
   authoredOn: string;
   approver: ArrangerResultsTree<HealthProfessional>;
   prescriber: ArrangerResultsTree<HealthProfessional>;
-  organization: ArrangerResultsTree<Organization>;
+  organization: Organization;
   familyInfo: {
     cid: string;
     type: string;
   };
   patientInfo: PatientResult;
-  laboratory: string
+  laboratory: string;
 }
 
 export const fields = [

@@ -84,14 +84,18 @@ export const PRESCRIPTIONS_SEARCH_QUERY = gql`
             cid
             status
             timestamp
-            practitioner {
-              cid
-              firstName
-              lastName
+            mrn
+            analysis {
+              code
+              display
             }
             familyInfo {
               cid
               type
+            }
+            organization {
+              cid
+              name
             }
             patientInfo {
               cid

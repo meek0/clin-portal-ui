@@ -1,5 +1,5 @@
-@import 'layout';
-@import 'colors';
+@import 'src/style/themes/clin/layout';
+@import 'src/style/themes/clin/colors';
 
 .homePageWrapper {
   height: calc(100vh - #{$main-header-height} - #{$page-header-height});

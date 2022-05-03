@@ -46,7 +46,6 @@ const PrescriptionSearch = (): React.ReactElement => {
           isLoading={prescriptions.loading}
           extendedMapping={extendedMapping}
           prescriptions={prescriptions}
-          searchResults={{ data: [], loading: false, aggregations: {}, total: 0 }}
         />
       </ScrollContentWithFooter>
     </ContentWithHeader>
