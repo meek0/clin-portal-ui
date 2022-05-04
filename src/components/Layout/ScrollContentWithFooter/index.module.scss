@@ -15,16 +15,12 @@
     justify-content: space-between;
   }
 
-  .contentWrapper {
-    height: 100%;
-  }
-
   .containerWidth {
     display: flex;
     justify-content: center;
 
     .contentWrapper {
-      width: $containerWidth;
+      width: $container-width;
     }
   }
 }

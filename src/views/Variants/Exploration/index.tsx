@@ -21,7 +21,6 @@ import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/
 import { GET_VARIANT_COUNT } from 'graphql/variants/queries';
 import { IVariantResultTree } from 'graphql/variants/models';
 import VariantsTab from './tabs/Variants';
-import { useParams } from 'react-router-dom';
 import { wrapSqonWithDonorId } from 'views/Variants/utils/helper';
 import { cloneDeep } from 'lodash';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
@@ -30,25 +29,26 @@ import styles from './index.module.scss';
 
 type OwnProps = {
   variantMapping: ExtendedMappingResults;
+  patientId?: string;
+  prescriptionId?: string;
 };
 
-const PageContent = ({ variantMapping }: OwnProps) => {
-  const { patientid } = useParams<{ patientid: string }>();
+const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(VARIANT_QB_ID);
   const [selectedFilterContent, setSelectedFilterContent] = useState<ReactElement | undefined>(
     undefined,
   );
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
-    wrapSqonWithDonorId(cloneDeep(resolveSyntheticSqon(queryList, query, 'donors')), patientid);
+    wrapSqonWithDonorId(cloneDeep(resolveSyntheticSqon(queryList, query, 'donors')), patientId);
 
   const [variantQueryConfig, setVariantQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
 
   const variantResolvedSqon = getVariantResolvedSqon(activeQuery);
 
   const variantResults = useVariants({
-    first: DEFAULT_PAGE_SIZE,
-    offset: DEFAULT_PAGE_SIZE * (DEFAULT_PAGE_INDEX - 1),
+    first: variantQueryConfig.size,
+    offset: variantQueryConfig.size * (variantQueryConfig.pageIndex - 1),
     sqon: variantResolvedSqon,
     sort: [
       { field: 'max_impact_score', order: 'desc' },
@@ -83,7 +83,7 @@ const PageContent = ({ variantMapping }: OwnProps) => {
           showHeader: true,
           showTools: false,
           collapseProps: {
-            headerBorderOnly: true
+            headerBorderOnly: true,
           },
           defaultTitle: intl.get('querybuilder.variant.filter.defaultTitle'),
         }}
@@ -131,7 +131,7 @@ const PageContent = ({ variantMapping }: OwnProps) => {
             results={variantResults}
             setQueryConfig={setVariantQueryConfig}
             queryConfig={variantQueryConfig}
-            patientId={patientid}
+            patientId={patientId!}
             sqon={variantResolvedSqon}
           />
         </Tabs.TabPane>

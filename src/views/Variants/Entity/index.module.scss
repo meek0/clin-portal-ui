@@ -5,10 +5,10 @@
   .entitySections {
     width: 100%;
 
-    div[class$="-nav"] {
+    div[class$='-nav'] {
       background-color: white;
 
-      div[class$="-nav-list"] {
+      div[class$='-nav-list'] {
         padding: 0 24px;
       }
     }
@@ -20,7 +20,7 @@
 
   .pageContainer {
     margin: auto;
-    max-width: $containerWidth;
+    max-width: $container-width;
     padding: 24px 24px;
   }
 }

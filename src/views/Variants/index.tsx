@@ -2,7 +2,7 @@ import SidebarMenu, { ISidebarMenuItem } from '@ferlab/ui/core/components/Sideba
 import intl from 'react-intl-universal';
 import PageContent from 'views/Variants/Exploration';
 import ApolloProvider from 'providers/ApolloProvider';
-import { Spin } from 'antd';
+import { Space, Spin, Tag } from 'antd';
 import { ExtendedMappingResults } from 'graphql/models';
 import FilterList, { TCustomFilterMapper } from 'components/uiKit/FilterList';
 import { FilterInfo } from 'components/uiKit/FilterList/types';
@@ -20,12 +20,11 @@ import VariantGeneSearch from './components/VariantGeneSearch';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import { SuggestionType } from 'api/arranger/models';
 import RqdmIcon from 'components/icons/RqdmIcon';
+import { useParams } from 'react-router';
 
 import styles from './index.module.scss';
-
-interface OwnProps {
-  tab?: string;
-}
+import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 enum FilterTypes {
   Variant,
@@ -181,8 +180,22 @@ const filtersContainer = (
   );
 };
 
-const VariantExploration = (props: OwnProps) => {
+const VariantExploration = () => {
+  const { patientid, prescriptionid } = useParams<{ patientid: string; prescriptionid: string }>();
   const variantMappingResults = useGetExtendedMappings(INDEXES.VARIANT);
+
+  const getExtra = () => {
+    if (patientid && prescriptionid) {
+      return [
+        <Tag color="blue" key="patient-prescription-id">
+          <Space align="center">
+            {`Patient ID : ${patientid}`} | {`Prescription ID : ${prescriptionid}`}
+          </Space>
+        </Tag>,
+      ];
+    }
+    return [];
+  };
 
   const menuItems: ISidebarMenuItem[] = [
     {
@@ -236,20 +249,25 @@ const VariantExploration = (props: OwnProps) => {
       headerProps={{
         icon: <LineStyleIcon />,
         title: intl.get('screen.variantsearch.title'),
+        extra: getExtra(),
       }}
       className={styles.variantLayout}
     >
       <SidebarMenu className={styles.sideMenu} menuItems={menuItems} />
       <ScrollContentWithFooter scrollId={SCROLL_WRAPPER_ID}>
-        <PageContent variantMapping={variantMappingResults} />
+        <PageContent
+          variantMapping={variantMappingResults}
+          patientId={patientid}
+          prescriptionId={prescriptionid}
+        />
       </ScrollContentWithFooter>
     </ContentWithHeader>
   );
 };
 
-const VariantExplorationWrapper = (props: OwnProps) => (
+const VariantExplorationWrapper = () => (
   <ApolloProvider backend={GraphqlBackend.ARRANGER}>
-    <VariantExploration {...props} />
+    <VariantExploration />
   </ApolloProvider>
 );
 

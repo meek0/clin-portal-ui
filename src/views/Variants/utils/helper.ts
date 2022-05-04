@@ -1,6 +1,6 @@
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
 
-export const wrapSqonWithDonorId = (resolvedSqon: ISqonGroupFilter, patientId: string) => {
+export const wrapSqonWithDonorId = (resolvedSqon: ISqonGroupFilter, patientId: string | undefined) => {
   if (patientId) {
     return {
       content: [

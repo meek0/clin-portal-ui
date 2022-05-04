@@ -62,9 +62,7 @@ const getVariantColumns = (
     render: (hgvsg: string, entity: VariantEntity) =>
       hgvsg ? (
         <Tooltip placement="topLeft" title={hgvsg}>
-          <Link to={`/variant/entity/${entity.locus}`}>
-            {hgvsg}
-          </Link>
+          <Link to={`/variant/entity/${entity.locus}`}>{hgvsg}</Link>
         </Tooltip>
       ) : (
         TABLE_EMPTY_PLACE_HOLDER

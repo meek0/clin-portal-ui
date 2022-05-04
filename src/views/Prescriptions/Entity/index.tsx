@@ -11,9 +11,10 @@ import { usePrescriptionEntity } from 'graphql/prescriptions/actions';
 import ParagraphLoader from 'components/uiKit/ParagraphLoader';
 import AnalysisCard from './AnalysisCard';
 import PatientCard from './PatientCard';
+import { Link } from 'react-router-dom';
+import Container from 'components/Layout/Container';
 
 import styles from './index.module.scss';
-import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -44,29 +45,31 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
         ],
       }}
     >
-      <ScrollContentWithFooter withContainerWidth>
+      <ScrollContentWithFooter>
         <div className={styles.prescriptionEntityWrapper}>
-          <Row gutter={[24, 24]}>
-            <Col span={12}>
-              <AnalysisCard prescription={prescription} loading={loading} />
-            </Col>
-            <Col span={12}>
-              <PatientCard prescription={prescription} loading={loading} />
-            </Col>
-            <Col span={24}>
-              <Card title="Commentaire">
-                <ParagraphLoader loading={loading} paragraph={{ rows: 2 }}>
-                  Purus sit mauris nam porttitor elit, ut. Nulla porttitor sed volutpat vitae sed
-                  sodales enim, nisi.
-                </ParagraphLoader>
-              </Card>
-            </Col>
-            <Col span={24}>
-              <CollapsePanel header={<Title level={4}>Information clinique</Title>}>
-                {' '}
-              </CollapsePanel>
-            </Col>
-          </Row>
+          <Container>
+            <Row gutter={[24, 24]}>
+              <Col span={12}>
+                <AnalysisCard prescription={prescription} loading={loading} />
+              </Col>
+              <Col span={12}>
+                <PatientCard prescription={prescription} loading={loading} />
+              </Col>
+              <Col span={24}>
+                <Card title="Commentaire">
+                  <ParagraphLoader loading={loading} paragraph={{ rows: 2 }}>
+                    Purus sit mauris nam porttitor elit, ut. Nulla porttitor sed volutpat vitae sed
+                    sodales enim, nisi.
+                  </ParagraphLoader>
+                </Card>
+              </Col>
+              <Col span={24}>
+                <CollapsePanel header={<Title level={4}>Information clinique</Title>}>
+                  {' '}
+                </CollapsePanel>
+              </Col>
+            </Row>
+          </Container>
         </div>
       </ScrollContentWithFooter>
     </ContentWithHeader>
