@@ -152,6 +152,7 @@ export const PRESCRIPTIONS_SEARCH_QUERY = gql`
             status
             timestamp
             mrn
+            laboratory
             analysis {
               code
               display

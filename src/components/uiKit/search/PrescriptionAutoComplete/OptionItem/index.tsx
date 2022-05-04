@@ -24,7 +24,7 @@ const OptionItem = ({ data }: OwnProps) => (
         <Typography.Text type="secondary">{data.mrn}</Typography.Text>
       </Descriptions.Item>
       <Descriptions.Item label={'LDM'}>
-        <Typography.Text type="secondary">{data.organization.cid}</Typography.Text>
+        <Typography.Text type="secondary">{data.laboratory}</Typography.Text>
       </Descriptions.Item>
     </Descriptions>
   </Space>
