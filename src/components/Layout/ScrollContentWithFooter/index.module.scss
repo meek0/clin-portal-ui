@@ -11,12 +11,7 @@
     justify-content: space-between;
   }
 
-  .containerWidth {
-    display: flex;
-    justify-content: center;
-
-    .contentWrapper {
-      width: $container-width;
-    }
+  .containerWrapper {
+    padding: $default-page-content-padding;
   }
 }

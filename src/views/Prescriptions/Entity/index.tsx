@@ -48,30 +48,26 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
         ],
       }}
     >
-      <ScrollContentWithFooter>
-        <div className={styles.prescriptionEntityWrapper}>
-          <Container>
-            <Row gutter={[24, 24]}>
-              <Col span={12}>
-                <AnalysisCard prescription={prescription} loading={loading} />
-              </Col>
-              <Col span={12}>
-                <PatientCard prescription={prescription} loading={loading} />
-              </Col>
-              <Col span={24}>
-                <Card title={intl.get("screen.prescription.entity.comment.card.title")}>
-                  <ParagraphLoader loading={loading} paragraph={{ rows: 2 }}>
-                    Purus sit mauris nam porttitor elit, ut. Nulla porttitor sed volutpat vitae sed
-                    sodales enim, nisi.
-                  </ParagraphLoader>
-                </Card>
-              </Col>
-              <Col span={24}>
-                <ClinicalInformation prescription={prescription} loading={loading}/>
-              </Col>
-            </Row>
-          </Container>
-        </div>
+      <ScrollContentWithFooter className={styles.prescriptionEntityWrapper} container>
+        <Row gutter={[24, 24]}>
+          <Col span={12}>
+            <AnalysisCard prescription={prescription} loading={loading} />
+          </Col>
+          <Col span={12}>
+            <PatientCard prescription={prescription} loading={loading} />
+          </Col>
+          <Col span={24}>
+            <Card title={intl.get('screen.prescription.entity.comment.card.title')}>
+              <ParagraphLoader loading={loading} paragraph={{ rows: 2 }}>
+                Purus sit mauris nam porttitor elit, ut. Nulla porttitor sed volutpat vitae sed
+                sodales enim, nisi.
+              </ParagraphLoader>
+            </Card>
+          </Col>
+          <Col span={24}>
+            <ClinicalInformation prescription={prescription} loading={loading} />
+          </Col>
+        </Row>
       </ScrollContentWithFooter>
     </ContentWithHeader>
   );

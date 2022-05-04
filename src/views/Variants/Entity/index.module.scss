@@ -5,6 +5,10 @@
   .entitySections {
     width: 100%;
 
+    :global(.ant-tabs-content) {
+      height: 100%;
+    }
+
     div[class$='-nav'] {
       background-color: white;
 
@@ -16,11 +20,5 @@
     :global(.ant-tabs-content-holder) {
       overflow: auto;
     }
-  }
-
-  .pageContainer {
-    margin: auto;
-    max-width: $container-width;
-    padding: 24px 24px;
   }
 }

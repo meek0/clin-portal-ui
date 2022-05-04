@@ -13,6 +13,8 @@ import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 
 import styles from './index.module.scss';
+import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
+import Container from 'components/Layout/Container';
 
 export const getVepImpactTag = (score: number | string) => {
   switch (score) {
@@ -93,14 +95,15 @@ const VariantEntityPage = () => {
           }
           key={TAB_ID.SUMMARY}
         >
-          <ResumePanel
-            className={styles.pageContainer}
-            locus={locus}
-            data={{
-              loading: loading,
-              variantData: data,
-            }}
-          />
+          <ScrollContentWithFooter container>
+            <ResumePanel
+              locus={locus}
+              data={{
+                loading: loading,
+                variantData: data,
+              }}
+            />
+          </ScrollContentWithFooter>
         </Tabs.TabPane>
         <Tabs.TabPane
           tab={
@@ -111,7 +114,9 @@ const VariantEntityPage = () => {
           }
           key={TAB_ID.PATIENTS}
         >
-          <PatientPanel className={styles.pageContainer} locus={locus} />
+          <ScrollContentWithFooter container>
+            <PatientPanel locus={locus} />
+          </ScrollContentWithFooter>
         </Tabs.TabPane>
       </Tabs>
     </ContentWithHeader>
