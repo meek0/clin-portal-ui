@@ -1,4 +1,5 @@
 @import 'src/style/themes/clin/colors';
+@import 'src/style/themes/clin/layout';
 
 .variantEntity {
   .entitySections {
@@ -19,7 +20,7 @@
 
   .pageContainer {
     margin: auto;
-    max-width: 1600px;
+    max-width: $containerWidth;
     padding: 24px 24px;
   }
 }

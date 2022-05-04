@@ -13,6 +13,7 @@ import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 
 import styles from './index.module.scss';
+import { MedicineBoxOutlined } from '@ant-design/icons';
 
 const PrescriptionSearch = (): React.ReactElement => {
   const { queryList, activeQuery } = useQueryBuilderState(PRESCRIPTION_QB_ID);
@@ -32,7 +33,10 @@ const PrescriptionSearch = (): React.ReactElement => {
   return (
     <ContentWithHeader
       className={styles.prescriptionLayout}
-      headerProps={{ title: intl.get('screen.patientsearch.title') }}
+      headerProps={{
+        icon: <MedicineBoxOutlined />,
+        title: intl.get('screen.patientsearch.title'),
+      }}
     >
       <Sidebar
         queryBuilderId={PRESCRIPTION_QB_ID}

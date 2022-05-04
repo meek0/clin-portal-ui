@@ -28,6 +28,7 @@ import { useDispatch } from 'react-redux';
 import { fetchPractitionerRole } from 'store/user/thunks';
 
 const loadableProps = { fallback: <Spinner size="large" /> };
+const PrescriptionEntity = loadable(() => import('views/Prescriptions/Entity'), loadableProps);
 const PrescriptionSearch = loadable(() => import('views/Prescriptions/Search'), loadableProps);
 const VariantEntity = loadable(() => import('views/Variants/Entity'), loadableProps);
 const VariantExploration = loadable(() => import('views/Variants'), loadableProps);
@@ -61,23 +62,17 @@ const App = () => {
                 <PrescriptionSearch />
               </ProtectedRoute>
               <ProtectedRoute exact path={DYNAMIC_ROUTES.PRESCRIPTION_ENTITY} layout={PageLayout}>
-                <>Prescription Entity</>
+                {(
+                  props: RouteChildrenProps<{
+                    id: string;
+                  }>,
+                ) => <PrescriptionEntity prescriptionId={props.match?.params.id!} />}
               </ProtectedRoute>
-              <ProtectedRoute exact path={STATIC_ROUTES.VARIANT_EXPLORATION} layout={PageLayout}>
+              <ProtectedRoute exact path={DYNAMIC_ROUTES.VARIANT_EXPLORATION} layout={PageLayout}>
                 <VariantExploration />
               </ProtectedRoute>
               <ProtectedRoute exact path={DYNAMIC_ROUTES.VARIANT_ENTITY} layout={PageLayout}>
-                {(
-                  props: RouteChildrenProps<{
-                    locus: string;
-                    tabid: string | undefined;
-                  }>,
-                ) => (
-                  <VariantEntity
-                    locus={props.match?.params.locus!}
-                    tabid={props.match?.params.tabid!}
-                  />
-                )}
+                <VariantEntity />
               </ProtectedRoute>
               <ProtectedRoute exact path={STATIC_ROUTES.ARCHIVE_EXPLORATION} layout={PageLayout}>
                 <>Archives</>

@@ -28,7 +28,7 @@ export interface PrescriptionResult extends ArrangerNodeData {
   submitted: string;
   authoredOn: string;
   approver: ArrangerResultsTree<HealthProfessional>;
-  prescriber: ArrangerResultsTree<HealthProfessional>;
+  prescriber: HealthProfessional;
   organization: Organization;
   familyInfo: {
     cid: string;

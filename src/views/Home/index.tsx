@@ -3,12 +3,12 @@ import { Col, Row } from 'antd';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import { useUser } from 'store/user';
 import VariantSearchBox from './components/VariantSearchBox';
-import intl from 'react-intl-universal';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import { getUserFullName } from 'auth/keycloak';
 import PrescriptionSearchBox from './components/PrescriptionSearchBox';
 
 import styles from './index.module.scss';
+import { HomeOutlined } from '@ant-design/icons';
 
 const Home = () => {
   const { user } = useUser();
@@ -16,7 +16,10 @@ const Home = () => {
 
   return (
     <ContentWithHeader
-      headerProps={{ title: intl.get('home.greeting', { name: getUserFullName() }) }}
+      headerProps={{
+        icon: <HomeOutlined />,
+        title: getUserFullName(),
+      }}
     >
       <ScrollContentWithFooter className={styles.homePageWrapper}>
         <div className={styles.contentWrapper}>

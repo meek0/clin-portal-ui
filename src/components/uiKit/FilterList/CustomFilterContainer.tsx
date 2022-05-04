@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FilterContainer from '@ferlab/ui/core/components/filters/FilterContainer';
 import { updateActiveQueryFilters } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { IFilter, IFilterGroup } from '@ferlab/ui/core/components/filters/types';
@@ -17,6 +17,7 @@ type OwnProps = {
   filterKey: string;
   extendedMappingResults: ExtendedMappingResults;
   filterOpen: boolean;
+  defaultOpen?: boolean;
   filterMapper?: TCustomFilterMapper;
 };
 
@@ -26,14 +27,20 @@ const CustomFilterContainer = ({
   queryBuilderId,
   filterKey,
   filterOpen,
+  defaultOpen,
   extendedMappingResults,
   filterMapper,
 }: OwnProps) => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+  //const [isOpen, setIsOpen] = useState(defaultOpen ?? filterOpen);
   const [results, setResults] = useState<GqlResults<any>>();
   const found = (extendedMappingResults?.data || []).find(
     (f: ExtendedMapping) => f.field === underscoreToDot(filterKey),
   );
+
+  useEffect(() => {
+    //setIsOpen(filterOpen);
+  }, [filterOpen]);
 
   const onChange = (fg: IFilterGroup, f: IFilter[]) => {
     updateActiveQueryFilters({

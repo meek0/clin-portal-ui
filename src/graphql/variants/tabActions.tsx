@@ -1,3 +1,4 @@
+import { BooleanOperators, TermOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { useLazyResultQueryOnLoadOnly } from 'graphql/utils/query';
 
 import {
@@ -8,10 +9,10 @@ import {
 } from './queries';
 
 export const buildVariantIdSqon = (id: string) => ({
-  op: 'and',
+  op: BooleanOperators.and,
   content: [
     {
-      op: 'in',
+      op: TermOperators.in,
       content: {
         field: 'locus',
         value: id,

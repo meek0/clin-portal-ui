@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 import { Tag, Tabs } from 'antd';
 import { TeamOutlined, BarChartOutlined } from '@ant-design/icons';
 import intl from 'react-intl-universal';
@@ -10,6 +10,7 @@ import ApolloProvider from 'providers/ApolloProvider';
 import { useTabSummaryData } from 'graphql/variants/tabActions';
 import PatientPanel from 'views/Variants/Entity/PatientPanel';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
+import LineStyleIcon from 'components/icons/LineStyleIcon';
 
 import styles from './index.module.scss';
 
@@ -40,14 +41,15 @@ export enum TAB_ID {
   CLINICAL = 'clinical',
 }
 
-interface OwnProps {
+interface PathParams {
   locus: string;
   tabid: string;
 }
 
-const VariantEntityPage = ({ locus, tabid }: OwnProps) => {
-  const { loading, data, error } = useTabSummaryData(locus);
+const VariantEntityPage = () => {
   const history = useHistory();
+  const { locus, tabid } = useParams<PathParams>();
+  const { loading, data, error } = useTabSummaryData(locus);
 
   if (error) {
     return <ServerError />;
@@ -61,11 +63,14 @@ const VariantEntityPage = ({ locus, tabid }: OwnProps) => {
     <ContentWithHeader
       className={styles.variantEntity}
       headerProps={{
+        icon: <LineStyleIcon />,
         title: data?.hgvsg,
         loading,
         extra: [
-          <Tag color="purple">{data?.variant_type.toLocaleUpperCase()}</Tag>,
-          getVepImpactTag(data?.max_impact_score),
+          <Tag key="type" color="purple">
+            {data?.variant_type.toLocaleUpperCase()}
+          </Tag>,
+          <div key="score">{getVepImpactTag(data?.max_impact_score)}</div>,
         ],
       }}
     >
@@ -113,9 +118,9 @@ const VariantEntityPage = ({ locus, tabid }: OwnProps) => {
   );
 };
 
-const EntityPage = (props: OwnProps) => (
+const EntityPage = () => (
   <ApolloProvider backend={GraphqlBackend.ARRANGER}>
-    <VariantEntityPage {...props} />
+    <VariantEntityPage />
   </ApolloProvider>
 );
 

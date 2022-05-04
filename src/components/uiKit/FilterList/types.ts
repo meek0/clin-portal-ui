@@ -4,7 +4,7 @@ import React from 'react';
 
 export interface FilterGroup {
   title?: string;
-  facets: string[] | React.ReactNode[];
+  facets: React.ReactNode[];
 }
 
 export interface FilterInfo {

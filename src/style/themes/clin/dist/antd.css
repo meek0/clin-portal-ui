@@ -26187,6 +26187,21 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .ant-descriptions-item-label {
   color: #63768f;
 }
+.ant-descriptions.label-20 .ant-descriptions-item-label {
+  width: 20%;
+}
+.ant-descriptions.label-25 .ant-descriptions-item-label {
+  width: 25%;
+}
+.ant-descriptions.label-35 .ant-descriptions-item-label {
+  width: 35%;
+}
+.ant-descriptions.label-45 .ant-descriptions-item-label {
+  width: 45%;
+}
+.ant-descriptions.label-50 .ant-descriptions-item-label {
+  width: 50%;
+}
 .ant-descriptions-row:last-child .ant-descriptions-item {
   padding-bottom: 0;
 }

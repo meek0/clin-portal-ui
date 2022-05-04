@@ -41,6 +41,7 @@ export interface PatientResult extends ArrangerNodeData {
   ramq: string;
   timestamp: string;
   cidText: string;
+  lastNameFirstName: string;
   organization: Organization;
   requests: ArrangerResultsTree<Requests>;
   practitioner: ArrangerResultsTree<HealthProfessional>;

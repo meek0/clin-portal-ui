@@ -233,7 +233,10 @@ const VariantExploration = (props: OwnProps) => {
 
   return (
     <ContentWithHeader
-      headerProps={{ title: intl.get('screen.variantsearch.title') }}
+      headerProps={{
+        icon: <LineStyleIcon />,
+        title: intl.get('screen.variantsearch.title'),
+      }}
       className={styles.variantLayout}
     >
       <SidebarMenu className={styles.sideMenu} menuItems={menuItems} />
