@@ -21,10 +21,10 @@ import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import { SuggestionType } from 'api/arranger/models';
 import RqdmIcon from 'components/icons/RqdmIcon';
 import { useParams } from 'react-router';
+import { usePrescriptionEntity } from 'graphql/prescriptions/actions';
 
 import styles from './index.module.scss';
-import _ from 'lodash';
-import { Link } from 'react-router-dom';
+import { getPositionTag } from 'graphql/prescriptions/helper';
 
 enum FilterTypes {
   Variant,
@@ -183,6 +183,7 @@ const filtersContainer = (
 const VariantExploration = () => {
   const { patientid, prescriptionid } = useParams<{ patientid: string; prescriptionid: string }>();
   const variantMappingResults = useGetExtendedMappings(INDEXES.VARIANT);
+  const { prescription, loading } = usePrescriptionEntity(prescriptionid);
 
   const getExtra = () => {
     if (patientid && prescriptionid) {
@@ -192,6 +193,10 @@ const VariantExploration = () => {
             {`Patient ID : ${patientid}`} | {`Prescription ID : ${prescriptionid}`}
           </Space>
         </Tag>,
+        <Tag color="gold" key="analsysis-name">
+          {prescription?.analysis.display}
+        </Tag>,
+        getPositionTag(prescription),
       ];
     }
     return [];
@@ -250,6 +255,7 @@ const VariantExploration = () => {
         icon: <LineStyleIcon />,
         title: intl.get('screen.variantsearch.title'),
         extra: getExtra(),
+        loading: loading
       }}
       className={styles.variantLayout}
     >

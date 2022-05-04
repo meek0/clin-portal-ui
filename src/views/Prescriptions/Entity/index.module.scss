@@ -1,3 +1,7 @@
 .prescriptionEntityWrapper {
-    padding: 24px;
+  padding: 24px;
+
+  :global(.ant-card) {
+    height: 100%;
+  }
 }

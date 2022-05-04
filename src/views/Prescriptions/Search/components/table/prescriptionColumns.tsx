@@ -47,7 +47,7 @@ export const prescriptionsColumns = (): ProColumnType<ITablePrescriptionResult>[
         <PositionTag isProband={position.toLowerCase() === PATIENT_POSITION.PROBAND} />
       ),
       summary: false,
-      title: intl.get('screen.patientsearch.table.status'),
+      title: intl.get('screen.patientsearch.table.position'),
     },
     {
       name: 'timestamp',
@@ -71,6 +71,11 @@ export const prescriptionsColumns = (): ProColumnType<ITablePrescriptionResult>[
       name: ['patientInfo', 'organization', 'cid'],
       summary: true,
       title: intl.get('screen.patientsearch.table.establishment'),
+    },
+    {
+      name: ['laboratory'],
+      summary: false,
+      title: intl.get('screen.patientsearch.table.ldm'),
     },
   ].map((c) => ({
     ...c,

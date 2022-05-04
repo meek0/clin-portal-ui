@@ -90,6 +90,7 @@ export const VARIANT_QUERY = gql`
                     parental_origin
                     is_hc
                     is_possibly_hc
+                    service_request_id
                     hc_complement {
                       hits {
                         edges {

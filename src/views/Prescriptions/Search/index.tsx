@@ -11,9 +11,9 @@ import { GraphqlBackend } from 'providers';
 import Sidebar from './components/Sidebar';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
+import { MedicineBoxOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
-import { MedicineBoxOutlined } from '@ant-design/icons';
 
 const PrescriptionSearch = (): React.ReactElement => {
   const { queryList, activeQuery } = useQueryBuilderState(PRESCRIPTION_QB_ID);

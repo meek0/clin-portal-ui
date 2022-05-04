@@ -22,8 +22,13 @@ export const usePrescription = (variables: QueryVariable): GqlResults<Prescripti
 
 export const usePrescriptionEntity = (
   id: string,
-): { prescription: PrescriptionResult; loading: boolean; error: ApolloError | undefined } => {
+): {
+  prescription: PrescriptionResult | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+} => {
   const { loading, data, error } = useLazyResultQueryOnLoadOnly<any>(PRESCRIPTIONS_ENTITY_QUERY, {
+    skip: !id,
     variables: {
       sqon: {
         content: [

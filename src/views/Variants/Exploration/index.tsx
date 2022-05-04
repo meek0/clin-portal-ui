@@ -11,7 +11,6 @@ import { INDEXES } from 'graphql/constants';
 import { ArrangerApi } from 'api/arranger';
 import {
   DEFAULT_PAGE_INDEX,
-  DEFAULT_PAGE_SIZE,
   DEFAULT_QUERY_CONFIG,
   VARIANT_QB_ID,
 } from 'views/Variants/utils/constant';
@@ -21,7 +20,7 @@ import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/
 import { GET_VARIANT_COUNT } from 'graphql/variants/queries';
 import { IVariantResultTree } from 'graphql/variants/models';
 import VariantsTab from './tabs/Variants';
-import { wrapSqonWithDonorId } from 'views/Variants/utils/helper';
+import { wrapSqonWithDonorIdAndSrId } from 'views/Variants/utils/helper';
 import { cloneDeep } from 'lodash';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 
@@ -40,7 +39,11 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
   );
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
-    wrapSqonWithDonorId(cloneDeep(resolveSyntheticSqon(queryList, query, 'donors')), patientId);
+    wrapSqonWithDonorIdAndSrId(
+      cloneDeep(resolveSyntheticSqon(queryList, query, 'donors')),
+      patientId,
+      /** prescriptionId Need to fix bug in ETL */
+    );
 
   const [variantQueryConfig, setVariantQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
 

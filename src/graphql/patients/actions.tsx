@@ -3,7 +3,9 @@ import { PatientFileResults, PatientResult } from 'graphql/patients/models/Patie
 import { QueryVariable } from 'graphql/queries';
 import { useLazyResultQuery, useLazyResultQueryOnLoadOnly } from 'graphql/utils/query';
 import { IValueContent, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
-import { PATIENTS_QUERY, PATIENT_FILES_QUERY } from './queries';
+import { PATIENTS_QUERY, PATIENT_ENTITY_QUERY, PATIENT_FILES_QUERY } from './queries';
+import { ApolloError } from '@apollo/client';
+import { BooleanOperators, TermOperators } from '@ferlab/ui/core/data/sqon/operators';
 
 export const mappedFilters = (sqonFilters: ISyntheticSqon): ISyntheticSqon => {
   const mappedPrescriptionsToPatients = {
@@ -29,6 +31,37 @@ export const mappedFilters = (sqonFilters: ISyntheticSqon): ISyntheticSqon => {
   return mappedPrescriptionsToPatients;
 };
 
+export const usePatientEntity = (
+  id: string,
+): {
+  patient: PatientResult | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+} => {
+  const { loading, data, error } = useLazyResultQueryOnLoadOnly<any>(PATIENT_ENTITY_QUERY, {
+    skip: !id,
+    variables: {
+      sqon: {
+        content: [
+          {
+            content: {
+              field: 'cid',
+              value: id,
+            },
+            op: TermOperators.in,
+          },
+        ],
+        op: BooleanOperators.and,
+      },
+    },
+  });
+
+  return {
+    patient: data?.Patients?.hits?.edges[0]?.node,
+    loading,
+    error,
+  };
+};
 export const usePatients = (variables: QueryVariable): GqlResults<PatientResult> => {
   const { loading, result } = useLazyResultQuery<any>(PATIENTS_QUERY, {
     variables: variables,
@@ -45,7 +78,7 @@ export const usePatients = (variables: QueryVariable): GqlResults<PatientResult>
 
 export const usePatientFilesData = (
   patientId: string,
-  skip?: boolean
+  skip?: boolean,
 ): {
   loading: boolean;
   results: PatientFileResults;
@@ -57,7 +90,7 @@ export const usePatientFilesData = (
       variables: {
         patientId: patientId,
       },
-      skip: skip
+      skip: skip,
     },
   );
 

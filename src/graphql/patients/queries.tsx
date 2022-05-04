@@ -47,6 +47,32 @@ export const PATIENTS_QUERY = gql`
   }
 `;
 
+export const PATIENT_ENTITY_QUERY = gql`
+  query PatientsInformation($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort]) {
+    Patients {
+      hits(filters: $sqon, first: $first, offset: $offset, sort: $sort) {
+        edges {
+          node {
+            id
+            cid
+            requests {
+              state
+              status
+              submitted
+              timestamp
+              analysis {
+                code
+                display
+              }
+            }
+          }
+        }
+        total
+      }
+    }
+  }
+`;
+
 export const PATIENT_FILES_QUERY = (patientID: string) => gql`
   {
     Patient(id: "${patientID}") {

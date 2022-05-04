@@ -15,6 +15,8 @@ import { Link } from 'react-router-dom';
 import Container from 'components/Layout/Container';
 
 import styles from './index.module.scss';
+import NotFound from 'components/Results/NotFound';
+import ClinicalInformation from './ClinicalInformation';
 
 const { Title } = Typography;
 
@@ -24,6 +26,10 @@ interface OwnProps {
 
 const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
   const { prescription, loading } = usePrescriptionEntity(prescriptionId);
+
+  if (!loading && !prescription) {
+    return <NotFound />;
+  }
 
   return (
     <ContentWithHeader
@@ -56,7 +62,7 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
                 <PatientCard prescription={prescription} loading={loading} />
               </Col>
               <Col span={24}>
-                <Card title="Commentaire">
+                <Card title={intl.get("screen.prescription.entity.comment.card.title")}>
                   <ParagraphLoader loading={loading} paragraph={{ rows: 2 }}>
                     Purus sit mauris nam porttitor elit, ut. Nulla porttitor sed volutpat vitae sed
                     sodales enim, nisi.
@@ -64,9 +70,7 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
                 </Card>
               </Col>
               <Col span={24}>
-                <CollapsePanel header={<Title level={4}>Information clinique</Title>}>
-                  {' '}
-                </CollapsePanel>
+                <ClinicalInformation prescription={prescription} loading={loading}/>
               </Col>
             </Row>
           </Container>

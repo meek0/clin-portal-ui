@@ -33,18 +33,18 @@ const ContentHeader = ({
           <ArrowLeftOutlined onClick={() => history.goBack()} className={styles.backArrow} />
         )}
         {icon && <span className={styles.headerIcon}>{icon}</span>}
-        <Skeleton
-          title={{ width: 200 }}
-          paragraph={false}
-          loading={loading}
-          className={styles.titleSkeleton}
-          active
-        >
-          <Space size={12}>
-            <Title level={3}>{title}</Title>
+        <Space size={12}>
+          <Title level={3}>{title}</Title>
+          <Skeleton
+            title={{ width: 200 }}
+            paragraph={false}
+            loading={loading}
+            className={styles.titleSkeleton}
+            active
+          >
             <Space>{extra}</Space>
-          </Space>
-        </Skeleton>
+          </Skeleton>
+        </Space>
       </Space>
       <Space className={styles.actionsWrapper}>{actions}</Space>
     </div>
