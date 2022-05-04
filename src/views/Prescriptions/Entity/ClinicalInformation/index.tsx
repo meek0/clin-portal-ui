@@ -2,7 +2,7 @@ import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Descriptions, Divider, Typography } from 'antd';
 import CollapsePanel from 'components/containers/collapse';
 import ParagraphLoader from 'components/uiKit/ParagraphLoader';
-import { usePatientEntity, usePatients } from 'graphql/patients/actions';
+import { usePatientEntity } from 'graphql/patients/actions';
 import { PrescriptionResult } from 'graphql/prescriptions/models/Prescription';
 
 const { Title } = Typography;

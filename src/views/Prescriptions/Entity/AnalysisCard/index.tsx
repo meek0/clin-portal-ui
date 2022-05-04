@@ -3,6 +3,8 @@ import ParagraphLoader from 'components/uiKit/ParagraphLoader';
 import { PrescriptionResult } from 'graphql/prescriptions/models/Prescription';
 import { formatDate } from 'utils/date';
 import intl from 'react-intl-universal';
+import StatusTag from 'views/Prescriptions/components/StatusTag';
+import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
 
 interface OwnProps {
   prescription?: PrescriptionResult;
@@ -21,7 +23,12 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => (
       {prescription && (
         <Descriptions column={1} size="small" className="label-35">
           <Descriptions.Item label="Id prescription">{prescription?.cid}</Descriptions.Item>
-          <Descriptions.Item label="Status">{prescription?.state}</Descriptions.Item>
+          <Descriptions.Item label="Status">
+            <StatusTag
+              dictionary={getPrescriptionStatusDictionnary()}
+              status={prescription?.status}
+            />
+          </Descriptions.Item>
           <Descriptions.Item label="Analyse demandée">
             <Tag color="geekblue">{prescription?.analysis?.display}</Tag>
           </Descriptions.Item>

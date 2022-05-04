@@ -1,6 +1,5 @@
 import { DownloadOutlined, MedicineBoxOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Row, Typography } from 'antd';
-import CollapsePanel from 'components/containers/collapse';
+import { Button, Card, Col, Row } from 'antd';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
@@ -13,12 +12,10 @@ import AnalysisCard from './AnalysisCard';
 import PatientCard from './PatientCard';
 import { Link } from 'react-router-dom';
 import Container from 'components/Layout/Container';
-
-import styles from './index.module.scss';
 import NotFound from 'components/Results/NotFound';
 import ClinicalInformation from './ClinicalInformation';
 
-const { Title } = Typography;
+import styles from './index.module.scss';
 
 interface OwnProps {
   prescriptionId: string;
