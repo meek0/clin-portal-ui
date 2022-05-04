@@ -11,14 +11,11 @@ interface OwnProps {
 }
 
 const PatientCard = ({ prescription, loading }: OwnProps) => (
-  <Card
-    title={intl.get('screen.prescription.entity.patient.card.title', {
-      id: prescription?.patientInfo?.cid,
-    })}
-  >
-    <ParagraphLoader loading={loading} paragraph={{ rows: 5 }}>
+  <Card title={intl.get('screen.prescription.entity.patient.card.title')}>
+    <ParagraphLoader loading={loading} paragraph={{ rows: 6 }}>
       {prescription && (
         <Descriptions column={1} size="small" className="label-35">
+          <Descriptions.Item label="Patient ID">{prescription?.patientInfo.cid}</Descriptions.Item>
           <Descriptions.Item label="Dossier">{prescription?.mrn}</Descriptions.Item>
           <Descriptions.Item label="RAMQ">
             {formatRamq(prescription?.patientInfo?.ramq)}

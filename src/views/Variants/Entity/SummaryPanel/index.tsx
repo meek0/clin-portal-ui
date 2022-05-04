@@ -9,7 +9,6 @@ import FrequencyCard from './Frequency';
 import ClinicalCard from './Clinical';
 
 import styles from './index.module.scss';
-import Container from 'components/Layout/Container';
 
 interface OwnProps {
   className?: string;

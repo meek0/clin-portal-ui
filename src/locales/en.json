@@ -185,7 +185,7 @@
   "screen.prescription.entity.title": "Prescription ID : {id}",
   "screen.prescription.entity.download.documents": "Download files",
   "screen.prescription.entity.see.variant": "See variants",
-  "screen.prescription.entity.patient.card.title": "Patient ID : {id}",
+  "screen.prescription.entity.patient.card.title": "Patient",
   "screen.prescription.entity.analyse.card.title": "Analysis",
   "screen.prescription.entity.analyse.card.title.foetus": "Analysis (prenatal)",
   "screen.prescription.entity.comment.card.title": "Comment",

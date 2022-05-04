@@ -43,6 +43,7 @@ const CustomFilterContainer = ({
     if (!isUndefined(filterOpen) && isOpen !== filterOpen) {
       setIsOpen(filterOpen);
     }
+    // eslint-disable-next-line
   }, [filterOpen]);
 
   const onChange = (fg: IFilterGroup, f: IFilter[]) => {

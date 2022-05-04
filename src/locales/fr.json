@@ -189,7 +189,7 @@
   "screen.prescription.entity.title": "Prescription ID : {id}",
   "screen.prescription.entity.download.documents": "Télécharger les documents",
   "screen.prescription.entity.see.variant": "Voir les variants",
-  "screen.prescription.entity.patient.card.title": "Patient ID : {id}",
+  "screen.prescription.entity.patient.card.title": "Patient",
   "screen.prescription.entity.analyse.card.title": "Analyse",
   "screen.prescription.entity.analyse.card.title.foetus": "Analyse (prénatal)",
   "screen.prescription.entity.comment.card.title": "Commentaire",

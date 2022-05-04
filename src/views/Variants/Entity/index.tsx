@@ -11,10 +11,9 @@ import { useTabSummaryData } from 'graphql/variants/tabActions';
 import PatientPanel from 'views/Variants/Entity/PatientPanel';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
+import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 
 import styles from './index.module.scss';
-import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
-import Container from 'components/Layout/Container';
 
 export const getVepImpactTag = (score: number | string) => {
   switch (score) {

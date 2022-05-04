@@ -193,7 +193,7 @@ const VariantExploration = () => {
             {`Patient ID : ${patientid}`} | {`Prescription ID : ${prescriptionid}`}
           </Space>
         </Tag>,
-        <Tag color="gold" key="analsysis-name">
+        <Tag color="geekblue" key="analsysis-name">
           {prescription?.analysis.display}
         </Tag>,
         getPositionTag(prescription),

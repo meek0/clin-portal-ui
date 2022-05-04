@@ -1,4 +1,5 @@
 @import 'src/style/themes/clin/colors';
+@import 'src/style/themes/clin/layout';
 
 $sider-padding: 14px;
 $sider-width: 320px;
@@ -7,7 +8,7 @@ $sider-width: 320px;
   padding: $sider-padding;
   padding-bottom: 0;
   overflow: visible !important;
-  height: 100%;
+  height: calc(100vh - #{$main-header-height} - #{$page-header-height});
   border-right: 1px solid $gray-5;
   max-width: $sider-width;
   min-width: $sider-width;

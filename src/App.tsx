@@ -44,6 +44,7 @@ const App = () => {
     if (keycloakIsReady && keycloak.authenticated) {
       dispatch(fetchPractitionerRole());
     }
+    // eslint-disable-next-line
   }, [keycloakIsReady, keycloak]);
 
   return (
