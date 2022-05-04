@@ -33,8 +33,11 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
           <Button key="documents" icon={<DownloadOutlined />}>
             {intl.get('screen.prescription.entity.download.documents')}
           </Button>,
-          <Link to={`/variant-exploration/${prescription?.patientInfo?.cid}/${prescriptionId}`}>
-            <Button key="variants" type="primary" icon={<LineStyleIcon height="14" width="14" />}>
+          <Link
+            key="variants"
+            to={`/variant-exploration/${prescription?.patientInfo?.cid}/${prescriptionId}`}
+          >
+            <Button type="primary" icon={<LineStyleIcon height="14" width="14" />}>
               {intl.get('screen.prescription.entity.see.variant')}
             </Button>
           </Link>,
