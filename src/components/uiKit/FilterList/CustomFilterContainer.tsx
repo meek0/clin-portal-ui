@@ -9,6 +9,7 @@ import CustomFilterSelector from './CustomFilterSelector';
 import { getFiltersDictionary } from 'utils/translation';
 import { TCustomFilterMapper } from '.';
 import { getSelectedFilters } from '@ferlab/ui/core/data/sqon/utils';
+import { isUndefined } from 'lodash';
 
 type OwnProps = {
   classname: string;
@@ -16,7 +17,7 @@ type OwnProps = {
   queryBuilderId: string;
   filterKey: string;
   extendedMappingResults: ExtendedMappingResults;
-  filterOpen: boolean;
+  filterOpen?: boolean;
   defaultOpen?: boolean;
   filterMapper?: TCustomFilterMapper;
 };
@@ -32,14 +33,16 @@ const CustomFilterContainer = ({
   filterMapper,
 }: OwnProps) => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  //const [isOpen, setIsOpen] = useState(defaultOpen ?? filterOpen);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
   const [results, setResults] = useState<GqlResults<any>>();
   const found = (extendedMappingResults?.data || []).find(
     (f: ExtendedMapping) => f.field === underscoreToDot(filterKey),
   );
 
   useEffect(() => {
-    //setIsOpen(filterOpen);
+    if (!isUndefined(filterOpen) && isOpen !== filterOpen) {
+      setIsOpen(filterOpen);
+    }
   }, [filterOpen]);
 
   const onChange = (fg: IFilterGroup, f: IFilter[]) => {
@@ -63,10 +66,10 @@ const CustomFilterContainer = ({
     : [];
 
   return (
-    <div className={classname} key={`${filterKey}_${filterOpen}`}>
+    <div className={classname} key={filterKey}>
       <FilterContainer
         maxShowing={5}
-        isOpen={filterOpen}
+        isOpen={isOpen}
         filterGroup={filterGroup}
         filters={filters}
         onChange={() => {}}

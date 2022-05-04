@@ -255,7 +255,7 @@ const VariantExploration = () => {
         icon: <LineStyleIcon />,
         title: intl.get('screen.variantsearch.title'),
         extra: getExtra(),
-        loading: loading
+        loading: loading,
       }}
       className={styles.variantLayout}
     >
