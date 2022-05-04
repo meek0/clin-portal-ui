@@ -1,4 +1,5 @@
 {
+  "global.errors.backHome": "Go to home page",
   "layout.main.menu.home": "Home Page",
   "layout.main.menu.prescriptions": "Prescriptions",
   "layout.main.menu.archives": "Archives",

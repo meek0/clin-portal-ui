@@ -18,3 +18,7 @@ body {
 *:focus-visible {
   outline: none;
 }
+
+.simplebar-content {
+  height: 100%;
+}
