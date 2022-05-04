@@ -53,7 +53,7 @@
   }
 }
 
-@media screen and (min-width: 1600px) {
+@media screen and (min-width: 1600px), screen and (max-width: 850px) {
   .searchBox {
     .searchWrapper {
       flex-direction: column;
