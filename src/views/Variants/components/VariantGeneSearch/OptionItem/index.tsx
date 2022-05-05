@@ -8,6 +8,7 @@ import styles from './index.module.scss';
 interface OwnProps {
   type: SuggestionType;
   suggestion: Suggestion;
+  value: string;
 }
 
 enum OptionLabel {
@@ -15,18 +16,15 @@ enum OptionLabel {
   GENE = 'GN',
 }
 
-const OptionItem = ({ type, suggestion }: OwnProps) => {
+const OptionItem = ({ type, suggestion, value }: OwnProps) => {
   const getLabel = () => (type === SuggestionType.GENES ? OptionLabel.GENE : OptionLabel.VARIANT);
-
-  const getValue = (option: Suggestion) =>
-    type === SuggestionType.GENES ? option.symbol : option.locus;
 
   return (
     <Space size={12}>
       <SquareLabel label={getLabel()} className={cx(styles.searchLabel, styles[type])} />
       <Space direction="vertical" size={0}>
         <Typography.Text className={styles.variantSearchLocus}>
-          {getValue(suggestion)}
+          {value}
         </Typography.Text>
         {suggestion.rsnumber || suggestion.ensembl_gene_id || '--'}
       </Space>

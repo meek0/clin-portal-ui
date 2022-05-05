@@ -12,13 +12,16 @@ type OwnProps = ICustomSearchProps & {
   type: SuggestionType;
 };
 
+export const getValue = (type: SuggestionType, option: Suggestion) =>
+  type === SuggestionType.GENES ? option.symbol! : option.locus!;
+
 const VariantGeneSearch = ({ queryBuilderId, type }: OwnProps) => {
   const { activeQuery } = useQueryBuilderState(queryBuilderId);
 
   return (
     <GlobalSearch<Suggestion>
       queryBuilderId={queryBuilderId}
-      field=""
+      field={type === SuggestionType.VARIANTS ? 'locus' : 'genes.symbol'}
       index={INDEXES.VARIANT}
       placeholder={intl.get(`global.search.${type}.placeholder`)}
       emptyDescription={intl.get(`global.search.${type}.emptyText`)}
@@ -32,8 +35,8 @@ const VariantGeneSearch = ({ queryBuilderId, type }: OwnProps) => {
       }}
       optionsFormatter={(options) =>
         options.map((option) => ({
-          label: <OptionItem type={type} suggestion={option} />,
-          value: option.locus!,
+          label: <OptionItem type={type} suggestion={option} value={getValue(type, option)} />,
+          value: getValue(type, option),
         }))
       }
       title={intl.get(`global.search.${type}.title`)}

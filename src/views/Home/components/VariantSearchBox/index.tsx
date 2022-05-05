@@ -31,7 +31,11 @@ const VariantSearchBox = () => {
               className={styles.variantSearchBoxLink}
               to={`/variant/entity/${suggestion.locus}`}
             >
-              <OptionItem type={SuggestionType.VARIANTS} suggestion={suggestion} />
+              <OptionItem
+                type={SuggestionType.VARIANTS}
+                suggestion={suggestion}
+                value={suggestion.locus!}
+              />
             </Link>
           ),
           value: suggestion.locus,
