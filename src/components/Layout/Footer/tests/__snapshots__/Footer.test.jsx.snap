@@ -17,6 +17,7 @@ exports[`Footer should be as the snapshot 1`] = `
         <ul>
           <li>
             <a
+              className=""
               rel="noreferrer"
               target="_blank"
             >
@@ -25,6 +26,7 @@ exports[`Footer should be as the snapshot 1`] = `
           </li>
           <li>
             <a
+              className=""
               rel="noreferrer"
               target="_blank"
             >
