@@ -44,7 +44,7 @@ const formatFractionPercent = (nominator: number, denominator: number, total: nu
 
 const freqByAnalysisColumns = [
   {
-    title: () => intl.get('screen.variant.entity.frequencyTab.analysis'),
+    title: intl.get('screen.variant.entity.frequencyTab.analysis'),
     render: (freqByAnalysis: FrequencyByAnalysisEntity) =>
       freqByAnalysis.analysis_display_name ? (
         <Tooltip title={freqByAnalysis.analysis_display_name}>
@@ -55,7 +55,7 @@ const freqByAnalysisColumns = [
       ),
   },
   {
-    title: () => intl.get('screen.variant.entity.frequencyTab.all.patients'),
+    title: intl.get('screen.variant.entity.frequencyTab.all.patients'),
     children: [
       {
         title: () => intl.get('screen.variant.entity.frequencyTab.frequency.abbv'),
@@ -70,32 +70,32 @@ const freqByAnalysisColumns = [
     ],
   },
   {
-    title: () => intl.get('screen.variant.entity.frequencyTab.affected.patients'),
+    title: intl.get('screen.variant.entity.frequencyTab.affected.patients'),
     children: [
       {
-        title: () => intl.get('screen.variant.entity.frequencyTab.frequency.abbv'),
+        title: intl.get('screen.variant.entity.frequencyTab.frequency.abbv'),
         dataIndex: 'affected',
         render: (affected: BoundType) =>
           formatFractionPercent(affected?.pc, affected?.pn, affected?.pf),
       },
       {
-        title: () => intl.get('screen.variant.entity.frequencyTab.homozygote.abbv'),
+        title: intl.get('screen.variant.entity.frequencyTab.homozygote.abbv'),
         dataIndex: 'affected',
         render: (affected: BoundType) => affected?.hom,
       },
     ],
   },
   {
-    title: () => intl.get('screen.variant.entity.frequencyTab.nonaffected.patients'),
+    title: intl.get('screen.variant.entity.frequencyTab.nonaffected.patients'),
     children: [
       {
-        title: () => intl.get('screen.variant.entity.frequencyTab.frequency.abbv'),
+        title: intl.get('screen.variant.entity.frequencyTab.frequency.abbv'),
         dataIndex: 'non_affected',
         render: (non_affected: BoundType) =>
           formatFractionPercent(non_affected?.pc, non_affected?.pn, non_affected?.pf),
       },
       {
-        title: () => intl.get('screen.variant.entity.frequencyTab.homozygote.abbv'),
+        title: intl.get('screen.variant.entity.frequencyTab.homozygote.abbv'),
         dataIndex: 'non_affected',
         render: (non_affected: BoundType) => non_affected?.hom,
       },
@@ -230,6 +230,10 @@ const FrequencyCard = ({ locus }: OwnProps) => {
     ...data.frequency_RQDM,
   });
 
+  console.log(frequencies_by_analysis);
+  console.log(isEmpty(frequencies_by_analysis));
+  console.log(freqByAnalysisColumns);
+
   const externalCohortsRows = makeRowForExternalFreq(data.external_frequencies, data.locus);
   const hasEmptyCohorts = isExternalFreqTableEmpty(externalCohortsRows);
 
@@ -242,6 +246,8 @@ const FrequencyCard = ({ locus }: OwnProps) => {
         >
           <Spin spinning={loading}>
             {isEmpty(frequencies_by_analysis) ? (
+              <NoData />
+            ) : (
               <Table
                 bordered
                 size="small"
@@ -249,8 +255,6 @@ const FrequencyCard = ({ locus }: OwnProps) => {
                 columns={freqByAnalysisColumns}
                 pagination={false}
               />
-            ) : (
-              <NoData />
             )}
           </Spin>
         </CollapsePanel>

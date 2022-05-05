@@ -263,6 +263,7 @@
   "screen.patientvariant.results.table.varsome": "Varsome",
   "screen.patientvariant.results.table.zygosity": "Zygosity",
   "screen.variant.entity.frequencyTab.affected.patients": "Affected patients",
+  "screen.variant.entity.frequencyTab.RQDM.title": "RQDM",
   "screen.variant.entity.frequencyTab.all.patients": "All patients",
   "screen.variant.entity.frequencyTab.analysis": "Analysis",
   "screen.variant.entity.frequencyTab.frequency.abbv": "Frequency",
