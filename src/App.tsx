@@ -33,6 +33,7 @@ const PrescriptionSearch = loadable(() => import('views/Prescriptions/Search'), 
 const VariantEntity = loadable(() => import('views/Variants/Entity'), loadableProps);
 const VariantExploration = loadable(() => import('views/Variants'), loadableProps);
 const HomePage = loadable(() => import('views/Home'), loadableProps);
+const Archives = loadable(() => import('views/Archives'), loadableProps);
 
 const App = () => {
   const lang = useLang();
@@ -76,7 +77,7 @@ const App = () => {
                 <VariantEntity />
               </ProtectedRoute>
               <ProtectedRoute exact path={STATIC_ROUTES.ARCHIVE_EXPLORATION} layout={PageLayout}>
-                <>Archives</>
+                <Archives />
               </ProtectedRoute>
               <Route
                 path={DYNAMIC_ROUTES.ERROR}

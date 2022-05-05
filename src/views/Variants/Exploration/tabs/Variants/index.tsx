@@ -25,9 +25,9 @@ import OccurrenceDrawer from '../../../components/OccurrenceDrawer';
 import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
 import { DEFAULT_PAGE_SIZE } from 'views/Variants/utils/constant';
 import { Link } from 'react-router-dom';
+import ExternalLink from 'components/uiKit/ExternalLink';
 
 import style from './index.module.scss';
-import ExternalLink from 'components/uiKit/ExternalLink';
 
 type OwnProps = {
   results: IQueryResults<VariantEntity[]>;
@@ -215,6 +215,7 @@ const VariantsTab = ({ results, setQueryConfig, queryConfig, sqon, patientId }: 
             pageSize: queryConfig.size,
             total: results.total || 0,
           },
+          enableColumnSort: true,
         }}
         size="small"
         pagination={{
@@ -222,6 +223,7 @@ const VariantsTab = ({ results, setQueryConfig, queryConfig, sqon, patientId }: 
           pageSize: queryConfig.size,
           defaultPageSize: DEFAULT_PAGE_SIZE,
           total: results.total ?? 0,
+          hideOnSinglePage: true,
         }}
       />
       {results.data.length > 0 && selectedVariant && (

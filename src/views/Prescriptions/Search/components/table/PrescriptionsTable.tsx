@@ -48,6 +48,7 @@ const PrescriptionsTable = ({ results, loading = false }: OwnProps): React.React
           pageSize: currentPageSize,
           total: results?.total || 0,
         },
+        enableColumnSort: true,
       }}
       size="small"
       pagination={{
@@ -55,7 +56,8 @@ const PrescriptionsTable = ({ results, loading = false }: OwnProps): React.React
         pageSize: currentPageSize,
         defaultPageSize: DEFAULT_PAGE_SIZE,
         total: results?.total ?? 0,
-        showSizeChanger: true
+        showSizeChanger: true,
+        hideOnSinglePage: true
       }}
     />
   );

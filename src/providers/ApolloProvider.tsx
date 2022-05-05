@@ -17,9 +17,10 @@ export const PROJECT_ID = EnvironmentVariables.configFor('ARRANGER_PROJECT_ID');
 export const FHIR_API = EnvironmentVariables.configFor('FHIR_API');
 
 export const ARRANGER_API_PROJECT_URL = `${ARRANGER_API}/${PROJECT_ID}/graphql`;
+export const FHIR_GRAPHQL_URL = `${FHIR_API}/$graphql`;
 
 const fhirLink = createHttpLink({
-  uri: `${FHIR_API}/$graphql`,
+  uri: FHIR_GRAPHQL_URL,
 });
 
 const arrangerLink = createHttpLink({
