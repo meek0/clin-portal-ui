@@ -25,6 +25,7 @@ import OccurrenceDrawer from '../../../components/OccurrenceDrawer';
 import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
 import { DEFAULT_PAGE_SIZE } from 'views/Variants/utils/constant';
 import { Link } from 'react-router-dom';
+import capitalize from 'lodash/capitalize';
 
 import style from './index.module.scss';
 import ExternalLink from 'components/uiKit/ExternalLink';
@@ -72,6 +73,7 @@ const getVariantColumns = (
     key: 'variant_class',
     title: intl.get('screen.patientvariant.results.table.type'),
     dataIndex: 'variant_class',
+    render: (variant: string) => intl.get(variant).defaultMessage(capitalize(variant)),
   },
   {
     key: 'rsnumber',
