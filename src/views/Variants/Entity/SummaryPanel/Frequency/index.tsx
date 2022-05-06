@@ -14,7 +14,7 @@ import NoData from 'views/Variants/Entity/NoData';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
 import styles from './index.module.scss';
-import ExternalLink from 'components/uiKit/ExternalLink';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 interface OwnProps {
   locus: string;

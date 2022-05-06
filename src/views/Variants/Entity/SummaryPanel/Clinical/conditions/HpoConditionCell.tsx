@@ -2,8 +2,8 @@ import React from 'react';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { HpoConditions, HpoCondition } from 'graphql/variants/models';
 import { Typography } from 'antd';
-import ExpandableCell from 'components/table/ExpandableCell';
-import ExternalLink from 'components/uiKit/ExternalLink';
+import ExpandableCell from '@ferlab/ui/core/components/tables/ExpandableCell';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 interface OwnProps {
   conditions: HpoConditions;

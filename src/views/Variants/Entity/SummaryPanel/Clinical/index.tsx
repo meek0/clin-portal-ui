@@ -7,7 +7,7 @@ import { columnsClinVar, columnsPhenotypes } from './columns';
 import CollapsePanel from 'components/containers/collapse';
 
 import styles from './index.module.scss';
-import ExternalLink from 'components/uiKit/ExternalLink';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 interface OwnProps {
   locus: string;

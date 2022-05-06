@@ -3,8 +3,8 @@ import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { Typography, Space, Tooltip, Spin } from 'antd';
 import intl from 'react-intl-universal';
 import capitalize from 'lodash/capitalize';
-import ExpandableTable from 'components/table/ExpandableTable';
-import ExpandableCell from 'components/table/ExpandableCell';
+import ExpandableTable from '@ferlab/ui/core/components/tables/ExpandableTable';
+import ExpandableCell from '@ferlab/ui/core/components/tables/ExpandableCell';
 import NoData from 'views/Variants/Entity/NoData';
 import CanonicalIcon from 'components/icons/CanonicalIcon';
 import { ConsequenceEntity, GeneEntity, Impact, VariantEntity } from 'graphql/variants/models';
@@ -14,7 +14,7 @@ import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { getVepImpactTag } from '../..';
 
 import styles from '../index.module.scss';
-import ExternalLink from 'components/uiKit/ExternalLink';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 interface OwnProps {
   className?: string;
