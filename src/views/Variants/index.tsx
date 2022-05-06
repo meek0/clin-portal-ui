@@ -25,6 +25,8 @@ import { usePrescriptionEntity } from 'graphql/prescriptions/actions';
 
 import styles from './index.module.scss';
 import { getPositionTag } from 'graphql/prescriptions/helper';
+import { wrapSqonWithDonorIdAndSrId } from './utils/helper';
+import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
 
 enum FilterTypes {
   Variant,
@@ -202,30 +204,53 @@ const VariantExploration = () => {
     return [];
   };
 
+  const filterMapper = (filters: ISqonGroupFilter) =>
+    wrapSqonWithDonorIdAndSrId(filters, patientid /** prescriptionid */);
+
   const menuItems: ISidebarMenuItem[] = [
     {
       key: '0',
       title: intl.get('screen.patientvariant.category_rqdm'),
       icon: <RqdmIcon className={styles.sideMenuIcon} />,
-      panelContent: filtersContainer(variantMappingResults, FilterTypes.Rqdm, INDEXES.VARIANT),
+      panelContent: filtersContainer(
+        variantMappingResults,
+        FilterTypes.Rqdm,
+        INDEXES.VARIANT,
+        filterMapper,
+      ),
     },
     {
       key: '1',
       title: intl.get('screen.patientvariant.category_variant'),
       icon: <LineStyleIcon className={styles.sideMenuIcon} />,
-      panelContent: filtersContainer(variantMappingResults, FilterTypes.Variant, INDEXES.VARIANT),
+      panelContent: filtersContainer(
+        variantMappingResults,
+        FilterTypes.Variant,
+        INDEXES.VARIANT,
+        filterMapper,
+      ),
     },
     {
       key: '2',
       title: intl.get('screen.patientvariant.category_genomic'),
       icon: <GeneIcon className={styles.sideMenuIcon} />,
-      panelContent: filtersContainer(variantMappingResults, FilterTypes.Gene, INDEXES.VARIANT),
+      panelContent: filtersContainer(
+        variantMappingResults,
+        FilterTypes.Gene,
+        INDEXES.VARIANT,
+        filterMapper,
+      ),
     },
     {
       key: '3',
       title: intl.get('screen.patientvariant.category_cohort'),
       icon: <FrequencyIcon className={styles.sideMenuIcon} />,
-      panelContent: filtersContainer(variantMappingResults, FilterTypes.Frequency, INDEXES.VARIANT),
+      panelContent: filtersContainer(
+        variantMappingResults,
+        FilterTypes.Frequency,
+        INDEXES.VARIANT,
+        filterMapper,
+      ),
     },
     {
       key: '4',
@@ -235,6 +260,7 @@ const VariantExploration = () => {
         variantMappingResults,
         FilterTypes.Pathogenicity,
         INDEXES.VARIANT,
+        filterMapper,
       ),
     },
     {
@@ -245,6 +271,7 @@ const VariantExploration = () => {
         variantMappingResults,
         FilterTypes.Occurrence,
         INDEXES.VARIANT,
+        filterMapper,
       ),
     },
   ];
