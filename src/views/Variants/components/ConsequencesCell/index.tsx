@@ -7,7 +7,7 @@ import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeI
 import ModifierBadgeIcon from 'components/icons/variantBadgeIcons/ModifierBadgeIcon';
 import { Consequence, Impact } from 'graphql/variants/models';
 import { toKebabCase } from 'utils/helper';
-import ExternalLink from 'components/uiKit/ExternalLink';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 import style from './index.module.scss';
 

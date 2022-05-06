@@ -21,7 +21,7 @@ import DddConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/condit
 import CosmicConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/CosmicConditionCell';
 import OmimConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/OmimConditionCell';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
-import ExternalLink from 'components/uiKit/ExternalLink';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 const { Text } = Typography;
 

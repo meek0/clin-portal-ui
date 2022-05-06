@@ -1,9 +1,9 @@
 import { Col, Layout, Row } from 'antd';
 import intl from 'react-intl-universal';
 import get from 'lodash/get';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 import styles from './index.module.scss';
-import ExternalLink from 'components/uiKit/ExternalLink';
 
 const ZEPLIN_URL = get(window, 'CLIN.zeplinUrl', process.env.REACT_APP_ZEPLIN_URL);
 const FHIR_CONSOLE_URL = get(window, 'CLIN.fhirConsoleUrl', process.env.REACT_APP_FHIR_CONSOLE_URL);

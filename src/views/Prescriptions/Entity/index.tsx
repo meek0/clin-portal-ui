@@ -11,7 +11,6 @@ import ParagraphLoader from 'components/uiKit/ParagraphLoader';
 import AnalysisCard from './AnalysisCard';
 import PatientCard from './PatientCard';
 import { Link } from 'react-router-dom';
-import Container from 'components/Layout/Container';
 import NotFound from 'components/Results/NotFound';
 import ClinicalInformation from './ClinicalInformation';
 

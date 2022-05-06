@@ -2,7 +2,7 @@ import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { OmimConditions, OmimCondition } from 'graphql/variants/models';
 import { Typography } from 'antd';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
-import ExternalLink from 'components/uiKit/ExternalLink';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 interface OwnProps {
   conditions: OmimConditions;

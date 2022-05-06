@@ -28,7 +28,7 @@ import { Link } from 'react-router-dom';
 import capitalize from 'lodash/capitalize';
 
 import style from './index.module.scss';
-import ExternalLink from 'components/uiKit/ExternalLink';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 type OwnProps = {
   results: IQueryResults<VariantEntity[]>;

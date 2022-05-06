@@ -2,7 +2,7 @@
 import { PageHeader, Dropdown, Menu, Button, Space } from 'antd';
 import { MedicineBoxOutlined, HomeOutlined, FileTextOutlined } from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
-import Gravatar from 'components/uiKit/Gravatar';
+import Gravatar from '@ferlab/ui/core/components/Gravatar';
 import HeaderLink from 'components/Layout/Header/HeaderLink';
 import { STATIC_ROUTES } from 'utils/routes';
 import intl from 'react-intl-universal';
