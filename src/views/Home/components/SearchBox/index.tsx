@@ -1,7 +1,7 @@
 import { SearchOutlined } from '@ant-design/icons';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { AutoComplete, AutoCompleteProps, Input, Space, Typography } from 'antd';
-import LabelWithInfo from 'components/uiKit/form/LabelWithInfo';
+import ProLabel from '@ferlab/ui/core/components/ProLabel';
 
 import styles from './index.module.scss';
 
@@ -35,7 +35,7 @@ const SearchBox = ({
           </Typography.Text>
         </div>
         <Space direction="vertical" className={styles.searchInputWrapper}>
-          <LabelWithInfo title={searchLabel} colon />
+          <ProLabel title={searchLabel} colon />
           {customAutoComplete ? (
             customAutoComplete
           ) : (

@@ -7,7 +7,7 @@ import { ArrangerEdge } from 'graphql/models';
 import capitalize from 'lodash/capitalize';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { Link } from 'react-router-dom';
-import ExternalLink from 'components/uiKit/ExternalLink';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 import styles from './index.module.scss';
 

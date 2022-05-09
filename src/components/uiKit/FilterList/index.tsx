@@ -4,13 +4,13 @@ import CustomFilterContainer from './CustomFilterContainer';
 import intl from 'react-intl-universal';
 import { FilterGroup, FilterInfo } from './types';
 import { ExtendedMappingResults } from 'graphql/models';
-import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
+import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
 
 import styles from './Filters.module.scss';
 
-export type TCustomFilterMapper = (filters: ISqonGroupFilter) => ISyntheticSqon;
+export type TCustomFilterMapper = (filters: ISqonGroupFilter) => ISqonGroupFilter;
 
 type OwnProps = {
   index: string;

@@ -14,7 +14,7 @@ import NoData from 'views/Variants/Entity/NoData';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
 import styles from './index.module.scss';
-import ExternalLink from 'components/uiKit/ExternalLink';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 interface OwnProps {
   locus: string;
@@ -229,10 +229,6 @@ const FrequencyCard = ({ locus }: OwnProps) => {
     analysis_display_name: intl.get('screen.variant.entity.frequencyTab.RQDM.title'),
     ...data.frequency_RQDM,
   });
-
-  console.log(frequencies_by_analysis);
-  console.log(isEmpty(frequencies_by_analysis));
-  console.log(freqByAnalysisColumns);
 
   const externalCohortsRows = makeRowForExternalFreq(data.external_frequencies, data.locus);
   const hasEmptyCohorts = isExternalFreqTableEmpty(externalCohortsRows);

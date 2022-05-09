@@ -51,6 +51,7 @@ export interface FhirDocAttachment {
   hash: string;
   title: string;
   url: string;
+  size: string;
 }
 
 export interface FhirDocContent {
@@ -65,9 +66,29 @@ export interface FhirDoc {
     value: string;
   };
   content: FhirDocContent[];
+  patientReference: string;
+}
+
+export interface FhirTask {
+  id: string;
+  docs: FhirDoc[];
+  focus: {
+    reference: string;
+  };
+  owner: FhirOwner;
+  runDate: string;
+  runAlias: string;
+}
+
+export interface FhirOwner {
+  alias: string;
+  email: string;
+  id: string;
 }
 
 export interface PatientFileResults {
   id: string;
   docs: FhirDoc[];
 }
+
+export type PatientTaskResults = FhirTask[];

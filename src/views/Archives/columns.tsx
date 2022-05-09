@@ -9,27 +9,33 @@ export const getAchivesTableColumns = (): ProColumnType[] => {
       defaultHidden: true,
     },
     {
-      key: 'file_name',
+      key: 'title',
+      dataIndex: 'title',
       title: intl.get('screen.archives.table.column.filename'),
     },
     {
       key: 'type',
+      dataIndex: 'type',
       title: intl.get('screen.archives.table.column.type'),
     },
     {
       key: 'format',
+      dataIndex: 'format',
       title: intl.get('screen.archives.table.column.format'),
     },
     {
-      key: 'patient',
+      key: 'patientId',
+      dataIndex: 'patientId',
       title: intl.get('screen.archives.table.column.patient'),
     },
     {
       key: 'request',
+      dataIndex: "srRef",
       title: intl.get('screen.archives.table.column.request'),
     },
     {
       key: 'sampleldm',
+      dataIndex: ["sample", "value"],
       title: intl.get('screen.archives.table.column.sampleldm'),
     },
     {
@@ -38,20 +44,24 @@ export const getAchivesTableColumns = (): ProColumnType[] => {
     },
     {
       key: 'date',
+      dataIndex: 'taskRunDate',
       title: intl.get('screen.archives.table.column.date'),
     },
     {
       key: 'size',
+      dataIndex: 'size',
       title: intl.get('screen.archives.table.column.size'),
       defaultHidden: true,
     },
     {
       key: 'hash',
+      dataIndex: 'hash',
       title: intl.get('screen.archives.table.column.hash'),
       defaultHidden: true,
     },
     {
       key: 'run',
+      dataIndex: 'taskRunAlias',
       title: intl.get('screen.archives.table.column.run'),
       defaultHidden: true,
     },
