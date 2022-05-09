@@ -12,6 +12,21 @@
     color: @gray-6;
   }
 
+  &-clear-icon {
+    display: flex;
+  }
+
+  &-search {
+    .@{input-prefix-cls}-affix-wrapper-focused {
+      clip-path: inset(-5px 0px -5px -5px);
+    }
+  }
+
+  &-affix-wrapper-focused {
+    border: 1px solid @blue-7;
+    box-shadow: 0px 0px 0px 2px @blue-4;
+  }
+
   &-number,
   & {
     color: @gray-8;

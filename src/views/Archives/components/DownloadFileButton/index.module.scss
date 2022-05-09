@@ -1,0 +1,11 @@
+.downloadFileButton {
+  padding: 0;
+
+  span:not([role='img']) {
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

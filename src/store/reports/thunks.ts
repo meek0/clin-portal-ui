@@ -49,7 +49,7 @@ const proceedToDownload = async (
     dispatch(
       globalActions.displayNotification({
         placement: 'topLeft',
-        message: capitalize(intl.get('notification.success')),
+        message: intl.get('notification.success'),
         description: `${capitalize(reportNameI18n)} : ${intl.get(
           'report.notification.success.description',
         )}`,

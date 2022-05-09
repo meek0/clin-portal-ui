@@ -25,10 +25,10 @@ import OccurrenceDrawer from '../../../components/OccurrenceDrawer';
 import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
 import { DEFAULT_PAGE_SIZE } from 'views/Variants/utils/constant';
 import { Link } from 'react-router-dom';
-import capitalize from 'lodash/capitalize';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
+import { capitalize } from 'lodash';
 
 import style from './index.module.scss';
-import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 type OwnProps = {
   results: IQueryResults<VariantEntity[]>;
@@ -217,6 +217,7 @@ const VariantsTab = ({ results, setQueryConfig, queryConfig, sqon, patientId }: 
             pageSize: queryConfig.size,
             total: results.total || 0,
           },
+          enableColumnSort: true,
         }}
         size="small"
         pagination={{
@@ -224,6 +225,7 @@ const VariantsTab = ({ results, setQueryConfig, queryConfig, sqon, patientId }: 
           pageSize: queryConfig.size,
           defaultPageSize: DEFAULT_PAGE_SIZE,
           total: results.total ?? 0,
+          hideOnSinglePage: true,
         }}
       />
       {results.data.length > 0 && selectedVariant && (

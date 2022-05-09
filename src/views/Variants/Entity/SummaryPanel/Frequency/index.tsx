@@ -230,10 +230,6 @@ const FrequencyCard = ({ locus }: OwnProps) => {
     ...data.frequency_RQDM,
   });
 
-  console.log(frequencies_by_analysis);
-  console.log(isEmpty(frequencies_by_analysis));
-  console.log(freqByAnalysisColumns);
-
   const externalCohortsRows = makeRowForExternalFreq(data.external_frequencies, data.locus);
   const hasEmptyCohorts = isExternalFreqTableEmpty(externalCohortsRows);
 
