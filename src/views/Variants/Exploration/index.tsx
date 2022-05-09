@@ -105,7 +105,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
             );
           },
           selectedFilterContent: selectedFilterContent,
-          blacklistedFacets: ['locus'],
+          blacklistedFacets: ['consequences.symbol', 'locus'],
         }}
         enableCombine
         enableShowHideLabels

@@ -52,6 +52,7 @@
   "filters.group.consequences.predictions.polyphen2_hvar_pred": "Polyphen 2 HVAR",
   "filters.group.consequences.predictions.revel_rankscore": "REVEL",
   "filters.group.consequences.predictions.sift_pred": "SIFT",
+  "filters.group.consequences.symbol": "Genes",
   "filters.group.consequences.vep_impact": "VEP",
   "filters.group.donors.ad_alt": "ALT allele depth",
   "filters.group.donors.ad_ratio": "Allelic ratio ALT / (ALT+REF)",

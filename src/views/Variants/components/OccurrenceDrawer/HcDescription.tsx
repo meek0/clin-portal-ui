@@ -65,7 +65,7 @@ export const HcComplementDescription = ({ defaultText, hcComplements, variantId 
                   query: generateQuery({
                     newFilters: [
                       generateValueFilter({
-                        field: 'genes.symbol',
+                        field: 'consequences.symbol',
                         value: [e.symbol],
                         index: INDEX_VARIANTS,
                       }),
