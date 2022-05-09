@@ -1,3 +1,4 @@
+import { DownloadOutlined } from '@ant-design/icons';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Space } from 'antd';
 import intl from 'react-intl-universal';
@@ -80,7 +81,12 @@ export const getAchivesTableColumns = (): ProColumnType[] => {
     },
     {
       key: 'downloadActions',
-      title: intl.get('screen.archives.table.column.download'),
+      title: (
+        <Space size={3}>
+          <DownloadOutlined /> {intl.get('screen.archives.table.column.download')}
+        </Space>
+      ),
+      displayTitle: intl.get('screen.archives.table.column.download'),
       render: (doc: DocsWithTaskInfo) => (
         <Space size={12}>
           <DownloadFileButton fileUrl={doc.action.urls.file} displayName="Fichier" />

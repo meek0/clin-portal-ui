@@ -5,6 +5,7 @@ import { formatDate } from 'utils/date';
 import intl from 'react-intl-universal';
 import StatusTag from 'views/Prescriptions/components/StatusTag';
 import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
+import { extractOrganizationId } from 'api/fhir/helper';
 
 interface OwnProps {
   prescription?: PrescriptionResult;
@@ -44,7 +45,9 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => (
           <Descriptions.Item label="Établissement prescripteur">
             {prescription?.organization?.cid}
           </Descriptions.Item>
-          <Descriptions.Item label="LDM">{prescription?.laboratory}</Descriptions.Item>
+          <Descriptions.Item label="LDM">
+            {extractOrganizationId(prescription?.laboratory)}
+          </Descriptions.Item>
         </Descriptions>
       )}
     </ParagraphLoader>

@@ -1,11 +1,8 @@
-import { Button } from 'antd';
+import { Typography } from 'antd';
 import { FhirApi } from 'api/fhir';
 import { useDispatch } from 'react-redux';
 import { globalActions } from 'store/global';
 import intl from 'react-intl-universal';
-import { DownloadOutlined } from '@ant-design/icons';
-
-import styles from './index.module.scss';
 
 interface OwnProps {
   fileUrl: string;
@@ -16,9 +13,7 @@ const DownloadFileButton = ({ fileUrl, displayName }: OwnProps) => {
   const dispatch = useDispatch();
 
   return (
-    <Button
-      type="link"
-      className={styles.downloadFileButton}
+    <Typography.Link
       onClick={async () => {
         FhirApi.getFileURL(fileUrl)
           .then(({ data }) => {
@@ -41,10 +36,9 @@ const DownloadFileButton = ({ fileUrl, displayName }: OwnProps) => {
             );
           });
       }}
-      icon={<DownloadOutlined />}
     >
       {displayName}
-    </Button>
+    </Typography.Link>
   );
 };
 
