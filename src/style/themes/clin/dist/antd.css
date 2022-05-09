@@ -26115,6 +26115,16 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .ant-input-suffix {
   color: #8b9db2;
 }
+.ant-input-clear-icon {
+  display: flex;
+}
+.ant-input-search .ant-input-affix-wrapper-focused {
+  clip-path: inset(-5px 0px -5px -5px);
+}
+.ant-input-affix-wrapper-focused {
+  border: 1px solid #1d8bc6;
+  box-shadow: 0px 0px 0px 2px #8bd7f4;
+}
 .ant-input-number,
 .ant-input {
   color: #364a63;

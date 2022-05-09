@@ -114,13 +114,7 @@ export const SEARCH_PATIENT_FILES_QUERY = (searchValue: string) => gql`
     ) {
       id
       focus{reference}
-      experiment: extension(
-          url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/sequencing-experiment"
-          ) @flatten @first {
-           extension(url: "runDate")@flatten @first{
-              runDate:valueDateTime
-          }
-      } 
+      authoredOn
       experiment: extension(
           url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/sequencing-experiment"
           ) @flatten @first {

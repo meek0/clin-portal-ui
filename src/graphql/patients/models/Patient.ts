@@ -77,6 +77,7 @@ export interface FhirTask {
   };
   owner: FhirOwner;
   runDate: string;
+  authoredOn: string;
   runAlias: string;
 }
 

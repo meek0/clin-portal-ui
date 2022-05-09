@@ -1,7 +1,7 @@
 import { FileTextOutlined } from '@ant-design/icons';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
-import { Space, Input } from 'antd';
+import { Space, Input, Spin } from 'antd';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import useQueryParams from 'hooks/useQueryParams';
@@ -11,20 +11,37 @@ import { getAchivesTableColumns } from 'views/Archives/columns';
 import { getProTableDictionary } from 'utils/translation';
 import { FhirApi } from 'api/fhir';
 import { FhirDoc, FhirOwner, PatientTaskResults } from 'graphql/patients/models/Patient';
-import { numberFormat } from '@ferlab/ui/core/utils/numberUtils';
 import { isEmpty } from 'lodash';
 import Empty from '@ferlab/ui/core/components/Empty';
+import { formatFileSize } from 'utils/formatFileSize';
+import { formatDate } from 'utils/date';
+import { extractPatientId, extractServiceRequestId } from 'api/fhir/helper';
 
 import styles from './index.module.scss';
 
 const DEFAULT_PAGE_SIZE = 20;
 const DEFAULT_PAGE = 1;
 
-type DocsWithTaskInfo = FhirDoc & {
+export type DocsWithTaskInfo = FhirDoc & {
   key: string;
-  taskRunDate: string;
+  taskAuthoredOn: string;
   taskOwner: FhirOwner;
   taskId: string;
+  patientId: string;
+  hash: string;
+  srRef: string;
+  size: string;
+  title: string;
+  format: string;
+  url: string;
+  action: {
+    format: string;
+    metadata: FhirDoc;
+    urls: {
+      file: string;
+      index: string;
+    };
+  };
 };
 
 const extracDocsFromTask = (tasks: PatientTaskResults) => {
@@ -34,14 +51,15 @@ const extracDocsFromTask = (tasks: PatientTaskResults) => {
       ...task.docs.map((doc) => ({
         ...doc,
         key: doc.id,
+        url: doc.content[0].attachment.url,
         taskRunAlias: task.runAlias,
-        taskRunDate: task.runDate,
+        taskAuthoredOn: formatDate(task.authoredOn),
         taskOwner: task.owner,
         taskId: task.id,
-        patientId: doc.patientReference.replace('Patient/', ''),
+        patientId: extractPatientId(doc.patientReference),
         hash: doc.content[0].attachment.hash,
-        srRef: task.focus.reference.replace('ServiceRequest/', ''),
-        size: numberFormat(Number(doc.content[0].attachment.size)),
+        srRef: extractServiceRequestId(task.focus.reference),
+        size: formatFileSize(Number(doc.content[0].attachment.size)) as string,
         title: doc.content[0].attachment.title,
         format: doc.content[0].format,
         action: {
@@ -84,10 +102,12 @@ const Archives = () => {
   };
 
   useEffect(() => {
-    const patientId = query.get('patientId');
-    if (patientId) {
-      handleSearch(patientId);
+    const searchValue = query.get('search');
+    if (searchValue) {
+      setSearchValue(searchValue);
+      handleSearch(searchValue);
     }
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -120,48 +140,48 @@ const Archives = () => {
           />
           <GridCard
             content={
-              isEmpty(docs) ? (
-                <Empty
-                  imageType="grid"
-                  description={
-                    searchValue && searchDone
-                      ? intl.get('no.results.found')
-                      : intl.get('screen.archives.search.noresults')
-                  }
-                />
-              ) : (
-                <ProTable
-                  tableId="archives-table"
-                  size="small"
-                  loading={isLoading}
-                  dictionary={getProTableDictionary()}
-                  onChange={({ current, pageSize }) => {
-                    if (currentPage !== current || currentPageSize !== pageSize) {
-                      setCurrentPage(current!);
-                      setcurrentPageSize(pageSize || DEFAULT_PAGE_SIZE);
+              <Spin spinning={isLoading}>
+                {isEmpty(docs) ? (
+                  <Empty
+                    imageType="grid"
+                    description={
+                      searchValue && searchDone
+                        ? intl.get('no.results.found')
+                        : intl.get('screen.archives.search.noresults')
                     }
-                  }}
-                  headerConfig={{
-                    itemCount: {
-                      pageIndex: currentPage,
+                  />
+                ) : (
+                  <ProTable
+                    tableId="archives-table"
+                    size="small"
+                    dictionary={getProTableDictionary()}
+                    onChange={({ current, pageSize }) => {
+                      if (currentPage !== current || currentPageSize !== pageSize) {
+                        setCurrentPage(current!);
+                        setcurrentPageSize(pageSize || DEFAULT_PAGE_SIZE);
+                      }
+                    }}
+                    headerConfig={{
+                      itemCount: {
+                        pageIndex: currentPage,
+                        pageSize: currentPageSize,
+                        total: docs.length,
+                      },
+                      enableColumnSort: true,
+                    }}
+                    pagination={{
+                      current: currentPage,
                       pageSize: currentPageSize,
+                      defaultPageSize: DEFAULT_PAGE_SIZE,
                       total: docs.length,
-                    },
-                    enableColumnSort: true,
-                    enableTableExport: true,
-                  }}
-                  pagination={{
-                    current: currentPage,
-                    pageSize: currentPageSize,
-                    defaultPageSize: DEFAULT_PAGE_SIZE,
-                    total: docs.length,
-                    showSizeChanger: true,
-                    hideOnSinglePage: true,
-                  }}
-                  columns={getAchivesTableColumns()}
-                  dataSource={docs}
-                />
-              )
+                      showSizeChanger: true,
+                      hideOnSinglePage: true,
+                    }}
+                    columns={getAchivesTableColumns()}
+                    dataSource={docs}
+                  />
+                )}
+              </Spin>
             }
           />
         </Space>

@@ -6,6 +6,7 @@ import EnvironmentVariables from 'utils/EnvVariables';
 import { FHIR_GRAPHQL_URL } from 'providers/ApolloProvider';
 import { PatientTaskResults } from 'graphql/patients/models/Patient';
 import { SEARCH_PATIENT_FILES_QUERY } from 'graphql/patients/queries';
+import { downloadFile } from 'utils/helper';
 
 const FHIR_API_URL = EnvironmentVariables.configFor('FHIR_API');
 
@@ -40,8 +41,24 @@ const searchPatientFiles = (searchValue: string) =>
     },
   });
 
+const downloadFileMetadata = (taskId: string, filename: string) =>
+  sendRequestWithRpt<any>({
+    method: 'GET',
+    url: `${FHIR_API_URL}/Task?_id=${taskId}&_include=Task:input_specimen&_include=Task:output-documentreference&_pretty=true`,
+    responseType: 'blob',
+  }).then((response: { data: Blob }) => {
+    downloadFile(response.data, filename);
+  });
+
+const getFileURL = async (fileUrl: string) =>
+  sendRequestWithRpt<{ url: string }>({
+    url: `${fileUrl}?format=json`,
+  });
+
 export const FhirApi = {
   searchPatient,
   searchPractitionerRole,
   searchPatientFiles,
+  downloadFileMetadata,
+  getFileURL,
 };

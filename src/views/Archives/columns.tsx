@@ -1,10 +1,16 @@
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
+import { Space } from 'antd';
 import intl from 'react-intl-universal';
+import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { DocsWithTaskInfo } from '.';
+import DownloadFileButton from './components/DownloadFileButton';
+import MetaDataButton from './components/MetaDataButton';
 
 export const getAchivesTableColumns = (): ProColumnType[] => {
   return [
     {
       key: 'url',
+      dataIndex: 'url',
       title: intl.get('screen.archives.table.column.url'),
       defaultHidden: true,
     },
@@ -30,21 +36,27 @@ export const getAchivesTableColumns = (): ProColumnType[] => {
     },
     {
       key: 'request',
-      dataIndex: "srRef",
+      dataIndex: 'srRef',
       title: intl.get('screen.archives.table.column.request'),
     },
     {
       key: 'sampleldm',
-      dataIndex: ["sample", "value"],
+      dataIndex: ['sample', 'value'],
       title: intl.get('screen.archives.table.column.sampleldm'),
     },
     {
       key: 'analysis',
       title: intl.get('screen.archives.table.column.analysis'),
+      render: (doc: DocsWithTaskInfo) => (
+        <MetaDataButton
+          taskId={doc.taskId}
+          fileName={`${doc.sample.value}_${doc.format}_META.json`}
+        />
+      ),
     },
     {
       key: 'date',
-      dataIndex: 'taskRunDate',
+      dataIndex: 'taskAuthoredOn',
       title: intl.get('screen.archives.table.column.date'),
     },
     {
@@ -57,6 +69,7 @@ export const getAchivesTableColumns = (): ProColumnType[] => {
       key: 'hash',
       dataIndex: 'hash',
       title: intl.get('screen.archives.table.column.hash'),
+      render: (hash: string) => hash ?? TABLE_EMPTY_PLACE_HOLDER,
       defaultHidden: true,
     },
     {
@@ -66,8 +79,14 @@ export const getAchivesTableColumns = (): ProColumnType[] => {
       defaultHidden: true,
     },
     {
-      key: 'action',
-      title: intl.get('screen.archives.table.column.action'),
+      key: 'downloadActions',
+      title: intl.get('screen.archives.table.column.download'),
+      render: (doc: DocsWithTaskInfo) => (
+        <Space size={12}>
+          <DownloadFileButton fileUrl={doc.action.urls.file} displayName="Fichier" />
+          <DownloadFileButton fileUrl={doc.action.urls.index} displayName="Index" />
+        </Space>
+      ),
     },
   ];
 };
