@@ -155,6 +155,7 @@ const Archives = () => {
                     tableId="archives-table"
                     size="small"
                     dictionary={getProTableDictionary()}
+                    bordered
                     onChange={({ current, pageSize }) => {
                       if (currentPage !== current || currentPageSize !== pageSize) {
                         setCurrentPage(current!);

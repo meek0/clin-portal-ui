@@ -211,6 +211,7 @@ const VariantsTab = ({ results, setQueryConfig, queryConfig, sqon, patientId }: 
             sort: formatQuerySortList(sorter),
           })
         }
+        bordered
         headerConfig={{
           itemCount: {
             pageIndex: queryConfig.pageIndex,

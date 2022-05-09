@@ -35,6 +35,7 @@ const PrescriptionsTable = ({ results, loading = false }: OwnProps): React.React
       loading={loading}
       dictionary={getProTableDictionary()}
       showSorterTooltip={false}
+      bordered
       onChange={({ current, pageSize }) => {
         if (currentPage !== current || currentPageSize !== pageSize) {
           setCurrentPage(current!);
