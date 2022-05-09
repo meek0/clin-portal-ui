@@ -40,6 +40,7 @@ export interface PrescriptionResult extends ArrangerNodeData {
 
 export const fields = [
   'status',
+  'laboratory',
   'analysis__code',
   'prescriber__lastNameFirstName',
   'organization__name',

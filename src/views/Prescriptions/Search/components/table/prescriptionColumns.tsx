@@ -10,6 +10,7 @@ import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/cons
 import StatusTag from 'views/Prescriptions/components/StatusTag';
 
 import './tableColumn.scss';
+import { extractOrganizationId } from 'api/fhir/helper';
 
 export const prescriptionsColumns = (): ProColumnType<ITablePrescriptionResult>[] => {
   return [
@@ -69,6 +70,7 @@ export const prescriptionsColumns = (): ProColumnType<ITablePrescriptionResult>[
     {
       name: ['laboratory'],
       summary: false,
+      render: (labo: string) => extractOrganizationId(labo),
       title: intl.get('screen.patientsearch.table.ldm'),
     },
   ].map((c) => ({
