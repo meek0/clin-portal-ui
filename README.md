@@ -1,5 +1,5 @@
 # About
-This project is a frontend web application designed to be used in specific clinical environments specialized in genomics.  
+This project is the frontend web application for _clin_ and is designed to be used in specific environments specialized in genomics.  
 
 
 # Usage
