@@ -14,9 +14,9 @@ import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { getProTableDictionary } from 'utils/translation';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import PositionTag from 'components/uiKit/PositionTag';
+import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 
 import styles from './index.module.scss';
-import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 
 interface OwnProps {
   className?: string;
@@ -26,8 +26,8 @@ interface OwnProps {
 const DEFAULT_PAGE_SIZE = 20;
 
 const makeRows = (donors: ArrangerEdge<DonorsEntity>[]): TTableDonorEntity[] =>
-  donors?.map((donor) => ({
-    key: donor.node.patient_id,
+  donors?.map((donor, index) => ({
+    key: donor.node.patient_id + index,
     id: donor.node.id,
     patient_id: donor.node.patient_id,
     organization_id: donor.node.organization_id,
@@ -144,7 +144,9 @@ const getPatientPanelColumns = (
     dataIndex: 'family_id',
     title: intl.get('screen.variantDetails.patientsTab.familyId'),
     render: (family_id) => (family_id ? family_id : TABLE_EMPTY_PLACE_HOLDER),
-    sorter: (a, b) => a.family_id.localeCompare(b.family_id),
+    sorter: (a, b) =>
+      a.family_id.toLocaleLowerCase().localeCompare(b.family_id.toLocaleLowerCase()),
+    filterMultiple: false,
   },
   {
     key: 'filters',
