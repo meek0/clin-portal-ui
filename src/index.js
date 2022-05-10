@@ -1,10 +1,10 @@
+import "style/themes/clin/dist/antd.css";
+import "style/themes/clin/main.scss";
+import "./index.css";
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-
-import './index.css';
-import 'style/themes/clin/dist/antd.css';
-import 'style/themes/clin/main.scss';
 
 // Import App after the style to make sure styles is apply correctly!
 import App from './App';
