@@ -144,8 +144,7 @@ const getPatientPanelColumns = (
     dataIndex: 'family_id',
     title: intl.get('screen.variantDetails.patientsTab.familyId'),
     render: (family_id) => (family_id ? family_id : TABLE_EMPTY_PLACE_HOLDER),
-    sorter: (a, b) =>
-      a.family_id.toLocaleLowerCase().localeCompare(b.family_id.toLocaleLowerCase()),
+    sorter: (a, b) => a.family_id.localeCompare(b.family_id),
     filterMultiple: false,
   },
   {
