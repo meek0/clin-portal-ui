@@ -27,11 +27,17 @@ export const PATIENTS_QUERY = gql`
               name
             }
             requests {
-              status
-              submitted
-              analysis {
-                code
-                display
+              hits {
+                edges {
+                  node {
+                    status
+                    submitted
+                    analysis {
+                      code
+                      display
+                    }
+                  }
+                }
               }
             }
             practitioner {
@@ -56,13 +62,19 @@ export const PATIENT_ENTITY_QUERY = gql`
             id
             cid
             requests {
-              state
-              status
-              submitted
-              timestamp
-              analysis {
-                code
-                display
+              hits {
+                edges {
+                  node {
+                    state
+                    status
+                    submitted
+                    timestamp
+                    analysis {
+                      code
+                      display
+                    }
+                  }
+                }
               }
             }
           }
