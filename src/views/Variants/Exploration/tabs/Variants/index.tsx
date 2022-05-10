@@ -35,7 +35,6 @@ type OwnProps = {
   setQueryConfig: TQueryConfigCb;
   queryConfig: IQueryConfig;
   patientId: string;
-  sqon?: ISqonGroupFilter;
 };
 
 const findDonorById = (donors: ArrangerResultsTree<DonorsEntity>, patientId: string) => {
@@ -124,7 +123,7 @@ const getVariantColumns = (
     ),
   },
   {
-    key: 'varsome',
+    key: 'acmgrules',
     title: intl.get('screen.patientvariant.results.table.acmgRules'),
     dataIndex: 'varsome',
     className: cx(style.variantTableCell, style.variantTableCellElipsis),
@@ -170,26 +169,28 @@ const getVariantColumns = (
   },
   {
     className: style.userAffectedBtnCell,
-    key: 'drawer',
+    key: 'information',
     title: intl.get('screen.patientvariant.results.table.occ'),
     displayTitle: 'Information',
-    render: (record: VariantEntity) => {
-      return (
-        <UserAffected
-          onClick={() => drawerCb(record)}
-          width="16"
-          height="16"
-          className={style.affectedIcon}
-        />
-      );
-    },
+    render: (record: VariantEntity) => (
+      <UserAffected
+        onClick={() => drawerCb(record)}
+        width="16"
+        height="16"
+        className={style.affectedIcon}
+      />
+    ),
     align: 'center',
   },
 ];
 
-const VariantsTab = ({ results, setQueryConfig, queryConfig, sqon, patientId }: OwnProps) => {
+const VariantsTab = ({ results, setQueryConfig, queryConfig, patientId }: OwnProps) => {
   const [drawerOpened, toggleDrawer] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<VariantEntity | undefined>(undefined);
+  const openDrawer = (record: VariantEntity) => {
+    setSelectedVariant(record);
+    toggleDrawer(true);
+  };
 
   return (
     <>
@@ -197,10 +198,7 @@ const VariantsTab = ({ results, setQueryConfig, queryConfig, sqon, patientId }: 
         tableId="varirant_table"
         className={style.variantSearchTable}
         wrapperClassName={style.variantTabWrapper}
-        columns={getVariantColumns(patientId, (record) => {
-          setSelectedVariant(record);
-          toggleDrawer(true);
-        })}
+        columns={getVariantColumns(patientId, openDrawer)}
         dataSource={results.data.map((i, index) => ({ ...i, key: `${index}` }))}
         loading={results.loading}
         dictionary={getProTableDictionary()}

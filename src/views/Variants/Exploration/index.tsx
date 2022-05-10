@@ -135,7 +135,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
             setQueryConfig={setVariantQueryConfig}
             queryConfig={variantQueryConfig}
             patientId={patientId!}
-            sqon={variantResolvedSqon}
           />
         </Tabs.TabPane>
       </Tabs>
