@@ -21,7 +21,7 @@ const VariantGeneSearch = ({ queryBuilderId, type }: OwnProps) => {
   return (
     <GlobalSearch<Suggestion>
       queryBuilderId={queryBuilderId}
-      field={type === SuggestionType.VARIANTS ? 'locus' : 'genes.symbol'}
+      field={type === SuggestionType.VARIANTS ? 'locus' : 'consequences.symbol'}
       index={INDEXES.VARIANT}
       placeholder={intl.get(`global.search.${type}.placeholder`)}
       emptyDescription={intl.get(`global.search.${type}.emptyText`)}
