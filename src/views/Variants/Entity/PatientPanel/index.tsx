@@ -145,7 +145,6 @@ const getPatientPanelColumns = (
     title: intl.get('screen.variantDetails.patientsTab.familyId'),
     render: (family_id) => (family_id ? family_id : TABLE_EMPTY_PLACE_HOLDER),
     sorter: (a, b) => a.family_id.localeCompare(b.family_id),
-    filterMultiple: false,
   },
   {
     key: 'filters',
