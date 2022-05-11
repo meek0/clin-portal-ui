@@ -15,10 +15,10 @@ body {
   height: 100vh;
 }
 
-*:focus-visible {
-  outline: none;
-}
-
 .simplebar-content {
   height: 100%;
+}
+
+[ant-click-animating-without-extra-node='true']::after{
+  display:none;
 }

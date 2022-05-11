@@ -5,12 +5,12 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@apollo/client": "^3.4.17",
-    "@ferlab/style": "^1.19.1",
-    "@ferlab/ui": "^3.8.0",
+    "@ferlab/style": "^1.20.3",
+    "@ferlab/ui": "^3.9.3",
     "@loadable/component": "^5.15.2",
     "@react-keycloak/web": "^3.4.0",
     "@reduxjs/toolkit": "^1.6.2",
-    "antd": "^4.20.2",
+    "antd": "^4.20.0",
     "axios": "^0.24.0",
     "classnames": "^2.3.1",
     "history": "^4.10.1",
@@ -121,7 +121,7 @@
     },
     "coverageThreshold": {
       "global": {
-          "lines": 80
+        "lines": 80
       }
     }
   }
