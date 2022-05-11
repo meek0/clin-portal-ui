@@ -322,7 +322,7 @@
   "screen.variantDetails.summaryTab.frequencyCardTitle": "Fréquences",
   "screen.variantDetails.summaryTab.clinicalCardTitle": "Associations cliniques",
   "screen.variantDetails.summaryTab.rqdmTitle": "RQDM",
-  "screen.variantDetails.summaryTab.cohortTitle": "Cohortes publicques",
+  "screen.variantDetails.summaryTab.cohortTitle": "Cohortes publiques",
   "screen.variantDetails.summaryTab.patientTable.frequency": "Fréquence",
   "screen.variantDetails.summaryTab.summaryTable.alleleAlt": "Allèle ALT :",
   "screen.variantDetails.summaryTab.summaryTable.alleleRef": "Allèle REF :",
