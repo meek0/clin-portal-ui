@@ -18,4 +18,4 @@ REACT_APP_WEB_ROOT=https://portal-ui.cqgc.hsj.rtss.qc.ca
 # Style
 SASS_PATH=/code/src/style/themes/clin
 
-REACT_APP_SHOW_TRANSLATION_BTN=true
+REACT_APP_SHOW_TRANSLATION_BTN=false
