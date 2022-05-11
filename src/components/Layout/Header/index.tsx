@@ -16,6 +16,7 @@ import { LANG } from 'utils/constants';
 import { getUserFirstName } from 'auth/keycloak';
 
 import styles from './index.module.scss';
+import LineStyleIcon from 'components/icons/LineStyleIcon';
 
 const Header = () => {
   const { keycloak } = useKeycloak();
@@ -53,6 +54,13 @@ const Header = () => {
             to={STATIC_ROUTES.ARCHIVE_EXPLORATION}
             icon={<FileTextOutlined />}
             title={intl.get('layout.main.menu.archives')}
+          />
+          <HeaderLink
+            key="archives"
+            currentPathName={currentPathName}
+            to={STATIC_ROUTES.VARIANT_EXPLORATION}
+            icon={<LineStyleIcon height="14" width="14" />}
+            title={intl.get('layout.main.menu.variants')}
           />
         </nav>
       }

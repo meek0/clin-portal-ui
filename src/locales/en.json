@@ -3,6 +3,7 @@
   "layout.main.menu.home": "Home Page",
   "layout.main.menu.prescriptions": "Prescriptions",
   "layout.main.menu.archives": "Archives",
+  "layout.main.menu.variants": "Variants",
   "chromosome": "Chromosome",
   "components.filterList.collapseAll": "Collapse all",
   "components.filterList.expandAll": "Expand all",
