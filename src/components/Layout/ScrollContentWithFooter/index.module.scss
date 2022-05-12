@@ -12,6 +12,12 @@
   }
 
   .containerWrapper {
+    flex-grow: 1;
+    align-items: start;
     padding: $default-page-content-padding;
+
+    .container {
+      height: 100%;
+    }
   }
 }

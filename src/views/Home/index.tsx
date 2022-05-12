@@ -17,7 +17,7 @@ const Home = () => (
       title: getUserFullName(),
     }}
   >
-    <ScrollContentWithFooter className={styles.homePageWrapper}>
+    <ScrollContentWithFooter className={styles.homePageWrapper} container>
       <div className={styles.contentWrapper}>
         <GridCard
           bordered={false}
@@ -25,12 +25,12 @@ const Home = () => (
           wrapperClassName={styles.contentCardWrapper}
           content={
             <Row gutter={[48, 48]}>
-              <Col xxl={12} className={styles.contentCol}>
+              <Col xxl={24} className={styles.contentCol}>
                 <LimitTo roles={[Roles.Practitioner, Roles.LDM]}>
                   <PrescriptionSearchBox />
                 </LimitTo>
               </Col>
-              <Col xxl={12} className={styles.contentCol}>
+              <Col xxl={24} className={styles.contentCol}>
                 <LimitTo roles={[Roles.LDM]}>
                   <VariantSearchBox />
                 </LimitTo>

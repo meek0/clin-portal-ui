@@ -25,7 +25,7 @@ const ScrollContentWithFooter = ({
         condition={container}
         wrapper={(children) => (
           <div className={styles.containerWrapper}>
-            <Container>{children}</Container>
+            <Container className={styles.container}>{children}</Container>
           </div>
         )}
       >

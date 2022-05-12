@@ -52,30 +52,3 @@
     gap: 48px;
   }
 }
-
-@media screen and (min-width: 1600px), screen and (max-width: 850px) {
-  .searchBox {
-    .searchWrapper {
-      flex-direction: column;
-      gap: 32px;
-    }
-
-    .searchHeader {
-      flex-direction: row;
-    }
-
-    .searchBoxTitle {
-      min-width: unset;
-      width: unset;
-    }
-
-    .searchBoxIcon {
-      font-size: 32px;
-
-      svg {
-        height: 32px;
-        width: 32px;
-      }
-    }
-  }
-}
