@@ -117,9 +117,11 @@ export const getVariantColumns = (
       dataIndex: 'varsome',
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
       render: (varsome: Varsome) =>
-        varsome?.acmg.classifications.hits.edges
-          .map((e: ArrangerEdge<VarsomeClassifications>) => e.node.name)
-          .reduce((prev, curr) => `${prev}, ${curr}`),
+        varsome
+          ? varsome.acmg.classifications.hits.edges
+              .map((e: ArrangerEdge<VarsomeClassifications>) => e.node.name)
+              .reduce((prev, curr) => `${prev}, ${curr}`)
+          : TABLE_EMPTY_PLACE_HOLDER,
     },
     {
       key: 'external_frequencies',

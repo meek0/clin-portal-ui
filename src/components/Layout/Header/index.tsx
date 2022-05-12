@@ -56,7 +56,7 @@ const Header = () => {
             title={intl.get('layout.main.menu.archives')}
           />
           <HeaderLink
-            key="archives"
+            key="variants"
             currentPathName={currentPathName}
             to={STATIC_ROUTES.VARIANT_EXPLORATION}
             icon={<LineStyleIcon height="14" width="14" />}
