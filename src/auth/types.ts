@@ -11,7 +11,9 @@ export type DecodedRpt = {
       rsname: string;
     }[];
   };
+  fhir_organization_id: string[];
 };
+
 export interface IRptPayload {
   decoded: DecodedRpt;
   access_token: string;
