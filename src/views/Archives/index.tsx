@@ -92,6 +92,8 @@ const Archives = () => {
         .then(({ data }) => {
           if (data?.data.taskList) {
             setDocs(extracDocsFromTask(data.data.taskList));
+          } else {
+            setDocs([])
           }
         })
         .finally(() => {

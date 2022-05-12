@@ -343,7 +343,7 @@
   "screen.variantdetails.tab.summary": "Résumé",
   "screen.variantsearch.table.gnomAd": "gnomAD ",
   "screen.variantsearch.title": "Variants",
-  "screen.variantsearch.rqdm.title": "Variants RQDM",
+  "screen.variantsearch.rqdm.title": "Banque de variants du RQDM",
   "screen.archives.metadata.download.loading.msg": "Veuillez patienter pendant que nous générons votre fichier",
   "screen.archives.search.noresults": "Entrez une valeur dans la barre de recherche",
   "screen.archives.search.title": "Archives",
