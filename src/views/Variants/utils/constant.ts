@@ -1,7 +1,7 @@
-import { IQueryConfig } from "utils/searchPageTypes";
+import { IQueryConfig } from 'utils/searchPageTypes';
 
-export const VARIANT_QB_ID = 'patient-variant-repo';
-export const VARIANT_RQDM_QB_ID = 'rqdm-variant-repo'
+export const VARIANT_PATIENT_QB_ID = 'patient-variant-repo';
+export const VARIANT_RQDM_QB_ID = 'rqdm-variant-repo';
 
 export const DEFAULT_PAGE_INDEX = 1;
 export const DEFAULT_PAGE_SIZE = 20;
@@ -18,3 +18,13 @@ export const DEFAULT_QUERY_CONFIG: IQueryConfig = {
   size: DEFAULT_PAGE_SIZE,
   sort: [],
 };
+
+export enum FilterTypes {
+  Rqdm,
+  Variant,
+  Gene,
+  Pathogenicity,
+  Frequency,
+  Occurrence,
+  Patient,
+}

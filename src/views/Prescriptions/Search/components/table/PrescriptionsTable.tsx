@@ -49,10 +49,7 @@ const PrescriptionsTable = ({ results, loading = false }: OwnProps): React.React
           pageSize: currentPageSize,
           total: results?.total || 0,
         },
-        enableColumnSort: true,
-        onColumnSortChange: (columns) => {
-          console.log(columns)
-        }
+        enableColumnSort: true
       }}
       size="small"
       pagination={{

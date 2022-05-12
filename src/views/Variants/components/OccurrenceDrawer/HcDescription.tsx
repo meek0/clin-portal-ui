@@ -9,7 +9,7 @@ import { extractHits } from 'graphql/utils/query';
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
 import intl from 'react-intl-universal';
 import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
-import { VARIANT_QB_ID } from 'views/Variants/utils/constant';
+import { VARIANT_PATIENT_QB_ID } from 'views/Variants/utils/constant';
 
 import style from './index.module.scss';
 
@@ -61,7 +61,7 @@ export const HcComplementDescription = ({ defaultText, hcComplements, variantId 
               className={style.hcCountLink}
               onClick={() =>
                 addQuery({
-                  queryBuilderId: VARIANT_QB_ID,
+                  queryBuilderId: VARIANT_PATIENT_QB_ID,
                   query: generateQuery({
                     newFilters: [
                       generateValueFilter({

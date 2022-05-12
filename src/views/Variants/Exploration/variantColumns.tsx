@@ -19,9 +19,9 @@ import { capitalize } from 'lodash';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import ConsequencesCell from 'views/Variants/components/ConsequencesCell';
 import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
-
-import style from './index.module.scss';
 import UserAffectedIcon from 'components/icons/UserAffectedIcon';
+
+import style from './variantColumns.module.scss';
 
 const findDonorById = (donors: ArrangerResultsTree<DonorsEntity>, patientId: string) => {
   return donors.hits?.edges.find((donor) => donor.node.patient_id === patientId);
@@ -37,8 +37,8 @@ const formatRqdm = (rqdm: frequency_RQDMEntity) => {
 };
 
 export const getVariantColumns = (
-  patientId: string,
-  drawerCb: (record: VariantEntity) => void,
+  patientId?: string,
+  drawerCb?: (record: VariantEntity) => void,
 ): ProColumnType<ITableVariantEntity>[] => {
   let columns: ProColumnType<ITableVariantEntity>[] = [
     {
@@ -169,7 +169,7 @@ export const getVariantColumns = (
         displayTitle: 'Information',
         render: (record: VariantEntity) => (
           <UserAffectedIcon
-            onClick={() => drawerCb(record)}
+            onClick={() => drawerCb && drawerCb(record)}
             width="16"
             height="16"
             className={style.affectedIcon}

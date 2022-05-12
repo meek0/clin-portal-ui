@@ -4,12 +4,12 @@ import { IQueryResults } from 'graphql/models';
 import { formatQuerySortList } from 'utils/helper';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { getProTableDictionary } from 'utils/translation';
-import OccurrenceDrawer from '../../../components/OccurrenceDrawer';
 import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
 import { DEFAULT_PAGE_SIZE } from 'views/Variants/utils/constant';
-import { getVariantColumns } from './columns';
+import OccurrenceDrawer from 'views/Variants/components/OccurrenceDrawer';
 
 import style from './index.module.scss';
+import { getVariantColumns } from 'views/Variants/Exploration/variantColumns';
 
 type OwnProps = {
   results: IQueryResults<VariantEntity[]>;
@@ -29,7 +29,7 @@ const VariantsTab = ({ results, setQueryConfig, queryConfig, patientId }: OwnPro
   return (
     <>
       <ProTable<ITableVariantEntity>
-        tableId="varirant_table"
+        tableId="variant_table"
         className={style.variantSearchTable}
         wrapperClassName={style.variantTabWrapper}
         columns={getVariantColumns(patientId, openDrawer)}

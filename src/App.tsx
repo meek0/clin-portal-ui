@@ -31,7 +31,14 @@ const loadableProps = { fallback: <Spinner size="large" /> };
 const PrescriptionEntity = loadable(() => import('views/Prescriptions/Entity'), loadableProps);
 const PrescriptionSearch = loadable(() => import('views/Prescriptions/Search'), loadableProps);
 const VariantEntity = loadable(() => import('views/Variants/Entity'), loadableProps);
-const VariantExploration = loadable(() => import('views/Variants'), loadableProps);
+const VariantExplorationPatient = loadable(
+  () => import('views/Variants/Exploration/Patient'),
+  loadableProps,
+);
+const VariantExplorationRqdm = loadable(
+  () => import('views/Variants/Exploration/Rqdm'),
+  loadableProps,
+);
 const HomePage = loadable(() => import('views/Home'), loadableProps);
 const Archives = loadable(() => import('views/Archives'), loadableProps);
 
@@ -70,8 +77,19 @@ const App = () => {
                   }>,
                 ) => <PrescriptionEntity prescriptionId={props.match?.params.id!} />}
               </ProtectedRoute>
-              <ProtectedRoute exact path={DYNAMIC_ROUTES.VARIANT_EXPLORATION} layout={PageLayout}>
-                <VariantExploration />
+              <ProtectedRoute
+                exact
+                path={DYNAMIC_ROUTES.VARIANT_EXPLORATION_PATIENT}
+                layout={PageLayout}
+              >
+                <VariantExplorationPatient />
+              </ProtectedRoute>
+              <ProtectedRoute
+                exact
+                path={STATIC_ROUTES.VARIANT_EXPLORATION_RQDM}
+                layout={PageLayout}
+              >
+                <VariantExplorationRqdm />
               </ProtectedRoute>
               <ProtectedRoute exact path={DYNAMIC_ROUTES.VARIANT_ENTITY} layout={PageLayout}>
                 <VariantEntity />

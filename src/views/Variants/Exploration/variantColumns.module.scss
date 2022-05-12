@@ -1,0 +1,30 @@
+@import 'src/style/themes/clin/colors';
+
+.variantTableCellElipsis {
+  max-width: 200px;
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: unset;
+  white-space: nowrap;
+}
+
+.variantTableCell {
+  min-width: 160px;
+}
+
+.dbSnpTableCell {
+  min-width: 140px;
+  width: 12%;
+}
+
+.userAffectedBtnCell {
+  .affectedIcon {
+    display: flex;
+    margin: auto;
+    fill: $blue-8;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

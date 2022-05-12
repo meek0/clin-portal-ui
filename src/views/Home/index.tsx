@@ -35,7 +35,6 @@ const Home = () => (
                   <VariantSearchBox />
                 </LimitTo>
               </Col>
-
             </Row>
           }
         />

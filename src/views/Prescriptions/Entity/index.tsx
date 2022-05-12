@@ -38,7 +38,7 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
           </Button>,
           <Link
             key="variants"
-            to={`/variant-exploration/${prescription?.patientInfo?.cid}/${prescriptionId}`}
+            to={`/variant-exploration/patient/${prescription?.patientInfo?.cid}/${prescriptionId}`}
           >
             <Button type="primary" icon={<LineStyleIcon height="14" width="14" />}>
               {intl.get('screen.prescription.entity.see.variant')}
