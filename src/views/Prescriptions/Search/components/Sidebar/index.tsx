@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import cx from 'classnames';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
-import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import ScrollContent from '@ferlab/ui/core/layout/ScrollContent';
 import { Spin } from 'antd';
 import { Aggregations } from 'graphql/models';
@@ -30,29 +29,25 @@ const PrescriptionSidebar = ({
   isLoading = false,
 }: PrescriptionSidebarProps): React.ReactElement => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
+
   return (
-    <StackLayout
-      center={false}
-      className={cx(styles.siderContainer, collapsed ? styles.collapsed : '')}
-      flexContent
-      vertical
-    >
-      {collapsed ? (
-        <MenuUnfoldOutlined onClick={() => setCollapsed(!collapsed)} />
-      ) : (
-        <MenuFoldOutlined onClick={() => setCollapsed(!collapsed)} />
-      )}
-      <ScrollContent className={cx(styles.scrollWrapper, collapsed ? styles.collapsed : '')}>
-        <Spin className={styles.loader} spinning={isLoading}>
+    <Spin className={styles.loader} spinning={isLoading}>
+      <div className={cx(styles.siderContainer, collapsed ? styles.collapsed : '')}>
+        {collapsed ? (
+          <MenuUnfoldOutlined onClick={() => setCollapsed(!collapsed)} />
+        ) : (
+          <MenuFoldOutlined onClick={() => setCollapsed(!collapsed)} />
+        )}
+        <ScrollContent className={cx(styles.scrollWrapper, collapsed ? styles.collapsed : '')}>
           <SidebarFilters
             queryBuilderId={queryBuilderId}
             aggregations={aggregations}
             extendedMapping={extendedMapping}
             filters={filters}
           />
-        </Spin>
-      </ScrollContent>
-    </StackLayout>
+        </ScrollContent>
+      </div>
+    </Spin>
   );
 };
 

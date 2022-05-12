@@ -24,7 +24,6 @@ const filterGroups: {
     defaultOpenFacets: ['panels'],
     groups: [
       {
-        title: intl.get('screen.patientvariant.filter.grouptitle.genepanel'),
         facets: ['panels'],
       },
     ],
@@ -59,9 +58,11 @@ const filterGroups: {
     ],
     groups: [
       {
+        facets: ['consequences__biotype', 'gene_external_reference'],
+      },
+      {
+        title: intl.get('screen.patientvariant.filter.grouptitle.genepanel'),
         facets: [
-          'consequences__biotype',
-          'gene_external_reference',
           'genes__hpo__hpo_term_label',
           'genes__orphanet__panel',
           'genes__omim__name',

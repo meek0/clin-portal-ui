@@ -29,6 +29,7 @@ $sider-width: 320px;
   & > .scrollWrapper {
     margin-top: 12px;
     padding-bottom: 14px;
+    min-height: 50px;
     width: 100%;
     min-width: calc(#{$sider-width} - (2 * #{$sider-padding}));
     opacity: 1;
@@ -39,10 +40,14 @@ $sider-width: 320px;
       opacity: 0;
       margin-left: calc(-1 * #{$sider-width});
     }
+  }
 
-    .loader {
-      min-height: 50px;
-    }
+  .loader {
+    min-height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   & :global(.ant-card) {

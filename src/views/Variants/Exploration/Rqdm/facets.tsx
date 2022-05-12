@@ -43,7 +43,7 @@ const filterGroups: {
           'start',
           'donors__zygosity',
           'donors__transmission',
-          'donors__is_possibly_hc',
+          'donors__is_hc',
         ],
       },
     ],
@@ -58,9 +58,12 @@ const filterGroups: {
     ],
     groups: [
       {
+        facets: ['consequences__biotype', 'gene_external_reference'],
+      },
+      {
+        title: intl.get('screen.patientvariant.filter.grouptitle.genepanel'),
         facets: [
-          'consequences__biotype',
-          'gene_external_reference',
+          'panels',
           'genes__hpo__hpo_term_label',
           'genes__orphanet__panel',
           'genes__omim__name',
