@@ -13,7 +13,6 @@ import {
   DEFAULT_PAGE_INDEX,
   DEFAULT_QUERY_CONFIG,
   VARIANT_QB_ID,
-  VARIANT_RQDM_QB_ID,
 } from 'views/Variants/utils/constant';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { useVariants } from 'graphql/variants/actions';
@@ -34,8 +33,7 @@ type OwnProps = {
 };
 
 const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) => {
-  const QB_ID = patientId ? VARIANT_QB_ID : VARIANT_RQDM_QB_ID;
-  const { queryList, activeQuery } = useQueryBuilderState(QB_ID);
+  const { queryList, activeQuery } = useQueryBuilderState(VARIANT_QB_ID);
   const [selectedFilterContent, setSelectedFilterContent] = useState<ReactElement | undefined>(
     undefined,
   );
@@ -82,7 +80,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
   return (
     <Space direction="vertical" size={24} className={styles.variantPageContent}>
       <QueryBuilder
-        id={QB_ID}
+        id={VARIANT_QB_ID}
         className="variant-repo__query-builder"
         headerConfig={{
           showHeader: true,
@@ -98,7 +96,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
             const field = filter.content.field;
             setSelectedFilterContent(
               <GenericFilters
-                queryBuilderId={QB_ID}
+                queryBuilderId={VARIANT_QB_ID}
                 index={INDEXES.VARIANT}
                 field={dotToUnderscore(field)}
                 sqon={variantResolvedSqon}
