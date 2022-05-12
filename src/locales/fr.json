@@ -347,7 +347,7 @@
   "screen.archives.metadata.download.loading.msg": "Veuillez patienter pendant que nous générons votre fichier",
   "screen.archives.search.noresults": "Entrez une valeur dans la barre de recherche",
   "screen.archives.search.title": "Archives",
-  "screen.archives.search.bar.placeholder": "Id de requête, ID d'analyse, ID d'exécution, ID du patient, ID d'échantillon",
+  "screen.archives.search.bar.placeholder": "Id de requête, ID du patient",
   "screen.archives.table.column.url": "URL",
   "screen.archives.table.column.filename": "Nom du fichier",
   "screen.archives.table.column.type": "Type",

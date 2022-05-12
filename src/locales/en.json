@@ -346,7 +346,7 @@
   "screen.archives.metadata.download.loading.msg": "Please wait while we generate your file",
   "screen.archives.search.noresults": "Enter a value in the search bar",
   "screen.archives.search.title": "Archives",
-  "screen.archives.search.bar.placeholder": "Request ID, Analysis ID, Run ID, Patient ID, Sample ID",
+  "screen.archives.search.bar.placeholder": "Request ID, Patient ID",
   "screen.archives.table.column.url": "URL",
   "screen.archives.table.column.filename": "File Name",
   "screen.archives.table.column.type": "Type",
