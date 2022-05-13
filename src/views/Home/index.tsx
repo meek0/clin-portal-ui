@@ -31,7 +31,7 @@ const Home = () => (
                 </LimitTo>
               </Col>
               <Col xxl={24} className={styles.contentCol}>
-                <LimitTo roles={[Roles.LDM]}>
+                <LimitTo roles={[Roles.Practitioner, Roles.LDM]}>
                   <VariantSearchBox />
                 </LimitTo>
               </Col>

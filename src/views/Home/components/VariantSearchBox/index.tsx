@@ -2,15 +2,19 @@ import { ArrangerApi } from 'api/arranger';
 import { Suggestion, SuggestionType } from 'api/arranger/models';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import OptionItem from 'views/Variants/components/VariantGeneSearch/OptionItem';
 import SearchBox from '../SearchBox';
 import intl from 'react-intl-universal';
+import { isEmpty } from 'lodash';
 
 import styles from './index.module.scss';
 
 const VariantSearchBox = () => {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const history = useHistory();
+
+  const formatUrl = (locus: string) => `/variant/entity/${locus}`;
 
   return (
     <SearchBox
@@ -25,12 +29,14 @@ const VariantSearchBox = () => {
             setSuggestions(data?.suggestions ?? []);
           }
         },
+        onKeyDown: (e) => {
+          if (e.code.toLowerCase() === 'enter' && !isEmpty(suggestions)) {
+            history.push(formatUrl(suggestions[0].locus!));
+          }
+        },
         options: suggestions.map((suggestion) => ({
           label: (
-            <Link
-              className={styles.variantSearchBoxLink}
-              to={`/variant/entity/${suggestion.locus}`}
-            >
+            <Link className={styles.variantSearchBoxLink} to={formatUrl(suggestion.locus!)}>
               <OptionItem
                 type={SuggestionType.VARIANTS}
                 suggestion={suggestion}

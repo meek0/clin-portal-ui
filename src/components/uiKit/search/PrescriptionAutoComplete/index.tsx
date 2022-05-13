@@ -9,11 +9,12 @@ import {
 } from 'graphql/prescriptions/models/Prescription';
 import { PRESCRIPTIONS_SEARCH_QUERY } from 'graphql/prescriptions/queries';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import OptionItem from './OptionItem';
 import intl from 'react-intl-universal';
 import { SearchOutlined } from '@ant-design/icons';
 import cx from 'classnames';
+import { isEmpty } from 'lodash';
 
 import styles from './index.module.scss';
 
@@ -40,6 +41,9 @@ const PrescriptionAutoComplete = (
   props: Omit<AutoCompleteProps, 'onChange' | 'options' | 'children'>,
 ) => {
   const [results, setResults] = useState<PrescriptionResult[]>([]);
+  const history = useHistory();
+
+  const formatUrl = (cid: string) => `/prescription/entity/${cid}`;
 
   return (
     <AutoComplete
@@ -56,12 +60,14 @@ const PrescriptionAutoComplete = (
           setResults([]);
         }
       }}
+      onKeyDown={(e) => {
+        if (e.code.toLowerCase() === 'enter' && !isEmpty(results)) {
+          history.push(formatUrl(results[0].cid!));
+        }
+      }}
       options={results.map((prescription) => ({
         label: (
-          <Link
-            className={styles.prescriptionOptionLink}
-            to={`/prescription/entity/${prescription.cid}`}
-          >
+          <Link className={styles.prescriptionOptionLink} to={formatUrl(prescription.cid!)}>
             <OptionItem data={prescription} />
           </Link>
         ),
