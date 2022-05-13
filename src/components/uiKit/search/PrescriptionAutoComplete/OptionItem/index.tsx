@@ -10,7 +10,7 @@ interface OwnProps {
 
 const OptionItem = ({ data }: OwnProps) => (
   <Space direction="vertical" size={0} className={styles.prescriptionOptionItem}>
-    <Typography.Text strong>{data.analysis.display}</Typography.Text>
+    <Typography.Text strong>{`${data.analysis.display} (${data.analysis.code})`}</Typography.Text>
     <Descriptions size="small" column={1}>
       <Descriptions.Item label={'Prescription'}>
         <Typography.Text type="secondary">{`${data.cid} (${formatDate(

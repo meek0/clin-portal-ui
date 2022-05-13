@@ -31,7 +31,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => (
             />
           </Descriptions.Item>
           <Descriptions.Item label="Analyse demandée">
-            <Tag color="geekblue">{prescription?.analysis?.display}</Tag>
+            <Tag color="geekblue">{`${prescription?.analysis.display} (${prescription?.analysis.code})`}</Tag>
           </Descriptions.Item>
           <Descriptions.Item label="Panel en réflexe">
             {prescription?.analysis?.display}

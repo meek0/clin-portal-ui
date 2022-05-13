@@ -32,7 +32,7 @@ const VariantExplorationPatient = () => {
             </Space>
           </Tag>,
           <Tag color="geekblue" key="analsysis-name">
-            {prescription?.analysis.display}
+            {`${prescription?.analysis.display} (${prescription?.analysis.code})`}
           </Tag>,
           getPositionTag(prescription),
         ],
