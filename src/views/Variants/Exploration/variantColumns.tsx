@@ -59,7 +59,8 @@ export const getVariantColumns = (
       key: 'variant_class',
       title: intl.get('screen.patientvariant.results.table.type'),
       dataIndex: 'variant_class',
-      render: (variant: string) => intl.get(variant).defaultMessage(capitalize(variant)),
+      render: (variant: string) =>
+        variant ? intl.get(variant).defaultMessage(capitalize(variant)) : TABLE_EMPTY_PLACE_HOLDER,
     },
     {
       key: 'rsnumber',
