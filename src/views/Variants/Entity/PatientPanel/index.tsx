@@ -15,6 +15,8 @@ import { getProTableDictionary } from 'utils/translation';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import PositionTag from 'components/uiKit/PositionTag';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
+import { useGlobals } from 'store/global';
+import { GetAnalysisNameByCode } from 'store/global/types';
 
 import styles from './index.module.scss';
 
@@ -46,7 +48,10 @@ const makeRows = (donors: ArrangerEdge<DonorsEntity>[]): TTableDonorEntity[] =>
     affected_status: donor.node.affected_status,
   }));
 
-const findAllAnalysis = (donors: ArrangerEdge<DonorsEntity>[]) => {
+const findAllAnalysis = (
+  donors: ArrangerEdge<DonorsEntity>[],
+  getAnalysisNameByCode: GetAnalysisNameByCode,
+) => {
   let analysisList: ColumnFilterItem[] = [];
   donors.forEach((donor) => {
     if (
@@ -55,7 +60,11 @@ const findAllAnalysis = (donors: ArrangerEdge<DonorsEntity>[]) => {
     ) {
       analysisList.push({
         value: donor.node.analysis_code,
-        text: donor.node.analysis_display_name!,
+        text: getAnalysisNameByCode(
+          donor.node.analysis_code,
+          true,
+          donor.node.analysis_display_name,
+        ),
       });
     }
   });
@@ -64,6 +73,7 @@ const findAllAnalysis = (donors: ArrangerEdge<DonorsEntity>[]) => {
 
 const getPatientPanelColumns = (
   donorsHits: ArrangerHits<DonorsEntity>,
+  getAnalysisNameByCode: GetAnalysisNameByCode,
 ): ProColumnType<TTableDonorEntity>[] => [
   {
     key: 'patient_id',
@@ -80,7 +90,7 @@ const getPatientPanelColumns = (
       ) : (
         data.analysis_code
       ),
-    filters: findAllAnalysis(donorsHits?.edges || []),
+    filters: findAllAnalysis(donorsHits?.edges || [], getAnalysisNameByCode),
     onFilter: (value, record: DonorsEntity) => value === record.analysis_code,
   },
   {
@@ -190,6 +200,7 @@ const getPatientPanelColumns = (
 ];
 
 const PatientPanel = ({ locus, className = '' }: OwnProps) => {
+  const { getAnalysisNameByCode } = useGlobals();
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageSize, setCurrentPageSize] = useState(DEFAULT_PAGE_SIZE);
   const { loading, data, error } = useTabPatientData(locus);
@@ -207,7 +218,7 @@ const PatientPanel = ({ locus, className = '' }: OwnProps) => {
         content={
           <ProTable<TTableDonorEntity>
             tableId="patient_panel_table"
-            columns={getPatientPanelColumns(donorsHits)}
+            columns={getPatientPanelColumns(donorsHits, getAnalysisNameByCode)}
             dataSource={dataSource ?? []}
             loading={loading}
             dictionary={getProTableDictionary()}

@@ -12,8 +12,10 @@ import { getMenuItems } from './facets';
 import VariantSearchLayout from '../components/VariantSearchLayout';
 import { wrapSqonWithDonorIdAndSrId } from 'views/Variants/utils/helper';
 import PageContent from './PageContent';
+import { useGlobals } from 'store/global';
 
 const VariantExplorationPatient = () => {
+  const { getAnalysisNameByCode } = useGlobals();
   const { patientid, prescriptionid } = useParams<{ patientid: string; prescriptionid: string }>();
   const variantMappingResults = useGetExtendedMappings(INDEXES.VARIANT);
   const { prescription, loading } = usePrescriptionEntity(prescriptionid);
@@ -31,9 +33,17 @@ const VariantExplorationPatient = () => {
               {`Patient ID : ${patientid}`} | {`Prescription ID : ${prescriptionid}`}
             </Space>
           </Tag>,
-          <Tag color="geekblue" key="analsysis-name">
-            {`${prescription?.analysis.display} (${prescription?.analysis.code})`}
-          </Tag>,
+          <div key="analsysis-name">
+            {prescription && (
+              <Tag color="geekblue">
+                {getAnalysisNameByCode(
+                  prescription.analysis.code,
+                  true,
+                  prescription.analysis.display,
+                )}
+              </Tag>
+            )}
+          </div>,
           getPositionTag(prescription),
         ],
         loading: loading,

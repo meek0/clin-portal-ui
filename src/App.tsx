@@ -26,6 +26,7 @@ import intl from 'react-intl-universal';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchPractitionerRole } from 'store/user/thunks';
+import { fetchFhirServiceRequestCodes } from 'store/global/thunks';
 
 const loadableProps = { fallback: <Spinner size="large" /> };
 const PrescriptionEntity = loadable(() => import('views/Prescriptions/Entity'), loadableProps);
@@ -51,6 +52,7 @@ const App = () => {
   useEffect(() => {
     if (keycloakIsReady && keycloak.authenticated) {
       dispatch(fetchPractitionerRole());
+      dispatch(fetchFhirServiceRequestCodes());
     }
     // eslint-disable-next-line
   }, [keycloakIsReady, keycloak]);
