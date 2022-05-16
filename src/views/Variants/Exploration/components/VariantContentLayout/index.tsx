@@ -15,6 +15,7 @@ import { ArrangerApi } from 'api/arranger';
 import { GET_VARIANT_COUNT } from 'graphql/variants/queries';
 
 import styles from './index.module.scss';
+import { useGlobals } from 'store/global';
 
 interface OwnProps {
   queryBuilderId: string;
@@ -33,6 +34,7 @@ const VariantContentLayout = ({
   getVariantResolvedSqon,
   children,
 }: OwnProps) => {
+  const { getAnalysisNameByCode } = useGlobals();
   const [selectedFilterContent, setSelectedFilterContent] = useState<
     React.ReactElement | undefined
   >(undefined);
@@ -82,7 +84,7 @@ const VariantContentLayout = ({
         IconTotal={<LineStyleIcon width="18" height="18" />}
         currentQuery={isEmptySqon(activeQuery) ? {} : activeQuery}
         total={variantResults.total}
-        dictionary={getQueryBuilderDictionary(facetTransResolver)}
+        dictionary={getQueryBuilderDictionary(facetTransResolver, getAnalysisNameByCode)}
         getResolvedQueryForCount={(sqon) => getVariantResolvedSqon(sqon)}
         fetchQueryCount={async (sqon) => {
           const { data } = await ArrangerApi.graphqlRequest<{ data: IVariantResultTree }>({
