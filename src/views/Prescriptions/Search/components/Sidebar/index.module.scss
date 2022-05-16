@@ -7,7 +7,6 @@ $sider-width: 320px;
 .siderContainer {
   padding: $sider-padding;
   padding-bottom: 0;
-  overflow: visible !important;
   height: calc(100vh - #{$main-header-height} - #{$page-header-height});
   border-right: 1px solid $gray-5;
   max-width: $sider-width;
@@ -31,6 +30,7 @@ $sider-width: 320px;
     padding-bottom: 14px;
     min-height: 50px;
     width: 100%;
+    height: calc(100% - (2 * #{$sider-padding}) - 8px);
     min-width: calc(#{$sider-width} - (2 * #{$sider-padding}));
     opacity: 1;
     margin-left: 0px;

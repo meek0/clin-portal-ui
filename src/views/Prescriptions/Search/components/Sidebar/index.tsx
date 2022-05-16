@@ -31,23 +31,21 @@ const PrescriptionSidebar = ({
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   return (
-    <Spin className={styles.loader} spinning={isLoading}>
-      <div className={cx(styles.siderContainer, collapsed ? styles.collapsed : '')}>
-        {collapsed ? (
-          <MenuUnfoldOutlined onClick={() => setCollapsed(!collapsed)} />
-        ) : (
-          <MenuFoldOutlined onClick={() => setCollapsed(!collapsed)} />
-        )}
-        <ScrollContent className={cx(styles.scrollWrapper, collapsed ? styles.collapsed : '')}>
-          <SidebarFilters
-            queryBuilderId={queryBuilderId}
-            aggregations={aggregations}
-            extendedMapping={extendedMapping}
-            filters={filters}
-          />
-        </ScrollContent>
-      </div>
-    </Spin>
+    <div className={cx(styles.siderContainer, collapsed ? styles.collapsed : '')}>
+      {collapsed ? (
+        <MenuUnfoldOutlined onClick={() => setCollapsed(!collapsed)} />
+      ) : (
+        <MenuFoldOutlined onClick={() => setCollapsed(!collapsed)} />
+      )}
+      <ScrollContent className={cx(styles.scrollWrapper, collapsed ? styles.collapsed : '')}>
+        <SidebarFilters
+          queryBuilderId={queryBuilderId}
+          aggregations={aggregations}
+          extendedMapping={extendedMapping}
+          filters={filters}
+        />
+      </ScrollContent>
+    </div>
   );
 };
 
