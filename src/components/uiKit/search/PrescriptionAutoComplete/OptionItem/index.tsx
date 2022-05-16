@@ -1,4 +1,5 @@
 import { Descriptions, Space, Typography } from 'antd';
+import { extractOrganizationId } from 'api/fhir/helper';
 import { PrescriptionResult } from 'graphql/prescriptions/models/Prescription';
 import { formatDate } from 'utils/date';
 
@@ -24,7 +25,7 @@ const OptionItem = ({ data }: OwnProps) => (
         <Typography.Text type="secondary">{data.mrn}</Typography.Text>
       </Descriptions.Item>
       <Descriptions.Item label={'LDM'}>
-        <Typography.Text type="secondary">{data.laboratory}</Typography.Text>
+        <Typography.Text type="secondary">{extractOrganizationId(data.laboratory)}</Typography.Text>
       </Descriptions.Item>
     </Descriptions>
   </Space>
