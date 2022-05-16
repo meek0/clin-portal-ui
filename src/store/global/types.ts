@@ -14,4 +14,19 @@ export type initialState = {
   message: MessageArgsPropsCustom | undefined;
   messagesToDestroy: string[];
   isFetchingStats: boolean;
+  // Fhir
+  analysisCodeMapping: AnalysisCodeMapping;
+};
+
+export type GetAnalysisNameByCode = (
+  code: string,
+  withCode: boolean,
+  defaultValue?: string,
+) => string;
+
+export type AnalysisCodeMapping = Record<string, FhirAnalysisCodeMap>;
+
+export type FhirAnalysisCodeMap = {
+  displayName: string;
+  displayNameWithCode: string;
 };

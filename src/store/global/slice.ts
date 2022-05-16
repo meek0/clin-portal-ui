@@ -4,6 +4,7 @@ import { LANG } from 'utils/constants';
 import intl from 'react-intl-universal';
 import locales from 'locales';
 import { ArgsProps as NotificationArgsProps } from 'antd/lib/notification';
+import { fetchFhirServiceRequestCodes } from './thunks';
 
 export const GlobalState: initialState = {
   lang: LANG.FR,
@@ -11,6 +12,8 @@ export const GlobalState: initialState = {
   message: undefined,
   messagesToDestroy: [],
   isFetchingStats: false,
+  //
+  analysisCodeMapping: {},
 };
 
 const globalSlice = createSlice({
@@ -49,6 +52,11 @@ const globalSlice = createSlice({
       ...state,
       notification: undefined,
     }),
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchFhirServiceRequestCodes.fulfilled, (state, action) => {
+      state.analysisCodeMapping = action.payload;
+    });
   },
 });
 

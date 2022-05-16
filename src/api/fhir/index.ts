@@ -1,6 +1,6 @@
 import { sendRequestWithRpt } from 'api';
 import { Rpt } from 'auth/types';
-import { Bundle, Patient, PractitionerRole } from './models';
+import { Bundle, Patient, PractitionerRole, ServiceRequestCode } from './models';
 import { getFhirPractitionerId } from 'auth/keycloak';
 import EnvironmentVariables from 'utils/EnvVariables';
 import { FHIR_GRAPHQL_URL } from 'providers/ApolloProvider';
@@ -50,6 +50,12 @@ const downloadFileMetadata = (taskId: string, filename: string) =>
     downloadFile(response.data, filename);
   });
 
+const fetchServiceRequestCodes = () =>
+  sendRequestWithRpt<ServiceRequestCode>({
+    method: 'GET',
+    url: `${FHIR_API_URL}/CodeSystem/service-request-code`,
+  });
+
 const getFileURL = async (fileUrl: string) =>
   sendRequestWithRpt<{ url: string }>({
     url: `${fileUrl}?format=json`,
@@ -60,5 +66,6 @@ export const FhirApi = {
   searchPractitionerRole,
   searchPatientFiles,
   downloadFileMetadata,
+  fetchServiceRequestCodes,
   getFileURL,
 };

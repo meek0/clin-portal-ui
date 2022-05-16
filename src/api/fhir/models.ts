@@ -167,6 +167,19 @@ export interface FamilyMemberHistory {
   note?: Note[];
 }
 
+export interface ServiceRequestCodeConcept {
+  code: string;
+  display: string;
+  designation: {
+    language: 'fr' | 'en';
+    value: string;
+  };
+}
+
+export interface ServiceRequestCode {
+  concept: ServiceRequestCodeConcept[];
+}
+
 export interface ServiceRequest {
   id?: string;
   resourceType: ResourceType;
