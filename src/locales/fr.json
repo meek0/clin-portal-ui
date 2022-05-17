@@ -370,8 +370,8 @@
   "global.search.genes.emptyText": "Aucun gene trouvé",
   "global.search.genes.tooltip": "Entrer un Symbole de gène, Alias de gène ou Ensembl ID",
   "home.variant.search.box.title": "Rechercher un variant",
-  "home.variant.search.box.placeholder": "BRAF, 10-100063679-T-C, rs341",
-  "home.variant.search.box.label": "Rechercher par locus, dbSNP, Clinvar, Ensembl, refseq",
+  "home.variant.search.box.placeholder": "10-100063679-T-C, rs341",
+  "home.variant.search.box.label": "Rechercher par locus, dbSNP, Clinvar",
   "home.prescription.search.box.title": "Rechercher une prescription",
   "home.prescription.search.box.placeholder": "SR000000, RQ00000, 12345, AAAA 0000 0000, Roy",
   "home.prescription.search.box.label": "Rechercher par numéro de prescription, requête, dossier, RAMQ, nom du patient"
