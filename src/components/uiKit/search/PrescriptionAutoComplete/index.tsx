@@ -4,8 +4,8 @@ import { AutoComplete, AutoCompleteProps, Input } from 'antd';
 import { ArrangerApi } from 'api/arranger';
 import { hydrateResults } from 'graphql/models';
 import {
-  IParticipantResultTree,
-  PrescriptionResult,
+  AnalysisResult,
+  IAnalysisResultTree,
 } from 'graphql/prescriptions/models/Prescription';
 import { PRESCRIPTIONS_SEARCH_QUERY } from 'graphql/prescriptions/queries';
 import { useState } from 'react';
@@ -21,15 +21,7 @@ import styles from './index.module.scss';
 const generateSearchFilter = (search: string) =>
   generateQuery({
     operator: BooleanOperators.or,
-    newFilters: [
-      'cid',
-      'mrn',
-      'patientInfo.cid',
-      'patientInfo.ramq',
-      'patientInfo.lastNameFirstName',
-      'patientInfo.firstName',
-      'patientInfo.lastName',
-    ].map((key) =>
+    newFilters: ['id', 'patient_mrn', 'patient_id'].map((key) =>
       generateValueFilter({
         field: key,
         value: [`${search}*`],
@@ -40,7 +32,7 @@ const generateSearchFilter = (search: string) =>
 const PrescriptionAutoComplete = (
   props: Omit<AutoCompleteProps, 'onChange' | 'options' | 'children'>,
 ) => {
-  const [results, setResults] = useState<PrescriptionResult[]>([]);
+  const [results, setResults] = useState<AnalysisResult[]>([]);
   const history = useHistory();
 
   const formatUrl = (cid: string) => `/prescription/entity/${cid}`;
@@ -51,11 +43,11 @@ const PrescriptionAutoComplete = (
       className={cx(styles.prescriptionAutoComplete, props.className)}
       onSearch={async (value) => {
         if (value) {
-          const { data } = await ArrangerApi.graphqlRequest<{ data: IParticipantResultTree }>({
+          const { data } = await ArrangerApi.graphqlRequest<{ data: IAnalysisResultTree }>({
             query: PRESCRIPTIONS_SEARCH_QUERY.loc?.source.body,
             variables: { sqon: generateSearchFilter(value) },
           });
-          setResults(hydrateResults(data?.data.Prescriptions?.hits?.edges ?? []));
+          setResults(hydrateResults(data?.data.Analyses?.hits?.edges ?? []));
         } else {
           setResults([]);
         }

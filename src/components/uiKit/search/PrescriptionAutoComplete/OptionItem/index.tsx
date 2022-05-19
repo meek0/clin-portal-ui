@@ -1,34 +1,42 @@
 import { Descriptions, Space, Typography } from 'antd';
-import { extractOrganizationId } from 'api/fhir/helper';
-import { PrescriptionResult } from 'graphql/prescriptions/models/Prescription';
+import { AnalysisResult } from 'graphql/prescriptions/models/Prescription';
+import { useGlobals } from 'store/global';
 import { formatDate } from 'utils/date';
 
 import styles from './index.module.scss';
 
 interface OwnProps {
-  data: PrescriptionResult;
+  data: AnalysisResult;
 }
 
-const OptionItem = ({ data }: OwnProps) => (
-  <Space direction="vertical" size={0} className={styles.prescriptionOptionItem}>
-    <Typography.Text strong>{`${data.analysis.display} (${data.analysis.code})`}</Typography.Text>
-    <Descriptions size="small" column={1}>
-      <Descriptions.Item label={'Prescription'}>
-        <Typography.Text type="secondary">{`${data.cid} (${formatDate(
-          data.timestamp,
-        )})`}</Typography.Text>
-      </Descriptions.Item>
-      <Descriptions.Item label={'Patient'}>
-        <Typography.Text type="secondary">{data.patientInfo.cid}</Typography.Text>
-      </Descriptions.Item>
-      <Descriptions.Item label={'Dossier'}>
-        <Typography.Text type="secondary">{data.mrn}</Typography.Text>
-      </Descriptions.Item>
-      <Descriptions.Item label={'LDM'}>
-        <Typography.Text type="secondary">{extractOrganizationId(data.laboratory)}</Typography.Text>
-      </Descriptions.Item>
-    </Descriptions>
-  </Space>
-);
+const OptionItem = ({ data }: OwnProps) => {
+  const { getAnalysisNameByCode } = useGlobals();
+
+  console.log(getAnalysisNameByCode(data.analysis_code, true));
+
+  return (
+    <Space direction="vertical" size={0} className={styles.prescriptionOptionItem}>
+      <Typography.Text strong>
+        {getAnalysisNameByCode(data.analysis_code, true, data.analysis_code)}
+      </Typography.Text>
+      <Descriptions size="small" column={1}>
+        <Descriptions.Item label={'Prescription'}>
+          <Typography.Text type="secondary">{`${data.prescription_id} (${formatDate(
+            data.timestamp,
+          )})`}</Typography.Text>
+        </Descriptions.Item>
+        <Descriptions.Item label={'Patient'}>
+          <Typography.Text type="secondary">{data.patient_id}</Typography.Text>
+        </Descriptions.Item>
+        <Descriptions.Item label={'Dossier'}>
+          <Typography.Text type="secondary">{data.patient_mrn}</Typography.Text>
+        </Descriptions.Item>
+        <Descriptions.Item label={'LDM'}>
+          <Typography.Text type="secondary">{data.ldm}</Typography.Text>
+        </Descriptions.Item>
+      </Descriptions>
+    </Space>
+  );
+};
 
 export default OptionItem;

@@ -43,6 +43,11 @@
   "filter.suggester.search.variants": "Recherche par variant",
   "filter.suggester.search.variants.tooltip": "Entrer un Locus de Variant, Symbol de gène, Alias de gène, Gène AA Change, dbSNP ID, Clinvar ID, Ensembl ID, refseq ID",
   "filters.group.analysis.code": "Analyse",
+  "filters.group.analysis_code": "Analyse",
+  "filters.group.sequencing_requests.status": "Statut des requêtes",
+  "filters.group.prenatal": "Prénatal",
+  "filters.group.ldm": "Laboratoire (LDM)",
+  "filters.group.ep": "Établissement prescripteur",
   "filters.group.analysis.display": "Analyse",
   "filters.group.approver.lastNameFirstName": "Médecin approbateur",
   "filters.group.chromosome": "Chromosome",
@@ -95,6 +100,7 @@
   "filters.group.prescriber.lastNameFirstName": "Prescripteur / Responsable",
   "filters.group.start": "Position",
   "filters.group.state": "Statut",
+  "filters.group.status": "Statut",
   "filters.group.variant_class": "Type de variant",
   "filters.options.variant_class.deletion": "Délétion",
   "filters.options.variant_class.substitution": "Substitution",
@@ -206,7 +212,7 @@
   "screen.patientsearch.table.position": "Position",
   "screen.patientsearch.table.ldm": "LDM",
   "screen.patientsearch.table.date": "Date",
-  "screen.patientsearch.table.dateModification": "Date de modification",
+  "screen.patientsearch.table.createdOn": "Créée le",
   "screen.patientsearch.table.dob": "Date de naissance",
   "screen.patientsearch.table.establishment": "Établissement",
   "screen.patientsearch.table.gender": "Sexe",
@@ -373,6 +379,6 @@
   "home.variant.search.box.placeholder": "10-100063679-T-C, rs341",
   "home.variant.search.box.label": "Rechercher par locus, dbSNP, Clinvar",
   "home.prescription.search.box.title": "Rechercher une prescription",
-  "home.prescription.search.box.placeholder": "SR000000, RQ00000, 12345, AAAA 0000 0000, Roy",
-  "home.prescription.search.box.label": "Rechercher par numéro de prescription, requête, dossier, RAMQ, nom du patient"
+  "home.prescription.search.box.placeholder": "SR000000, RQ00000, 12345",
+  "home.prescription.search.box.label": "Rechercher par numéro de prescription, requête, dossier"
 }

@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { prescriptionsColumns } from './prescriptionColumns';
-import {
-  ITablePrescriptionResult,
-  PrescriptionResult,
-} from 'graphql/prescriptions/models/Prescription';
+import { AnalysisResult, ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { GqlResults } from 'graphql/models';
 import { getProTableDictionary } from 'utils/translation';
-import { scrollToTop } from 'utils/helper';
+import { formatQuerySortList, scrollToTop } from 'utils/helper';
 import { PRESCRIPTION_SCROLL_ID } from 'views/Prescriptions/Search/utils/contstant';
+import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
+import { DEFAULT_PAGE_SIZE } from 'views/Prescriptions/Search';
 
-import styles from "./PrescriptionTable.module.scss";
+import styles from './PrescriptionTable.module.scss';
 
 interface OwnProps {
-  results: GqlResults<PrescriptionResult> | null;
+  results: GqlResults<AnalysisResult> | null;
   total?: number;
   extra?: React.ReactElement;
   loading?: boolean;
+  setQueryConfig: TQueryConfigCb;
+  queryConfig: IQueryConfig;
 }
 
-const DEFAULT_PAGE_SIZE = 20;
-const DEFAULT_PAGE = 1;
-
-const PrescriptionsTable = ({ results, loading = false }: OwnProps): React.ReactElement => {
-  const [currentPageSize, setcurrentPageSize] = useState(DEFAULT_PAGE_SIZE);
-  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
-
+const PrescriptionsTable = ({
+  results,
+  setQueryConfig,
+  queryConfig,
+  loading = false,
+}: OwnProps): React.ReactElement => {
   return (
-    <ProTable<ITablePrescriptionResult>
+    <ProTable<ITableAnalysisResult>
       tableId="prescription_table"
       columns={prescriptionsColumns()}
       dataSource={results?.data.map((i) => ({ ...i, key: i.id }))}
@@ -36,29 +36,30 @@ const PrescriptionsTable = ({ results, loading = false }: OwnProps): React.React
       dictionary={getProTableDictionary()}
       showSorterTooltip={false}
       bordered
-      onChange={({ current, pageSize }) => {
-        if (currentPage !== current || currentPageSize !== pageSize) {
-          setCurrentPage(current!);
-          setcurrentPageSize(pageSize || DEFAULT_PAGE_SIZE);
-          scrollToTop(PRESCRIPTION_SCROLL_ID);
-        }
+      onChange={({ current, pageSize }, _, sorter) => {
+        setQueryConfig({
+          pageIndex: current!,
+          size: pageSize!,
+          sort: formatQuerySortList(sorter),
+        });
+        scrollToTop(PRESCRIPTION_SCROLL_ID);
       }}
       headerConfig={{
         itemCount: {
-          pageIndex: currentPage,
-          pageSize: currentPageSize,
+          pageIndex: queryConfig.pageIndex,
+          pageSize: queryConfig.size,
           total: results?.total || 0,
         },
-        enableColumnSort: true
+        enableColumnSort: true,
       }}
       size="small"
       pagination={{
-        current: currentPage,
-        pageSize: currentPageSize,
+        current: queryConfig.pageIndex,
+        pageSize: queryConfig.size,
         defaultPageSize: DEFAULT_PAGE_SIZE,
         total: results?.total ?? 0,
         showSizeChanger: true,
-        hideOnSinglePage: true
+        hideOnSinglePage: true,
       }}
     />
   );

@@ -1,71 +1,30 @@
 import { gql } from '@apollo/client';
 
-import { fields } from './models/Prescription';
+import { analysisFields } from './models/Prescription';
 
 export const PRESCRIPTIONS_QUERY = gql`
   query PrescriptionsInformation ($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort]) {
-    Prescriptions {
+    Analyses {
       hits(filters: $sqon, first: $first, offset: $offset, sort: $sort) {
         edges {
           node {
             id
-            cid
-            mrn
-            ethnicity
-            bloodRelationship
-            status
-            state
+            patient_id
+            patient_mrn
+            prescription_id
+            ep
+            created_on
             timestamp
-            laboratory
-            analysis{
-              code
-              display
-            }
-            submitted
-            authoredOn
-            approver{
-              cid
-              lastName
-              firstName
-              lastNameFirstName
-            }
-            prescriber {
-              cid
-              firstName
-              lastName
-              lastNameFirstName
-            }
-            organization {
-              cid
-              name
-            }
-            familyInfo {
-              cid
-              type
-            }
-            patientInfo {
-              cid
-              lastName
-              firstName
-              lastNameFirstName
-              gender
-              ramq
-              position
-              fetus
-              birthDate
-              familyId
-              cidText
-              organization {
-                cid
-                name
-              }
-            }
+            requester
+            ldm
+            analysis_code
+            status
           }
         }
         total
       }
       aggregations (filters: $sqon){
-        ${fields.map(
+        ${analysisFields.map(
           (f) =>
             f +
             ' {\n          buckets {\n            key\n            doc_count\n          }\n        }',
@@ -76,7 +35,7 @@ export const PRESCRIPTIONS_QUERY = gql`
 `;
 
 export const PRESCRIPTIONS_ENTITY_QUERY = gql`
-  query PrescriptionsEntity ($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort]) {
+  query PrescriptionsEntity($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort]) {
     Prescriptions {
       hits(filters: $sqon, first: $first, offset: $offset, sort: $sort) {
         edges {
@@ -90,13 +49,13 @@ export const PRESCRIPTIONS_ENTITY_QUERY = gql`
             state
             timestamp
             laboratory
-            analysis{
+            analysis {
               code
               display
             }
             submitted
             authoredOn
-            approver{
+            approver {
               cid
               lastName
               firstName
@@ -143,34 +102,20 @@ export const PRESCRIPTIONS_ENTITY_QUERY = gql`
 `;
 
 export const PRESCRIPTIONS_SEARCH_QUERY = gql`
-  query PrescriptionsInformationSearch($sqon: JSON, $first: Int, $offset: Int) {
-    Prescriptions {
+  query AnalysisSearch($sqon: JSON, $first: Int, $offset: Int) {
+    Analyses {
       hits(filters: $sqon, first: $first, offset: $offset) {
         edges {
           node {
-            cid
-            status
+            id
+            patient_id
+            patient_mrn
+            prescription_id
+            ep
             timestamp
-            mrn
-            laboratory
-            analysis {
-              code
-              display
-            }
-            familyInfo {
-              cid
-              type
-            }
-            organization {
-              cid
-              name
-            }
-            patientInfo {
-              cid
-              organization {
-                name
-              }
-            }
+            requester
+            ldm
+            analysis_code
           }
         }
         total
