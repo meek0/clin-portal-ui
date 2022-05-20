@@ -7,7 +7,7 @@ export const wrapSqonWithDonorIdAndSrId = (
   prescriptionId?: string,
 ) => {
   if (patientId || prescriptionId) {
-    let subContent: any[] = [];
+    const subContent: any[] = [];
 
     if (patientId) {
       subContent.push({
