@@ -76,5 +76,6 @@
         "react/prop-types": "off"
       }
     }
-  ]
+  ],
+  "ignorePatterns": ["*.scss"]
 }

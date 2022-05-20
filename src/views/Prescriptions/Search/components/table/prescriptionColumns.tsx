@@ -1,12 +1,13 @@
 import intl from 'react-intl-universal';
-import { Tooltip } from 'antd';
-import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
-import { formatDate } from 'utils/date';
-import { ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import { Link } from 'react-router-dom';
-import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
-import StatusTag from 'views/Prescriptions/components/StatusTag';
+import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
+import { Tooltip } from 'antd';
 import { extractOrganizationId } from 'api/fhir/helper';
+import { ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
+import StatusTag from 'views/Prescriptions/components/StatusTag';
+import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
+
+import { formatDate } from 'utils/date';
 
 import './tableColumn.scss';
 
