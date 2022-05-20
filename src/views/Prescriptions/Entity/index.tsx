@@ -1,18 +1,20 @@
+import intl from 'react-intl-universal';
+import { Link } from 'react-router-dom';
 import { DownloadOutlined, MedicineBoxOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Row } from 'antd';
+import { usePrescriptionEntity } from 'graphql/prescriptions/actions';
+import { GraphqlBackend } from 'providers';
+import ApolloProvider from 'providers/ApolloProvider';
+
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
-import intl from 'react-intl-universal';
-import ApolloProvider from 'providers/ApolloProvider';
-import { GraphqlBackend } from 'providers';
-import { usePrescriptionEntity } from 'graphql/prescriptions/actions';
-import ParagraphLoader from 'components/uiKit/ParagraphLoader';
-import AnalysisCard from './AnalysisCard';
-import PatientCard from './PatientCard';
-import { Link } from 'react-router-dom';
 import NotFound from 'components/Results/NotFound';
+import ParagraphLoader from 'components/uiKit/ParagraphLoader';
+
+import AnalysisCard from './AnalysisCard';
 import ClinicalInformation from './ClinicalInformation';
+import PatientCard from './PatientCard';
 
 import styles from './index.module.scss';
 
@@ -73,7 +75,7 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
 };
 
 const PrescriptionEntityWrapper = (props: OwnProps) => (
-  <ApolloProvider backend={GraphqlBackend.ARRANGER}>
+  <ApolloProvider backend={GraphqlBackend.FHIR}>
     <PrescriptionEntity {...props} />
   </ApolloProvider>
 );

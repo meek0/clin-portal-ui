@@ -123,3 +123,113 @@ export const PRESCRIPTIONS_SEARCH_QUERY = gql`
     }
   }
 `;
+
+const ANALYSIS_PATIENT_FRAGMENT = gql`
+  fragment PatientFields on Patient {
+    reference
+    resource {
+      id
+      gender
+      identifier(fhirpath: "type.coding.code = 'MR'") @flatten @first {
+        mrn: value
+      }
+      person: PersonList(_reference: patient) {
+        id
+        name {
+          family
+          given @first
+        }
+        birthDate
+        identifier(fhirpath: "type.coding.code = 'JHN'") @flatten @first {
+          ramq: value
+        }
+      }
+      requests: ServiceRequestList(_reference: patient, based_on: $requestId) {
+        id
+        authoredOn
+        specimen {
+          reference
+          resource {
+            parent {
+              reference
+            }
+            accessionIdentifier {
+              system
+              value
+            }
+          }
+        }
+        status
+      }
+      ClinicalImpressionList(_reference: patient) {
+        id
+        investigation {
+          item {
+            reference
+            resource {
+              code {
+                coding {
+                  system
+                  code
+                }
+              }
+              interpretation {
+                coding {
+                  code
+                  system
+                }
+              }
+              value {
+                coding {
+                  code
+                  system
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const ANALYSIS_ENTITY_QUERY = gql`
+  ${ANALYSIS_PATIENT_FRAGMENT}
+  query GetAnalysisEntity($requestId: String) {
+    ServiceRequest(id: $requestId) {
+      id
+      authoredOn
+      status
+      code @flatten {
+        coding(system: "http://fhir.cqgc.ferlab.bio/CodeSystem/analysis-request-code")
+          @flatten
+          @first {
+          code
+        }
+      }
+      performer @first {
+        resource {
+          alias @first
+          name
+        }
+      }
+      subject {
+        ...PatientFields
+      }
+      extension(url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/family-member") {
+        extension(url: "parent-relationship") {
+          valueCoding {
+            coding {
+              code
+            }
+          }
+        }
+        extension(url: "parent") {
+          valueReference {
+            ...PatientFields
+          }
+        }
+      }
+    }
+  }
+`;
