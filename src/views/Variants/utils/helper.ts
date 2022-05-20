@@ -38,35 +38,3 @@ export const wrapSqonWithDonorIdAndSrId = (
 
   return resolvedSqon;
 };
-
-export const lol = (
-  resolvedSqon: ISqonGroupFilter,
-  patientId: string | undefined,
-  prescriptionId: string | undefined,
-) => {
-  if (patientId || prescriptionId) {
-    let content: any = [{ ...resolvedSqon }];
-
-    if (patientId) {
-      content.push({
-        content: { field: 'donors.patient_id', value: [patientId] },
-        op: TermOperators.in,
-      });
-    }
-
-    if (prescriptionId) {
-      content.push({
-        content: { field: 'donors.service_request_id', value: [prescriptionId] },
-        op: TermOperators.in,
-      });
-    }
-
-    return {
-      content,
-      op: 'and',
-      pivot: 'donors',
-    };
-  }
-
-  return resolvedSqon;
-};
