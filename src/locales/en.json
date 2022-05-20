@@ -215,6 +215,7 @@
   "screen.patientsearch.table.createOn": "Created on",
   "screen.patientsearch.table.dob": "Date of Birth",
   "screen.patientsearch.table.establishment": "Establishment",
+  "screen.patientsearch.table.ep": "EP",
   "screen.patientsearch.table.gender": "Gender",
   "screen.patientsearch.table.gender.female": "Féminin",
   "screen.patientsearch.table.gender.male": "Masculin",

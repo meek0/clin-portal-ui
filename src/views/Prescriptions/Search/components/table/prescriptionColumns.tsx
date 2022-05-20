@@ -10,27 +10,25 @@ import { extractOrganizationId } from 'api/fhir/helper';
 
 import './tableColumn.scss';
 
-export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] => {
-  return [
+export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
+  [
     {
       name: ['prescription_id'],
-      render: (prescription_id: string) => {
-        return <Link to={`/prescription/entity/${prescription_id}`}>{prescription_id}</Link>;
-      },
+      render: (prescription_id: string) => (
+        <Link to={`/prescription/entity/${prescription_id}`}>{prescription_id}</Link>
+      ),
       title: intl.get('screen.patientsearch.table.prescription'),
     },
     {
       name: ['patient_id'],
       render: (patient_id: string) => patient_id,
       summary: false,
-      title: intl.get('screen.patientsearch.table.patientId'),
+      title: intl.get('screen.patientsearch.table.patient'),
     },
     {
       name: 'status',
       render: (value: string) =>
-        !!value ? (
-          <StatusTag dictionary={getPrescriptionStatusDictionnary()} status={value} />
-        ) : null,
+        value ? <StatusTag dictionary={getPrescriptionStatusDictionnary()} status={value} /> : null,
       summary: false,
       title: intl.get('screen.patientsearch.table.status'),
       sorter: { multiple: 1 },
@@ -63,7 +61,7 @@ export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
     {
       name: ['ep'],
       summary: true,
-      title: intl.get('screen.patientsearch.table.establishment'),
+      title: intl.get('screen.patientsearch.table.ep'),
       sorter: { multiple: 1 },
     },
   ].map((c) => ({
@@ -71,4 +69,3 @@ export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
     dataIndex: c.name,
     key: Array.isArray(c.name) ? c.name.join('.') : c.name,
   }));
-};
