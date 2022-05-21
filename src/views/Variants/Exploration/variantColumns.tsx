@@ -1,4 +1,10 @@
+import intl from 'react-intl-universal';
+import { Link } from 'react-router-dom';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
+import { Tooltip } from 'antd';
+import cx from 'classnames';
+import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
 import {
   ClinVar,
   Consequence,
@@ -10,22 +16,16 @@ import {
   Varsome,
   VarsomeClassifications,
 } from 'graphql/variants/models';
-import intl from 'react-intl-universal';
-import cx from 'classnames';
-import { Tooltip } from 'antd';
-import { Link } from 'react-router-dom';
-import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { capitalize } from 'lodash';
-import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import ConsequencesCell from 'views/Variants/components/ConsequencesCell';
-import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
+
 import UserAffectedIcon from 'components/icons/UserAffectedIcon';
+import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
 import style from './variantColumns.module.scss';
 
-const findDonorById = (donors: ArrangerResultsTree<DonorsEntity>, patientId: string) => {
-  return donors.hits?.edges.find((donor) => donor.node.patient_id === patientId);
-};
+const findDonorById = (donors: ArrangerResultsTree<DonorsEntity>, patientId: string) =>
+  donors.hits?.edges.find((donor) => donor.node.patient_id === patientId);
 
 const formatCalls = (calls: number[]) => (calls ? calls.join('/') : TABLE_EMPTY_PLACE_HOLDER);
 
@@ -40,7 +40,7 @@ export const getVariantColumns = (
   patientId?: string,
   drawerCb?: (record: VariantEntity) => void,
 ): ProColumnType<ITableVariantEntity>[] => {
-  let columns: ProColumnType<ITableVariantEntity>[] = [
+  const columns: ProColumnType<ITableVariantEntity>[] = [
     {
       title: intl.get('screen.patientvariant.results.table.variant'),
       key: 'hgvsg',
@@ -106,13 +106,18 @@ export const getVariantColumns = (
     {
       key: 'varsome',
       title: intl.get('screen.patientvariant.results.table.varsome'),
-      dataIndex: 'varsome',
+      dataIndex: 'rsnumber',
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
-      render: (varsome: Varsome) => (
-        <ExternalLink href={`https://varsome.com/variant/${varsome?.variant_id}`}>
-          {varsome?.acmg.verdict.verdict ? varsome?.acmg.verdict.verdict : 'No Verdict'}
-        </ExternalLink>
-      ),
+      render: (rsnumber: string, entity: VariantEntity) => {
+        const varsome: Varsome | undefined = entity.varsome;
+        return (
+          <ExternalLink
+            href={`https://varsome.com/variant/${varsome ? varsome.variant_id : rsnumber}`}
+          >
+            {varsome?.acmg.verdict.verdict ? varsome?.acmg.verdict.verdict : 'No Verdict'}
+          </ExternalLink>
+        );
+      },
     },
     {
       key: 'acmgrules',
