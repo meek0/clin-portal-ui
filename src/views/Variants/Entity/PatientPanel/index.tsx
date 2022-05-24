@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
+import intl from 'react-intl-universal';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
+import { Col, Row, Space } from 'antd';
 import cx from 'classnames';
 import { ArrangerEdge, ArrangerHits, ArrangerResultsTree } from 'graphql/models';
 import { DonorsEntity, TTableDonorEntity } from 'graphql/variants/models';
 import { useTabPatientData } from 'graphql/variants/tabActions';
 import { isEmpty } from 'lodash';
+import _ from 'lodash';
 
 import ServerError from 'components/Results/ServerError';
+import PieChart from 'components/uiKit/charts/Pie';
 import { useGlobals } from 'store/global';
 import { formatTimestampToISODate } from 'utils/helper';
 import { getProTableDictionary } from 'utils/translation';
@@ -49,6 +53,24 @@ interface DataSourceState {
   hits: ArrangerHits<any>;
 }
 
+const graphSetting = {
+  height: 175,
+  margin: {
+    top: 12,
+    bottom: 12,
+    left: 12,
+    right: 12,
+  },
+};
+
+const getCount = (type: string, results: DataSourceState) => {
+  const data = results?.hits?.edges || [];
+  return _(data)
+    .countBy(type)
+    .map((doc_count, dataKey) => ({ id: dataKey, label: dataKey, value: doc_count }))
+    .value();
+};
+
 const PatientPanel = ({ locus, className = '' }: OwnProps) => {
   const { getAnalysisNameByCode } = useGlobals();
   const [currentPage, setCurrentPage] = useState(1);
@@ -73,49 +95,84 @@ const PatientPanel = ({ locus, className = '' }: OwnProps) => {
     return <ServerError />;
   }
 
+  const sexData = dataSource ? getCount('node.gender', dataSource) : [];
+  const analyseData = dataSource ? getCount('node.analysis_code', dataSource) : [];
+  const dragenData = dataSource ? getCount('node.filters[0]', dataSource) : [];
+
   return (
     <div className={cx(styles.patientPanel, className)}>
-      <GridCard
-        content={
-          <ProTable<TTableDonorEntity>
-            tableId="patient_panel_table"
-            columns={getPatientPanelColumns(dataSource.hits, getAnalysisNameByCode)}
-            dataSource={makeRows(dataSource.hits?.edges) ?? []}
-            loading={loading}
-            dictionary={getProTableDictionary()}
-            onChange={({ current, pageSize }, filters, sorter, extra) => {
-              if (extra.currentDataSource.length !== dataSource.nbRows) {
-                setDataSource({
-                  ...dataSource,
-                  nbRows: extra.currentDataSource.length,
-                });
-              }
+      <Space direction="vertical" size={16} className={styles.space}>
+        <GridCard
+          content={
+            <Row gutter={[12, 24]}>
+              <Col sm={12} md={12} lg={8}>
+                <PieChart
+                  title={intl.get('filters.group.donors.gender')}
+                  data={sexData}
+                  {...graphSetting}
+                />
+              </Col>
+              <Col sm={12} md={12} lg={8}>
+                <PieChart
+                  title={intl.get('filters.group.donors.analysis_code')}
+                  data={analyseData}
+                  {...graphSetting}
+                />
+              </Col>
+              <Col sm={12} md={12} lg={8}>
+                <PieChart
+                  title={intl.get('filters.group.donors.filters')}
+                  data={dragenData}
+                  {...graphSetting}
+                />
+              </Col>
+            </Row>
+          }
+        ></GridCard>
 
-              if (currentPage !== current || currentPageSize !== pageSize) {
-                setCurrentPage(current!);
-                setCurrentPageSize(pageSize || DEFAULT_PAGE_SIZE);
-              }
-            }}
-            headerConfig={{
-              itemCount: {
-                pageIndex: currentPage,
+        <GridCard
+          content={
+            <ProTable<TTableDonorEntity>
+              tableId="patient_panel_table"
+              columns={getPatientPanelColumns(dataSource.hits, getAnalysisNameByCode)}
+              dataSource={makeRows(dataSource.hits?.edges) ?? []}
+              loading={loading}
+              showSorterTooltip={false}
+              dictionary={getProTableDictionary()}
+              onChange={({ current, pageSize }, filters, sorter, extra) => {
+                if (extra.currentDataSource.length !== dataSource.nbRows) {
+                  setDataSource({
+                    ...dataSource,
+                    nbRows: extra.currentDataSource.length,
+                  });
+                }
+
+                if (currentPage !== current || currentPageSize !== pageSize) {
+                  setCurrentPage(current!);
+                  setCurrentPageSize(pageSize || DEFAULT_PAGE_SIZE);
+                }
+              }}
+              headerConfig={{
+                itemCount: {
+                  pageIndex: currentPage,
+                  pageSize: currentPageSize,
+                  total: dataSource.nbRows || 0,
+                },
+              }}
+              size="small"
+              bordered
+              pagination={{
+                current: currentPage,
                 pageSize: currentPageSize,
-                total: dataSource.nbRows || 0,
-              },
-            }}
-            size="small"
-            bordered
-            pagination={{
-              current: currentPage,
-              pageSize: currentPageSize,
-              defaultPageSize: DEFAULT_PAGE_SIZE,
-              total: dataSource.nbRows ?? 0,
-              hideOnSinglePage: true,
-              className: styles.patientPagination,
-            }}
-          />
-        }
-      ></GridCard>
+                defaultPageSize: DEFAULT_PAGE_SIZE,
+                total: dataSource.nbRows ?? 0,
+                hideOnSinglePage: true,
+                className: styles.patientPagination,
+              }}
+            />
+          }
+        ></GridCard>
+      </Space>
     </div>
   );
 };

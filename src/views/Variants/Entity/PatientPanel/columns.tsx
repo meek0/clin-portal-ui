@@ -126,35 +126,80 @@ export const getPatientPanelColumns = (
   {
     key: 'qd',
     dataIndex: 'qd',
-    title: intl.get('screen.variantDetails.patientsTab.qd'),
+    displayTitle: intl.get('screen.variantDetails.patientsTab.qd'),
+    title: (
+      <Tooltip
+        arrowPointAtCenter
+        placement="topLeft"
+        title={intl.get('screen.variantDetails.patientsTab.qd.tooltip')}
+      >
+        {intl.get('screen.variantDetails.patientsTab.qd')}
+      </Tooltip>
+    ),
     sorter: (a, b) => a.qd - b.qd,
     render: (qd) => (qd ? qd : TABLE_EMPTY_PLACE_HOLDER),
   },
   {
     key: 'ad_alt',
     dataIndex: 'ad_alt',
-    title: intl.get('screen.variantDetails.patientsTab.adAlt'),
+    displayTitle: intl.get('screen.variantDetails.patientsTab.adAlt'),
+    title: (
+      <Tooltip
+        arrowPointAtCenter
+        placement="topLeft"
+        title={intl.get('screen.variantDetails.patientsTab.adAlt.tooltip')}
+      >
+        {intl.get('screen.variantDetails.patientsTab.adAlt')}
+      </Tooltip>
+    ),
     sorter: (a, b) => a.ad_alt - b.ad_alt,
     render: (ad_alt) => (ad_alt ? ad_alt : TABLE_EMPTY_PLACE_HOLDER),
   },
   {
     key: 'ad_total',
     dataIndex: 'ad_total',
-    title: intl.get('screen.variantDetails.patientsTab.adTotal'),
+    displayTitle: intl.get('screen.variantDetails.patientsTab.adTotal'),
+    title: (
+      <Tooltip
+        arrowPointAtCenter
+        placement="topLeft"
+        title={intl.get('screen.variantDetails.patientsTab.adTotal.tooltip')}
+      >
+        {intl.get('screen.variantDetails.patientsTab.adTotal')}
+      </Tooltip>
+    ),
     sorter: (a, b) => a.ad_total - b.ad_total,
     render: (ad_total) => (ad_total ? ad_total : TABLE_EMPTY_PLACE_HOLDER),
   },
   {
     key: 'ad_ratio',
     dataIndex: 'ad_ratio',
-    title: intl.get('screen.variantDetails.patientsTab.adFreq'),
+    displayTitle: intl.get('screen.variantDetails.patientsTab.adFreq'),
+    title: (
+      <Tooltip
+        arrowPointAtCenter
+        placement="topLeft"
+        title={intl.get('screen.variantDetails.patientsTab.adFreq.tooltip')}
+      >
+        {intl.get('screen.variantDetails.patientsTab.adFreq')}
+      </Tooltip>
+    ),
     render: (ratio: number) => ratio.toFixed(2),
     sorter: (a, b) => a.ad_ratio - b.ad_ratio,
   },
   {
     key: 'gq',
     dataIndex: 'gq',
-    title: intl.get('screen.variantDetails.patientsTab.genotypeQuality'),
+    displayTitle: intl.get('screen.variantDetails.patientsTab.genotypeQuality'),
+    title: (
+      <Tooltip
+        arrowPointAtCenter
+        placement="topLeft"
+        title={intl.get('screen.variantDetails.patientsTab.genotypeQuality.tooltip')}
+      >
+        {intl.get('screen.variantDetails.patientsTab.genotypeQuality')}
+      </Tooltip>
+    ),
     sorter: (a, b) => a.gq - b.gq,
     render: (gq) => (gq ? gq : TABLE_EMPTY_PLACE_HOLDER),
   },
