@@ -53,8 +53,8 @@ interface DataSourceState {
   hits: ArrangerHits<any>;
 }
 
-const graphSetting = {
-  height: 175,
+const graphSetting: any = {
+  height: 150,
   margin: {
     top: 12,
     bottom: 12,
@@ -128,8 +128,9 @@ const PatientPanel = ({ locus, className = '' }: OwnProps) => {
               </Col>
             </Row>
           }
-        ></GridCard>
-
+          loadingType="spinner"
+          loading={loading}
+        />
         <GridCard
           content={
             <ProTable<TTableDonorEntity>
