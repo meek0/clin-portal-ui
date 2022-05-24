@@ -1,12 +1,13 @@
-import { AnyAction, createAsyncThunk, ThunkDispatch } from '@reduxjs/toolkit';
-import { downloadFile } from 'utils/helper';
 import intl from 'react-intl-universal';
-import capitalize from 'lodash/capitalize';
-import { MIME_TYPES } from 'utils/constants';
+import { AnyAction, createAsyncThunk, ThunkDispatch } from '@reduxjs/toolkit';
 import { ApiResponse } from 'api';
-import { v4 as uuid } from 'uuid';
 import { ReportsApi } from 'api/report';
+import capitalize from 'lodash/capitalize';
+import { v4 as uuid } from 'uuid';
+
 import { globalActions } from 'store/global';
+import { MIME_TYPES } from 'utils/constants';
+import { downloadFile } from 'utils/helper';
 
 const extractFilename = (contentDisposition: string = '') => {
   const split = contentDisposition.split(';');
@@ -25,6 +26,7 @@ const showErrorNotification = (
       description: `${capitalize(reportNameI18n)} : ${intl.get(
         'report.notification.error.description',
       )}`,
+      type: 'error',
     }),
   );
 
@@ -53,6 +55,7 @@ const proceedToDownload = async (
         description: `${capitalize(reportNameI18n)} : ${intl.get(
           'report.notification.success.description',
         )}`,
+        type: 'success',
       }),
     );
   } catch (e) {
