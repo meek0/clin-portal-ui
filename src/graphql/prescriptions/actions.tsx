@@ -1,6 +1,7 @@
 import { ApolloError } from '@apollo/client';
+import { ServiceRequestEntity } from 'api/fhir/models';
 import { ExtendedMappingResults, GqlResults, hydrateResults } from 'graphql/models';
-import { AnalysisResult, PrescriptionResult } from 'graphql/prescriptions/models/Prescription';
+import { AnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import { INDEX_EXTENDED_MAPPING, QueryVariable } from 'graphql/queries';
 import { useLazyResultQuery, useLazyResultQueryOnLoadOnly } from 'graphql/utils/query';
 
@@ -19,14 +20,14 @@ export const usePrescription = (variables: QueryVariable): GqlResults<AnalysisRe
   };
 };
 
-export const usePrescriptionEntity = (
+export const useServiceRequestEntity = (
   id: string,
 ): {
-  prescription: PrescriptionResult | undefined;
+  prescription: ServiceRequestEntity | undefined;
   loading: boolean;
   error: ApolloError | undefined;
 } => {
-  const { loading, data, error } = useLazyResultQueryOnLoadOnly<any>(ANALYSIS_ENTITY_QUERY, {
+  const { loading, data, error } = useLazyResultQueryOnLoadOnly<any>(ANALYSIS_ENTITY_QUERY(id), {
     skip: !id,
     variables: {
       requestId: id,
@@ -34,7 +35,7 @@ export const usePrescriptionEntity = (
   });
 
   return {
-    prescription: data,
+    prescription: data?.ServiceRequest,
     loading,
     error,
   };

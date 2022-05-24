@@ -1,6 +1,7 @@
 import { capitalize, get } from 'lodash';
 import moment from 'moment';
-import { Patient } from './models';
+
+import { ClinicalImpression, Name, Patient, ServiceRequestEntityExtension } from './models';
 
 export type RamqDetails = {
   startFirstname?: string;
@@ -34,6 +35,13 @@ export const getRAMQValue = (patient?: Patient): string | undefined =>
     ? patient.identifier.find((id) => get(id, 'type.coding[0].code', '') === 'JHN')?.value
     : undefined;
 
+export const checkIfPatientIfAffected = (extension: ServiceRequestEntityExtension) =>
+  get(get(extension, 'extension[1].valueReference.resource', {}), 'clinicalImpressions', []).some(
+    (impression: ClinicalImpression) =>
+      get(impression.investigation[0], 'item[0].resource.interpretation.coding[0].code', 'NEG') ===
+      'POS',
+  );
+
 export const getDetailsFromRamq = (ramq: string): RamqDetails | null => {
   if (!isRamqValid(ramq)) {
     return null;
@@ -62,3 +70,5 @@ export const getDetailsFromRamq = (ramq: string): RamqDetails | null => {
     startLastname: capitalize(ramq.slice(0, 3)),
   };
 };
+
+export const formatName = (name: Name) => `${name.given} ${name.family}`;

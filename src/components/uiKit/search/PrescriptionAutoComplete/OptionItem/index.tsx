@@ -1,5 +1,6 @@
 import { Descriptions, Space, Typography } from 'antd';
 import { AnalysisResult } from 'graphql/prescriptions/models/Prescription';
+
 import { useGlobals } from 'store/global';
 import { formatDate } from 'utils/date';
 
@@ -11,8 +12,6 @@ interface OwnProps {
 
 const OptionItem = ({ data }: OwnProps) => {
   const { getAnalysisNameByCode } = useGlobals();
-
-  console.log(getAnalysisNameByCode(data.analysis_code, true));
 
   return (
     <Space direction="vertical" size={0} className={styles.prescriptionOptionItem}>

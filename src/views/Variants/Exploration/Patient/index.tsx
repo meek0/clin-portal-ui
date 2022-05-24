@@ -1,24 +1,24 @@
+import { useState } from 'react';
 import intl from 'react-intl-universal';
-import ApolloProvider from 'providers/ApolloProvider';
-import { Space, Tag } from 'antd';
-import { GraphqlBackend } from 'providers';
-import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
-import { INDEXES } from 'graphql/constants';
 import { useParams } from 'react-router';
-import { usePrescriptionEntity } from 'graphql/prescriptions/actions';
-import { getPositionTag } from 'graphql/prescriptions/helper';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
-import { getMenuItems } from './facets';
-import VariantSearchLayout from '../components/VariantSearchLayout';
+import { INDEXES } from 'graphql/constants';
+import { GraphqlBackend } from 'providers';
+import ApolloProvider from 'providers/ApolloProvider';
 import { wrapSqonWithDonorIdAndSrId } from 'views/Variants/utils/helper';
+
+import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
+
+import VariantSearchLayout from '../components/VariantSearchLayout';
+
+import { getMenuItems } from './facets';
+import Header from './header';
 import PageContent from './PageContent';
-import { useGlobals } from 'store/global';
 
 const VariantExplorationPatient = () => {
-  const { getAnalysisNameByCode } = useGlobals();
   const { patientid, prescriptionid } = useParams<{ patientid: string; prescriptionid: string }>();
   const variantMappingResults = useGetExtendedMappings(INDEXES.VARIANT);
-  const { prescription, loading } = usePrescriptionEntity(prescriptionid);
+  const [headerLoading, setHeaderLoading] = useState(false);
 
   const filterMapper = (filters: ISqonGroupFilter) =>
     wrapSqonWithDonorIdAndSrId(filters, patientid /** prescriptionid */);
@@ -28,25 +28,14 @@ const VariantExplorationPatient = () => {
       contentHeaderProps={{
         title: intl.get('screen.variantsearch.title'),
         extra: [
-          <Tag color="blue" key="patient-prescription-id">
-            <Space align="center">
-              {`Patient ID : ${patientid}`} | {`Prescription ID : ${prescriptionid}`}
-            </Space>
-          </Tag>,
-          <div key="analsysis-name">
-            {prescription && (
-              <Tag color="geekblue">
-                {getAnalysisNameByCode(
-                  prescription.analysis.code,
-                  true,
-                  prescription.analysis.display,
-                )}
-              </Tag>
-            )}
-          </div>,
-          getPositionTag(prescription),
+          <Header
+            key="header"
+            prescriptionid={prescriptionid}
+            patientid={patientid}
+            setLoadingCb={setHeaderLoading}
+          />,
         ],
-        loading: loading,
+        loading: headerLoading,
       }}
       menuItems={getMenuItems(variantMappingResults, filterMapper)}
     >

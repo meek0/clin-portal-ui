@@ -1,20 +1,22 @@
 import React from 'react';
-import StackLayout from '@ferlab/ui/core/layout/StackLayout';
-import { Typography, Space, Tooltip, Spin } from 'antd';
 import intl from 'react-intl-universal';
-import capitalize from 'lodash/capitalize';
-import ExpandableTable from '@ferlab/ui/core/components/tables/ExpandableTable';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import ExpandableCell from '@ferlab/ui/core/components/tables/ExpandableCell';
-import NoData from 'views/Variants/Entity/NoData';
-import CanonicalIcon from 'components/icons/CanonicalIcon';
-import { ConsequenceEntity, GeneEntity, Impact, VariantEntity } from 'graphql/variants/models';
+import ExpandableTable from '@ferlab/ui/core/components/tables/ExpandableTable';
+import StackLayout from '@ferlab/ui/core/layout/StackLayout';
+import { Space, Tooltip, Typography } from 'antd';
 import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
+import { ConsequenceEntity, GeneEntity, Impact, VariantEntity } from 'graphql/variants/models';
+import capitalize from 'lodash/capitalize';
+import NoData from 'views/Variants/Entity/NoData';
+
 import CollapsePanel from 'components/containers/collapse';
+import CanonicalIcon from 'components/icons/CanonicalIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+
 import { getVepImpactTag } from '../..';
 
 import styles from '../index.module.scss';
-import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 interface OwnProps {
   className?: string;
@@ -218,9 +220,7 @@ const columns = [
   {
     title: () => intl.get('screen.variantDetails.summaryTab.consequencesTable.VEP'),
     dataIndex: 'vep',
-    render: (vep: Impact) => {
-      return getVepImpactTag(vep.toLowerCase());
-    },
+    render: (vep: Impact) => getVepImpactTag(vep.toLowerCase()),
     width: '10%',
   },
   {
@@ -305,7 +305,7 @@ const sortConsequences = (data: ArrangerEdge<ConsequenceEntity>[]) =>
     .sort((a, b) => b.node.impact_score! - a.node.impact_score!)
     .sort((a, b) => (a.node.canonical === b.node.canonical ? 0 : a.node.canonical ? -1 : 1));
 
-const ResumePanel = ({ data, className = '' }: OwnProps) => {
+const Consequences = ({ data }: OwnProps) => {
   const variantData = data.variantData;
   const consequences = (variantData?.consequences as ArrangerResultsTree<ConsequenceEntity>)?.hits
     .edges;
@@ -318,73 +318,72 @@ const ResumePanel = ({ data, className = '' }: OwnProps) => {
       header={
         <Title level={4}>{intl.get('screen.variantDetails.summaryTab.consequencesTitle')}</Title>
       }
+      loading={data.loading}
     >
-      <Spin spinning={data.loading}>
-        <Space className={styles.consequenceCards} direction="vertical" size={48}>
-          {hasTables ? (
-            tables.map((tableData: TableGroup, index: number) => {
-              const symbol = tableData.symbol;
-              const omim = tableData.omim;
-              const biotype = tableData.biotype;
-              const orderedConsequences = sortConsequences(tableData.consequences);
+      <Space className={styles.consequenceCards} direction="vertical" size={48}>
+        {hasTables ? (
+          tables.map((tableData: TableGroup, index: number) => {
+            const symbol = tableData.symbol;
+            const omim = tableData.omim;
+            const biotype = tableData.biotype;
+            const orderedConsequences = sortConsequences(tableData.consequences);
 
-              return (
-                <Space
-                  key={index}
-                  direction="vertical"
-                  className={styles.consequenceTableWrapper}
-                  size={12}
-                >
-                  <Space size={12}>
-                    <Space size={4}>
-                      <span>
-                        <ExternalLink
-                          href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${symbol}`}
-                        >
-                          {symbol}
-                        </ExternalLink>
-                      </span>
-                    </Space>
-                    <Space size={4}>
-                      {omim && (
-                        <>
-                          <span>Omim</span>
-                          <span>
-                            <ExternalLink href={`https://omim.org/entry/${omim}`}>
-                              {omim}
-                            </ExternalLink>
-                          </span>
-                        </>
-                      )}
-                    </Space>
-                    <span className="bold value">{biotype}</span>
+            return (
+              <Space
+                key={index}
+                direction="vertical"
+                className={styles.consequenceTableWrapper}
+                size={12}
+              >
+                <Space size={12}>
+                  <Space size={4}>
+                    <span>
+                      <ExternalLink
+                        href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${symbol}`}
+                      >
+                        {symbol}
+                      </ExternalLink>
+                    </span>
                   </Space>
-                  <ExpandableTable
-                    bordered={true}
-                    nOfElementsWhenCollapsed={1}
-                    buttonText={(showAll, hiddenNum) =>
-                      showAll
-                        ? intl.get('screen.variant.entity.table.hidetranscript')
-                        : intl.get('screen.variant.entity.table.showtranscript', {
-                            count: hiddenNum,
-                          })
-                    }
-                    key={index}
-                    dataSource={makeRows(orderedConsequences)}
-                    columns={columns}
-                    pagination={false}
-                    size="small"
-                  />
+                  <Space size={4}>
+                    {omim && (
+                      <>
+                        <span>Omim</span>
+                        <span>
+                          <ExternalLink href={`https://omim.org/entry/${omim}`}>
+                            {omim}
+                          </ExternalLink>
+                        </span>
+                      </>
+                    )}
+                  </Space>
+                  <span className="bold value">{biotype}</span>
                 </Space>
-              );
-            })
-          ) : (
-            <NoData />
-          )}
-        </Space>
-      </Spin>
+                <ExpandableTable
+                  bordered={true}
+                  nOfElementsWhenCollapsed={1}
+                  buttonText={(showAll, hiddenNum) =>
+                    showAll
+                      ? intl.get('screen.variant.entity.table.hidetranscript')
+                      : intl.get('screen.variant.entity.table.showtranscript', {
+                          count: hiddenNum,
+                        })
+                  }
+                  key={index}
+                  dataSource={makeRows(orderedConsequences)}
+                  columns={columns}
+                  pagination={false}
+                  size="small"
+                />
+              </Space>
+            );
+          })
+        ) : (
+          <NoData />
+        )}
+      </Space>
     </CollapsePanel>
   );
 };
 
-export default ResumePanel;
+export default Consequences;

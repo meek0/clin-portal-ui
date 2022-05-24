@@ -1,20 +1,21 @@
-import { useTabFrequenciesData } from 'graphql/variants/tabActions';
 import intl from 'react-intl-universal';
-import { Table, Spin, Space, Tooltip, Typography } from 'antd';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
+import { Space, Table, Tooltip, Typography } from 'antd';
+import { ArrangerEdge } from 'graphql/models';
 import {
   BoundType,
   ExternalFrequenciesEntity,
   FrequencyByAnalysisEntity,
 } from 'graphql/variants/models';
-import { ArrangerEdge } from 'graphql/models';
-import { toExponentialNotation } from 'utils/helper';
-import CollapsePanel from 'components/containers/collapse';
+import { useTabFrequenciesData } from 'graphql/variants/tabActions';
 import { isEmpty } from 'lodash';
 import NoData from 'views/Variants/Entity/NoData';
+
+import CollapsePanel from 'components/containers/collapse';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { toExponentialNotation } from 'utils/helper';
 
 import styles from './index.module.scss';
-import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 interface OwnProps {
   locus: string;
@@ -36,11 +37,10 @@ type ExternalFreqRow = {
 const displayDefaultIfNeeded = (datum: ExternalFreqDatum) =>
   datum == null ? TABLE_EMPTY_PLACE_HOLDER : datum;
 
-const formatFractionPercent = (nominator: number, denominator: number, total: number) => {
-  return `${nominator} / ${denominator} ${
+const formatFractionPercent = (nominator: number, denominator: number, total: number) =>
+  `${nominator} / ${denominator} ${
     nominator + denominator ? `(${(total * 100).toFixed(1)}%)` : ''
   }`;
-};
 
 const freqByAnalysisColumns = [
   {
@@ -214,16 +214,14 @@ const makeRowForExternalFreq = (
 };
 
 const isExternalFreqTableEmpty = (rows: ExternalFreqRow[]) =>
-  rows.every(
-    ({ cohort, key, ...visibleRow }: ExternalFreqRow) => !Object.values(visibleRow).some((e) => e),
-  );
+  rows.every((visibleRow: ExternalFreqRow) => !Object.values(visibleRow).some((e) => e));
 
 const { Title } = Typography;
 
 const FrequencyCard = ({ locus }: OwnProps) => {
   const { loading, data } = useTabFrequenciesData(locus);
 
-  let frequencies_by_analysis = makeRows(data.frequencies_by_analysis);
+  const frequencies_by_analysis = makeRows(data.frequencies_by_analysis);
   frequencies_by_analysis.push({
     analysis_code: 'RQDM',
     analysis_display_name: intl.get('screen.variant.entity.frequencyTab.RQDM.title'),
@@ -239,39 +237,37 @@ const FrequencyCard = ({ locus }: OwnProps) => {
       <Space direction="vertical" className={styles.frequencyCard} size={16}>
         <CollapsePanel
           header={<Title level={4}>{intl.get('screen.variantDetails.summaryTab.rqdmTitle')}</Title>}
+          loading={loading}
         >
-          <Spin spinning={loading}>
-            {isEmpty(frequencies_by_analysis) ? (
-              <NoData />
-            ) : (
-              <Table
-                bordered
-                size="small"
-                dataSource={frequencies_by_analysis}
-                columns={freqByAnalysisColumns}
-                pagination={false}
-              />
-            )}
-          </Spin>
+          {isEmpty(frequencies_by_analysis) ? (
+            <NoData />
+          ) : (
+            <Table
+              bordered
+              size="small"
+              dataSource={frequencies_by_analysis}
+              columns={freqByAnalysisColumns}
+              pagination={false}
+            />
+          )}
         </CollapsePanel>
         <CollapsePanel
           header={
             <Title level={4}>{intl.get('screen.variantDetails.summaryTab.cohortTitle')}</Title>
           }
+          loading={loading}
         >
-          <Spin spinning={loading}>
-            {!hasEmptyCohorts ? (
-              <Table
-                bordered
-                size="small"
-                dataSource={externalCohortsRows}
-                columns={externalFreqColumns}
-                pagination={false}
-              />
-            ) : (
-              <NoData />
-            )}
-          </Spin>
+          {!hasEmptyCohorts ? (
+            <Table
+              bordered
+              size="small"
+              dataSource={externalCohortsRows}
+              columns={externalFreqColumns}
+              pagination={false}
+            />
+          ) : (
+            <NoData />
+          )}
         </CollapsePanel>
       </Space>
     </>

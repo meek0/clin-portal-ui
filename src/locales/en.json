@@ -141,6 +141,8 @@
   "lang.fr.short": "FR",
   "logout": "Logout",
   "mother": "mother",
+  "MTH": "Mother",
+  "FTH": "Father",
   "notification.error": "Error",
   "notification.error.file.download": "An error occured while downloading your file",
   "notification.success": "Success",

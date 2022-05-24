@@ -20,19 +20,90 @@ export enum StatusType {
   incomplete = 'incomplete',
 }
 
-export type FhirResource =
-  | Practitioner
-  | Patient
-  | Observation
-  | ClinicalImpression
-  | FamilyMemberHistory
-  | ServiceRequest
-  | Organization
-  | PractitionerRole
-  | FamilyGroup
-  | Bundle<FhirResource>;
+export enum PrescriptionStatus {
+  draft = 'draft',
+  hold = 'on-hold',
+  active = 'active',
+  completed = 'completed',
+  revoked = 'revoked',
+  incomplete = 'incomplete',
+}
 
 export type BundleMethod = 'PUT' | 'GET' | 'POST';
+
+export interface ServiceRequestCodeConcept {
+  code: string;
+  display: string;
+  designation: {
+    language: 'fr' | 'en';
+    value: string;
+  };
+}
+
+export interface ServiceRequestCode {
+  concept: ServiceRequestCodeConcept[];
+}
+
+export interface Reference {
+  reference: string;
+}
+
+export interface Meta {
+  profile: string[];
+  lastUpdated?: string;
+}
+
+export interface Telecom {
+  system: string;
+  value: string;
+  use: string;
+  rank?: number;
+}
+
+export interface CodeableConcept {
+  coding?: Coding[];
+  text?: string;
+}
+
+export interface Coding {
+  system?: string;
+  code: string;
+  display?: string;
+}
+
+export interface Age {
+  value: number;
+  unit: string;
+  system: string;
+  code: string;
+}
+
+export interface Identifier {
+  use?: string;
+  type: CodeableConcept;
+  value: string;
+  assigner?: Reference;
+}
+
+export interface Extension<TReference = Reference> {
+  url: string;
+  valueCoding?: CodeableConcept;
+  valueReference?: TReference;
+  valueBoolean?: boolean;
+  valueAge?: Age;
+  valueCodeableConcept?: CodeableConcept;
+  extension?: Extension<TReference>[];
+
+  [key: string]: any;
+}
+
+export interface Name {
+  use?: string;
+  family: string;
+  given: string[];
+  prefix?: string[];
+  suffix?: string[];
+}
 
 export interface BundleEntry<T> {
   request: {
@@ -50,87 +121,6 @@ export interface Bundle<FhirResource> {
   entry: BundleEntry<FhirResource>[];
 }
 
-export interface Meta {
-  profile: string[];
-  lastUpdated?: string;
-}
-
-export interface Coding {
-  system?: string;
-  code: string;
-  display?: string;
-}
-
-export interface CodeableConcept {
-  coding?: Coding[];
-  text?: string;
-}
-
-export interface Identifier {
-  use?: string;
-  type: CodeableConcept;
-  value: string;
-  assigner?: Reference;
-}
-
-export interface Name {
-  use?: string;
-  family: string;
-  given: string[];
-  prefix?: string[];
-  suffix?: string[];
-}
-
-export interface Age {
-  value: number;
-  unit: string;
-  system: string;
-  code: string;
-}
-
-export interface Reference {
-  reference: string;
-}
-
-export interface Extension {
-  url: string;
-  valueCoding?: Coding;
-  valueReference?: Reference;
-  valueBoolean?: boolean;
-  valueAge?: Age;
-  valueCodeableConcept?: CodeableConcept;
-  extension?: Extension[];
-
-  [key: string]: any;
-}
-
-export interface Investigation {
-  code: CodeableConcept;
-  item: Reference[];
-}
-
-export interface Note {
-  text: string;
-  time?: string;
-  authorReference?: Reference;
-}
-
-export interface Category {
-  text: string;
-}
-
-export interface Telecom {
-  system: string;
-  value: string;
-  use: string;
-  rank?: number;
-}
-
-export interface Interpretation {
-  coding: Coding[];
-  text: string;
-}
-
 export interface Patient {
   id?: string;
   resourceType: ResourceType;
@@ -145,39 +135,36 @@ export interface Patient {
   managingOrganization: Reference;
 }
 
-export interface ClinicalImpression {
-  id?: string;
+export interface Category {
+  text: string;
+}
+
+export interface Note {
+  text: string;
+  time?: string;
+  authorReference?: Reference;
+}
+
+export interface PractitionerRole {
   resourceType: ResourceType;
+  id: string;
   meta: Meta;
-  extension: Extension[];
-  status: 'in-progress' | 'completed' | 'entered-in-error';
-  subject: Reference;
-  date: string;
-  assessor?: Reference;
-  investigation: Investigation[];
+  active: boolean;
+  practitioner: Reference;
+  organization: Reference;
+  telecom: Telecom[];
+  code: CodeableConcept[];
 }
 
-export interface FamilyMemberHistory {
-  id?: string;
-  resourceType: ResourceType;
-  meta: Meta;
-  status: string;
-  patient: Reference;
-  relationship: CodeableConcept;
-  note?: Note[];
-}
-
-export interface ServiceRequestCodeConcept {
-  code: string;
-  display: string;
-  designation: {
-    language: 'fr' | 'en';
-    value: string;
-  };
-}
-
-export interface ServiceRequestCode {
-  concept: ServiceRequestCodeConcept[];
+export interface Investigation {
+  item: {
+    reference: string;
+    resource: {
+      code: CodeableConcept;
+      interpretation: CodeableConcept;
+      value: CodeableConcept;
+    };
+  }[];
 }
 
 export interface ServiceRequest {
@@ -198,96 +185,47 @@ export interface ServiceRequest {
   note?: Note[];
 }
 
-export interface Observation {
+export interface ClinicalImpression {
   id?: string;
   resourceType: ResourceType;
-  meta: Meta;
-  status: string;
-  category: CodeableConcept[];
-  code: CodeableConcept;
-  subject: Reference;
-  interpretation?: Interpretation[];
-  note?: Note[];
-  extension?: Extension[];
-  valueCodeableConcept?: CodeableConcept;
-  valueBoolean?: boolean;
-  valueString?: string;
+  investigation: Investigation[];
 }
 
-export type FamilyGroupType =
-  | 'person'
-  | 'animal'
-  | 'practitioner'
-  | 'device'
-  | 'medication'
-  | 'substance';
-
-export interface BackboneElement {
-  entity: Reference;
-}
-
-export interface FamilyGroup {
-  resourceType: ResourceType;
-  id?: string;
-  meta: Meta;
-  type: FamilyGroupType;
-  actual: boolean;
-  extension: Extension[];
-  member: BackboneElement[];
-}
-
-export interface Practitioner {
-  resourceType: ResourceType;
+export interface Person {
   id: string;
-  meta: Meta;
-  identifier: Identifier[];
+  birthdate: string;
+  ramq: string;
   name: Name[];
 }
 
-export interface SupervisorsBundle {
-  entry: [
+// For Prescription Entity Page
+export interface ServiceRequestEntity {
+  id: string;
+  authoredOn: string;
+  status: string;
+  code: string;
+  extensions: ServiceRequestEntityExtension[];
+  performer: {
     resource: {
-      entry: [resource: Practitioner];
-    },
-  ];
+      alias: string;
+      name: string;
+    };
+  };
+  subject: {
+    reference: string;
+    resource: PatientServiceRequestFragment;
+  };
 }
-export interface Organization {
-  resourceType: ResourceType;
+
+export type ServiceRequestEntityExtension = Extension<{
+  reference: string;
+  resource: PatientServiceRequestFragment;
+}>;
+
+export interface PatientServiceRequestFragment {
   id: string;
-  meta: Meta;
-  name: string;
-  alias: string[];
-  type: CodeableConcept[];
-}
-
-export interface PractitionerRole {
-  resourceType: ResourceType;
-  id: string;
-  meta: Meta;
-  active: boolean;
-  practitioner: Reference;
-  organization: Reference;
-  telecom: Telecom[];
-  code: CodeableConcept[];
-}
-
-export interface Member {
-  extension: Extension[];
-  entity: Reference;
-}
-
-export interface Group {
-  id: string;
-  meta: Meta;
-  extension: Extension[];
-  member: Member[];
-}
-
-export enum PrescriptionStatus {
-  draft = 'draft',
-  hold = 'on-hold',
-  active = 'active',
-  completed = 'completed',
-  revoked = 'revoked',
-  incomplete = 'incomplete',
+  gender: string;
+  mrn: string;
+  clinicalImpressions: ClinicalImpression[];
+  person: Person[];
 }

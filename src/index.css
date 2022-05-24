@@ -19,6 +19,10 @@ body {
   height: 100%;
 }
 
+.simplebar-content-wrapper {
+  overflow: hidden scroll !important;
+}
+
 [ant-click-animating-without-extra-node='true']::after{
   display:none;
 }
