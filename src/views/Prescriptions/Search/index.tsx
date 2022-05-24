@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import intl from 'react-intl-universal';
+import { MedicineBoxOutlined } from '@ant-design/icons';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
 import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
 import { usePrescription, usePrescriptionMapping } from 'graphql/prescriptions/actions';
-import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
-import ContentContainer from './components/ContentContainer';
-import ApolloProvider from 'providers/ApolloProvider';
-import { MAX_NUMBER_RESULTS, PRESCRIPTION_QB_ID, PRESCRIPTION_SCROLL_ID } from './utils/contstant';
+import { isEmpty } from 'lodash';
 import { GraphqlBackend } from 'providers';
-import Sidebar from './components/Sidebar';
-import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
+import ApolloProvider from 'providers/ApolloProvider';
+
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
-import { MedicineBoxOutlined } from '@ant-design/icons';
+import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import { IQueryConfig } from 'utils/searchPageTypes';
 
+import ContentContainer from './components/ContentContainer';
+import Sidebar from './components/Sidebar';
+import { PRESCRIPTION_QB_ID, PRESCRIPTION_SCROLL_ID } from './utils/contstant';
+
 import styles from './index.module.scss';
-import { isEmpty } from 'lodash';
 
 export const DEFAULT_PAGE_SIZE = 20;
 export const DEFAULT_PAGE = 1;

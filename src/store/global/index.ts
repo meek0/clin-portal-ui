@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+
 import { globalSelector } from './selector';
 
 export type { initialState as GlobalInitialState } from './types';
@@ -8,7 +9,7 @@ export const useGlobals = () => {
 
   return {
     ...state,
-    getAnalysisNameByCode: (code: string, withCode: boolean, defaultValue?: string) => {
+    getAnalysisNameByCode: (code: string, withCode: boolean = true, defaultValue?: string) => {
       if (code in state.analysisCodeMapping) {
         return state.analysisCodeMapping[code][withCode ? 'displayNameWithCode' : 'displayName'];
       }

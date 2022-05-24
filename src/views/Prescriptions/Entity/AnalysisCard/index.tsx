@@ -32,9 +32,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
               />
             </Descriptions.Item>
             <Descriptions.Item label="Analyse demandée">
-              <Tag color="geekblue">
-                {getAnalysisNameByCode(prescription.code, true, prescription.code)}
-              </Tag>
+              <Tag color="geekblue">{getAnalysisNameByCode(prescription.code)}</Tag>
             </Descriptions.Item>
             <Descriptions.Item label="Créée le">
               {formatDate(prescription?.authoredOn)}

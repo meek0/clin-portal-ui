@@ -1,7 +1,8 @@
 import intl from 'react-intl-universal';
 import { IDictionary as FiltersDict } from '@ferlab/ui/core/components/filters/types';
-import { IDictionary as QueryBuilderDict } from '@ferlab/ui/core/components/QueryBuilder/types';
 import { IProTableDictionary } from '@ferlab/ui/core/components/ProTable/types';
+import { IDictionary as QueryBuilderDict } from '@ferlab/ui/core/components/QueryBuilder/types';
+
 import { GetAnalysisNameByCode } from 'store/global/types';
 
 export const getFiltersDictionary = (): FiltersDict => ({
@@ -38,14 +39,14 @@ export const getQueryBuilderDictionary = (
   getAnalysisNameByCode: GetAnalysisNameByCode,
 ): QueryBuilderDict => {
   const analysisMap = {
-    MITN: getAnalysisNameByCode('MITN', true, 'MITN'),
-    DYSTM: getAnalysisNameByCode('DYSTM', true, 'DYSTM'),
-    MYOPC: getAnalysisNameByCode('MYOPC', true, 'MYOPC'),
-    DI: getAnalysisNameByCode('DI', true, 'DI'),
-    RHAB: getAnalysisNameByCode('RHAB', true, 'RHAB'),
-    MYASC: getAnalysisNameByCode('MYASC', true, 'MYASC'),
-    MMG: getAnalysisNameByCode('MMG', true, 'MMG'),
-    HYPM: getAnalysisNameByCode('HYPM', true, 'HYPM'),
+    MITN: getAnalysisNameByCode('MITN'),
+    DYSTM: getAnalysisNameByCode('DYSTM'),
+    MYOPC: getAnalysisNameByCode('MYOPC'),
+    DI: getAnalysisNameByCode('DI'),
+    RHAB: getAnalysisNameByCode('RHAB'),
+    MYASC: getAnalysisNameByCode('MYASC'),
+    MMG: getAnalysisNameByCode('MMG'),
+    HYPM: getAnalysisNameByCode('HYPM'),
   };
 
   return {

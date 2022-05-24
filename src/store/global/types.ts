@@ -1,6 +1,7 @@
-import { LANG } from 'utils/constants';
-import { ArgsProps as NotificationArgsProps } from 'antd/lib/notification';
 import { ArgsProps as MessageArgsProps, NoticeType } from 'antd/lib/message';
+import { ArgsProps as NotificationArgsProps } from 'antd/lib/notification';
+
+import { LANG } from 'utils/constants';
 
 export enum GlobalActionsEnum {
   CHANGE_LANG = 'state/global/action/lang',
@@ -20,7 +21,7 @@ export type initialState = {
 
 export type GetAnalysisNameByCode = (
   code: string,
-  withCode: boolean,
+  withCode?: boolean,
   defaultValue?: string,
 ) => string;
 

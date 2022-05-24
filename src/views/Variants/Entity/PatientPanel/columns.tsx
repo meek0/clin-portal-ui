@@ -21,11 +21,7 @@ const findAllAnalysis = (
     ) {
       analysisList.push({
         value: donor.node.analysis_code,
-        text: getAnalysisNameByCode(
-          donor.node.analysis_code,
-          true,
-          donor.node.analysis_display_name,
-        ),
+        text: getAnalysisNameByCode(donor.node.analysis_code),
       });
     }
   });
@@ -45,9 +41,9 @@ export const getPatientPanelColumns = (
   {
     key: 'analysis_code',
     title: intl.get('screen.variantDetails.patientsTab.analysis'),
-    render: (data) =>
-      data.analysis_display_name ? (
-        <Tooltip title={data.analysis_display_name}>{data.analysis_code}</Tooltip>
+    render: (data: DonorsEntity) =>
+      data.analysis_code ? (
+        <Tooltip title={getAnalysisNameByCode(data.analysis_code)}>{data.analysis_code}</Tooltip>
       ) : (
         data.analysis_code
       ),

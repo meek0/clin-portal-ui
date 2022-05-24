@@ -1,17 +1,19 @@
-import { useHistory, useParams } from 'react-router-dom';
-import { Tag, Tabs } from 'antd';
-import { TeamOutlined, BarChartOutlined } from '@ant-design/icons';
 import intl from 'react-intl-universal';
-import ServerError from 'components/Results/ServerError';
-import NotFound from 'components/Results/NotFound';
-import ResumePanel from './SummaryPanel';
+import { useHistory, useParams } from 'react-router-dom';
+import { BarChartOutlined, TeamOutlined } from '@ant-design/icons';
+import { Tabs, Tag } from 'antd';
+import { useTabSummaryData } from 'graphql/variants/tabActions';
 import { GraphqlBackend } from 'providers/';
 import ApolloProvider from 'providers/ApolloProvider';
-import { useTabSummaryData } from 'graphql/variants/tabActions';
 import PatientPanel from 'views/Variants/Entity/PatientPanel';
-import ContentWithHeader from 'components/Layout/ContentWithHeader';
+
 import LineStyleIcon from 'components/icons/LineStyleIcon';
+import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
+import NotFound from 'components/Results/NotFound';
+import ServerError from 'components/Results/ServerError';
+
+import ResumePanel from './SummaryPanel';
 
 import styles from './index.module.scss';
 
@@ -98,7 +100,7 @@ const VariantEntityPage = () => {
             <ResumePanel
               locus={locus}
               data={{
-                loading: loading,
+                loading,
                 variantData: data,
               }}
             />

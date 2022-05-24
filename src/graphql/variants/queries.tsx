@@ -170,7 +170,6 @@ export const TAB_FREQUENCIES_QUERY = gql`
                 edges {
                   node {
                     analysis_code
-                    analysis_display_name
                     affected {
                       ac
                       af
@@ -491,7 +490,6 @@ export const TAB_PATIENT_QUERY = gql`
                     patient_id
                     organization_id
                     analysis_code
-                    analysis_display_name
                     gender
                     filters
                     is_proband
@@ -521,7 +519,7 @@ export const VARIANT_SEARCH_QUERY = gql`
       hits {
         edges {
           node {
-            locus,
+            locus
             rsnumber
           }
         }

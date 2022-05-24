@@ -12,6 +12,8 @@ import { isEmpty } from 'lodash';
 import NoData from 'views/Variants/Entity/NoData';
 
 import CollapsePanel from 'components/containers/collapse';
+import { useGlobals } from 'store/global';
+import { GetAnalysisNameByCode } from 'store/global/types';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { toExponentialNotation } from 'utils/helper';
 
@@ -42,12 +44,12 @@ const formatFractionPercent = (nominator: number, denominator: number, total: nu
     nominator + denominator ? `(${(total * 100).toFixed(1)}%)` : ''
   }`;
 
-const freqByAnalysisColumns = [
+const getFreqByAnalysisColumns = (getAnalysisNameByCode: GetAnalysisNameByCode) => [
   {
     title: intl.get('screen.variant.entity.frequencyTab.analysis'),
     render: (freqByAnalysis: FrequencyByAnalysisEntity) =>
-      freqByAnalysis.analysis_display_name ? (
-        <Tooltip title={freqByAnalysis.analysis_display_name}>
+      freqByAnalysis.analysis_code ? (
+        <Tooltip title={getAnalysisNameByCode(freqByAnalysis.analysis_code)}>
           {freqByAnalysis.analysis_code}
         </Tooltip>
       ) : (
@@ -220,11 +222,11 @@ const { Title } = Typography;
 
 const FrequencyCard = ({ locus }: OwnProps) => {
   const { loading, data } = useTabFrequenciesData(locus);
+  const { getAnalysisNameByCode } = useGlobals();
 
   const frequencies_by_analysis = makeRows(data.frequencies_by_analysis);
   frequencies_by_analysis.push({
     analysis_code: 'RQDM',
-    analysis_display_name: intl.get('screen.variant.entity.frequencyTab.RQDM.title'),
     ...data.frequency_RQDM,
   });
 
@@ -246,7 +248,7 @@ const FrequencyCard = ({ locus }: OwnProps) => {
               bordered
               size="small"
               dataSource={frequencies_by_analysis}
-              columns={freqByAnalysisColumns}
+              columns={getFreqByAnalysisColumns(getAnalysisNameByCode)}
               pagination={false}
             />
           )}

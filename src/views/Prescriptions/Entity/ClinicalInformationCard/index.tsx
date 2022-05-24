@@ -1,4 +1,5 @@
 import { Typography } from 'antd';
+import { extractPatientId } from 'api/fhir/helper';
 import { ServiceRequestEntity } from 'api/fhir/models';
 
 import CollapsePanel from 'components/containers/collapse';
@@ -14,7 +15,11 @@ interface OwnProps {
 
 const ClinicalInformation = ({ prescription, loading }: OwnProps) => (
   <CollapsePanel header={<Title level={4}>Information clinique</Title>} loading={loading}>
-    {prescription ? <RequestTable patientId={prescription?.subject.reference} /> : <></>}
+    {prescription ? (
+      <RequestTable patientId={extractPatientId(prescription?.subject.reference)} />
+    ) : (
+      <></>
+    )}
   </CollapsePanel>
 );
 

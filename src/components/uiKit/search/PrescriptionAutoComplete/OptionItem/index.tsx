@@ -15,9 +15,7 @@ const OptionItem = ({ data }: OwnProps) => {
 
   return (
     <Space direction="vertical" size={0} className={styles.prescriptionOptionItem}>
-      <Typography.Text strong>
-        {getAnalysisNameByCode(data.analysis_code, true, data.analysis_code)}
-      </Typography.Text>
+      <Typography.Text strong>{getAnalysisNameByCode(data.analysis_code)}</Typography.Text>
       <Descriptions size="small" column={1}>
         <Descriptions.Item label={'Prescription'}>
           <Typography.Text type="secondary">{`${data.prescription_id} (${formatDate(
