@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
-import { Col, Row } from 'antd';
+import { Col, Row, Space } from 'antd';
 import cx from 'classnames';
 import { ArrangerEdge, ArrangerHits, ArrangerResultsTree } from 'graphql/models';
 import { DonorsEntity, TTableDonorEntity } from 'graphql/variants/models';
@@ -101,76 +101,78 @@ const PatientPanel = ({ locus, className = '' }: OwnProps) => {
 
   return (
     <div className={cx(styles.patientPanel, className)}>
-      <GridCard
-        content={
-          <Row gutter={[12, 24]} className={styles.graphRowWrapper}>
-            <Col sm={12} md={12} lg={8}>
-              <PieChart
-                title={intl.get('filters.group.donors.gender')}
-                data={sexData}
-                {...graphSetting}
-              />
-            </Col>
-            <Col sm={12} md={12} lg={8}>
-              <PieChart
-                title={intl.get('filters.group.donors.analysis_code')}
-                data={analyseData}
-                {...graphSetting}
-              />
-            </Col>
-            <Col sm={12} md={12} lg={8}>
-              <PieChart
-                title={intl.get('filters.group.donors.filters')}
-                data={dragenData}
-                {...graphSetting}
-              />
-            </Col>
-          </Row>
-        }
-      ></GridCard>
+      <Space direction="vertical" size={16} className={styles.space}>
+        <GridCard
+          content={
+            <Row gutter={[12, 24]}>
+              <Col sm={12} md={12} lg={8}>
+                <PieChart
+                  title={intl.get('filters.group.donors.gender')}
+                  data={sexData}
+                  {...graphSetting}
+                />
+              </Col>
+              <Col sm={12} md={12} lg={8}>
+                <PieChart
+                  title={intl.get('filters.group.donors.analysis_code')}
+                  data={analyseData}
+                  {...graphSetting}
+                />
+              </Col>
+              <Col sm={12} md={12} lg={8}>
+                <PieChart
+                  title={intl.get('filters.group.donors.filters')}
+                  data={dragenData}
+                  {...graphSetting}
+                />
+              </Col>
+            </Row>
+          }
+        ></GridCard>
 
-      <GridCard
-        content={
-          <ProTable<TTableDonorEntity>
-            tableId="patient_panel_table"
-            columns={getPatientPanelColumns(dataSource.hits, getAnalysisNameByCode)}
-            dataSource={makeRows(dataSource.hits?.edges) ?? []}
-            loading={loading}
-            showSorterTooltip={false}
-            dictionary={getProTableDictionary()}
-            onChange={({ current, pageSize }, filters, sorter, extra) => {
-              if (extra.currentDataSource.length !== dataSource.nbRows) {
-                setDataSource({
-                  ...dataSource,
-                  nbRows: extra.currentDataSource.length,
-                });
-              }
+        <GridCard
+          content={
+            <ProTable<TTableDonorEntity>
+              tableId="patient_panel_table"
+              columns={getPatientPanelColumns(dataSource.hits, getAnalysisNameByCode)}
+              dataSource={makeRows(dataSource.hits?.edges) ?? []}
+              loading={loading}
+              showSorterTooltip={false}
+              dictionary={getProTableDictionary()}
+              onChange={({ current, pageSize }, filters, sorter, extra) => {
+                if (extra.currentDataSource.length !== dataSource.nbRows) {
+                  setDataSource({
+                    ...dataSource,
+                    nbRows: extra.currentDataSource.length,
+                  });
+                }
 
-              if (currentPage !== current || currentPageSize !== pageSize) {
-                setCurrentPage(current!);
-                setCurrentPageSize(pageSize || DEFAULT_PAGE_SIZE);
-              }
-            }}
-            headerConfig={{
-              itemCount: {
-                pageIndex: currentPage,
+                if (currentPage !== current || currentPageSize !== pageSize) {
+                  setCurrentPage(current!);
+                  setCurrentPageSize(pageSize || DEFAULT_PAGE_SIZE);
+                }
+              }}
+              headerConfig={{
+                itemCount: {
+                  pageIndex: currentPage,
+                  pageSize: currentPageSize,
+                  total: dataSource.nbRows || 0,
+                },
+              }}
+              size="small"
+              bordered
+              pagination={{
+                current: currentPage,
                 pageSize: currentPageSize,
-                total: dataSource.nbRows || 0,
-              },
-            }}
-            size="small"
-            bordered
-            pagination={{
-              current: currentPage,
-              pageSize: currentPageSize,
-              defaultPageSize: DEFAULT_PAGE_SIZE,
-              total: dataSource.nbRows ?? 0,
-              hideOnSinglePage: true,
-              className: styles.patientPagination,
-            }}
-          />
-        }
-      ></GridCard>
+                defaultPageSize: DEFAULT_PAGE_SIZE,
+                total: dataSource.nbRows ?? 0,
+                hideOnSinglePage: true,
+                className: styles.patientPagination,
+              }}
+            />
+          }
+        ></GridCard>
+      </Space>
     </div>
   );
 };

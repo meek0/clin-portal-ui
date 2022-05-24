@@ -126,6 +126,7 @@ export const getPatientPanelColumns = (
   {
     key: 'qd',
     dataIndex: 'qd',
+    displayTitle: intl.get('screen.variantDetails.patientsTab.qd'),
     title: (
       <Tooltip
         arrowPointAtCenter
@@ -141,6 +142,7 @@ export const getPatientPanelColumns = (
   {
     key: 'ad_alt',
     dataIndex: 'ad_alt',
+    displayTitle: intl.get('screen.variantDetails.patientsTab.adAlt'),
     title: (
       <Tooltip
         arrowPointAtCenter
@@ -156,6 +158,7 @@ export const getPatientPanelColumns = (
   {
     key: 'ad_total',
     dataIndex: 'ad_total',
+    displayTitle: intl.get('screen.variantDetails.patientsTab.adTotal'),
     title: (
       <Tooltip
         arrowPointAtCenter
@@ -171,6 +174,7 @@ export const getPatientPanelColumns = (
   {
     key: 'ad_ratio',
     dataIndex: 'ad_ratio',
+    displayTitle: intl.get('screen.variantDetails.patientsTab.adFreq'),
     title: (
       <Tooltip
         arrowPointAtCenter
@@ -186,6 +190,7 @@ export const getPatientPanelColumns = (
   {
     key: 'gq',
     dataIndex: 'gq',
+    displayTitle: intl.get('screen.variantDetails.patientsTab.genotypeQuality'),
     title: (
       <Tooltip
         arrowPointAtCenter
