@@ -1,6 +1,6 @@
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
-import { DownloadOutlined, MedicineBoxOutlined } from '@ant-design/icons';
+import { MedicineBoxOutlined } from '@ant-design/icons';
 import { Button, Col, Row } from 'antd';
 import { extractPatientId } from 'api/fhir/helper';
 import { useServiceRequestEntity } from 'graphql/prescriptions/actions';
@@ -36,9 +36,6 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
         icon: <MedicineBoxOutlined />,
         title: intl.get('screen.prescription.entity.title', { id: prescriptionId }),
         actions: [
-          <Button key="documents" icon={<DownloadOutlined />}>
-            {intl.get('screen.prescription.entity.download.documents')}
-          </Button>,
           <Link
             key="variants"
             to={`/variant-exploration/patient/${extractPatientId(

@@ -16,7 +16,10 @@ interface OwnProps {
 const ClinicalInformation = ({ prescription, loading }: OwnProps) => (
   <CollapsePanel header={<Title level={4}>Information clinique</Title>} loading={loading}>
     {prescription ? (
-      <RequestTable patientId={extractPatientId(prescription?.subject.reference)} />
+      <RequestTable
+        patientId={extractPatientId(prescription?.subject.reference)}
+        data={prescription?.subject?.resource?.requests}
+      />
     ) : (
       <></>
     )}

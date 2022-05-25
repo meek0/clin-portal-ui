@@ -222,10 +222,29 @@ export type ServiceRequestEntityExtension = Extension<{
   resource: PatientServiceRequestFragment;
 }>;
 
+export interface PatientRequestSpecimen {
+  reference: string;
+  resource: {
+    parent?: Reference[];
+    accessionIdentifier: {
+      system: string;
+      value: string;
+    };
+  };
+}
+
+export interface PatientRequest {
+  authoredOn: string;
+  id: string;
+  status: string;
+  specimen: PatientRequestSpecimen[];
+}
+
 export interface PatientServiceRequestFragment {
   id: string;
   gender: string;
   mrn: string;
   clinicalImpressions: ClinicalImpression[];
   person: Person[];
+  requests: PatientRequest[];
 }

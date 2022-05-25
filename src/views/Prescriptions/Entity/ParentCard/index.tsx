@@ -1,6 +1,7 @@
 import intl from 'react-intl-universal';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Descriptions, Divider, Space, Typography } from 'antd';
+import { extractPatientId } from 'api/fhir/helper';
 import { ServiceRequestEntityExtension } from 'api/fhir/models';
 import { checkIfPatientIfAffected } from 'api/fhir/patientHelper';
 import { get } from 'lodash';
@@ -45,7 +46,10 @@ const ParentCard = ({ extension, loading }: OwnProps) => (
               </>
             }
           />
-          <RequestTable patientId={extension?.extension[1].valueReference?.resource.id!} />
+          <RequestTable
+            patientId={extractPatientId(extension?.extension[1].valueReference?.resource.id!)}
+            data={extension?.extension[1].valueReference?.resource?.requests ?? []}
+          />
         </Space>
       </CollapsePanel>
     )}

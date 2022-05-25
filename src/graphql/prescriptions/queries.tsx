@@ -82,7 +82,7 @@ export const PRESCRIPTIONS_SEARCH_QUERY = gql`
   }
 `;
 
-const ANALYSIS_PATIENT_FRAGMENT = gql`
+const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
   fragment PatientFields on Patient {
     id
     gender
@@ -100,7 +100,7 @@ const ANALYSIS_PATIENT_FRAGMENT = gql`
         ramq: value
       }
     }
-    requests: ServiceRequestList(_reference: patient, based_on: $requestId) {
+    requests: ServiceRequestList(_reference: patient, based_on: "${requestId}") {
       id
       authoredOn
       specimen {
@@ -149,7 +149,7 @@ const ANALYSIS_PATIENT_FRAGMENT = gql`
 `;
 
 export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
-  ${ANALYSIS_PATIENT_FRAGMENT}
+  ${ANALYSIS_PATIENT_FRAGMENT(requestId)}
   query GetAnalysisEntity($requestId: String = "${requestId}") {
     ServiceRequest(id: $requestId) {
       id
