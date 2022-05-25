@@ -93,7 +93,7 @@ const Archives = () => {
           if (data?.data.taskList) {
             setDocs(extracDocsFromTask(data.data.taskList));
           } else {
-            setDocs([])
+            setDocs([]);
           }
         })
         .finally(() => {
@@ -126,7 +126,7 @@ const Archives = () => {
             placeholder={intl.get('screen.archives.search.bar.placeholder')}
             allowClear
             onSearch={handleSearch}
-            enterButton="Search"
+            enterButton={intl.get('screen.archives.search.bar.btntext')}
             size="large"
             loading={isLoading}
             value={searchValue}
