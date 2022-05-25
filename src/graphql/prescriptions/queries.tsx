@@ -16,6 +16,7 @@ export const PRESCRIPTIONS_QUERY = gql`
             created_on
             timestamp
             requester
+            prenatal
             ldm
             analysis_code
             status

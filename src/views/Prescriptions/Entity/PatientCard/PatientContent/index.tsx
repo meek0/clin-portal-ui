@@ -14,14 +14,20 @@ interface OwnProps {
 const PatientContent = ({ patient, labelClass = 'label-35' }: OwnProps) =>
   patient ? (
     <Descriptions column={1} size="small" className={labelClass}>
-      <Descriptions.Item label="ID Patient">{extractPatientId(patient.id)}</Descriptions.Item>
-      <Descriptions.Item label="Dossier">{patient.mrn}</Descriptions.Item>
+      <Descriptions.Item label={intl.get('screen.prescription.entity.patientContent.patientId')}>
+        {extractPatientId(patient.id)}
+      </Descriptions.Item>
+      <Descriptions.Item label={intl.get('screen.prescription.entity.patientContent.folder')}>
+        {patient.mrn}
+      </Descriptions.Item>
       <Descriptions.Item label="RAMQ">{formatRamq(patient.person[0].ramq)}</Descriptions.Item>
-      <Descriptions.Item label="Nom">{formatName(patient.person[0].name[0])}</Descriptions.Item>
-      <Descriptions.Item label="Date de naissance">
+      <Descriptions.Item label={intl.get('name')}>
+        {formatName(patient.person[0].name[0])}
+      </Descriptions.Item>
+      <Descriptions.Item label={intl.get('birthdate')}>
         {formatDate(patient.person[0].birthdate)}
       </Descriptions.Item>
-      <Descriptions.Item label="Sexe">
+      <Descriptions.Item label={intl.get('sex')}>
         {intl.get(patient.gender?.toLowerCase() ?? 'key')}
       </Descriptions.Item>
     </Descriptions>

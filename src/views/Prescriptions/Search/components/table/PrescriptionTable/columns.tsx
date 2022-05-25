@@ -7,9 +7,8 @@ import { ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription'
 import StatusTag from 'views/Prescriptions/components/StatusTag';
 import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
 
+import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
-
-import './tableColumn.scss';
 
 export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
   [
@@ -47,6 +46,19 @@ export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
       sorter: { multiple: 1 },
     },
     {
+      name: 'timestamp',
+      render: (date: string) => formatDate(date),
+      summary: false,
+      title: (
+        <Tooltip placement="topLeft" title={intl.get('standard.format.date')} arrowPointAtCenter>
+          {intl.get('screen.patientsearch.table.updatedOn')}
+        </Tooltip>
+      ),
+      displayTitle: intl.get('screen.patientsearch.table.updatedOn'),
+      sorter: { multiple: 1 },
+      defaultHidden: true,
+    },
+    {
       name: ['analysis_code'],
       summary: true,
       title: intl.get('screen.patientsearch.table.test'),
@@ -64,6 +76,20 @@ export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
       summary: true,
       title: intl.get('screen.patientsearch.table.ep'),
       sorter: { multiple: 1 },
+    },
+    {
+      name: ['requester'],
+      summary: true,
+      title: intl.get('screen.patientsearch.table.requester'),
+      render: (requester: string) => requester ?? TABLE_EMPTY_PLACE_HOLDER,
+      defaultHidden: true,
+    },
+    {
+      name: ['prenatal'],
+      summary: true,
+      title: intl.get('screen.patientsearch.table.prenatal'),
+      sorter: { multiple: 1 },
+      defaultHidden: true,
     },
   ].map((c) => ({
     ...c,

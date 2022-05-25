@@ -22,22 +22,26 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
       <ParagraphLoader loading={loading} paragraph={{ rows: 5 }}>
         {prescription && (
           <Descriptions column={1} size="small" className="label-35">
-            <Descriptions.Item label="ID prescription">
+            <Descriptions.Item
+              label={intl.get('screen.prescription.entity.analysisCard.prescriptionId')}
+            >
               {extractServiceRequestId(prescription?.id)}
             </Descriptions.Item>
-            <Descriptions.Item label="Status">
+            <Descriptions.Item label={intl.get('status')}>
               <StatusTag
                 dictionary={getPrescriptionStatusDictionnary()}
                 status={prescription?.status}
               />
             </Descriptions.Item>
-            <Descriptions.Item label="Analyse demandée">
+            <Descriptions.Item
+              label={intl.get('screen.prescription.entity.analysisCard.askedAnalysis')}
+            >
               <Tag color="geekblue">{getAnalysisNameByCode(prescription.code)}</Tag>
             </Descriptions.Item>
-            <Descriptions.Item label="Créée le">
+            <Descriptions.Item label={intl.get('screen.patientsearch.table.createdOn')}>
               {formatDate(prescription?.authoredOn)}
             </Descriptions.Item>
-            <Descriptions.Item label="LDM">
+            <Descriptions.Item label={intl.get('screen.patientsearch.table.ldm')}>
               {extractOrganizationId(prescription?.performer.resource.alias)}
             </Descriptions.Item>
           </Descriptions>
