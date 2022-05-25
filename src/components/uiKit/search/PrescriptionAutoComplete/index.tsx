@@ -3,10 +3,7 @@ import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/ut
 import { AutoComplete, AutoCompleteProps, Input } from 'antd';
 import { ArrangerApi } from 'api/arranger';
 import { hydrateResults } from 'graphql/models';
-import {
-  AnalysisResult,
-  IAnalysisResultTree,
-} from 'graphql/prescriptions/models/Prescription';
+import { AnalysisResult, IAnalysisResultTree } from 'graphql/prescriptions/models/Prescription';
 import { PRESCRIPTIONS_SEARCH_QUERY } from 'graphql/prescriptions/queries';
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
@@ -35,7 +32,7 @@ const PrescriptionAutoComplete = (
   const [results, setResults] = useState<AnalysisResult[]>([]);
   const history = useHistory();
 
-  const formatUrl = (cid: string) => `/prescription/entity/${cid}`;
+  const formatUrl = (prescription_id: string) => `/prescription/entity/${prescription_id}`;
 
   return (
     <AutoComplete
@@ -54,16 +51,19 @@ const PrescriptionAutoComplete = (
       }}
       onKeyDown={(e) => {
         if (e.code.toLowerCase() === 'enter' && !isEmpty(results)) {
-          history.push(formatUrl(results[0].cid!));
+          history.push(formatUrl(results[0].prescription_id!));
         }
       }}
       options={results.map((prescription) => ({
         label: (
-          <Link className={styles.prescriptionOptionLink} to={formatUrl(prescription.cid!)}>
+          <Link
+            className={styles.prescriptionOptionLink}
+            to={formatUrl(prescription.prescription_id!)}
+          >
             <OptionItem data={prescription} />
           </Link>
         ),
-        value: prescription.cid,
+        value: prescription.prescription_id,
       }))}
     >
       <Input
