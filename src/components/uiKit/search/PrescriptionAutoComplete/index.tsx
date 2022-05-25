@@ -1,17 +1,18 @@
+import { useState } from 'react';
+import intl from 'react-intl-universal';
+import { Link, useHistory } from 'react-router-dom';
+import { SearchOutlined } from '@ant-design/icons';
 import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
 import { AutoComplete, AutoCompleteProps, Input } from 'antd';
 import { ArrangerApi } from 'api/arranger';
+import cx from 'classnames';
 import { hydrateResults } from 'graphql/models';
 import { AnalysisResult, IAnalysisResultTree } from 'graphql/prescriptions/models/Prescription';
 import { PRESCRIPTIONS_SEARCH_QUERY } from 'graphql/prescriptions/queries';
-import { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import OptionItem from './OptionItem';
-import intl from 'react-intl-universal';
-import { SearchOutlined } from '@ant-design/icons';
-import cx from 'classnames';
 import { isEmpty } from 'lodash';
+
+import OptionItem from './OptionItem';
 
 import styles from './index.module.scss';
 
