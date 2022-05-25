@@ -6,7 +6,7 @@ export const FHIR_SR_ID_PREFIX = 'ServiceRequest/';
 export const FHIR_ORG_ID_PREFIX = 'Organization/';
 
 const extractIdIfThere = (id: string, prefix: string) =>
-  id.startsWith(prefix)
+  id && id.startsWith(prefix)
     ? id.substring(prefix.length, getPositionAt(id, '/', 2) ?? prefix.length)
     : id;
 

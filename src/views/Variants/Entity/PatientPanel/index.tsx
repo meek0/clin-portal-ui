@@ -36,7 +36,6 @@ const makeRows = (donors: ArrangerEdge<DonorsEntity>[]): TTableDonorEntity[] =>
     gender: donor.node.gender.toLowerCase(),
     is_proband: donor.node.is_proband,
     analysis_code: donor.node.analysis_code,
-    analysis_display_name: donor.node.analysis_display_name,
     family_id: donor.node.family_id,
     last_update: formatTimestampToISODate(donor.node.last_update as number),
     qd: donor.node.qd,

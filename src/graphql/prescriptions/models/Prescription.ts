@@ -6,7 +6,54 @@ export type DataCategory = {
   count: number;
 };
 
-export interface IParticipantResultTree {
+// Modal V2
+
+export interface IAnalysisResultTree {
+  Analyses: ArrangerResultsTree<AnalysisResult>;
+}
+
+export type ITableAnalysisResult = AnalysisResult & {
+  key: string;
+};
+
+export interface AnalysisResult extends ArrangerNodeData {
+  id: string;
+  score: number;
+  analysis_code: string;
+  created_on: string;
+  ep: string;
+  ldm: string;
+  patient_id: string;
+  patient_mrn: string;
+  prenatal: boolean;
+  prescription_id: string;
+  priority: string;
+  requester: string;
+  security_tags: string;
+  status: string;
+  timestamp: string;
+  sequencing_requests: ArrangerResultsTree<AnalysisSequencingRequest>;
+}
+
+export interface AnalysisSequencingRequest {
+  id: string;
+  score: number;
+  request_id: string;
+  status: string;
+}
+
+export const analysisFields = [
+  'status',
+  'sequencing_requests__status',
+  'analysis_code',
+  'ldm',
+  'ep',
+  'prenatal'
+];
+
+// Model V1
+
+export interface IPrescriptionResultTree {
   Prescriptions: ArrangerResultsTree<PrescriptionResult>;
 }
 

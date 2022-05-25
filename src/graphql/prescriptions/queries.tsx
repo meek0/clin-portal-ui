@@ -1,71 +1,31 @@
 import { gql } from '@apollo/client';
 
-import { fields } from './models/Prescription';
+import { analysisFields } from './models/Prescription';
 
 export const PRESCRIPTIONS_QUERY = gql`
   query PrescriptionsInformation ($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort]) {
-    Prescriptions {
+    Analyses {
       hits(filters: $sqon, first: $first, offset: $offset, sort: $sort) {
         edges {
           node {
             id
-            cid
-            mrn
-            ethnicity
-            bloodRelationship
-            status
-            state
+            patient_id
+            patient_mrn
+            prescription_id
+            ep
+            created_on
             timestamp
-            laboratory
-            analysis{
-              code
-              display
-            }
-            submitted
-            authoredOn
-            approver{
-              cid
-              lastName
-              firstName
-              lastNameFirstName
-            }
-            prescriber {
-              cid
-              firstName
-              lastName
-              lastNameFirstName
-            }
-            organization {
-              cid
-              name
-            }
-            familyInfo {
-              cid
-              type
-            }
-            patientInfo {
-              cid
-              lastName
-              firstName
-              lastNameFirstName
-              gender
-              ramq
-              position
-              fetus
-              birthDate
-              familyId
-              cidText
-              organization {
-                cid
-                name
-              }
-            }
+            requester
+            prenatal
+            ldm
+            analysis_code
+            status
           }
         }
         total
       }
       aggregations (filters: $sqon){
-        ${fields.map(
+        ${analysisFields.map(
           (f) =>
             f +
             ' {\n          buckets {\n            key\n            doc_count\n          }\n        }',
@@ -76,64 +36,22 @@ export const PRESCRIPTIONS_QUERY = gql`
 `;
 
 export const PRESCRIPTIONS_ENTITY_QUERY = gql`
-  query PrescriptionsEntity ($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort]) {
-    Prescriptions {
+  query PrescriptionsEntity($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort]) {
+    Analyses {
       hits(filters: $sqon, first: $first, offset: $offset, sort: $sort) {
         edges {
           node {
             id
-            cid
-            mrn
-            ethnicity
-            bloodRelationship
-            status
-            state
+            patient_id
+            patient_mrn
+            prescription_id
+            ep
+            created_on
             timestamp
-            laboratory
-            analysis{
-              code
-              display
-            }
-            submitted
-            authoredOn
-            approver{
-              cid
-              lastName
-              firstName
-              lastNameFirstName
-            }
-
-            organization {
-              cid
-              name
-            }
-            familyInfo {
-              cid
-              type
-            }
-            prescriber {
-              cid
-              firstName
-              lastName
-              lastNameFirstName
-            }
-            patientInfo {
-              cid
-              lastName
-              firstName
-              lastNameFirstName
-              gender
-              ramq
-              position
-              fetus
-              birthDate
-              familyId
-              cidText
-              organization {
-                cid
-                name
-              }
-            }
+            requester
+            ldm
+            analysis_code
+            status
           }
         }
         total
@@ -143,37 +61,136 @@ export const PRESCRIPTIONS_ENTITY_QUERY = gql`
 `;
 
 export const PRESCRIPTIONS_SEARCH_QUERY = gql`
-  query PrescriptionsInformationSearch($sqon: JSON, $first: Int, $offset: Int) {
-    Prescriptions {
+  query AnalysisSearch($sqon: JSON, $first: Int, $offset: Int) {
+    Analyses {
       hits(filters: $sqon, first: $first, offset: $offset) {
         edges {
           node {
-            cid
-            status
+            id
+            patient_id
+            patient_mrn
+            prescription_id
+            ep
             timestamp
-            mrn
-            laboratory
-            analysis {
-              code
-              display
+            requester
+            ldm
+            analysis_code
+          }
+        }
+        total
+      }
+    }
+  }
+`;
+
+const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
+  fragment PatientFields on Patient {
+    id
+    gender
+    identifier(fhirpath: "type.coding.code = 'MR'") @flatten @first {
+      mrn: value
+    }
+    person: PersonList(_reference: patient) {
+      id
+      name {
+        family
+        given @first
+      }
+      birthdate: birthDate
+      identifier(fhirpath: "type.coding.code = 'JHN'") @flatten @first {
+        ramq: value
+      }
+    }
+    requests: ServiceRequestList(_reference: patient, based_on: "${requestId}") {
+      id
+      authoredOn
+      specimen {
+        reference
+        resource {
+          parent {
+            reference
+          }
+          accessionIdentifier {
+            system
+            value
+          }
+        }
+      }
+      status
+    }
+    clinicalImpressions: ClinicalImpressionList(_reference: patient) {
+      id
+      investigation {
+        item {
+          reference
+          resource {
+            code {
+              coding {
+                system
+                code
+              }
             }
-            familyInfo {
-              cid
-              type
+            interpretation {
+              coding {
+                code
+                system
+              }
             }
-            organization {
-              cid
-              name
-            }
-            patientInfo {
-              cid
-              organization {
-                name
+            value {
+              coding {
+                code
+                system
               }
             }
           }
         }
-        total
+      }
+    }
+  }
+`;
+
+export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
+  ${ANALYSIS_PATIENT_FRAGMENT(requestId)}
+  query GetAnalysisEntity($requestId: String = "${requestId}") {
+    ServiceRequest(id: $requestId) {
+      id
+      authoredOn
+      status
+      code @flatten {
+        coding(system: "http://fhir.cqgc.ferlab.bio/CodeSystem/analysis-request-code")
+          @flatten
+          @first {
+          code
+        }
+      }
+      performer @first {
+        resource {
+          alias @first
+          name
+        }
+      }
+      subject {
+        reference
+        resource {
+          ...PatientFields
+        }
+      }
+      extensions: extension(url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/family-member") {
+        extension(url: "parent-relationship") {
+          valueCoding {
+            coding {
+              code
+            }
+          }
+        }
+        extension(url: "parent") {
+          valueReference {
+            reference
+            resource {
+              ...PatientFields
+            }
+          }
+        }
       }
     }
   }

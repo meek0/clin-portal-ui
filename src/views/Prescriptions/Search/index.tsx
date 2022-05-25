@@ -1,33 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import intl from 'react-intl-universal';
+import { MedicineBoxOutlined, SolutionOutlined } from '@ant-design/icons';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
+import { Space, Tabs } from 'antd';
 import { usePrescription, usePrescriptionMapping } from 'graphql/prescriptions/actions';
-import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
-import ContentContainer from './components/ContentContainer';
-import ApolloProvider from 'providers/ApolloProvider';
-import { MAX_NUMBER_RESULTS, PRESCRIPTION_QB_ID, PRESCRIPTION_SCROLL_ID } from './utils/contstant';
+import { useSequencingRequests } from 'graphql/sequencing/actions';
+import { isEmpty } from 'lodash';
 import { GraphqlBackend } from 'providers';
-import Sidebar from './components/Sidebar';
-import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
+import ApolloProvider from 'providers/ApolloProvider';
+
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
-import { MedicineBoxOutlined } from '@ant-design/icons';
+import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
+import PrescriptionAutoComplete from 'components/uiKit/search/PrescriptionAutoComplete';
+import { IQueryConfig } from 'utils/searchPageTypes';
+
+import Sidebar from './components/Sidebar';
+import PrescriptionsTable from './components/table/PrescriptionTable';
+import SequencingsTable from './components/table/SequencingTable';
+import { PRESCRIPTION_QB_ID, PRESCRIPTION_SCROLL_ID, TableTabs } from './utils/contstant';
 
 import styles from './index.module.scss';
 
+export const DEFAULT_PAGE_SIZE = 20;
+export const DEFAULT_PAGE = 1;
+
+const DEFAULT_QUERY_CONFIG: IQueryConfig = {
+  pageIndex: DEFAULT_PAGE,
+  size: DEFAULT_PAGE_SIZE,
+  sort: [],
+};
+
+const DEFAULT_SORT = [
+  {
+    field: 'created_on',
+    order: 'desc',
+  },
+];
+
+const ajustSqon = (sqon: ISyntheticSqon) =>
+  JSON.parse(JSON.stringify(sqon).replace('sequencing_requests.status', 'status'));
+
 const PrescriptionSearch = (): React.ReactElement => {
-  const { queryList, activeQuery } = useQueryBuilderState(PRESCRIPTION_QB_ID);
   const extendedMapping = usePrescriptionMapping();
+  const { queryList, activeQuery } = useQueryBuilderState(PRESCRIPTION_QB_ID);
+  const [prescriptionQueryConfig, setPrescriptionQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
+  const [sequencingQueryConfig, setSequencingQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
+
+  const sequencings = useSequencingRequests({
+    first: sequencingQueryConfig.size,
+    offset: sequencingQueryConfig.size * (sequencingQueryConfig.pageIndex - 1),
+    sqon: ajustSqon(resolveSyntheticSqon(queryList, activeQuery)),
+    sort: isEmpty(sequencingQueryConfig.sort) ? DEFAULT_SORT : sequencingQueryConfig.sort,
+  });
+
   const prescriptions = usePrescription({
-    first: MAX_NUMBER_RESULTS,
-    offset: 0,
+    first: prescriptionQueryConfig.size,
+    offset: prescriptionQueryConfig.size * (prescriptionQueryConfig.pageIndex - 1),
     sqon: resolveSyntheticSqon(queryList, activeQuery),
-    sort: [
-      {
-        field: 'timestamp',
-        order: 'desc',
-      },
-    ],
+    sort: isEmpty(prescriptionQueryConfig.sort) ? DEFAULT_SORT : prescriptionQueryConfig.sort,
   });
 
   return (
@@ -46,11 +78,47 @@ const PrescriptionSearch = (): React.ReactElement => {
         filters={activeQuery as ISqonGroupFilter}
       />
       <ScrollContentWithFooter scrollId={PRESCRIPTION_SCROLL_ID}>
-        <ContentContainer
-          isLoading={prescriptions.loading}
-          extendedMapping={extendedMapping}
-          prescriptions={prescriptions}
-        />
+        <Space direction="vertical" size="middle" className={styles.patientContentContainer}>
+          <div className={styles.patientContentHeader}>
+            <PrescriptionAutoComplete />
+          </div>
+          <Tabs type="card">
+            <Tabs.TabPane
+              key={TableTabs.Prescriptions}
+              tab={
+                <>
+                  <MedicineBoxOutlined />
+                  {intl.get('screen.patient.tab.prescriptions')}{' '}
+                  {prescriptions?.total && ` (${prescriptions?.total})`}
+                </>
+              }
+            >
+              <PrescriptionsTable
+                results={prescriptions}
+                queryConfig={prescriptionQueryConfig}
+                setQueryConfig={setPrescriptionQueryConfig}
+                loading={prescriptions.loading}
+              />
+            </Tabs.TabPane>
+            <Tabs.TabPane
+              key={TableTabs.Requests}
+              tab={
+                <>
+                  <SolutionOutlined />
+                  {intl.get('screen.patient.tab.requests')}{' '}
+                  {sequencings?.total && ` (${sequencings?.total})`}
+                </>
+              }
+            >
+              <SequencingsTable
+                results={sequencings}
+                queryConfig={sequencingQueryConfig}
+                setQueryConfig={setSequencingQueryConfig}
+                loading={sequencings.loading}
+              />
+            </Tabs.TabPane>
+          </Tabs>
+        </Space>
       </ScrollContentWithFooter>
     </ContentWithHeader>
   );

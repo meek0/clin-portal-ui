@@ -1,17 +1,17 @@
 import { ApolloError } from '@apollo/client';
-import { BooleanOperators, TermOperators } from '@ferlab/ui/core/data/sqon/operators';
+import { ServiceRequestEntity } from 'api/fhir/models';
 import { ExtendedMappingResults, GqlResults, hydrateResults } from 'graphql/models';
-import { PrescriptionResult } from 'graphql/prescriptions/models/Prescription';
+import { AnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import { INDEX_EXTENDED_MAPPING, QueryVariable } from 'graphql/queries';
 import { useLazyResultQuery, useLazyResultQueryOnLoadOnly } from 'graphql/utils/query';
 
-import { PRESCRIPTIONS_QUERY, PRESCRIPTIONS_ENTITY_QUERY } from './queries';
+import { ANALYSIS_ENTITY_QUERY, PRESCRIPTIONS_QUERY } from './queries';
 
-export const usePrescription = (variables: QueryVariable): GqlResults<PrescriptionResult> => {
+export const usePrescription = (variables: QueryVariable): GqlResults<AnalysisResult> => {
   const { loading, result } = useLazyResultQuery<any>(PRESCRIPTIONS_QUERY, {
     variables: variables,
   });
-  const prescriptions = result?.Prescriptions;
+  const prescriptions = result?.Analyses;
   return {
     aggregations: prescriptions?.aggregations || {},
     data: hydrateResults(prescriptions?.hits?.edges || []),
@@ -20,45 +20,34 @@ export const usePrescription = (variables: QueryVariable): GqlResults<Prescripti
   };
 };
 
-export const usePrescriptionEntity = (
+export const useServiceRequestEntity = (
   id: string,
 ): {
-  prescription: PrescriptionResult | undefined;
+  prescription: ServiceRequestEntity | undefined;
   loading: boolean;
   error: ApolloError | undefined;
 } => {
-  const { loading, data, error } = useLazyResultQueryOnLoadOnly<any>(PRESCRIPTIONS_ENTITY_QUERY, {
+  const { loading, data, error } = useLazyResultQueryOnLoadOnly<any>(ANALYSIS_ENTITY_QUERY(id), {
     skip: !id,
     variables: {
-      sqon: {
-        content: [
-          {
-            content: {
-              field: 'cid',
-              value: id,
-            },
-            op: TermOperators.in,
-          },
-        ],
-        op: BooleanOperators.and,
-      },
+      requestId: id,
     },
   });
 
   return {
-    prescription: data?.Prescriptions?.hits?.edges[0]?.node,
+    prescription: data?.ServiceRequest,
     loading,
     error,
   };
 };
 
 export const usePrescriptionMapping = (): ExtendedMappingResults => {
-  const { loading, result } = useLazyResultQuery<any>(INDEX_EXTENDED_MAPPING('Prescriptions'), {
+  const { loading, result } = useLazyResultQuery<any>(INDEX_EXTENDED_MAPPING('Analyses'), {
     variables: [],
   });
 
   return {
-    data: result?.Prescriptions.extended || [],
+    data: result?.Analyses.extended || [],
     loading: loading,
   };
 };

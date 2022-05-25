@@ -1,13 +1,12 @@
-import PositionTag from 'components/uiKit/PositionTag';
-import { PATIENT_POSITION } from 'utils/constants';
-import { PrescriptionResult } from './models/Prescription';
+import { extractPatientId } from 'api/fhir/helper';
+import { ServiceRequestEntity } from 'api/fhir/models';
 
-export const getPositionTag = (prescription: PrescriptionResult | undefined) => {
-  if (prescription && prescription?.familyInfo?.type !== 'solo') {
-    return (
-      <PositionTag
-        isProband={prescription.patientInfo.position.toLowerCase() === PATIENT_POSITION.PROBAND}
-      ></PositionTag>
-    );
-  }
-};
+import PositionTag from 'components/uiKit/PositionTag';
+
+export const getPositionTag = (prescription: ServiceRequestEntity | undefined, patientid: string) =>
+  prescription && (
+    <PositionTag
+      key="type-tag"
+      isProband={extractPatientId(prescription.subject.reference) === patientid}
+    />
+  );

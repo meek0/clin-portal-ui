@@ -1,32 +1,33 @@
-import { useKeycloak } from '@react-keycloak/web';
+import { useEffect } from 'react';
+import intl from 'react-intl-universal';
+import { useDispatch } from 'react-redux';
 import {
   BrowserRouter as Router,
-  Switch,
+  Redirect,
   Route,
   RouteChildrenProps,
   RouteComponentProps,
-  Redirect,
+  Switch,
 } from 'react-router-dom';
-import ContextProvider from 'providers/ContextProvider';
 import Empty from '@ferlab/ui/core/components/Empty';
-import { DYNAMIC_ROUTES, STATIC_ROUTES } from 'utils/routes';
-import Spinner from 'components/uiKit/Spinner';
-import ProtectedRoute from 'ProtectedRoute';
-import PageLayout from 'components/Layout';
-import ErrorPage from 'views/Error';
 import loadable from '@loadable/component';
-import { useLang } from 'store/global';
+import { useKeycloak } from '@react-keycloak/web';
 import { ConfigProvider } from 'antd';
-import frFR from 'antd/lib/locale/fr_FR';
 import enUS from 'antd/lib/locale/en_US';
-import NotificationContextHolder from 'components/utils/NotificationContextHolder';
-import { LANG } from 'utils/constants';
+import frFR from 'antd/lib/locale/fr_FR';
+import ProtectedRoute from 'ProtectedRoute';
+import ContextProvider from 'providers/ContextProvider';
+import ErrorPage from 'views/Error';
+
 import ErrorBoundary from 'components/ErrorBoundary';
-import intl from 'react-intl-universal';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchPractitionerRole } from 'store/user/thunks';
+import PageLayout from 'components/Layout';
+import Spinner from 'components/uiKit/Spinner';
+import NotificationContextHolder from 'components/utils/NotificationContextHolder';
+import { useLang } from 'store/global';
 import { fetchFhirServiceRequestCodes } from 'store/global/thunks';
+import { fetchPractitionerRole } from 'store/user/thunks';
+import { LANG } from 'utils/constants';
+import { DYNAMIC_ROUTES, STATIC_ROUTES } from 'utils/routes';
 
 const loadableProps = { fallback: <Spinner size="large" /> };
 const PrescriptionEntity = loadable(() => import('views/Prescriptions/Entity'), loadableProps);
@@ -117,14 +118,12 @@ const App = () => {
   );
 };
 
-const EnhanceApp = () => {
-  return (
-    <ErrorBoundary>
-      <ContextProvider>
-        <App />
-      </ContextProvider>
-    </ErrorBoundary>
-  );
-};
+const EnhanceApp = () => (
+  <ErrorBoundary>
+    <ContextProvider>
+      <App />
+    </ContextProvider>
+  </ErrorBoundary>
+);
 
 export default EnhanceApp;

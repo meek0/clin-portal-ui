@@ -22,7 +22,6 @@ export type ExternalFrequenciesEntity = {
 export type FrequencyByAnalysisEntity = {
   id: string;
   analysis_code: string;
-  analysis_display_name: string;
   affected: BoundType;
   non_affected: BoundType;
   total: BoundType;
@@ -82,7 +81,6 @@ export type DonorsEntity = {
   zygosity?: string;
   transmission?: string;
   analysis_code?: string;
-  analysis_display_name?: string;
   mother_id?: string;
   mother_zygosity?: string;
   mother_affected_status?: boolean;
@@ -118,7 +116,6 @@ export type VariantEntity = {
   donors?: ArrangerResultsTree<DonorsEntity>;
   external_frequencies?: ExternalFrequenciesEntity;
   frequencies_by_analysis?: FrequencyByAnalysisEntity;
-  analysis_display_name?: string;
   chromosome: string;
   start: number;
   alternate: string;

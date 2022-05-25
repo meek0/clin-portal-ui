@@ -1,18 +1,21 @@
-import { DownloadOutlined, MedicineBoxOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Row } from 'antd';
+import intl from 'react-intl-universal';
+import { Link } from 'react-router-dom';
+import { MedicineBoxOutlined } from '@ant-design/icons';
+import { Button, Col, Row } from 'antd';
+import { extractPatientId } from 'api/fhir/helper';
+import { useServiceRequestEntity } from 'graphql/prescriptions/actions';
+import { GraphqlBackend } from 'providers';
+import ApolloProvider from 'providers/ApolloProvider';
+
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
-import intl from 'react-intl-universal';
-import ApolloProvider from 'providers/ApolloProvider';
-import { GraphqlBackend } from 'providers';
-import { usePrescriptionEntity } from 'graphql/prescriptions/actions';
-import ParagraphLoader from 'components/uiKit/ParagraphLoader';
-import AnalysisCard from './AnalysisCard';
-import PatientCard from './PatientCard';
-import { Link } from 'react-router-dom';
 import NotFound from 'components/Results/NotFound';
-import ClinicalInformation from './ClinicalInformation';
+
+import AnalysisCard from './AnalysisCard';
+import ClinicalInformationCard from './ClinicalInformationCard';
+import ParentCard from './ParentCard';
+import PatientCard from './PatientCard';
 
 import styles from './index.module.scss';
 
@@ -21,7 +24,7 @@ interface OwnProps {
 }
 
 const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
-  const { prescription, loading } = usePrescriptionEntity(prescriptionId);
+  const { prescription, loading } = useServiceRequestEntity(prescriptionId);
 
   if (!loading && !prescription) {
     return <NotFound />;
@@ -33,12 +36,11 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
         icon: <MedicineBoxOutlined />,
         title: intl.get('screen.prescription.entity.title', { id: prescriptionId }),
         actions: [
-          <Button key="documents" icon={<DownloadOutlined />}>
-            {intl.get('screen.prescription.entity.download.documents')}
-          </Button>,
           <Link
             key="variants"
-            to={`/variant-exploration/patient/${prescription?.patientInfo?.cid}/${prescriptionId}`}
+            to={`/variant-exploration/patient/${extractPatientId(
+              prescription?.subject?.resource?.id!,
+            )}/${prescriptionId}`}
           >
             <Button type="primary" icon={<LineStyleIcon height="14" width="14" />}>
               {intl.get('screen.prescription.entity.see.variant')}
@@ -56,16 +58,13 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
             <PatientCard prescription={prescription} loading={loading} />
           </Col>
           <Col span={24}>
-            <Card title={intl.get('screen.prescription.entity.comment.card.title')}>
-              <ParagraphLoader loading={loading} paragraph={{ rows: 2 }}>
-                Purus sit mauris nam porttitor elit, ut. Nulla porttitor sed volutpat vitae sed
-                sodales enim, nisi.
-              </ParagraphLoader>
-            </Card>
+            <ClinicalInformationCard prescription={prescription} loading={loading} />
           </Col>
-          <Col span={24}>
-            <ClinicalInformation loading={loading} />
-          </Col>
+          {prescription?.extensions?.map((extension, index) => (
+            <Col key={index} span={24}>
+              <ParentCard loading={loading} extension={extension} />
+            </Col>
+          ))}
         </Row>
       </ScrollContentWithFooter>
     </ContentWithHeader>
@@ -73,7 +72,7 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
 };
 
 const PrescriptionEntityWrapper = (props: OwnProps) => (
-  <ApolloProvider backend={GraphqlBackend.ARRANGER}>
+  <ApolloProvider backend={GraphqlBackend.FHIR}>
     <PrescriptionEntity {...props} />
   </ApolloProvider>
 );

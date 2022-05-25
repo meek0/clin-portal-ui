@@ -15,7 +15,7 @@ export const transformNameIfNeeded = (field: string, fkey: string, name: string)
     return extractOrganizationId(name);
   }
 
-  if (['analysis__code', 'donors__analysis_code', 'panels'].includes(field)) {
+  if (['analysis_code', 'donors__analysis_code', 'panels'].includes(field)) {
     return getAnalysisNameByCodeFromLocal(fkey, fkey, true);
   }
 

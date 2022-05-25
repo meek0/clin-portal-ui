@@ -1,8 +1,9 @@
-import { Space, Spin, Table, Tag, Typography } from 'antd';
 import intl from 'react-intl-universal';
+import { Space, Table, Tag, Typography } from 'antd';
 import { VariantEntity } from 'graphql/variants/models';
-import CollapsePanel from 'components/containers/collapse';
 import NoData from 'views/Variants/Entity/NoData';
+
+import CollapsePanel from 'components/containers/collapse';
 
 const { Title } = Typography;
 
@@ -72,20 +73,19 @@ const ACMGCriteria = ({ data }: Props) => {
       header={
         <Title level={4}>{intl.get('screen.variantDetails.summaryTab.acmgCriteriaTitle')}</Title>
       }
+      loading={data.loading}
     >
-      <Spin spinning={data.loading}>
-        {formattedDate.length > 0 ? (
-          <Table
-            bordered={true}
-            dataSource={formattedDate}
-            columns={columns}
-            pagination={false}
-            size="small"
-          />
-        ) : (
-          <NoData />
-        )}
-      </Spin>
+      {formattedDate.length > 0 ? (
+        <Table
+          bordered={true}
+          dataSource={formattedDate}
+          columns={columns}
+          pagination={false}
+          size="small"
+        />
+      ) : (
+        <NoData />
+      )}
     </CollapsePanel>
   );
 };

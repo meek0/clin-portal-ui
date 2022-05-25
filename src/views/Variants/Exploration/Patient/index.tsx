@@ -1,27 +1,40 @@
+import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
-import ApolloProvider from 'providers/ApolloProvider';
-import { Space, Tag } from 'antd';
-import { GraphqlBackend } from 'providers';
-import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
-import { INDEXES } from 'graphql/constants';
 import { useParams } from 'react-router';
-import { usePrescriptionEntity } from 'graphql/prescriptions/actions';
-import { getPositionTag } from 'graphql/prescriptions/helper';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
-import { getMenuItems } from './facets';
-import VariantSearchLayout from '../components/VariantSearchLayout';
+import { Space, Tag } from 'antd';
+import { FhirApi } from 'api/fhir';
+import { ServiceRequestEntity } from 'api/fhir/models';
+import { INDEXES } from 'graphql/constants';
+import { getPositionTag } from 'graphql/prescriptions/helper';
+import { GraphqlBackend } from 'providers';
+import ApolloProvider from 'providers/ApolloProvider';
 import { wrapSqonWithDonorIdAndSrId } from 'views/Variants/utils/helper';
-import PageContent from './PageContent';
+
+import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
 import { useGlobals } from 'store/global';
 
+import VariantSearchLayout from '../components/VariantSearchLayout';
+
+import { getMenuItems } from './facets';
+import PageContent from './PageContent';
+
 const VariantExplorationPatient = () => {
-  const { getAnalysisNameByCode } = useGlobals();
   const { patientid, prescriptionid } = useParams<{ patientid: string; prescriptionid: string }>();
   const variantMappingResults = useGetExtendedMappings(INDEXES.VARIANT);
-  const { prescription, loading } = usePrescriptionEntity(prescriptionid);
+  const [headerLoading, setHeaderLoading] = useState(false);
+  const [prescription, setPrescription] = useState<ServiceRequestEntity>();
+  const { getAnalysisNameByCode } = useGlobals();
 
   const filterMapper = (filters: ISqonGroupFilter) =>
     wrapSqonWithDonorIdAndSrId(filters, patientid /** prescriptionid */);
+
+  useEffect(() => {
+    setHeaderLoading(true);
+    FhirApi.fetchServiceRequestEntity(prescriptionid)
+      .then(({ data }) => setPrescription(data?.data.ServiceRequest))
+      .finally(() => setHeaderLoading(false));
+  }, []);
 
   return (
     <VariantSearchLayout
@@ -34,19 +47,11 @@ const VariantExplorationPatient = () => {
             </Space>
           </Tag>,
           <div key="analsysis-name">
-            {prescription && (
-              <Tag color="geekblue">
-                {getAnalysisNameByCode(
-                  prescription.analysis.code,
-                  true,
-                  prescription.analysis.display,
-                )}
-              </Tag>
-            )}
+            {prescription && <Tag color="geekblue">{getAnalysisNameByCode(prescription.code)}</Tag>}
           </div>,
-          getPositionTag(prescription),
+          getPositionTag(prescription, patientid),
         ],
-        loading: loading,
+        loading: headerLoading,
       }}
       menuItems={getMenuItems(variantMappingResults, filterMapper)}
     >

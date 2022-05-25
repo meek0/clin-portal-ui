@@ -15,8 +15,16 @@ body {
   height: 100vh;
 }
 
+.ant-tag {
+  white-space: break-spaces;
+}
+
 .simplebar-content {
   height: 100%;
+}
+
+.simplebar-content-wrapper {
+  overflow: hidden scroll !important;
 }
 
 [ant-click-animating-without-extra-node='true']::after{

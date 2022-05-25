@@ -1,12 +1,21 @@
 import { sendRequestWithRpt } from 'api';
-import { Rpt } from 'auth/types';
-import { Bundle, Patient, PractitionerRole, ServiceRequestCode } from './models';
 import { getFhirPractitionerId } from 'auth/keycloak';
-import EnvironmentVariables from 'utils/EnvVariables';
-import { FHIR_GRAPHQL_URL } from 'providers/ApolloProvider';
+import { Rpt } from 'auth/types';
 import { PatientTaskResults } from 'graphql/patients/models/Patient';
 import { SEARCH_PATIENT_FILES_QUERY } from 'graphql/patients/queries';
+import { ANALYSIS_ENTITY_QUERY } from 'graphql/prescriptions/queries';
+import { FHIR_GRAPHQL_URL } from 'providers/ApolloProvider';
+
+import EnvironmentVariables from 'utils/EnvVariables';
 import { downloadFile } from 'utils/helper';
+
+import {
+  Bundle,
+  Patient,
+  PractitionerRole,
+  ServiceRequestCode,
+  ServiceRequestEntity,
+} from './models';
 
 const FHIR_API_URL = EnvironmentVariables.configFor('FHIR_API');
 
@@ -41,6 +50,18 @@ const searchPatientFiles = (searchValue: string) =>
     },
   });
 
+const fetchServiceRequestEntity = (id: string) =>
+  sendRequestWithRpt<{ data: { ServiceRequest: ServiceRequestEntity } }>({
+    method: 'POST',
+    url: FHIR_GRAPHQL_URL,
+    data: {
+      query: ANALYSIS_ENTITY_QUERY(id).loc?.source.body,
+      variables: {
+        requestId: id,
+      },
+    },
+  });
+
 const downloadFileMetadata = (taskId: string, filename: string) =>
   sendRequestWithRpt<any>({
     method: 'GET',
@@ -53,7 +74,7 @@ const downloadFileMetadata = (taskId: string, filename: string) =>
 const fetchServiceRequestCodes = () =>
   sendRequestWithRpt<ServiceRequestCode>({
     method: 'GET',
-    url: `${FHIR_API_URL}/CodeSystem/service-request-code`,
+    url: `${FHIR_API_URL}/CodeSystem/analysis-request-code`,
   });
 
 const getFileURL = async (fileUrl: string) =>
@@ -67,5 +88,6 @@ export const FhirApi = {
   searchPatientFiles,
   downloadFileMetadata,
   fetchServiceRequestCodes,
+  fetchServiceRequestEntity,
   getFileURL,
 };
