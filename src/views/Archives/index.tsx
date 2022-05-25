@@ -1,21 +1,22 @@
+import { useEffect, useState } from 'react';
+import intl from 'react-intl-universal';
 import { FileTextOutlined } from '@ant-design/icons';
+import Empty from '@ferlab/ui/core/components/Empty';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
-import { Space, Input, Spin } from 'antd';
+import { Input, Space, Spin } from 'antd';
+import { FhirApi } from 'api/fhir';
+import { extractPatientId, extractServiceRequestId } from 'api/fhir/helper';
+import { FhirDoc, FhirOwner, PatientTaskResults } from 'graphql/patients/models/Patient';
+import { isEmpty } from 'lodash';
+import { getAchivesTableColumns } from 'views/Archives/columns';
+
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import useQueryParams from 'hooks/useQueryParams';
-import { useEffect, useState } from 'react';
-import intl from 'react-intl-universal';
-import { getAchivesTableColumns } from 'views/Archives/columns';
-import { getProTableDictionary } from 'utils/translation';
-import { FhirApi } from 'api/fhir';
-import { FhirDoc, FhirOwner, PatientTaskResults } from 'graphql/patients/models/Patient';
-import { isEmpty } from 'lodash';
-import Empty from '@ferlab/ui/core/components/Empty';
-import { formatFileSize } from 'utils/formatFileSize';
 import { formatDate } from 'utils/date';
-import { extractPatientId, extractServiceRequestId } from 'api/fhir/helper';
+import { formatFileSize } from 'utils/formatFileSize';
+import { getProTableDictionary } from 'utils/translation';
 
 import styles from './index.module.scss';
 
@@ -45,7 +46,7 @@ export type DocsWithTaskInfo = FhirDoc & {
 };
 
 const extracDocsFromTask = (tasks: PatientTaskResults) => {
-  let docsList: DocsWithTaskInfo[] = [];
+  const docsList: DocsWithTaskInfo[] = [];
   tasks.forEach((task) => {
     docsList.push(
       ...task.docs.map((doc) => ({
