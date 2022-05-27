@@ -9,6 +9,7 @@ import { PatientRequest } from 'api/fhir/models';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
+import { formatNumber } from 'utils/formatNumber';
 import { STATIC_ROUTES } from 'utils/routes';
 
 import StatusTag from '../components/StatusTag';
@@ -25,7 +26,7 @@ const getRequestColumns = (patientId: string): ProColumnType[] => [
     key: 'id',
     dataIndex: 'id',
     title: 'ID requête',
-    render: (id) => extractServiceRequestId(id),
+    render: (id) => formatNumber(extractServiceRequestId(id)),
   },
   {
     key: 'status',

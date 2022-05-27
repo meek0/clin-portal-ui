@@ -1,4 +1,6 @@
+const regex = new RegExp(`\\B(?=(\\d{3})+(?!\\d))`, 'g');
+
 export const formatNumber = (number: string | number) => {
-  const stringNumber = typeof number === 'string' ? number : number.toString();
-  return stringNumber.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const stringNumber = number.toString();
+  return stringNumber.replace(regex, ' ');
 };

@@ -22,7 +22,7 @@ export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
     },
     {
       name: ['patient_id'],
-      render: (patient_id: string) => formatNumber(patient_id),
+      render: formatNumber,
       summary: false,
       title: intl.get('screen.patientsearch.table.patient'),
     },

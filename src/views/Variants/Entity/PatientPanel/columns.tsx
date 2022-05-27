@@ -37,7 +37,7 @@ export const getPatientPanelColumns = (
     key: 'patient_id',
     dataIndex: 'patient_id',
     title: intl.get('screen.variantDetails.patientsTab.donor'),
-    render: (id) => formatNumber(id),
+    render: formatNumber,
   },
   {
     key: 'analysis_code',
