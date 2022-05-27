@@ -2,16 +2,17 @@ import { CheckCircleOutlined, SyncOutlined } from '@ant-design/icons';
 import { Tag } from 'antd';
 
 /**
- * 
+ *
  * New modal for status
- * 
+ *
  * Will need to move and update ferlab StatusLabel Component
- * 
+ *
  */
 
 export enum StatusOptions {
   Active = 'active',
   OnHold = 'on-hold',
+  Completed = 'completed',
 }
 
 export type TranslationDictionary = Record<StatusOptions, string>;
@@ -34,6 +35,11 @@ export const StatusLabelElement: Record<
   [StatusOptions.OnHold]: (d) => (
     <Tag color="blue" icon={<SyncOutlined />}>
       {d[StatusOptions.OnHold]}
+    </Tag>
+  ),
+  [StatusOptions.Completed]: (d) => (
+    <Tag color="green" icon={<SyncOutlined />}>
+      {d[StatusOptions.Completed]}
     </Tag>
   ),
 };
