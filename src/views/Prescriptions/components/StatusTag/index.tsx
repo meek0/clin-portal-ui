@@ -38,7 +38,7 @@ export const StatusLabelElement: Record<
     </Tag>
   ),
   [StatusOptions.Completed]: (d) => (
-    <Tag color="green" icon={<SyncOutlined />}>
+    <Tag color="green" icon={<CheckCircleOutlined />}>
       {d[StatusOptions.Completed]}
     </Tag>
   ),

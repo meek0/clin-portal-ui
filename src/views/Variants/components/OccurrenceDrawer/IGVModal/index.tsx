@@ -1,23 +1,24 @@
 import React from 'react';
-import { Modal } from 'antd';
-import cx from 'classnames';
 import intl from 'react-intl-universal';
+import { Modal } from 'antd';
+import axios from 'axios';
+import cx from 'classnames';
+import { usePatientFilesData } from 'graphql/patients/actions';
+import { FhirDoc, PatientFileResults } from 'graphql/patients/models/Patient';
+import { DonorsEntity, VariantEntity } from 'graphql/variants/models';
+import { GraphqlBackend } from 'providers/';
+import ApolloProvider from 'providers/ApolloProvider';
+
 import Igv from 'components/Igv';
+import { IIGVTrack } from 'components/Igv/type';
+import ServerError from 'components/Results/ServerError';
+import { GENDER, PARENT_TYPE, PATIENT_POSITION } from 'utils/constants';
 import {
   appendBearerIfToken,
   formatLocus,
   getPatientPosition,
   getTopBodyElement,
 } from 'utils/helper';
-import axios from 'axios';
-import { usePatientFilesData } from 'graphql/patients/actions';
-import { GraphqlBackend } from 'providers/';
-import ApolloProvider from 'providers/ApolloProvider';
-import { DonorsEntity, VariantEntity } from 'graphql/variants/models';
-import { FhirDoc, PatientFileResults } from 'graphql/patients/models/Patient';
-import { IIGVTrack } from 'components/Igv/type';
-import ServerError from 'components/Results/ServerError';
-import { GENDER, PARENT_TYPE, PATIENT_POSITION } from 'utils/constants';
 
 import style from './index.module.scss';
 
@@ -34,19 +35,16 @@ interface ITrackFiles {
   mainFile: string | undefined;
 }
 
-const FHIR_CRAM_CRAI_DOC_TYPE = 'AR';
+const FHIR_CRAM_CRAI_DOC_TYPE = 'ALIR';
 const FHIR_CRAM_TYPE = 'CRAM';
 const FHIR_CRAI_TYPE = 'CRAI';
 
-const getPresignedUrl = (file: string, rpt: string) => {
-  return axios
+const getPresignedUrl = (file: string, rpt: string) =>
+  axios
     .get(`${file}?format=json`, {
       headers: { Authorization: appendBearerIfToken(rpt) },
     })
-    .then((response) => {
-      return response.data.url;
-    });
-};
+    .then((response) => response.data.url);
 
 const findCramAndCraiFiles = (doc: FhirDoc): ITrackFiles => ({
   indexFile: doc?.content!.find((content) => content.format === FHIR_CRAI_TYPE)?.attachment.url,
@@ -95,7 +93,7 @@ const buildTracks = (
     return [];
   }
 
-  let tracks: IIGVTrack[] = [];
+  const tracks: IIGVTrack[] = [];
 
   tracks.push(
     generateCramTrack(
