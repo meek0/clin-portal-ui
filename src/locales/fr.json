@@ -106,6 +106,7 @@
   "filters.group.state": "Statut",
   "filters.group.status": "Statut",
   "filters.group.variant_class": "Type de variant",
+  "filters.options.sequencing_requests.status.completed": "Complétée",
   "filters.options.variant_class.deletion": "Délétion",
   "filters.options.variant_class.substitution": "Substitution",
   "filters.options.variant_class.inversion": "Inversion",
