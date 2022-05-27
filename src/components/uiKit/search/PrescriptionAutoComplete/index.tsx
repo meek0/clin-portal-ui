@@ -19,7 +19,7 @@ import styles from './index.module.scss';
 const generateSearchFilter = (search: string) =>
   generateQuery({
     operator: BooleanOperators.or,
-    newFilters: ['id', 'patient_mrn', 'patient_id'].map((key) =>
+    newFilters: ['prescription_id', 'patient_mrn', 'patient_id'].map((key) =>
       generateValueFilter({
         field: key,
         value: [`${search}*`],
