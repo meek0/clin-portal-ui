@@ -8,6 +8,7 @@ import { DonorsEntity, TTableDonorEntity } from 'graphql/variants/models';
 import PositionTag from 'components/uiKit/PositionTag';
 import { GetAnalysisNameByCode } from 'store/global/types';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { formatNumber } from 'utils/formatNumber';
 
 const findAllAnalysis = (
   donors: ArrangerEdge<DonorsEntity>[],
@@ -36,7 +37,7 @@ export const getPatientPanelColumns = (
     key: 'patient_id',
     dataIndex: 'patient_id',
     title: intl.get('screen.variantDetails.patientsTab.donor'),
-    render: (id) => id,
+    render: formatNumber,
   },
   {
     key: 'analysis_code',
@@ -149,7 +150,7 @@ export const getPatientPanelColumns = (
       </Tooltip>
     ),
     sorter: (a, b) => a.ad_alt - b.ad_alt,
-    render: (ad_alt) => (ad_alt ? ad_alt : TABLE_EMPTY_PLACE_HOLDER),
+    render: (ad_alt) => (ad_alt ? formatNumber(ad_alt) : TABLE_EMPTY_PLACE_HOLDER),
   },
   {
     key: 'ad_total',
@@ -165,7 +166,7 @@ export const getPatientPanelColumns = (
       </Tooltip>
     ),
     sorter: (a, b) => a.ad_total - b.ad_total,
-    render: (ad_total) => (ad_total ? ad_total : TABLE_EMPTY_PLACE_HOLDER),
+    render: (ad_total) => (ad_total ? formatNumber(ad_total) : TABLE_EMPTY_PLACE_HOLDER),
   },
   {
     key: 'ad_ratio',
@@ -197,6 +198,6 @@ export const getPatientPanelColumns = (
       </Tooltip>
     ),
     sorter: (a, b) => a.gq - b.gq,
-    render: (gq) => (gq ? gq : TABLE_EMPTY_PLACE_HOLDER),
+    render: (gq) => (gq ? formatNumber(gq) : TABLE_EMPTY_PLACE_HOLDER),
   },
 ];

@@ -5,6 +5,7 @@ import { PatientServiceRequestFragment } from 'api/fhir/models';
 import { formatName, formatRamq } from 'api/fhir/patientHelper';
 
 import { formatDate } from 'utils/date';
+import { formatNumber } from 'utils/formatNumber';
 
 interface OwnProps {
   patient: PatientServiceRequestFragment;
@@ -15,7 +16,7 @@ const PatientContent = ({ patient, labelClass = 'label-35' }: OwnProps) =>
   patient ? (
     <Descriptions column={1} size="small" className={labelClass}>
       <Descriptions.Item label={intl.get('screen.prescription.entity.patientContent.patientId')}>
-        {extractPatientId(patient.id)}
+        {formatNumber(extractPatientId(patient.id))}
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('screen.prescription.entity.patientContent.folder')}>
         {patient.mrn}

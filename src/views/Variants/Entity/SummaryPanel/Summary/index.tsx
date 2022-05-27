@@ -1,13 +1,14 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { Card, Col, Divider, Row, Spin, Typography } from 'antd';
-import { GeneEntity, VariantEntity } from 'graphql/variants/models';
 import intl from 'react-intl-universal';
-import { formatTimestampToISODate } from 'utils/helper';
-import { ArrangerEdge } from 'graphql/models';
-import capitalize from 'lodash/capitalize';
-import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { Link } from 'react-router-dom';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
+import { Card, Col, Divider, Row, Spin, Typography } from 'antd';
+import { ArrangerEdge } from 'graphql/models';
+import { GeneEntity, VariantEntity } from 'graphql/variants/models';
+import capitalize from 'lodash/capitalize';
+
+import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { formatNumber } from 'utils/formatNumber';
+import { formatTimestampToISODate } from 'utils/helper';
 
 import styles from './index.module.scss';
 
@@ -29,13 +30,17 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => (
               <Text className={styles.infoTitle}>
                 {intl.get('screen.variantDetails.summaryTab.summaryTable.chromosome')}
               </Text>
-              <Text className={styles.infoValue}>{variant?.chromosome}</Text>
+              <Text className={styles.infoValue}>
+                {variant ? formatNumber(variant.chromosome) : TABLE_EMPTY_PLACE_HOLDER}
+              </Text>
             </Row>
             <Row className={styles.row}>
               <Text className={styles.infoTitle}>
                 {intl.get('screen.variantDetails.summaryTab.summaryTable.start')}
               </Text>
-              <Text className={styles.infoValue}>{variant?.start}</Text>
+              <Text className={styles.infoValue}>
+                {variant ? formatNumber(variant?.start) : TABLE_EMPTY_PLACE_HOLDER}
+              </Text>
             </Row>
             <Row className={styles.row}>
               <Text className={styles.infoTitle}>
