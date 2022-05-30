@@ -9,20 +9,19 @@ import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/cons
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
-import { formatNumber } from 'utils/formatNumber';
 
 export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
   [
     {
       name: ['prescription_id'],
       render: (prescription_id: string) => (
-        <Link to={`/prescription/entity/${prescription_id}`}>{formatNumber(prescription_id)}</Link>
+        <Link to={`/prescription/entity/${prescription_id}`}>{prescription_id}</Link>
       ),
       title: intl.get('screen.patientsearch.table.prescription'),
     },
     {
       name: ['patient_id'],
-      render: formatNumber,
+      render: (patient_id: string) => patient_id,
       summary: false,
       title: intl.get('screen.patientsearch.table.patient'),
     },

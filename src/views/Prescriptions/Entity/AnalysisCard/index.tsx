@@ -8,7 +8,6 @@ import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/cons
 import ParagraphLoader from 'components/uiKit/ParagraphLoader';
 import { useGlobals } from 'store/global';
 import { formatDate } from 'utils/date';
-import { formatNumber } from 'utils/formatNumber';
 
 interface OwnProps {
   prescription?: ServiceRequestEntity;
@@ -26,7 +25,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
             <Descriptions.Item
               label={intl.get('screen.prescription.entity.analysisCard.prescriptionId')}
             >
-              {formatNumber(extractServiceRequestId(prescription?.id))}
+              {extractServiceRequestId(prescription?.id)}
             </Descriptions.Item>
             <Descriptions.Item label={intl.get('status')}>
               <StatusTag
