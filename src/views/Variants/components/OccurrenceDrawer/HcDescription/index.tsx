@@ -1,22 +1,23 @@
+import intl from 'react-intl-universal';
+import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
+import { Button, Space, Tooltip, Typography } from 'antd';
+import { extractHits } from 'graphql/utils/query';
 import {
   HcComplement,
   HcComplementHits,
   PossiblyHcComplement,
   PossiblyHcComplementHits,
 } from 'graphql/variants/models';
-import { Button, Space, Tooltip, Typography } from 'antd';
-import { extractHits } from 'graphql/utils/query';
-import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
-import intl from 'react-intl-universal';
-import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { VARIANT_PATIENT_QB_ID } from 'views/Variants/utils/constant';
 
 import style from './index.module.scss';
 
 type Props = {
-  variantId: string;
   hcComplements?: HcComplementHits | PossiblyHcComplementHits;
   defaultText: string;
+  wrap?: boolean;
+  size?: number;
 };
 
 type Complements = HcComplement | PossiblyHcComplement;
@@ -41,7 +42,12 @@ const getCount = (e: Complements) => {
 
 const getLocus = (e: HcComplement) => e.locus || [];
 
-export const HcComplementDescription = ({ defaultText, hcComplements, variantId }: Props) => {
+export const HcComplementDescription = ({
+  defaultText,
+  hcComplements,
+  wrap = true,
+  size = 8,
+}: Props) => {
   const nodes = extractHits<Complements>(hcComplements?.hits);
   const nOfSymbols = nodes?.length ?? 0;
   if (!nodes || nOfSymbols === 0) {
@@ -49,15 +55,16 @@ export const HcComplementDescription = ({ defaultText, hcComplements, variantId 
   }
 
   return (
-    <Space wrap>
+    <Space wrap size={size}>
       {nodes.map((e, index) => (
-        <Space key={index} wrap>
+        <Space key={index} wrap={wrap} size={3}>
           <Text>{e.symbol}</Text>
           <Tooltip
             title={intl.get('screen.patientvariant.drawer.hc.tooltip', { num: getCount(e) })}
           >
             <Button
               type="link"
+              size="small"
               className={style.hcCountLink}
               onClick={() =>
                 addQuery({
