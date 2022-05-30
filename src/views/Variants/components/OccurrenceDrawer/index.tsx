@@ -1,25 +1,27 @@
 import { useState } from 'react';
-import { Button, Descriptions, Divider, Drawer, Space, Tooltip } from 'antd';
 import intl from 'react-intl-universal';
-import cx from 'classnames';
 import { CloseOutlined } from '@ant-design/icons';
+import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
+import { Button, Descriptions, Divider, Drawer, Space, Tooltip } from 'antd';
+import cx from 'classnames';
+import { ArrangerEdge } from 'graphql/models';
+import { DonorsEntity, VariantEntity } from 'graphql/variants/models';
+import capitalize from 'lodash/capitalize';
+import IGVModal from 'views/Variants/components/OccurrenceDrawer/IGVModal';
+
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
-import MaleAffectedIcon from 'components/icons/MaleAffectedIcon';
-import MaleNotAffectedIcon from 'components/icons/MaleNotAffectedIcon';
 import FemaleAffectedIcon from 'components/icons/FemaleAffectedIcon';
 import FemaleNotAffectedIcon from 'components/icons/FemaleNotAffectedIcon';
-import { getTopBodyElement } from 'utils/helper';
-import { DonorsEntity, VariantEntity } from 'graphql/variants/models';
-import { ArrangerEdge } from 'graphql/models';
-import IGVModal from 'views/Variants/components/OccurrenceDrawer/IGVModal';
-import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
+import MaleAffectedIcon from 'components/icons/MaleAffectedIcon';
+import MaleNotAffectedIcon from 'components/icons/MaleNotAffectedIcon';
 import { useRpt } from 'hooks/useRpt';
-import ReportDownloadButton from './ReportDownloadButton';
-import capitalize from 'lodash/capitalize';
+import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { getTopBodyElement } from 'utils/helper';
+
 import { HcComplementDescription } from './HcDescription';
+import ReportDownloadButton from './ReportDownloadButton';
 
 import style from './index.module.scss';
-import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
 interface OwnProps {
   patientId: string;
@@ -28,7 +30,7 @@ interface OwnProps {
   toggle: (opened: boolean) => void;
 }
 
-const getDonor = (patientId: string, data: VariantEntity) => {
+export const getDonor = (patientId: string, data: VariantEntity) => {
   const donors: ArrangerEdge<DonorsEntity>[] = data?.donors?.hits?.edges || [];
   const donor: ArrangerEdge<DonorsEntity> | undefined = donors.find(
     (donor) => donor.node.patient_id === patientId,
@@ -109,7 +111,6 @@ const OccurrenceDrawer = ({ patientId, data, opened = false, toggle }: OwnProps)
               label={capitalize(intl.get('compound.heterozygous.abbrev', { num: 0 }))}
             >
               <HcComplementDescription
-                variantId={variantId}
                 hcComplements={donor?.hc_complement}
                 defaultText={TABLE_EMPTY_PLACE_HOLDER}
               />
@@ -118,7 +119,6 @@ const OccurrenceDrawer = ({ patientId, data, opened = false, toggle }: OwnProps)
               label={capitalize(intl.get('potential.compound.heterozygous.abbrev', { num: 0 }))}
             >
               <HcComplementDescription
-                variantId={variantId}
                 hcComplements={donor?.possibly_hc_complement}
                 defaultText={TABLE_EMPTY_PLACE_HOLDER}
               />
