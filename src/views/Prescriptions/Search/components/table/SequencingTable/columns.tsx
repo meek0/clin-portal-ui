@@ -9,18 +9,17 @@ import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/cons
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
-import { formatNumber } from 'utils/formatNumber';
 
 export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
   [
     {
       name: ['request_id'],
-      render: (request_id: string) => formatNumber(request_id),
+      render: (request_id: string) => request_id,
       title: intl.get('screen.sequencingsearch.table.request'),
     },
     {
       name: ['patient_id'],
-      render: (patient_id: string) => formatNumber(patient_id),
+      render: (patient_id: string) => patient_id,
       summary: false,
       title: intl.get('screen.patientsearch.table.patient'),
     },
@@ -79,7 +78,7 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     {
       name: ['prescription_id'],
       render: (prescription_id: string) => (
-        <Link to={`/prescription/entity/${prescription_id}`}>{formatNumber(prescription_id)}</Link>
+        <Link to={`/prescription/entity/${prescription_id}`}>{prescription_id}</Link>
       ),
       sorter: { multiple: 1 },
       title: intl.get('screen.patientsearch.table.prescription'),
