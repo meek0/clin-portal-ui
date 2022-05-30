@@ -100,7 +100,7 @@ export interface Extension<TReference = Reference> {
 export interface Name {
   use?: string;
   family: string;
-  given: string[];
+  given: string;
   prefix?: string[];
   suffix?: string[];
 }

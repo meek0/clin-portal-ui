@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { capitalize, get } from 'lodash';
 
 import { ClinicalImpression, Name, ServiceRequestEntityExtension } from './models';
 
@@ -26,4 +26,4 @@ export const checkIfPatientIfAffected = (extension: ServiceRequestEntityExtensio
       'POS',
   );
 
-export const formatName = (name: Name) => `${name.given} ${name.family}`;
+export const formatName = (name: Name) => `${name.family.toUpperCase()} ${capitalize(name.given)} `;
