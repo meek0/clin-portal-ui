@@ -11,7 +11,6 @@ import LineStyleIcon from 'components/icons/LineStyleIcon';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import NotFound from 'components/Results/NotFound';
-import { formatNumber } from 'utils/formatNumber';
 
 import AnalysisCard from './AnalysisCard';
 import ClinicalInformationCard from './ClinicalInformationCard';
@@ -35,7 +34,7 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
     <ContentWithHeader
       headerProps={{
         icon: <MedicineBoxOutlined />,
-        title: intl.get('screen.prescription.entity.title', { id: formatNumber(prescriptionId) }),
+        title: intl.get('screen.prescription.entity.title', { id: prescriptionId }),
         actions: [
           <Link
             key="variants"
