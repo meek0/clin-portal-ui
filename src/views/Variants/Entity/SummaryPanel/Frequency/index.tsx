@@ -15,6 +15,7 @@ import CollapsePanel from 'components/containers/collapse';
 import { useGlobals } from 'store/global';
 import { GetAnalysisNameByCode } from 'store/global/types';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { formatNumber } from 'utils/formatNumber';
 import { toExponentialNotation } from 'utils/helper';
 
 import styles from './index.module.scss';
@@ -37,7 +38,7 @@ type ExternalFreqRow = {
 };
 
 const displayDefaultIfNeeded = (datum: ExternalFreqDatum) =>
-  datum == null ? TABLE_EMPTY_PLACE_HOLDER : datum;
+  datum == null ? TABLE_EMPTY_PLACE_HOLDER : formatNumber(datum);
 
 const formatFractionPercent = (nominator: number, denominator: number, total: number) =>
   `${nominator} / ${denominator} ${

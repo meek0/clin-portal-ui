@@ -12,6 +12,7 @@ import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import NotFound from 'components/Results/NotFound';
 import ServerError from 'components/Results/ServerError';
+import VerdictLabel from 'components/Variant/VerdictLabel';
 
 import ResumePanel from './SummaryPanel';
 
@@ -74,6 +75,7 @@ const VariantEntityPage = () => {
             {data?.variant_type.toLocaleUpperCase()}
           </Tag>,
           <div key="score">{getVepImpactTag(data?.max_impact_score)}</div>,
+          <VerdictLabel key="verdict" verdict={data?.varsome?.acmg?.verdict} />,
         ],
       }}
     >

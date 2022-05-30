@@ -132,7 +132,7 @@ export type VarsomeClassifications = {
   id: string;
   user_explain: string[];
 };
-type VarsomeVerdict = {
+export type VarsomeVerdict = {
   benign_subscore: string;
   clinical_score: number;
   pathogenic_subscore: string;

@@ -5,6 +5,8 @@ import { IDictionary as QueryBuilderDict } from '@ferlab/ui/core/components/Quer
 
 import { GetAnalysisNameByCode } from 'store/global/types';
 
+import { formatNumber } from './formatNumber';
+
 export const getFiltersDictionary = (): FiltersDict => ({
   actions: {
     all: intl.get('querybuilder.filters.actions.all'),
@@ -32,6 +34,7 @@ export const getProTableDictionary = (): IProTableDictionary => ({
     selectAllResults: intl.get('protable.selectAllResults'),
     clear: intl.get('protable.clear'),
   },
+  numberFormat: formatNumber,
 });
 
 export const getQueryBuilderDictionary = (

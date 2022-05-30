@@ -13,6 +13,7 @@ import { wrapSqonWithDonorIdAndSrId } from 'views/Variants/utils/helper';
 
 import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
 import { useGlobals } from 'store/global';
+import { formatNumber } from 'utils/formatNumber';
 
 import VariantSearchLayout from '../components/VariantSearchLayout';
 
@@ -43,7 +44,8 @@ const VariantExplorationPatient = () => {
         extra: [
           <Tag color="blue" key="patient-prescription-id">
             <Space align="center">
-              {`Patient ID : ${patientid}`} | {`Prescription ID : ${prescriptionid}`}
+              {`Patient ID : ${formatNumber(patientid)}`} |{' '}
+              {`Prescription ID : ${formatNumber(prescriptionid)}`}
             </Space>
           </Tag>,
           <div key="analsysis-name">
