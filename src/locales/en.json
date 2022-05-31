@@ -16,6 +16,7 @@
   "condition": "Condition",
   "deletion": "Deletion",
   "duplication": "Duplication",
+  "ensemblID": "Ensembl ID",
   "family": "family",
   "father": "father",
   "female": "Female",
