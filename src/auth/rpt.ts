@@ -23,7 +23,7 @@ export const fetchRptToken = async (): Promise<IRptPayload> => {
   });
 
   if (error) {
-    logout();
+    await logout();
   }
 
   return {
