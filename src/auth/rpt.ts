@@ -1,6 +1,9 @@
-import { keycloakConfig } from 'utils/config';
-import jwtDecode from 'jwt-decode';
 import { sendRequest } from 'api';
+import jwtDecode from 'jwt-decode';
+
+import { keycloakConfig } from 'utils/config';
+
+import { logout } from './keycloak';
 import { DecodedRpt, IRptPayload } from './types';
 
 const KEYCLOAK_AUTH_GRANT_TYPE = 'urn:ietf:params:oauth:grant-type:uma-ticket';
@@ -13,11 +16,16 @@ const rptPayload = new URLSearchParams({
 }).toString();
 
 export const fetchRptToken = async (): Promise<IRptPayload> => {
-  const { data } = await sendRequest<IRptPayload>({
+  const { data, error } = await sendRequest<IRptPayload>({
     method: 'POST',
     url: RPT_TOKEN_URL,
     data: rptPayload,
   });
+
+  if (error) {
+    logout();
+  }
+
   return {
     ...data!,
     decoded: decodeRptAccess(data!),
