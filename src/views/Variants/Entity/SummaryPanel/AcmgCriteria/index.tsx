@@ -1,11 +1,13 @@
+import React from 'react';
 import intl from 'react-intl-universal';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { Space, Table, Tag, Typography } from 'antd';
 import { VariantEntity } from 'graphql/variants/models';
 import NoData from 'views/Variants/Entity/NoData';
 
 import CollapsePanel from 'components/containers/collapse';
 
-const { Title } = Typography;
+const { Text, Title } = Typography;
 
 const getCriteriaTagColor = (criteria: string) => {
   switch (criteria.toLowerCase().substring(0, 2)) {
@@ -67,11 +69,27 @@ type Props = {
 
 const ACMGCriteria = ({ data }: Props) => {
   const formattedDate = formatData(data.variantData) || [];
+  const varsome = data.variantData?.varsome;
+  const verdict = varsome?.acmg.verdict;
 
   return (
     <CollapsePanel
       header={
-        <Title level={4}>{intl.get('screen.variantDetails.summaryTab.acmgCriteriaTitle')}</Title>
+        <>
+          <Title level={4}>
+            {`${intl.get('screen.variantDetails.summaryTab.acmgCriteriaTitle')}`}
+          </Title>
+          <Space size={4} style={{ marginLeft: '20px' }}>
+            {verdict && (
+              <>
+                <Text>{`${intl.get('variant.acmg.verdict.label')}: `}</Text>
+                <ExternalLink href={`https://varsome.com/variant/${varsome.variant_id}`}>
+                  {verdict.verdict}
+                </ExternalLink>
+              </>
+            )}
+          </Space>
+        </>
       }
       loading={data.loading}
     >
