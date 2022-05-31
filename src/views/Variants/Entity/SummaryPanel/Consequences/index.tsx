@@ -267,36 +267,33 @@ const columns = [
       conservation == null ? TABLE_EMPTY_PLACE_HOLDER : conservation,
   },
   {
-    title: () => intl.get('transcript'),
+    title: () => intl.get('ensemblID'),
     dataIndex: 'transcript',
-    render: (transcript: { ids: string[]; transcriptId: string; isCanonical?: boolean }) => {
-      if (!transcript.ids || transcript.ids.length === 0) {
-        return (
-          <div className={styles.transcriptId}>
-            {transcript.transcriptId}
-            {transcript.isCanonical && (
-              <CanonicalIcon className={styles.canonicalIcon} height="14" width="14" />
-            )}
-          </div>
-        );
-      }
-
-      return transcript.ids.map((id) => (
+    render: (transcript: { transcriptId: string; isCanonical?: boolean }) => (
+      <div className={styles.transcriptId}>
+        {transcript.transcriptId}
+        {transcript.isCanonical && (
+          <CanonicalIcon className={styles.canonicalIcon} height="14" width="14" />
+        )}
+      </div>
+    ),
+    width: '15%',
+  },
+  {
+    title: () => intl.get('refSeq'),
+    dataIndex: 'transcript',
+    render: (transcript: { ids: string[] }) =>
+      transcript?.ids?.map((id) => (
         <div key={id} className={styles.transcriptId}>
-          {`${transcript.transcriptId} / `}
           <ExternalLink
             href={`https://www.ncbi.nlm.nih.gov/nuccore/${id}?report=graph`}
             className={styles.transcriptLink}
           >
             {id}
-            {transcript.isCanonical && (
-              <CanonicalIcon className={styles.canonicalIcon} height="14" width="14" />
-            )}
           </ExternalLink>
         </div>
-      ));
-    },
-    width: '20%',
+      )) || TABLE_EMPTY_PLACE_HOLDER,
+    width: '15%',
   },
 ];
 
