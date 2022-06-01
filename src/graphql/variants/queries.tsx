@@ -502,6 +502,7 @@ export const TAB_PATIENT_QUERY = gql`
                     affected_status
                     qd
                     gq
+                    service_request_id
                   }
                 }
               }
