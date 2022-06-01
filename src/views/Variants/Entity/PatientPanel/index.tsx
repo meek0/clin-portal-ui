@@ -31,6 +31,7 @@ const makeRows = (donors: ArrangerEdge<DonorsEntity>[]): TTableDonorEntity[] =>
   donors?.map((donor, index) => ({
     key: donor.node.patient_id + index,
     id: donor.node.id,
+    service_request_id: donor.node.service_request_id,
     patient_id: donor.node.patient_id,
     organization_id: donor.node.organization_id,
     gender: donor.node.gender.toLowerCase(),

@@ -66,6 +66,7 @@ export type TTableDonorEntity = DonorsEntity & {
 export type DonorsEntity = {
   id: string;
   patient_id: string;
+  service_request_id: string;
   organization_id: string;
   gender: string;
   is_proband: boolean;

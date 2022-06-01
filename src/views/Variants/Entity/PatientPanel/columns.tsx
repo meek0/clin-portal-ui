@@ -5,7 +5,6 @@ import { ColumnFilterItem } from 'antd/lib/table/interface';
 import { ArrangerEdge, ArrangerHits } from 'graphql/models';
 import { DonorsEntity, TTableDonorEntity } from 'graphql/variants/models';
 
-import PositionTag from 'components/uiKit/PositionTag';
 import { GetAnalysisNameByCode } from 'store/global/types';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatNumber } from 'utils/formatNumber';
@@ -34,9 +33,9 @@ export const getPatientPanelColumns = (
   getAnalysisNameByCode: GetAnalysisNameByCode,
 ): ProColumnType<TTableDonorEntity>[] => [
   {
-    key: 'patient_id',
-    dataIndex: 'patient_id',
-    title: intl.get('screen.variantDetails.patientsTab.donor'),
+    key: 'service_request_id',
+    dataIndex: 'service_request_id',
+    title: intl.get('screen.variantDetails.patientsTab.request'),
     render: (id) => id,
   },
   {
@@ -50,6 +49,12 @@ export const getPatientPanelColumns = (
       ),
     filters: findAllAnalysis(donorsHits?.edges || [], getAnalysisNameByCode),
     onFilter: (value, record: DonorsEntity) => value === record.analysis_code,
+  },
+  {
+    key: 'patient_id',
+    dataIndex: 'patient_id',
+    title: intl.get('screen.variantDetails.patientsTab.donor'),
+    render: (id) => id,
   },
   {
     key: 'gender',
@@ -73,23 +78,6 @@ export const getPatientPanelColumns = (
     onFilter: (value, record: DonorsEntity) => value === record.gender,
   },
   {
-    key: 'is_proband',
-    dataIndex: 'is_proband',
-    title: intl.get('screen.variantDetails.patientsTab.relation'),
-    render: (isProband: boolean) => <PositionTag isProband={isProband} />,
-    filters: [
-      {
-        text: intl.get('proband'),
-        value: true,
-      },
-      {
-        text: intl.get('parent'),
-        value: false,
-      },
-    ],
-    onFilter: (value, record: DonorsEntity) => value === record.is_proband,
-  },
-  {
     key: 'affected_status',
     dataIndex: 'affected_status',
     title: intl.get('screen.variantDetails.patientsTab.status'),
@@ -108,16 +96,18 @@ export const getPatientPanelColumns = (
     onFilter: (value, record: DonorsEntity) => value === record.affected_status,
   },
   {
-    key: 'family_id',
-    dataIndex: 'family_id',
-    title: intl.get('screen.variantDetails.patientsTab.familyId'),
-    render: (family_id) => (family_id ? family_id : TABLE_EMPTY_PLACE_HOLDER),
-    sorter: (a, b) => a.family_id.localeCompare(b.family_id),
-  },
-  {
     key: 'filters',
     dataIndex: 'filters',
-    title: intl.get('screen.variantDetails.patientsTab.filter'),
+    displayTitle: intl.get('screen.variantDetails.patientsTab.filter'),
+    title: (
+      <Tooltip
+        arrowPointAtCenter
+        placement="topLeft"
+        title={intl.get('screen.variantDetails.patientsTab.filter.tooltip')}
+      >
+        {intl.get('screen.variantDetails.patientsTab.filter')}
+      </Tooltip>
+    ),
     render: (filters) => (filters ? filters[0] : TABLE_EMPTY_PLACE_HOLDER),
   },
   {
