@@ -116,10 +116,16 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => (
           <Row className={styles.row}>
             <Text className={styles.contentTitle}>Patients</Text>
             <Text className={styles.contentValue}>
-              <Link to={`/variant/entity/${variant?.locus}/patients`}>
-                {variant?.frequency_RQDM.total.pn}
-              </Link>
-              /{variant?.frequency_RQDM.total.an}
+              {variant?.frequency_RQDM ? (
+                <>
+                  <Link to={`/variant/entity/${variant?.locus}/patients`}>
+                    {variant?.frequency_RQDM?.total.pn}
+                  </Link>
+                  {` /${variant?.frequency_RQDM?.total.an}`}
+                </>
+              ) : (
+                TABLE_EMPTY_PLACE_HOLDER
+              )}
             </Text>
           </Row>
           <Row className={styles.row}>
@@ -127,7 +133,9 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => (
               {intl.get('screen.variantDetails.summaryTab.patientTable.frequency')}
             </Text>
             <Text className={styles.contentValue}>
-              {variant?.frequency_RQDM?.total?.af.toExponential(2)}
+              {variant?.frequency_RQDM
+                ? variant?.frequency_RQDM.total?.af.toExponential(2)
+                : TABLE_EMPTY_PLACE_HOLDER}
             </Text>
           </Row>
           <Row className={styles.row}>
