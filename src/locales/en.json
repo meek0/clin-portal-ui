@@ -415,12 +415,7 @@
   "undetermined": "Undetermined",
   "unknown": "Unknown",
   "unnatural": "Unnatural",
-  "variant.acmg.verdict.benign": "Benign",
   "variant.acmg.verdict.label": "Verdict",
-  "variant.acmg.verdict.likely_benign": "Likely Benign",
-  "variant.acmg.verdict.likely_pathogenic": "Likely Pathogenic",
-  "variant.acmg.verdict.pathogenic": "Pathogenic",
-  "variant.acmg.verdict.uncertain": "Uncertain",
   "yes": "Yes",
   "zygosity": "zygozity"
 }
