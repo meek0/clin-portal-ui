@@ -42,7 +42,7 @@ const displayDefaultIfNeeded = (datum: ExternalFreqDatum) =>
 
 const formatFractionPercent = (nominator: number, denominator: number, total: number) =>
   `${nominator} / ${denominator} ${
-    nominator + denominator ? `(${(total * 100).toFixed(1)}%)` : ''
+    nominator !== 0 || total !== 0 ? `(${(total * 100).toFixed(1)}%)` : '(0%)'
   }`;
 
 const getFreqByAnalysisColumns = (getAnalysisNameByCode: GetAnalysisNameByCode) => [
@@ -224,7 +224,6 @@ const { Title } = Typography;
 const FrequencyCard = ({ locus }: OwnProps) => {
   const { loading, data } = useTabFrequenciesData(locus);
   const { getAnalysisNameByCode } = useGlobals();
-
   const frequencies_by_analysis = makeRows(data.frequencies_by_analysis);
   frequencies_by_analysis.push({
     analysis_code: 'RQDM',
