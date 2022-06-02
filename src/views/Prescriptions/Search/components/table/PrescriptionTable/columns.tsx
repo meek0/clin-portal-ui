@@ -89,6 +89,7 @@ export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
       summary: true,
       title: intl.get('screen.patientsearch.table.prenatal'),
       sorter: { multiple: 1 },
+      render: (prenatal: boolean) => intl.get(prenatal ? 'yes' : 'no'),
       defaultHidden: true,
     },
   ].map((c) => ({
