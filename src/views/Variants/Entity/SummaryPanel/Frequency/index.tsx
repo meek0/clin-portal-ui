@@ -42,7 +42,7 @@ const displayDefaultIfNeeded = (datum: ExternalFreqDatum) =>
 
 const formatFractionPercent = (nominator: number, denominator: number, total: number) =>
   `${nominator} / ${denominator} ${
-    nominator + denominator ? `(${(total * 100).toFixed(1)}%)` : ''
+    nominator + denominator ? `(${(total * 100).toFixed(1)}%)` : '(0%)'
   }`;
 
 const getFreqByAnalysisColumns = (getAnalysisNameByCode: GetAnalysisNameByCode) => [
