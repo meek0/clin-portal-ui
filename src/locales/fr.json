@@ -369,6 +369,7 @@
   "screen.variantDetails.patientsTab.adTotal": "ALT+REF",
   "screen.variantDetails.patientsTab.adTotal.tooltip": "Profondeur totale ALT+REF",
   "screen.variantDetails.patientsTab.affected": "Atteint",
+  "screen.variantDetails.patientsTab.notaffected": "Non  atteint",
   "screen.variantDetails.patientsTab.analysis": "Analyse",
   "screen.variantDetails.patientsTab.donor": "Patient",
   "screen.variantDetails.patientsTab.familyId": "Famille",
