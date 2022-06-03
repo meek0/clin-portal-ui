@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import intl from 'react-intl-universal';
 import { Link, useHistory } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons';
 import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
@@ -72,11 +71,7 @@ const PrescriptionAutoComplete = (
         value: prescription.prescription_id,
       }))}
     >
-      <Input
-        suffix={<SearchOutlined />}
-        size="large"
-        placeholder={intl.get('home.prescription.search.box.placeholder')}
-      />
+      <Input suffix={<SearchOutlined />} size="large" />
     </AutoComplete>
   );
 };
