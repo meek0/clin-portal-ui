@@ -4,7 +4,7 @@ import { MedicineBoxOutlined, SolutionOutlined } from '@ant-design/icons';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
-import { Space, Tabs } from 'antd';
+import { Space, Tabs, Typography } from 'antd';
 import { usePrescription, usePrescriptionMapping } from 'graphql/prescriptions/actions';
 import { useSequencingRequests } from 'graphql/sequencing/actions';
 import { isEmpty } from 'lodash';
@@ -25,6 +25,8 @@ import styles from './index.module.scss';
 
 export const DEFAULT_PAGE_SIZE = 20;
 export const DEFAULT_PAGE = 1;
+
+const Text = Typography.Text;
 
 const DEFAULT_QUERY_CONFIG: IQueryConfig = {
   pageIndex: DEFAULT_PAGE,
@@ -80,6 +82,7 @@ const PrescriptionSearch = (): React.ReactElement => {
       <ScrollContentWithFooter scrollId={PRESCRIPTION_SCROLL_ID}>
         <Space direction="vertical" size="middle" className={styles.patientContentContainer}>
           <div className={styles.patientContentHeader}>
+            <Text strong>{intl.get('home.prescription.search.box.label')}</Text>
             <PrescriptionAutoComplete />
           </div>
           <Tabs type="card">
