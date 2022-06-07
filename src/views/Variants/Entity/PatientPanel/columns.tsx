@@ -28,6 +28,22 @@ const findAllAnalysis = (
   return analysisList;
 };
 
+const findAllFilter = (donors: ArrangerEdge<DonorsEntity>[]) => {
+  const filterList: ColumnFilterItem[] = [];
+  donors.forEach((donor) => {
+    if (
+      donor.node.filters?.[0] &&
+      !filterList.find((filter) => filter.value === donor.node.filters?.[0])
+    ) {
+      filterList.push({
+        value: donor.node.filters[0],
+        text: donor.node.filters[0],
+      });
+    }
+  });
+  return filterList;
+};
+
 export const getPatientPanelColumns = (
   donorsHits: ArrangerHits<DonorsEntity>,
   getAnalysisNameByCode: GetAnalysisNameByCode,
@@ -49,6 +65,7 @@ export const getPatientPanelColumns = (
       ),
     filters: findAllAnalysis(donorsHits?.edges || [], getAnalysisNameByCode),
     onFilter: (value, record: DonorsEntity) => value === record.analysis_code,
+    sorter: (a, b) => (a.analysis_code || '').localeCompare(b.analysis_code || ''),
   },
   {
     key: 'patient_id',
@@ -109,6 +126,7 @@ export const getPatientPanelColumns = (
       </Tooltip>
     ),
     render: (filters) => (filters ? filters[0] : TABLE_EMPTY_PLACE_HOLDER),
+    filters: findAllFilter(donorsHits?.edges || []),
   },
   {
     key: 'qd',
