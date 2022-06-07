@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import intl from 'react-intl-universal';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tooltip } from 'antd';
@@ -13,34 +14,22 @@ const findAllAnalysis = (
   donors: ArrangerEdge<DonorsEntity>[],
   getAnalysisNameByCode: GetAnalysisNameByCode,
 ) => {
-  const analysisList: ColumnFilterItem[] = [];
-  donors.forEach((donor) => {
-    if (
-      donor.node.analysis_code &&
-      !analysisList.find((analysis) => analysis.value === donor.node.analysis_code)
-    ) {
-      analysisList.push({
-        value: donor.node.analysis_code,
-        text: getAnalysisNameByCode(donor.node.analysis_code),
-      });
-    }
-  });
+  const analysisList: ColumnFilterItem[] = [
+    ...new Set(donors.map((d) => d.node.analysis_code).filter((f) => !!f)),
+  ].map((f) => ({
+    value: f || '',
+    text: getAnalysisNameByCode(f || ''),
+  }));
   return analysisList;
 };
 
-const findAllFilter = (donors: ArrangerEdge<DonorsEntity>[]) => {
-  const filterList: ColumnFilterItem[] = [];
-  donors.forEach((donor) => {
-    if (
-      donor.node.filters?.[0] &&
-      !filterList.find((filter) => filter.value === donor.node.filters?.[0])
-    ) {
-      filterList.push({
-        value: donor.node.filters[0],
-        text: donor.node.filters[0],
-      });
-    }
-  });
+const findAllFilters = (donors: ArrangerEdge<DonorsEntity>[]) => {
+  const filterList: ColumnFilterItem[] = [
+    ...new Set(donors.map((d) => d.node?.filters?.[0]).filter((f) => !!f)),
+  ].map((f) => ({
+    value: f || '',
+    text: f || '',
+  }));
   return filterList;
 };
 
@@ -126,7 +115,7 @@ export const getPatientPanelColumns = (
       </Tooltip>
     ),
     render: (filters) => (filters ? filters[0] : TABLE_EMPTY_PLACE_HOLDER),
-    filters: findAllFilter(donorsHits?.edges || []),
+    filters: findAllFilters(donorsHits?.edges || []),
   },
   {
     key: 'qd',
