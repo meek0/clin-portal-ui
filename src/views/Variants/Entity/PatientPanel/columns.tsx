@@ -10,28 +10,33 @@ import { GetAnalysisNameByCode } from 'store/global/types';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatNumber } from 'utils/formatNumber';
 
-const findAllAnalysis = (
-  donors: ArrangerEdge<DonorsEntity>[],
-  getAnalysisNameByCode: GetAnalysisNameByCode,
+const columnFilterReducer = (
+  columnFilterItems: ColumnFilterItem[],
+  rawValue: string | undefined,
+  textTransform: (t: string) => string,
 ) => {
-  const analysisList: ColumnFilterItem[] = [
-    ...new Set(donors.map((d) => d.node.analysis_code).filter((f) => !!f)),
-  ].map((f) => ({
-    value: f || '',
-    text: getAnalysisNameByCode(f || ''),
-  }));
-  return analysisList;
+  if (!rawValue || columnFilterItems.some((x) => x.value === rawValue)) {
+    return columnFilterItems;
+  }
+  return [...columnFilterItems, { value: rawValue, text: textTransform(rawValue) }];
 };
 
-const findAllFilters = (donors: ArrangerEdge<DonorsEntity>[]) => {
-  const filterList: ColumnFilterItem[] = [
-    ...new Set(donors.map((d) => d.node?.filters?.[0]).filter((f) => !!f)),
-  ].map((f) => ({
-    value: f || '',
-    text: f || '',
-  }));
-  return filterList;
-};
+const createAnalysisItems = (
+  donors: ArrangerEdge<DonorsEntity>[],
+  getAnalysisNameByCode: GetAnalysisNameByCode,
+): ColumnFilterItem[] =>
+  donors.reduce(
+    (ds: ColumnFilterItem[], d: ArrangerEdge<DonorsEntity>) =>
+      columnFilterReducer(ds, d.node.analysis_code, getAnalysisNameByCode),
+    [],
+  );
+
+const createFiltersItems = (donors: ArrangerEdge<DonorsEntity>[]): ColumnFilterItem[] =>
+  donors.reduce(
+    (ds: ColumnFilterItem[], d: ArrangerEdge<DonorsEntity>) =>
+      columnFilterReducer(ds, d.node?.filters?.[0], (t) => t),
+    [],
+  );
 
 export const getPatientPanelColumns = (
   donorsHits: ArrangerHits<DonorsEntity>,
@@ -52,7 +57,7 @@ export const getPatientPanelColumns = (
       ) : (
         data.analysis_code
       ),
-    filters: findAllAnalysis(donorsHits?.edges || [], getAnalysisNameByCode),
+    filters: createAnalysisItems(donorsHits?.edges || [], getAnalysisNameByCode),
     onFilter: (value, record: DonorsEntity) => value === record.analysis_code,
     sorter: (a, b) => (a.analysis_code || '').localeCompare(b.analysis_code || ''),
   },
@@ -115,7 +120,7 @@ export const getPatientPanelColumns = (
       </Tooltip>
     ),
     render: (filters) => (filters ? filters[0] : TABLE_EMPTY_PLACE_HOLDER),
-    filters: findAllFilters(donorsHits?.edges || []),
+    filters: createFiltersItems(donorsHits?.edges || []),
   },
   {
     key: 'qd',
