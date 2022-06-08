@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import intl from 'react-intl-universal';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tooltip } from 'antd';
@@ -9,24 +10,33 @@ import { GetAnalysisNameByCode } from 'store/global/types';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatNumber } from 'utils/formatNumber';
 
-const findAllAnalysis = (
+const columnFilterReducer = (
+  columnFilterItems: ColumnFilterItem[],
+  rawValue: string | undefined,
+  textTransform: (t: string) => string,
+) => {
+  if (!rawValue || columnFilterItems.some((x) => x.value === rawValue)) {
+    return columnFilterItems;
+  }
+  return [...columnFilterItems, { value: rawValue, text: textTransform(rawValue) }];
+};
+
+const createAnalysisItems = (
   donors: ArrangerEdge<DonorsEntity>[],
   getAnalysisNameByCode: GetAnalysisNameByCode,
-) => {
-  const analysisList: ColumnFilterItem[] = [];
-  donors.forEach((donor) => {
-    if (
-      donor.node.analysis_code &&
-      !analysisList.find((analysis) => analysis.value === donor.node.analysis_code)
-    ) {
-      analysisList.push({
-        value: donor.node.analysis_code,
-        text: getAnalysisNameByCode(donor.node.analysis_code),
-      });
-    }
-  });
-  return analysisList;
-};
+): ColumnFilterItem[] =>
+  donors.reduce(
+    (ds: ColumnFilterItem[], d: ArrangerEdge<DonorsEntity>) =>
+      columnFilterReducer(ds, d.node.analysis_code, getAnalysisNameByCode),
+    [],
+  );
+
+const createFiltersItems = (donors: ArrangerEdge<DonorsEntity>[]): ColumnFilterItem[] =>
+  donors.reduce(
+    (ds: ColumnFilterItem[], d: ArrangerEdge<DonorsEntity>) =>
+      columnFilterReducer(ds, d.node?.filters?.[0], (t) => t),
+    [],
+  );
 
 export const getPatientPanelColumns = (
   donorsHits: ArrangerHits<DonorsEntity>,
@@ -47,8 +57,9 @@ export const getPatientPanelColumns = (
       ) : (
         data.analysis_code
       ),
-    filters: findAllAnalysis(donorsHits?.edges || [], getAnalysisNameByCode),
+    filters: createAnalysisItems(donorsHits?.edges || [], getAnalysisNameByCode),
     onFilter: (value, record: DonorsEntity) => value === record.analysis_code,
+    sorter: (a, b) => (a.analysis_code || '').localeCompare(b.analysis_code || ''),
   },
   {
     key: 'patient_id',
@@ -109,6 +120,7 @@ export const getPatientPanelColumns = (
       </Tooltip>
     ),
     render: (filters) => (filters ? filters[0] : TABLE_EMPTY_PLACE_HOLDER),
+    filters: createFiltersItems(donorsHits?.edges || []),
   },
   {
     key: 'qd',
