@@ -71,6 +71,7 @@ export const getVariantColumns = (
       key: 'hgvsg',
       dataIndex: 'hgvsg',
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
+      fixed: 'left',
       render: (hgvsg: string, entity: VariantEntity) =>
         hgvsg ? (
           <Tooltip placement="topLeft" title={hgvsg}>
