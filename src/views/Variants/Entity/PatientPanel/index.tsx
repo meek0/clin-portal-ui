@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
-import { DefaultRawDatum } from '@nivo/pie';
+import { ComputedDatum, DefaultRawDatum } from '@nivo/pie';
+import { BasicTooltip } from '@nivo/tooltip';
 import { Col, Row, Space } from 'antd';
 import cx from 'classnames';
 import { ArrangerEdge, ArrangerHits, ArrangerResultsTree } from 'graphql/models';
@@ -69,13 +70,17 @@ const graphSetting: any = {
   },
 };
 
+const PieTooltip = <RawDatum,>({ datum }: { datum: ComputedDatum<RawDatum> }) => (
+  <BasicTooltip id={datum.label} value={datum.formattedValue} />
+);
+
 const updateSlices = (id: string, slices: DefaultRawDatum[]) =>
   id
     ? [
         ...slices.filter((s) => s.id !== id),
         {
           id,
-          label: id,
+          label: intl.get(`sex.${id.toLowerCase()}`),
           value: (slices.find((s) => s.id === id)?.value ?? 0) + 1,
         },
       ]
@@ -132,6 +137,7 @@ const PatientPanel = ({ locus, className = '' }: OwnProps) => {
                 <PieChart
                   title={intl.get('filters.group.donors.gender')}
                   data={sexData}
+                  tooltip={PieTooltip}
                   {...graphSetting}
                 />
               </Col>

@@ -71,18 +71,18 @@ export const getPatientPanelColumns = (
     key: 'gender',
     dataIndex: 'gender',
     title: intl.get('screen.variantDetails.patientsTab.sex'),
-    render: (gender: string) => intl.get(`screen.variantDetails.patientsTab.${gender}`),
+    render: (gender: string) => intl.get(`sex.${gender}`),
     filters: [
       {
-        text: intl.get('screen.variantDetails.patientsTab.male'),
+        text: intl.get('sex.male'),
         value: 'male',
       },
       {
-        text: intl.get('screen.variantDetails.patientsTab.female'),
+        text: intl.get('sex.female'),
         value: 'female',
       },
       {
-        text: intl.get('screen.variantDetails.patientsTab.unknown'),
+        text: intl.get('sex.unknown'),
         value: 'unknown',
       },
     ],

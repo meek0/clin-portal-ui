@@ -28,7 +28,7 @@ const PatientContent = ({ patient, labelClass = 'label-35' }: OwnProps) =>
         {formatDate(patient.person[0].birthdate)}
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('sex')}>
-        {intl.get(patient.gender?.toLowerCase() ?? 'key')}
+        {intl.get(`sex.${patient.gender?.toLowerCase()}` ?? 'key')}
       </Descriptions.Item>
     </Descriptions>
   ) : null;
