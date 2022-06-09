@@ -141,9 +141,7 @@ const OccurrenceDrawer = ({
             )}
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.patientvariant.drawer.parental.origin')}>
-            {donor?.parental_origin
-              ? capitalize(intl.get(donor?.parental_origin))
-              : TABLE_EMPTY_PLACE_HOLDER}
+            {donor?.parental_origin ? capitalize(donor?.parental_origin) : TABLE_EMPTY_PLACE_HOLDER}
           </Descriptions.Item>
         </Descriptions>
       )}

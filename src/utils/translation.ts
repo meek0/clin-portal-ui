@@ -22,6 +22,13 @@ export const getFiltersDictionary = (): FiltersDict => ({
   messages: {
     errorNoData: intl.get('querybuilder.filters.messages.empty'),
   },
+  operators: {
+    lessThan: intl.get('querybuilder.filters.operators.lessthan'),
+    lessThanOfEqual: intl.get('querybuilder.filters.operators.lessthanorequal'),
+    greaterThan: intl.get('querybuilder.filters.operators.greaterthan'),
+    greaterThanOrEqual: intl.get('querybuilder.filters.operators.greaterthanorequal'),
+    between: intl.get('querybuilder.filters.operators.between'),
+  },
 });
 
 export const getProTableDictionary = (): IProTableDictionary => ({
