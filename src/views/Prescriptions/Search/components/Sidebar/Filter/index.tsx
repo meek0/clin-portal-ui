@@ -1,6 +1,5 @@
 import React from 'react';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
-
 import { Aggregations } from 'graphql/models';
 import { ExtendedMappingResults } from 'graphql/models';
 import { generateFilters } from 'graphql/utils/Filters';

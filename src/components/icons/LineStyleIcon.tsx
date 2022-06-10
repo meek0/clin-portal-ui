@@ -1,5 +1,7 @@
+/* eslint-disable max-len */
 import React from 'react';
 import cx from 'classnames';
+
 import { IconProps } from '.';
 
 const LineStyleIcon = ({ className = '', width = '24', height = '24' }: IconProps) => (

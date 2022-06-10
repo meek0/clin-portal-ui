@@ -1,9 +1,10 @@
 import SidebarMenu, { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
+import { SCROLL_WRAPPER_ID } from 'views/Variants/utils/constant';
+
 import LineStyleIcon from 'components/icons/LineStyleIcon';
-import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import { ContentHeaderProps } from 'components/Layout/ContentWithHeader/Header';
-import { SCROLL_WRAPPER_ID } from 'views/Variants/utils/constant';
+import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 
 import styles from './index.module.scss';
 

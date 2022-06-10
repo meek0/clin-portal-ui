@@ -1,8 +1,9 @@
 import { Layout, Spin } from 'antd';
-import { generateFilters } from 'graphql/utils/Filters';
-import useGetAggregations from 'hooks/graphql/useGetAggregations';
 import { ExtendedMappingResults } from 'graphql/models';
 import { AGGREGATION_QUERY } from 'graphql/queries';
+import { generateFilters } from 'graphql/utils/Filters';
+
+import useGetAggregations from 'hooks/graphql/useGetAggregations';
 
 import styles from './Filters.module.scss';
 

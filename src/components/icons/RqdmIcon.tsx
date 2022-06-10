@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 import cx from 'classnames';
+
 import { IconProps } from '.';
 
 const RqdmIcon = ({ className = '', width = '24', height = '24' }: IconProps) => (

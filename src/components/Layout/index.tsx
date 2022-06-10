@@ -1,7 +1,8 @@
 import React from 'react';
-import { Layout as AntLayout } from 'antd';
-import Header from 'components/Layout/Header';
 import ScrollContent from '@ferlab/ui/core/layout/ScrollContent';
+import { Layout as AntLayout } from 'antd';
+
+import Header from 'components/Layout/Header';
 import { MAIN_SCROLL_WRAPPER_ID } from 'utils/constants';
 
 import styles from './index.module.scss';

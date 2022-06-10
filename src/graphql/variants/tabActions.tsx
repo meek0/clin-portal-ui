@@ -4,8 +4,8 @@ import { useLazyResultQueryOnLoadOnly } from 'graphql/utils/query';
 import {
   TAB_CLINICAL_QUERY,
   TAB_FREQUENCIES_QUERY,
-  TAB_SUMMARY_QUERY,
   TAB_PATIENT_QUERY,
+  TAB_SUMMARY_QUERY,
 } from './queries';
 
 export const buildVariantIdSqon = (id: string) => ({

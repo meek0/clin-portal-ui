@@ -61,13 +61,12 @@ export const formatQuerySortList = (sorter: SorterResult<any> | SorterResult<any
   );
 
   const r = sorters.map((sorter) => ({
-    field: (sorter.field?.toString()! || sorter.columnKey?.toString()!).replaceAll('__', '.'),
+    field: (sorter.field?.toString()! || sorter.columnKey?.toString()!)?.replaceAll('__', '.'),
     order: getOrderFromAntdValue(sorter.order!),
   }));
 
   return r;
 };
 
-export const getPositionAt = (value: string, subString: string, index: number) => {
-  return value.split(subString, index).join(subString).length;
-};
+export const getPositionAt = (value: string, subString: string, index: number) =>
+  value.split(subString, index).join(subString).length;

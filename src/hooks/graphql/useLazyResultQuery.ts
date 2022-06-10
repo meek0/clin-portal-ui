@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   DocumentNode,
   OperationVariables,
@@ -5,8 +6,8 @@ import {
   TypedDocumentNode,
   useQuery,
 } from '@apollo/client';
+
 import { IBaseQueryResults } from 'hooks/graphql/type';
-import { useEffect, useState } from 'react';
 
 const useLazyResultQuery = <TData = any, TVariables = OperationVariables>(
   query: DocumentNode | TypedDocumentNode<TData, TVariables>,

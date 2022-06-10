@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { Button, Layout, Space, Typography } from 'antd';
-import CustomFilterContainer from './CustomFilterContainer';
 import intl from 'react-intl-universal';
-import { FilterGroup, FilterInfo } from './types';
-import { ExtendedMappingResults } from 'graphql/models';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
+import { Button, Layout, Space, Typography } from 'antd';
 import cx from 'classnames';
+import { ExtendedMappingResults } from 'graphql/models';
 import { isEmpty } from 'lodash';
+
+import CustomFilterContainer from './CustomFilterContainer';
+import { FilterGroup, FilterInfo } from './types';
 
 import styles from './Filters.module.scss';
 
@@ -30,7 +31,7 @@ const isAllFacetOpen = (filterInfo: FilterInfo) => {
 };
 
 const concatAllFacets = (filterInfo: FilterInfo) => {
-  let allFacets: any[] = [];
+  const allFacets: any[] = [];
   filterInfo.groups.forEach(({ facets }) => allFacets.push(...facets));
   return allFacets;
 };

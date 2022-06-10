@@ -1,5 +1,6 @@
 import { DocumentNode, TypedDocumentNode } from '@apollo/client';
 import { GqlResults } from 'graphql/models';
+
 import useLazyResultQuery from 'hooks/graphql/useLazyResultQuery';
 
 const useGetAggregations = (

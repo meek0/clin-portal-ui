@@ -1,19 +1,20 @@
 import intl from 'react-intl-universal';
-import { getFiltersDictionary } from 'utils/translation';
-
 import FilterContainer from '@ferlab/ui/core/components/filters/FilterContainer';
 import FilterSelector from '@ferlab/ui/core/components/filters/FilterSelector';
 import { IFilter, IFilterGroup } from '@ferlab/ui/core/components/filters/types';
-import { Aggregations } from 'graphql/models';
-import { ExtendedMapping, ExtendedMappingResults } from 'graphql/models';
-import { getFilterType } from '@ferlab/ui/core/data/filters/utils';
-import { getSelectedFilters } from '@ferlab/ui/core/data/sqon/utils';
+import { updateActiveQueryFilters } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import {
   keyEnhance,
   keyEnhanceBooleanOnly,
   underscoreToDot,
 } from '@ferlab/ui/core/data/arranger/formatting';
-import { updateActiveQueryFilters } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { getFilterType } from '@ferlab/ui/core/data/filters/utils';
+import { getSelectedFilters } from '@ferlab/ui/core/data/sqon/utils';
+import { Aggregations } from 'graphql/models';
+import { ExtendedMapping, ExtendedMappingResults } from 'graphql/models';
+
+import { getFiltersDictionary } from 'utils/translation';
+
 import { transformNameIfNeeded } from './nameTransformer';
 
 export interface RangeAggs {

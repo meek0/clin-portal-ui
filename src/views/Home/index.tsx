@@ -1,14 +1,16 @@
+import { HomeOutlined } from '@ant-design/icons';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Col, Row } from 'antd';
-import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
-import VariantSearchBox from './components/VariantSearchBox';
-import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import { getUserFullName } from 'auth/keycloak';
+
+import ContentWithHeader from 'components/Layout/ContentWithHeader';
+import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
+import { LimitTo, Roles } from 'components/Roles/Rules';
+
 import PrescriptionSearchBox from './components/PrescriptionSearchBox';
+import VariantSearchBox from './components/VariantSearchBox';
 
 import styles from './index.module.scss';
-import { HomeOutlined } from '@ant-design/icons';
-import { LimitTo, Roles } from 'components/Roles/Rules';
 
 const Home = () => (
   <ContentWithHeader

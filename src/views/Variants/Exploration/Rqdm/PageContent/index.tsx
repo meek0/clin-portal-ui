@@ -1,18 +1,20 @@
-import intl from 'react-intl-universal';
-import { ExtendedMappingResults } from 'graphql/models';
-import { Tabs } from 'antd';
-import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
 import { useEffect, useState } from 'react';
+import intl from 'react-intl-universal';
+import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
+import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
+import { Tabs } from 'antd';
+import { ExtendedMappingResults } from 'graphql/models';
+import { useVariants } from 'graphql/variants/actions';
 import {
   DEFAULT_PAGE_INDEX,
   DEFAULT_QUERY_CONFIG,
   VARIANT_RQDM_QB_ID,
 } from 'views/Variants/utils/constant';
-import { useVariants } from 'graphql/variants/actions';
-import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
-import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
-import VariantsTab from './tabs/Variants';
+
 import VariantContentLayout from '../../components/VariantContentLayout';
+
+import VariantsTab from './tabs/Variants';
 
 type OwnProps = {
   variantMapping: ExtendedMappingResults;

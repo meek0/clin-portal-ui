@@ -1,16 +1,18 @@
-import { SuggestionType } from 'api/arranger/models';
-import { TCustomFilterMapper } from 'components/uiKit/FilterList';
-import { FilterInfo } from 'components/uiKit/FilterList/types';
-import { ExtendedMappingResults } from 'graphql/models';
 import intl from 'react-intl-universal';
-import DiseaseIcon from 'components/icons/DiseaseIcon';
-import { INDEXES } from 'graphql/constants';
-import LineStyleIcon from 'components/icons/LineStyleIcon';
-import GeneIcon from 'components/icons/GeneIcon';
-import FrequencyIcon from 'components/icons/FrequencyIcon';
 import { UserOutlined } from '@ant-design/icons';
+import { SuggestionType } from 'api/arranger/models';
+import { INDEXES } from 'graphql/constants';
+import { ExtendedMappingResults } from 'graphql/models';
 import VariantGeneSearch from 'views/Variants/components/VariantGeneSearch';
 import { FilterTypes, VARIANT_RQDM_QB_ID } from 'views/Variants/utils/constant';
+
+import DiseaseIcon from 'components/icons/DiseaseIcon';
+import FrequencyIcon from 'components/icons/FrequencyIcon';
+import GeneIcon from 'components/icons/GeneIcon';
+import LineStyleIcon from 'components/icons/LineStyleIcon';
+import { TCustomFilterMapper } from 'components/uiKit/FilterList';
+import { FilterInfo } from 'components/uiKit/FilterList/types';
+
 import { filtersContainer } from '../components/filtersContainer';
 
 import styles from '../facets.module.scss';

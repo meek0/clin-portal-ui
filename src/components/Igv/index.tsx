@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { IIGVBrowser, IIGVBrowserOptions } from './type';
 import cx from 'classnames';
+
+import { IIGVBrowser, IIGVBrowserOptions } from './type';
 
 import style from './index.module.scss';
 

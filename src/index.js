@@ -1,13 +1,13 @@
-import "style/themes/clin/dist/antd.css";
-import "style/themes/clin/main.scss";
-import "./index.css";
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import reportWebVitals from './reportWebVitals';
 
 // Import App after the style to make sure styles is apply correctly!
 import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+import 'style/themes/clin/dist/antd.css';
+import 'style/themes/clin/main.scss';
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>

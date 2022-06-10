@@ -1,12 +1,13 @@
-import cx from 'classnames';
 import { Space } from 'antd';
+import cx from 'classnames';
+import { ArrangerResultsTree } from 'graphql/models';
 import { GeneEntity, VariantEntity } from 'graphql/variants/models';
 import SummaryCard from 'views/Variants/Entity/SummaryPanel/Summary';
-import { ArrangerResultsTree } from 'graphql/models';
-import Consequecenses from './Consequences';
+
 import ACMGCriteria from './AcmgCriteria';
-import FrequencyCard from './Frequency';
 import ClinicalCard from './Clinical';
+import Consequecenses from './Consequences';
+import FrequencyCard from './Frequency';
 
 import styles from './index.module.scss';
 

@@ -1,11 +1,12 @@
+import { ApolloError } from '@apollo/client';
+import { BooleanOperators, TermOperators } from '@ferlab/ui/core/data/sqon/operators';
+import { ISyntheticSqon, IValueContent } from '@ferlab/ui/core/data/sqon/types';
 import { GqlResults, hydrateResults } from 'graphql/models';
 import { PatientFileResults, PatientResult } from 'graphql/patients/models/Patient';
 import { QueryVariable } from 'graphql/queries';
 import { useLazyResultQuery, useLazyResultQueryOnLoadOnly } from 'graphql/utils/query';
-import { IValueContent, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
-import { PATIENTS_QUERY, PATIENT_ENTITY_QUERY, PATIENT_FILES_QUERY } from './queries';
-import { ApolloError } from '@apollo/client';
-import { BooleanOperators, TermOperators } from '@ferlab/ui/core/data/sqon/operators';
+
+import { PATIENT_ENTITY_QUERY, PATIENT_FILES_QUERY, PATIENTS_QUERY } from './queries';
 
 export const mappedFilters = (sqonFilters: ISyntheticSqon): ISyntheticSqon => {
   const mappedPrescriptionsToPatients = {

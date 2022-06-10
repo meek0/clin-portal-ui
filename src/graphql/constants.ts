@@ -1,5 +1,4 @@
 export enum INDEXES {
-    PATIENT = "Patient",
-    VARIANT = "Variants"
+  PATIENT = 'Patient',
+  VARIANT = 'Variants',
 }
-

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import FilterContainer from '@ferlab/ui/core/components/filters/FilterContainer';
-import { updateActiveQueryFilters } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { IFilter, IFilterGroup } from '@ferlab/ui/core/components/filters/types';
+import { updateActiveQueryFilters } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { underscoreToDot } from '@ferlab/ui/core/data/arranger/formatting';
+import { getSelectedFilters } from '@ferlab/ui/core/data/sqon/utils';
 import { ExtendedMapping, ExtendedMappingResults, GqlResults } from 'graphql/models';
 import { getFilterGroup, getFilters } from 'graphql/utils/Filters';
-import { underscoreToDot } from '@ferlab/ui/core/data/arranger/formatting';
-import CustomFilterSelector from './CustomFilterSelector';
-import { getFiltersDictionary } from 'utils/translation';
-import { TCustomFilterMapper } from '.';
-import { getSelectedFilters } from '@ferlab/ui/core/data/sqon/utils';
 import { isUndefined } from 'lodash';
+
+import { getFiltersDictionary } from 'utils/translation';
+
+import CustomFilterSelector from './CustomFilterSelector';
+import { TCustomFilterMapper } from '.';
 
 type OwnProps = {
   classname: string;

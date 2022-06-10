@@ -1,12 +1,14 @@
+import { useState } from 'react';
+import intl from 'react-intl-universal';
+import { Link, useHistory } from 'react-router-dom';
 import { ArrangerApi } from 'api/arranger';
 import { Suggestion, SuggestionType } from 'api/arranger/models';
-import LineStyleIcon from 'components/icons/LineStyleIcon';
-import { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import OptionItem from 'views/Variants/components/VariantGeneSearch/OptionItem';
-import SearchBox from '../SearchBox';
-import intl from 'react-intl-universal';
 import { isEmpty } from 'lodash';
+import OptionItem from 'views/Variants/components/VariantGeneSearch/OptionItem';
+
+import LineStyleIcon from 'components/icons/LineStyleIcon';
+
+import SearchBox from '../SearchBox';
 
 import styles from './index.module.scss';
 

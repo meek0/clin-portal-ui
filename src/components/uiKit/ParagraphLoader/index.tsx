@@ -1,8 +1,8 @@
 import { Skeleton, SkeletonProps } from 'antd';
 import { SkeletonParagraphProps } from 'antd/lib/skeleton/Paragraph';
-import cx from "classnames";
+import cx from 'classnames';
 
-import styles from "./index.module.scss";
+import styles from './index.module.scss';
 
 type OwnProps = Omit<SkeletonProps, 'title' | 'paragraph'> & {
   paragraph?: SkeletonParagraphProps;

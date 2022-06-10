@@ -1,10 +1,11 @@
-import React from "react";
-import cx from "classnames";
+import React from 'react';
+import cx from 'classnames';
+
 import { IconProps } from '.';
 
 const AccountCircleIcon = ({ className = '', width = '20', height = '20' }: IconProps) => (
   <svg
-  className={cx('anticon', className)}
+    className={cx('anticon', className)}
     width={width}
     height={height}
     viewBox="0 0 20 20"

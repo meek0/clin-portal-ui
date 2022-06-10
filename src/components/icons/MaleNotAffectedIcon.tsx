@@ -1,14 +1,11 @@
-import React from "react";
-import cx from "classnames";
-import { IconProps } from ".";
+import React from 'react';
+import cx from 'classnames';
 
-const DiseaseIcon = ({
-  className = "",
-  width = "16",
-  height = "16",
-}: IconProps) => (
+import { IconProps } from '.';
+
+const DiseaseIcon = ({ className = '', width = '16', height = '16' }: IconProps) => (
   <svg
-      className={cx('anticon', className)}
+    className={cx('anticon', className)}
     width={width}
     height={height}
     viewBox="0 0 16 16"

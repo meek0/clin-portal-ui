@@ -1,4 +1,5 @@
 import { sendRequestWithRpt } from 'api';
+
 import { MIME_TYPES } from 'utils/constants';
 import EnvironmentVariables from 'utils/EnvVariables';
 
@@ -19,7 +20,7 @@ const fetchPatientTranscriptsReport = (patientId: string, variantId: string) =>
 const fetchNanuqSequencingReport = (srIds: string[]) =>
   sendRequestWithRpt({
     url: `${ARRANGER_API}/report/nanuq/sequencing${
-      !!srIds?.length ? `?${srIds.map((id) => `srIds[]=${encodeURIComponent(id)}`).join('&')}` : ''
+      srIds?.length ? `?${srIds.map((id) => `srIds[]=${encodeURIComponent(id)}`).join('&')}` : ''
     }`,
     headers: {
       'Content-Type': MIME_TYPES.APPLICATION_XLSX,

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import cx from 'classnames';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
 import ScrollContent from '@ferlab/ui/core/layout/ScrollContent';
 import { Spin } from 'antd';
+import cx from 'classnames';
 import { Aggregations } from 'graphql/models';
 import { ExtendedMappingResults } from 'graphql/models';
+
 import SidebarFilters from './Filter';
 
 import styles from './index.module.scss';

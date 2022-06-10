@@ -1,17 +1,18 @@
-import { ArrangerResultsTree, ArrangerEdge } from "graphql/models";
+import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
 import {
+  ClinicalGenesTableSource,
   ClinVar,
   Conditions,
-  Inheritance,
-  OmimEntity,
-  ClinicalGenesTableSource,
   CosmicEntity,
   DddEntity,
-  OrphanetEntity,
   GeneEntity,
   HpoEntity,
-} from "graphql/variants/models";
-import { toKebabCase } from "utils/helper";
+  Inheritance,
+  OmimEntity,
+  OrphanetEntity,
+} from 'graphql/variants/models';
+
+import { toKebabCase } from 'utils/helper';
 
 const keepOnlyOmimWithId = (arr: ArrangerEdge<OmimEntity>[]) =>
   arr.filter((omimNode: ArrangerEdge<OmimEntity>) => omimNode.node.omim_id);
@@ -20,8 +21,8 @@ export const makeClinVarRows = (clinvar: ClinVar) => {
   if (!clinvar || !clinvar.conditions?.length) {
     return [];
   }
-  const inheritance = (clinvar.inheritance || [])[0] || "";
-  const interpretation = (clinvar.clin_sig || [])[0] || "";
+  const inheritance = (clinvar.inheritance || [])[0] || '';
+  const interpretation = (clinvar.clin_sig || [])[0] || '';
 
   return clinvar.conditions.map((condition: string, index: number) => ({
     key: `${index}`,
@@ -33,7 +34,7 @@ export const makeClinVarRows = (clinvar: ClinVar) => {
 
 const orphanetFromEdges = (
   gene: ArrangerEdge<GeneEntity>,
-  orphanetEdges: ArrangerEdge<OrphanetEntity>[]
+  orphanetEdges: ArrangerEdge<OrphanetEntity>[],
 ) =>
   orphanetEdges.length > 0
     ? {
@@ -43,16 +44,11 @@ const orphanetFromEdges = (
           panel: orphanetNode.node.panel,
           disorderId: orphanetNode.node.disorder_id,
         })),
-        inheritance: orphanetEdges.map(
-          (orphanetNode) => orphanetNode.node.inheritance
-        ),
+        inheritance: orphanetEdges.map((orphanetNode) => orphanetNode.node.inheritance),
       }
     : null;
 
-const omimFromEdges = (
-  gene: ArrangerEdge<GeneEntity>,
-  omimEdges: ArrangerEdge<OmimEntity>[]
-) =>
+const omimFromEdges = (gene: ArrangerEdge<GeneEntity>, omimEdges: ArrangerEdge<OmimEntity>[]) =>
   omimEdges.length > 0
     ? {
         source: ClinicalGenesTableSource.omim,
@@ -62,16 +58,11 @@ const omimFromEdges = (
           omimId: omimNode.node.omim_id,
         })),
         inheritance:
-          omimEdges.map(
-            (omimNode: ArrangerEdge<OmimEntity>) => omimNode.node.inheritance
-          ) || [],
+          omimEdges.map((omimNode: ArrangerEdge<OmimEntity>) => omimNode.node.inheritance) || [],
       }
     : null;
 
-const hpoFromEdges = (
-  gene: ArrangerEdge<GeneEntity>,
-  hpoEdges: ArrangerEdge<HpoEntity>[]
-) =>
+const hpoFromEdges = (gene: ArrangerEdge<GeneEntity>, hpoEdges: ArrangerEdge<HpoEntity>[]) =>
   hpoEdges.length > 0
     ? {
         source: ClinicalGenesTableSource.hpo,
@@ -80,40 +71,32 @@ const hpoFromEdges = (
           hpoTermLabel: hpoNode.node.hpo_term_label,
           hpoTermTermId: hpoNode.node.hpo_term_id,
         })),
-        inheritance: "",
+        inheritance: '',
       }
     : null;
 
-const dddFromEdges = (
-  gene: ArrangerEdge<GeneEntity>,
-  dddEdges: ArrangerEdge<DddEntity>[]
-) =>
+const dddFromEdges = (gene: ArrangerEdge<GeneEntity>, dddEdges: ArrangerEdge<DddEntity>[]) =>
   dddEdges.length > 0
     ? {
         source: ClinicalGenesTableSource.ddd,
         gene: gene.node.symbol,
-        conditions: dddEdges.map(
-          (dddNode: ArrangerEdge<DddEntity>) => dddNode.node.disease_name
-        ),
-        inheritance: "",
+        conditions: dddEdges.map((dddNode: ArrangerEdge<DddEntity>) => dddNode.node.disease_name),
+        inheritance: '',
       }
     : null;
 
 const cosmicFromEdges = (
   gene: ArrangerEdge<GeneEntity>,
-  cosmicEdges: ArrangerEdge<CosmicEntity>[]
+  cosmicEdges: ArrangerEdge<CosmicEntity>[],
 ) =>
   cosmicEdges.length > 0
     ? {
         source: ClinicalGenesTableSource.cosmic,
         gene: gene.node.symbol,
         conditions: cosmicEdges
-          .map(
-            (cosmicNode: ArrangerEdge<CosmicEntity>) =>
-              cosmicNode.node.tumour_types_germline
-          )
+          .map((cosmicNode: ArrangerEdge<CosmicEntity>) => cosmicNode.node.tumour_types_germline)
           .flat(),
-        inheritance: "",
+        inheritance: '',
       }
     : null;
 
@@ -123,24 +106,13 @@ export const makeUnGroupedDataRows = (genes: ArrangerEdge<GeneEntity>[]) => {
   }
 
   return genes.map((gene: ArrangerEdge<GeneEntity>) => {
-    const rowOrphanet = orphanetFromEdges(
-      gene,
-      gene.node.orphanet?.hits?.edges || []
-    );
-    const rowOmim = omimFromEdges(
-      gene,
-      keepOnlyOmimWithId(gene.node.omim?.hits?.edges || [])
-    );
-    const rowCosmic = cosmicFromEdges(
-      gene,
-      gene.node.cosmic?.hits?.edges || []
-    );
+    const rowOrphanet = orphanetFromEdges(gene, gene.node.orphanet?.hits?.edges || []);
+    const rowOmim = omimFromEdges(gene, keepOnlyOmimWithId(gene.node.omim?.hits?.edges || []));
+    const rowCosmic = cosmicFromEdges(gene, gene.node.cosmic?.hits?.edges || []);
     const rowHpo = hpoFromEdges(gene, gene.node.hpo?.hits?.edges || []);
     const rowDdd = dddFromEdges(gene, gene.node.ddd?.hits?.edges || []);
 
-    return [rowOrphanet, rowOmim, rowHpo, rowDdd, rowCosmic]
-      .filter((row) => row)
-      .flat();
+    return [rowOrphanet, rowOmim, rowHpo, rowDdd, rowCosmic].filter((row) => row).flat();
   });
 };
 
@@ -164,9 +136,7 @@ export const groupRowsBySource = (ungroupedDataTable: any[]) => {
   return [...orphanetRows, ...omimRows, ...hpoRows, ...dddRows, ...cosmicRows];
 };
 
-export const makeGenesOrderedRow = (
-  genesHits: ArrangerResultsTree<GeneEntity>
-) => {
+export const makeGenesOrderedRow = (genesHits: ArrangerResultsTree<GeneEntity>) => {
   const genes = genesHits?.hits?.edges;
 
   if (!genes || genes.length === 0) {
@@ -181,6 +151,6 @@ export const makeGenesOrderedRow = (
     gene: row.gene,
     conditions: row.conditions as Conditions,
     inheritance: row.inheritance as Inheritance,
-    key: toKebabCase(`${index}-${[row.gene].flat().join("-")}`),
+    key: toKebabCase(`${index}-${[row.gene].flat().join('-')}`),
   }));
 };

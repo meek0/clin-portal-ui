@@ -1,7 +1,8 @@
 import { Space, Typography } from 'antd';
 import { Suggestion, SuggestionType } from 'api/arranger/models';
-import SquareLabel from 'components/uiKit/search/GlobalSearch/SquareLabel';
 import cx from 'classnames';
+
+import SquareLabel from 'components/uiKit/search/GlobalSearch/SquareLabel';
 
 import styles from './index.module.scss';
 
@@ -23,9 +24,7 @@ const OptionItem = ({ type, suggestion, value }: OwnProps) => {
     <Space size={12}>
       <SquareLabel label={getLabel()} className={cx(styles.searchLabel, styles[type])} />
       <Space direction="vertical" size={0}>
-        <Typography.Text className={styles.variantSearchLocus}>
-          {value}
-        </Typography.Text>
+        <Typography.Text className={styles.variantSearchLocus}>{value}</Typography.Text>
         {suggestion.rsnumber || suggestion.ensembl_gene_id || '--'}
       </Space>
     </Space>

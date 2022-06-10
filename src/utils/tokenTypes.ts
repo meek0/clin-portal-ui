@@ -1,4 +1,4 @@
-import { KeycloakTokenParsed } from "keycloak-js";
+import { KeycloakTokenParsed } from 'keycloak-js';
 
 export type DecodedJwt = {
   iat: number;

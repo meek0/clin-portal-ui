@@ -1,4 +1,5 @@
 import { useLazyResultQuery } from '../utils/query';
+
 import { VARIANT_STATS_QUERY } from './queries';
 
 export const useStatVariants = () => {

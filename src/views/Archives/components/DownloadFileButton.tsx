@@ -1,8 +1,9 @@
+import intl from 'react-intl-universal';
+import { useDispatch } from 'react-redux';
 import { Typography } from 'antd';
 import { FhirApi } from 'api/fhir';
-import { useDispatch } from 'react-redux';
+
 import { globalActions } from 'store/global';
-import intl from 'react-intl-universal';
 
 interface OwnProps {
   fileUrl: string;

@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+
 import { IconProps } from '.';
 
 const SupervisorIcon = ({ className = '', width = '20', height = '20' }: IconProps) => (

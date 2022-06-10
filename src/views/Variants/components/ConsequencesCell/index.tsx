@@ -1,13 +1,14 @@
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
+import { Consequence, Impact } from 'graphql/variants/models';
 
-import { generateConsequencesDataLines } from './consequences';
 import HighBadgeIcon from 'components/icons/variantBadgeIcons/HighBadgeIcon';
 import LowBadgeIcon from 'components/icons/variantBadgeIcons/LowBadgeIcon';
 import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeIcon';
 import ModifierBadgeIcon from 'components/icons/variantBadgeIcons/ModifierBadgeIcon';
-import { Consequence, Impact } from 'graphql/variants/models';
 import { toKebabCase } from 'utils/helper';
-import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
+
+import { generateConsequencesDataLines } from './consequences';
 
 import style from './index.module.scss';
 

@@ -1,4 +1,5 @@
 import Keycloak from 'keycloak-js';
+
 import { keycloakConfig } from 'utils/config';
 
 const keycloak = Keycloak(keycloakConfig);

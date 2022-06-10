@@ -1,6 +1,7 @@
 import { Space } from 'antd';
-import ContentHeader, { ContentHeaderProps } from './Header';
 import cx from 'classnames';
+
+import ContentHeader, { ContentHeaderProps } from './Header';
 
 import styles from './index.module.scss';
 

@@ -1,15 +1,12 @@
-import React from "react";
-import cx from "classnames";
+/* eslint-disable max-len */
+import React from 'react';
+import cx from 'classnames';
+
 import { IconProps } from '.';
 
-const DiseaseIcon = ({
-  className = '',
-  width = '16',
-  height = '16',
-  fill = '#63768F',
-}: IconProps) => (
+const DiseaseIcon = ({ className = '', width = '16', height = '16' }: IconProps) => (
   <svg
-      className={cx('anticon', className)}
+    className={cx('anticon', className)}
     width={width}
     height={height}
     viewBox="0 0 16 16"

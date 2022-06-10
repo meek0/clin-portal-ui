@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
+import intl from 'react-intl-universal';
 import QueryBuilder from '@ferlab/ui/core/components/QueryBuilder';
-import { Space } from 'antd';
-import GenericFilters from 'components/uiKit/FilterList/GenericFilters';
-import { INDEXES } from 'graphql/constants';
 import { dotToUnderscore } from '@ferlab/ui/core/data/arranger/formatting';
 import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
-import { ExtendedMapping, ExtendedMappingResults, IQueryResults } from 'graphql/models';
-import intl from 'react-intl-universal';
-import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { isEmptySqon } from '@ferlab/ui/core/data/sqon/utils';
-import { IVariantResultTree, VariantEntity } from 'graphql/variants/models';
-import { getQueryBuilderDictionary } from 'utils/translation';
+import { Space } from 'antd';
 import { ArrangerApi } from 'api/arranger';
+import { INDEXES } from 'graphql/constants';
+import { ExtendedMapping, ExtendedMappingResults, IQueryResults } from 'graphql/models';
+import { IVariantResultTree, VariantEntity } from 'graphql/variants/models';
 import { GET_VARIANT_COUNT } from 'graphql/variants/queries';
 
-import styles from './index.module.scss';
+import LineStyleIcon from 'components/icons/LineStyleIcon';
+import GenericFilters from 'components/uiKit/FilterList/GenericFilters';
 import { useGlobals } from 'store/global';
+import { getQueryBuilderDictionary } from 'utils/translation';
+
+import styles from './index.module.scss';
 
 interface OwnProps {
   queryBuilderId: string;
