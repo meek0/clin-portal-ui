@@ -1,15 +1,11 @@
-import React from "react";
-import cx from "classnames";
-import { IconProps } from ".";
+import React from 'react';
+import cx from 'classnames';
 
-const TranslateIcon = ({
-  className = "",
-  width = "20",
-  height = "20",
-  fill
-}: IconProps) => (
+import { IconProps } from '.';
+
+const TranslateIcon = ({ className = '', width = '20', height = '20', fill }: IconProps) => (
   <svg
-      className={cx('anticon', className)}
+    className={cx('anticon', className)}
     width={width}
     height={height}
     viewBox="0 0 20 20"

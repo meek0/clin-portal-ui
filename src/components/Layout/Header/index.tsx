@@ -1,22 +1,22 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { PageHeader, Dropdown, Menu, Button, Space } from 'antd';
-import { MedicineBoxOutlined, HomeOutlined, FileTextOutlined } from '@ant-design/icons';
+import intl from 'react-intl-universal';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { FileTextOutlined, HomeOutlined, MedicineBoxOutlined } from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
 import Gravatar from '@ferlab/ui/core/components/Gravatar';
-import HeaderLink from 'components/Layout/Header/HeaderLink';
-import { STATIC_ROUTES } from 'utils/routes';
-import intl from 'react-intl-universal';
 import { useKeycloak } from '@react-keycloak/web';
-import { IncludeKeycloakTokenParsed } from 'utils/tokenTypes';
-import { useHistory } from 'react-router-dom';
-import EnvironmentVariables from 'utils/EnvVariables';
-import { useDispatch } from 'react-redux';
-import { globalActions, useLang } from 'store/global';
-import { LANG } from 'utils/constants';
+import { Button, Dropdown, Menu, PageHeader, Space } from 'antd';
 import { getUserFirstName } from 'auth/keycloak';
 
-import styles from './index.module.scss';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
+import HeaderLink from 'components/Layout/Header/HeaderLink';
+import { globalActions, useLang } from 'store/global';
+import { LANG } from 'utils/constants';
+import EnvironmentVariables from 'utils/EnvVariables';
+import { STATIC_ROUTES } from 'utils/routes';
+import { IncludeKeycloakTokenParsed } from 'utils/tokenTypes';
+
+import styles from './index.module.scss';
 
 const Header = () => {
   const { keycloak } = useKeycloak();

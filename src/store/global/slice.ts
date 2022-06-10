@@ -1,9 +1,11 @@
+import intl from 'react-intl-universal';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ArgsProps as NotificationArgsProps } from 'antd/lib/notification';
+import locales from 'locales';
+
 import { initialState, MessageArgsPropsCustom } from 'store/global/types';
 import { LANG } from 'utils/constants';
-import intl from 'react-intl-universal';
-import locales from 'locales';
-import { ArgsProps as NotificationArgsProps } from 'antd/lib/notification';
+
 import { fetchFhirServiceRequestCodes } from './thunks';
 
 export const GlobalState: initialState = {

@@ -1,7 +1,7 @@
-import React from "react";
-import StackLayout from "@ferlab/ui/core/layout/StackLayout";
-import { DddConditions } from "graphql/variants/models";
-import { Typography } from "antd";
+import React from 'react';
+import StackLayout from '@ferlab/ui/core/layout/StackLayout';
+import { Typography } from 'antd';
+import { DddConditions } from 'graphql/variants/models';
 
 interface OwnProps {
   conditions: DddConditions;

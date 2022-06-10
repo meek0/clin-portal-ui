@@ -1,6 +1,6 @@
 import React from 'react';
-import { Result } from 'antd';
 import intl from 'react-intl-universal';
+import { Result } from 'antd';
 
 import styles from './index.module.scss';
 

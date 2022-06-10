@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
 import { AuthClientError, AuthClientEvent } from '@react-keycloak/core/lib/types';
-import EnvVariables from 'utils/EnvVariables';
 import { ReactKeycloakProvider as KeycloakProvider } from '@react-keycloak/web';
 import keycloak from 'auth/keycloak';
+
+import EnvVariables from 'utils/EnvVariables';
 
 export interface IProvider {
   children: React.ReactNode;

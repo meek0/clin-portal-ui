@@ -1,19 +1,21 @@
+import intl from 'react-intl-universal';
+import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { SuggestionType } from 'api/arranger/models';
+import { INDEXES } from 'graphql/constants';
+import { ExtendedMappingResults } from 'graphql/models';
+import VariantGeneSearch from 'views/Variants/components/VariantGeneSearch';
+import { FilterTypes, VARIANT_PATIENT_QB_ID } from 'views/Variants/utils/constant';
+
+import DiseaseIcon from 'components/icons/DiseaseIcon';
+import FrequencyIcon from 'components/icons/FrequencyIcon';
+import GeneIcon from 'components/icons/GeneIcon';
+import LineStyleIcon from 'components/icons/LineStyleIcon';
+import OccurenceIcon from 'components/icons/OccurenceIcon';
+import RqdmIcon from 'components/icons/RqdmIcon';
 import { TCustomFilterMapper } from 'components/uiKit/FilterList';
 import { FilterInfo } from 'components/uiKit/FilterList/types';
-import { ExtendedMappingResults } from 'graphql/models';
-import intl from 'react-intl-universal';
-import DiseaseIcon from 'components/icons/DiseaseIcon';
-import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
-import RqdmIcon from 'components/icons/RqdmIcon';
-import { INDEXES } from 'graphql/constants';
-import LineStyleIcon from 'components/icons/LineStyleIcon';
-import GeneIcon from 'components/icons/GeneIcon';
-import FrequencyIcon from 'components/icons/FrequencyIcon';
-import OccurenceIcon from 'components/icons/OccurenceIcon';
-import { FilterTypes, VARIANT_PATIENT_QB_ID } from 'views/Variants/utils/constant';
+
 import { filtersContainer } from '../components/filtersContainer';
-import VariantGeneSearch from 'views/Variants/components/VariantGeneSearch';
 
 import styles from '../facets.module.scss';
 

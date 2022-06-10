@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { TUserState } from 'store/user/types';
+
 import { fetchPractitionerRole } from './thunks';
 
 export const UserState: TUserState = {
@@ -14,17 +16,17 @@ const userSlice = createSlice({
   initialState: UserState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchPractitionerRole.pending, (state, action) => {
+    builder.addCase(fetchPractitionerRole.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(fetchPractitionerRole.fulfilled, (state, action) => {
       state.isLoading = false;
       state.user = {
         ...state.user,
-        practitionerRoles: action.payload
-      }
+        practitionerRoles: action.payload,
+      };
     });
-    builder.addCase(fetchPractitionerRole.rejected, (state, action) => {
+    builder.addCase(fetchPractitionerRole.rejected, (state) => {
       state.isLoading = false;
     });
   },

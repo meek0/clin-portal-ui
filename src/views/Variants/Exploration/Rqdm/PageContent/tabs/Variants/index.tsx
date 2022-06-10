@@ -1,11 +1,12 @@
-import { VariantEntity, ITableVariantEntity } from 'graphql/variants/models';
-import { IQueryResults } from 'graphql/models';
-import { formatQuerySortList } from 'utils/helper';
 import ProTable from '@ferlab/ui/core/components/ProTable';
-import { getProTableDictionary } from 'utils/translation';
-import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
-import { DEFAULT_PAGE_SIZE } from 'views/Variants/utils/constant';
+import { IQueryResults } from 'graphql/models';
+import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
 import { getVariantColumns } from 'views/Variants/Exploration/variantColumns';
+import { DEFAULT_PAGE_SIZE } from 'views/Variants/utils/constant';
+
+import { formatQuerySortList } from 'utils/helper';
+import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
+import { getProTableDictionary } from 'utils/translation';
 
 import style from './index.module.scss';
 

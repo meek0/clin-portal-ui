@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { globalActions, useGlobals } from 'store/global';
 import { notification as antNotification } from 'antd';
 import { message as antMessage } from 'antd';
 import cx from 'classnames';
+
+import { globalActions, useGlobals } from 'store/global';
 
 import styles from './index.module.scss';
 

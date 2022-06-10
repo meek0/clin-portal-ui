@@ -1,7 +1,7 @@
-import { ArrangerEdge } from "graphql/models";
-import { ConsequenceEntity } from "graphql/variants/models";
+import { ArrangerEdge } from 'graphql/models';
+import { ConsequenceEntity } from 'graphql/variants/models';
 
-const keyNoSymbol = "noSymbol_";
+const keyNoSymbol = 'noSymbol_';
 
 /*
  * Algorithm:
@@ -18,7 +18,7 @@ const keyNoSymbol = "noSymbol_";
  *   Output: filtered consequences.
  * */
 export const filterThanSortConsequencesByImpact = (
-  consequences: ArrangerEdge<ConsequenceEntity>[]
+  consequences: ArrangerEdge<ConsequenceEntity>[],
 ) => {
   if (!consequences || consequences.length === 0) {
     return [];
@@ -28,8 +28,7 @@ export const filterThanSortConsequencesByImpact = (
     .map((c) => ({ ...c }))
     .sort(
       (a, b) =>
-        b.node.impact_score! - a.node.impact_score! ||
-        +b.node.canonical! - +a.node.canonical!
+        b.node.impact_score! - a.node.impact_score! || +b.node.canonical! - +a.node.canonical!,
     );
 };
 type SymbolToConsequences = {
@@ -37,28 +36,23 @@ type SymbolToConsequences = {
 };
 
 export const generateConsequencesDataLines = (
-  rawConsequences: ArrangerEdge<ConsequenceEntity>[] | null
+  rawConsequences: ArrangerEdge<ConsequenceEntity>[] | null,
 ): ArrangerEdge<ConsequenceEntity>[] => {
   if (!rawConsequences || rawConsequences.length === 0) {
     return [];
   }
 
-  const symbolToConsequences: SymbolToConsequences =
-    rawConsequences.reduce<SymbolToConsequences>(
-      (
-        dict: SymbolToConsequences,
-        consequence: ArrangerEdge<ConsequenceEntity>
-      ) => {
-        const keyForCurrentConsequence =
-          consequence.node?.symbol || keyNoSymbol;
-        const oldConsequences = dict[keyForCurrentConsequence] || [];
-        return {
-          ...dict,
-          [keyForCurrentConsequence]: [...oldConsequences, { ...consequence }],
-        };
-      },
-      {}
-    );
+  const symbolToConsequences: SymbolToConsequences = rawConsequences.reduce<SymbolToConsequences>(
+    (dict: SymbolToConsequences, consequence: ArrangerEdge<ConsequenceEntity>) => {
+      const keyForCurrentConsequence = consequence.node?.symbol || keyNoSymbol;
+      const oldConsequences = dict[keyForCurrentConsequence] || [];
+      return {
+        ...dict,
+        [keyForCurrentConsequence]: [...oldConsequences, { ...consequence }],
+      };
+    },
+    {},
+  );
 
   return Object.entries(symbolToConsequences).reduce(
     (acc: ArrangerEdge<ConsequenceEntity>[], [key, consequences]) => {
@@ -67,10 +61,9 @@ export const generateConsequencesDataLines = (
         return [...acc, ...consequences];
       }
 
-      const highestRanked =
-        filterThanSortConsequencesByImpact(consequences)[0] || {};
+      const highestRanked = filterThanSortConsequencesByImpact(consequences)[0] || {};
       return [...acc, { ...highestRanked }];
     },
-    []
+    [],
   );
 };

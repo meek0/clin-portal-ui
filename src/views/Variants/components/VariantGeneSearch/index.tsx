@@ -1,11 +1,13 @@
-import { INDEXES } from 'graphql/constants';
-import GlobalSearch, { ICustomSearchProps } from 'components/uiKit/search/GlobalSearch';
+import intl from 'react-intl-universal';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
-import { VARIANT_SEARCH_QUERY } from 'graphql/variants/queries';
-import intl from 'react-intl-universal';
-import { Suggestion, SuggestionType } from 'api/arranger/models';
 import { ArrangerApi } from 'api/arranger';
+import { Suggestion, SuggestionType } from 'api/arranger/models';
+import { INDEXES } from 'graphql/constants';
+import { VARIANT_SEARCH_QUERY } from 'graphql/variants/queries';
+
+import GlobalSearch, { ICustomSearchProps } from 'components/uiKit/search/GlobalSearch';
+
 import OptionItem from './OptionItem';
 
 type OwnProps = ICustomSearchProps & {

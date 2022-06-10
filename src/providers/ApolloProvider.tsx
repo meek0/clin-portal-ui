@@ -8,9 +8,10 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { GraphqlBackend, GraphqlProvider } from 'providers';
-import { appendBearerIfToken } from 'utils/helper';
+
 import { useRpt } from 'hooks/useRpt';
 import EnvironmentVariables from 'utils/EnvVariables';
+import { appendBearerIfToken } from 'utils/helper';
 
 export const ARRANGER_API = EnvironmentVariables.configFor('ARRANGER_API');
 export const PROJECT_ID = EnvironmentVariables.configFor('ARRANGER_PROJECT_ID');

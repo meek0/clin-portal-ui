@@ -1,10 +1,12 @@
 import ScrollContent from '@ferlab/ui/core/layout/ScrollContent';
-import Footer from '../Footer';
 import cx from 'classnames';
 
-import styles from './index.module.scss';
 import ConditionalWrapper from 'components/utils/ConditionalWrapper';
+
 import Container from '../Container';
+import Footer from '../Footer';
+
+import styles from './index.module.scss';
 
 interface OwnProps {
   scrollId?: string;

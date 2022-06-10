@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { decodeRptAccess, fetchRptToken } from 'auth/rpt';
 import { DecodedRpt } from 'auth/types';
 

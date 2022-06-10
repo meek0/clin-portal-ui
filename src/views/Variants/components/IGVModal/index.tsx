@@ -13,11 +13,7 @@ import Igv from 'components/Igv';
 import { IIGVTrack } from 'components/Igv/type';
 import ServerError from 'components/Results/ServerError';
 import { GENDER, PARENT_TYPE, PATIENT_POSITION } from 'utils/constants';
-import {
-  appendBearerIfToken,
-  formatLocus,
-  getPatientPosition,
-} from 'utils/helper';
+import { appendBearerIfToken, formatLocus, getPatientPosition } from 'utils/helper';
 
 import style from './index.module.scss';
 

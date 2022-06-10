@@ -2,12 +2,12 @@ import React from 'react';
 
 export enum GraphqlBackend {
   FHIR,
-  ARRANGER
+  ARRANGER,
 }
 
 type ClinGraphqlProvider = {
   backend?: GraphqlBackend;
-}
+};
 
 export interface IProvider {
   children: React.ReactNode;

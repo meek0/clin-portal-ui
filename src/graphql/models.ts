@@ -9,7 +9,7 @@ export type AggregationBuckets = {
     {
       key: string;
       doc_count: number;
-    }
+    },
   ];
   stats: string;
 };

@@ -1,5 +1,5 @@
-import { Tag } from 'antd';
 import intl from 'react-intl-universal';
+import { Tag } from 'antd';
 
 interface OwnProps {
   isProband: boolean;

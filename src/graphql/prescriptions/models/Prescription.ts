@@ -48,7 +48,7 @@ export const analysisFields = [
   'analysis_code',
   'ldm',
   'ep',
-  'prenatal'
+  'prenatal',
 ];
 
 // Model V1

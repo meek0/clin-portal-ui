@@ -1,6 +1,7 @@
+import intl from 'react-intl-universal';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { Typography } from 'antd';
-import intl from 'react-intl-universal';
 import {
   ClinicalGenesTableSource,
   Conditions,
@@ -15,13 +16,13 @@ import {
   OrphanetInheritance,
   SingleValuedInheritance,
 } from 'graphql/variants/models';
-import OrphanetConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/OrphanetConditionCell';
-import HpoConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/HpoConditionCell';
-import DddConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/DddConditionCell';
 import CosmicConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/CosmicConditionCell';
+import DddConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/DddConditionCell';
+import HpoConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/HpoConditionCell';
 import OmimConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/OmimConditionCell';
+import OrphanetConditionCell from 'views/Variants/Entity/SummaryPanel/Clinical/conditions/OrphanetConditionCell';
+
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
-import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 const { Text } = Typography;
 

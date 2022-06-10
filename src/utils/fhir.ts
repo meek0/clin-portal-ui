@@ -1,4 +1,5 @@
 import { AnalysisCodeMapping } from 'store/global/types';
+
 import { SERVICE_REQUEST_CODE_MAP_KEY } from './constants';
 
 export const getAnalysisNameMapping = () =>

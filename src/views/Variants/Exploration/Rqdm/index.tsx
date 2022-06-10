@@ -1,10 +1,13 @@
 import intl from 'react-intl-universal';
-import ApolloProvider from 'providers/ApolloProvider';
-import { GraphqlBackend } from 'providers';
-import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
 import { INDEXES } from 'graphql/constants';
-import { getMenuItems } from './facets';
+import { GraphqlBackend } from 'providers';
+import ApolloProvider from 'providers/ApolloProvider';
+
+import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
+
 import VariantSearchLayout from '../components/VariantSearchLayout';
+
+import { getMenuItems } from './facets';
 import PageContent from './PageContent';
 
 const VariantExplorationRqdm = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { OrphanetCondition, OrphanetConditions } from 'graphql/variants/models';
-import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 
 interface OwnProps {
   conditions: OrphanetConditions;

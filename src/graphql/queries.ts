@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import { dotToUnderscore, underscoreToDot } from '@ferlab/ui/core/data/arranger/formatting';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
+
 import { ExtendedMapping, ExtendedMappingResults } from './models';
 
 export type Sort = {

@@ -1,7 +1,7 @@
-import { Col, Layout, Row } from 'antd';
 import intl from 'react-intl-universal';
-import get from 'lodash/get';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
+import { Col, Layout, Row } from 'antd';
+import get from 'lodash/get';
 
 import styles from './index.module.scss';
 

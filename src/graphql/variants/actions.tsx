@@ -1,7 +1,9 @@
 import { hydrateResults, IQueryResults } from 'graphql/models';
 import { QueryVariable } from 'graphql/queries';
+
 import useLazyResultQuery from 'hooks/graphql/useLazyResultQuery';
-import { VariantEntity, IVariantResultTree } from './models';
+
+import { IVariantResultTree, VariantEntity } from './models';
 import { VARIANT_QUERY } from './queries';
 
 export const useVariants = (variables?: QueryVariable): IQueryResults<VariantEntity[]> => {

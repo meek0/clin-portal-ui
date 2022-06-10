@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   ApolloError,
   DocumentNode,
@@ -6,7 +7,6 @@ import {
   TypedDocumentNode,
   useQuery,
 } from '@apollo/client';
-import { useEffect, useState } from 'react';
 
 export type Hits<T> = {
   edges: {
