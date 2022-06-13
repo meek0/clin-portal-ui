@@ -83,7 +83,10 @@ const ACMGCriteria = ({ data }: Props) => {
             {verdict && (
               <>
                 <Text>{`${intl.get('variant.acmg.verdict.label')}: `}</Text>
-                <ExternalLink href={`https://varsome.com/variant/${varsome.variant_id}`}>
+                <ExternalLink
+                  onClick={(e) => e.stopPropagation()}
+                  href={`https://varsome.com/variant/${varsome.variant_id}`}
+                >
                   {verdict.verdict}
                 </ExternalLink>
               </>
