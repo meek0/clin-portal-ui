@@ -1,4 +1,5 @@
 import intl from 'react-intl-universal';
+import { Link } from 'react-router-dom';
 import { DownloadOutlined } from '@ant-design/icons';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Space } from 'antd';
@@ -41,6 +42,7 @@ export const getAchivesTableColumns = (): ProColumnType[] => [
     key: 'request',
     dataIndex: 'srRef',
     title: intl.get('screen.archives.table.column.request'),
+    render: (id: string) => <Link to={`/prescription/entity/${id}`}>{id}</Link>,
   },
   {
     key: 'sampleldm',
