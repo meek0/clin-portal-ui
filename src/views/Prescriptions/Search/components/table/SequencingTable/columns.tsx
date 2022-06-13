@@ -14,7 +14,9 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
   [
     {
       name: ['request_id'],
-      render: (request_id: string) => request_id,
+      render: (request_id: string) => (
+        <Link to={`/prescription/entity/${request_id}`}>{request_id}</Link>
+      ),
       title: intl.get('screen.sequencingsearch.table.request'),
     },
     {
