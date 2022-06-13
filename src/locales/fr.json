@@ -281,7 +281,7 @@
   "screen.patientvariant.category_occurrence": "Occurrence",
   "screen.patientvariant.category_pathogenicity": "Pathogénicité",
   "screen.patientvariant.category_patient": "Patient",
-  "screen.patientvariant.category_rqdm": "RQDM",
+  "screen.patientvariant.category_rqdm": "Panel RQDM",
   "screen.patientvariant.category_variant": "Variant",
   "screen.patientvariant.drawer.affected": "Atteint",
   "screen.patientvariant.drawer.allprof": "Profondeur allélique ALT",
