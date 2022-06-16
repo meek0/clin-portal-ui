@@ -22,9 +22,7 @@ export const transformNameIfNeeded = (field: string, fkey: string, name: string)
   }
 
   if (field === 'donors__affected_status') {
-    return name === 'true'
-      ? intl.get('screen.patientvariant.drawer.affected')
-      : intl.get('screen.patientvariant.drawer.notaffected');
+    return name === 'true' ? intl.get('affected') : intl.get('not_affected');
   }
 
   return name;
