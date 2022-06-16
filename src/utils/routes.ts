@@ -10,5 +10,6 @@ export enum DYNAMIC_ROUTES {
   ERROR = '/error/:status?',
   VARIANT_ENTITY = '/variant/entity/:locus/:tabid?',
   PRESCRIPTION_ENTITY = '/prescription/entity/:id',
+  BIOINFO_ANALYSIS = '/bioinformatics-analysis/:id',
   VARIANT_EXPLORATION_PATIENT = '/variant-exploration/patient/:patientid?/:prescriptionid?',
 }

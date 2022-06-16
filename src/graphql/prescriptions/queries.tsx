@@ -195,3 +195,144 @@ export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
     }
   }
 `;
+
+export const ANALYSIS_TASK_QUERY = (taskId: string) => gql`
+  query GetAnalysisEntity($taskId: String = "${taskId}") {
+    Task(id: $taskId){
+      id
+      authoredOn
+      code {
+        coding @first @flatten{
+          system
+          code
+        }
+      }
+      focus @flatten {
+        serviceRequestReference: reference
+      }
+      for @flatten{
+        patientReference: reference  
+      }
+      owner @flatten {
+        ownerReference: reference
+      }
+      requester @flatten {
+        requester: resource(type: Organization) {
+          id
+          alias @first @singleton
+          contact @flatten @first @singleton {
+            telecom(fhirpath: "system='email'") @flatten @first @singleton {
+              email: value
+            }
+          }
+        }
+      }
+      workflow: extension(url:"http://fhir.cqgc.ferlab.bio/StructureDefinition/workflow") @first{
+        extension(url:"workflowName") @first @flatten{
+            name: value
+        }
+        extension(url:"workflowVersion") @first @flatten{
+            version: value
+        }        
+        extension(url:"genomeBuild") @first @flatten{
+            valueCoding @flatten{ genomeBuild:code}
+        }                
+    }
+    experiment: extension(url:"http://fhir.cqgc.ferlab.bio/StructureDefinition/sequencing-experiment") @first{
+        extension(url:"runName") @first @flatten{
+            name: value
+        }
+        extension(url:"runAlias") @first @flatten{
+            alias: value
+        }       
+        extension(url:"experimentalStrategy") @first @flatten{
+            valueCoding @flatten{ experimentalStrategy:code}
+        }    
+        extension(url:"platform") @first @flatten{
+            platform: value
+        }   
+        extension(url:"captureKit") @first @flatten{
+            captureKit: value
+        }   
+        extension(url:"sequencerId") @first @flatten{
+            sequencerId: value
+        }   
+        extension(url:"runDate") @first @flatten{
+            runDate: value
+        }         
+        extension(url:"labAliquotId") @first @flatten{
+            aliquotId: value
+        }                 
+                                                   
+    }  
+     input @flatten {
+	    valueReference @flatten {
+		    sample: resource(type: Specimen) {
+          id
+          accessionIdentifier@flatten {
+              value
+          }
+          type @flatten {
+              coding @first @flatten{
+                  display
+                  code
+              }
+          }
+          parent {
+            resource{
+              id
+              accessionIdentifier@flatten {
+                value
+            }
+              type @flatten {
+                coding @first @flatten{
+                  display
+                  code
+                }
+              }   
+              collection @flatten @first{
+                bodySite @flatten{
+                  value
+                }
+              }                     
+            }
+          }
+        }
+      }
+    }        
+    output @flatten {
+	    valueReference @flatten {
+		    docs: resource(type: DocumentReference) {
+          context @flatten
+          {
+            related@first @flatten {
+              sample:resource @flatten {
+                accessionIdentifier @flatten{value}
+              }
+            }
+          }
+          content {
+					  attachment {
+						  url
+              hash
+              title
+              size: extension(url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/full-size") @flatten @first{ 
+                size:value
+              } 
+		  		   }
+             format @flatten {
+              format: code
+             }
+				  }
+
+          type @flatten {
+            coding @flatten {
+              type: code @first @singleton
+            }
+          }
+				}
+      }
+    }
+  }
+}
+`;

@@ -30,6 +30,7 @@ import { LANG } from 'utils/constants';
 import { DYNAMIC_ROUTES, STATIC_ROUTES } from 'utils/routes';
 
 const loadableProps = { fallback: <Spinner size="large" /> };
+const BioInfoAnalysis = loadable(() => import('views/BioInfoAnalysis'), loadableProps);
 const PrescriptionEntity = loadable(() => import('views/Prescriptions/Entity'), loadableProps);
 const PrescriptionSearch = loadable(() => import('views/Prescriptions/Search'), loadableProps);
 const VariantEntity = loadable(() => import('views/Variants/Entity'), loadableProps);
@@ -79,6 +80,13 @@ const App = () => {
                     id: string;
                   }>,
                 ) => <PrescriptionEntity prescriptionId={props.match?.params.id!} />}
+              </ProtectedRoute>
+              <ProtectedRoute exact path={DYNAMIC_ROUTES.BIOINFO_ANALYSIS} layout={PageLayout}>
+                {(
+                  props: RouteChildrenProps<{
+                    id: string;
+                  }>,
+                ) => <BioInfoAnalysis id={props.match?.params.id!} />}
               </ProtectedRoute>
               <ProtectedRoute
                 exact

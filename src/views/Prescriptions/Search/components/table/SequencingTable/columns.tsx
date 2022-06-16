@@ -20,9 +20,7 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
   },
   {
     key: 'sample',
-    render: (results: SequencingResult) => (
-      <Link to={`/prescription/entity/${results.prescription_id}`}>{results.sample}</Link>
-    ),
+    render: (results: SequencingResult) => results.sample,
     title: intl.get('screen.sequencingsearch.table.sample'),
     sorter: { multiple: 1 },
   },

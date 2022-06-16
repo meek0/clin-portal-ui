@@ -62,6 +62,12 @@ const fetchServiceRequestEntity = (id: string) =>
     },
   });
 
+const fetchTaskMetadata = (taskId: string) =>
+  sendRequestWithRpt<Bundle<any>>({
+    method: 'GET',
+    url: `${FHIR_API_URL}/Task?_id=${taskId}&_include=Task:input_specimen&_include=Task:output-documentreference&_pretty=true`,
+  });
+
 const downloadFileMetadata = (taskId: string, filename: string) =>
   sendRequestWithRpt<any>({
     method: 'GET',
@@ -87,6 +93,7 @@ export const FhirApi = {
   searchPractitionerRole,
   searchPatientFiles,
   downloadFileMetadata,
+  fetchTaskMetadata,
   fetchServiceRequestCodes,
   fetchServiceRequestEntity,
   getFileURL,

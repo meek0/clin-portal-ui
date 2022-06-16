@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { DownloadOutlined } from '@ant-design/icons';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Space } from 'antd';
+import { extractTaskId } from 'api/fhir/helper';
 import { isEmpty } from 'lodash';
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
 import DownloadFileButton from './components/DownloadFileButton';
-import MetaDataButton from './components/MetaDataButton';
 import { DocsWithTaskInfo } from '.';
 
 export const getAchivesTableColumns = (): ProColumnType[] => [
@@ -53,10 +53,9 @@ export const getAchivesTableColumns = (): ProColumnType[] => [
     key: 'analysis',
     title: intl.get('screen.archives.table.column.analysis'),
     render: (doc: DocsWithTaskInfo) => (
-      <MetaDataButton
-        taskId={doc.taskId}
-        fileName={`${doc.sample.value}_${doc.format}_META.json`}
-      />
+      <Link to={`/bioinformatics-analysis/${extractTaskId(doc.taskId)}`}>
+        {extractTaskId(doc.taskId)}
+      </Link>
     ),
   },
   {
