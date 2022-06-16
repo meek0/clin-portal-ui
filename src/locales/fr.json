@@ -49,7 +49,7 @@
   "filters.group.donors.ad_alt": "Profondeur allélique ALT",
   "filters.group.donors.ad_ratio": "Ratio allélique ALT / (ALT+REF)",
   "filters.group.donors.ad_total": "Profondeur totale ALT + REF",
-  "filters.group.donors.affected_status": "Statut affecté",
+  "filters.group.donors.affected_status": "Statut clinique",
   "filters.group.donors.analysis_code": "Analyse",
   "filters.group.donors.filters": "Filtre (Dragen)",
   "filters.group.donors.gender": "Sexe",

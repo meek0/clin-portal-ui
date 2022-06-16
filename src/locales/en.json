@@ -49,7 +49,7 @@
   "filters.group.donors.ad_alt": "ALT allele depth",
   "filters.group.donors.ad_ratio": "Allelic ratio ALT / (ALT+REF)",
   "filters.group.donors.ad_total": "Total depth ALT + REF",
-  "filters.group.donors.affected_status": "Affected Status",
+  "filters.group.donors.affected_status": "Clinical status",
   "filters.group.donors.analysis_code": "Analysis",
   "filters.group.donors.filters": "Filter (Dragen)",
   "filters.group.donors.gender": "Sex",
