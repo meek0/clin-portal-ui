@@ -19,6 +19,7 @@ export const SEQUENCING_QUERY = gql`
             ldm
             analysis_code
             status
+            sample
           }
         }
         total

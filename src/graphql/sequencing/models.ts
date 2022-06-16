@@ -21,4 +21,5 @@ export interface SequencingResult extends ArrangerNodeData {
   status: string;
   timestamp: string;
   request_id: string;
+  sample: string;
 }
