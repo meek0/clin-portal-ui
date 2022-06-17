@@ -16,6 +16,8 @@ import ExperimentCard from './ExperimentCard';
 import FilesCard from './FilesCard';
 import SamplesCard from './SamplesCard';
 
+import styles from './index.module.scss';
+
 interface OwnProps {
   id: string;
 }
@@ -38,7 +40,7 @@ const BioInfoAnalysis = ({ id }: OwnProps) => {
         title: intl.get('screen.bioinfo.analysis.title', { id }),
       }}
     >
-      <ScrollContentWithFooter container>
+      <ScrollContentWithFooter className={styles.bioInfoAnalysisWrapper} container>
         <Row gutter={[24, 24]}>
           <Col span={12}>
             <AnalysisCard analysis={results.task} loading={results.loading} />

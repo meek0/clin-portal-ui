@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal';
 import Empty from '@ferlab/ui/core/components/Empty';
 import { Table, TableColumnType, Typography } from 'antd';
 import { FhirDoc } from 'graphql/patients/models/Patient';
@@ -15,32 +16,32 @@ interface OwnProps {
 
 const getFilesColumns = (): TableColumnType<any>[] => [
   {
-    title: 'Nom',
+    title: intl.get('screen.bioinfo.analysis.files.name'),
     render: (doc: FhirDoc) => doc.content[0].attachment.title,
   },
   {
-    title: 'Type',
+    title: intl.get('screen.bioinfo.analysis.files.type'),
     render: (doc: FhirDoc) => doc.type,
   },
   {
-    title: 'Format',
+    title: intl.get('screen.bioinfo.analysis.files.format'),
     render: (doc: FhirDoc) => doc.content[0].format,
   },
   {
-    title: 'Échantillon (LDM)',
+    title: intl.get('screen.bioinfo.analysis.files.sampleldm'),
     render: (doc: FhirDoc) => doc.sample.value,
   },
   {
-    title: 'Taille',
+    title: intl.get('screen.bioinfo.analysis.files.size'),
     render: (doc: FhirDoc) => formatFileSize(doc.content[0].attachment.size),
   },
   {
-    title: 'URL',
+    title: intl.get('screen.bioinfo.analysis.files.url'),
     render: (doc: FhirDoc) => doc.content[0].attachment.url,
     width: 100,
   },
   {
-    title: 'Hash',
+    title: intl.get('screen.bioinfo.analysis.files.hash'),
     render: (doc: FhirDoc) => doc.content[0].attachment.hash,
     width: 100,
   },
@@ -58,7 +59,7 @@ const FilesCard = ({ files, loading }: OwnProps) => (
         dataSource={files?.map((file, index) => ({ key: index, ...file }))}
         bordered
         locale={{
-          emptyText: <Empty description="Aucun Fichier" />,
+          emptyText: <Empty description={intl.get('screen.bioinfo.analysis.files.noData')} />,
         }}
         pagination={{
           hideOnSinglePage: true,

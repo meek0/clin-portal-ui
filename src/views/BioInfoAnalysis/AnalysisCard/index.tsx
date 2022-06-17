@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal';
 import { Card, Descriptions } from 'antd';
 import {
   extractOrganizationId,
@@ -16,23 +17,29 @@ interface OwnProps {
 }
 
 const AnalysisCard = ({ analysis, loading }: OwnProps) => (
-  <Card title="Analyse">
+  <Card title={intl.get('screen.bioinfo.analysis.analysis.title')}>
     <ParagraphLoader loading={loading} paragraph={{ rows: 7 }}>
       {analysis && (
         <Descriptions column={1} size="small" className="label-35">
-          <Descriptions.Item label="ID">{extractTaskId(analysis.id)}</Descriptions.Item>
-          <Descriptions.Item label="Type d'analyse">{analysis.code.code}</Descriptions.Item>
-          <Descriptions.Item label="Date">{formatDate(analysis.authoredOn)}</Descriptions.Item>
-          <Descriptions.Item label="Requête">
+          <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.id')}>
+            {extractTaskId(analysis.id)}
+          </Descriptions.Item>
+          <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.type')}>
+            {analysis.code.code}
+          </Descriptions.Item>
+          <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.date')}>
+            {formatDate(analysis.authoredOn)}
+          </Descriptions.Item>
+          <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.request')}>
             {extractServiceRequestId(analysis.serviceRequestReference)}
           </Descriptions.Item>
-          <Descriptions.Item label="Patient">
+          <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.patient')}>
             {extractPatientId(analysis.patientReference)}
           </Descriptions.Item>
-          <Descriptions.Item label="Requérant">
+          <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.requester')}>
             {extractOrganizationId(analysis.requester.id)}
           </Descriptions.Item>
-          <Descriptions.Item label="Effectuée par">
+          <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.owner')}>
             {extractOrganizationId(analysis.ownerReference)}
           </Descriptions.Item>
         </Descriptions>

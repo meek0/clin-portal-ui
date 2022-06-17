@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal';
 import Empty from '@ferlab/ui/core/components/Empty';
 import { Table, TableColumnType, Typography } from 'antd';
 import { AnalysisTaskSample } from 'api/fhir/models';
@@ -15,29 +16,32 @@ interface OwnProps {
 const getSamplesColumns = (): TableColumnType<any>[] => [
   {
     dataIndex: 'value',
-    title: 'Échantillon (LDM)',
+    title: intl.get('screen.bioinfo.analysis.samples.sampleldm'),
   },
   {
     dataIndex: 'code',
-    title: 'Type d’échantillon',
+    title: intl.get('screen.bioinfo.analysis.samples.type'),
   },
   {
-    title: 'Spécimen (LDM)',
+    title: intl.get('screen.bioinfo.analysis.samples.specimenldm'),
     render: (sample: AnalysisTaskSample) => sample.parent[0].resource.value,
   },
   {
-    title: 'Type de spécimen',
+    title: intl.get('screen.bioinfo.analysis.samples.specimen.type'),
     render: (sample: AnalysisTaskSample) => sample.parent[0].resource.code,
   },
   {
     dataIndex: 'tissue',
-    title: 'Tissue',
+    title: intl.get('screen.bioinfo.analysis.samples.tissue'),
     render: () => '-',
   },
 ];
 
 const SamplesCard = ({ samples, loading }: OwnProps) => (
-  <CollapsePanel header={<Title level={4}>Échantillon(s)</Title>} loading={loading}>
+  <CollapsePanel
+    header={<Title level={4}>{intl.get('screen.bioinfo.analysis.samples.title')}</Title>}
+    loading={loading}
+  >
     {isEmpty(samples) ? (
       <></>
     ) : (
@@ -48,7 +52,7 @@ const SamplesCard = ({ samples, loading }: OwnProps) => (
         dataSource={samples?.map((sample, index) => ({ key: index, ...sample }))}
         bordered
         locale={{
-          emptyText: <Empty description="Aucun échantillon" />,
+          emptyText: <Empty description={intl.get('screen.bioinfo.analysis.samples.noData')} />,
         }}
         pagination={{
           hideOnSinglePage: true,

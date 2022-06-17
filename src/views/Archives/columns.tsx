@@ -11,7 +11,7 @@ import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import DownloadFileButton from './components/DownloadFileButton';
 import { DocsWithTaskInfo } from '.';
 
-export const getAchivesTableColumns = (): ProColumnType[] => [
+export const getAchivesTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
   {
     key: 'url',
     dataIndex: 'url',
@@ -40,9 +40,10 @@ export const getAchivesTableColumns = (): ProColumnType[] => [
   },
   {
     key: 'request',
-    dataIndex: 'srRef',
     title: intl.get('screen.archives.table.column.request'),
-    render: (id: string) => <Link to={`/prescription/entity/${id}`}>{id}</Link>,
+    render: (record: DocsWithTaskInfo) => (
+      <Link to={`/prescription/entity/${extractTaskId(record.srRef)}`}>{record.srRef}</Link>
+    ),
   },
   {
     key: 'sampleldm',
