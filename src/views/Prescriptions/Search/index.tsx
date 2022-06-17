@@ -7,7 +7,10 @@ import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/type
 import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
 import { Space, Tabs } from 'antd';
 import { usePrescription, usePrescriptionMapping } from 'graphql/prescriptions/actions';
-import { useSequencingRequests } from 'graphql/sequencing/actions';
+import {
+  setPrescriptionStatusInActiveQuery,
+  useSequencingRequests,
+} from 'graphql/sequencing/actions';
 import { isEmpty } from 'lodash';
 import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
@@ -49,10 +52,12 @@ const PrescriptionSearch = (): React.ReactElement => {
   const [prescriptionQueryConfig, setPrescriptionQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
   const [sequencingQueryConfig, setSequencingQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
 
+  const sequencingActiveQuery = setPrescriptionStatusInActiveQuery(activeQuery);
+
   const sequencings = useSequencingRequests({
     first: sequencingQueryConfig.size,
     offset: sequencingQueryConfig.size * (sequencingQueryConfig.pageIndex - 1),
-    sqon: ajustSqon(resolveSyntheticSqon(queryList, activeQuery)),
+    sqon: ajustSqon(resolveSyntheticSqon(queryList, sequencingActiveQuery)),
     sort: isEmpty(sequencingQueryConfig.sort) ? DEFAULT_SORT : sequencingQueryConfig.sort,
   });
 

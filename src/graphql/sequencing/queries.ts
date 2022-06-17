@@ -20,6 +20,7 @@ export const SEQUENCING_QUERY = gql`
             analysis_code
             status
             sample
+            prescription_status
           }
         }
         total
