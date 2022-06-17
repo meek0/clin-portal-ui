@@ -1,3 +1,5 @@
+import { FhirDoc } from 'graphql/patients/models/Patient';
+
 export type ResourceType =
   | 'Practitioner'
   | 'Patient'
@@ -8,7 +10,10 @@ export type ResourceType =
   | 'Organization'
   | 'PractitionerRole'
   | 'Group'
-  | 'Bundle';
+  | 'Bundle'
+  | 'Task'
+  | 'DocumentReference'
+  | 'Specimen';
 
 export enum StatusType {
   draft = 'draft',
@@ -121,6 +126,17 @@ export interface Bundle<FhirResource> {
   entry: BundleEntry<FhirResource>[];
 }
 
+export interface Task {
+  id?: string;
+  resourceType: ResourceType;
+  authoredOn: string;
+  code: CodeableConcept;
+  focus: Reference;
+  for: Reference;
+  requester: Reference;
+  owner: Reference;
+}
+
 export interface Patient {
   id?: string;
   resourceType: ResourceType;
@@ -196,6 +212,58 @@ export interface Person {
   birthdate: string;
   ramq: string;
   name: Name[];
+}
+
+// For Bio Analysis Entity Page
+export interface AnalysisTaskSample {
+  code: string;
+  id: string;
+  value: string;
+  parent: {
+    resource: {
+      code: string;
+      id: string;
+      value: string;
+    };
+  }[];
+}
+
+export interface AnalysisTaskExperiment {
+  name: string;
+  alias: string;
+  experimentalStrategy: string;
+  platform: string;
+  captureKit: string;
+  sequencerId: string;
+  runDate: string;
+  aliquotId: string;
+}
+
+export interface AnalysisTaskWorkflow {
+  name: string;
+  version: string;
+  genomeBuild: string;
+}
+
+export interface AnalysisTaskEntity {
+  id: string;
+  authoredOn: string;
+  code: {
+    code: string;
+    system: string;
+  };
+  patientReference: string;
+  serviceRequestReference: string;
+  ownerReference: string;
+  requester: {
+    alias: string;
+    email: string;
+    id: string;
+  };
+  experiment: AnalysisTaskExperiment;
+  sample: AnalysisTaskSample;
+  docs: FhirDoc[];
+  workflow: AnalysisTaskWorkflow;
 }
 
 // For Prescription Entity Page

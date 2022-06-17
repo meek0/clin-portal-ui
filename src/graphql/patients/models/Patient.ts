@@ -47,7 +47,7 @@ export interface FhirDocAttachment {
   hash: string;
   title: string;
   url: string;
-  size: string;
+  size: number;
 }
 
 export interface FhirDocContent {
