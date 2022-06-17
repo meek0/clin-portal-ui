@@ -10,7 +10,7 @@ import { SEQUENCING_QUERY } from './queries';
 export const setPrescriptionStatusInActiveQuery = (activeQuery: ISyntheticSqon): ISyntheticSqon => {
   const newActiveQuery = cloneDeep(activeQuery);
 
-  const sequencingActiveQuery = {
+  return {
     ...newActiveQuery,
     content: newActiveQuery.content.map((c) => {
       if (!(c as IValueFilter)) {
@@ -24,8 +24,6 @@ export const setPrescriptionStatusInActiveQuery = (activeQuery: ISyntheticSqon):
       return contentTmp;
     }),
   };
-
-  return sequencingActiveQuery;
 };
 
 export const useSequencingRequests = (variables: QueryVariable): GqlResults<SequencingResult> => {

@@ -43,7 +43,7 @@ const DEFAULT_SORT = [
   },
 ];
 
-const ajustSqon = (sqon: ISyntheticSqon) =>
+const adjustSqon = (sqon: ISyntheticSqon) =>
   JSON.parse(JSON.stringify(sqon).replace('sequencing_requests.status', 'status'));
 
 const PrescriptionSearch = (): React.ReactElement => {
@@ -57,7 +57,7 @@ const PrescriptionSearch = (): React.ReactElement => {
   const sequencings = useSequencingRequests({
     first: sequencingQueryConfig.size,
     offset: sequencingQueryConfig.size * (sequencingQueryConfig.pageIndex - 1),
-    sqon: ajustSqon(resolveSyntheticSqon(queryList, sequencingActiveQuery)),
+    sqon: adjustSqon(resolveSyntheticSqon(queryList, sequencingActiveQuery)),
     sort: isEmpty(sequencingQueryConfig.sort) ? DEFAULT_SORT : sequencingQueryConfig.sort,
   });
 
