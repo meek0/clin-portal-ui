@@ -1,8 +1,13 @@
 import { capitalize, get } from 'lodash';
 
-import { ClinicalImpression, Name, ServiceRequestEntityExtension } from './models';
+import { ClinicalImpression, Name, Patient, ServiceRequestEntityExtension } from './models';
 
 export const RAMQ_NUMBER_LENGTH = 12;
+
+export const getRAMQValue = (patient?: Patient): string | undefined =>
+  patient
+    ? patient.identifier.find((id) => get(id, 'type.coding[0].code', '') === 'JHN')?.value
+    : undefined;
 
 export const formatRamq = (value: string) =>
   value

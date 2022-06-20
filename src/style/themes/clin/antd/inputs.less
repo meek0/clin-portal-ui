@@ -37,6 +37,7 @@
 
     &-focused, &:focus {
       border: 1px solid @blue-7;
+      box-shadow: 0px 0px 0px 2px @blue-4;
     }
 
     &-disabled, &[disabled] {
@@ -50,4 +51,10 @@
       }
     }
   }
+}
+
+// Should now be necessary with @form-error-input-bg but bug with current version of antd
+.@{input-prefix-cls}-status-error:not(.@{input-prefix-cls}-disabled):not(.@{input-prefix-cls}-borderless).@{input-prefix-cls},
+.@{input-prefix-cls}-status-error:not(.@{input-prefix-cls}-disabled):not(.@{input-prefix-cls}-borderless).@{input-prefix-cls}:hover {
+  background-color: @red-0;
 }

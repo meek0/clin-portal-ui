@@ -15,9 +15,12 @@ import storage from 'redux-persist/lib/storage';
 
 // Reducers
 import GlobalReducer from 'store/global';
+import PrescriptionReducer from 'store/prescription';
 import ReportReducer from 'store/reports';
 import { RootState } from 'store/types';
 import UserReducer from 'store/user';
+
+import { prescriptionFormActionTypes } from './prescription/slice';
 
 const devMode = process.env.NODE_ENV === 'development';
 
@@ -34,6 +37,7 @@ const rootReducer = combineReducers<RootState>({
   global: GlobalReducer,
   report: ReportReducer,
   user: UserReducer,
+  prescription: PrescriptionReducer,
 });
 
 const store: any = configureStore({
@@ -42,7 +46,15 @@ const store: any = configureStore({
   middleware: (getDefaultMiddleware) => {
     const defaultMid = getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [
+          ...prescriptionFormActionTypes,
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+        ],
       },
     });
     return devMode ? defaultMid.concat(logger) : defaultMid;
