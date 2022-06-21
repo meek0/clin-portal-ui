@@ -225,7 +225,7 @@
   "result.server.error.title": "Server Error",
   "save": "Save",
   "screen.bioinfo.analysis.title": "Bioinformatics Analysis: {id}",
-  "screen.bioinfo.analysis.samples.title": "Sample(s)",
+  "screen.bioinfo.analysis.samples.title": "Samples",
   "screen.bioinfo.analysis.samples.sampleldm": "Sample (LDM)",
   "screen.bioinfo.analysis.samples.type": "Sample Type",
   "screen.bioinfo.analysis.samples.specimenldm": "Specimen (LDM)",
