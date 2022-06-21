@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Checkbox, Form, Modal, Select, Typography } from 'antd';
@@ -28,13 +29,13 @@ const AnalysisChoiceModal = () => {
 
   return (
     <Modal
-      title="Choix de l'analyse"
+      title={intl.get('prescription.analysis.choici.modal.title')}
       visible={analysisChoiceModalVisible}
       onCancel={() => {
         dispatch(prescriptionFormActions.cancel());
         form.resetFields();
       }}
-      okText="Commencer"
+      okText={intl.get('prescription.analysis.choici.modal.start')}
       destroyOnClose
       onOk={() => form.submit()}
     >
@@ -57,9 +58,9 @@ const AnalysisChoiceModal = () => {
         <Form.Item
           label={
             <ProLabel
-              title="Sélectionner la condition et le panel de gènes à analyser"
+              title={intl.get('prescription.analysis.choici.modal.select.panel')}
               popoverProps={{
-                title: 'Choix de l&apos;analyse',
+                title: intl.get('prescription.analysis.choici.modal.title'),
                 content: (
                   <Text className={styles.analysisPopoverContent}>
                     Veuillez <Link>consulter la documentation</Link> pour obtenir la définition de
@@ -112,8 +113,7 @@ const AnalysisChoiceModal = () => {
                 className="marginTop noMarginBtm"
               >
                 <Checkbox>
-                  Analyser en réflexe le panel global des maladies musculaires si aucun diagnostic
-                  n&apos;est identifié depuis le panel spécialisé.
+                  {intl.get('prescription.analysis.choici.modal.analysis.globel.panel.checkbox')}
                 </Checkbox>
               </Form.Item>
             ) : null
@@ -124,8 +124,9 @@ const AnalysisChoiceModal = () => {
             getFieldValue(ANALYSIS_CHOICE_FI_KEY.ANALYSIS_TYPE) ? (
               <Form.Item className="marginTop noMarginBtm">
                 <Text>
-                  Il est recommandé de consulter <Link>l&apos;algorithme clinique du RQDM</Link> sur
-                  l&apos;analyse sélectionnée avant de procéder au formulaire de prescription.
+                  {intl.get('prescription.analysis.choici.modal.consult.algo.1')}{' '}
+                  <Link>{intl.get('prescription.analysis.choici.modal.consult.algo.2')}</Link>{' '}
+                  {intl.get('prescription.analysis.choici.modal.consult.algo.3')}
                 </Text>
               </Form.Item>
             ) : null

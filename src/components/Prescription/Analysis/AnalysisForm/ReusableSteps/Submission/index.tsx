@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { FormOutlined, SearchOutlined } from '@ant-design/icons';
 import Collapse, { CollapsePanel } from '@ferlab/ui/core/components/Collapse';
@@ -63,16 +64,24 @@ const Submission = () => {
           {needToSelectSupervisor() && (
             <Form.Item
               name={getName(SUBMISSION_REVIEW_FI_KEY.RESPONSIBLE_DOCTOR)}
-              label={<ProLabel title="Veuillez identifier votre médecin résponsable" colon />}
+              label={
+                <ProLabel
+                  title={intl.get('prescription.submission.responsable.doctor.label')}
+                  colon
+                />
+              }
               wrapperCol={{ xxl: 14 }}
               rules={defaultFormItemsRules}
             >
-              <Input suffix={<SearchOutlined />} placeholder="Recherche par nom ou licence…" />
+              <Input
+                suffix={<SearchOutlined />}
+                placeholder={intl.get('prescription.submission.responsable.doctor.placeholder')}
+              />
             </Form.Item>
           )}
           <Form.Item
             name={getName(SUBMISSION_REVIEW_FI_KEY.GENERAL_COMMENT)}
-            label={<ProLabel title="Commentaire général" colon />}
+            label={<ProLabel title={intl.get('prescription.submission.general.comment')} colon />}
             wrapperCol={{ xxl: 14 }}
           >
             <Input.TextArea rows={3} />
@@ -84,10 +93,12 @@ const Submission = () => {
         bordered
         defaultActiveKey={['analyse', ...(config?.steps.map(({ title }) => title) ?? [])]}
       >
-        <CollapsePanel key="analyse" header="Analyse">
+        <CollapsePanel key="analyse" header={intl.get('prescription.submission.title')}>
           <Descriptions column={1} size="small">
-            <Descriptions.Item label="Analyse demandée">{analysisType}</Descriptions.Item>
-            <Descriptions.Item label="Établissement préscripteur">
+            <Descriptions.Item label={intl.get('prescription.submission.item.analysis.title')}>
+              {analysisType}
+            </Descriptions.Item>
+            <Descriptions.Item label={intl.get('prescription.submission.item.prescribing.org')}>
               {getPrescribingOrg()}
             </Descriptions.Item>
           </Descriptions>

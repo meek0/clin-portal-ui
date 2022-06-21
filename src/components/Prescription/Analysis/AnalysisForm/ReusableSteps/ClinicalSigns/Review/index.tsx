@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal';
 import { Descriptions, Space } from 'antd';
 import { isEmpty } from 'lodash';
 
@@ -41,17 +42,17 @@ const ClinicalSignsReview = ({ stepId = STEPS_ID.CLINICAL_SIGNS }: OwnProps) => 
 
   return (
     <Descriptions column={1} size="small">
-      <Descriptions.Item label="Signes observés">
+      <Descriptions.Item label={intl.get('prescription.clinical.signs.review.label.observed')}>
         <Space direction="vertical" size={0}>
           {getSignsList(ClinicalSignsStatus.OBSERVED)}
         </Space>
       </Descriptions.Item>
-      <Descriptions.Item label="Signes non observés">
+      <Descriptions.Item label={intl.get('prescription.clinical.signs.review.label.not.observed')}>
         <Space direction="vertical" size={0}>
           {getSignsList(ClinicalSignsStatus.NOT_OBSERVED)}
         </Space>
       </Descriptions.Item>
-      <Descriptions.Item label="Remarque">
+      <Descriptions.Item label={intl.get('prescription.clinical.signs.review.label.note')}>
         {getData(CLINICAL_SIGNS_FI_KEY.CLINIC_REMARK) ?? EMPTY_FIELD}
       </Descriptions.Item>
     </Descriptions>

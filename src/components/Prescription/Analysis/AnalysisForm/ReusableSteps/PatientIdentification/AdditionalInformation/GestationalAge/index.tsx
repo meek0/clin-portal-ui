@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal';
 import { Typography } from 'antd';
 
 import styles from './index.module.scss';
@@ -11,7 +12,9 @@ const { Text } = Typography;
 const GestationalAge = ({ value }: OwnProps) =>
   value ? (
     <Text className={styles.calculatedGestationalAge}>
-      Âge gestationnel calculé: {value} semaines
+      {intl.get('prescription.patient.identification.calculated.gestational.age', {
+        value,
+      })}
     </Text>
   ) : null;
 

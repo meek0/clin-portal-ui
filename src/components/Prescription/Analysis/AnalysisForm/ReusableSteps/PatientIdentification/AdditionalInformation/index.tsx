@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import intl from 'react-intl-universal';
 import { Checkbox, Form, Input, Radio, Space } from 'antd';
 import { isEmpty } from 'lodash';
 
@@ -91,7 +92,7 @@ const AdditionalInformation = ({
   return (
     <div className={styles.patientAddInfoWrapper}>
       <Form.Item
-        label="Diagnostic prénatal"
+        label={intl.get('prescription.patient.identification.prenatal.diagnosis')}
         name={getName(ADD_INFO_FI_KEY.PRENATAL_DIAGNOSIS)}
         valuePropName="checked"
       >
@@ -108,20 +109,20 @@ const AdditionalInformation = ({
             <>
               <Form.Item
                 name={getName(ADD_INFO_FI_KEY.FOETUS_SEX)}
-                label="Sexe (foetus)"
+                label={intl.get('prescription.patient.identification.sexe.foetus')}
                 rules={[{ required: true }]}
               >
                 <RadioGroupSex />
               </Form.Item>
               <Form.Item
-                label="Âge gestationnel"
+                label={intl.get('prescription.patient.identification.gestational.age')}
                 name={getName(ADD_INFO_FI_KEY.GESTATIONAL_AGE)}
                 rules={[{ required: true }]}
               >
                 <Radio.Group>
                   <Space direction="vertical" className={styles.verticalRadioWrapper}>
                     <RadioDateFormItem
-                      title="Date des dernières menstruation (DDM)"
+                      title={intl.get('prescription.patient.identification.last.ddm.date')}
                       radioProps={{
                         value: GestationalAgeValues.DDM,
                         name: GestationalAgeValues.DDM,
@@ -143,7 +144,7 @@ const AdditionalInformation = ({
                       parentFormItemName={getName(ADD_INFO_FI_KEY.GESTATIONAL_AGE)}
                     />
                     <RadioDateFormItem
-                      title="Date prévue d'accouchement (DPA)"
+                      title={intl.get('prescription.patient.identification.last.dpa.date')}
                       radioProps={{
                         value: GestationalAgeValues.DPA,
                         name: GestationalAgeValues.DPA,
@@ -175,7 +176,7 @@ const AdditionalInformation = ({
       {localShowNewBorn && (
         <>
           <Form.Item
-            label="Nouveau-né"
+            label={intl.get('prescription.patient.identification.new.born')}
             name={getName(ADD_INFO_FI_KEY.NEW_BORN)}
             valuePropName="checked"
           >
@@ -192,7 +193,7 @@ const AdditionalInformation = ({
             {({ getFieldValue }) =>
               getFieldValue(getName(ADD_INFO_FI_KEY.NEW_BORN)) ? (
                 <Form.Item
-                  label="RAMQ de la mère"
+                  label={intl.get('prescription.patient.identification.mother.ramq')}
                   name={getName(ADD_INFO_FI_KEY.MOTHER_RAMQ_NUMBER)}
                   rules={[{ type: 'regexp', pattern: RAMQ_PATTERN }]}
                   wrapperCol={{ span: 10, sm: 12, xxl: 6 }}

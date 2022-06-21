@@ -34,15 +34,15 @@ const PatientIdentificationReview = ({ stepId = STEPS_ID.PATIENT_IDENTIFICATION 
 
   return (
     <Descriptions column={1} size="small">
-      <Descriptions.Item label="Dossier">{getFileNumber()}</Descriptions.Item>
-      <Descriptions.Item label="RAMQ">
+      <Descriptions.Item label={intl.get('folder')}>{getFileNumber()}</Descriptions.Item>
+      <Descriptions.Item label={intl.get('ramq')}>
         {getData(PATIENT_DATA_FI_KEY.RAMQ_NUMBER) ?? EMPTY_FIELD}
       </Descriptions.Item>
-      <Descriptions.Item label="Nom">{getName()}</Descriptions.Item>
-      <Descriptions.Item label="Date de naissance">
+      <Descriptions.Item label={intl.get('name')}>{getName()}</Descriptions.Item>
+      <Descriptions.Item label={intl.get('birthdate')}>
         {getData(PATIENT_DATA_FI_KEY.BIRTH_DATE)}
       </Descriptions.Item>
-      <Descriptions.Item label="Sexe">
+      <Descriptions.Item label={intl.get('sex')}>
         {intl.get(`sex.${getData(PATIENT_DATA_FI_KEY.SEX)}`)}
       </Descriptions.Item>
     </Descriptions>

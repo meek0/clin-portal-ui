@@ -13,6 +13,7 @@ import {
 import { SubmissionStepMapping } from 'components/Prescription/Analysis/stepMapping';
 import { usePrescriptionForm } from 'store/prescription';
 import { prescriptionFormActions } from 'store/prescription/slice';
+import intl from 'react-intl-universal';
 
 import styles from './index.module.scss';
 
@@ -39,13 +40,16 @@ const AddParentSubmission = () => {
     >
       <Form.Item>
         <Collapse {...defaultCollapseProps} defaultActiveKey={['prescription_summary']}>
-          <CollapsePanel key={'prescription_summary'} header="Informations sur l'analyse">
+          <CollapsePanel
+            key={'prescription_summary'}
+            header={intl.get('prescriptino.add.parent.submission.analysis.info.title')}
+          >
             <PrescriptionSummary />
           </CollapsePanel>
         </Collapse>
       </Form.Item>
       <Form.Item
-        label={'Veuillez vérifier les informations ci-dessous avant de soumettre le formulaire.'}
+        label={intl.get('prescriptino.add.parent.submission.verify.info.title')}
         className="noMarginBtm"
       >
         <Collapse

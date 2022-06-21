@@ -29,14 +29,18 @@ const HistoryAndDiagnosisReview = () => {
 
   return (
     <Descriptions column={1} size="small">
-      <Descriptions.Item label="Histoire familiale">{getHealthConditions()}</Descriptions.Item>
-      <Descriptions.Item label="Présence de consanguinité">
+      <Descriptions.Item
+        label={intl.get('prescription.history.diagnosis.review.label.family.history')}
+      >
+        {getHealthConditions()}
+      </Descriptions.Item>
+      <Descriptions.Item label={intl.get('prescription.history.diagnosis.review.label.inbreeding')}>
         {intl.get((getData(HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING) as string) ?? 'no')}
       </Descriptions.Item>
-      <Descriptions.Item label="Ethnicité">
+      <Descriptions.Item label={intl.get('prescription.history.diagnosis.review.label.ethnicity')}>
         {getData(HISTORY_AND_DIAG_FI_KEY.ETHNICITY) ?? EMPTY_FIELD}
       </Descriptions.Item>
-      <Descriptions.Item label="Hypothèse diagnostique">
+      <Descriptions.Item label={intl.get('prescription.history.diagnosis.review.label.hypothesis')}>
         {getData(HISTORY_AND_DIAG_FI_KEY.DIAGNOSIS_HYPOTHESIS)}
       </Descriptions.Item>
     </Descriptions>

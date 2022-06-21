@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
@@ -38,13 +39,13 @@ const AddParentModal = () => {
 
   return (
     <Modal
-      title="Ajouter un parent à une prescription"
+      title={intl.get('prescription.add.parent.modal.title')}
       visible={addParentModalVisible}
       onCancel={() => {
         dispatch(prescriptionFormActions.cancel());
         onDone();
       }}
-      okText="Commencer"
+      okText={intl.get('prescription.add.parent.modal.start')}
       destroyOnClose
       onOk={() => form.submit()}
     >
@@ -64,10 +65,7 @@ const AddParentModal = () => {
       >
         <Form.Item
           label={
-            <ProLabel
-              title={'Rechercher par identifiant de prescription ou RAMQ du cas-index'}
-              colon
-            />
+            <ProLabel title={intl.get('prescription.add.parent.modal.search.placeholder')} colon />
           }
           name={ADD_PARENT_FI_KEY.PRESCRIPTION_SEARCH_TERM}
           rules={defaultFormItemsRules}
@@ -115,20 +113,25 @@ const AddParentModal = () => {
                 </Form.Item>
                 <Form.Item
                   name={ADD_PARENT_FI_KEY.PARENT_RELATION}
-                  label={<ProLabel title="Relation du parent avec le cas-index" colon />}
+                  label={
+                    <ProLabel
+                      title={intl.get('prescription.add.parent.modal.parent.relation')}
+                      colon
+                    />
+                  }
                   rules={defaultFormItemsRules}
                   required
                   className="noMarginBtm"
                 >
                   <Select
-                    placeholder="Sélectionner"
+                    placeholder={intl.get('prescription.add.parent.modal.select')}
                     options={[
                       {
-                        label: 'Père',
+                        label: intl.get('FTH'),
                         value: STEPS_ID.FATHER_IDENTIFICATION,
                       },
                       {
-                        label: 'Mère',
+                        label: intl.get('MTH'),
                         value: STEPS_ID.MOTHER_IDENTIFICATION,
                       },
                     ]}

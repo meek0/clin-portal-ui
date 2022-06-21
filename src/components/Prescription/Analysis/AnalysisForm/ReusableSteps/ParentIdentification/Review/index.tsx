@@ -50,8 +50,8 @@ const ParentIdentificationReview = ({ parent }: OwnProps) => {
       <Descriptions.Item
         label={
           getData(PARENT_DATA_FI_KEY.ENTER_INFO_MOMENT) === EnterInfoMomentValue.NEVER
-            ? 'Absence définitive'
-            : 'Absence temporaire'
+            ? intl.get('prescription.parent.identification.review.permanent.absence')
+            : intl.get('prescription.parent.identification.review.temporary.absence')
         }
       >
         {getData(PARENT_DATA_FI_KEY.NO_INFO_REASON)}
