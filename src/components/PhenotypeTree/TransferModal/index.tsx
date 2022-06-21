@@ -25,14 +25,9 @@ const PhenotypeModal = ({ visible = false, onApply, onVisibleChange }: OwnProps)
   useEffect(() => {
     if (visible !== isVisible) {
       setIsVisible(visible);
-    }
-  }, [visible]);
-
-  useEffect(() => {
-    if (visible !== isVisible) {
       onVisibleChange && onVisibleChange(isVisible);
     }
-  }, [isVisible]);
+  }, [visible]);
 
   const handleCancel = () => {
     setIsVisible(false);

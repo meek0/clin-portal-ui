@@ -11,8 +11,6 @@ const ParaclinicalExamsReview = () => {
   const getData = (key: PARACLINICAL_EXAMS_FI_KEY) =>
     analysisData[STEPS_ID.PARACLINICAL_EXAMS]?.[key];
 
-  console.log(getData(PARACLINICAL_EXAMS_FI_KEY.EXAMS))
-
   return <Descriptions column={1} size="small"></Descriptions>;
 };
 

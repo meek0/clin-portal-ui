@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash';
+
 import { TreeNode } from './types';
 
 export const isChecked = (selectedKeys: string[], eventKey: string) =>
@@ -5,6 +7,11 @@ export const isChecked = (selectedKeys: string[], eventKey: string) =>
 
 export const getFlattenTree = (nodes: TreeNode[]) => {
   const transferDataSource: TreeNode[] = [];
+
+  if (isEmpty(nodes)) {
+    return transferDataSource;
+  }
+
   const flatten = (list: TreeNode[] = []) => {
     list.forEach((item) => {
       transferDataSource.push(item);
@@ -12,9 +19,5 @@ export const getFlattenTree = (nodes: TreeNode[]) => {
     });
   };
 
-  if (nodes) {
-    flatten(nodes);
-  }
-
-  return transferDataSource;
+  return flatten(nodes);
 };
