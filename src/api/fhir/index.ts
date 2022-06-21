@@ -1,6 +1,5 @@
 import { sendRequestWithRpt } from 'api';
 import { getFhirPractitionerId } from 'auth/keycloak';
-import { Rpt } from 'auth/types';
 import { PatientTaskResults } from 'graphql/patients/models/Patient';
 import { SEARCH_PATIENT_FILES_QUERY } from 'graphql/patients/queries';
 import { ANALYSIS_ENTITY_QUERY } from 'graphql/prescriptions/queries';
@@ -19,7 +18,7 @@ import {
 
 const FHIR_API_URL = EnvironmentVariables.configFor('FHIR_API');
 
-const searchPatient = (rpt: Rpt, ramq: string) =>
+const searchPatient = (ramq: string) =>
   sendRequestWithRpt<Bundle<Patient>>({
     method: 'GET',
     url: `${FHIR_API_URL}/Patient`,

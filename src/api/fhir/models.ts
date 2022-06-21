@@ -36,6 +36,20 @@ export enum PrescriptionStatus {
 
 export type BundleMethod = 'PUT' | 'GET' | 'POST';
 
+export interface Patient {
+  id?: string;
+  resourceType: ResourceType;
+  meta: Meta;
+  extension: Extension[];
+  identifier: Identifier[];
+  active: boolean;
+  name: Name[];
+  birthDate?: string;
+  gender: string;
+  generalPractitioner: Reference[];
+  managingOrganization: Reference;
+}
+
 export interface ServiceRequestCodeConcept {
   code: string;
   display: string;

@@ -74,3 +74,9 @@
     }
   }
 }
+
+// Should now be necessary with @form-error-input-bg but bug with current version of antd
+.@{select-prefix-cls}-status-error.@{select-prefix-cls}:not(.@{select-prefix-cls}-disabled):not(.@{select-prefix-cls}-customize-input)
+  .@{select-prefix-cls}-selector {
+  background-color: @red-0;
+}
