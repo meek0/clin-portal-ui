@@ -9,9 +9,8 @@ export const getFlattenTree = (nodes: TreeNode[]) => {
   const transferDataSource: TreeNode[] = [];
 
   if (isEmpty(nodes)) {
-    return transferDataSource;
+    return [];
   }
-
   const flatten = (list: TreeNode[] = []) => {
     list.forEach((item) => {
       transferDataSource.push(item);
@@ -19,5 +18,7 @@ export const getFlattenTree = (nodes: TreeNode[]) => {
     });
   };
 
-  return flatten(nodes);
+  flatten(nodes);
+
+  return transferDataSource;
 };
