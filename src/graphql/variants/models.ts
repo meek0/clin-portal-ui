@@ -93,6 +93,7 @@ export type DonorsEntity = {
   parental_origin?: string;
   is_possibly_hc?: boolean;
   possibly_hc_complement?: PossiblyHcComplementHits;
+  analysis_service_request_id: string;
   hc_complement?: HcComplementHits;
   is_hc?: boolean;
 };
