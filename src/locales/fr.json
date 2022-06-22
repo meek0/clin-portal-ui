@@ -225,7 +225,7 @@
   "result.server.error.title": "Erreur du serveur",
   "save": "Enregistrer",
   "screen.bioinfo.analysis.title": "Analyse Bioinformatique: {id}",
-  "screen.bioinfo.analysis.samples.title": "Échantillon(s)",
+  "screen.bioinfo.analysis.samples.title": "Échantillons",
   "screen.bioinfo.analysis.samples.sampleldm": "Échantillon (LDM)",
   "screen.bioinfo.analysis.samples.type": "Type d’échantillon",
   "screen.bioinfo.analysis.samples.specimenldm": "Spécimen (LDM)",
