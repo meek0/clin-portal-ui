@@ -78,7 +78,7 @@ const VariantContentLayout = ({
             );
           },
           selectedFilterContent: selectedFilterContent,
-          blacklistedFacets: ['consequences.symbol', 'locus'],
+          blacklistedFacets: ['consequences.symbol', 'locus', 'consequences.symbol_id_1'],
         }}
         enableCombine
         enableShowHideLabels
