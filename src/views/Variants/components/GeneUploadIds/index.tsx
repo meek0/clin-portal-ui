@@ -75,7 +75,7 @@ const GenesUploadIds = ({ queryBuilderId }: OwnProps) => (
         matchTo: gene.ensembl_gene_id,
       }));
     }}
-    onUpload={(match) => {
+    onUpload={(match) =>
       updateActiveQueryField({
         queryBuilderId,
         field: 'consequences.symbol_id_1',
@@ -83,8 +83,8 @@ const GenesUploadIds = ({ queryBuilderId }: OwnProps) => (
         index: INDEXES.VARIANT,
         overrideValuesName: intl.get('upload.gene.ids.modal.pill.title'),
         merge_strategy: MERGE_VALUES_STRATEGIES.OVERRIDE_VALUES,
-      });
-    }}
+      })
+    }
   />
 );
 
