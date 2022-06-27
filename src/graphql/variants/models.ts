@@ -159,6 +159,7 @@ export type Varsome = {
 export type GeneEntity = {
   id: string;
   omim_gene_id: string;
+  ensembl_gene_id: string;
   symbol: string;
   location: string;
   orphanet: ArrangerResultsTree<OrphanetEntity>;
