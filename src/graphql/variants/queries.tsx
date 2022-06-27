@@ -503,6 +503,7 @@ export const TAB_PATIENT_QUERY = gql`
                     qd
                     gq
                     service_request_id
+                    analysis_service_request_id
                   }
                 }
               }

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import intl from 'react-intl-universal';
+import { Link } from 'react-router-dom';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tooltip } from 'antd';
 import { ColumnFilterItem } from 'antd/lib/table/interface';
@@ -44,9 +45,12 @@ export const getPatientPanelColumns = (
 ): ProColumnType<TTableDonorEntity>[] => [
   {
     key: 'service_request_id',
-    dataIndex: 'service_request_id',
     title: intl.get('screen.variantDetails.patientsTab.request'),
-    render: (id) => id,
+    render: (record: DonorsEntity) => (
+      <Link to={`/prescription/entity/${record.analysis_service_request_id}`}>
+        {record.service_request_id}
+      </Link>
+    ),
   },
   {
     key: 'analysis_code',
