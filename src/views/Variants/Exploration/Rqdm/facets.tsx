@@ -1,4 +1,3 @@
-/* eslint-disable */
 import intl from 'react-intl-universal';
 import { UserOutlined } from '@ant-design/icons';
 import { SuggestionType } from 'api/arranger/models';
@@ -59,7 +58,7 @@ const filterGroups: {
         type={SuggestionType.GENES}
         queryBuilderId={VARIANT_RQDM_QB_ID}
       />,
-      <GenesUploadIds queryBuilderId={VARIANT_RQDM_QB_ID} />,
+      <GenesUploadIds key="genes_upload_ids" queryBuilderId={VARIANT_RQDM_QB_ID} />,
     ],
     groups: [
       {
