@@ -58,45 +58,47 @@ export const generateFilters = ({
   useFilterSelector = false,
   index,
 }: IGenerateFilter) =>
-  Object.keys(aggregations || []).map((key) => {
-    const found = (extendedMapping?.data || []).find(
-      (f: ExtendedMapping) => f.field === underscoreToDot(key),
-    );
+  Object.keys(aggregations || [])
+    .filter((key) => key != '__typename')
+    .map((key) => {
+      const found = (extendedMapping?.data || []).find(
+        (f: ExtendedMapping) => f.field === underscoreToDot(key),
+      );
 
-    const filterGroup = getFilterGroup(found, aggregations[key], [], filterFooter);
-    const filters = getFilters(aggregations, key);
-    const selectedFilters = getSelectedFilters({
-      queryBuilderId,
-      filters,
-      filterGroup,
+      const filterGroup = getFilterGroup(found, aggregations[key], [], filterFooter);
+      const filters = getFilters(aggregations, key);
+      const selectedFilters = getSelectedFilters({
+        queryBuilderId,
+        filters,
+        filterGroup,
+      });
+      const FilterComponent = useFilterSelector ? FilterSelector : FilterContainer;
+
+      return (
+        <div className={className} key={`${key}_${filtersOpen}`}>
+          <FilterComponent
+            dictionary={getFiltersDictionary()}
+            maxShowing={5}
+            isOpen={filtersOpen}
+            filterGroup={filterGroup}
+            filters={filters}
+            collapseProps={{
+              headerBorderOnly: true,
+            }}
+            onChange={(fg, f) =>
+              updateActiveQueryFilters({
+                queryBuilderId,
+                filterGroup: fg,
+                selectedFilters: f,
+                index,
+              })
+            }
+            searchInputVisible={showSearchInput}
+            selectedFilters={selectedFilters}
+          />
+        </div>
+      );
     });
-    const FilterComponent = useFilterSelector ? FilterSelector : FilterContainer;
-
-    return (
-      <div className={className} key={`${key}_${filtersOpen}`}>
-        <FilterComponent
-          dictionary={getFiltersDictionary()}
-          maxShowing={5}
-          isOpen={filtersOpen}
-          filterGroup={filterGroup}
-          filters={filters}
-          collapseProps={{
-            headerBorderOnly: true,
-          }}
-          onChange={(fg, f) =>
-            updateActiveQueryFilters({
-              queryBuilderId,
-              filterGroup: fg,
-              selectedFilters: f,
-              index,
-            })
-          }
-          searchInputVisible={showSearchInput}
-          selectedFilters={selectedFilters}
-        />
-      </div>
-    );
-  });
 
 const translateWhenNeeded = (group: string, key: string) =>
   intl
