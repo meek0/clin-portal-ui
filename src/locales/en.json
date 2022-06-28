@@ -546,7 +546,7 @@
   "upload.gene.ids.modal.input.label": "Copy-paste a list of identifiers or upload a file",
   "upload.gene.ids.modal.match": "Matched (count)",
   "upload.gene.ids.modal.unmatch": "Unmatched (count)",
-  "upload.gene.ids.modal.table.message": "{submittedCount} identifiants soumis correspondant à {mappedCount} identifiants système uniques",
+  "upload.gene.ids.modal.table.message": "{submittedCount} submitted identifiers mapped to {mappedCount} unique system identifiers",
   "upload.gene.ids.modal.match.table.idcol.title": "Gene ID",
   "upload.gene.ids.modal.match.table.matchcol.title": "ID ENSEMBL",
   "upload.gene.ids.modal.match.table.mappedcol.title": "Symbol",
