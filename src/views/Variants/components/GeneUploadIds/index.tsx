@@ -1,6 +1,7 @@
 import intl from 'react-intl-universal';
 import { updateActiveQueryField } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import UploadIds from '@ferlab/ui/core/components/UploadIds';
+import { MatchTableItem } from '@ferlab/ui/core/components/UploadIds/types';
 import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { MERGE_VALUES_STRATEGIES } from '@ferlab/ui/core/data/sqon/types';
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
@@ -68,12 +69,19 @@ const GenesUploadIds = ({ queryBuilderId }: OwnProps) => (
 
       const genes: GeneEntity[] = hydrateResults(response.data?.data?.Genes?.hits?.edges || []);
 
-      return genes.map((gene) => ({
-        key: gene.symbol,
-        submittedId: ids.find((id) => id === gene.symbol || gene.ensembl_gene_id)!,
-        mappedTo: gene.symbol,
-        matchTo: gene.ensembl_gene_id,
-      }));
+      const matchResults = ids.map((id, index) => {
+        const gene = genes.find((gene) => [gene.symbol, gene.ensembl_gene_id].includes(id));
+        return gene
+          ? {
+              key: index.toString(),
+              submittedId: id,
+              mappedTo: gene.symbol,
+              matchTo: gene.ensembl_gene_id,
+            }
+          : undefined;
+      });
+
+      return matchResults.filter((x) => x !== undefined) as MatchTableItem[];
     }}
     onUpload={(match) =>
       updateActiveQueryField({
