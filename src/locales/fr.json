@@ -551,9 +551,9 @@
   "upload.gene.ids.modal.match.table.matchcol.title": "ID ENSEMBL",
   "upload.gene.ids.modal.match.table.mappedcol.title": "Symbol",
   "upload.gene.ids.modal.pill.title": "Liste téléversée",
-  "upload.gene.ids.modal.upload.btn": "Téléversée",
+  "upload.gene.ids.modal.upload.btn": "Téléverser",
   "upload.gene.ids.modal.upload.file.btn": "Télécharger un fichier",
   "upload.gene.ids.modal.clear.btn": "Supprimer",
   "upload.gene.ids.modal.cancel.btn": "Annuler",
-  "upload.gene.ids.modal.empty.table": "Aucun donnée"
+  "upload.gene.ids.modal.empty.table": "Aucune donnée"
 }
