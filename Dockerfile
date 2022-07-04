@@ -7,7 +7,8 @@ RUN npm install
 
 COPY public /code/public
 COPY src /code/src
-COPY .env tsconfig.json /code/
+COPY .env tsconfig.json tsconfig.paths.json craco.config.js /code/
+
 RUN npm run build
 
 FROM nginx:1 as server

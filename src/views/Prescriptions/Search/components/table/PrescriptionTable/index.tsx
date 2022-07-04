@@ -48,6 +48,8 @@ const PrescriptionsTable = ({
         setQueryConfig({
           pageIndex: current!,
           size: pageSize!,
+          // @ts-ignore
+          // mismatched between antd and antd used in ferlab-ui
           sort: formatQuerySortList(sorter),
         });
         scrollToTop(PRESCRIPTION_SCROLL_ID);

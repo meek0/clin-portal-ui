@@ -69,6 +69,8 @@ const VariantsTab = ({ results, setQueryConfig, queryConfig, patientId }: OwnPro
           setQueryConfig({
             pageIndex: current!,
             size: pageSize!,
+            // @ts-ignore
+            // mismatched between antd and antd used in ferlab-ui
             sort: formatQuerySortList(sorter),
           })
         }

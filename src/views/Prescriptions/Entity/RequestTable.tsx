@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FileTextOutlined } from '@ant-design/icons';
 import Empty from '@ferlab/ui/core/components/Empty';
-import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
-import { Space, Table } from 'antd';
+import { Space, Table, TableColumnType } from 'antd';
 import { extractServiceRequestId } from 'api/fhir/helper';
 import { PatientRequest } from 'api/fhir/models';
 
@@ -20,7 +19,7 @@ interface OwnProps {
   loading?: boolean;
 }
 
-const getRequestColumns = (patientId: string): ProColumnType[] => [
+const getRequestColumns = (patientId: string): TableColumnType<Record<string, any>>[] => [
   {
     key: 'id',
     dataIndex: 'id',
