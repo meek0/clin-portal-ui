@@ -38,7 +38,7 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
         actions: [
           <Link
             key="variants"
-            to={`/snv-exploration/patient/${extractPatientId(
+            to={`/snv/exploration/patient/${extractPatientId(
               prescription?.subject?.resource?.id!,
             )}/${prescriptionId}`}
           >

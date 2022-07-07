@@ -60,7 +60,7 @@ const getRequestColumns = (patientId: string): TableColumnType<Record<string, an
             Fichiers
           </Space>
         </Link>
-        <Link to={`/snv-exploration/patient/${patientId}/${extractServiceRequestId(data.id)}`}>
+        <Link to={`/snv/exploration/patient/${patientId}/${extractServiceRequestId(data.id)}`}>
           <Space size={4}>
             <LineStyleIcon height="15" width="15" />
             Variants
