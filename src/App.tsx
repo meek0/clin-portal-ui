@@ -33,15 +33,12 @@ const loadableProps = { fallback: <Spinner size="large" /> };
 const BioInfoAnalysis = loadable(() => import('views/BioInfoAnalysis'), loadableProps);
 const PrescriptionEntity = loadable(() => import('views/Prescriptions/Entity'), loadableProps);
 const PrescriptionSearch = loadable(() => import('views/Prescriptions/Search'), loadableProps);
-const VariantEntity = loadable(() => import('views/Variants/Entity'), loadableProps);
-const VariantExplorationPatient = loadable(
-  () => import('views/Variants/Exploration/Patient'),
+const VariantEntity = loadable(() => import('views/Snv/Entity'), loadableProps);
+const SnvExplorationPatient = loadable(
+  () => import('views/Snv/Exploration/Patient'),
   loadableProps,
 );
-const VariantExplorationRqdm = loadable(
-  () => import('views/Variants/Exploration/Rqdm'),
-  loadableProps,
-);
+const SnvExplorationRqdm = loadable(() => import('views/Snv/Exploration/Rqdm'), loadableProps);
 const HomePage = loadable(() => import('views/Home'), loadableProps);
 const Archives = loadable(() => import('views/Archives'), loadableProps);
 
@@ -91,17 +88,13 @@ const App = () => {
               </ProtectedRoute>
               <ProtectedRoute
                 exact
-                path={DYNAMIC_ROUTES.VARIANT_EXPLORATION_PATIENT}
+                path={DYNAMIC_ROUTES.SNV_EXPLORATION_PATIENT}
                 layout={PageLayout}
               >
-                <VariantExplorationPatient />
+                <SnvExplorationPatient />
               </ProtectedRoute>
-              <ProtectedRoute
-                exact
-                path={STATIC_ROUTES.VARIANT_EXPLORATION_RQDM}
-                layout={PageLayout}
-              >
-                <VariantExplorationRqdm />
+              <ProtectedRoute exact path={STATIC_ROUTES.SNV_EXPLORATION_RQDM} layout={PageLayout}>
+                <SnvExplorationRqdm />
               </ProtectedRoute>
               <ProtectedRoute exact path={DYNAMIC_ROUTES.VARIANT_ENTITY} layout={PageLayout}>
                 <VariantEntity />
