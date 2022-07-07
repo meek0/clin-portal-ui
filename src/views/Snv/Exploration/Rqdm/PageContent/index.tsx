@@ -55,7 +55,7 @@ const PageContent = ({ variantMapping }: OwnProps) => {
     >
       <Tabs type="card" activeKey={'variants'}>
         <Tabs.TabPane
-          tab={intl.get('screen.patientvariant.results.table.variants') || 'Variants'}
+          tab={intl.get('screen.patientsnv.results.table.variants') || 'Variants'}
           key="variants"
         >
           <VariantsTab

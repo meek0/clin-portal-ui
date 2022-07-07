@@ -59,9 +59,7 @@ export const HcComplementDescription = ({
       {nodes.map((e, index) => (
         <Space key={index} wrap={wrap} size={3}>
           <Text>{e.symbol}</Text>
-          <Tooltip
-            title={intl.get('screen.patientvariant.drawer.hc.tooltip', { num: getCount(e) })}
-          >
+          <Tooltip title={intl.get('screen.patientsnv.drawer.hc.tooltip', { num: getCount(e) })}>
             <Button
               type="link"
               size="small"

@@ -65,7 +65,7 @@ const filterGroups: {
         facets: ['consequences__biotype', 'gene_external_reference'],
       },
       {
-        title: intl.get('screen.patientvariant.filter.grouptitle.genepanel'),
+        title: intl.get('screen.patientsnv.filter.grouptitle.genepanel'),
         facets: [
           'panels',
           'genes__hpo__hpo_term_label',
@@ -104,7 +104,7 @@ const filterGroups: {
   [FilterTypes.Frequency]: {
     groups: [
       {
-        title: intl.get('screen.patientvariant.filter.grouptitle.rqdmpatient'),
+        title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
         facets: [
           'frequency_RQDM__total__af',
           'frequency_RQDM__affected__af',
@@ -112,7 +112,7 @@ const filterGroups: {
         ],
       },
       {
-        title: intl.get('screen.patientvariant.filter.grouptitle.publiccohorts'),
+        title: intl.get('screen.patientsnv.filter.grouptitle.publiccohorts'),
         facets: [
           'external_frequencies__gnomad_genomes_2_1_1__af',
           'external_frequencies__gnomad_genomes_3_0__af',
@@ -136,7 +136,7 @@ const filterGroups: {
         ],
       },
       {
-        title: intl.get('screen.patientvariant.category_metric'),
+        title: intl.get('screen.patientsnv.category_metric'),
         facets: [
           'donors__filters',
           'donors__qd',
@@ -156,7 +156,7 @@ export const getMenuItems = (
 ): ISidebarMenuItem[] => [
   {
     key: 'rqdm',
-    title: intl.get('screen.patientvariant.category_rqdm'),
+    title: intl.get('screen.patientsnv.category_rqdm'),
     icon: <RqdmIcon className={styles.sideMenuIcon} />,
     panelContent: filtersContainer(
       variantMappingResults,
@@ -168,7 +168,7 @@ export const getMenuItems = (
   },
   {
     key: 'category_variant',
-    title: intl.get('screen.patientvariant.category_variant'),
+    title: intl.get('screen.patientsnv.category_variant'),
     icon: <LineStyleIcon className={styles.sideMenuIcon} />,
     panelContent: filtersContainer(
       variantMappingResults,
@@ -180,7 +180,7 @@ export const getMenuItems = (
   },
   {
     key: 'category_genomic',
-    title: intl.get('screen.patientvariant.category_genomic'),
+    title: intl.get('screen.patientsnv.category_genomic'),
     icon: <GeneIcon className={styles.sideMenuIcon} />,
     panelContent: filtersContainer(
       variantMappingResults,
@@ -192,7 +192,7 @@ export const getMenuItems = (
   },
   {
     key: 'category_cohort',
-    title: intl.get('screen.patientvariant.category_cohort'),
+    title: intl.get('screen.patientsnv.category_cohort'),
     icon: <FrequencyIcon className={styles.sideMenuIcon} />,
     panelContent: filtersContainer(
       variantMappingResults,
@@ -204,7 +204,7 @@ export const getMenuItems = (
   },
   {
     key: 'category_pathogenicity',
-    title: intl.get('screen.patientvariant.category_pathogenicity'),
+    title: intl.get('screen.patientsnv.category_pathogenicity'),
     icon: <DiseaseIcon className={styles.sideMenuIcon} />,
     panelContent: filtersContainer(
       variantMappingResults,
@@ -216,7 +216,7 @@ export const getMenuItems = (
   },
   {
     key: 'category_occurrence',
-    title: intl.get('screen.patientvariant.category_occurrence'),
+    title: intl.get('screen.patientsnv.category_occurrence'),
     icon: <OccurenceIcon className={styles.sideMenuIcon} />,
     panelContent: filtersContainer(
       variantMappingResults,

@@ -67,7 +67,7 @@ export const getVariantColumns = (
 ): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [
     {
-      title: intl.get('screen.patientvariant.results.table.variant'),
+      title: intl.get('screen.patientsnv.results.table.variant'),
       key: 'hgvsg',
       dataIndex: 'hgvsg',
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
@@ -85,14 +85,14 @@ export const getVariantColumns = (
     },
     {
       key: 'variant_class',
-      title: intl.get('screen.patientvariant.results.table.type'),
+      title: intl.get('screen.patientsnv.results.table.type'),
       dataIndex: 'variant_class',
       render: (variant: string) =>
         variant ? intl.get(variant).defaultMessage(capitalize(variant)) : TABLE_EMPTY_PLACE_HOLDER,
     },
     {
       key: 'rsnumber',
-      title: intl.get('screen.patientvariant.results.table.dbsnp'),
+      title: intl.get('screen.patientsnv.results.table.dbsnp'),
       dataIndex: 'rsnumber',
       className: style.dbSnpTableCell,
       render: (rsNumber: string) =>
@@ -106,7 +106,7 @@ export const getVariantColumns = (
     },
     {
       key: 'consequences',
-      title: intl.get('screen.patientvariant.results.table.consequence'),
+      title: intl.get('screen.patientsnv.results.table.consequence'),
       dataIndex: 'consequences',
       width: 300,
       render: (consequences: { hits: { edges: Consequence[] } }) => (
@@ -115,7 +115,7 @@ export const getVariantColumns = (
     },
     {
       key: 'clinvar',
-      title: intl.get('screen.patientvariant.results.table.clinvar'),
+      title: intl.get('screen.patientsnv.results.table.clinvar'),
       dataIndex: 'clinvar',
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
       render: (clinVar: ClinVar) =>
@@ -131,10 +131,10 @@ export const getVariantColumns = (
     },
     {
       key: 'acmgVerdict',
-      displayTitle: intl.get('screen.patientvariant.results.table.acmgVerdict'),
+      displayTitle: intl.get('screen.patientsnv.results.table.acmgVerdict'),
       title: (
-        <Tooltip title={intl.get('screen.patientvariant.results.table.acmgVerdict.tooltip')}>
-          {intl.get('screen.patientvariant.results.table.acmgVerdict')}
+        <Tooltip title={intl.get('screen.patientsnv.results.table.acmgVerdict.tooltip')}>
+          {intl.get('screen.patientsnv.results.table.acmgVerdict')}
         </Tooltip>
       ),
       dataIndex: 'locus',
@@ -159,10 +159,10 @@ export const getVariantColumns = (
     },
     {
       key: 'rqdm',
-      displayTitle: intl.get('screen.patientvariant.results.table.rqdm'),
+      displayTitle: intl.get('screen.patientsnv.results.table.rqdm'),
       title: (
-        <Tooltip title={intl.get('screen.patientvariant.results.table.rqdm.title.tooltip')}>
-          {intl.get('screen.patientvariant.results.table.rqdm')}
+        <Tooltip title={intl.get('screen.patientsnv.results.table.rqdm.title.tooltip')}>
+          {intl.get('screen.patientsnv.results.table.rqdm')}
         </Tooltip>
       ),
       className: style.rqdmCell,
@@ -178,7 +178,7 @@ export const getVariantColumns = (
     columns.push(
       {
         key: 'donors_zygosity',
-        title: intl.get('screen.patientvariant.results.table.zygosity'),
+        title: intl.get('screen.patientsnv.results.table.zygosity'),
         dataIndex: 'donors',
         render: (record: ArrangerResultsTree<DonorsEntity>) => {
           const donor = findDonorById(record, patientId);
@@ -188,7 +188,7 @@ export const getVariantColumns = (
       {
         className: style.userAffectedBtnCell,
         key: 'actions',
-        title: intl.get('screen.patientvariant.results.table.actions'),
+        title: intl.get('screen.patientsnv.results.table.actions'),
         displayTitle: 'Information',
         render: (record: VariantEntity) => (
           <Space align={'center'}>
@@ -226,7 +226,7 @@ export const getVariantColumns = (
       },
       {
         key: 'donors_genotype',
-        title: intl.get('screen.patientvariant.results.table.genotype'),
+        title: intl.get('screen.patientsnv.results.table.genotype'),
         dataIndex: 'donors',
         defaultHidden: true,
         render: (record: ArrangerResultsTree<DonorsEntity>) => {
@@ -239,10 +239,10 @@ export const getVariantColumns = (
       },
       {
         key: 'ch',
-        displayTitle: intl.get('screen.patientvariant.results.table.ch'),
+        displayTitle: intl.get('screen.patientsnv.results.table.ch'),
         title: (
           <Tooltip title={intl.get('ch.tooltip')}>
-            {intl.get('screen.patientvariant.results.table.ch')}
+            {intl.get('screen.patientsnv.results.table.ch')}
           </Tooltip>
         ),
         defaultHidden: true,
@@ -257,10 +257,10 @@ export const getVariantColumns = (
       },
       {
         key: 'pch',
-        displayTitle: intl.get('screen.patientvariant.results.table.pch'),
+        displayTitle: intl.get('screen.patientsnv.results.table.pch'),
         title: (
           <Tooltip title={intl.get('pch.tooltip')}>
-            {intl.get('screen.patientvariant.results.table.pch')}
+            {intl.get('screen.patientsnv.results.table.pch')}
           </Tooltip>
         ),
         defaultHidden: true,
@@ -275,7 +275,7 @@ export const getVariantColumns = (
       },
       {
         key: 'transmission',
-        title: intl.get('screen.patientvariant.results.table.transmission'),
+        title: intl.get('screen.patientsnv.results.table.transmission'),
         defaultHidden: true,
         render: (record: VariantEntity) =>
           removeUnderscoreAndCapitalize(
@@ -306,10 +306,10 @@ export const getVariantColumns = (
       },
       {
         key: 'alt',
-        displayTitle: intl.get('screen.patientvariant.results.table.altprof'),
+        displayTitle: intl.get('screen.patientsnv.results.table.altprof'),
         title: (
           <Tooltip title={intl.get('filters.group.donors.ad_alt')}>
-            {intl.get('screen.patientvariant.results.table.altprof')}
+            {intl.get('screen.patientsnv.results.table.altprof')}
           </Tooltip>
         ),
         defaultHidden: true,
@@ -318,10 +318,10 @@ export const getVariantColumns = (
       },
       {
         key: 'alttotal',
-        displayTitle: intl.get('screen.patientvariant.results.table.alttotal'),
+        displayTitle: intl.get('screen.patientsnv.results.table.alttotal'),
         title: (
           <Tooltip title={intl.get('total.depth')}>
-            {intl.get('screen.patientvariant.results.table.alttotal')}
+            {intl.get('screen.patientsnv.results.table.alttotal')}
           </Tooltip>
         ),
         defaultHidden: true,
@@ -330,10 +330,10 @@ export const getVariantColumns = (
       },
       {
         key: 'altratio',
-        displayTitle: intl.get('screen.patientvariant.results.table.altratio'),
+        displayTitle: intl.get('screen.patientsnv.results.table.altratio'),
         title: (
           <Tooltip title={intl.get('allelic.ratio')}>
-            {intl.get('screen.patientvariant.results.table.altratio')}
+            {intl.get('screen.patientsnv.results.table.altratio')}
           </Tooltip>
         ),
         defaultHidden: true,
@@ -343,10 +343,10 @@ export const getVariantColumns = (
       },
       {
         key: 'gq',
-        displayTitle: intl.get('screen.patientvariant.results.table.gq'),
+        displayTitle: intl.get('screen.patientsnv.results.table.gq'),
         title: (
           <Tooltip title={intl.get('gq.tooltip')}>
-            {intl.get('screen.patientvariant.results.table.gq')}
+            {intl.get('screen.patientsnv.results.table.gq')}
           </Tooltip>
         ),
         defaultHidden: true,
@@ -355,10 +355,10 @@ export const getVariantColumns = (
       },
       {
         key: 'filter',
-        displayTitle: intl.get('screen.patientvariant.results.table.filter'),
+        displayTitle: intl.get('screen.patientsnv.results.table.filter'),
         title: (
           <Tooltip title={intl.get('screen.variantDetails.patientsTab.filter.tooltip')}>
-            {intl.get('screen.patientvariant.results.table.filter')}
+            {intl.get('screen.patientsnv.results.table.filter')}
           </Tooltip>
         ),
         defaultHidden: true,

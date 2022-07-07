@@ -45,14 +45,14 @@ const getParentTitle = (who: 'mother' | 'father', id: string, affected: boolean)
 
   return (
     <span className={cx(style.parentStatusTitle, 'parentStatusTitle')}>
-      {`${intl.get(`screen.patientvariant.drawer.${who}.genotype`)} ${id ? `(${id})` : ''}`}
+      {`${intl.get(`screen.patientsnv.drawer.${who}.genotype`)} ${id ? `(${id})` : ''}`}
       {affected !== null ? (
         <Tooltip
           placement="right"
           title={
             affected
-              ? intl.get('screen.patientvariant.drawer.affected')
-              : intl.get('screen.patientvariant.drawer.notaffected')
+              ? intl.get('screen.patientsnv.drawer.affected')
+              : intl.get('screen.patientsnv.drawer.notaffected')
           }
         >
           <span className={cx(style.parentStatusIconWrapper, 'parentStatusIconWrapper')}>
@@ -135,37 +135,37 @@ const OccurrenceDrawer = ({
               {donor?.father_calls ? donor?.father_calls.join('/') : TABLE_EMPTY_PLACE_HOLDER}
             </Descriptions.Item>
           )}
-          <Descriptions.Item label={intl.get('screen.patientvariant.drawer.transmission')}>
+          <Descriptions.Item label={intl.get('screen.patientsnv.drawer.transmission')}>
             {removeUnderscoreAndCapitalize(donor?.transmission! || '').defaultMessage(
               TABLE_EMPTY_PLACE_HOLDER,
             )}
           </Descriptions.Item>
-          <Descriptions.Item label={intl.get('screen.patientvariant.drawer.parental.origin')}>
+          <Descriptions.Item label={intl.get('screen.patientsnv.drawer.parental.origin')}>
             {donor?.parental_origin ? capitalize(donor?.parental_origin) : TABLE_EMPTY_PLACE_HOLDER}
           </Descriptions.Item>
         </Descriptions>
       )}
       <Descriptions
-        title={intl.get('screen.patientvariant.drawer.seq.method')}
+        title={intl.get('screen.patientsnv.drawer.seq.method')}
         column={1}
         className={cx(style.description, 'description')}
       >
-        <Descriptions.Item label={intl.get('screen.patientvariant.drawer.depth.quality')}>
+        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.depth.quality')}>
           {donor?.qd ?? TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
-        <Descriptions.Item label={intl.get('screen.patientvariant.drawer.allprof')}>
+        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.allprof')}>
           {donor?.ad_alt ?? TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
-        <Descriptions.Item label={intl.get('screen.patientvariant.drawer.alltotal')}>
+        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.alltotal')}>
           {donor?.ad_total ?? TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
-        <Descriptions.Item label={intl.get('screen.patientvariant.drawer.allratio')}>
+        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.allratio')}>
           {donor?.ad_ratio ? donor?.ad_ratio.toFixed(2) : TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
-        <Descriptions.Item label={intl.get('screen.patientvariant.drawer.gq')}>
+        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
           {donor?.gq ? donor.gq : TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
-        <Descriptions.Item label={intl.get('screen.patientvariant.drawer.filter')}>
+        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.filter')}>
           {donor?.filters}
         </Descriptions.Item>
       </Descriptions>
@@ -185,7 +185,7 @@ const OccurrenceDrawer = ({
           patientId={patientId}
           variantId={variantId}
           name={ReportNames.transcript}
-          tooltipTitle={intl.get('screen.patientvariant.drawer.download.report.tooltip')}
+          tooltipTitle={intl.get('screen.patientsnv.drawer.download.report.tooltip')}
           size={'middle'}
         />
       </Space>

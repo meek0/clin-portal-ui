@@ -133,7 +133,7 @@ const IGVModal = ({ donor, variantEntity, isOpen = false, toggleModal, rpt }: Ow
       width="90vw"
       visible={isOpen}
       footer={false}
-      title={intl.get('screen.patientvariant.drawer.igv.title')}
+      title={intl.get('screen.patientsnv.drawer.igv.title')}
       onCancel={() => toggleModal(false)}
       className={cx(style.igvModal, 'igvModal')}
       wrapClassName={cx(style.igvModalWrapper, 'igvModalWrapper')}
