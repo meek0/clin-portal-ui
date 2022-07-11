@@ -12,7 +12,7 @@ export const useVariants = (variables?: QueryVariable): IQueryResults<VariantEnt
   });
   return {
     loading,
-    data: hydrateResults(result?.Variants?.hits?.edges || []),
-    total: result?.Variants?.hits?.total || 0,
+    data: hydrateResults(result?.cnv?.hits?.edges || []),
+    total: result?.cnv?.hits?.total || 0,
   };
 };

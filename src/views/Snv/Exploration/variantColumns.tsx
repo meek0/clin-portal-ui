@@ -1,4 +1,3 @@
-import React from 'react';
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
 import { DownloadOutlined } from '@ant-design/icons';

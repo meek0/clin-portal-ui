@@ -1,7 +1,7 @@
 import { TermOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
 
-export const wrapSqonWithDonorIdAndSrId = (
+export const wrapSqonWithPatientIdAndRequestId = (
   resolvedSqon: ISqonGroupFilter,
   patientId?: string,
   prescriptionId?: string,
@@ -11,14 +11,14 @@ export const wrapSqonWithDonorIdAndSrId = (
 
     if (patientId) {
       subContent.push({
-        content: { field: 'donors.patient_id', value: [patientId] },
+        content: { field: 'patient_id', value: [patientId] },
         op: TermOperators.in,
       });
     }
 
     if (prescriptionId) {
       subContent.push({
-        content: { field: 'donors.service_request_id', value: [prescriptionId] },
+        content: { field: 'service_request_id', value: [prescriptionId] },
         op: TermOperators.in,
       });
     }
@@ -32,7 +32,6 @@ export const wrapSqonWithDonorIdAndSrId = (
         { ...resolvedSqon },
       ],
       op: 'and',
-      pivot: 'donors',
     };
   }
 

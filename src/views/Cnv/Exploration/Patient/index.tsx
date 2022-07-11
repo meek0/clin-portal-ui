@@ -21,7 +21,7 @@ const CnvExplorationPatient = () => {
   const [headerLoading, setHeaderLoading] = useState(false);
   const [prescription, setPrescription] = useState<ServiceRequestEntity>();
   const { getAnalysisNameByCode } = useGlobals();
-  const variantMappingResults = useGetExtendedMappings(INDEXES.VARIANT);
+  const variantMappingResults = useGetExtendedMappings(INDEXES.CNV);
 
   useEffect(() => {
     setHeaderLoading(true);

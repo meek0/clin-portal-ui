@@ -6,10 +6,10 @@ import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/type
 import { isEmptySqon } from '@ferlab/ui/core/data/sqon/utils';
 import { Space } from 'antd';
 import { ArrangerApi } from 'api/arranger';
+import { IVariantResultTree, VariantEntity } from 'graphql/cnv/models';
+import { GET_VARIANT_COUNT } from 'graphql/cnv/queries';
 import { INDEXES } from 'graphql/constants';
 import { ExtendedMapping, ExtendedMappingResults, IQueryResults } from 'graphql/models';
-import { IVariantResultTree, VariantEntity } from 'graphql/variants/models';
-import { GET_VARIANT_COUNT } from 'graphql/variants/queries';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import GenericFilters from 'components/uiKit/FilterList/GenericFilters';
@@ -95,7 +95,7 @@ const VariantContentLayout = ({
             },
           });
 
-          return data?.data?.Variants.hits.total ?? 0;
+          return data?.data?.cnv.hits.total ?? 0;
         }}
       />
       {children}

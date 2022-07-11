@@ -4,8 +4,8 @@ import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
 import { Tabs } from 'antd';
+import { useVariants } from 'graphql/cnv/actions';
 import { ExtendedMappingResults } from 'graphql/models';
-import { useVariants } from 'graphql/variants/actions';
 import { cloneDeep } from 'lodash';
 import VariantContentLayout from 'views/Cnv/Exploration/components/VariantContentLayout';
 import {
@@ -13,7 +13,7 @@ import {
   DEFAULT_QUERY_CONFIG,
   VARIANT_PATIENT_QB_ID,
 } from 'views/Cnv/utils/constant';
-import { wrapSqonWithDonorIdAndSrId } from 'views/Cnv/utils/helper';
+import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
 
 import VariantsTab from './tabs/Variants';
 
@@ -23,18 +23,16 @@ type OwnProps = {
   prescriptionId?: string;
 };
 
-const PageContent = ({ variantMapping, patientId }: OwnProps) => {
+const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(VARIANT_PATIENT_QB_ID);
   const [variantQueryConfig, setVariantQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) => {
-    console.log('query', query);
-    const wrappedQuery = wrapSqonWithDonorIdAndSrId(
-      cloneDeep(resolveSyntheticSqon(queryList, query, 'donors')),
+    const wrappedQuery = wrapSqonWithPatientIdAndRequestId(
+      cloneDeep(resolveSyntheticSqon(queryList, query)),
       patientId,
-      /** prescriptionId Need to fix bug in ETL */
+      prescriptionId,
     );
-    console.log('wrappedQuery', wrappedQuery);
     return wrappedQuery;
   };
 
@@ -42,12 +40,8 @@ const PageContent = ({ variantMapping, patientId }: OwnProps) => {
     first: variantQueryConfig.size,
     offset: variantQueryConfig.size * (variantQueryConfig.pageIndex - 1),
     sqon: getVariantResolvedSqon(activeQuery),
-    sort: [
-      { field: 'max_impact_score', order: 'desc' },
-      { field: 'hgvsg', order: 'asc' },
-    ],
+    sort: [{ field: 'name', order: 'asc' }],
   });
-  console.log('variantResults', variantResults);
 
   useEffect(() => {
     setVariantQueryConfig({
