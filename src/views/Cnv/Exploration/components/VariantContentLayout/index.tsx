@@ -41,7 +41,6 @@ const VariantContentLayout = ({
   >(undefined);
 
   const facetTransResolver = (key: string) => {
-    if (key === 'locus') return 'Variant';
     const title = intl.get(`filters.group.${key}`);
 
     return title
@@ -70,7 +69,7 @@ const VariantContentLayout = ({
             setSelectedFilterContent(
               <GenericFilters
                 queryBuilderId={queryBuilderId}
-                index={INDEXES.VARIANT}
+                index={INDEXES.CNV}
                 field={dotToUnderscore(field)}
                 sqon={getVariantResolvedSqon(activeQuery)}
                 extendedMappingResults={variantMapping}
@@ -78,7 +77,7 @@ const VariantContentLayout = ({
             );
           },
           selectedFilterContent: selectedFilterContent,
-          blacklistedFacets: ['consequences.symbol', 'locus', 'consequences.symbol_id_1'],
+          blacklistedFacets: [],
         }}
         enableCombine
         enableShowHideLabels
