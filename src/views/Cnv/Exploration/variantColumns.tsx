@@ -11,6 +11,7 @@ import style from './variantColumns.module.scss';
 export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.cnv'),
       title: intl.get('screen.patientcnv.results.table.cnv'),
       key: 'name',
       dataIndex: 'name',
@@ -25,6 +26,7 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       },
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.chromosome'),
       title: (
         <Tooltip title={intl.get('screen.patientcnv.results.table.chromosome.tooltip')}>
           {intl.get('screen.patientcnv.results.table.chromosome')}
@@ -35,24 +37,28 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       render: (chromosome: string) => chromosome,
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.start'),
       title: intl.get('screen.patientcnv.results.table.start'),
       key: 'start',
       dataIndex: 'start',
       render: (start: number) => start,
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.end'),
       title: intl.get('screen.patientcnv.results.table.end'),
       key: 'end',
       dataIndex: 'end',
       render: (end: number) => end || TABLE_EMPTY_PLACE_HOLDER,
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.type'),
       title: intl.get('screen.patientcnv.results.table.type'),
       key: 'type',
       dataIndex: 'name',
       render: (name: string) => name.split(':')[1] || TABLE_EMPTY_PLACE_HOLDER,
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.length'),
       title: (
         <Tooltip title={intl.get('screen.patientcnv.results.table.length.tooltip')}>
           {intl.get('screen.patientcnv.results.table.length')}
@@ -63,6 +69,7 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       render: (length: number) => length,
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.copy_number'),
       title: (
         <Tooltip title={intl.get('screen.patientcnv.results.table.copy_number.tooltip')}>
           {intl.get('screen.patientcnv.results.table.copy_number')}
@@ -73,6 +80,7 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       render: (cn: number) => cn,
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.number_genes'),
       title: (
         <Tooltip title={intl.get('screen.patientcnv.results.table.number_genes.tooltip')}>
           {intl.get('screen.patientcnv.results.table.number_genes')}
@@ -83,6 +91,7 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       render: (number_genes: number) => number_genes,
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.dragen_filter'),
       title: (
         <Tooltip title={intl.get('screen.patientcnv.results.table.dragen_filter.tooltip')}>
           {intl.get('screen.patientcnv.results.table.dragen_filter')}
@@ -90,9 +99,11 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       ),
       key: 'filter',
       dataIndex: 'filters',
+      defaultHidden: true,
       render: (filters: string[]) => filters.join(', '),
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.segment_mean'),
       title: (
         <Tooltip title={intl.get('screen.patientcnv.results.table.segment_mean.tooltip')}>
           {intl.get('screen.patientcnv.results.table.segment_mean')}
@@ -100,9 +111,11 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       ),
       key: 'sm',
       dataIndex: 'sm',
+      defaultHidden: true,
       render: (sm: string) => sm,
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.bins_count'),
       title: (
         <Tooltip title={intl.get('screen.patientcnv.results.table.bins_count.tooltip')}>
           {intl.get('screen.patientcnv.results.table.bins_count')}
@@ -110,9 +123,11 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       ),
       key: 'bc',
       dataIndex: 'bc',
+      defaultHidden: true,
       render: (bc: string) => bc,
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.paired_end'),
       title: (
         <Tooltip title={intl.get('screen.patientcnv.results.table.paired_end.tooltip')}>
           {intl.get('screen.patientcnv.results.table.paired_end')}
@@ -120,6 +135,7 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       ),
       key: 'pe',
       dataIndex: 'pe',
+      defaultHidden: true,
       render: (pe: string[]) => pe.join(', '),
     },
   ];
