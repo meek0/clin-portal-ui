@@ -14,6 +14,7 @@ export const VARIANT_QUERY = gql`
   query Cnv($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort]) {
     cnv {
       hits(filters: $sqon, first: $first, offset: $offset, sort: $sort) {
+        total
         edges {
           node {
             id
