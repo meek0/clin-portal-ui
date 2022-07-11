@@ -21,6 +21,7 @@ export type TUserConfig = {
     tables?: {
       archives?: TUserTableConfig;
       patientSnv?: TUserTableConfig;
+      patientCnv?: TUserTableConfig;
       prescriptions?: TUserTableConfig;
       requests?: TUserTableConfig;
       snv?: TUserTableConfig;

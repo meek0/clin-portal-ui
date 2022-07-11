@@ -10,7 +10,7 @@ export const useVariants = (variables?: QueryVariable): IQueryResults<VariantEnt
   const { loading, result } = useLazyResultQuery<IVariantResultTree>(VARIANT_QUERY, {
     variables,
   });
-
+  console.log('loading', loading, 'result', result);
   return {
     loading,
     data: hydrateResults(result?.Variants?.hits?.edges || []),

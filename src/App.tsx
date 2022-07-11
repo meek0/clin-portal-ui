@@ -38,6 +38,10 @@ const SnvExplorationPatient = loadable(
   () => import('views/Snv/Exploration/Patient'),
   loadableProps,
 );
+const CnvExplorationPatient = loadable(
+  () => import('views/Cnv/Exploration/Patient'),
+  loadableProps,
+);
 const SnvExplorationRqdm = loadable(() => import('views/Snv/Exploration/Rqdm'), loadableProps);
 const HomePage = loadable(() => import('views/Home'), loadableProps);
 const Archives = loadable(() => import('views/Archives'), loadableProps);
@@ -92,6 +96,13 @@ const App = () => {
                 layout={PageLayout}
               >
                 <SnvExplorationPatient />
+              </ProtectedRoute>
+              <ProtectedRoute
+                exact
+                path={DYNAMIC_ROUTES.CNV_EXPLORATION_PATIENT}
+                layout={PageLayout}
+              >
+                <CnvExplorationPatient />
               </ProtectedRoute>
               <ProtectedRoute exact path={STATIC_ROUTES.SNV_EXPLORATION_RQDM} layout={PageLayout}>
                 <SnvExplorationRqdm />
