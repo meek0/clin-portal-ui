@@ -66,7 +66,10 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       ),
       key: 'length',
       dataIndex: 'svlen',
-      render: (length: number) => length,
+      render: (length: number) =>
+        length < 1000
+          ? length
+          : `${Number(length / 1000).toFixed(1)} ${intl.get('numbers.thousand')}`,
     },
     {
       displayTitle: intl.get('screen.patientcnv.results.table.copy_number'),
