@@ -9,7 +9,8 @@ import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
 import { wrapSqonWithDonorIdAndSrId } from 'views/Snv/utils/helper';
 
-import patientHeaderExtra from 'components/Variant/PatientHeaderExtra';
+import patientTags from 'components/Variant/PatientTags';
+import VariantTypeNav, { PageType, VariantType } from 'components/Variant/TypeNav';
 import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
 
 import VariantSearchLayout from '../components/VariantSearchLayout';
@@ -36,7 +37,16 @@ const SnvExplorationPatient = () => {
     <VariantSearchLayout
       contentHeaderProps={{
         title: intl.get('screen.variantsearch.title'),
-        extra: patientHeaderExtra(patientid, prescriptionid, prescription),
+        extra: [
+          <VariantTypeNav
+            key="variant-type-nav"
+            pageType={PageType.PATIENT}
+            variantType={VariantType.SNV}
+            patientId={patientid}
+            prescriptionId={prescriptionid}
+          />,
+          ...patientTags(patientid, prescriptionid, prescription),
+        ],
         loading: headerLoading,
       }}
       menuItems={getMenuItems(variantMappingResults, filterMapper)}

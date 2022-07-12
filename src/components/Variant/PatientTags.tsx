@@ -12,7 +12,7 @@ export default (
 ): React.ReactNode[] => {
   const { getAnalysisNameByCode } = useGlobals();
 
-  const extra: React.ReactNode[] = [
+  const tags: React.ReactNode[] = [
     <Tag color="blue" key="patient-prescription-id">
       <Space align="center">
         {`Patient ID : ${patientId}`}
@@ -22,7 +22,7 @@ export default (
   ];
 
   if (prescription) {
-    extra.push(
+    tags.push(
       <div key="analsysis-name">
         {<Tag color="geekblue">{getAnalysisNameByCode(prescription.code)}</Tag>}
       </div>,
@@ -30,5 +30,5 @@ export default (
     );
   }
 
-  return extra;
+  return tags;
 };

@@ -4,6 +4,7 @@ export enum STATIC_ROUTES {
   PRESCRIPTION_SEARCH = '/prescription/search',
   ARCHIVE_EXPLORATION = '/archive/exploration',
   SNV_EXPLORATION_RQDM = '/snv/exploration',
+  CNV_EXPLORATION_RQDM = '/cnv/exploration',
 }
 
 export enum DYNAMIC_ROUTES {
