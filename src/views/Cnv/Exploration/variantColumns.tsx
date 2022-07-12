@@ -5,6 +5,7 @@ import cx from 'classnames';
 import { ITableVariantEntity } from 'graphql/cnv/models';
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { formatDnaLength, formatNumber } from 'utils/formatNumber';
 
 import style from './variantColumns.module.scss';
 
@@ -41,14 +42,14 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       title: intl.get('screen.patientcnv.results.table.start'),
       key: 'start',
       dataIndex: 'start',
-      render: (start: number) => start,
+      render: (start: number) => (start ? formatNumber(start) : TABLE_EMPTY_PLACE_HOLDER),
     },
     {
       displayTitle: intl.get('screen.patientcnv.results.table.end'),
       title: intl.get('screen.patientcnv.results.table.end'),
       key: 'end',
       dataIndex: 'end',
-      render: (end: number) => end || TABLE_EMPTY_PLACE_HOLDER,
+      render: (end: number) => (end ? formatNumber(end) : TABLE_EMPTY_PLACE_HOLDER),
     },
     {
       displayTitle: intl.get('screen.patientcnv.results.table.type'),
@@ -66,10 +67,7 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       ),
       key: 'length',
       dataIndex: 'svlen',
-      render: (length: number) =>
-        length < 1000
-          ? length
-          : `${Number(length / 1000).toFixed(1)} ${intl.get('numbers.thousand')}`,
+      render: (length: number) => formatDnaLength(length, 1),
     },
     {
       displayTitle: intl.get('screen.patientcnv.results.table.copy_number'),

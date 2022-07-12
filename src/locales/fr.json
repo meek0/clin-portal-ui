@@ -26,7 +26,6 @@
   "family": "famille",
   "father": "père",
   "female": "Femme",
-  "numbers.thousand": "M",
   "filter.suggester.search.genes": "Recherche par gène",
   "filter.suggester.search.genes.tooltip": "Entrer un Symbole de gène, Alias de gène ou Ensembl ID",
   "filter.suggester.search.noresults": "Aucun résultat",

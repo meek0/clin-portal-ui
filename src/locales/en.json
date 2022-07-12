@@ -26,7 +26,6 @@
   "family": "family",
   "father": "father",
   "female": "Female",
-  "numbers.thousand": "K",
   "filter.suggester.search.genes": "Search by gene",
   "filter.suggester.search.genes.tooltip": "Enter Gene Symbol, Gene Alias or Ensembl ID",
   "filter.suggester.search.noresults": "No results found",
