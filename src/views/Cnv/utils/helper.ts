@@ -16,12 +16,13 @@ export const wrapSqonWithPatientIdAndRequestId = (
       });
     }
 
-    if (prescriptionId) {
-      subContent.push({
-        content: { field: 'service_request_id', value: [prescriptionId] },
-        op: TermOperators.in,
-      });
-    }
+    // Not used yet
+    // if (prescriptionId) {
+    //   subContent.push({
+    //     content: { field: 'service_request_id', value: [prescriptionId] },
+    //     op: TermOperators.in,
+    //   });
+    // }
 
     return {
       content: [
