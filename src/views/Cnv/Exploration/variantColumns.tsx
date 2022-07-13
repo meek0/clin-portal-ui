@@ -16,6 +16,7 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       title: intl.get('screen.patientcnv.results.table.variant'),
       key: 'name',
       dataIndex: 'name',
+      fixed: 'left',
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
       render: (name: string) => {
         const value = name.split(':').slice(2).join(':');
