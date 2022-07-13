@@ -16,7 +16,8 @@ export default (
     <Tag color="blue" key="patient-prescription-id">
       <Space align="center">
         {`Patient ID : ${patientId}`}
-        {prescriptionId && ` | Prescription ID : ${prescriptionId}`}
+        {prescriptionId && `|`}
+        {prescriptionId && `Prescription ID : ${prescriptionId}`}
       </Space>
     </Tag>,
   ];
