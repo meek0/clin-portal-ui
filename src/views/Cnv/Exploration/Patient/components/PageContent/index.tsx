@@ -14,7 +14,7 @@ import {
 } from 'views/Cnv/utils/constant';
 import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
 
-import VariantsTab from './tabs/Variants';
+import VariantsTable from './components/Variants';
 
 type OwnProps = {
   variantMapping: ExtendedMappingResults;
@@ -59,7 +59,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
       getVariantResolvedSqon={getVariantResolvedSqon}
     >
       <Card>
-        <VariantsTab
+        <VariantsTable
           results={variantResults}
           setQueryConfig={setVariantQueryConfig}
           queryConfig={variantQueryConfig}

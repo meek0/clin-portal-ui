@@ -1,0 +1,9 @@
+@import 'src/style/themes/clin/colors';
+
+.variantTableWrapper {
+  display: flex;
+
+  :global(.ant-pagination) {
+    margin-bottom: 0;
+  }
+}
