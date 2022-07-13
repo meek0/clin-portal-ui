@@ -12,8 +12,8 @@ import style from './variantColumns.module.scss';
 export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [
     {
-      displayTitle: intl.get('screen.patientcnv.results.table.cnv'),
-      title: intl.get('screen.patientcnv.results.table.cnv'),
+      displayTitle: intl.get('screen.patientcnv.results.table.variant'),
+      title: intl.get('screen.patientcnv.results.table.variant'),
       key: 'name',
       dataIndex: 'name',
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
