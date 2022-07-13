@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import intl from 'react-intl-universal';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
-import { Tabs } from 'antd';
+import { Card } from 'antd';
 import { useVariants } from 'graphql/cnv/actions';
 import { ExtendedMappingResults } from 'graphql/models';
 import { cloneDeep } from 'lodash';
@@ -59,19 +58,14 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
       variantResults={variantResults}
       getVariantResolvedSqon={getVariantResolvedSqon}
     >
-      <Tabs type="card" activeKey={'variants'}>
-        <Tabs.TabPane
-          tab={intl.get('screen.patientcnv.results.table.variants') || 'Variants'}
-          key="variants"
-        >
-          <VariantsTab
-            results={variantResults}
-            setQueryConfig={setVariantQueryConfig}
-            queryConfig={variantQueryConfig}
-            patientId={patientId!}
-          />
-        </Tabs.TabPane>
-      </Tabs>
+      <Card>
+        <VariantsTab
+          results={variantResults}
+          setQueryConfig={setVariantQueryConfig}
+          queryConfig={variantQueryConfig}
+          patientId={patientId!}
+        />
+      </Card>
     </VariantContentLayout>
   );
 };
