@@ -58,7 +58,7 @@ const Header = () => {
           <HeaderLink
             key="variants"
             currentPathName={currentPathName}
-            to={STATIC_ROUTES.VARIANT_EXPLORATION_RQDM}
+            to={STATIC_ROUTES.SNV_EXPLORATION_RQDM}
             icon={<LineStyleIcon height="14" width="14" />}
             title={intl.get('layout.main.menu.variants')}
           />

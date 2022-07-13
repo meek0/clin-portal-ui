@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { ArrangerApi } from 'api/arranger';
 import { Suggestion, SuggestionType } from 'api/arranger/models';
 import { isEmpty } from 'lodash';
-import OptionItem from 'views/Variants/components/VariantGeneSearch/OptionItem';
+import OptionItem from 'views/Snv/components/VariantGeneSearch/OptionItem';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 

@@ -20,10 +20,11 @@ export type TUserConfig = {
   data_exploration?: {
     tables?: {
       archives?: TUserTableConfig;
-      patientVariants?: TUserTableConfig;
+      patientSnv?: TUserTableConfig;
+      patientCnv?: TUserTableConfig;
       prescriptions?: TUserTableConfig;
       requests?: TUserTableConfig;
-      variants?: TUserTableConfig;
+      snv?: TUserTableConfig;
     };
   };
 };
