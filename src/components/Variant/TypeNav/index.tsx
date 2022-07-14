@@ -4,6 +4,8 @@ import { Radio } from 'antd';
 
 import { DYNAMIC_ROUTES, STATIC_ROUTES } from 'utils/routes';
 
+import styles from './index.module.scss';
+
 export enum PageType {
   PATIENT = 'patient',
   SEARCH = 'search',
@@ -35,7 +37,12 @@ const VariantTypeNav = ({
   switch (pageType) {
     case PageType.PATIENT:
       return (
-        <Radio.Group defaultValue={variantType} buttonStyle="solid" size="small">
+        <Radio.Group
+          defaultValue={variantType}
+          className={styles.typeNav}
+          buttonStyle="solid"
+          size="small"
+        >
           <Radio.Button
             value={VariantType.SNV}
             onClick={() => {
@@ -60,7 +67,12 @@ const VariantTypeNav = ({
       );
     case PageType.SEARCH:
       return (
-        <Radio.Group defaultValue={variantType} buttonStyle="solid">
+        <Radio.Group
+          defaultValue={variantType}
+          className={styles.typeNav}
+          buttonStyle="solid"
+          size="small"
+        >
           <Radio.Button
             value={VariantType.SNV}
             onClick={() => {

@@ -20,15 +20,14 @@ type OwnProps = {
   patientId?: string;
 };
 
-const VariantsTab = ({ results, setQueryConfig, queryConfig }: OwnProps) => {
+const VariantsTable = ({ results, setQueryConfig, queryConfig }: OwnProps) => {
   const dispatch = useDispatch();
   const { user } = useUser();
 
   return (
     <ProTable<ITableVariantEntity>
       tableId="variant_table"
-      className={style.variantSearchTable}
-      wrapperClassName={style.variantTabWrapper}
+      wrapperClassName={style.variantTableWrapper}
       columns={getVariantColumns()}
       initialColumnState={user.config.data_exploration?.tables?.patientCnv?.columns}
       dataSource={results.data.map((i, index) => ({ ...i, key: `${index}` }))}
@@ -73,4 +72,4 @@ const VariantsTab = ({ results, setQueryConfig, queryConfig }: OwnProps) => {
   );
 };
 
-export default VariantsTab;
+export default VariantsTable;

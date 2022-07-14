@@ -7,7 +7,7 @@ export const formatNumber = (number: string | number) => {
 
 export const formatDnaLength = (number: string | number, fractionDigits: number = 2) => {
   const num = Number(number);
-  if (num < 1000) return num.toFixed(fractionDigits) + ' b';
+  if (num < 1000) return num + ' bp';
   if (num < 1000000) return (num / 1000).toFixed(fractionDigits) + ' kb';
   if (num < 1000000000) return (num / 1000000).toFixed(fractionDigits) + ' Mb';
   return (num / 1000000000).toFixed(fractionDigits) + ' Gb';
