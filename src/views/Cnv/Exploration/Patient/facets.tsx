@@ -7,12 +7,13 @@ import { FilterInfo } from 'components/uiKit/FilterList/types';
 
 import { filtersContainer } from '../components/filtersContainer';
 
-const filterGroup: FilterInfo = {
+const filterInfo: FilterInfo = {
   groups: [
     {
       facets: ['genes__panels', 'svtype', 'filters'],
     },
   ],
+  defaultOpenFacets: ['genes__panels', 'svtype', 'filters'],
 };
 
 export const getFilters = (
@@ -23,6 +24,6 @@ export const getFilters = (
     variantMappingResults,
     INDEXES.CNV,
     VARIANT_PATIENT_QB_ID,
-    filterGroup,
+    filterInfo,
     filterMapper,
   );
