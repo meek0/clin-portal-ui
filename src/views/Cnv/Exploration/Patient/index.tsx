@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useParams } from 'react-router';
+import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
 import { FhirApi } from 'api/fhir';
 import { ServiceRequestEntity } from 'api/fhir/models';
 import { INDEXES } from 'graphql/constants';
 import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
+import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
 
 import patientTags from 'components/Variant/PatientTags';
 import VariantTypeNav, { PageType, VariantType } from 'components/Variant/TypeNav';
@@ -14,12 +16,15 @@ import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
 import VariantSearchLayout from '../components/VariantSearchLayout';
 
 import PageContent from './components/PageContent';
+import { getFilters } from './facets';
 
 const CnvExplorationPatient = () => {
   const { patientid, prescriptionid } = useParams<{ patientid: string; prescriptionid: string }>();
   const [headerLoading, setHeaderLoading] = useState(false);
   const [prescription, setPrescription] = useState<ServiceRequestEntity>();
   const variantMappingResults = useGetExtendedMappings(INDEXES.CNV);
+  const filterMapper = (filters: ISqonGroupFilter) =>
+    wrapSqonWithPatientIdAndRequestId(filters, patientid);
 
   useEffect(() => {
     setHeaderLoading(true);
@@ -44,7 +49,7 @@ const CnvExplorationPatient = () => {
         ],
         loading: headerLoading,
       }}
-      menuItems={[]}
+      sidebarContent={getFilters(variantMappingResults, filterMapper)}
     >
       <PageContent
         variantMapping={variantMappingResults}

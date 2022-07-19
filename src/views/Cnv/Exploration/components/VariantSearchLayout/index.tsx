@@ -1,20 +1,20 @@
-import SidebarMenu, { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { SCROLL_WRAPPER_ID } from 'views/Cnv/utils/constant';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import { ContentHeaderProps } from 'components/Layout/ContentWithHeader/Header';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
+import Sidebar from 'components/Layout/Sidebar';
 
 import styles from './index.module.scss';
 
 interface OwnProps {
   contentHeaderProps: Omit<ContentHeaderProps, 'icon'>;
-  menuItems: ISidebarMenuItem[];
+  sidebarContent: React.ReactNode;
   children: React.ReactElement;
 }
 
-const VariantSearchLayout = ({ contentHeaderProps, menuItems, children }: OwnProps) => (
+const VariantSearchLayout = ({ contentHeaderProps, sidebarContent, children }: OwnProps) => (
   <ContentWithHeader
     headerProps={{
       ...contentHeaderProps,
@@ -22,7 +22,7 @@ const VariantSearchLayout = ({ contentHeaderProps, menuItems, children }: OwnPro
     }}
     className={styles.variantLayout}
   >
-    <SidebarMenu className={styles.sideMenu} menuItems={menuItems} />
+    <Sidebar>{sidebarContent}</Sidebar>
     <ScrollContentWithFooter scrollId={SCROLL_WRAPPER_ID}>{children}</ScrollContentWithFooter>
   </ContentWithHeader>
 );
