@@ -1,6 +1,5 @@
 import { Spin } from 'antd';
 import { ExtendedMappingResults } from 'graphql/models';
-import { v4 } from 'uuid';
 
 import FilterList, { TCustomFilterMapper } from 'components/uiKit/FilterList';
 import { FilterInfo } from 'components/uiKit/FilterList/types';
@@ -18,7 +17,7 @@ export const filtersContainer = (
 
   return (
     <FilterList
-      key={v4()}
+      key={`${index}-${qbId}-filters`}
       index={index}
       queryBuilderId={qbId}
       extendedMappingResults={mappingResults}
