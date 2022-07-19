@@ -19,6 +19,7 @@ type OwnProps = {
   extendedMappingResults: ExtendedMappingResults;
   filterInfo: FilterInfo;
   filterMapper?: TCustomFilterMapper;
+  showExpandBtn?: boolean;
 };
 
 const { Text } = Typography;
@@ -42,6 +43,7 @@ const FilterList = ({
   extendedMappingResults,
   filterInfo,
   filterMapper,
+  showExpandBtn = true,
 }: OwnProps) => {
   const [filtersOpen, setFiltersOpen] = useState<boolean | undefined>(isAllFacetOpen(filterInfo));
 
@@ -54,13 +56,15 @@ const FilterList = ({
           ))}
         </Space>
       )}
-      <div className={styles.filterExpandBtnWrapper}>
-        <Button onClick={() => setFiltersOpen(!filtersOpen)} type="link">
-          {filtersOpen
-            ? intl.get('components.filterList.collapseAll')
-            : intl.get('components.filterList.expandAll')}
-        </Button>
-      </div>
+      {showExpandBtn && (
+        <div className={styles.filterExpandBtnWrapper}>
+          <Button onClick={() => setFiltersOpen(!filtersOpen)} type="link">
+            {filtersOpen
+              ? intl.get('components.filterList.collapseAll')
+              : intl.get('components.filterList.expandAll')}
+          </Button>
+        </div>
+      )}
       <Layout className={styles.filterWrapper}>
         {filterInfo.groups.map((group: FilterGroup, i) => (
           <div key={i} className={styles.filtersGroup}>

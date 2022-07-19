@@ -6,8 +6,6 @@ import { ContentHeaderProps } from 'components/Layout/ContentWithHeader/Header';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import Sidebar from 'components/Layout/Sidebar';
 
-import styles from './index.module.scss';
-
 interface OwnProps {
   contentHeaderProps: Omit<ContentHeaderProps, 'icon'>;
   sidebarContent: React.ReactNode;
@@ -20,7 +18,6 @@ const VariantSearchLayout = ({ contentHeaderProps, sidebarContent, children }: O
       ...contentHeaderProps,
       icon: <LineStyleIcon />,
     }}
-    className={styles.variantLayout}
   >
     <Sidebar>{sidebarContent}</Sidebar>
     <ScrollContentWithFooter scrollId={SCROLL_WRAPPER_ID}>{children}</ScrollContentWithFooter>
