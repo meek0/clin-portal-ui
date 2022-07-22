@@ -1,4 +1,5 @@
 import intl from 'react-intl-universal';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tooltip } from 'antd';
 import { ITableGeneEntity } from 'graphql/cnv/models';
@@ -12,7 +13,11 @@ export const getGeneColumns = (): ProColumnType<ITableGeneEntity>[] => {
       title: intl.get('screen.patientcnv.modal.genes.table.gene'),
       key: 'symbol',
       dataIndex: 'symbol',
-      render: (symbol: string) => symbol,
+      render: (symbol: string) => (
+        <ExternalLink href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${symbol}`}>
+          {symbol}
+        </ExternalLink>
+      ),
     },
     {
       displayTitle: intl.get('screen.patientcnv.modal.genes.table.number_bases'),
