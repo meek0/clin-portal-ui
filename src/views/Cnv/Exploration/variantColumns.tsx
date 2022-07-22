@@ -2,14 +2,16 @@ import intl from 'react-intl-universal';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tooltip } from 'antd';
 import cx from 'classnames';
-import { ITableVariantEntity } from 'graphql/cnv/models';
+import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDnaLength, formatNumber } from 'utils/formatNumber';
 
 import style from './variantColumns.module.scss';
 
-export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
+export const getVariantColumns = (
+  openGenesModal: (record: VariantEntity) => void,
+): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [
     {
       displayTitle: intl.get('screen.patientcnv.results.table.variant'),
@@ -68,7 +70,7 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       ),
       key: 'length',
       dataIndex: 'svlen',
-      render: (length: number) => formatDnaLength(length, 1),
+      render: (length: number) => formatDnaLength(length),
     },
     {
       displayTitle: intl.get('screen.patientcnv.results.table.copy_number'),
@@ -90,7 +92,16 @@ export const getVariantColumns = (): ProColumnType<ITableVariantEntity>[] => {
       ),
       key: 'number_genes',
       dataIndex: 'number_genes',
-      render: (number_genes: number) => number_genes,
+      render: (number_genes: number, variant: VariantEntity) => (
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            openGenesModal(variant);
+          }}
+        >
+          {number_genes}
+        </a>
+      ),
     },
     {
       displayTitle: intl.get('screen.patientcnv.results.table.dragen_filter'),
