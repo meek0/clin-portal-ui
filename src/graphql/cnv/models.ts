@@ -8,6 +8,10 @@ export type ITableVariantEntity = VariantEntity & {
   key: string;
 };
 
+export type ITableGeneEntity = GeneEntity & {
+  key: string;
+};
+
 export type VariantEntity = {
   id: string;
   patient_id: string;
@@ -22,4 +26,14 @@ export type VariantEntity = {
   sm: number;
   bc: number;
   pe: number[];
+  genes: ArrangerResultsTree<GeneEntity>;
+};
+
+export type GeneEntity = {
+  id: string;
+  overlap_bases: number;
+  overlap_cnv_ratio: number;
+  overlap_exons: number;
+  overlap_gene_ratio: number;
+  symbol: string;
 };

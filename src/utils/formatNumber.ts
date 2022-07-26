@@ -5,7 +5,12 @@ export const formatNumber = (number: string | number) => {
   return stringNumber.replace(regex, ' ');
 };
 
-export const formatDnaLength = (number: string | number, fractionDigits: number = 2) => {
+export const formatRatio = (number: string | number, fractionDigits: number = 1) => {
+  const ratio = Number(number);
+  return (ratio * 100).toFixed(fractionDigits) + ' %';
+};
+
+export const formatDnaLength = (number: string | number, fractionDigits: number = 1) => {
   const num = Number(number);
   if (num < 1000) return num + ' bp';
   if (num < 1000000) return (num / 1000).toFixed(fractionDigits) + ' kb';

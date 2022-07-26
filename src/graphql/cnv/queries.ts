@@ -30,6 +30,19 @@ export const VARIANT_QUERY = gql`
             sm
             bc
             pe
+            genes {
+              hits {
+                edges {
+                  node {
+                    overlap_bases
+                    overlap_cnv_ratio
+                    overlap_exons
+                    overlap_gene_ratio
+                    symbol
+                  }
+                }
+              }
+            }
           }
         }
       }
