@@ -39,7 +39,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     first: variantQueryConfig.size,
     offset: variantQueryConfig.size * (variantQueryConfig.pageIndex - 1),
     sqon: getVariantResolvedSqon(activeQuery),
-    sort: [{ field: 'name', order: 'asc' }],
+    sort: variantQueryConfig.sort,
   });
 
   useEffect(() => {
