@@ -38,6 +38,7 @@ export const getVariantColumns = (
       ),
       key: 'chromosome',
       dataIndex: 'chromosome',
+      sorter: { multiple: 1 },
       render: (chromosome: string) => chromosome,
     },
     {
@@ -45,6 +46,7 @@ export const getVariantColumns = (
       title: intl.get('screen.patientcnv.results.table.start'),
       key: 'start',
       dataIndex: 'start',
+      sorter: { multiple: 1 },
       render: (start: number) => (start ? formatNumber(start) : TABLE_EMPTY_PLACE_HOLDER),
     },
     {
@@ -81,6 +83,7 @@ export const getVariantColumns = (
       ),
       key: 'cn',
       dataIndex: 'cn',
+      sorter: { multiple: 1 },
       render: (cn: number) => cn,
     },
     {
@@ -124,6 +127,7 @@ export const getVariantColumns = (
       ),
       key: 'sm',
       dataIndex: 'sm',
+      sorter: { multiple: 1 },
       defaultHidden: true,
       render: (sm: string) => sm,
     },
