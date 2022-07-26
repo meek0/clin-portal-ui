@@ -29,7 +29,7 @@ const GenesModal = ({ variantEntity, isOpen = false, toggleModal }: OwnProps) =>
       visible={isOpen}
       title={`${intl.get('screen.patientcnv.modal.genes.title')} ${variantEntity?.name
         .split(':')
-        .slice(2)
+        .slice(1)
         .join(':')}`}
       onCancel={() => toggleModal(false)}
       footer={[
