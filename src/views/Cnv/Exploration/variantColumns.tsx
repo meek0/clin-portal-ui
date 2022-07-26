@@ -21,7 +21,7 @@ export const getVariantColumns = (
       fixed: 'left',
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
       render: (name: string) => {
-        const value = name.split(':').slice(2).join(':');
+        const value = name.split(':').slice(1).join(':');
         return (
           <Tooltip placement="topLeft" title={value}>
             {value}
