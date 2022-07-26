@@ -480,7 +480,7 @@
   "screen.variantDetails.summaryTab.consequencesTitle": "Conséquences géniques",
   "screen.variantDetails.summaryTab.frequencyCardTitle": "Fréquences",
   "screen.variantDetails.summaryTab.patientTable.frequency": "Fréquence",
-  "screen.variantDetails.summaryTab.rqdmTitle": "RQDM",
+  "screen.variantDetails.summaryTab.rqdmTitle": "Cohortes du RQDM",
   "screen.variantDetails.summaryTab.summaryTable.alleleAlt": "Allèle ALT :",
   "screen.variantDetails.summaryTab.summaryTable.alleleRef": "Allèle REF :",
   "screen.variantDetails.summaryTab.summaryTable.chromosome": "Chromosome :",

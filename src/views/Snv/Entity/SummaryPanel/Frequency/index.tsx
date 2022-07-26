@@ -24,6 +24,8 @@ interface OwnProps {
   locus: string;
 }
 
+const { Text } = Typography;
+
 type ExternalFreqDatum = number | string | null;
 type ExternalFreqRow = {
   cohort: {
@@ -225,12 +227,6 @@ const FrequencyCard = ({ locus }: OwnProps) => {
   const { loading, data } = useTabFrequenciesData(locus);
   const { getAnalysisNameByCode } = useGlobals();
   const frequencies_by_analysis = makeRows(data.frequencies_by_analysis);
-  frequencies_by_analysis.push({
-    key: 'RQDM',
-    analysis_code: 'RQDM',
-    ...data.frequency_RQDM,
-  });
-
   const externalCohortsRows = makeRowForExternalFreq(data.external_frequencies, data.locus);
   const hasEmptyCohorts = isExternalFreqTableEmpty(externalCohortsRows);
 
@@ -251,6 +247,44 @@ const FrequencyCard = ({ locus }: OwnProps) => {
               dataSource={frequencies_by_analysis}
               columns={getFreqByAnalysisColumns(getAnalysisNameByCode)}
               pagination={false}
+              summary={() => {
+                const { total, affected, non_affected } = data.frequency_RQDM;
+                return (
+                  <>
+                    <Table.Summary.Row className={styles.footerRow}>
+                      <Table.Summary.Cell index={0}>
+                        <Text strong> TOTAL</Text>
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={1}>
+                        <Text strong>{formatFractionPercent(total?.pc, total?.pn, total?.pf)}</Text>
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={2}>
+                        <Text strong>{total?.hom}</Text>
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={3}>
+                        <Text strong>
+                          {formatFractionPercent(affected?.pc, affected?.pn, affected?.pf)}
+                        </Text>
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={4}>
+                        <Text strong>{affected.hom}</Text>
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={1}>
+                        <Text strong>
+                          {formatFractionPercent(
+                            non_affected?.pc,
+                            non_affected?.pn,
+                            non_affected?.pf,
+                          )}
+                        </Text>
+                      </Table.Summary.Cell>
+                      <Table.Summary.Cell index={6}>
+                        <Text strong>{non_affected?.hom}</Text>
+                      </Table.Summary.Cell>
+                    </Table.Summary.Row>
+                  </>
+                );
+              }}
             />
           )}
         </CollapsePanel>
