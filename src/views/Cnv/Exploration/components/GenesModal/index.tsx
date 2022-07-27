@@ -62,6 +62,7 @@ const GenesModal = ({ variantEntity, isOpen = false, toggleModal }: OwnProps) =>
             responsive: true,
             size: 'small',
           }}
+          showSorterTooltip={false}
           onChange={({ current, pageSize }) => {
             setPageIndex(current!);
             setPageSize(pageSize!);

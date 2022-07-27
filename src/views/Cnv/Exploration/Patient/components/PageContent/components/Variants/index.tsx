@@ -48,6 +48,7 @@ const VariantsTable = ({ results, setQueryConfig, queryConfig }: OwnProps) => {
         dataSource={results.data.map((i, index) => ({ ...i, key: `${index}` }))}
         loading={results.loading}
         dictionary={getProTableDictionary()}
+        showSorterTooltip={false}
         onChange={({ current, pageSize }, _, sorter) =>
           setQueryConfig({
             pageIndex: current!,
