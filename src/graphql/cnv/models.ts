@@ -19,7 +19,7 @@ export type VariantEntity = {
   chromosome: string;
   start: number;
   end: number;
-  svlen: number;
+  reflen: number;
   number_genes: number;
   filters: string[];
   cn: number;

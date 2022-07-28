@@ -23,7 +23,7 @@ export const VARIANT_QUERY = gql`
             start
             end
             name
-            svlen
+            reflen
             cn
             number_genes
             filters
