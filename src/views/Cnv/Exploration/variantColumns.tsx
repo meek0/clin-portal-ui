@@ -71,7 +71,7 @@ export const getVariantColumns = (
         </Tooltip>
       ),
       key: 'length',
-      dataIndex: 'svlen',
+      dataIndex: 'reflen',
       render: (length: number) => formatDnaLength(length),
     },
     {
