@@ -5,6 +5,7 @@ import cx from 'classnames';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { formatGenotype } from 'utils/formatGenotype';
 import { formatDnaLength, formatNumber } from 'utils/formatNumber';
 
 import style from './variantColumns.module.scss';
@@ -60,8 +61,8 @@ export const getVariantColumns = (
       displayTitle: intl.get('screen.patientcnv.results.table.type'),
       title: intl.get('screen.patientcnv.results.table.type'),
       key: 'type',
-      dataIndex: 'name',
-      render: (name: string) => name.split(':')[1] || TABLE_EMPTY_PLACE_HOLDER,
+      dataIndex: 'type',
+      render: (type: string) => type,
     },
     {
       displayTitle: intl.get('screen.patientcnv.results.table.length'),
@@ -107,6 +108,18 @@ export const getVariantColumns = (
       ),
     },
     {
+      displayTitle: intl.get('screen.patientcnv.results.table.genotype'),
+      title: (
+        <Tooltip title={intl.get('screen.patientcnv.results.table.genotype.tooltip')}>
+          {intl.get('screen.patientcnv.results.table.genotype')}
+        </Tooltip>
+      ),
+      key: 'calls',
+      dataIndex: 'calls',
+      defaultHidden: true,
+      render: (calls: number[]) => formatGenotype(calls),
+    },
+    {
       displayTitle: intl.get('screen.patientcnv.results.table.dragen_filter'),
       title: (
         <Tooltip title={intl.get('screen.patientcnv.results.table.dragen_filter.tooltip')}>
@@ -117,6 +130,19 @@ export const getVariantColumns = (
       dataIndex: 'filters',
       defaultHidden: true,
       render: (filters: string[]) => filters.join(', '),
+    },
+    {
+      displayTitle: intl.get('screen.patientcnv.results.table.quality'),
+      title: (
+        <Tooltip title={intl.get('screen.patientcnv.results.table.quality.tooltip')}>
+          {intl.get('screen.patientcnv.results.table.quality')}
+        </Tooltip>
+      ),
+      key: 'qual',
+      dataIndex: 'qual',
+      sorter: { multiple: 1 },
+      defaultHidden: true,
+      render: (qual: number) => qual,
     },
     {
       displayTitle: intl.get('screen.patientcnv.results.table.segment_mean'),
