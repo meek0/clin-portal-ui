@@ -43,7 +43,7 @@ const getRequestColumns = (patientId: string): TableColumnType<Record<string, an
     key: 'specimen_id',
     title: 'ID échantillon',
     render: (data: PatientRequest) => {
-      const specimen = data.specimen.find((specimen) => !('parent' in specimen.resource));
+      const specimen = data.specimen?.find((specimen) => !('parent' in specimen.resource));
       return specimen ? specimen?.resource.accessionIdentifier.value : TABLE_EMPTY_PLACE_HOLDER;
     },
   },
