@@ -10,10 +10,10 @@ import { filtersContainer } from '../components/filtersContainer';
 const filterInfo: FilterInfo = {
   groups: [
     {
-      facets: ['genes__panels', 'filters'],
+      facets: ['genes__panels', 'type', 'filters'],
     },
   ],
-  defaultOpenFacets: ['genes__panels', 'filters'],
+  defaultOpenFacets: ['genes__panels', 'type', 'filters'],
 };
 
 export const getFilters = (
