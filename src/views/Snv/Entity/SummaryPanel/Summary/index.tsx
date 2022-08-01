@@ -1,7 +1,7 @@
 import intl from 'react-intl-universal';
-import { Link } from 'react-router-dom';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
-import { Card, Col, Divider, Row, Spin, Typography } from 'antd';
+import { Card, Col, Divider, Row, Spin, Tooltip, Typography } from 'antd';
 import { ArrangerEdge } from 'graphql/models';
 import { GeneEntity, VariantEntity } from 'graphql/variants/models';
 import capitalize from 'lodash/capitalize';
@@ -114,15 +114,17 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => (
         <Divider className={styles.divider} type="vertical" />
         <Col className={styles.resumeContent}>
           <Row className={styles.row}>
-            <Text className={styles.contentTitle}>Patients</Text>
+            <Text className={styles.contentTitle}>
+              Patients{' '}
+              <Tooltip
+                title={intl.get('screen.variantDetails.summaryTab.patientTable.patient.tootltip')}
+              >
+                <InfoCircleOutlined />
+              </Tooltip>
+            </Text>
             <Text className={styles.contentValue}>
               {variant?.frequency_RQDM ? (
-                <>
-                  <Link to={`/variant/entity/${variant?.locus}/patients`}>
-                    {variant?.frequency_RQDM?.total.pn}
-                  </Link>
-                  {` /${variant?.frequency_RQDM?.total.an}`}
-                </>
+                <>{`${variant?.frequency_RQDM?.total.pc} /${variant?.frequency_RQDM?.total.pn}`}</>
               ) : (
                 TABLE_EMPTY_PLACE_HOLDER
               )}
