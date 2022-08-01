@@ -38,9 +38,9 @@ export const getVariantColumns = (
         </Tooltip>
       ),
       key: 'chromosome',
-      dataIndex: 'chromosome',
+      dataIndex: 'sort_chromosome',
       sorter: { multiple: 1 },
-      render: (chromosome: string) => chromosome,
+      render: (sort_chromosome: number, variant: VariantEntity) => variant.chromosome,
     },
     {
       displayTitle: intl.get('screen.patientcnv.results.table.start'),

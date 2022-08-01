@@ -19,6 +19,7 @@ export type VariantEntity = {
   type: string;
   qual: number;
   chromosome: string;
+  sort_chromosome: number;
   start: number;
   end: number;
   reflen: number;

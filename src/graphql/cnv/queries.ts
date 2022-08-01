@@ -20,6 +20,7 @@ export const VARIANT_QUERY = gql`
             id
             patient_id
             chromosome
+            sort_chromosome
             type
             qual
             start
