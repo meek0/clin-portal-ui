@@ -384,6 +384,8 @@
   "screen.patientcnv.modal.genes.title": "Liste des gènes chevauchants le CNV",
   "screen.patientcnv.modal.genes.close": "Fermer",
   "screen.patientcnv.modal.genes.table.gene": "Gène",
+  "screen.patientcnv.modal.genes.table.panel": "Panel",
+  "screen.patientcnv.modal.genes.table.panel.tooltip": "Liste des panels pour ce gène",
   "screen.patientcnv.modal.genes.table.length": "Longueur",
   "screen.patientcnv.modal.genes.table.length.tooltip": "Longueur du gène en bases",
   "screen.patientcnv.modal.genes.table.number_bases": "# Bases",
