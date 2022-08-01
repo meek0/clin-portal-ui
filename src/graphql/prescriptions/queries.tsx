@@ -111,12 +111,6 @@ const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
                 system
               }
             }
-            value {
-              coding {
-                code
-                system
-              }
-            }
           }
         }
       }

@@ -36,7 +36,7 @@
     "commit:lint": "commitlint --edit $1",
     "lint": "eslint $(git diff-index --name-only --diff-filter=d HEAD | grep \"[\\.js|\\.jsx|\\.tsx|\\.ts]$\" | xargs)",
     "lint:fix": "npm run lint -- --fix",
-    "test": "react-scripts test --converage",
+    "test": "react-scripts test --coverage",
     "test:ci": "react-scripts test --ci --coverage",
     "theme:antd": "lessc --js ./src/style/themes/clin/antd-clin-theme.less ./src/style/themes/clin/dist/antd.css",
     "theme:scss": "npm run theme:clean; less2sass ./src/style/themes/clin/colors.less; mv ./src/style/themes/clin/colors.scss ./src/style/themes/clin/dist/_colors.scss",
