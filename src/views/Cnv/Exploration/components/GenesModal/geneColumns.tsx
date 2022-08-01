@@ -21,6 +21,18 @@ export const getGeneColumns = (): ProColumnType<ITableGeneEntity>[] => {
       ),
     },
     {
+      displayTitle: intl.get('screen.patientcnv.modal.genes.table.length'),
+      title: (
+        <Tooltip title={intl.get('screen.patientcnv.modal.genes.table.length.tooltip')}>
+          {intl.get('screen.patientcnv.modal.genes.table.length')}
+        </Tooltip>
+      ),
+      key: 'gene_length',
+      dataIndex: 'gene_length',
+      sorter: { multiple: 1 },
+      render: (gene_length: string) => formatDnaLength(gene_length),
+    },
+    {
       displayTitle: intl.get('screen.patientcnv.modal.genes.table.number_bases'),
       title: (
         <Tooltip title={intl.get('screen.patientcnv.modal.genes.table.number_bases.tooltip')}>
