@@ -96,16 +96,19 @@ export const getVariantColumns = (
       ),
       key: 'number_genes',
       dataIndex: 'number_genes',
-      render: (number_genes: number, variant: VariantEntity) => (
-        <a
-          onClick={(e) => {
-            e.preventDefault();
-            openGenesModal(variant);
-          }}
-        >
-          {number_genes}
-        </a>
-      ),
+      render: (number_genes: number, variant: VariantEntity) =>
+        number_genes > 0 ? (
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              openGenesModal(variant);
+            }}
+          >
+            {variant.genes.hits.edges.map((gene) => gene.node.symbol).join(', ')}
+          </a>
+        ) : (
+          { TABLE_EMPTY_PLACE_HOLDER }
+        ),
     },
     {
       displayTitle: intl.get('screen.patientcnv.results.table.genotype'),
