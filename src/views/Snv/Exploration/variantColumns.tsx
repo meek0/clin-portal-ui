@@ -160,7 +160,7 @@ export const getVariantColumns = (
       key: 'rqdm',
       displayTitle: intl.get('screen.patientsnv.results.table.rqdm'),
       title: (
-        <Tooltip title={intl.get('screen.patientsnv.results.table.rqdm.title.tooltip')}>
+        <Tooltip title={intl.get('screen.variantDetails.summaryTab.patientTable.patient.tootltip')}>
           {intl.get('screen.patientsnv.results.table.rqdm')}
         </Tooltip>
       ),
