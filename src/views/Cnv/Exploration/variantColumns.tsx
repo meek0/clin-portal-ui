@@ -104,7 +104,11 @@ export const getVariantColumns = (
               openGenesModal(variant);
             }}
           >
-            {variant.genes.hits.edges.map((gene) => gene.node.symbol).join(', ')}
+            {variant.genes.hits.edges
+              .slice(0, 3)
+              .map((gene) => gene.node.symbol)
+              .join(', ')}
+            {variant.genes.hits.edges.length > 3 ? '...' : ''}
           </a>
         ) : (
           { TABLE_EMPTY_PLACE_HOLDER }
