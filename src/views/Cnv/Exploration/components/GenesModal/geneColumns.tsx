@@ -4,6 +4,7 @@ import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tooltip } from 'antd';
 import { ITableGeneEntity } from 'graphql/cnv/models';
 
+import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDnaLength, formatNumber, formatRatio } from 'utils/formatNumber';
 
 export const getGeneColumns = (): ProColumnType<ITableGeneEntity>[] => {
@@ -19,6 +20,29 @@ export const getGeneColumns = (): ProColumnType<ITableGeneEntity>[] => {
           {symbol}
         </ExternalLink>
       ),
+    },
+    {
+      displayTitle: intl.get('screen.patientcnv.modal.genes.table.panel'),
+      title: (
+        <Tooltip title={intl.get('screen.patientcnv.modal.genes.table.panel.tooltip')}>
+          {intl.get('screen.patientcnv.modal.genes.table.panel')}
+        </Tooltip>
+      ),
+      key: 'panels',
+      dataIndex: 'panels',
+      render: (panels: string[] | null) => (panels ? panels.join(', ') : TABLE_EMPTY_PLACE_HOLDER),
+    },
+    {
+      displayTitle: intl.get('screen.patientcnv.modal.genes.table.length'),
+      title: (
+        <Tooltip title={intl.get('screen.patientcnv.modal.genes.table.length.tooltip')}>
+          {intl.get('screen.patientcnv.modal.genes.table.length')}
+        </Tooltip>
+      ),
+      key: 'gene_length',
+      dataIndex: 'gene_length',
+      sorter: { multiple: 1 },
+      render: (gene_length: string) => formatDnaLength(gene_length),
     },
     {
       displayTitle: intl.get('screen.patientcnv.modal.genes.table.number_bases'),

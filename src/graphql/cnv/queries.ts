@@ -20,6 +20,9 @@ export const VARIANT_QUERY = gql`
             id
             patient_id
             chromosome
+            sort_chromosome
+            type
+            qual
             start
             end
             name
@@ -27,6 +30,7 @@ export const VARIANT_QUERY = gql`
             cn
             number_genes
             filters
+            calls
             sm
             bc
             pe
@@ -34,11 +38,13 @@ export const VARIANT_QUERY = gql`
               hits {
                 edges {
                   node {
+                    gene_length
                     overlap_bases
                     overlap_cnv_ratio
                     overlap_exons
                     overlap_gene_ratio
                     symbol
+                    panels
                   }
                 }
               }
