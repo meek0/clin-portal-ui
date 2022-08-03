@@ -15,6 +15,7 @@ import {
 } from 'store/prescription/types';
 
 import { getAddParentSteps } from './analysis/addParent';
+import { fetchFormConfig } from './thunk';
 
 export const PrescriptionState: initialState = {
   prescriptionVisible: false,
@@ -23,6 +24,10 @@ export const PrescriptionState: initialState = {
   currentStep: undefined,
   config: undefined,
   analysisData: {},
+  form: {
+    config: {},
+    isLoadingConfig: false,
+  },
 };
 
 export const getAnalysisConfigMapping = (type: AnalysisType) => {
@@ -127,6 +132,18 @@ const prescriptionFormSlice = createSlice({
     currentFormRefs: (state, action: PayloadAction<ICurrentFormRefs>) => {
       state.currentFormRefs = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    // Fetch Config
+    builder.addCase(fetchFormConfig.pending, (state) => {
+      state.form.isLoadingConfig = true;
+    });
+    builder.addCase(fetchFormConfig.fulfilled, (state) => {
+      state.form.isLoadingConfig = false;
+    });
+    builder.addCase(fetchFormConfig.rejected, (state) => {
+      state.form.isLoadingConfig = false;
+    });
   },
 });
 

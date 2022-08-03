@@ -6,6 +6,7 @@ import { Checkbox, Form, Modal, Select, Typography } from 'antd';
 import { usePrescriptionForm } from 'store/prescription';
 import { isMuscularAnalysisAndNotGlobal } from 'store/prescription/helper';
 import { prescriptionFormActions } from 'store/prescription/slice';
+import { fetchFormConfig } from 'store/prescription/thunk';
 import { MuscularAnalysisType, OtherAnalysisType } from 'store/prescription/types';
 
 import {
@@ -50,6 +51,7 @@ const AnalysisChoiceModal = () => {
               },
             }),
           );
+          dispatch(fetchFormConfig());
           form.resetFields();
         }}
         validateMessages={defaultValidateMessages}

@@ -14,6 +14,10 @@ export type initialState = {
   analysisData: IAnalysisDataType; // TODO add type for each Analysis Data Type
   lastStepIsNext?: boolean;
   isAddingParent?: boolean;
+  form: {
+    config: any;
+    isLoadingConfig: boolean;
+  };
 };
 
 export interface ICurrentFormRefs {
@@ -24,17 +28,17 @@ export interface ICurrentFormRefs {
 
 // TODO Probably change with backend values??
 export enum MuscularAnalysisType {
-  MUSCULAR_DISEASE_GLOBAL = 'muscular_global_panel',
-  MUSCULAR_DISEASE_DYSTROPHIES = 'muscular_dystrophies',
-  MUSCULAR_DISEASE_MALIGNANT_HYPERTHERMIA = 'muscular_malignant_hyperthermia',
-  MUSCULAR_DISEASE_CONGENITAL_MYASTHENIA = 'muscular_congenital_myasthenia',
-  MUSCULAR_DISEASE_CONGENITAL_MYOPATHIES = 'muscular_congenital_myopathies',
-  MUSCULAR_DISEASE_RHABDOMYOLYSIS = 'muscular_rhabdomyolysis',
+  MUSCULAR_DISEASE_GLOBAL = 'MMG', // MMG
+  MUSCULAR_DISEASE_DYSTROPHIES = 'DYSM', // DYSM
+  MUSCULAR_DISEASE_MALIGNANT_HYPERTHERMIA = 'HYPM', // HYPM
+  MUSCULAR_DISEASE_CONGENITAL_MYASTHENIA = 'MYAC', // MYAC
+  MUSCULAR_DISEASE_CONGENITAL_MYOPATHIES = 'MYOC', // MYOC
+  MUSCULAR_DISEASE_RHABDOMYOLYSIS = 'RHAB', // RHAB
 }
 
 export enum OtherAnalysisType {
-  GLOBAL_DEVELOPMENTAL_DELAY = 'developmental_delay',
-  NUCLEAR_MITOCHONDRIOPATHY = 'nuclear_mitochondriopathy',
+  GLOBAL_DEVELOPMENTAL_DELAY = 'RGDI', // RGDI
+  NUCLEAR_MITOCHONDRIOPATHY = 'MITN', // MITN
 }
 
 export type AnalysisType = MuscularAnalysisType | OtherAnalysisType;
