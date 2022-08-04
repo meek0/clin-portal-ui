@@ -3,7 +3,7 @@ import { isUndefined } from 'lodash';
 
 import { DevelopmentDelayConfig } from 'store/prescription/analysis/developmentDelay';
 import { MuscularDiseaseConfig } from 'store/prescription/analysis/muscular';
-import { isMuscularAnalysis, isMuscularAnalysisAndNotGlobal } from 'store/prescription/helper';
+import { isMuscularAnalysis } from 'store/prescription/helper';
 import {
   AnalysisType,
   IAnalysisConfig,
@@ -23,9 +23,14 @@ export const PrescriptionState: initialState = {
   analysisChoiceModalVisible: false,
   currentStep: undefined,
   config: undefined,
-  analysisData: {},
-  form: {
-    config: {},
+  analysisData: {
+    analysis: {
+      panel_code: '',
+      is_reflex: false,
+    },
+  },
+  formState: {
+    config: undefined,
     isLoadingConfig: false,
   },
 };
@@ -119,9 +124,10 @@ const prescriptionFormSlice = createSlice({
         steps: enrichSteps(config.steps),
       };
 
-      if (isMuscularAnalysisAndNotGlobal(action.payload.type)) {
-        state.analysisData = action.payload.extraData;
-      }
+      state.analysisData.analysis = {
+        panel_code: action.payload.type,
+        is_reflex: action.payload.extraData.isReflex ?? false,
+      };
 
       state.analysisType = action.payload.type;
       state.analysisChoiceModalVisible = false;
@@ -136,13 +142,14 @@ const prescriptionFormSlice = createSlice({
   extraReducers: (builder) => {
     // Fetch Config
     builder.addCase(fetchFormConfig.pending, (state) => {
-      state.form.isLoadingConfig = true;
+      state.formState.isLoadingConfig = true;
     });
-    builder.addCase(fetchFormConfig.fulfilled, (state) => {
-      state.form.isLoadingConfig = false;
+    builder.addCase(fetchFormConfig.fulfilled, (state, action) => {
+      state.formState.config = action.payload;
+      state.formState.isLoadingConfig = false;
     });
     builder.addCase(fetchFormConfig.rejected, (state) => {
-      state.form.isLoadingConfig = false;
+      state.formState.isLoadingConfig = false;
     });
   },
 });

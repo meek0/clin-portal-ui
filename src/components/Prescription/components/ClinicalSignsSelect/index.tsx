@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Radio, Select, Space, Typography } from 'antd';
 import cx from 'classnames';
-import { clone, isEmpty } from 'lodash';
+import { capitalize, clone, isEmpty } from 'lodash';
 
 import PhenotypeModal from 'components/PhenotypeTree/TransferModal';
 import {
@@ -13,7 +13,7 @@ import {
   setInitialValues,
 } from 'components/Prescription/utils/form';
 import { IAnalysisFormPart, IGetNamePathParams } from 'components/Prescription/utils/type';
-import { formatHpoTitleAndCode } from 'utils/hpo';
+import { usePrescriptionFormConfig } from 'store/prescription';
 
 import styles from './index.module.scss';
 
@@ -23,44 +23,23 @@ type OwnProps = IAnalysisFormPart & {
   initialData?: IClinicalSignsDataType;
 };
 
-const DEFAULT_HPO_LIST = [
-  'Crampes musculaires (HP:0003394)',
-  'Faiblesse musculaire (HP:0001324)',
-  'Hyperthermie maligne (HP:0001319)',
-  'Hypotonie congénitale (HP:0007819)',
-  'Insuffisance respiratoire inexpliquée (HP:0002093)',
-  "Intolérance à l'effort (HP:0003546)",
-  'Myalgies (HP:0003326)',
-  'Rhabdomyolyse (HP:0003201)',
-  'Retard de développement moteur (HP:0001324)',
-  'Cardiomyopathie  (HP:0005012)',
-  'Dysphagie (HP:0002015)',
-  'Myotonie (HP:0002486)',
-  'Ophtalmoplégie (HP:0003348)',
-  'Pieds bots (HP:0001879)',
-  'Ptose progressive (HP:0007838)',
-];
-
 export enum CLINICAL_SIGNS_FI_KEY {
   SIGNS = 'clinical_signs',
   CLINIC_REMARK = 'clinical_clinic_remark',
 }
 
 export enum CLINICAL_SIGNS_ITEM_KEY {
-  STATUS = 'status',
-  ONSET_AGE = 'onset_age',
-}
-
-export enum ClinicalSignsStatus {
-  OBSERVED = 'observed',
-  NOT_OBSERVED = 'not_observed',
-  NA = 'not_applicable',
+  IS_OBSERVED = 'is_observed',
+  AGE_CODE = 'age_code',
+  TERM_VALUE = 'value',
+  NAME = 'name',
 }
 
 export interface IClinicalSignItem {
-  term: string;
-  [CLINICAL_SIGNS_ITEM_KEY.STATUS]: string;
-  [CLINICAL_SIGNS_ITEM_KEY.ONSET_AGE]?: string;
+  [CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]: string;
+  [CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED]: boolean;
+  [CLINICAL_SIGNS_ITEM_KEY.AGE_CODE]?: string;
+  [CLINICAL_SIGNS_ITEM_KEY.NAME]: string;
 }
 
 export interface IClinicalSignsDataType {
@@ -68,13 +47,15 @@ export interface IClinicalSignsDataType {
   [CLINICAL_SIGNS_FI_KEY.CLINIC_REMARK]?: string;
 }
 
-const isDefaultHpo = (hpo: string) => DEFAULT_HPO_LIST.includes(hpo);
-
 const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
-  const [hpoList, setHpoList] = useState(clone(DEFAULT_HPO_LIST));
+  const formConfig = usePrescriptionFormConfig();
+  const [hpoList, setHpoList] = useState(clone(formConfig?.clinical_signs.default_list) ?? []);
   const [isPhenotypeModalVisible, setIsPhenotypeModalVisible] = useState(false);
 
   const getName = (...key: IGetNamePathParams) => getNamePath(parentKey, key);
+
+  const isDefaultHpo = (hpoValue: string) =>
+    !!formConfig?.clinical_signs.default_list.find(({ value }) => value === hpoValue);
 
   const getNode = (index: number): IClinicalSignItem =>
     form.getFieldValue(getName(CLINICAL_SIGNS_FI_KEY.SIGNS))[index];
@@ -83,14 +64,23 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
     setFieldValue(
       form,
       getName(CLINICAL_SIGNS_FI_KEY.SIGNS),
-      hpoList.map((term) => ({ term, status: ClinicalSignsStatus.NA })),
+      hpoList.map((term) => ({
+        [CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]: term.value,
+        [CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED]: false,
+        [CLINICAL_SIGNS_ITEM_KEY.NAME]: term.name,
+      })),
     );
 
   useEffect(() => {
     if (initialData && !isEmpty(initialData)) {
       const initialSigns = initialData[CLINICAL_SIGNS_FI_KEY.SIGNS];
       if (initialSigns) {
-        setHpoList(initialSigns.map((value) => value.term));
+        setHpoList(
+          initialSigns.map((value) => ({
+            name: value[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE],
+            value: value[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE],
+          })),
+        );
       } else {
         setDefaultList();
       }
@@ -118,11 +108,7 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
           rules={[
             {
               validator: async (_, signs: IClinicalSignItem[]) => {
-                if (
-                  !signs.some(
-                    (sign) => sign[CLINICAL_SIGNS_ITEM_KEY.STATUS] === ClinicalSignsStatus.OBSERVED,
-                  )
-                ) {
+                if (!signs.some((sign) => sign[CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED] === true)) {
                   return Promise.reject(new Error('Sélectionner au moins un (1) signe clinique'));
                 }
               },
@@ -134,7 +120,9 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
               <div className={cx(errors.length ? styles.listErrorWrapper : '')}>
                 {fields.map(({ key, name, ...restField }) => {
                   const hpoNode = getNode(name);
-                  const isDefaultHpoTerm = isDefaultHpo(hpoNode.term);
+                  const isDefaultHpoTerm = isDefaultHpo(
+                    hpoNode[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE],
+                  );
                   return (
                     <div
                       key={key}
@@ -147,23 +135,26 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
                         <div className={styles.hpoFormItemTopWrapper}>
                           <Form.Item
                             {...restField}
-                            name={[name, CLINICAL_SIGNS_ITEM_KEY.STATUS]}
-                            label={formatHpoTitleAndCode({
-                              phenotype: hpoNode.term,
-                              codeColorType: 'secondary',
-                              codeClassName: styles.hpoCode,
-                            })}
+                            name={[name, CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED]}
+                            label={
+                              <Text>
+                                {capitalize(hpoNode[CLINICAL_SIGNS_ITEM_KEY.NAME])}{' '}
+                                <Text type="secondary">
+                                  ({hpoNode[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]})
+                                </Text>
+                              </Text>
+                            }
                           >
                             <Radio.Group
                               onChange={(e) => {
-                                if (e.target.value === ClinicalSignsStatus.OBSERVED) {
+                                if (e.target.value) {
                                   resetFieldError(form, getName(CLINICAL_SIGNS_FI_KEY.SIGNS));
                                 }
                               }}
                             >
-                              <Radio value={ClinicalSignsStatus.OBSERVED}>Observé</Radio>
-                              <Radio value={ClinicalSignsStatus.NOT_OBSERVED}>Non observé</Radio>
-                              {isDefaultHpoTerm && <Radio value={ClinicalSignsStatus.NA}>NA</Radio>}
+                              <Radio value={true}>Observé</Radio>
+                              <Radio value={false}>Non observé</Radio>
+                              {isDefaultHpoTerm && <Radio value={'NA'}>NA</Radio>}
                             </Radio.Group>
                           </Form.Item>
                           {!isDefaultHpoTerm && (
@@ -180,7 +171,7 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
                               getName(
                                 CLINICAL_SIGNS_FI_KEY.SIGNS,
                                 name,
-                                CLINICAL_SIGNS_ITEM_KEY.STATUS,
+                                CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED,
                               ),
                             ])
                           }
@@ -190,16 +181,20 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
                               getName(
                                 CLINICAL_SIGNS_FI_KEY.SIGNS,
                                 name,
-                                CLINICAL_SIGNS_ITEM_KEY.STATUS,
+                                CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED,
                               ),
-                            ) === ClinicalSignsStatus.OBSERVED ? (
+                            ) === true ? (
                               <Form.Item
                                 colon={false}
-                                name={[name, CLINICAL_SIGNS_ITEM_KEY.ONSET_AGE]}
+                                name={[name, CLINICAL_SIGNS_ITEM_KEY.AGE_CODE]}
                                 label={<></>}
                               >
                                 <Select placeholder="Âge d'apparition">
-                                  <Select.Option value="juvenile">Juvénile</Select.Option>
+                                  {formConfig?.clinical_signs.onset_age.map((age) => (
+                                    <Select.Option key={age.value} value={age.value}>
+                                      {age.name}
+                                    </Select.Option>
+                                  ))}
                                 </Select>
                               </Form.Item>
                             ) : null
@@ -228,7 +223,10 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
                 onVisibleChange={setIsPhenotypeModalVisible}
                 onApply={(nodes) => {
                   nodes.forEach((node) =>
-                    add({ term: node.title, status: ClinicalSignsStatus.OBSERVED }),
+                    add({
+                      [CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]: node.title,
+                      [CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED]: true,
+                    }),
                   );
                 }}
               />

@@ -19,6 +19,7 @@ import { IAnalysisFormPart, IGetNamePathParams } from 'components/Prescription/u
 import InputDateFormItem from 'components/uiKit/form/InputDateFormItem';
 import RadioGroupSex from 'components/uiKit/form/RadioGroupSex';
 import SearchOrNoneFormItem from 'components/uiKit/form/SearchOrNoneFormItem';
+import { usePrescriptionFormConfig } from 'store/prescription';
 import { SexValue } from 'utils/commonTypes';
 
 import styles from './index.module.scss';
@@ -44,13 +45,8 @@ export enum PATIENT_DATA_FI_KEY {
   SEX = 'patient_sex',
 }
 
-export enum InstitutionValue {
-  CHUSJ = 'CHUSJ',
-  CHUM = 'CHUM',
-}
-
 export interface IPatientDataType {
-  [PATIENT_DATA_FI_KEY.PRESCRIBING_INSTITUTION]: InstitutionValue;
+  [PATIENT_DATA_FI_KEY.PRESCRIBING_INSTITUTION]: string;
   [PATIENT_DATA_FI_KEY.BIRTH_DATE]: string;
   [PATIENT_DATA_FI_KEY.FILE_NUMBER]: string;
   [PATIENT_DATA_FI_KEY.NO_FILE]: boolean;
@@ -71,6 +67,7 @@ const PatientDataSearch = ({
   initialRamqSearchDone = false,
   initialData,
 }: OwnProps) => {
+  const formConfig = usePrescriptionFormConfig();
   const [fileSearchDone, setFileSearchDone] = useState(initialFileSearchDone);
   const [ramqSearchDone, setRamqSearchDone] = useState(initialRamqSearchDone);
 
@@ -163,8 +160,11 @@ const PatientDataSearch = ({
                 ramqSearchDone
               }
             >
-              <Radio value={InstitutionValue.CHUSJ}>CHUSJ</Radio>
-              <Radio value={InstitutionValue.CHUM}>CHUM</Radio>
+              {formConfig?.prescribing_institutions.map((institution) => (
+                <Radio key={institution.value} value={institution.value}>
+                  {institution.name}
+                </Radio>
+              ))}
             </Radio.Group>
           </Form.Item>
         )}

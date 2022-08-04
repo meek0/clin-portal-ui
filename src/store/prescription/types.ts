@@ -1,3 +1,4 @@
+import { TFormConfig } from 'api/form/models';
 import { ValidateFields } from 'rc-field-form/lib/interface';
 
 import { STEPS_ID } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
@@ -11,11 +12,21 @@ export type initialState = {
   currentStep?: IAnalysisStep;
   analysisType?: AnalysisType;
   config?: IAnalysisConfig;
-  analysisData: IAnalysisDataType; // TODO add type for each Analysis Data Type
+  analysisData: IAnalysisDataType & {
+    analysis: {
+      panel_code: string;
+      is_reflex: boolean;
+      observation?: string;
+      investigation?: string;
+      indication?: string;
+      resident_supervisor?: string;
+      comment?: string;
+    };
+  }; // TODO add type for each Analysis Data Type
   lastStepIsNext?: boolean;
   isAddingParent?: boolean;
-  form: {
-    config: any;
+  formState: {
+    config?: TFormConfig;
     isLoadingConfig: boolean;
   };
 };
@@ -45,7 +56,9 @@ export type AnalysisType = MuscularAnalysisType | OtherAnalysisType;
 
 export interface ICompleteAnalysisChoice {
   type: AnalysisType;
-  extraData: any;
+  extraData: {
+    isReflex?: boolean;
+  };
 }
 
 export interface IStartAddingParent {

@@ -15,6 +15,7 @@ import {
   setInitialValues,
 } from 'components/Prescription/utils/form';
 import { IAnalysisFormPart, IGetNamePathParams } from 'components/Prescription/utils/type';
+import { usePrescriptionFormConfig } from 'store/prescription';
 
 import styles from './index.module.scss';
 
@@ -57,6 +58,7 @@ export interface IHistoryAndDiagnosisDataType {
 const hiddenLabelConfig = { colon: false, label: <></> };
 
 const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) => {
+  const formConfig = usePrescriptionFormConfig();
   const getName = (...key: IGetNamePathParams) => getNamePath(parentKey, key);
 
   useEffect(() => {
@@ -152,7 +154,11 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
                                 name={[name, HEALTH_CONDITION_ITEM_KEY.PARENTAL_LINK]}
                               >
                                 <Select placeholder="Lien parental" onChange={resetListError}>
-                                  <Select.Option value="aa">aa</Select.Option>
+                                  {formConfig?.history_and_diagnosis.parental_links.map((link) => (
+                                    <Select.Option key={link.value} value={link.value}>
+                                      {link.name}
+                                    </Select.Option>
+                                  ))}
                                 </Select>
                               </Form.Item>
                               <CloseOutlined
@@ -214,7 +220,13 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
         name={getName(HISTORY_AND_DIAG_FI_KEY.ETHNICITY)}
         wrapperCol={{ lg: 8, xl: 8, xxl: 6 }}
       >
-        <Select placeholder="Sélectionner" />
+        <Select placeholder="Sélectionner">
+          {formConfig?.history_and_diagnosis.ethnicities.map((eth) => (
+            <Select.Option key={eth.value} value={eth.value}>
+              {eth.name}
+            </Select.Option>
+          ))}
+        </Select>
       </Form.Item>
       <Form.Item
         label="Hypothèse diagnostique"

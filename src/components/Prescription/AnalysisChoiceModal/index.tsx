@@ -1,8 +1,8 @@
 import intl from 'react-intl-universal';
-import { useDispatch } from 'react-redux';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Checkbox, Form, Modal, Select, Typography } from 'antd';
 
+import { useAppDispatch } from 'store';
 import { usePrescriptionForm } from 'store/prescription';
 import { isMuscularAnalysisAndNotGlobal } from 'store/prescription/helper';
 import { prescriptionFormActions } from 'store/prescription/slice';
@@ -24,9 +24,9 @@ export enum ANALYSIS_CHOICE_FI_KEY {
 }
 
 const AnalysisChoiceModal = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [form] = Form.useForm();
-  const { analysisChoiceModalVisible } = usePrescriptionForm();
+  const { analysisChoiceModalVisible, formState } = usePrescriptionForm();
 
   return (
     <Modal
@@ -38,21 +38,29 @@ const AnalysisChoiceModal = () => {
       }}
       okText={intl.get('prescription.analysis.choici.modal.start')}
       destroyOnClose
+      okButtonProps={{ loading: formState.isLoadingConfig }}
       onOk={() => form.submit()}
     >
       <Form
         form={form}
         onFinish={(value) => {
           dispatch(
-            prescriptionFormActions.completeAnalysisChoice({
-              type: value[ANALYSIS_CHOICE_FI_KEY.ANALYSIS_TYPE],
-              extraData: {
-                analyse_reflex: value[ANALYSIS_CHOICE_FI_KEY.ANALYSE_REFLEX],
-              },
+            fetchFormConfig({
+              code: value[ANALYSIS_CHOICE_FI_KEY.ANALYSIS_TYPE],
             }),
-          );
-          dispatch(fetchFormConfig());
-          form.resetFields();
+          )
+            .unwrap()
+            .then(() => {
+              dispatch(
+                prescriptionFormActions.completeAnalysisChoice({
+                  type: value[ANALYSIS_CHOICE_FI_KEY.ANALYSIS_TYPE],
+                  extraData: {
+                    isReflex: value[ANALYSIS_CHOICE_FI_KEY.ANALYSE_REFLEX],
+                  },
+                }),
+              );
+              form.resetFields();
+            });
         }}
         validateMessages={defaultValidateMessages}
         layout="vertical"

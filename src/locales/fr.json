@@ -164,6 +164,7 @@
   "normal": "Normal",
   "not_affected": "Non atteint",
   "not_done": "Non effectué",
+  "notification.error.prescription.form.config": "Une erreur s'est produite lors de l'initialisation du formulaire de prescription",
   "notification.error": "Erreur",
   "notification.error.file.download": "Une erreur s'est produite lors du téléchargement de votre fichier",
   "notification.success": "Succès",

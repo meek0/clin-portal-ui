@@ -9,7 +9,6 @@ import {
 import {
   CLINICAL_SIGNS_FI_KEY,
   CLINICAL_SIGNS_ITEM_KEY,
-  ClinicalSignsStatus,
   IClinicalSignItem,
 } from 'components/Prescription/components/ClinicalSignsSelect';
 import { usePrescriptionForm } from 'store/prescription';
@@ -26,17 +25,19 @@ const ClinicalSignsReview = ({ stepId = STEPS_ID.CLINICAL_SIGNS }: OwnProps) => 
 
   const getData = (key: CLINICAL_SIGNS_FI_KEY) => analysisData[stepId]?.[key];
 
-  const getSignsByStatus = (status: ClinicalSignsStatus) =>
+  const getSignsByStatus = (isObserved: Boolean) =>
     ((getData(CLINICAL_SIGNS_FI_KEY.SIGNS) ?? []) as IClinicalSignItem[]).filter(
-      (sign) => sign[CLINICAL_SIGNS_ITEM_KEY.STATUS] === status,
+      (sign) => sign[CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED] === isObserved,
     );
 
   const formatSignsWithAge = (sign: IClinicalSignItem) => (
-    <span>{`${sign.term}${sign.onset_age ? ' - ' + sign.onset_age : ''}`}</span>
+    <span>{`${sign[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]}${
+      sign.age_code ? ' - ' + sign.age_code : ''
+    }`}</span>
   );
 
-  const getSignsList = (status: ClinicalSignsStatus) => {
-    const observedSigns = getSignsByStatus(status);
+  const getSignsList = (isObserved: Boolean) => {
+    const observedSigns = getSignsByStatus(isObserved);
     return isEmpty(observedSigns) ? EMPTY_FIELD : observedSigns.map(formatSignsWithAge);
   };
 
@@ -44,12 +45,12 @@ const ClinicalSignsReview = ({ stepId = STEPS_ID.CLINICAL_SIGNS }: OwnProps) => 
     <Descriptions column={1} size="small">
       <Descriptions.Item label={intl.get('prescription.clinical.signs.review.label.observed')}>
         <Space direction="vertical" size={0}>
-          {getSignsList(ClinicalSignsStatus.OBSERVED)}
+          {getSignsList(true)}
         </Space>
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('prescription.clinical.signs.review.label.not.observed')}>
         <Space direction="vertical" size={0}>
-          {getSignsList(ClinicalSignsStatus.NOT_OBSERVED)}
+          {getSignsList(false)}
         </Space>
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('prescription.clinical.signs.review.label.note')}>

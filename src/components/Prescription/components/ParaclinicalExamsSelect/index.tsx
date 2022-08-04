@@ -2,12 +2,14 @@ import { ReactNode, useEffect } from 'react';
 import intl from 'react-intl-universal';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Form, Input, Radio, Select, Space } from 'antd';
+import { IParaclinicalExamItemExtra } from 'api/form/models';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
 
 import { defaultFormItemsRules } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
 import { getNamePath, setFieldValue, setInitialValues } from 'components/Prescription/utils/form';
 import { IAnalysisFormPart, IGetNamePathParams } from 'components/Prescription/utils/type';
+import { usePrescriptionFormConfig } from 'store/prescription';
 
 import styles from './index.module.scss';
 
@@ -21,6 +23,7 @@ interface IParaclinicalExam {
   extra?: (index: number) => ReactNode;
 }
 
+// eslint-disable-next-line
 const DEFAULT_EXAMS: IParaclinicalExam[] = [
   {
     title: 'Créatine kinase sérique',
@@ -83,8 +86,8 @@ export enum PARACLINICAL_EXAMS_FI_KEY {
 }
 
 export enum PARACLINICAL_EXAM_ITEM_KEY {
-  NAME = 'name',
-  STATUS = 'status',
+  CODE = 'code',
+  INTERPRETATION = 'interpretation',
 }
 
 export enum ParaclinicalExamStatus {
@@ -94,7 +97,7 @@ export enum ParaclinicalExamStatus {
 }
 
 export interface IParaclinicalSignItem {
-  [PARACLINICAL_EXAM_ITEM_KEY.STATUS]: string;
+  [PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION]: string;
 }
 
 export interface IParaclinicalExamsDataType {
@@ -103,6 +106,7 @@ export interface IParaclinicalExamsDataType {
 }
 
 const ParaclinicalExamsSelect = ({ form, parentKey, initialData }: OwnProps) => {
+  const formConfig = usePrescriptionFormConfig();
   const getName = (...key: IGetNamePathParams) => getNamePath(parentKey, key);
 
   useEffect(() => {
@@ -112,29 +116,35 @@ const ParaclinicalExamsSelect = ({ form, parentKey, initialData }: OwnProps) => 
       setFieldValue(
         form,
         getName(PARACLINICAL_EXAMS_FI_KEY.EXAMS),
-        DEFAULT_EXAMS.map((exam) => ({
-          name: exam.title,
-          status: ParaclinicalExamStatus.NOT_DONE,
+        (formConfig?.paraclinical_exams.default_list ?? []).map((exam) => ({
+          [PARACLINICAL_EXAM_ITEM_KEY.CODE]: exam.value,
+          [PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION]: ParaclinicalExamStatus.NOT_DONE,
         })),
       );
     }
   }, []);
+
+  const buildExtra =
+    (extra: IParaclinicalExamItemExtra | undefined) =>
+    // eslint-disable-next-line
+    ({ name }: any) =>
+      <>{extra?.label + name}</>;
 
   return (
     <div className={styles.paraExamsSelect}>
       <Form.List name={getName(PARACLINICAL_EXAMS_FI_KEY.EXAMS)}>
         {(fields) =>
           fields.map(({ key, name, ...restField }) => {
-            const exam = DEFAULT_EXAMS[name];
-            const title = exam.label ?? exam.title;
-            const extra = exam.extra;
+            const exam = formConfig?.paraclinical_exams.default_list[name]!;
+            const title = exam.name;
+            const extra = buildExtra(exam.extra);
 
             return (
               <div key={key} className={cx(styles.paraExamFormItem)}>
                 <Space direction="vertical" className={styles.paraExamFormItemContent} size={5}>
                   <Form.Item
                     {...restField}
-                    name={[name, PARACLINICAL_EXAM_ITEM_KEY.STATUS]}
+                    name={[name, PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION]}
                     label={title}
                   >
                     <Radio.Group>
@@ -150,7 +160,7 @@ const ParaclinicalExamsSelect = ({ form, parentKey, initialData }: OwnProps) => 
                           getName(
                             PARACLINICAL_EXAMS_FI_KEY.EXAMS,
                             name,
-                            PARACLINICAL_EXAM_ITEM_KEY.STATUS,
+                            PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION,
                           ),
                         ) === ParaclinicalExamStatus.ABNORMAL
                           ? extra(name)
