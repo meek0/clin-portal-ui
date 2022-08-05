@@ -1,8 +1,8 @@
-import { ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
 import intl from 'react-intl-universal';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Form, Input, Radio, Select, Space } from 'antd';
-import { IParaclinicalExamItemExtra } from 'api/form/models';
+import { IListNameValueItem, IParaclinicalExamItemExtra } from 'api/form/models';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
 
@@ -17,68 +17,14 @@ type OwnProps = IAnalysisFormPart & {
   initialData?: IParaclinicalExamsDataType;
 };
 
-interface IParaclinicalExam {
-  title: string;
-  label?: ReactNode;
-  extra?: (index: number) => ReactNode;
+interface IParaclinicalExamSimpleInputExtra {
+  name: number;
+  label?: string;
 }
 
-// eslint-disable-next-line
-const DEFAULT_EXAMS: IParaclinicalExam[] = [
-  {
-    title: 'Créatine kinase sérique',
-    extra: (name) => (
-      <Form.Item wrapperCol={{ md: 12, lg: 12, xxl: 6 }} colon={false} label={<></>}>
-        <ProLabel
-          title="Valeur ou intervalle de valeurs en UI/L"
-          colon
-          size="small"
-          popoverProps={{
-            title: 'Bonjour',
-            content: 'Aloo',
-          }}
-        />
-        <Form.Item name={[name, 'creatine_level']} rules={defaultFormItemsRules}>
-          <Input />
-        </Form.Item>
-      </Form.Item>
-    ),
-  },
-  { title: 'EMG' },
-  { title: 'IRM musculaire' },
-  {
-    title: 'Test répétitions CTG',
-    label: (
-      <ProLabel title="Test répétitions CTG" popoverProps={{ title: 'Bonjour', content: 'allo' }} />
-    ),
-  },
-  {
-    title: 'Test répétitions GCN',
-    label: (
-      <ProLabel title="Test répétitions GCN" popoverProps={{ title: 'Bonjour', content: 'allo' }} />
-    ),
-  },
-  {
-    title: 'Test délétions et duplication',
-    label: (
-      <ProLabel
-        title="Test délétions et duplication"
-        popoverProps={{ title: 'Bonjour', content: 'allo' }}
-      />
-    ),
-  },
-  {
-    title: 'Biopsie musculaire',
-    extra: (name) => (
-      <Form.Item wrapperCol={{ xxl: 14 }} colon={false} label={<></>}>
-        <ProLabel title="Spécifier tout ce qui s'applique" colon size="small" />
-        <Form.Item name={[name, 'biopsie_values']} rules={defaultFormItemsRules}>
-          <Select mode="multiple" placeholder="Sélectionner" />
-        </Form.Item>
-      </Form.Item>
-    ),
-  },
-];
+interface IParaclinicalExamMultiSelectExtra extends IParaclinicalExamSimpleInputExtra {
+  options: IListNameValueItem[];
+}
 
 export enum PARACLINICAL_EXAMS_FI_KEY {
   EXAMS = 'paraclinical_exams',
@@ -124,11 +70,17 @@ const ParaclinicalExamsSelect = ({ form, parentKey, initialData }: OwnProps) => 
     }
   }, []);
 
-  const buildExtra =
-    (extra: IParaclinicalExamItemExtra | undefined) =>
-    // eslint-disable-next-line
-    ({ name }: any) =>
-      <>{extra?.label + name}</>;
+  const buildExtra = (extra: IParaclinicalExamItemExtra | undefined) => {
+    if (extra) {
+      // eslint-disable-next-line
+      return (name: number) =>
+        extra.type === 'multi_select' ? (
+          <MultiSelectExtra name={name} label={extra.label} options={extra.options ?? []} />
+        ) : (
+          <SimpleInputExtra name={name} label={extra.label} />
+        );
+    }
+  };
 
   return (
     <div className={styles.paraExamsSelect}>
@@ -185,5 +137,29 @@ const ParaclinicalExamsSelect = ({ form, parentKey, initialData }: OwnProps) => 
     </div>
   );
 };
+
+const MultiSelectExtra = ({ name, label, options }: IParaclinicalExamMultiSelectExtra) => (
+  <Form.Item wrapperCol={{ xxl: 14 }} colon={false} label={<></>}>
+    <ProLabel title={label || "Spécifier tout ce qui s'applique"} colon size="small" />
+    <Form.Item name={[name, 'values']} rules={[{ ...defaultFormItemsRules, type: 'array' }]}>
+      <Select mode="multiple" placeholder="Sélectionner">
+        {options.map((option) => (
+          <Select.Option key={option.value} value={option.value}>
+            {option.name}
+          </Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
+  </Form.Item>
+);
+
+const SimpleInputExtra = ({ name, label }: IParaclinicalExamSimpleInputExtra) => (
+  <Form.Item wrapperCol={{ md: 12, lg: 12, xxl: 6 }} colon={false} label={<></>}>
+    <ProLabel title={label || 'Sélectionner une valeur'} colon size="small" />
+    <Form.Item name={[name, 'value']} rules={defaultFormItemsRules}>
+      <Input />
+    </Form.Item>
+  </Form.Item>
+);
 
 export default ParaclinicalExamsSelect;

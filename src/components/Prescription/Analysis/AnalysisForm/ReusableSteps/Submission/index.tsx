@@ -88,6 +88,10 @@ const Submission = () => {
           </Form.Item>
         </div>
       </AnalysisForm>
+      <ProLabel
+        className={styles.reviewLabel}
+        title={intl.get('prescriptino.add.parent.submission.verify.info.title')}
+      />
       <Collapse
         {...defaultCollapseProps}
         bordered

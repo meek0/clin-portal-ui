@@ -23,7 +23,7 @@ export interface IParaclinicalExamItemExtra {
   options?: IListNameValueItem[];
 }
 
-interface IListNameValueItem {
+export interface IListNameValueItem {
   name: string;
   value: string;
 }
