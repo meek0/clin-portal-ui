@@ -51,7 +51,7 @@ export const getVariantColumns = (
       render: (end: number) => (end ? formatNumber(end) : TABLE_EMPTY_PLACE_HOLDER),
     },
     {
-      title: intl.get('screen.patientcnv.results.table.type'),
+      title: intl.get('screen.patientcnv.results.table.event'),
       key: 'type',
       dataIndex: 'type',
       render: (type: string) => type,
