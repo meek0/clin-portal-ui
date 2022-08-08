@@ -88,8 +88,8 @@ export const getVariantColumns = (
       ),
     },
     {
-      title: intl.get('screen.patientcnv.results.table.number_genes'),
-      tooltip: intl.get('screen.patientcnv.results.table.number_genes.tooltip'),
+      title: intl.get('screen.patientcnv.results.table.genes'),
+      tooltip: intl.get('screen.patientcnv.results.table.genes.tooltip'),
       key: 'genes',
       dataIndex: 'number_genes',
       render: (number_genes: number, variant: VariantEntity) =>
