@@ -89,7 +89,7 @@
   "filters.group.panels": "RQDM",
   "filters.group.prenatal": "Prenatal",
   "filters.group.prescriber.lastNameFirstName": "Prescriber / Responsable",
-  "filters.group.qual": "Qual",
+  "filters.group.qual": "Quality",
   "filters.group.sequencing_requests.status": "Requests status",
   "filters.group.start": "Position",
   "filters.group.state": "Status",
