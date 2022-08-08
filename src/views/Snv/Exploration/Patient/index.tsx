@@ -29,12 +29,10 @@ const SnvExplorationPatient = () => {
 
   useEffect(() => {
     setHeaderLoading(true);
-    FhirApi.fetchServiceRequestEntity(prescriptionid)
-      .then(({ data }) => {
-        setPrescription(data?.data.ServiceRequest);
-        data?.data.ServiceRequest.basedOn ? null : setHeaderLoading(false);
-      })
-      .finally(() => null);
+    FhirApi.fetchServiceRequestEntity(prescriptionid).then(({ data }) => {
+      setPrescription(data?.data.ServiceRequest);
+      data?.data.ServiceRequest.basedOn ? null : setHeaderLoading(false);
+    });
   }, [prescriptionid]);
 
   useEffect(() => {
