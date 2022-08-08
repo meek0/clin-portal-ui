@@ -76,6 +76,22 @@ export const getVariantColumns = (
       tooltip: intl.get('screen.patientcnv.results.table.number_genes.tooltip'),
       key: 'number_genes',
       dataIndex: 'number_genes',
+      render: (number_genes: number, variant: VariantEntity) => (
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            openGenesModal(variant);
+          }}
+        >
+          {number_genes}
+        </a>
+      ),
+    },
+    {
+      title: intl.get('screen.patientcnv.results.table.number_genes'),
+      tooltip: intl.get('screen.patientcnv.results.table.number_genes.tooltip'),
+      key: 'genes',
+      dataIndex: 'number_genes',
       render: (number_genes: number, variant: VariantEntity) =>
         number_genes > 0 ? (
           <a
