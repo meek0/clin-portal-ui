@@ -1,12 +1,13 @@
-import { extractPatientId } from 'api/fhir/helper';
 import { ServiceRequestEntity } from 'api/fhir/models';
 
 import PositionTag from 'components/uiKit/PositionTag';
 
-export const getPositionTag = (prescription: ServiceRequestEntity | undefined, patientid: string) =>
-  prescription && (
-    <PositionTag
-      key="type-tag"
-      isProband={extractPatientId(prescription.subject.reference) === patientid}
-    />
-  );
+const isParent = (prescription: ServiceRequestEntity | undefined, patientid: string) =>
+  prescription?.extensions?.some(function (o) {
+    return o.extension?.[1].valueReference?.reference.includes(patientid);
+  });
+
+export const getPositionTag = (
+  prescription: ServiceRequestEntity | undefined,
+  patientid: string,
+) => <PositionTag key="type-tag" isParent={isParent(prescription, patientid)} />;

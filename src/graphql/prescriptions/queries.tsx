@@ -138,6 +138,9 @@ export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
           name
         }
       }
+      basedOn @first {
+        reference
+      }
       subject {
         reference
         resource {

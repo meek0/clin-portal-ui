@@ -9,6 +9,7 @@ export default (
   patientId: string,
   prescriptionId?: string,
   prescription?: ServiceRequestEntity,
+  basedOnPrescription?: ServiceRequestEntity,
 ): React.ReactNode[] => {
   const { getAnalysisNameByCode } = useGlobals();
 
@@ -27,7 +28,7 @@ export default (
       <div key="analsysis-name">
         {<Tag color="geekblue">{getAnalysisNameByCode(prescription.code)}</Tag>}
       </div>,
-      getPositionTag(prescription, patientId),
+      getPositionTag(prescription.basedOn ? basedOnPrescription : prescription, patientId),
     );
   }
 
