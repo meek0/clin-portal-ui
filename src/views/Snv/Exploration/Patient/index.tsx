@@ -23,15 +23,28 @@ const SnvExplorationPatient = () => {
   const variantMappingResults = useGetExtendedMappings(INDEXES.VARIANT);
   const [headerLoading, setHeaderLoading] = useState(false);
   const [prescription, setPrescription] = useState<ServiceRequestEntity>();
+  const [basedOnPrescription, setBasedOnPrescription] = useState<ServiceRequestEntity>();
   const filterMapper = (filters: ISqonGroupFilter) =>
     wrapSqonWithDonorIdAndSrId(filters, patientid /** prescriptionid */);
 
   useEffect(() => {
     setHeaderLoading(true);
     FhirApi.fetchServiceRequestEntity(prescriptionid)
-      .then(({ data }) => setPrescription(data?.data.ServiceRequest))
-      .finally(() => setHeaderLoading(false));
+      .then(({ data }) => {
+        setPrescription(data?.data.ServiceRequest);
+        data?.data.ServiceRequest.basedOn ? null : setHeaderLoading(false);
+      })
+      .finally(() => null);
   }, [prescriptionid]);
+
+  useEffect(() => {
+    if (prescription?.basedOn) {
+      setHeaderLoading(true);
+      FhirApi.fetchServiceRequestEntity(prescription?.basedOn.reference)
+        .then(({ data }) => setBasedOnPrescription(data?.data.ServiceRequest))
+        .finally(() => setHeaderLoading(false));
+    }
+  }, [prescription]);
 
   return (
     <VariantSearchLayout
@@ -45,7 +58,7 @@ const SnvExplorationPatient = () => {
             patientId={patientid}
             prescriptionId={prescriptionid}
           />,
-          ...patientTags(patientid, prescriptionid, prescription),
+          ...patientTags(patientid, prescriptionid, prescription, basedOnPrescription),
         ],
         loading: headerLoading,
       }}
