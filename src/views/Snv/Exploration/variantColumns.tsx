@@ -27,6 +27,7 @@ import UserAffectedIcon from 'components/icons/UserAffectedIcon';
 import { ReportNames } from 'store/reports/types';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
+import GqLine from '../components/GQLine';
 import { HcComplementDescription } from '../components/OccurrenceDrawer/HcDescription';
 import ReportButton from '../components/Report/DownloadButton';
 
@@ -312,8 +313,9 @@ export const getVariantColumns = (
         title: intl.get('screen.patientsnv.results.table.gq'),
         tooltip: intl.get('gq.tooltip'),
         defaultHidden: true,
-        render: (record: VariantEntity) =>
-          findDonorById(record.donors, patientId)?.gq ?? TABLE_EMPTY_PLACE_HOLDER,
+        render: (record: VariantEntity) => (
+          <GqLine value={findDonorById(record.donors, patientId)?.gq} />
+        ),
       },
       {
         key: 'filter',
