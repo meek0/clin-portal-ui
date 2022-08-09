@@ -68,7 +68,8 @@ export const getGeneColumns = (): ProColumnType<ITableGeneEntity>[] => {
       key: 'overlap_gene_ratio',
       dataIndex: 'overlap_gene_ratio',
       sorter: {
-        compare: (a: ITableGeneEntity, b: ITableGeneEntity) => a.overlap_gene_ratio - b.overlap_gene_ratio,
+        compare: (a: ITableGeneEntity, b: ITableGeneEntity) =>
+          a.overlap_gene_ratio - b.overlap_gene_ratio,
         multiple: 1,
       },
       render: (overlap_gene_ratio: string) => formatRatio(overlap_gene_ratio),
@@ -79,7 +80,8 @@ export const getGeneColumns = (): ProColumnType<ITableGeneEntity>[] => {
       key: 'overlap_cnv_ratio',
       dataIndex: 'overlap_cnv_ratio',
       sorter: {
-        compare: (a: ITableGeneEntity, b: ITableGeneEntity) => a.overlap_cnv_ratio - b.overlap_cnv_ratio,
+        compare: (a: ITableGeneEntity, b: ITableGeneEntity) =>
+          a.overlap_cnv_ratio - b.overlap_cnv_ratio,
         multiple: 1,
       },
       render: (overlap_cnv_ratio: string) => formatRatio(overlap_cnv_ratio),
