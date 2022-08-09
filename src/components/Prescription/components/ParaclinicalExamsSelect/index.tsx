@@ -27,8 +27,8 @@ interface IParaclinicalExamMultiSelectExtra extends IParaclinicalExamSimpleInput
 }
 
 export enum PARACLINICAL_EXAMS_FI_KEY {
-  EXAMS = 'paraclinical_exams',
-  OTHER_EXAMS = 'paraclinical_other_exams',
+  EXAMS = 'exams',
+  OTHER_EXAMS = 'comment',
 }
 
 export enum PARACLINICAL_EXAM_ITEM_KEY {
@@ -141,7 +141,10 @@ const ParaclinicalExamsSelect = ({ form, parentKey, initialData }: OwnProps) => 
 const MultiSelectExtra = ({ name, label, options }: IParaclinicalExamMultiSelectExtra) => (
   <Form.Item wrapperCol={{ xxl: 14 }} colon={false} label={<></>}>
     <ProLabel title={label || "Spécifier tout ce qui s'applique"} colon size="small" />
-    <Form.Item name={[name, 'values']} rules={[{ ...defaultFormItemsRules, type: 'array' }]}>
+    <Form.Item
+      name={[name, 'values']}
+      rules={[{ ...defaultFormItemsRules[0], type: 'array', min: 1 }]}
+    >
       <Select mode="multiple" placeholder="Sélectionner">
         {options.map((option) => (
           <Select.Option key={option.value} value={option.value}>

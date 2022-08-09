@@ -27,3 +27,18 @@ export interface IListNameValueItem {
   name: string;
   value: string;
 }
+
+export interface IFormPatient {
+  first_name: string;
+  last_name: string;
+  gender: string;
+  ep: string;
+  birth_date: string;
+  ramq: string;
+  mrn: string;
+}
+
+export interface ISupervisor {
+  id: string;
+  name: string;
+}

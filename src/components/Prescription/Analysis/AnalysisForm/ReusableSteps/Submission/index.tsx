@@ -1,14 +1,17 @@
 /* eslint-disable no-console */
+import { useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
-import { FormOutlined, SearchOutlined } from '@ant-design/icons';
+import { FormOutlined } from '@ant-design/icons';
 import Collapse, { CollapsePanel } from '@ferlab/ui/core/components/Collapse';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
-import { Descriptions, Form, Input } from 'antd';
+import { Descriptions, Form, Input, Select } from 'antd';
+import { DefaultOptionType } from 'antd/lib/select';
 import {
   findPractitionerRoleByOrganization,
   isPractitionerResident,
 } from 'api/fhir/practitionerHelper';
+import { PrescriptionFormApi } from 'api/form';
 
 import AnalysisForm from 'components/Prescription/Analysis/AnalysisForm';
 import {
@@ -26,7 +29,7 @@ import { useUser } from 'store/user';
 import styles from './index.module.scss';
 
 export enum SUBMISSION_REVIEW_FI_KEY {
-  RESPONSIBLE_DOCTOR = 'responsible_doctor',
+  RESPONSIBLE_DOCTOR = 'supervisor',
   GENERAL_COMMENT = 'general_comment',
 }
 
@@ -36,6 +39,7 @@ const Submission = () => {
   const dispatch = useDispatch();
   const { user } = useUser();
   const { analysisData, config, currentStep, analysisType } = usePrescriptionForm();
+  const [supervisors, setSupervisors] = useState<DefaultOptionType[]>([]);
 
   const getName = (...key: string[]) => getNamePath(FORM_NAME, key);
 
@@ -48,6 +52,22 @@ const Submission = () => {
 
   const getPrescribingOrg = () =>
     analysisData[STEPS_ID.PATIENT_IDENTIFICATION]?.[PATIENT_DATA_FI_KEY.PRESCRIBING_INSTITUTION];
+
+  const onSearch = (searchText: string) => {
+    if (searchText) {
+      PrescriptionFormApi.searchSupervisor({
+        ep: getPrescribingOrg()!,
+        prefix: searchText,
+      }).then((resp) =>
+        setSupervisors(
+          resp.data?.map((supervisor) => ({
+            label: supervisor.name,
+            value: supervisor.id,
+          })) ?? [],
+        ),
+      );
+    }
+  };
 
   return (
     <>
@@ -73,9 +93,14 @@ const Submission = () => {
               wrapperCol={{ xxl: 14 }}
               rules={defaultFormItemsRules}
             >
-              <Input
-                suffix={<SearchOutlined />}
+              <Select
+                showSearch
                 placeholder={intl.get('prescription.submission.responsable.doctor.placeholder')}
+                onSearch={onSearch}
+                options={supervisors}
+                defaultActiveFirstOption={false}
+                showArrow={false}
+                filterOption={false}
               />
             </Form.Item>
           )}

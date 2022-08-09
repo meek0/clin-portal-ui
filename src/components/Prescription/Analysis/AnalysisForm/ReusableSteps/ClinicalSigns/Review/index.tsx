@@ -11,7 +11,7 @@ import {
   CLINICAL_SIGNS_ITEM_KEY,
   IClinicalSignItem,
 } from 'components/Prescription/components/ClinicalSignsSelect';
-import { usePrescriptionForm } from 'store/prescription';
+import { usePrescriptionForm, usePrescriptionFormConfig } from 'store/prescription';
 
 interface OwnProps {
   stepId?:
@@ -21,6 +21,7 @@ interface OwnProps {
 }
 
 const ClinicalSignsReview = ({ stepId = STEPS_ID.CLINICAL_SIGNS }: OwnProps) => {
+  const formConfig = usePrescriptionFormConfig();
   const { analysisData } = usePrescriptionForm();
 
   const getData = (key: CLINICAL_SIGNS_FI_KEY) => analysisData[stepId]?.[key];
@@ -31,8 +32,11 @@ const ClinicalSignsReview = ({ stepId = STEPS_ID.CLINICAL_SIGNS }: OwnProps) => 
     );
 
   const formatSignsWithAge = (sign: IClinicalSignItem) => (
-    <span>{`${sign[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]}${
-      sign.age_code ? ' - ' + sign.age_code : ''
+    <span>{`${sign[CLINICAL_SIGNS_ITEM_KEY.NAME]} (${sign[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]}) ${
+      sign.age_code
+        ? ' - ' +
+          formConfig?.clinical_signs.onset_age.find((age) => age.value === sign.age_code)?.name
+        : ''
     }`}</span>
   );
 

@@ -24,8 +24,8 @@ type OwnProps = IAnalysisFormPart & {
 };
 
 export enum CLINICAL_SIGNS_FI_KEY {
-  SIGNS = 'clinical_signs',
-  CLINIC_REMARK = 'clinical_clinic_remark',
+  SIGNS = 'signs',
+  CLINIC_REMARK = 'comment',
 }
 
 export enum CLINICAL_SIGNS_ITEM_KEY {

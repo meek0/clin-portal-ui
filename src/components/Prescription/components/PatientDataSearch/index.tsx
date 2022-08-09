@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Form, FormInstance, Input, Radio } from 'antd';
-import { FhirApi } from 'api/fhir';
-import { Bundle, Patient } from 'api/fhir/models';
-import { getRAMQValue } from 'api/fhir/patientHelper';
+import { PrescriptionFormApi } from 'api/form';
+import { IFormPatient } from 'api/form/models';
 import { isEmpty } from 'lodash';
 import { FieldData } from 'rc-field-form/lib/interface';
 
@@ -34,15 +33,15 @@ type OwnProps = IAnalysisFormPart & {
 };
 
 export enum PATIENT_DATA_FI_KEY {
-  PRESCRIBING_INSTITUTION = 'patient_prescribing_institution',
-  FILE_NUMBER = 'patient_file_number',
-  NO_FILE = 'patient_no_file',
-  RAMQ_NUMBER = 'patient_ramq_number',
-  NO_RAMQ = 'patient_no_ramq',
-  LAST_NAME = 'patient_last_name',
-  FIRST_NAME = 'patient_first_name',
-  BIRTH_DATE = 'patient_birth_date',
-  SEX = 'patient_sex',
+  PRESCRIBING_INSTITUTION = 'ep',
+  FILE_NUMBER = 'mrn',
+  NO_FILE = 'no_mrn',
+  RAMQ_NUMBER = 'ramq',
+  NO_RAMQ = 'no_ramq',
+  LAST_NAME = 'last_name',
+  FIRST_NAME = 'first_name',
+  BIRTH_DATE = 'birth_date',
+  SEX = 'gender',
 }
 
 export interface IPatientDataType {
@@ -73,40 +72,35 @@ const PatientDataSearch = ({
 
   const getName = (...key: IGetNamePathParams) => getNamePath(parentKey, key);
 
-  const updateFormFromPatient = (form: FormInstance, bundle?: Bundle<Patient>) => {
-    const entry = bundle?.entry;
-
-    if (entry && !isEmpty(entry)) {
+  const updateFormFromPatient = (form: FormInstance, patient?: IFormPatient) => {
+    if (patient && !isEmpty(patient)) {
       const fields: FieldData[] = [];
-      const patient = entry[0].resource;
-      const name = patient?.name ? patient.name[0] : undefined;
-      const birthDate = patient?.birthDate;
-      const ramq = getRAMQValue(patient);
 
-      if (ramq) {
+      if (patient.ramq) {
         fields.push({
           name: getName(PATIENT_DATA_FI_KEY.RAMQ_NUMBER),
-          value: formatRamq(ramq),
+          value: formatRamq(patient.ramq),
         });
       }
 
-      if (name) {
-        fields.push(
-          {
-            name: getName(PATIENT_DATA_FI_KEY.FIRST_NAME),
-            value: name.given,
-          },
-          {
-            name: getName(PATIENT_DATA_FI_KEY.LAST_NAME),
-            value: name.family,
-          },
-        );
+      if (patient.first_name) {
+        fields.push({
+          name: getName(PATIENT_DATA_FI_KEY.FIRST_NAME),
+          value: patient.first_name,
+        });
+      }
+
+      if (patient.last_name) {
+        fields.push({
+          name: getName(PATIENT_DATA_FI_KEY.LAST_NAME),
+          value: patient.last_name,
+        });
       }
 
       fields.push(
         {
           name: getName(PATIENT_DATA_FI_KEY.BIRTH_DATE),
-          value: birthDate,
+          value: patient.birth_date,
         },
         {
           name: getName(PATIENT_DATA_FI_KEY.SEX),
@@ -136,8 +130,8 @@ const PatientDataSearch = ({
 
   useEffect(() => {
     if (initialData && !isEmpty(initialData)) {
-      setFileSearchDone(!!(initialData.patient_no_file || initialData.patient_file_number));
-      setRamqSearchDone(!!(initialData.patient_no_ramq || initialData.patient_ramq_number));
+      setFileSearchDone(!!(initialData.no_mrn || initialData.mrn));
+      setRamqSearchDone(!!(initialData.no_ramq || initialData.ramq));
       setInitialValues(form, getName, initialData, PATIENT_DATA_FI_KEY);
     }
     // eslint-disable-next-line
@@ -172,7 +166,7 @@ const PatientDataSearch = ({
       <Form.Item noStyle shouldUpdate>
         {({ getFieldValue }) =>
           getFieldValue(getName(PATIENT_DATA_FI_KEY.PRESCRIBING_INSTITUTION)) ? (
-            <SearchOrNoneFormItem<Bundle<Patient>>
+            <SearchOrNoneFormItem<IFormPatient>
               form={form}
               inputFormItemProps={{
                 name: getName(PATIENT_DATA_FI_KEY.FILE_NUMBER),
@@ -223,11 +217,16 @@ const PatientDataSearch = ({
               onSearchDone={(value) => {
                 updateFormFromPatient(form, value);
                 setFileSearchDone(true);
-                if (value?.entry && getRAMQValue(value.entry[0].resource)) {
+                if (value && value.ramq) {
                   setRamqSearchDone(true);
                 }
               }}
-              apiPromise={(value) => FhirApi.searchPatient(value)}
+              apiPromise={(value) =>
+                PrescriptionFormApi.searchPatient({
+                  ep: getFieldValue(getName(PATIENT_DATA_FI_KEY.PRESCRIBING_INSTITUTION)),
+                  mrn: value,
+                })
+              }
               disabled={
                 ramqSearchDone ||
                 getFieldValue(getName(PATIENT_DATA_FI_KEY.NO_RAMQ)) ||
@@ -241,7 +240,7 @@ const PatientDataSearch = ({
         {({ getFieldValue }) =>
           getFieldValue(getName(PATIENT_DATA_FI_KEY.NO_FILE)) || fileSearchDone ? (
             <>
-              <SearchOrNoneFormItem<Bundle<Patient>>
+              <SearchOrNoneFormItem<IFormPatient>
                 form={form}
                 inputFormItemProps={{
                   name: getName(PATIENT_DATA_FI_KEY.RAMQ_NUMBER),
@@ -314,7 +313,12 @@ const PatientDataSearch = ({
                   updateFormFromPatient(form, value);
                   setRamqSearchDone(true);
                 }}
-                apiPromise={(value) => FhirApi.searchPatient(value)}
+                apiPromise={(value) =>
+                  PrescriptionFormApi.searchPatient({
+                    ep: getFieldValue(getName(PATIENT_DATA_FI_KEY.PRESCRIBING_INSTITUTION)),
+                    ramq: value,
+                  })
+                }
                 disabled={ramqSearchDone && !getFieldValue(getName(PATIENT_DATA_FI_KEY.NO_RAMQ))}
               />
             </>

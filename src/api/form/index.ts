@@ -2,9 +2,9 @@ import { sendRequestWithRpt } from 'api';
 
 import EnvironmentVariables from 'utils/EnvVariables';
 
-import { TFormConfig } from './models';
+import { IFormPatient, ISupervisor, TFormConfig } from './models';
 
-const FORM_API_URL = `${EnvironmentVariables.configFor('FORM_API_URL')}/form`;
+const FORM_API_URL = `${EnvironmentVariables.configFor('FORM_API_URL')}`;
 
 const headers = {
   'Content-Type': 'application/json',
@@ -13,10 +13,30 @@ const headers = {
 const fetchConfig = (code: string) =>
   sendRequestWithRpt<{ config: TFormConfig }>({
     method: 'GET',
-    url: `${FORM_API_URL}/${code}`,
+    url: `${FORM_API_URL}/form/${code}`,
+    headers,
+  });
+
+const searchPatient = ({ ep, mrn, ramq }: { ep: string; mrn?: string; ramq?: string }) =>
+  sendRequestWithRpt<IFormPatient>({
+    method: 'GET',
+    url: `${FORM_API_URL}/search/patient/${ep}`,
+    params: {
+      mrn,
+      ramq,
+    },
+    headers,
+  });
+
+const searchSupervisor = ({ ep, prefix }: { ep: string; prefix: string }) =>
+  sendRequestWithRpt<ISupervisor[]>({
+    method: 'GET',
+    url: `${FORM_API_URL}/autocomplete/supervisor/${ep}/${prefix}`,
     headers,
   });
 
 export const PrescriptionFormApi = {
   fetchConfig,
+  searchPatient,
+  searchSupervisor,
 };
