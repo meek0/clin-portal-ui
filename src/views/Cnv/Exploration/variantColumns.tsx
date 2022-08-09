@@ -76,16 +76,19 @@ export const getVariantColumns = (
       tooltip: intl.get('screen.patientcnv.results.table.number_genes.tooltip'),
       key: 'number_genes',
       dataIndex: 'number_genes',
-      render: (number_genes: number, variant: VariantEntity) => (
-        <a
-          onClick={(e) => {
-            e.preventDefault();
-            openGenesModal(variant);
-          }}
-        >
-          {number_genes}
-        </a>
-      ),
+      render: (number_genes: number, variant: VariantEntity) =>
+        variant.genes.hits.edges.some((gene) => gene.node.symbol) ? (
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              openGenesModal(variant);
+            }}
+          >
+            {number_genes}
+          </a>
+        ) : (
+          0
+        ),
     },
     {
       title: intl.get('screen.patientcnv.results.table.genes'),
@@ -93,7 +96,7 @@ export const getVariantColumns = (
       key: 'genes',
       dataIndex: 'number_genes',
       render: (number_genes: number, variant: VariantEntity) =>
-        number_genes > 0 ? (
+        variant.genes.hits.edges.some((gene) => gene.node.symbol) ? (
           <a
             onClick={(e) => {
               e.preventDefault();
@@ -107,7 +110,7 @@ export const getVariantColumns = (
             {variant.genes.hits.edges.length > 3 ? '...' : ''}
           </a>
         ) : (
-          { TABLE_EMPTY_PLACE_HOLDER }
+          <>{TABLE_EMPTY_PLACE_HOLDER}</>
         ),
     },
     {
