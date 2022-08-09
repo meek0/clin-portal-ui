@@ -165,6 +165,14 @@ export const getVariantColumns = (
   if (patientId) {
     columns.push(
       {
+        key: 'gq',
+        title: intl.get('screen.patientsnv.results.table.gq'),
+        tooltip: intl.get('gq.tooltip'),
+        render: (record: VariantEntity) => (
+          <GqLine value={findDonorById(record.donors, patientId)?.gq} />
+        ),
+      },
+      {
         key: 'donors_zygosity',
         title: intl.get('screen.patientsnv.results.table.zygosity'),
         dataIndex: 'donors',
@@ -307,15 +315,6 @@ export const getVariantColumns = (
         render: (record: VariantEntity) =>
           (findDonorById(record.donors, patientId)?.ad_ratio ?? 0).toFixed(2) ??
           TABLE_EMPTY_PLACE_HOLDER,
-      },
-      {
-        key: 'gq',
-        title: intl.get('screen.patientsnv.results.table.gq'),
-        tooltip: intl.get('gq.tooltip'),
-        defaultHidden: true,
-        render: (record: VariantEntity) => (
-          <GqLine value={findDonorById(record.donors, patientId)?.gq} />
-        ),
       },
       {
         key: 'filter',
