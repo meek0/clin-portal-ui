@@ -92,24 +92,20 @@ const PrescriptionForm = () => {
                     )}
                   </Space>
                   <Space className={styles.footerRightSide}>
-                    {isUndefined(currentStep?.nextStepIndex) ? (
-                      <Button type="primary" onClick={() => {}}>
-                        {intl.get('submit')}
-                      </Button>
-                    ) : (
-                      <Button
-                        type="primary"
-                        onClick={() => currentFormRefs?.sumbit && currentFormRefs.sumbit()}
-                      >
-                        {lastStepIsNext ? (
-                          intl.get('save')
-                        ) : (
-                          <>
-                            {intl.get('next')} <ArrowRightOutlined />
-                          </>
-                        )}
-                      </Button>
-                    )}
+                    <Button
+                      type="primary"
+                      onClick={() => currentFormRefs?.sumbit && currentFormRefs.sumbit()}
+                    >
+                      {isUndefined(currentStep?.nextStepIndex) ? (
+                        intl.get('submit')
+                      ) : lastStepIsNext ? (
+                        intl.get('save')
+                      ) : (
+                        <>
+                          {intl.get('next')} <ArrowRightOutlined />
+                        </>
+                      )}
+                    </Button>
                   </Space>
                 </div>
               }

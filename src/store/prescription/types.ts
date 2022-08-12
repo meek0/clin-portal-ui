@@ -61,6 +61,11 @@ export interface ICompleteAnalysisChoice {
   };
 }
 
+export interface ICompletePrescriptionReview {
+  resident_supervisor?: string;
+  comment?: string;
+}
+
 export interface IStartAddingParent {
   selectedAnalysis: any; // Will need to match to backend data model
   stepId: STEPS_ID.FATHER_IDENTIFICATION | STEPS_ID.MOTHER_IDENTIFICATION;

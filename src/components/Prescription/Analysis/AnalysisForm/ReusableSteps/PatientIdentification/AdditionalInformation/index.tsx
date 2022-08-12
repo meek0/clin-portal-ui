@@ -22,7 +22,7 @@ import styles from './index.module.scss';
 
 type OwnProps = IAnalysisFormPart & {
   showNewBornSection?: boolean;
-  initialData?: IAddInfoDataType;
+  initialData?: IAddInfoDataContent;
 };
 
 enum GestationalAgeValues {
@@ -32,16 +32,22 @@ enum GestationalAgeValues {
 }
 
 export enum ADD_INFO_FI_KEY {
-  GESTATIONAL_AGE = 'additional_info_gestational_age',
-  GESTATIONAL_AGE_DDM = 'additional_info_gestational_age_ddm',
-  GESTATIONAL_AGE_DPA = 'additional_info_gestational_age_dpa',
-  PRENATAL_DIAGNOSIS = 'additional_info_prenatal_diagnosis',
-  FOETUS_SEX = 'additional_info_foetus_sex',
-  NEW_BORN = 'additional_info_new_born',
-  MOTHER_RAMQ_NUMBER = 'additional_info_mother_ramq_number',
+  GESTATIONAL_AGE = 'gestational_age',
+  GESTATIONAL_AGE_DDM = 'gestational_age_ddm',
+  GESTATIONAL_AGE_DPA = 'gestational_age_dpa',
+  PRENATAL_DIAGNOSIS = 'prenatal_diagnosis',
+  FOETUS_SEX = 'foetus_sex',
+  NEW_BORN = 'is_new_born',
+  MOTHER_RAMQ_NUMBER = 'mother_ramq',
 }
 
+export const additionalInfoKey = 'additional_info';
+
 export interface IAddInfoDataType {
+  [additionalInfoKey]: IAddInfoDataContent;
+}
+
+export interface IAddInfoDataContent {
   [ADD_INFO_FI_KEY.GESTATIONAL_AGE]: string;
   [ADD_INFO_FI_KEY.GESTATIONAL_AGE_DDM]: string;
   [ADD_INFO_FI_KEY.GESTATIONAL_AGE_DPA]: string;
@@ -61,7 +67,8 @@ const AdditionalInformation = ({
   const [gestationalAgeDPA, setGestationalAgeDPA] = useState<number | undefined>(undefined);
   const [gestationalAgeDDM, setGestationalAgeDDM] = useState<number | undefined>(undefined);
 
-  const getName = (...key: IGetNamePathParams) => getNamePath(parentKey, key);
+  const getName = (...key: IGetNamePathParams) =>
+    getNamePath([parentKey as string, additionalInfoKey], key);
 
   useEffect(() => {
     if (localShowNewBorn !== showNewBornSection) {
@@ -72,15 +79,15 @@ const AdditionalInformation = ({
 
   useEffect(() => {
     if (initialData && !isEmpty(initialData)) {
-      if (initialData.additional_info_gestational_age_ddm) {
+      if (initialData.gestational_age_ddm) {
         setGestationalAgeDDM(
-          calculateGestationalAgeFromDDM(new Date(initialData.additional_info_gestational_age_ddm)),
+          calculateGestationalAgeFromDDM(new Date(initialData.gestational_age_ddm)),
         );
       }
 
-      if (initialData.additional_info_gestational_age_dpa) {
+      if (initialData.gestational_age_dpa) {
         setGestationalAgeDPA(
-          calculateGestationalAgeFromDPA(new Date(initialData.additional_info_gestational_age_dpa)),
+          calculateGestationalAgeFromDPA(new Date(initialData.gestational_age_dpa)),
         );
       }
 

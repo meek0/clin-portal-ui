@@ -9,6 +9,7 @@ import {
   IAnalysisConfig,
   IAnalysisStep,
   ICompleteAnalysisChoice,
+  ICompletePrescriptionReview,
   ICurrentFormRefs,
   initialState,
   IStartAddingParent,
@@ -134,6 +135,15 @@ const prescriptionFormSlice = createSlice({
       state.prescriptionVisible = true;
       state.currentStep = config.steps[0];
       state.config = config;
+    },
+    completePrescriptionReview: (state, action: PayloadAction<ICompletePrescriptionReview>) => {
+      if (action.payload.comment) {
+        state.analysisData.analysis.comment = action.payload.comment;
+      }
+
+      if (action.payload.resident_supervisor) {
+        state.analysisData.analysis.resident_supervisor = action.payload.resident_supervisor;
+      }
     },
     currentFormRefs: (state, action: PayloadAction<ICurrentFormRefs>) => {
       state.currentFormRefs = action.payload;
