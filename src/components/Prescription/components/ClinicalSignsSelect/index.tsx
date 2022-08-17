@@ -23,6 +23,8 @@ type OwnProps = IAnalysisFormPart & {
   initialData?: IClinicalSignsDataType;
 };
 
+export const CLINICAL_SIGN_NA = 'NA';
+
 export enum CLINICAL_SIGNS_FI_KEY {
   SIGNS = 'signs',
   CLINIC_REMARK = 'comment',
@@ -37,7 +39,7 @@ export enum CLINICAL_SIGNS_ITEM_KEY {
 
 export interface IClinicalSignItem {
   [CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]: string;
-  [CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED]: boolean;
+  [CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED]: boolean | string;
   [CLINICAL_SIGNS_ITEM_KEY.AGE_CODE]?: string;
   [CLINICAL_SIGNS_ITEM_KEY.NAME]: string;
 }
@@ -154,7 +156,7 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
                             >
                               <Radio value={true}>Observé</Radio>
                               <Radio value={false}>Non observé</Radio>
-                              {isDefaultHpoTerm && <Radio value={'NA'}>NA</Radio>}
+                              {isDefaultHpoTerm && <Radio value={CLINICAL_SIGN_NA}>NA</Radio>}
                             </Radio.Group>
                           </Form.Item>
                           {!isDefaultHpoTerm && (

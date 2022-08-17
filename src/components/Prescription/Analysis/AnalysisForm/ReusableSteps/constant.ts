@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal';
 import { TCollapseProps } from '@ferlab/ui/core/components/Collapse';
 import { ValidateMessages } from 'rc-field-form/lib/interface';
 
@@ -17,7 +18,7 @@ export const EMPTY_FIELD = '--';
 export const defaultFormItemsRules = [{ required: true, validateTrigger: 'onSumbit' }];
 
 export const defaultValidateMessages: ValidateMessages = {
-  required: 'Ce champs est obligatoire',
+  required: intl.get('this.field.is.required'),
 };
 export const defaultCollapseProps: TCollapseProps = {
   size: 'small',

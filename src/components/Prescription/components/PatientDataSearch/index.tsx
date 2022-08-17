@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import intl from 'react-intl-universal';
 import { Form, FormInstance, Input, Radio } from 'antd';
 import { PrescriptionFormApi } from 'api/form';
 import { IFormPatient } from 'api/form/models';
@@ -143,7 +144,7 @@ const PatientDataSearch = ({
         {({ getFieldValue }) => (
           <Form.Item
             name={getName(PATIENT_DATA_FI_KEY.PRESCRIBING_INSTITUTION)}
-            label="Établissement prescripteur"
+            label={intl.get('prescribing.institution')}
             rules={defaultFormItemsRules}
           >
             <Radio.Group
@@ -176,7 +177,7 @@ const PatientDataSearch = ({
                     validateTrigger: 'onSubmit',
                     validator: (_, value) => {
                       if (!value) {
-                        return Promise.reject(new Error('Ce champs est obligatoire'));
+                        return Promise.reject(new Error(intl.get('this.field.is.required')));
                       }
 
                       if (!fileSearchDone) {
@@ -188,7 +189,7 @@ const PatientDataSearch = ({
                   },
                 ],
                 required: true,
-                label: 'Dossier',
+                label: intl.get('folder'),
               }}
               inputProps={{
                 placeholder: '000000',
@@ -196,7 +197,7 @@ const PatientDataSearch = ({
               }}
               checkboxFormItemProps={{
                 name: getName(PATIENT_DATA_FI_KEY.NO_FILE),
-                title: 'Aucun numéro de dossier',
+                title: intl.get('no.folder.number'),
               }}
               checkboxProps={{
                 onChange: (e) => setFileSearchDone(e.target.checked),
@@ -250,11 +251,11 @@ const PatientDataSearch = ({
                       validateTrigger: 'onSubmit',
                       validator: (_, value) => {
                         if (!value) {
-                          return Promise.reject(new Error('Ce champs est obligatoire'));
+                          return Promise.reject(new Error(intl.get('this.field.is.required')));
                         } else if (!isRamqValid(value)) {
-                          return Promise.reject(new Error('Le numéro de RAMQ est invalide'));
+                          return Promise.reject(new Error(intl.get('ramq.number.invalid')));
                         } else if (!ramqSearchDone) {
-                          return Promise.reject(new Error('Cliquer sur rechercher'));
+                          return Promise.reject(new Error(intl.get('click.on.search')));
                         }
 
                         return Promise.resolve();
@@ -273,7 +274,7 @@ const PatientDataSearch = ({
                   },
                 }}
                 inputProps={{
-                  placeholder: 'AAAA 0000 0000',
+                  placeholder: 'AAAA00000000',
                   onSearch: (value, search) => {
                     resetFieldError(form, getName(PATIENT_DATA_FI_KEY.RAMQ_NUMBER));
 
@@ -283,7 +284,7 @@ const PatientDataSearch = ({
                       setFieldError(
                         form,
                         getName(PATIENT_DATA_FI_KEY.RAMQ_NUMBER),
-                        'Le numéro de RAMQ est invalide',
+                        intl.get('ramq.number.invalid'),
                       );
                     }
                   },
@@ -296,7 +297,7 @@ const PatientDataSearch = ({
                 }}
                 checkboxFormItemProps={{
                   name: getName(PATIENT_DATA_FI_KEY.NO_RAMQ),
-                  title: 'Aucun numéro de RAMQ ou nouveau-né',
+                  title: intl.get('no.ramq.or.new.born'),
                 }}
                 onReset={() => {
                   onResetRamq && onResetRamq();
@@ -331,7 +332,7 @@ const PatientDataSearch = ({
             <>
               <Form.Item
                 name={getName(PATIENT_DATA_FI_KEY.LAST_NAME)}
-                label="Nom de famille"
+                label={intl.get('last.name')}
                 rules={defaultFormItemsRules}
                 wrapperCol={{ span: 10, sm: 12, xxl: 6 }}
               >
@@ -339,7 +340,7 @@ const PatientDataSearch = ({
               </Form.Item>
               <Form.Item
                 name={getName(PATIENT_DATA_FI_KEY.FIRST_NAME)}
-                label="Prénom"
+                label={intl.get('first.name')}
                 rules={defaultFormItemsRules}
                 wrapperCol={{ span: 10, sm: 12, xxl: 6 }}
               >
@@ -347,14 +348,14 @@ const PatientDataSearch = ({
               </Form.Item>
               <InputDateFormItem
                 formItemProps={{
-                  label: 'Date de naissance',
+                  label: intl.get('birthdate'),
                   name: getName(PATIENT_DATA_FI_KEY.BIRTH_DATE),
                   required: true,
                 }}
               />
               <Form.Item
                 name={getName(PATIENT_DATA_FI_KEY.SEX)}
-                label="Sexe"
+                label={intl.get('sex')}
                 rules={defaultFormItemsRules}
                 className="noMarginBtm"
               >

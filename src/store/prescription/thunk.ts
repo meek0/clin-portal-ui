@@ -8,6 +8,7 @@ import { globalActions } from 'store/global';
 import { RootState } from 'store/types';
 
 import { ICompletePrescriptionReview, TCompleteAnalysis } from './types';
+import { cleanAnalysisData } from './utils';
 
 const fetchFormConfig = createAsyncThunk<TFormConfig, { code: string }>(
   'prescription/fetchFormConfig',
@@ -47,10 +48,10 @@ const createPrescription = createAsyncThunk<
     analysisInfo.resident_supervisor = args.resident_supervisor;
   }
 
-  const prescriptionData: TCompleteAnalysis = {
+  const prescriptionData: TCompleteAnalysis = cleanAnalysisData({
     ...analysisData,
     analysis: analysisInfo,
-  };
+  });
 
   const { data, error } = await PrescriptionFormApi.createPrescription(prescriptionData);
 

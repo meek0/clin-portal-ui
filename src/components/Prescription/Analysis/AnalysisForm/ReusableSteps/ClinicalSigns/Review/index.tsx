@@ -7,6 +7,7 @@ import {
   STEPS_ID,
 } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
 import {
+  CLINICAL_SIGN_NA,
   CLINICAL_SIGNS_FI_KEY,
   CLINICAL_SIGNS_ITEM_KEY,
   IClinicalSignItem,
@@ -44,7 +45,11 @@ const ClinicalSignsReview = ({ stepId = STEPS_ID.CLINICAL_SIGNS }: OwnProps) => 
 
   const getSignsList = (isObserved: Boolean) => {
     const observedSigns = getSignsByStatus(isObserved);
-    return isEmpty(observedSigns) ? EMPTY_FIELD : observedSigns.map(formatSignsWithAge);
+    return isEmpty(observedSigns)
+      ? EMPTY_FIELD
+      : observedSigns
+          .filter((sign) => sign.is_observed !== CLINICAL_SIGN_NA)
+          .map(formatSignsWithAge);
   };
 
   return (
