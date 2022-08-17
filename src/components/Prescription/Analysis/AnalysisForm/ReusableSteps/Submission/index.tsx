@@ -24,6 +24,7 @@ import { PATIENT_DATA_FI_KEY } from 'components/Prescription/components/PatientD
 import { getNamePath } from 'components/Prescription/utils/form';
 import { usePrescriptionForm } from 'store/prescription';
 import { prescriptionFormActions } from 'store/prescription/slice';
+import { createPrescription } from 'store/prescription/thunk';
 import { useUser } from 'store/user';
 
 import styles from './index.module.scss';
@@ -83,7 +84,7 @@ const Submission = () => {
         layout="vertical"
         onFinish={(value: { [FORM_NAME]: ISubmissionDataType }) => {
           dispatch(
-            prescriptionFormActions.completePrescriptionReview({
+            createPrescription({
               comment: value[FORM_NAME][SUBMISSION_REVIEW_FI_KEY.GENERAL_COMMENT],
               resident_supervisor: value[FORM_NAME][SUBMISSION_REVIEW_FI_KEY.RESPONSIBLE_DOCTOR],
             }),

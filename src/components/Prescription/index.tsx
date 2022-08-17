@@ -23,8 +23,14 @@ const { Title } = Typography;
 
 const PrescriptionForm = () => {
   const dispatch = useDispatch();
-  const { prescriptionVisible, currentStep, currentFormRefs, lastStepIsNext, isAddingParent } =
-    usePrescriptionForm();
+  const {
+    prescriptionVisible,
+    currentStep,
+    currentFormRefs,
+    lastStepIsNext,
+    isAddingParent,
+    isCreatingPrescription,
+  } = usePrescriptionForm();
 
   return (
     <Modal
@@ -95,6 +101,7 @@ const PrescriptionForm = () => {
                     <Button
                       type="primary"
                       onClick={() => currentFormRefs?.sumbit && currentFormRefs.sumbit()}
+                      loading={isCreatingPrescription}
                     >
                       {isUndefined(currentStep?.nextStepIndex) ? (
                         intl.get('submit')

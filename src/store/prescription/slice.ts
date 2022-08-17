@@ -9,14 +9,13 @@ import {
   IAnalysisConfig,
   IAnalysisStep,
   ICompleteAnalysisChoice,
-  ICompletePrescriptionReview,
   ICurrentFormRefs,
   initialState,
   IStartAddingParent,
 } from 'store/prescription/types';
 
 import { getAddParentSteps } from './analysis/addParent';
-import { fetchFormConfig } from './thunk';
+import { createPrescription, fetchFormConfig } from './thunk';
 
 export const PrescriptionState: initialState = {
   prescriptionVisible: false,
@@ -24,6 +23,7 @@ export const PrescriptionState: initialState = {
   analysisChoiceModalVisible: false,
   currentStep: undefined,
   config: undefined,
+  isCreatingPrescription: false,
   analysisData: {
     analysis: {
       panel_code: '',
@@ -40,7 +40,7 @@ export const getAnalysisConfigMapping = (type: AnalysisType) => {
   if (isMuscularAnalysis(type)) {
     return MuscularDiseaseConfig;
   } else {
-    return DevelopmentDelayConfig; // TODO
+    return DevelopmentDelayConfig;
   }
 };
 
@@ -136,15 +136,6 @@ const prescriptionFormSlice = createSlice({
       state.currentStep = config.steps[0];
       state.config = config;
     },
-    completePrescriptionReview: (state, action: PayloadAction<ICompletePrescriptionReview>) => {
-      if (action.payload.comment) {
-        state.analysisData.analysis.comment = action.payload.comment;
-      }
-
-      if (action.payload.resident_supervisor) {
-        state.analysisData.analysis.resident_supervisor = action.payload.resident_supervisor;
-      }
-    },
     currentFormRefs: (state, action: PayloadAction<ICurrentFormRefs>) => {
       state.currentFormRefs = action.payload;
     },
@@ -160,6 +151,17 @@ const prescriptionFormSlice = createSlice({
     });
     builder.addCase(fetchFormConfig.rejected, (state) => {
       state.formState.isLoadingConfig = false;
+    });
+
+    // Create Prescription
+    builder.addCase(createPrescription.pending, (state) => {
+      state.isCreatingPrescription = true;
+    });
+    builder.addCase(createPrescription.fulfilled, (state) => {
+      state.isCreatingPrescription = false;
+    });
+    builder.addCase(createPrescription.rejected, (state) => {
+      state.isCreatingPrescription = false;
     });
   },
 });

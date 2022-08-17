@@ -24,22 +24,16 @@ type OwnProps = IAnalysisFormPart & {
 };
 
 export enum HISTORY_AND_DIAG_FI_KEY {
-  REPORT_HEALTH_CONDITIONS = 'history_and_diag_report_health_conditions',
-  HAS_INBREEDING = 'history_and_diag_inbreeding',
-  HEALTH_CONDITIONS = 'history_and_diag_health_conditions',
-  ETHNICITY = 'history_and_diag_ethnicity',
-  DIAGNOSIS_HYPOTHESIS = 'history_and_diag_diagnostic_hypothesis',
+  REPORT_HEALTH_CONDITIONS = 'report_health_conditions',
+  HAS_INBREEDING = 'inbreeding',
+  HEALTH_CONDITIONS = 'health_conditions',
+  ETHNICITY = 'ethnicity',
+  DIAGNOSIS_HYPOTHESIS = 'diagnostic_hypothesis',
 }
 
 export enum HEALTH_CONDITION_ITEM_KEY {
   CONDITION = 'condition',
   PARENTAL_LINK = 'parental_link',
-}
-
-export enum InbreedingValue {
-  YES = 'yes',
-  NO = 'no',
-  NA = 'not_applicable',
 }
 
 export interface IHealthConditionItem {
@@ -51,7 +45,7 @@ export interface IHistoryAndDiagnosisDataType {
   [HISTORY_AND_DIAG_FI_KEY.HEALTH_CONDITIONS]: IHealthConditionItem[];
   [HISTORY_AND_DIAG_FI_KEY.REPORT_HEALTH_CONDITIONS]: boolean;
   [HISTORY_AND_DIAG_FI_KEY.ETHNICITY]: string;
-  [HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING]: boolean;
+  [HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING]: boolean | undefined;
   [HISTORY_AND_DIAG_FI_KEY.DIAGNOSIS_HYPOTHESIS]: string;
 }
 
@@ -69,7 +63,7 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
       }
     } else {
       setDefaultCondition();
-      setFieldValue(form, getName(HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING), InbreedingValue.NA);
+      setFieldValue(form, getName(HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING), undefined);
     }
     // eslint-disable-next-line
   }, []);
@@ -210,9 +204,9 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
         name={getName(HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING)}
       >
         <Radio.Group>
-          <Radio value={InbreedingValue.NO}>{intl.get('no')}</Radio>
-          <Radio value={InbreedingValue.YES}>{intl.get('yes')}</Radio>
-          <Radio value={InbreedingValue.NA}>NA</Radio>
+          <Radio value={false}>{intl.get('no')}</Radio>
+          <Radio value={true}>{intl.get('yes')}</Radio>
+          <Radio value={undefined}>NA</Radio>
         </Radio.Group>
       </Form.Item>
       <Form.Item

@@ -28,15 +28,15 @@ type OwnProps = IAnalysisFormPart & {
 enum GestationalAgeValues {
   DDM = 'ddm',
   DPA = 'dpa',
-  DEAD_FOETUS = 'dead_foetus',
+  DEAD_FOETUS = 'deceased',
 }
 
 export enum ADD_INFO_FI_KEY {
   GESTATIONAL_AGE = 'gestational_age',
-  GESTATIONAL_AGE_DDM = 'gestational_age_ddm',
-  GESTATIONAL_AGE_DPA = 'gestational_age_dpa',
-  PRENATAL_DIAGNOSIS = 'prenatal_diagnosis',
-  FOETUS_SEX = 'foetus_sex',
+  GESTATIONAL_DATE_DDM = 'gestational_date',
+  GESTATIONAL_DATE_DPA = 'gestational_date',
+  PRENATAL_DIAGNOSIS = 'is_prenatal_diagnosis',
+  FOETUS_SEX = 'foetus_gender',
   NEW_BORN = 'is_new_born',
   MOTHER_RAMQ_NUMBER = 'mother_ramq',
 }
@@ -48,9 +48,9 @@ export interface IAddInfoDataType {
 }
 
 export interface IAddInfoDataContent {
-  [ADD_INFO_FI_KEY.GESTATIONAL_AGE]: string;
-  [ADD_INFO_FI_KEY.GESTATIONAL_AGE_DDM]: string;
-  [ADD_INFO_FI_KEY.GESTATIONAL_AGE_DPA]: string;
+  [ADD_INFO_FI_KEY.GESTATIONAL_AGE]: GestationalAgeValues;
+  [ADD_INFO_FI_KEY.GESTATIONAL_DATE_DDM]: string;
+  [ADD_INFO_FI_KEY.GESTATIONAL_DATE_DPA]: string;
   [ADD_INFO_FI_KEY.PRENATAL_DIAGNOSIS]: boolean;
   [ADD_INFO_FI_KEY.FOETUS_SEX]: SexValue;
   [ADD_INFO_FI_KEY.NEW_BORN]: boolean;
@@ -79,15 +79,15 @@ const AdditionalInformation = ({
 
   useEffect(() => {
     if (initialData && !isEmpty(initialData)) {
-      if (initialData.gestational_age_ddm) {
+      if (initialData.gestational_age === GestationalAgeValues.DDM) {
         setGestationalAgeDDM(
-          calculateGestationalAgeFromDDM(new Date(initialData.gestational_age_ddm)),
+          calculateGestationalAgeFromDDM(new Date(initialData.gestational_date)),
         );
       }
 
-      if (initialData.gestational_age_dpa) {
+      if (initialData.gestational_age === GestationalAgeValues.DPA) {
         setGestationalAgeDPA(
-          calculateGestationalAgeFromDPA(new Date(initialData.gestational_age_dpa)),
+          calculateGestationalAgeFromDPA(new Date(initialData.gestational_date)),
         );
       }
 
@@ -111,7 +111,7 @@ const AdditionalInformation = ({
           checkShouldUpdate(prev, next, [getName(ADD_INFO_FI_KEY.PRENATAL_DIAGNOSIS)])
         }
       >
-        {({ getFieldValue }) =>
+        {({ getFieldValue, setFieldValue }) =>
           getFieldValue(getName(ADD_INFO_FI_KEY.PRENATAL_DIAGNOSIS)) ? (
             <>
               <Form.Item
@@ -126,7 +126,17 @@ const AdditionalInformation = ({
                 name={getName(ADD_INFO_FI_KEY.GESTATIONAL_AGE)}
                 rules={[{ required: true }]}
               >
-                <Radio.Group>
+                <Radio.Group
+                  onChange={(value) => {
+                    if (value.target.name === GestationalAgeValues.DDM) {
+                      setGestationalAgeDDM(undefined);
+                      setFieldValue(getName(ADD_INFO_FI_KEY.GESTATIONAL_DATE_DDM), undefined);
+                    } else {
+                      setGestationalAgeDPA(undefined);
+                      setFieldValue(getName(ADD_INFO_FI_KEY.GESTATIONAL_DATE_DPA), undefined);
+                    }
+                  }}
+                >
                   <Space direction="vertical" className={styles.verticalRadioWrapper}>
                     <RadioDateFormItem
                       title={intl.get('prescription.patient.identification.last.ddm.date')}
@@ -136,7 +146,7 @@ const AdditionalInformation = ({
                       }}
                       dateInputProps={{
                         formItemProps: {
-                          name: getName(ADD_INFO_FI_KEY.GESTATIONAL_AGE_DDM),
+                          name: getName(ADD_INFO_FI_KEY.GESTATIONAL_DATE_DDM),
                           required: true,
                         },
                         extra: <GestationalAge value={gestationalAgeDDM} />,
@@ -158,7 +168,7 @@ const AdditionalInformation = ({
                       }}
                       dateInputProps={{
                         formItemProps: {
-                          name: getName(ADD_INFO_FI_KEY.GESTATIONAL_AGE_DPA),
+                          name: getName(ADD_INFO_FI_KEY.GESTATIONAL_DATE_DPA),
                           required: true,
                         },
                         extra: <GestationalAge value={gestationalAgeDPA} />,

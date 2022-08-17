@@ -17,9 +17,6 @@ const PrescriptionAnalysis = () => {
     <Form.Provider
       onFormFinish={(formName, info) => {
         if (formName !== STEPS_ID.SUBMISSION) {
-          console.log('Form name: ', formName);
-          console.log('Form data: ', info.values);
-
           dispatch(prescriptionFormActions.saveStepData(info.values));
 
           if (lastStepIsNext) {

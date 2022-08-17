@@ -31,8 +31,10 @@ const ClinicalSignsReview = ({ stepId = STEPS_ID.CLINICAL_SIGNS }: OwnProps) => 
       (sign) => sign[CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED] === isObserved,
     );
 
-  const formatSignsWithAge = (sign: IClinicalSignItem) => (
-    <span>{`${sign[CLINICAL_SIGNS_ITEM_KEY.NAME]} (${sign[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]}) ${
+  const formatSignsWithAge = (sign: IClinicalSignItem, index: number) => (
+    <span key={index}>{`${sign[CLINICAL_SIGNS_ITEM_KEY.NAME]} (${
+      sign[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]
+    }) ${
       sign.age_code
         ? ' - ' +
           formConfig?.clinical_signs.onset_age.find((age) => age.value === sign.age_code)?.name

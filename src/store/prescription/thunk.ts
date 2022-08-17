@@ -5,6 +5,9 @@ import { TFormConfig } from 'api/form/models';
 import { capitalize } from 'lodash';
 
 import { globalActions } from 'store/global';
+import { RootState } from 'store/types';
+
+import { ICompletePrescriptionReview, TCompleteAnalysis } from './types';
 
 const fetchFormConfig = createAsyncThunk<TFormConfig, { code: string }>(
   'prescription/fetchFormConfig',
@@ -26,4 +29,43 @@ const fetchFormConfig = createAsyncThunk<TFormConfig, { code: string }>(
   },
 );
 
-export { fetchFormConfig };
+const createPrescription = createAsyncThunk<
+  void,
+  ICompletePrescriptionReview,
+  { state: RootState }
+>('prescription/createPrescription', async (args, thunkApi) => {
+  const analysisData = thunkApi.getState().prescription.analysisData;
+  const analysisInfo = {
+    ...analysisData.analysis,
+  };
+
+  if (args.comment) {
+    analysisInfo.comment = args.comment;
+  }
+
+  if (args.resident_supervisor) {
+    analysisInfo.resident_supervisor = args.resident_supervisor;
+  }
+
+  const prescriptionData: TCompleteAnalysis = {
+    ...analysisData,
+    analysis: analysisInfo,
+  };
+
+  const { data, error } = await PrescriptionFormApi.createPrescription(prescriptionData);
+
+  if (error) {
+    thunkApi.dispatch(
+      globalActions.displayNotification({
+        message: capitalize(intl.get('notification.error')),
+        description: intl.get('notification.error.prescription.form.create'),
+        type: 'error',
+      }),
+    );
+    return thunkApi.rejectWithValue(error.response?.config);
+  }
+
+  return data!.config;
+});
+
+export { fetchFormConfig, createPrescription };

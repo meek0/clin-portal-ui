@@ -42,12 +42,13 @@ export enum ParaclinicalExamStatus {
   NORMAL = 'normal',
 }
 
-export interface IParaclinicalSignItem {
+export interface IParaclinicalExamItem {
   [PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION]: string;
+  [PARACLINICAL_EXAM_ITEM_KEY.CODE]: string;
 }
 
 export interface IParaclinicalExamsDataType {
-  [PARACLINICAL_EXAMS_FI_KEY.EXAMS]: IParaclinicalSignItem[];
+  [PARACLINICAL_EXAMS_FI_KEY.EXAMS]: IParaclinicalExamItem[];
   [PARACLINICAL_EXAMS_FI_KEY.OTHER_EXAMS]?: string;
 }
 

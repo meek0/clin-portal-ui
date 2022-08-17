@@ -12,22 +12,25 @@ export type initialState = {
   currentStep?: IAnalysisStep;
   analysisType?: AnalysisType;
   config?: IAnalysisConfig;
-  analysisData: IAnalysisDataType & {
-    analysis: {
-      panel_code: string;
-      is_reflex: boolean;
-      observation?: string;
-      investigation?: string;
-      indication?: string;
-      resident_supervisor?: string;
-      comment?: string;
-    };
-  }; // TODO add type for each Analysis Data Type
+  analysisData: TCompleteAnalysis;
   lastStepIsNext?: boolean;
   isAddingParent?: boolean;
+  isCreatingPrescription: boolean;
   formState: {
     config?: TFormConfig;
     isLoadingConfig: boolean;
+  };
+};
+
+export type TCompleteAnalysis = IAnalysisDataType & {
+  analysis: {
+    panel_code: string;
+    is_reflex: boolean;
+    observation?: string;
+    investigation?: string;
+    indication?: string;
+    resident_supervisor?: string;
+    comment?: string;
   };
 };
 

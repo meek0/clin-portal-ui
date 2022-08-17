@@ -1,5 +1,6 @@
 import { sendRequestWithRpt } from 'api';
 
+import { TCompleteAnalysis } from 'store/prescription/types';
 import EnvironmentVariables from 'utils/EnvVariables';
 
 import { IFormPatient, ISupervisor, TFormConfig } from './models';
@@ -35,8 +36,17 @@ const searchSupervisor = ({ ep, prefix }: { ep: string; prefix: string }) =>
     headers,
   });
 
+const createPrescription = (data: TCompleteAnalysis) =>
+  sendRequestWithRpt<any>({
+    method: 'POST',
+    url: `${FORM_API_URL}/form`,
+    headers,
+    data,
+  });
+
 export const PrescriptionFormApi = {
   fetchConfig,
   searchPatient,
   searchSupervisor,
+  createPrescription,
 };
