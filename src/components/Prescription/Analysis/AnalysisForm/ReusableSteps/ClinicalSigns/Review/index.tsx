@@ -53,7 +53,7 @@ const ClinicalSignsReview = ({ stepId = STEPS_ID.CLINICAL_SIGNS }: OwnProps) => 
   };
 
   return (
-    <Descriptions column={1} size="small">
+    <Descriptions className="label-20" column={1} size="small">
       <Descriptions.Item label={intl.get('prescription.clinical.signs.review.label.observed')}>
         <Space direction="vertical" size={0}>
           {getSignsList(true)}

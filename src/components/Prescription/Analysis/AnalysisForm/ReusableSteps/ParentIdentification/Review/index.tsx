@@ -32,7 +32,7 @@ const ParentIdentificationReview = ({ parent }: OwnProps) => {
       <>
         <PatientIdentificationReview key={parent} stepId={getStepId()} />
         <Divider style={{ margin: '12px 0' }} />
-        <Descriptions column={1} size="small">
+        <Descriptions className="label-20" column={1} size="small">
           <Descriptions.Item
             label="Status"
             style={isAffected ? { paddingBottom: '8px' } : undefined}
@@ -46,7 +46,7 @@ const ParentIdentificationReview = ({ parent }: OwnProps) => {
   }
 
   return (
-    <Descriptions>
+    <Descriptions className="label-20">
       <Descriptions.Item
         label={
           getData(PARENT_DATA_FI_KEY.ENTER_INFO_MOMENT) === EnterInfoMomentValue.NEVER

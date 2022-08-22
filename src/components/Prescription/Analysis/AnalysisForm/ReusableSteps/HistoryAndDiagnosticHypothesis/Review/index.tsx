@@ -28,7 +28,7 @@ const HistoryAndDiagnosisReview = () => {
   };
 
   return (
-    <Descriptions column={1} size="small">
+    <Descriptions className="label-20" column={1} size="small">
       <Descriptions.Item
         label={intl.get('prescription.history.diagnosis.review.label.family.history')}
       >

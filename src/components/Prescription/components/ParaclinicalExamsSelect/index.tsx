@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import intl from 'react-intl-universal';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
-import { Form, Input, Radio, Select, Space } from 'antd';
+import { Form, Input, Radio, Select, Space, Tag } from 'antd';
 import { IListNameValueItem, IParaclinicalExamItemExtra } from 'api/form/models';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
@@ -146,7 +146,15 @@ const MultiSelectExtra = ({ name, label, options }: IParaclinicalExamMultiSelect
       name={[name, 'values']}
       rules={[{ ...defaultFormItemsRules[0], type: 'array', min: 1 }]}
     >
-      <Select mode="multiple" placeholder="Sélectionner">
+      <Select
+        mode="multiple"
+        placeholder="Sélectionner"
+        tagRender={({ onClose, label }) => (
+          <Tag className={styles.tag} closable onClose={onClose} style={{ marginRight: 3 }}>
+            {label}
+          </Tag>
+        )}
+      >
         {options.map((option) => (
           <Select.Option key={option.value} value={option.value}>
             {option.name}

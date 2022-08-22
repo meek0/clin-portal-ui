@@ -31,7 +31,7 @@ const fetchFormConfig = createAsyncThunk<TFormConfig, { code: string }>(
 );
 
 const createPrescription = createAsyncThunk<
-  void,
+  { prescriptionId: string },
   ICompletePrescriptionReview,
   { state: RootState }
 >('prescription/createPrescription', async (args, thunkApi) => {
@@ -63,10 +63,12 @@ const createPrescription = createAsyncThunk<
         type: 'error',
       }),
     );
-    return thunkApi.rejectWithValue(error.response?.config);
+    return thunkApi.rejectWithValue(error.response?.data);
   }
 
-  return data!.config;
+  return {
+    prescriptionId: data?.id!,
+  };
 });
 
 export { fetchFormConfig, createPrescription };

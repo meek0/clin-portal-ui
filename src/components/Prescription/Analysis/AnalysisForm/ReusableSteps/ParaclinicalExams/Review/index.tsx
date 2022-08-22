@@ -23,7 +23,7 @@ const ParaclinicalExamsReview = () => {
     formConfig?.paraclinical_exams.default_list.find((exam) => exam.value === code)?.name;
 
   return (
-    <Descriptions column={1} size="small">
+    <Descriptions className='label-20' column={1} size="small">
       {(getData(PARACLINICAL_EXAMS_FI_KEY.EXAMS) as IParaclinicalExamItem[])
         .filter(
           (exam) =>

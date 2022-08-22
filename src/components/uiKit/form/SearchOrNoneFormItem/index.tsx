@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import intl from 'react-intl-universal';
 import {
   Checkbox,
   CheckboxProps,
@@ -61,7 +62,7 @@ const SearchOrNoneFormItem = <TSearchResult,>({
     resetFieldError(form, inputFormItemProps.name);
 
     if (!value) {
-      setFieldError(form, inputFormItemProps.name, 'Ce champs est oblifatoire');
+      setFieldError(form, inputFormItemProps.name, intl.get('this.field.is.required'));
     } else {
       setIsLoading(true);
       apiPromise(value)

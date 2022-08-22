@@ -37,7 +37,7 @@ const searchSupervisor = ({ ep, prefix }: { ep: string; prefix: string }) =>
   });
 
 const createPrescription = (data: TCompleteAnalysis) =>
-  sendRequestWithRpt<any>({
+  sendRequestWithRpt<{ id: string }>({
     method: 'POST',
     url: `${FORM_API_URL}/form`,
     headers,
