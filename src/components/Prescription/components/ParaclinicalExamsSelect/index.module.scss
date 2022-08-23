@@ -19,6 +19,17 @@ $label-width: 225px;
   }
 
   .otherExamsTextarea {
-      margin-top: 24px;
+    margin-top: 24px;
+  }
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  background-color: $blue-8;
+  line-height: 22px;
+  color: $gray-1;
+  > * {
+    color: $gray-1;
   }
 }

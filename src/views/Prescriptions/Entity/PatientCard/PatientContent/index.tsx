@@ -18,7 +18,7 @@ const PatientContent = ({ patient, labelClass = 'label-35' }: OwnProps) =>
         {extractPatientId(patient.id)}
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('screen.prescription.entity.patientContent.folder')}>
-        {patient.mrn}
+        {patient.mrn ?? '--'}
       </Descriptions.Item>
       <Descriptions.Item label="RAMQ">{formatRamq(patient.person[0].ramq)}</Descriptions.Item>
       <Descriptions.Item label={intl.get('name')}>

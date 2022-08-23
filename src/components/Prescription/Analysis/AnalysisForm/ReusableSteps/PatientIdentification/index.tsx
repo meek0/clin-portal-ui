@@ -14,7 +14,11 @@ import { usePrescriptionForm } from 'store/prescription';
 
 import { defaultCollapseProps, STEPS_ID } from '../constant';
 
-import AdditionalInformation, { ADD_INFO_FI_KEY, IAddInfoDataType } from './AdditionalInformation';
+import AdditionalInformation, {
+  additionalInfoKey,
+  ADD_INFO_FI_KEY,
+  IAddInfoDataType,
+} from './AdditionalInformation';
 
 import styles from './index.module.scss';
 
@@ -60,7 +64,7 @@ const PatientIdentification = ({}: IAnalysisStepForm) => {
                     form={form}
                     parentKey={FORM_NAME}
                     showNewBornSection={getFieldValue(getName(PATIENT_DATA_FI_KEY.NO_RAMQ))}
-                    initialData={getInitialData()}
+                    initialData={getInitialData()?.[additionalInfoKey]}
                   />
                 </CollapsePanel>
               </Collapse>

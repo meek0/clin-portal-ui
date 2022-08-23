@@ -23,7 +23,11 @@ export const setFieldError = (form: FormInstance, namePath: NamePath, error: str
     },
   ]);
 
-export const setFieldValue = (form: FormInstance, namePath: NamePath, value: string | any[]) =>
+export const setFieldValue = (
+  form: FormInstance,
+  namePath: NamePath,
+  value: string | any[] | undefined,
+) =>
   form.setFields([
     {
       name: namePath,

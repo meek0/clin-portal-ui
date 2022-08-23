@@ -11,4 +11,13 @@
 .supervisorCommentWrapper {
   margin-left: 1px;
   margin-right: 1px;
+
+  :global(.ant-row) {
+    flex-direction: column;
+  }
+}
+
+.reviewLabel {
+  margin-top: 48px;
+  margin-bottom: 12px;
 }

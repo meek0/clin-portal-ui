@@ -4,7 +4,11 @@ import { Form } from 'antd';
 import AnalysisForm from 'components/Prescription/Analysis/AnalysisForm';
 import ParaclinicalExamsSelect, {
   IParaclinicalExamsDataType,
+  ParaclinicalExamStatus,
+  PARACLINICAL_EXAMS_FI_KEY,
+  PARACLINICAL_EXAM_ITEM_KEY,
 } from 'components/Prescription/components/ParaclinicalExamsSelect';
+import { getNamePath } from 'components/Prescription/utils/form';
 import { IAnalysisStepForm } from 'components/Prescription/utils/type';
 import { usePrescriptionForm } from 'store/prescription';
 

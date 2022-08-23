@@ -3,7 +3,7 @@ import { isUndefined } from 'lodash';
 
 import { DevelopmentDelayConfig } from 'store/prescription/analysis/developmentDelay';
 import { MuscularDiseaseConfig } from 'store/prescription/analysis/muscular';
-import { isMuscularAnalysis, isMuscularAnalysisAndNotGlobal } from 'store/prescription/helper';
+import { isMuscularAnalysis } from 'store/prescription/helper';
 import {
   AnalysisType,
   IAnalysisConfig,
@@ -15,6 +15,7 @@ import {
 } from 'store/prescription/types';
 
 import { getAddParentSteps } from './analysis/addParent';
+import { createPrescription, fetchFormConfig } from './thunk';
 
 export const PrescriptionState: initialState = {
   prescriptionVisible: false,
@@ -22,14 +23,24 @@ export const PrescriptionState: initialState = {
   analysisChoiceModalVisible: false,
   currentStep: undefined,
   config: undefined,
-  analysisData: {},
+  isCreatingPrescription: false,
+  analysisData: {
+    analysis: {
+      panel_code: '',
+      is_reflex: false,
+    },
+  },
+  formState: {
+    config: undefined,
+    isLoadingConfig: false,
+  },
 };
 
 export const getAnalysisConfigMapping = (type: AnalysisType) => {
   if (isMuscularAnalysis(type)) {
     return MuscularDiseaseConfig;
   } else {
-    return DevelopmentDelayConfig; // TODO
+    return DevelopmentDelayConfig;
   }
 };
 
@@ -114,9 +125,10 @@ const prescriptionFormSlice = createSlice({
         steps: enrichSteps(config.steps),
       };
 
-      if (isMuscularAnalysisAndNotGlobal(action.payload.type)) {
-        state.analysisData = action.payload.extraData;
-      }
+      state.analysisData.analysis = {
+        panel_code: action.payload.type,
+        is_reflex: action.payload.extraData.isReflex ?? false,
+      };
 
       state.analysisType = action.payload.type;
       state.analysisChoiceModalVisible = false;
@@ -127,6 +139,30 @@ const prescriptionFormSlice = createSlice({
     currentFormRefs: (state, action: PayloadAction<ICurrentFormRefs>) => {
       state.currentFormRefs = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    // Fetch Config
+    builder.addCase(fetchFormConfig.pending, (state) => {
+      state.formState.isLoadingConfig = true;
+    });
+    builder.addCase(fetchFormConfig.fulfilled, (state, action) => {
+      state.formState.config = action.payload;
+      state.formState.isLoadingConfig = false;
+    });
+    builder.addCase(fetchFormConfig.rejected, (state) => {
+      state.formState.isLoadingConfig = false;
+    });
+
+    // Create Prescription
+    builder.addCase(createPrescription.pending, (state) => {
+      state.isCreatingPrescription = true;
+    });
+    builder.addCase(createPrescription.fulfilled, (state) => {
+      state.isCreatingPrescription = false;
+    });
+    builder.addCase(createPrescription.rejected, (state) => {
+      state.isCreatingPrescription = false;
+    });
   },
 });
 

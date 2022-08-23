@@ -15,6 +15,7 @@ import {
   setInitialValues,
 } from 'components/Prescription/utils/form';
 import { IAnalysisFormPart, IGetNamePathParams } from 'components/Prescription/utils/type';
+import { usePrescriptionFormConfig } from 'store/prescription';
 
 import styles from './index.module.scss';
 
@@ -23,22 +24,16 @@ type OwnProps = IAnalysisFormPart & {
 };
 
 export enum HISTORY_AND_DIAG_FI_KEY {
-  REPORT_HEALTH_CONDITIONS = 'history_and_diag_report_health_conditions',
-  HAS_INBREEDING = 'history_and_diag_inbreeding',
-  HEALTH_CONDITIONS = 'history_and_diag_health_conditions',
-  ETHNICITY = 'history_and_diag_ethnicity',
-  DIAGNOSIS_HYPOTHESIS = 'history_and_diag_diagnostic_hypothesis',
+  REPORT_HEALTH_CONDITIONS = 'report_health_conditions',
+  HAS_INBREEDING = 'inbreeding',
+  HEALTH_CONDITIONS = 'health_conditions',
+  ETHNICITY = 'ethnicity',
+  DIAGNOSIS_HYPOTHESIS = 'diagnostic_hypothesis',
 }
 
 export enum HEALTH_CONDITION_ITEM_KEY {
   CONDITION = 'condition',
   PARENTAL_LINK = 'parental_link',
-}
-
-export enum InbreedingValue {
-  YES = 'yes',
-  NO = 'no',
-  NA = 'not_applicable',
 }
 
 export interface IHealthConditionItem {
@@ -50,13 +45,14 @@ export interface IHistoryAndDiagnosisDataType {
   [HISTORY_AND_DIAG_FI_KEY.HEALTH_CONDITIONS]: IHealthConditionItem[];
   [HISTORY_AND_DIAG_FI_KEY.REPORT_HEALTH_CONDITIONS]: boolean;
   [HISTORY_AND_DIAG_FI_KEY.ETHNICITY]: string;
-  [HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING]: boolean;
+  [HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING]: boolean | undefined;
   [HISTORY_AND_DIAG_FI_KEY.DIAGNOSIS_HYPOTHESIS]: string;
 }
 
 const hiddenLabelConfig = { colon: false, label: <></> };
 
 const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) => {
+  const formConfig = usePrescriptionFormConfig();
   const getName = (...key: IGetNamePathParams) => getNamePath(parentKey, key);
 
   useEffect(() => {
@@ -67,7 +63,7 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
       }
     } else {
       setDefaultCondition();
-      setFieldValue(form, getName(HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING), InbreedingValue.NA);
+      setFieldValue(form, getName(HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING), undefined);
     }
     // eslint-disable-next-line
   }, []);
@@ -152,7 +148,11 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
                                 name={[name, HEALTH_CONDITION_ITEM_KEY.PARENTAL_LINK]}
                               >
                                 <Select placeholder="Lien parental" onChange={resetListError}>
-                                  <Select.Option value="aa">aa</Select.Option>
+                                  {formConfig?.history_and_diagnosis.parental_links.map((link) => (
+                                    <Select.Option key={link.value} value={link.value}>
+                                      {link.name}
+                                    </Select.Option>
+                                  ))}
                                 </Select>
                               </Form.Item>
                               <CloseOutlined
@@ -204,9 +204,9 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
         name={getName(HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING)}
       >
         <Radio.Group>
-          <Radio value={InbreedingValue.NO}>{intl.get('no')}</Radio>
-          <Radio value={InbreedingValue.YES}>{intl.get('yes')}</Radio>
-          <Radio value={InbreedingValue.NA}>NA</Radio>
+          <Radio value={false}>{intl.get('no')}</Radio>
+          <Radio value={true}>{intl.get('yes')}</Radio>
+          <Radio value={undefined}>NA</Radio>
         </Radio.Group>
       </Form.Item>
       <Form.Item
@@ -214,7 +214,13 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
         name={getName(HISTORY_AND_DIAG_FI_KEY.ETHNICITY)}
         wrapperCol={{ lg: 8, xl: 8, xxl: 6 }}
       >
-        <Select placeholder="Sélectionner" />
+        <Select placeholder="Sélectionner">
+          {formConfig?.history_and_diagnosis.ethnicities.map((eth) => (
+            <Select.Option key={eth.value} value={eth.value}>
+              {eth.name}
+            </Select.Option>
+          ))}
+        </Select>
       </Form.Item>
       <Form.Item
         label="Hypothèse diagnostique"

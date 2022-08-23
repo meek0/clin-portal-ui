@@ -1,3 +1,4 @@
+import { TFormConfig } from 'api/form/models';
 import { ValidateFields } from 'rc-field-form/lib/interface';
 
 import { STEPS_ID } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
@@ -11,9 +12,26 @@ export type initialState = {
   currentStep?: IAnalysisStep;
   analysisType?: AnalysisType;
   config?: IAnalysisConfig;
-  analysisData: IAnalysisDataType; // TODO add type for each Analysis Data Type
+  analysisData: TCompleteAnalysis;
   lastStepIsNext?: boolean;
   isAddingParent?: boolean;
+  isCreatingPrescription: boolean;
+  formState: {
+    config?: TFormConfig;
+    isLoadingConfig: boolean;
+  };
+};
+
+export type TCompleteAnalysis = IAnalysisDataType & {
+  analysis: {
+    panel_code: string;
+    is_reflex: boolean;
+    observation?: string;
+    investigation?: string;
+    indication?: string;
+    resident_supervisor?: string;
+    comment?: string;
+  };
 };
 
 export interface ICurrentFormRefs {
@@ -24,24 +42,31 @@ export interface ICurrentFormRefs {
 
 // TODO Probably change with backend values??
 export enum MuscularAnalysisType {
-  MUSCULAR_DISEASE_GLOBAL = 'muscular_global_panel',
-  MUSCULAR_DISEASE_DYSTROPHIES = 'muscular_dystrophies',
-  MUSCULAR_DISEASE_MALIGNANT_HYPERTHERMIA = 'muscular_malignant_hyperthermia',
-  MUSCULAR_DISEASE_CONGENITAL_MYASTHENIA = 'muscular_congenital_myasthenia',
-  MUSCULAR_DISEASE_CONGENITAL_MYOPATHIES = 'muscular_congenital_myopathies',
-  MUSCULAR_DISEASE_RHABDOMYOLYSIS = 'muscular_rhabdomyolysis',
+  MUSCULAR_DISEASE_GLOBAL = 'MMG', // MMG
+  MUSCULAR_DISEASE_DYSTROPHIES = 'DYSM', // DYSM
+  MUSCULAR_DISEASE_MALIGNANT_HYPERTHERMIA = 'HYPM', // HYPM
+  MUSCULAR_DISEASE_CONGENITAL_MYASTHENIA = 'MYAC', // MYAC
+  MUSCULAR_DISEASE_CONGENITAL_MYOPATHIES = 'MYOC', // MYOC
+  MUSCULAR_DISEASE_RHABDOMYOLYSIS = 'RHAB', // RHAB
 }
 
 export enum OtherAnalysisType {
-  GLOBAL_DEVELOPMENTAL_DELAY = 'developmental_delay',
-  NUCLEAR_MITOCHONDRIOPATHY = 'nuclear_mitochondriopathy',
+  GLOBAL_DEVELOPMENTAL_DELAY = 'RGDI', // RGDI
+  NUCLEAR_MITOCHONDRIOPATHY = 'MITN', // MITN
 }
 
 export type AnalysisType = MuscularAnalysisType | OtherAnalysisType;
 
 export interface ICompleteAnalysisChoice {
   type: AnalysisType;
-  extraData: any;
+  extraData: {
+    isReflex?: boolean;
+  };
+}
+
+export interface ICompletePrescriptionReview {
+  resident_supervisor?: string;
+  comment?: string;
 }
 
 export interface IStartAddingParent {

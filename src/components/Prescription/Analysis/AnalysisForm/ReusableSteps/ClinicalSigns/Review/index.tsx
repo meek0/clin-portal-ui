@@ -7,12 +7,12 @@ import {
   STEPS_ID,
 } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
 import {
+  CLINICAL_SIGN_NA,
   CLINICAL_SIGNS_FI_KEY,
   CLINICAL_SIGNS_ITEM_KEY,
-  ClinicalSignsStatus,
   IClinicalSignItem,
 } from 'components/Prescription/components/ClinicalSignsSelect';
-import { usePrescriptionForm } from 'store/prescription';
+import { usePrescriptionForm, usePrescriptionFormConfig } from 'store/prescription';
 
 interface OwnProps {
   stepId?:
@@ -22,34 +22,46 @@ interface OwnProps {
 }
 
 const ClinicalSignsReview = ({ stepId = STEPS_ID.CLINICAL_SIGNS }: OwnProps) => {
+  const formConfig = usePrescriptionFormConfig();
   const { analysisData } = usePrescriptionForm();
 
   const getData = (key: CLINICAL_SIGNS_FI_KEY) => analysisData[stepId]?.[key];
 
-  const getSignsByStatus = (status: ClinicalSignsStatus) =>
+  const getSignsByStatus = (isObserved: Boolean) =>
     ((getData(CLINICAL_SIGNS_FI_KEY.SIGNS) ?? []) as IClinicalSignItem[]).filter(
-      (sign) => sign[CLINICAL_SIGNS_ITEM_KEY.STATUS] === status,
+      (sign) => sign[CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED] === isObserved,
     );
 
-  const formatSignsWithAge = (sign: IClinicalSignItem) => (
-    <span>{`${sign.term}${sign.onset_age ? ' - ' + sign.onset_age : ''}`}</span>
+  const formatSignsWithAge = (sign: IClinicalSignItem, index: number) => (
+    <span key={index}>{`${sign[CLINICAL_SIGNS_ITEM_KEY.NAME]} (${
+      sign[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]
+    }) ${
+      sign.age_code
+        ? ' - ' +
+          formConfig?.clinical_signs.onset_age.find((age) => age.value === sign.age_code)?.name
+        : ''
+    }`}</span>
   );
 
-  const getSignsList = (status: ClinicalSignsStatus) => {
-    const observedSigns = getSignsByStatus(status);
-    return isEmpty(observedSigns) ? EMPTY_FIELD : observedSigns.map(formatSignsWithAge);
+  const getSignsList = (isObserved: Boolean) => {
+    const observedSigns = getSignsByStatus(isObserved);
+    return isEmpty(observedSigns)
+      ? EMPTY_FIELD
+      : observedSigns
+          .filter((sign) => sign.is_observed !== CLINICAL_SIGN_NA)
+          .map(formatSignsWithAge);
   };
 
   return (
-    <Descriptions column={1} size="small">
+    <Descriptions className="label-20" column={1} size="small">
       <Descriptions.Item label={intl.get('prescription.clinical.signs.review.label.observed')}>
         <Space direction="vertical" size={0}>
-          {getSignsList(ClinicalSignsStatus.OBSERVED)}
+          {getSignsList(true)}
         </Space>
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('prescription.clinical.signs.review.label.not.observed')}>
         <Space direction="vertical" size={0}>
-          {getSignsList(ClinicalSignsStatus.NOT_OBSERVED)}
+          {getSignsList(false)}
         </Space>
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('prescription.clinical.signs.review.label.note')}>

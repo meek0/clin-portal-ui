@@ -28,14 +28,14 @@ const HistoryAndDiagnosisReview = () => {
   };
 
   return (
-    <Descriptions column={1} size="small">
+    <Descriptions className="label-20" column={1} size="small">
       <Descriptions.Item
         label={intl.get('prescription.history.diagnosis.review.label.family.history')}
       >
         {getHealthConditions()}
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('prescription.history.diagnosis.review.label.inbreeding')}>
-        {intl.get((getData(HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING) as string) ?? 'no')}
+        {intl.get((getData(HISTORY_AND_DIAG_FI_KEY.HAS_INBREEDING) ? 'yes' : 'no') ?? 'no')}
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('prescription.history.diagnosis.review.label.ethnicity')}>
         {getData(HISTORY_AND_DIAG_FI_KEY.ETHNICITY) ?? EMPTY_FIELD}

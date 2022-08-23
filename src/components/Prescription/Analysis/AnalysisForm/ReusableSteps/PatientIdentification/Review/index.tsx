@@ -33,7 +33,7 @@ const PatientIdentificationReview = ({ stepId = STEPS_ID.PATIENT_IDENTIFICATION 
   };
 
   return (
-    <Descriptions column={1} size="small">
+    <Descriptions className="label-20" column={1} size="small">
       <Descriptions.Item label={intl.get('folder')}>{getFileNumber()}</Descriptions.Item>
       <Descriptions.Item label={intl.get('ramq')}>
         {getData(PATIENT_DATA_FI_KEY.RAMQ_NUMBER) ?? EMPTY_FIELD}
