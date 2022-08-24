@@ -5,6 +5,7 @@ import cx from 'classnames';
 import { capitalize, clone, isEmpty } from 'lodash';
 
 import PhenotypeModal from 'components/PhenotypeTree/TransferModal';
+import { defaultFormItemsRules } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
 import {
   checkShouldUpdate,
   getNamePath,
@@ -68,7 +69,7 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
       getName(CLINICAL_SIGNS_FI_KEY.SIGNS),
       hpoList.map((term) => ({
         [CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]: term.value,
-        [CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED]: false,
+        [CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED]: CLINICAL_SIGN_NA,
         [CLINICAL_SIGNS_ITEM_KEY.NAME]: term.name,
       })),
     );
@@ -190,8 +191,13 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
                                 colon={false}
                                 name={[name, CLINICAL_SIGNS_ITEM_KEY.AGE_CODE]}
                                 label={<></>}
+                                rules={defaultFormItemsRules}
+                                required={false}
                               >
-                                <Select placeholder="Âge d'apparition">
+                                <Select
+                                  dropdownMatchSelectWidth={false}
+                                  placeholder="Âge d'apparition"
+                                >
                                   {formConfig?.clinical_signs.onset_age.map((age) => (
                                     <Select.Option key={age.value} value={age.value}>
                                       {age.name}
@@ -237,7 +243,6 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
         </Form.List>
       </Form.Item>
       <Form.Item
-        wrapperCol={{ xxl: 14 }}
         label="Commentaire clinique général"
         name={getName(CLINICAL_SIGNS_FI_KEY.CLINIC_REMARK)}
         className="noMarginBtm"

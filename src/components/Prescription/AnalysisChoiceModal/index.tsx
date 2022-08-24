@@ -3,16 +3,14 @@ import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Checkbox, Form, Modal, Select, Typography } from 'antd';
 
 import { useAppDispatch } from 'store';
+import { useGlobals } from 'store/global';
 import { usePrescriptionForm } from 'store/prescription';
 import { isMuscularAnalysisAndNotGlobal } from 'store/prescription/helper';
 import { prescriptionFormActions } from 'store/prescription/slice';
 import { fetchFormConfig } from 'store/prescription/thunk';
 import { MuscularAnalysisType, OtherAnalysisType } from 'store/prescription/types';
 
-import {
-  defaultFormItemsRules,
-  defaultValidateMessages,
-} from '../Analysis/AnalysisForm/ReusableSteps/constant';
+import { defaultFormItemsRules } from '../Analysis/AnalysisForm/ReusableSteps/constant';
 
 import styles from './index.module.scss';
 
@@ -25,6 +23,7 @@ export enum ANALYSIS_CHOICE_FI_KEY {
 
 const AnalysisChoiceModal = () => {
   const dispatch = useAppDispatch();
+  const { getAnalysisNameByCode } = useGlobals();
   const [form] = Form.useForm();
   const { analysisChoiceModalVisible, formState } = usePrescriptionForm();
 
@@ -62,7 +61,9 @@ const AnalysisChoiceModal = () => {
               form.resetFields();
             });
         }}
-        validateMessages={defaultValidateMessages}
+        validateMessages={{
+          required: intl.get('this.field.is.required'),
+        }}
         layout="vertical"
       >
         <Form.Item
@@ -87,29 +88,38 @@ const AnalysisChoiceModal = () => {
         >
           <Select placeholder="Sélectionner">
             <Select.Option value={OtherAnalysisType.GLOBAL_DEVELOPMENTAL_DELAY}>
-              Retard global de développement / Déficience intellectuelle (trio)
+              {getAnalysisNameByCode(OtherAnalysisType.GLOBAL_DEVELOPMENTAL_DELAY, false)}
             </Select.Option>
             <Select.Option value={OtherAnalysisType.NUCLEAR_MITOCHONDRIOPATHY}>
-              Mitochondriopathie nucléaire
+              {getAnalysisNameByCode(OtherAnalysisType.NUCLEAR_MITOCHONDRIOPATHY, false)}
             </Select.Option>
-            <Select.OptGroup label="Maladie musculaire">
+            <Select.OptGroup label="Maladies musculaires">
               <Select.Option value={MuscularAnalysisType.MUSCULAR_DISEASE_GLOBAL}>
-                Maladies musculaires (panel global)
+                {getAnalysisNameByCode(MuscularAnalysisType.MUSCULAR_DISEASE_GLOBAL, false)}
               </Select.Option>
               <Select.Option value={MuscularAnalysisType.MUSCULAR_DISEASE_DYSTROPHIES}>
-                Dystrophies musculaires
+                {getAnalysisNameByCode(MuscularAnalysisType.MUSCULAR_DISEASE_DYSTROPHIES, false)}
               </Select.Option>
               <Select.Option value={MuscularAnalysisType.MUSCULAR_DISEASE_MALIGNANT_HYPERTHERMIA}>
-                Hyperthermie maligne
+                {getAnalysisNameByCode(
+                  MuscularAnalysisType.MUSCULAR_DISEASE_MALIGNANT_HYPERTHERMIA,
+                  false,
+                )}
               </Select.Option>
               <Select.Option value={MuscularAnalysisType.MUSCULAR_DISEASE_CONGENITAL_MYASTHENIA}>
-                Myasthénies congénitales
+                {getAnalysisNameByCode(
+                  MuscularAnalysisType.MUSCULAR_DISEASE_CONGENITAL_MYASTHENIA,
+                  false,
+                )}
               </Select.Option>
               <Select.Option value={MuscularAnalysisType.MUSCULAR_DISEASE_CONGENITAL_MYOPATHIES}>
-                Myopathies congénitales
+                {getAnalysisNameByCode(
+                  MuscularAnalysisType.MUSCULAR_DISEASE_CONGENITAL_MYOPATHIES,
+                  false,
+                )}
               </Select.Option>
               <Select.Option value={MuscularAnalysisType.MUSCULAR_DISEASE_RHABDOMYOLYSIS}>
-                Rhabomyolyse
+                {getAnalysisNameByCode(MuscularAnalysisType.MUSCULAR_DISEASE_RHABDOMYOLYSIS, false)}
               </Select.Option>
             </Select.OptGroup>
           </Select>

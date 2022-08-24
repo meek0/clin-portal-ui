@@ -1,12 +1,13 @@
-/* eslint-disable */
-import { Descriptions } from 'antd';
+import { Fragment } from 'react';
 import intl from 'react-intl-universal';
+import { Descriptions, Space, Typography } from 'antd';
+
 import { STEPS_ID } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
 import {
   IParaclinicalExamItem,
-  ParaclinicalExamStatus,
-  PARACLINICAL_EXAMS_FI_KEY,
   PARACLINICAL_EXAM_ITEM_KEY,
+  PARACLINICAL_EXAMS_FI_KEY,
+  ParaclinicalExamStatus,
 } from 'components/Prescription/components/ParaclinicalExamsSelect';
 import { usePrescriptionForm, usePrescriptionFormConfig } from 'store/prescription';
 
@@ -17,13 +18,25 @@ const ParaclinicalExamsReview = () => {
   formConfig?.paraclinical_exams;
 
   const getData = (key: PARACLINICAL_EXAMS_FI_KEY) =>
-    analysisData[STEPS_ID.PARACLINICAL_EXAMS]?.[key];
+    analysisData[STEPS_ID.PARACLINICAL_EXAMS]?.[key] || [];
 
   const getExamNameByCode = (code: string) =>
     formConfig?.paraclinical_exams.default_list.find((exam) => exam.value === code)?.name;
 
+  const getFormattedValue = (exam: IParaclinicalExamItem) => {
+    if (exam.value) {
+      return exam.value;
+    }
+
+    return (
+      <Space direction="vertical" size={0}>
+        {exam.values}
+      </Space>
+    );
+  };
+
   return (
-    <Descriptions className='label-20' column={1} size="small">
+    <Descriptions className="label-20" column={1} size="small">
       {(getData(PARACLINICAL_EXAMS_FI_KEY.EXAMS) as IParaclinicalExamItem[])
         .filter(
           (exam) =>
@@ -34,7 +47,16 @@ const ParaclinicalExamsReview = () => {
             key={index}
             label={getExamNameByCode(exam[PARACLINICAL_EXAM_ITEM_KEY.CODE])}
           >
-            {intl.get(exam[PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION])}
+            <Space align="baseline" size={4}>
+              {intl.get(exam[PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION])}
+              {exam[PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION] ===
+                ParaclinicalExamStatus.ABNORMAL && (
+                <Fragment>
+                  <Typography.Text>-</Typography.Text>
+                  {getFormattedValue(exam)}
+                </Fragment>
+              )}
+            </Space>
           </Descriptions.Item>
         ))}
     </Descriptions>

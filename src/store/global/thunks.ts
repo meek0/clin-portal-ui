@@ -14,6 +14,8 @@ const fetchFhirServiceRequestCodes = createAsyncThunk<any>('fhir/serviceRequestC
       (codeDisplayMap[concept.code] = {
         displayName: concept.display,
         displayNameWithCode: `${concept.display} (${concept.code})`,
+        displayNameFr: concept.designation[0].value,
+        displayNameWithCodeFr: `${concept.designation[0].value} (${concept.code})`,
       }),
   );
 

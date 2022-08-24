@@ -64,7 +64,7 @@ export interface ICompleteAnalysisChoice {
   };
 }
 
-export interface ICompletePrescriptionReview {
+export interface ISubmissionStepDataReview {
   resident_supervisor?: string;
   comment?: string;
 }

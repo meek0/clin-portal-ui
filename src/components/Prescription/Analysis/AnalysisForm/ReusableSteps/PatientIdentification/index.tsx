@@ -59,7 +59,7 @@ const PatientIdentification = ({}: IAnalysisStepForm) => {
           {({ getFieldValue }) =>
             getFieldValue(getName(PATIENT_DATA_FI_KEY.NO_RAMQ)) || ramqSearchDone ? (
               <Collapse {...defaultCollapseProps} defaultActiveKey={['additional_information']}>
-                <CollapsePanel key="additional_information" header="Information supplémentaires">
+                <CollapsePanel key="additional_information" header="Informations supplémentaires">
                   <AdditionalInformation
                     form={form}
                     parentKey={FORM_NAME}

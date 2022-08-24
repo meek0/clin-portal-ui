@@ -3,6 +3,7 @@ import intl from 'react-intl-universal';
 import { Form, FormInstance, Input, Radio } from 'antd';
 import { PrescriptionFormApi } from 'api/form';
 import { IFormPatient } from 'api/form/models';
+import { format } from 'date-fns';
 import { isEmpty } from 'lodash';
 import { FieldData } from 'rc-field-form/lib/interface';
 
@@ -14,11 +15,12 @@ import {
   setFieldValue,
   setInitialValues,
 } from 'components/Prescription/utils/form';
-import { formatRamq, isRamqValid } from 'components/Prescription/utils/ramq';
+import { extractDateFromRamq, formatRamq, isRamqValid } from 'components/Prescription/utils/ramq';
 import { IAnalysisFormPart, IGetNamePathParams } from 'components/Prescription/utils/type';
 import InputDateFormItem from 'components/uiKit/form/InputDateFormItem';
 import RadioGroupSex from 'components/uiKit/form/RadioGroupSex';
 import SearchOrNoneFormItem from 'components/uiKit/form/SearchOrNoneFormItem';
+import { MASKED_INPUT_DATE_FORMAT } from 'components/uiKit/input/MaskedDateInput';
 import { usePrescriptionFormConfig } from 'store/prescription';
 import { SexValue } from 'utils/commonTypes';
 
@@ -101,7 +103,7 @@ const PatientDataSearch = ({
       fields.push(
         {
           name: getName(PATIENT_DATA_FI_KEY.BIRTH_DATE),
-          value: patient.birth_date,
+          value: format(new Date(patient.birth_date), MASKED_INPUT_DATE_FORMAT),
         },
         {
           name: getName(PATIENT_DATA_FI_KEY.SEX),
@@ -310,7 +312,14 @@ const PatientDataSearch = ({
                     getName(PATIENT_DATA_FI_KEY.BIRTH_DATE),
                   ]);
                 }}
-                onSearchDone={(value) => {
+                onSearchDone={(value, searchValue) => {
+                  if (searchValue) {
+                    setFieldValue(
+                      form,
+                      getName(PATIENT_DATA_FI_KEY.BIRTH_DATE),
+                      format(extractDateFromRamq(searchValue), MASKED_INPUT_DATE_FORMAT),
+                    );
+                  }
                   updateFormFromPatient(form, value);
                   setRamqSearchDone(true);
                 }}

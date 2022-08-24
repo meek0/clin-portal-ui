@@ -45,6 +45,8 @@ export enum ParaclinicalExamStatus {
 export interface IParaclinicalExamItem {
   [PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION]: string;
   [PARACLINICAL_EXAM_ITEM_KEY.CODE]: string;
+  value?: string;
+  values: string[];
 }
 
 export interface IParaclinicalExamsDataType {
@@ -128,19 +130,21 @@ const ParaclinicalExamsSelect = ({ form, parentKey, initialData }: OwnProps) => 
         }
       </Form.List>
       <Form.Item
-        wrapperCol={{ xxl: 14 }}
         label="Autres examens paracliniques"
         name={getName(PARACLINICAL_EXAMS_FI_KEY.OTHER_EXAMS)}
         className={cx(styles.otherExamsTextarea, 'noMarginBtm')}
       >
-        <Input.TextArea rows={3} />
+        <Input.TextArea
+          rows={3}
+          placeholder={intl.get('prescription.patient.paraclinical.exams.other.placeholder')}
+        />
       </Form.Item>
     </div>
   );
 };
 
 const MultiSelectExtra = ({ name, label, options }: IParaclinicalExamMultiSelectExtra) => (
-  <Form.Item wrapperCol={{ xxl: 14 }} colon={false} label={<></>}>
+  <Form.Item colon={false} label={<></>}>
     <ProLabel title={label || "Spécifier tout ce qui s'applique"} colon size="small" />
     <Form.Item
       name={[name, 'values']}
@@ -166,7 +170,7 @@ const MultiSelectExtra = ({ name, label, options }: IParaclinicalExamMultiSelect
 );
 
 const SimpleInputExtra = ({ name, label }: IParaclinicalExamSimpleInputExtra) => (
-  <Form.Item wrapperCol={{ md: 12, lg: 12, xxl: 6 }} colon={false} label={<></>}>
+  <Form.Item wrapperCol={{ md: 12, lg: 12, xxl: 7 }} colon={false} label={<></>}>
     <ProLabel title={label || 'Sélectionner une valeur'} colon size="small" />
     <Form.Item name={[name, 'value']} rules={defaultFormItemsRules}>
       <Input />

@@ -19,11 +19,22 @@ $label-width: 200px;
     }
   }
 
-  .listErrorWrapper {
-    border: 1px solid $red-8;
-    padding: 12px;
-    border-radius: 2px;
-    background-color: $red-0;
+  .healthConditionsWrapper {
+    .listErrorWrapper {
+      border: 1px solid $red-8;
+      padding: 12px;
+      border-radius: 2px;
+      background-color: $red-0;
+      margin-left: 200px;
+
+      :global(.ant-form-item-label) {
+        width: unset;
+      }
+    }
+
+    :global(.ant-form-item-explain) {
+      margin-left: 200px;
+    }
   }
 
   .healthConditionListItem {

@@ -29,5 +29,7 @@ export type AnalysisCodeMapping = Record<string, FhirAnalysisCodeMap>;
 
 export type FhirAnalysisCodeMap = {
   displayName: string;
+  displayNameFr: string;
   displayNameWithCode: string;
+  displayNameWithCodeFr: string;
 };

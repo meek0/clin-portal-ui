@@ -9,11 +9,7 @@ import SelectItem from 'components/uiKit/select/SelectItem';
 import { usePrescriptionForm } from 'store/prescription';
 import { prescriptionFormActions } from 'store/prescription/slice';
 
-import {
-  defaultFormItemsRules,
-  defaultValidateMessages,
-  STEPS_ID,
-} from '../Analysis/AnalysisForm/ReusableSteps/constant';
+import { defaultFormItemsRules, STEPS_ID } from '../Analysis/AnalysisForm/ReusableSteps/constant';
 
 import PrescriptionSummary from './PrescriptionSummary';
 
@@ -60,7 +56,9 @@ const AddParentModal = () => {
             }),
           );
         }}
-        validateMessages={defaultValidateMessages}
+        validateMessages={{
+          required: intl.get('this.field.is.required'),
+        }}
         layout="vertical"
       >
         <Form.Item

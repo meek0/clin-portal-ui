@@ -12,6 +12,7 @@ import {
   ICurrentFormRefs,
   initialState,
   IStartAddingParent,
+  ISubmissionStepDataReview,
 } from 'store/prescription/types';
 
 import { getAddParentSteps } from './analysis/addParent';
@@ -38,9 +39,15 @@ export const PrescriptionState: initialState = {
 
 export const getAnalysisConfigMapping = (type: AnalysisType) => {
   if (isMuscularAnalysis(type)) {
-    return MuscularDiseaseConfig;
+    return {
+      ...MuscularDiseaseConfig,
+      analysisTitle: type,
+    };
   } else {
-    return DevelopmentDelayConfig;
+    return {
+      ...DevelopmentDelayConfig,
+      analysisTitle: type,
+    };
   }
 };
 
@@ -138,6 +145,15 @@ const prescriptionFormSlice = createSlice({
     },
     currentFormRefs: (state, action: PayloadAction<ICurrentFormRefs>) => {
       state.currentFormRefs = action.payload;
+    },
+    saveSubmissionStepData: (state, action: PayloadAction<ISubmissionStepDataReview>) => {
+      if (action.payload.comment) {
+        state.analysisData.analysis.comment = action.payload.comment;
+      }
+
+      if (action.payload.resident_supervisor) {
+        state.analysisData.analysis.resident_supervisor = action.payload.resident_supervisor;
+      }
     },
   },
   extraReducers: (builder) => {

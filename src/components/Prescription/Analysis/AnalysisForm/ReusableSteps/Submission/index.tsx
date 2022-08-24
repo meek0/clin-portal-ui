@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useHistory } from 'react-router';
 import { FormOutlined } from '@ant-design/icons';
@@ -21,7 +21,8 @@ import {
 } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
 import { SubmissionStepMapping } from 'components/Prescription/Analysis/stepMapping';
 import { PATIENT_DATA_FI_KEY } from 'components/Prescription/components/PatientDataSearch';
-import { getNamePath } from 'components/Prescription/utils/form';
+import { getNamePath, setInitialValues } from 'components/Prescription/utils/form';
+import { IGetNamePathParams } from 'components/Prescription/utils/type';
 import { useAppDispatch } from 'store';
 import { useGlobals } from 'store/global';
 import { usePrescriptionForm } from 'store/prescription';
@@ -52,7 +53,22 @@ const Submission = () => {
   const { analysisData, config, currentStep, analysisType } = usePrescriptionForm();
   const [supervisors, setSupervisors] = useState<DefaultOptionType[]>([]);
 
-  const getName = (...key: string[]) => getNamePath(FORM_NAME, key);
+  const getName = (...key: IGetNamePathParams) => getNamePath(FORM_NAME, key);
+
+  useEffect(() => {
+    if (analysisData.analysis.resident_supervisor) {
+      onSearch('d');
+    }
+    setInitialValues(
+      form,
+      getName,
+      {
+        [SUBMISSION_REVIEW_FI_KEY.GENERAL_COMMENT]: analysisData.analysis.comment,
+        [SUBMISSION_REVIEW_FI_KEY.RESPONSIBLE_DOCTOR]: analysisData.analysis.resident_supervisor,
+      },
+      SUBMISSION_REVIEW_FI_KEY,
+    );
+  }, []);
 
   const needToSelectSupervisor = () => {
     const org = getPrescribingOrg()!;
@@ -87,13 +103,8 @@ const Submission = () => {
         className={styles.submissionForm}
         name={FORM_NAME}
         layout="vertical"
-        onFinish={(value: { [FORM_NAME]: ISubmissionDataType }) => {
-          dispatch(
-            createPrescription({
-              comment: value[FORM_NAME][SUBMISSION_REVIEW_FI_KEY.GENERAL_COMMENT],
-              resident_supervisor: value[FORM_NAME][SUBMISSION_REVIEW_FI_KEY.RESPONSIBLE_DOCTOR],
-            }),
-          )
+        onFinish={() => {
+          dispatch(createPrescription())
             .unwrap()
             .then(({ prescriptionId }) =>
               history.push(DYNAMIC_ROUTES.PRESCRIPTION_ENTITY.replace(':id', prescriptionId)),
@@ -110,7 +121,6 @@ const Submission = () => {
                   colon
                 />
               }
-              wrapperCol={{ xxl: 14 }}
               rules={defaultFormItemsRules}
             >
               <Select
@@ -127,7 +137,6 @@ const Submission = () => {
           <Form.Item
             name={getName(SUBMISSION_REVIEW_FI_KEY.GENERAL_COMMENT)}
             label={<ProLabel title={intl.get('prescription.submission.general.comment')} colon />}
-            wrapperCol={{ xxl: 14 }}
           >
             <Input.TextArea rows={3} />
           </Form.Item>
@@ -162,6 +171,16 @@ const Submission = () => {
                 <FormOutlined
                   onClick={(event) => {
                     event.stopPropagation();
+                    dispatch(
+                      prescriptionFormActions.saveSubmissionStepData({
+                        comment: form.getFieldValue(
+                          getName(SUBMISSION_REVIEW_FI_KEY.GENERAL_COMMENT),
+                        ),
+                        resident_supervisor: form.getFieldValue(
+                          getName(SUBMISSION_REVIEW_FI_KEY.RESPONSIBLE_DOCTOR),
+                        ),
+                      }),
+                    );
                     dispatch(
                       prescriptionFormActions.goTo({
                         index: step.index!,

@@ -14,15 +14,17 @@ import {
 import { TCompleteAnalysis } from './types';
 
 export const cleanAnalysisData = (analysis: TCompleteAnalysis) => {
-  if (analysis.paraclinical_exams) {
-    analysis.paraclinical_exams = cleanParaclinicalExams(analysis.paraclinical_exams);
+  const analysisCopy = { ...analysis };
+
+  if (analysisCopy.paraclinical_exams) {
+    analysisCopy.paraclinical_exams = cleanParaclinicalExams(analysisCopy.paraclinical_exams);
   }
 
-  if (analysis.clinical_signs) {
-    analysis.clinical_signs = cleanClinicalSigns(analysis.clinical_signs);
+  if (analysisCopy.clinical_signs) {
+    analysisCopy.clinical_signs = cleanClinicalSigns(analysisCopy.clinical_signs);
   }
 
-  return analysis;
+  return analysisCopy;
 };
 
 const cleanParaclinicalExams = (
