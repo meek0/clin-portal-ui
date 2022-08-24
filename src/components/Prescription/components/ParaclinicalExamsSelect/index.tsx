@@ -45,6 +45,8 @@ export enum ParaclinicalExamStatus {
 export interface IParaclinicalExamItem {
   [PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION]: string;
   [PARACLINICAL_EXAM_ITEM_KEY.CODE]: string;
+  value?: string;
+  values: string[];
 }
 
 export interface IParaclinicalExamsDataType {
