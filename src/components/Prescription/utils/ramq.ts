@@ -1,3 +1,5 @@
+import { parse } from 'date-fns';
+
 export const RAMQ_PATTERN = RegExp(/^[a-zA-Z-]{4}\d{8,8}$/);
 export const RAMQ_NUMBER_LENGTH = 12;
 
@@ -15,3 +17,6 @@ export const formatRamq = (value: string) =>
       '',
     )
     .trimEnd();
+
+export const extractDateFromRamq = (ramq: string) =>
+  parse(ramq.substring(4, 10), 'yyMMdd', new Date());

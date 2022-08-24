@@ -56,7 +56,7 @@ export interface ServiceRequestCodeConcept {
   designation: {
     language: 'fr' | 'en';
     value: string;
-  };
+  }[];
 }
 
 export interface ServiceRequestCode {

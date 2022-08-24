@@ -36,7 +36,7 @@ const ClinicalSignsReview = ({ stepId = STEPS_ID.CLINICAL_SIGNS }: OwnProps) => 
     <span key={index}>{`${sign[CLINICAL_SIGNS_ITEM_KEY.NAME]} (${
       sign[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]
     }) ${
-      sign.age_code
+      sign.is_observed && sign.age_code
         ? ' - ' +
           formConfig?.clinical_signs.onset_age.find((age) => age.value === sign.age_code)?.name
         : ''

@@ -100,7 +100,7 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
         >
           {({ getFieldValue }) =>
             getFieldValue(getName(HISTORY_AND_DIAG_FI_KEY.REPORT_HEALTH_CONDITIONS)) ? (
-              <Form.Item wrapperCol={{ xxl: 16 }} className="noMarginBtm">
+              <Form.Item className={cx('noMarginBtm', styles.healthConditionsWrapper)}>
                 <Form.Item {...hiddenLabelConfig} className="noMarginBtm">
                   <ProLabel
                     title="Indiquer au moins une condition de santé et son lien parental"
@@ -225,11 +225,10 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
       <Form.Item
         label="Hypothèse diagnostique"
         name={getName(HISTORY_AND_DIAG_FI_KEY.DIAGNOSIS_HYPOTHESIS)}
-        wrapperCol={{ xxl: 14 }}
         rules={defaultFormItemsRules}
         className="noMarginBtm"
       >
-        <Input.TextArea rows={3} placeholder="Sélectionner" />
+        <Input.TextArea rows={3} placeholder="Indications" />
       </Form.Item>
     </div>
   );

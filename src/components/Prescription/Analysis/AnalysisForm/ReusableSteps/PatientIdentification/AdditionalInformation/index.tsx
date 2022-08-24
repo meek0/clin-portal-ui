@@ -182,7 +182,9 @@ const AdditionalInformation = ({
                       }}
                       parentFormItemName={getName(ADD_INFO_FI_KEY.GESTATIONAL_AGE)}
                     />
-                    <Radio value={GestationalAgeValues.DEAD_FOETUS}>Foetus décédé</Radio>
+                    <Radio value={GestationalAgeValues.DEAD_FOETUS}>
+                      {intl.get('prescription.patient.identification.foetus.dead')}
+                    </Radio>
                   </Space>
                 </Radio.Group>
               </Form.Item>
@@ -198,7 +200,7 @@ const AdditionalInformation = ({
             valuePropName="checked"
           >
             <Checkbox disabled={form.getFieldValue(getName(ADD_INFO_FI_KEY.PRENATAL_DIAGNOSIS))}>
-              Oui
+              {intl.get('yes')}
             </Checkbox>
           </Form.Item>
           <Form.Item

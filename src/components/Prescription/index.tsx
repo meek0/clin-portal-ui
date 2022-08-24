@@ -108,9 +108,9 @@ const PrescriptionForm = () => {
                       ) : lastStepIsNext ? (
                         intl.get('save')
                       ) : (
-                        <>
+                        <Space size={4}>
                           {intl.get('next')} <ArrowRightOutlined />
-                        </>
+                        </Space>
                       )}
                     </Button>
                   </Space>

@@ -1,6 +1,4 @@
-import intl from 'react-intl-universal';
 import { TCollapseProps } from '@ferlab/ui/core/components/Collapse';
-import { ValidateMessages } from 'rc-field-form/lib/interface';
 
 export enum STEPS_ID {
   PATIENT_IDENTIFICATION = 'patient',
@@ -17,9 +15,6 @@ export const EMPTY_FIELD = '--';
 
 export const defaultFormItemsRules = [{ required: true, validateTrigger: 'onSumbit' }];
 
-export const defaultValidateMessages: ValidateMessages = {
-  required: intl.get('this.field.is.required'),
-};
 export const defaultCollapseProps: TCollapseProps = {
   size: 'small',
   arrowIcon: 'caretFilled',

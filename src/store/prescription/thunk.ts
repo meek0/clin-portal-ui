@@ -7,7 +7,7 @@ import { capitalize } from 'lodash';
 import { globalActions } from 'store/global';
 import { RootState } from 'store/types';
 
-import { ICompletePrescriptionReview, TCompleteAnalysis } from './types';
+import { TCompleteAnalysis } from './types';
 import { cleanAnalysisData } from './utils';
 
 const fetchFormConfig = createAsyncThunk<TFormConfig, { code: string }>(
@@ -30,45 +30,29 @@ const fetchFormConfig = createAsyncThunk<TFormConfig, { code: string }>(
   },
 );
 
-const createPrescription = createAsyncThunk<
-  { prescriptionId: string },
-  ICompletePrescriptionReview,
-  { state: RootState }
->('prescription/createPrescription', async (args, thunkApi) => {
-  const analysisData = thunkApi.getState().prescription.analysisData;
-  const analysisInfo = {
-    ...analysisData.analysis,
-  };
+const createPrescription = createAsyncThunk<{ prescriptionId: string }, void, { state: RootState }>(
+  'prescription/createPrescription',
+  async (_, thunkApi) => {
+    const analysisData = thunkApi.getState().prescription.analysisData;
+    const prescriptionData: TCompleteAnalysis = cleanAnalysisData(analysisData);
 
-  if (args.comment) {
-    analysisInfo.comment = args.comment;
-  }
+    const { data, error } = await PrescriptionFormApi.createPrescription(prescriptionData);
 
-  if (args.resident_supervisor) {
-    analysisInfo.resident_supervisor = args.resident_supervisor;
-  }
+    if (error) {
+      thunkApi.dispatch(
+        globalActions.displayNotification({
+          message: capitalize(intl.get('notification.error')),
+          description: intl.get('notification.error.prescription.form.create'),
+          type: 'error',
+        }),
+      );
+      return thunkApi.rejectWithValue(error.response?.data);
+    }
 
-  const prescriptionData: TCompleteAnalysis = cleanAnalysisData({
-    ...analysisData,
-    analysis: analysisInfo,
-  });
-
-  const { data, error } = await PrescriptionFormApi.createPrescription(prescriptionData);
-
-  if (error) {
-    thunkApi.dispatch(
-      globalActions.displayNotification({
-        message: capitalize(intl.get('notification.error')),
-        description: intl.get('notification.error.prescription.form.create'),
-        type: 'error',
-      }),
-    );
-    return thunkApi.rejectWithValue(error.response?.data);
-  }
-
-  return {
-    prescriptionId: data?.id!,
-  };
-});
+    return {
+      prescriptionId: data?.id!,
+    };
+  },
+);
 
 export { fetchFormConfig, createPrescription };

@@ -1,5 +1,6 @@
 import intl from 'react-intl-universal';
 import { Descriptions } from 'antd';
+import { capitalize } from 'lodash';
 
 import {
   EMPTY_FIELD,
@@ -29,7 +30,7 @@ const PatientIdentificationReview = ({ stepId = STEPS_ID.PATIENT_IDENTIFICATION 
   const getName = () => {
     const firstName = getData(PATIENT_DATA_FI_KEY.FIRST_NAME);
     const lastName = getData(PATIENT_DATA_FI_KEY.LAST_NAME);
-    return `${firstName} ${lastName}`;
+    return `${lastName?.toString().toUpperCase()} ${capitalize(firstName?.toString())}`;
   };
 
   return (

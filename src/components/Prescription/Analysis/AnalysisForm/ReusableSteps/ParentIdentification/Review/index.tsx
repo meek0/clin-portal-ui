@@ -34,7 +34,7 @@ const ParentIdentificationReview = ({ parent }: OwnProps) => {
         <Divider style={{ margin: '12px 0' }} />
         <Descriptions className="label-20" column={1} size="small">
           <Descriptions.Item
-            label="Status"
+            label={intl.get('status')}
             style={isAffected ? { paddingBottom: '8px' } : undefined}
           >
             {intl.get(status ?? '')}

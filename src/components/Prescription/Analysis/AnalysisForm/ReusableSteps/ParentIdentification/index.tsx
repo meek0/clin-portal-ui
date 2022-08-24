@@ -114,7 +114,9 @@ const ParentIdentification = ({ parent }: OwnProps) => {
               >
                 <Input.TextArea
                   rows={2}
-                  placeholder={intl.get('prescription.parent.info.moment.justify.placeholder')}
+                  placeholder={intl.get(
+                    `prescription.parent.info.moment.justify.${value}.placeholder`,
+                  )}
                 />
               </Form.Item>
             ) : null;
@@ -172,7 +174,7 @@ const ParentIdentification = ({ parent }: OwnProps) => {
               >
                 <Form.Item
                   name={getName(PARENT_DATA_FI_KEY.CLINICAL_STATUS)}
-                  label="Status"
+                  label={intl.get('status')}
                   rules={defaultFormItemsRules}
                 >
                   <Radio.Group>
