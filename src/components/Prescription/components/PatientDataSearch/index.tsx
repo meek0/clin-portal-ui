@@ -231,10 +231,7 @@ const PatientDataSearch = ({
               onSearchDone={(value) => {
                 updateFormFromPatient(form, value);
                 setFileSearchDone(true);
-
-                if (isEmpty(value)) {
-                  setIsNewFileNumber(true);
-                }
+                setIsNewFileNumber(isEmpty(value));
 
                 if (value && value.ramq) {
                   setRamqSearchDone(true);

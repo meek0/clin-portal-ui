@@ -175,6 +175,7 @@ const prescriptionFormSlice = createSlice({
     });
     builder.addCase(createPrescription.fulfilled, (state) => {
       state.isCreatingPrescription = false;
+      state.prescriptionVisible = false;
     });
     builder.addCase(createPrescription.rejected, (state) => {
       state.isCreatingPrescription = false;

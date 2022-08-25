@@ -21,7 +21,7 @@ const InputDateFormItem = ({ formItemProps, extra, onValidate }: InputDateFormIt
           {
             required: formItemProps?.required,
             validator(_, value) {
-              if (isValid(new Date(value))) {
+              if (isValid(new Date(value.replaceAll(' ', '')))) {
                 return Promise.resolve();
               }
               return Promise.reject(new Error('La date est invalide'));
