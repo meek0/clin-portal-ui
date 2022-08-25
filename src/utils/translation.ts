@@ -28,6 +28,9 @@ export const getFiltersDictionary = (): FiltersDict => ({
     greaterThan: intl.get('querybuilder.filters.operators.greaterthan'),
     greaterThanOrEqual: intl.get('querybuilder.filters.operators.greaterthanorequal'),
     between: intl.get('querybuilder.filters.operators.between'),
+    anyOf: intl.get('querybuilder.filters.operators.anyOf'),
+    allOf: intl.get('querybuilder.filters.operators.allOf'),
+    noneOf: intl.get('querybuilder.filters.operators.noneOf'),
   },
 });
 
@@ -40,6 +43,9 @@ export const getProTableDictionary = (): IProTableDictionary => ({
     selectedPlural: intl.get('protable.selectedPlural'),
     selectAllResults: intl.get('protable.selectAllResults'),
     clear: intl.get('protable.clear'),
+  },
+  columnSelector: {
+    reset: intl.get('protable.reset'),
   },
   numberFormat: formatNumber,
 });

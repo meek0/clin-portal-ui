@@ -149,7 +149,7 @@ export const getVariantColumns = (
     },
     {
       title: intl.get('screen.patientcnv.results.table.bins_count'),
-      tooltip: intl.get('screen.patientcnv.results.table.bins_count'),
+      tooltip: intl.get('screen.patientcnv.results.table.bins_count.tooltip'),
       key: 'bc',
       dataIndex: 'bc',
       defaultHidden: true,
