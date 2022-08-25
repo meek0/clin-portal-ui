@@ -15,7 +15,11 @@ import {
   setFieldValue,
   setInitialValues,
 } from 'components/Prescription/utils/form';
-import { extractDateFromRamq, formatRamq, isRamqValid } from 'components/Prescription/utils/ramq';
+import {
+  extractBirthDateAndSexFromRamq,
+  formatRamq,
+  isRamqValid,
+} from 'components/Prescription/utils/ramq';
 import { IAnalysisFormPart, IGetNamePathParams } from 'components/Prescription/utils/type';
 import InputDateFormItem from 'components/uiKit/form/InputDateFormItem';
 import RadioGroupSex from 'components/uiKit/form/RadioGroupSex';
@@ -319,12 +323,14 @@ const PatientDataSearch = ({
                   ]);
                 }}
                 onSearchDone={(value, searchValue) => {
-                  if (searchValue) {
+                  if (isEmpty(value) && searchValue) {
+                    const ramqData = extractBirthDateAndSexFromRamq(searchValue);
                     setFieldValue(
                       form,
                       getName(PATIENT_DATA_FI_KEY.BIRTH_DATE),
-                      format(extractDateFromRamq(searchValue), MASKED_INPUT_DATE_FORMAT),
+                      format(ramqData.birthDate, MASKED_INPUT_DATE_FORMAT),
                     );
+                    setFieldValue(form, getName(PATIENT_DATA_FI_KEY.SEX), ramqData.sex);
                   }
                   updateFormFromPatient(form, value);
                   setRamqSearchDone(true);
