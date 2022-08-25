@@ -1,4 +1,4 @@
-import { parse } from 'date-fns';
+import { format, parse } from 'date-fns';
 
 import { SexValue } from 'utils/commonTypes';
 
@@ -20,7 +20,7 @@ export const formatRamq = (value: string) =>
     )
     .trimEnd();
 
-export const extractBirthDateAndSexFromRamq = (ramq: string) => {
+export const extractBirthDateAndSexFromRamq = (ramq: string, dateFormat: string) => {
   let sex = SexValue.MALE;
   const dateString = ramq.substring(4, 10);
   const year = dateString.substring(0, 2);
@@ -32,8 +32,17 @@ export const extractBirthDateAndSexFromRamq = (ramq: string) => {
     month = month - 50;
   }
 
+  let birthDate;
+
+  try {
+    const date = parse(year + month.toString().padStart(2, '0') + day, 'yyMMdd', new Date());
+    birthDate = format(date, dateFormat);
+  } catch {
+    birthDate = undefined;
+  }
+
   return {
     sex,
-    birthDate: parse(year + month.toString().padStart(2, '0') + day, 'yyMMdd', new Date()),
+    birthDate,
   };
 };
