@@ -310,7 +310,7 @@ export const getVariantColumns = (
       {
         key: 'altratio',
         title: intl.get('screen.patientsnv.results.table.altratio'),
-        tooltip: intl.get('screen.patientsnv.results.table.altratio'),
+        tooltip: intl.get('screen.patientsnv.results.table.altratio.tooltip'),
         defaultHidden: true,
         render: (record: VariantEntity) =>
           (findDonorById(record.donors, patientId)?.ad_ratio ?? 0).toFixed(2) ??
