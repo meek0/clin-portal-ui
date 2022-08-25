@@ -14,7 +14,6 @@ This application takes minimally the following variables as input:
 - **REACT_APP_FHIR_SERVICE_URL**: Fhir endpoint.
 - **REACT_APP_ZEPLIN_URL**: Zepplin notebook endpoint.
 - **REACT_APP_FHIR_CONSOLE_URL**: Fhir console endpoint.
-- **REACT_APP_HPO_URL**: HPO endpoint.
 - **REACT_APP_WEB_ROOT**: Web root endpoint.
 - **SASS_PATH**: SASS Path needed to.
 

@@ -40,7 +40,7 @@ const fetchRootNodes = async (root: string) => {
     return [];
   }
 
-  return data?.data!.hits.map((item) => hpoToTreeNode(item._source)) ?? [];
+  return data!.hits.map((item) => hpoToTreeNode(item._source)) ?? [];
 };
 
 const PhenotypeTree = ({
@@ -78,7 +78,7 @@ const PhenotypeTree = ({
         setIsLoading(false);
 
         if (!error) {
-          node.children = data?.data!.hits.map((item) => hpoToTreeNode(item._source));
+          node.children = data?.hits.map((item) => hpoToTreeNode(item._source));
           setTreeNodes([...treeNodes]);
           resolve();
         }
@@ -88,7 +88,7 @@ const PhenotypeTree = ({
   const handleHpoSearchTermChanged = (term: string) => {
     HpoApi.searchHpos(term.toLowerCase().trim()).then(({ data, error }) => {
       if (!error) {
-        const results = map(data?.data.hits, '_source');
+        const results = map(data?.hits, '_source');
         setCurrentOptions(results);
       }
     });

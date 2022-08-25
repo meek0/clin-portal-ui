@@ -4,12 +4,12 @@ import EnvironmentVariables from 'utils/EnvVariables';
 
 import { IHpoPayload } from './models';
 
-const HPO_SERVICE_URL = EnvironmentVariables.configFor('HPO_URL');
+const HPO_SERVICE_URL = EnvironmentVariables.configFor('ARRANGER_API');
 
 const searchHpos = (term: string) =>
   sendRequestWithRpt<IHpoPayload>({
     method: 'GET',
-    url: `${HPO_SERVICE_URL}/autocomplete`,
+    url: `${HPO_SERVICE_URL}/hpo/autocomplete`,
     params: {
       prefix: term,
     },
@@ -18,7 +18,7 @@ const searchHpos = (term: string) =>
 const searchHpoChildren = (hpoCode: string) =>
   sendRequestWithRpt<IHpoPayload>({
     method: 'GET',
-    url: `${HPO_SERVICE_URL}/descendants`,
+    url: `${HPO_SERVICE_URL}/hpo/descendants`,
     params: {
       parentHpoId: hpoCode,
     },
@@ -27,7 +27,7 @@ const searchHpoChildren = (hpoCode: string) =>
 const searchHPOByAncestorId = (hpoId: string, size = 1000, after?: string) =>
   sendRequestWithRpt<IHpoPayload>({
     method: 'GET',
-    url: `${HPO_SERVICE_URL}/ancestors`,
+    url: `${HPO_SERVICE_URL}/hpo/ancestors`,
     params: {
       hpoId,
       after,
