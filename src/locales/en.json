@@ -17,6 +17,7 @@
   "first.name": "First name",
   "last.name": "Last name",
   "click.on.search": "Click on search",
+  "cant.have.two.file.number.same.patient": "Cannot have two different file numbers for the same patient",
   "no.ramq.or.new.born": "No RAMQ or newborn number",
   "ramq.number.invalid": "The RAMQ number is invalid",
   "no.folder.number": "No file number",

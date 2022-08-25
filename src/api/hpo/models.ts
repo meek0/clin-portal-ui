@@ -12,8 +12,6 @@ export interface IHpoChild {
 }
 
 export interface IHpoPayload {
-  data: {
-    hits: IHpoChild[];
-    total: number;
-  };
+  hits: IHpoChild[];
+  total: number;
 }

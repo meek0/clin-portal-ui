@@ -15,7 +15,11 @@ import {
   setFieldValue,
   setInitialValues,
 } from 'components/Prescription/utils/form';
-import { extractDateFromRamq, formatRamq, isRamqValid } from 'components/Prescription/utils/ramq';
+import {
+  extractBirthDateAndSexFromRamq,
+  formatRamq,
+  isRamqValid,
+} from 'components/Prescription/utils/ramq';
 import { IAnalysisFormPart, IGetNamePathParams } from 'components/Prescription/utils/type';
 import InputDateFormItem from 'components/uiKit/form/InputDateFormItem';
 import RadioGroupSex from 'components/uiKit/form/RadioGroupSex';
@@ -70,6 +74,7 @@ const PatientDataSearch = ({
   initialData,
 }: OwnProps) => {
   const formConfig = usePrescriptionFormConfig();
+  const [isNewFileNumber, setIsNewFileNumber] = useState(false);
   const [fileSearchDone, setFileSearchDone] = useState(initialFileSearchDone);
   const [ramqSearchDone, setRamqSearchDone] = useState(initialRamqSearchDone);
 
@@ -136,6 +141,12 @@ const PatientDataSearch = ({
       setFileSearchDone(!!(initialData.no_mrn || initialData.mrn));
       setRamqSearchDone(!!(initialData.no_ramq || initialData.ramq));
       setInitialValues(form, getName, initialData, PATIENT_DATA_FI_KEY);
+    } else {
+      setFieldValue(
+        form,
+        getName(PATIENT_DATA_FI_KEY.PRESCRIBING_INSTITUTION),
+        formConfig?.prescribing_institutions[0].value,
+      );
     }
     // eslint-disable-next-line
   }, []);
@@ -220,6 +231,8 @@ const PatientDataSearch = ({
               onSearchDone={(value) => {
                 updateFormFromPatient(form, value);
                 setFileSearchDone(true);
+                setIsNewFileNumber(isEmpty(value));
+
                 if (value && value.ramq) {
                   setRamqSearchDone(true);
                 }
@@ -280,7 +293,10 @@ const PatientDataSearch = ({
                   onSearch: (value, search) => {
                     resetFieldError(form, getName(PATIENT_DATA_FI_KEY.RAMQ_NUMBER));
 
-                    if (isRamqValid(value)) {
+                    if (
+                      extractBirthDateAndSexFromRamq(value, MASKED_INPUT_DATE_FORMAT).birthDate &&
+                      isRamqValid(value)
+                    ) {
                       (search as Function)(value.replace(/\s/g, ''));
                     } else {
                       setFieldError(
@@ -313,15 +329,32 @@ const PatientDataSearch = ({
                   ]);
                 }}
                 onSearchDone={(value, searchValue) => {
-                  if (searchValue) {
-                    setFieldValue(
-                      form,
-                      getName(PATIENT_DATA_FI_KEY.BIRTH_DATE),
-                      format(extractDateFromRamq(searchValue), MASKED_INPUT_DATE_FORMAT),
+                  if (isEmpty(value) && searchValue) {
+                    const ramqData = extractBirthDateAndSexFromRamq(
+                      searchValue,
+                      MASKED_INPUT_DATE_FORMAT,
                     );
+
+                    if (ramqData.birthDate) {
+                      setFieldValue(
+                        form,
+                        getName(PATIENT_DATA_FI_KEY.BIRTH_DATE),
+                        ramqData.birthDate,
+                      );
+                      setFieldValue(form, getName(PATIENT_DATA_FI_KEY.SEX), ramqData.sex);
+                    }
                   }
-                  updateFormFromPatient(form, value);
-                  setRamqSearchDone(true);
+
+                  if (isNewFileNumber && !isEmpty(value)) {
+                    setFieldError(
+                      form,
+                      getName(PATIENT_DATA_FI_KEY.RAMQ_NUMBER),
+                      intl.get('cant.have.two.file.number.same.patient'),
+                    );
+                  } else {
+                    updateFormFromPatient(form, value);
+                    setRamqSearchDone(true);
+                  }
                 }}
                 apiPromise={(value) =>
                   PrescriptionFormApi.searchPatient({

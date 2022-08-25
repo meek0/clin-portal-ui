@@ -12,7 +12,6 @@ REACT_APP_ARRANGER_PROJECT_ID=clin_prod
 REACT_APP_FHIR_SERVICE_URL=https://fhir.cqgc.hsj.rtss.qc.ca/fhir
 REACT_APP_ZEPLIN_URL=https://notebook.cqgc.hsj.rtss.qc.ca
 REACT_APP_FHIR_CONSOLE_URL=https://fhir-console.cqgc.hsj.rtss.qc.ca/home
-REACT_APP_HPO_URL=https://hpo.cqgc.hsj.rtss.qc.ca/hpo
 REACT_APP_WEB_ROOT=https://portail.cqgc.hsj.rtss.qc.ca
 REACT_APP_USERS_API_URL=
 

@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { useState } from 'react';
 import Collapse, { CollapsePanel } from '@ferlab/ui/core/components/Collapse';
 import { Form, Space } from 'antd';
+import { useState } from 'react';
 
 import AnalysisForm from 'components/Prescription/Analysis/AnalysisForm';
 import PatientDataSearch, {
   IPatientDataType,
-  PATIENT_DATA_FI_KEY,
+  PATIENT_DATA_FI_KEY
 } from 'components/Prescription/components/PatientDataSearch';
 import { getNamePath } from 'components/Prescription/utils/form';
 import { IAnalysisStepForm } from 'components/Prescription/utils/type';
@@ -15,9 +15,7 @@ import { usePrescriptionForm } from 'store/prescription';
 import { defaultCollapseProps, STEPS_ID } from '../constant';
 
 import AdditionalInformation, {
-  additionalInfoKey,
-  ADD_INFO_FI_KEY,
-  IAddInfoDataType,
+  additionalInfoKey, ADD_INFO_FI_KEY, IAddInfoDataType
 } from './AdditionalInformation';
 
 import styles from './index.module.scss';

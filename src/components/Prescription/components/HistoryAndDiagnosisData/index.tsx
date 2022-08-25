@@ -139,12 +139,14 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
                             >
                               <Form.Item
                                 {...restField}
+                                rules={key > 0 ? defaultFormItemsRules : undefined}
                                 name={[name, HEALTH_CONDITION_ITEM_KEY.CONDITION]}
                               >
                                 <Input placeholder="Condition de santé" onChange={resetListError} />
                               </Form.Item>
                               <Form.Item
                                 {...restField}
+                                rules={key > 0 ? defaultFormItemsRules : undefined}
                                 name={[name, HEALTH_CONDITION_ITEM_KEY.PARENTAL_LINK]}
                               >
                                 <Select placeholder="Lien parental" onChange={resetListError}>

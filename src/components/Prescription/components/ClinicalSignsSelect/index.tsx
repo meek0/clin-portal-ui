@@ -15,6 +15,7 @@ import {
 } from 'components/Prescription/utils/form';
 import { IAnalysisFormPart, IGetNamePathParams } from 'components/Prescription/utils/type';
 import { usePrescriptionFormConfig } from 'store/prescription';
+import { extractPhenotypeTitleAndCode } from 'utils/hpo';
 
 import styles from './index.module.scss';
 
@@ -126,6 +127,7 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
                   const isDefaultHpoTerm = isDefaultHpo(
                     hpoNode[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE],
                   );
+
                   return (
                     <div
                       key={key}
@@ -197,6 +199,7 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
                                 <Select
                                   dropdownMatchSelectWidth={false}
                                   placeholder="Âge d'apparition"
+                                  className={styles.ageSelectInput}
                                 >
                                   {formConfig?.clinical_signs.onset_age.map((age) => (
                                     <Select.Option key={age.value} value={age.value}>
@@ -230,12 +233,21 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
                 visible={isPhenotypeModalVisible}
                 onVisibleChange={setIsPhenotypeModalVisible}
                 onApply={(nodes) => {
-                  nodes.forEach((node) =>
-                    add({
-                      [CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]: node.title,
-                      [CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED]: true,
-                    }),
-                  );
+                  const currentValues = form.getFieldValue(
+                    getName(CLINICAL_SIGNS_FI_KEY.SIGNS),
+                  ) as IClinicalSignItem[];
+                  const valuesList = currentValues.map(({ value }) => value);
+
+                  nodes
+                    .filter(({ key }) => !valuesList.includes(key))
+                    .forEach((node) =>
+                      add({
+                        [CLINICAL_SIGNS_ITEM_KEY.NAME]: extractPhenotypeTitleAndCode(node.title)
+                          ?.title,
+                        [CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]: node.key,
+                        [CLINICAL_SIGNS_ITEM_KEY.IS_OBSERVED]: true,
+                      }),
+                    );
                 }}
               />
             </>

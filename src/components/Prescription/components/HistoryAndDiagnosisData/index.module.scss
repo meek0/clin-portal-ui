@@ -43,6 +43,10 @@ $label-width: 200px;
     margin-top: 6px;
     margin-bottom: 6px;
 
+    :global(.ant-form-item-explain) {
+      margin-left: unset
+    }
+
     .hidden {
       visibility: hidden;
     }

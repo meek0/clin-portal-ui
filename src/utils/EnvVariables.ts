@@ -9,7 +9,6 @@ export default class EnvironmentVariables {
     ARRANGER_API: process.env.REACT_APP_ARRANGER_API,
     ARRANGER_PROJECT_ID: process.env.REACT_APP_ARRANGER_PROJECT_ID,
     FHIR_API: process.env.REACT_APP_FHIR_SERVICE_URL,
-    HPO_URL: process.env.REACT_APP_HPO_URL,
     USERS_API_URL: process.env.REACT_APP_USERS_API_URL,
     FORM_API_URL: process.env.REACT_APP_FORM_API_URL,
   };
