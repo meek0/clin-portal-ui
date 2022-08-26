@@ -30,6 +30,7 @@ import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import GqLine from '../components/GQLine';
 import { HcComplementDescription } from '../components/OccurrenceDrawer/HcDescription';
 import ReportButton from '../components/Report/DownloadButton';
+import { TAB_ID } from '../Entity';
 
 import AcmgVerdict from './components/AcmgVerdict';
 
@@ -75,7 +76,7 @@ export const getVariantColumns = (
       render: (hgvsg: string, entity: VariantEntity) =>
         hgvsg ? (
           <Tooltip placement="topLeft" title={hgvsg}>
-            <Link target="_blank" to={`/variant/entity/${entity.locus}`}>
+            <Link target="_blank" to={`/variant/entity/${entity.locus}/${TAB_ID.SUMMARY}`}>
               {hgvsg}
             </Link>
           </Tooltip>
