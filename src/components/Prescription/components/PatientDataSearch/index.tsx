@@ -24,7 +24,7 @@ import { IAnalysisFormPart, IGetNamePathParams } from 'components/Prescription/u
 import InputDateFormItem from 'components/uiKit/form/InputDateFormItem';
 import RadioGroupSex from 'components/uiKit/form/RadioGroupSex';
 import SearchOrNoneFormItem from 'components/uiKit/form/SearchOrNoneFormItem';
-import { MASKED_INPUT_DATE_FORMAT } from 'components/uiKit/input/MaskedDateInput';
+import { INPUT_DATE_OUTPUT_FORMAT } from 'components/uiKit/input/MaskedDateInput';
 import { usePrescriptionFormConfig } from 'store/prescription';
 import { SexValue } from 'utils/commonTypes';
 
@@ -108,7 +108,7 @@ const PatientDataSearch = ({
       fields.push(
         {
           name: getName(PATIENT_DATA_FI_KEY.BIRTH_DATE),
-          value: format(new Date(patient.birth_date), MASKED_INPUT_DATE_FORMAT),
+          value: format(new Date(patient.birth_date), INPUT_DATE_OUTPUT_FORMAT),
         },
         {
           name: getName(PATIENT_DATA_FI_KEY.SEX),
@@ -294,7 +294,7 @@ const PatientDataSearch = ({
                     resetFieldError(form, getName(PATIENT_DATA_FI_KEY.RAMQ_NUMBER));
 
                     if (
-                      extractBirthDateAndSexFromRamq(value, MASKED_INPUT_DATE_FORMAT).birthDate &&
+                      extractBirthDateAndSexFromRamq(value, INPUT_DATE_OUTPUT_FORMAT).birthDate &&
                       isRamqValid(value)
                     ) {
                       (search as Function)(value.replace(/\s/g, ''));
@@ -332,7 +332,7 @@ const PatientDataSearch = ({
                   if (isEmpty(value) && searchValue) {
                     const ramqData = extractBirthDateAndSexFromRamq(
                       searchValue,
-                      MASKED_INPUT_DATE_FORMAT,
+                      INPUT_DATE_OUTPUT_FORMAT,
                     );
 
                     if (ramqData.birthDate) {
