@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal';
 import { Form, FormItemProps, Space } from 'antd';
 import { isValid } from 'date-fns';
 
@@ -21,10 +22,10 @@ const InputDateFormItem = ({ formItemProps, extra, onValidate }: InputDateFormIt
           {
             required: formItemProps?.required,
             validator(_, value) {
-              if (isValid(new Date(value.replaceAll(' ', '')))) {
+              if (value && isValid(new Date(value.replaceAll(' ', '')))) {
                 return Promise.resolve();
               }
-              return Promise.reject(new Error('La date est invalide'));
+              return Promise.reject(new Error(intl.get('this.field.is.required')));
             },
             validateTrigger: 'onSubmit',
           },

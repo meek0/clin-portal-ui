@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import intl from 'react-intl-universal';
-import { Descriptions, Space, Typography } from 'antd';
+import { Descriptions, Typography } from 'antd';
 
 import { STEPS_ID } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
 import {
@@ -25,13 +25,24 @@ const ParaclinicalExamsReview = () => {
 
   const getFormattedValue = (exam: IParaclinicalExamItem) => {
     if (exam.value) {
-      return exam.value;
+      // TODO Hard coded right now.
+      // Should come from the config
+      return `${exam.value} UI/L`;
     }
 
+    const examDefaultValues = formConfig?.paraclinical_exams.default_list.find(
+      (d) => d.value === exam.code,
+    );
+
     return (
-      <Space direction="vertical" size={0}>
-        {exam.values}
-      </Space>
+      <Fragment>
+        {exam.values
+          .map(
+            (value) =>
+              examDefaultValues?.extra?.options?.find((option) => option.value === value)?.name,
+          )
+          .join(', ')}
+      </Fragment>
     );
   };
 
@@ -47,16 +58,16 @@ const ParaclinicalExamsReview = () => {
             key={index}
             label={getExamNameByCode(exam[PARACLINICAL_EXAM_ITEM_KEY.CODE])}
           >
-            <Space align="baseline" size={4}>
+            <Typography.Text>
               {intl.get(exam[PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION])}
               {exam[PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION] ===
                 ParaclinicalExamStatus.ABNORMAL && (
                 <Fragment>
-                  <Typography.Text>-</Typography.Text>
-                  {getFormattedValue(exam)}
+                  {' '}
+                  <Typography.Text>:</Typography.Text> {getFormattedValue(exam)}
                 </Fragment>
               )}
-            </Space>
+            </Typography.Text>
           </Descriptions.Item>
         ))}
     </Descriptions>
