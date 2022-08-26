@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import intl from 'react-intl-universal';
-import { Descriptions, Space, Typography } from 'antd';
+import Empty from '@ferlab/ui/core/components/Empty';
+import { Descriptions, Typography } from 'antd';
 
 import { STEPS_ID } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
 import {
@@ -25,41 +26,64 @@ const ParaclinicalExamsReview = () => {
 
   const getFormattedValue = (exam: IParaclinicalExamItem) => {
     if (exam.value) {
-      return exam.value;
+      // TODO Hard coded right now.
+      // Should come from the config
+      return `${exam.value} UI/L`;
     }
 
+    const examDefaultValues = formConfig?.paraclinical_exams.default_list.find(
+      (d) => d.value === exam.code,
+    );
+
     return (
-      <Space direction="vertical" size={0}>
-        {exam.values}
-      </Space>
+      <Fragment>
+        {exam.values
+          .map(
+            (value) =>
+              examDefaultValues?.extra?.options?.find((option) => option.value === value)?.name,
+          )
+          .join(', ')}
+      </Fragment>
     );
   };
 
+  const selectedExams = (
+    getData(PARACLINICAL_EXAMS_FI_KEY.EXAMS) as IParaclinicalExamItem[]
+  ).filter(
+    (exam) => exam[PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION] !== ParaclinicalExamStatus.NOT_DONE,
+  );
+
   return (
-    <Descriptions className="label-20" column={1} size="small">
-      {(getData(PARACLINICAL_EXAMS_FI_KEY.EXAMS) as IParaclinicalExamItem[])
-        .filter(
-          (exam) =>
-            exam[PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION] !== ParaclinicalExamStatus.NOT_DONE,
-        )
-        .map((exam, index) => (
-          <Descriptions.Item
-            key={index}
-            label={getExamNameByCode(exam[PARACLINICAL_EXAM_ITEM_KEY.CODE])}
-          >
-            <Space align="baseline" size={4}>
-              {intl.get(exam[PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION])}
-              {exam[PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION] ===
-                ParaclinicalExamStatus.ABNORMAL && (
-                <Fragment>
-                  <Typography.Text>-</Typography.Text>
-                  {getFormattedValue(exam)}
-                </Fragment>
-              )}
-            </Space>
-          </Descriptions.Item>
-        ))}
-    </Descriptions>
+    <Fragment>
+      {selectedExams.length ? (
+        <Descriptions className="label-20" column={1} size="small">
+          {selectedExams.map((exam, index) => (
+            <Descriptions.Item
+              key={index}
+              label={getExamNameByCode(exam[PARACLINICAL_EXAM_ITEM_KEY.CODE])}
+            >
+              <Typography.Text>
+                {intl.get(exam[PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION])}
+                {exam[PARACLINICAL_EXAM_ITEM_KEY.INTERPRETATION] ===
+                  ParaclinicalExamStatus.ABNORMAL && (
+                  <Fragment>
+                    {' '}
+                    <Typography.Text>:</Typography.Text> {getFormattedValue(exam)}
+                  </Fragment>
+                )}
+              </Typography.Text>
+            </Descriptions.Item>
+          ))}
+        </Descriptions>
+      ) : (
+        <Empty
+          showImage={false}
+          align="left"
+          description={intl.get('prescription.patient.review.no.data.for.this.section')}
+          noPadding
+        />
+      )}
+    </Fragment>
   );
 };
 

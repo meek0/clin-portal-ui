@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import { FormOutlined } from '@ant-design/icons';
 import Collapse, { CollapsePanel } from '@ferlab/ui/core/components/Collapse';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
+import useDebounce from '@ferlab/ui/core/hooks/useDebounce';
 import { Descriptions, Form, Input, Select, Tag } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
 import {
@@ -52,6 +53,8 @@ const Submission = () => {
   const { getAnalysisNameByCode } = useGlobals();
   const { analysisData, config, currentStep, analysisType } = usePrescriptionForm();
   const [supervisors, setSupervisors] = useState<DefaultOptionType[]>([]);
+  const [generalComment, setGeneralComment] = useState('');
+  const debouncedComment = useDebounce(generalComment, 300);
 
   const getName = (...key: IGetNamePathParams) => getNamePath(FORM_NAME, key);
 
@@ -69,6 +72,14 @@ const Submission = () => {
       SUBMISSION_REVIEW_FI_KEY,
     );
   }, []);
+
+  useEffect(() => {
+    dispatch(
+      prescriptionFormActions.saveSubmissionStepData({
+        comment: debouncedComment,
+      }),
+    );
+  }, [debouncedComment]);
 
   const needToSelectSupervisor = () => {
     const org = getPrescribingOrg()!;
@@ -128,6 +139,13 @@ const Submission = () => {
                 placeholder={intl.get('prescription.submission.responsable.doctor.placeholder')}
                 onSearch={onSearch}
                 options={supervisors}
+                onSelect={(value: string) => {
+                  dispatch(
+                    prescriptionFormActions.saveSubmissionStepData({
+                      resident_supervisor: value,
+                    }),
+                  );
+                }}
                 defaultActiveFirstOption={false}
                 showArrow={false}
                 filterOption={false}
@@ -138,7 +156,7 @@ const Submission = () => {
             name={getName(SUBMISSION_REVIEW_FI_KEY.GENERAL_COMMENT)}
             label={<ProLabel title={intl.get('prescription.submission.general.comment')} colon />}
           >
-            <Input.TextArea rows={3} />
+            <Input.TextArea rows={3} onChange={(value) => setGeneralComment(value.target.value)} />
           </Form.Item>
         </div>
       </AnalysisForm>
@@ -171,16 +189,6 @@ const Submission = () => {
                 <FormOutlined
                   onClick={(event) => {
                     event.stopPropagation();
-                    dispatch(
-                      prescriptionFormActions.saveSubmissionStepData({
-                        comment: form.getFieldValue(
-                          getName(SUBMISSION_REVIEW_FI_KEY.GENERAL_COMMENT),
-                        ),
-                        resident_supervisor: form.getFieldValue(
-                          getName(SUBMISSION_REVIEW_FI_KEY.RESPONSIBLE_DOCTOR),
-                        ),
-                      }),
-                    );
                     dispatch(
                       prescriptionFormActions.goTo({
                         index: step.index!,

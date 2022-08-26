@@ -8,7 +8,7 @@ import { LANG } from 'utils/constants';
 
 const MASK = 'yyyy / mm / dd';
 const MASKFR = 'aaaa / mm / jj';
-export const MASKED_INPUT_DATE_FORMAT = 'yyyy / MM / dd';
+export const INPUT_DATE_OUTPUT_FORMAT = 'yyyy-MM-dd';
 
 const MaskedDateInput = (props: Omit<MaskedInputProps, 'mask'>) => {
   const lang = useLang();
