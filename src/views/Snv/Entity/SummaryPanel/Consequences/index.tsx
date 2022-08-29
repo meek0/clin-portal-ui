@@ -180,9 +180,7 @@ const columns = [
     title: () => intl.get('screen.variantDetails.summaryTab.consequencesTable.AAColumn'),
     dataIndex: 'aa',
     render: (aa: string) => (
-      <Tooltip placement="topLeft" title={aa || TABLE_EMPTY_PLACE_HOLDER}>
-        <div className={styles.longValue}>{aa || TABLE_EMPTY_PLACE_HOLDER}</div>
-      </Tooltip>
+      <div className={styles.longValue}>{aa || TABLE_EMPTY_PLACE_HOLDER}</div>
     ),
     className: `${styles.longValue}`,
     width: '10%',
@@ -211,9 +209,7 @@ const columns = [
     title: () => intl.get('screen.variantDetails.summaryTab.consequencesTable.CDNAChangeColumn'),
     dataIndex: 'codingDna',
     render: (codingDna: string) => (
-      <Tooltip placement="topLeft" title={codingDna || TABLE_EMPTY_PLACE_HOLDER}>
-        <div className={styles.longValue}>{codingDna || TABLE_EMPTY_PLACE_HOLDER}</div>
-      </Tooltip>
+      <div className={styles.longValue}>{codingDna || TABLE_EMPTY_PLACE_HOLDER}</div>
     ),
     width: '12%',
   },
@@ -270,12 +266,16 @@ const columns = [
     title: () => intl.get('ensemblID'),
     dataIndex: 'transcript',
     render: (transcript: { transcriptId: string; isCanonical?: boolean }) => (
-      <div className={styles.transcriptId}>
+      <Space>
         {transcript.transcriptId}
         {transcript.isCanonical && (
-          <CanonicalIcon className={styles.canonicalIcon} height="14" width="14" />
+          <Tooltip title={intl.get('screen.variantDetails.summaryTab.canonical')}>
+            <div>
+              <CanonicalIcon className={styles.canonicalIcon} height="14" width="14" />
+            </div>
+          </Tooltip>
         )}
-      </div>
+      </Space>
     ),
     width: '15%',
   },
