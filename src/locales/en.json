@@ -498,6 +498,7 @@
   "screen.variantDetails.summaryTab.acmgCriteria.criteriaColumn": "Criteria",
   "screen.variantDetails.summaryTab.acmgCriteria.explanationColumn": "Explanation",
   "screen.variantDetails.summaryTab.acmgCriteriaTitle": "Critères ACMG",
+  "screen.variantDetails.summaryTab.canonical": "Canonical transcript",
   "screen.variantDetails.summaryTab.clinicalCardTitle": "Clinical associations",
   "screen.variantDetails.summaryTab.cohortTitle": "Public cohorts",
   "screen.variantDetails.summaryTab.consequencesTable.AAColumn": "AA",
