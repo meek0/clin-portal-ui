@@ -227,6 +227,7 @@
   "querybuilder.filters.operators.greaterthan": "Plus grand que",
   "querybuilder.filters.operators.greaterthanorequal": "Plus grand ou égal",
   "querybuilder.filters.operators.lessthan": "Plus petit que",
+  "querybuilder.filters.operators.lessthanorequal": "Plus petit ou égal",
   "querybuilder.filters.operators.anyOf": "N’importe quel",
   "querybuilder.filters.operators.allOf": "Tout",
   "querybuilder.filters.operators.noneOf": "Aucun",
