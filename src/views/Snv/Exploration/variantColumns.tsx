@@ -137,7 +137,7 @@ export const getVariantColumns = (
       dataIndex: 'locus',
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
       render: (locus: string, entity: VariantEntity) => (
-        <AcmgVerdict verdict={entity.varsome?.acmg?.verdict?.verdict} locus={locus} />
+        <AcmgVerdict varsome={entity.varsome} locus={locus} />
       ),
     },
     {
