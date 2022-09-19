@@ -22,7 +22,17 @@ exports[`Footer should be as the snapshot 1`] = `
               rel="noreferrer"
               target="_blank"
             >
-              Zeppelin
+              <div
+                className="ant-space ant-space-horizontal ant-space-align-center"
+                style={Object {}}
+              >
+                <div
+                  className="ant-space-item"
+                  style={Object {}}
+                >
+                  Zeppelin
+                </div>
+              </div>
             </a>
           </li>
           <li>
@@ -32,7 +42,17 @@ exports[`Footer should be as the snapshot 1`] = `
               rel="noreferrer"
               target="_blank"
             >
-              Fhir
+              <div
+                className="ant-space ant-space-horizontal ant-space-align-center"
+                style={Object {}}
+              >
+                <div
+                  className="ant-space-item"
+                  style={Object {}}
+                >
+                  Fhir
+                </div>
+              </div>
             </a>
           </li>
         </ul>

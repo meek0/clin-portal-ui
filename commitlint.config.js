@@ -18,7 +18,7 @@ const Configuration = {
     {
       rules: {
         'github-ticket-number': ({ githubTicketNumber = null }) => {
-          const ticketReg = /^CLIN-\d+$/;
+          const ticketReg = /^\w+-\d+$/;
           let containTicketNumber = false;
           if (githubTicketNumber) {
             containTicketNumber = !!githubTicketNumber.trim().match(ticketReg);
@@ -40,4 +40,5 @@ const Configuration = {
   },
 };
 
+// eslint-disable-next-line no-undef
 module.exports = Configuration;

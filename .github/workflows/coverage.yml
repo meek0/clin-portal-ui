@@ -1,0 +1,21 @@
+name: 'Coverage Docker'
+
+on:
+    pull_request:
+        branches:
+            - main
+            
+jobs:
+    coverage_docker:
+        runs-on: ubuntu-20.04
+        permissions:
+          checks: write
+          pull-requests: write
+        env:
+            SASS_PATH: ${PWD}/src/style/themes/clin
+        steps:
+            - uses: actions/checkout@v3
+            - name: Set the QA configuration file
+              run: mv env-qa .env
+            - name: Ensure we can build the image
+              run: docker build -t test:test --file .github/workflows/coverage/Dockerfile .

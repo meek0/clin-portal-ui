@@ -37,6 +37,8 @@
     "lint": "eslint $(git diff-index --name-only --diff-filter=d HEAD | grep \"[\\.js|\\.jsx|\\.tsx|\\.ts]$\" | xargs)",
     "lint:fix": "npm run lint -- --fix",
     "test": "react-scripts test --coverage",
+    "coverage": "npm test -- --watchAll=false",
+    "coverage:changed": "npm test -- --coverage --watchAll=false --changedSince=main",
     "test:ci": "react-scripts test --ci --coverage",
     "theme:antd": "lessc --js ./src/style/themes/clin/antd-clin-theme.less ./src/style/themes/clin/dist/antd.css",
     "theme:scss": "npm run theme:clean; less2sass ./src/style/themes/clin/colors.less; mv ./src/style/themes/clin/colors.scss ./src/style/themes/clin/dist/_colors.scss",
@@ -123,14 +125,17 @@
     "singleQuote": true
   },
   "jest": {
-    "moduleNameMapper": {
-      "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "<rootDir>/.jest/identity-obj-proxy-esm.js"
-    },
-    "coverageThreshold": {
-      "global": {
-        "lines": 80
+      "moduleNameMapper": {
+        "^react-native$": "react-native-web",
+        "^.+\\.module\\.(css|sass|scss)$": "<rootDir>/.jest/identity-obj-proxy-esm.js"
+      },
+      "coverageThreshold": {
+        "global": {
+          "branches": 20,
+          "functions": 20,
+          "lines": 20,
+          "statements": 20
+        }
       }
-    }
   }
 }
