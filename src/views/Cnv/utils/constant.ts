@@ -10,5 +10,8 @@ export const SCROLL_WRAPPER_ID = 'cnv-scroll-wrapper';
 export const DEFAULT_QUERY_CONFIG: IQueryConfig = {
   pageIndex: DEFAULT_PAGE_INDEX,
   size: DEFAULT_PAGE_SIZE,
-  sort: [{ field: 'sort_chromosome', order: 'asc' }, { field: 'start', order: 'asc' }],
+  sort: [
+    { field: 'sort_chromosome', order: 'asc' },
+    { field: 'start', order: 'asc' },
+  ],
 };

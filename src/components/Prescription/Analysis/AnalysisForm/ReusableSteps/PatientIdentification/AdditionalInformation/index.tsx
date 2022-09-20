@@ -25,7 +25,7 @@ type OwnProps = IAnalysisFormPart & {
   initialData?: IAddInfoDataContent;
 };
 
-enum GestationalAgeValues {
+export enum GestationalAgeValues {
   DDM = 'ddm',
   DPA = 'dpa',
   DEAD_FOETUS = 'deceased',
@@ -214,7 +214,7 @@ const AdditionalInformation = ({
                 <Form.Item
                   label={intl.get('prescription.patient.identification.mother.ramq')}
                   name={getName(ADD_INFO_FI_KEY.MOTHER_RAMQ_NUMBER)}
-                  rules={[{ type: 'regexp', pattern: RAMQ_PATTERN }]}
+                  rules={[{ type: 'regexp', pattern: RAMQ_PATTERN, required: true }]}
                   wrapperCol={{ span: 10, sm: 12, xxl: 6 }}
                 >
                   <Input
