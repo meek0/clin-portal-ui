@@ -1,21 +1,25 @@
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { Space } from 'antd';
+import { Varsome } from 'graphql/variants/models';
 
 import AcmgNoVerdictCheck from 'components/icons/AcmgNoVerdictCheck';
 import AcmgVerdictCheck from 'components/icons/AcmgVerdictCheck';
 
 interface OwnProps {
-  verdict?: string;
+  varsome?: Varsome;
   locus: string;
 }
 
-const AcmgVerdict = ({ verdict, locus }: OwnProps) => (
-  <Space>
-    {verdict ? <AcmgVerdictCheck /> : <AcmgNoVerdictCheck />}
-    <ExternalLink href={`https://varsome.com/variant/hg38/${encodeURIComponent(locus)}`}>
-      {verdict || 'No Verdict'}
-    </ExternalLink>
-  </Space>
-);
+const AcmgVerdict = ({ varsome, locus }: OwnProps) => {
+  const verdict = varsome?.acmg?.verdict?.verdict;
+  return (
+    <Space>
+      {verdict ? <AcmgVerdictCheck /> : <AcmgNoVerdictCheck />}
+      <ExternalLink href={`https://varsome.com/variant/hg38/${encodeURIComponent(locus)}`}>
+        {verdict || (varsome ? 'No Verdict' : 'No Data')}
+      </ExternalLink>
+    </Space>
+  );
+};
 
 export default AcmgVerdict;
