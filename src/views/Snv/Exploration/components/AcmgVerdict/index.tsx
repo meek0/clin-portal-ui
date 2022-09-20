@@ -16,7 +16,7 @@ const AcmgVerdict = ({ varsome, locus }: OwnProps) => {
     <Space>
       {verdict ? <AcmgVerdictCheck /> : <AcmgNoVerdictCheck />}
       <ExternalLink href={`https://varsome.com/variant/hg38/${encodeURIComponent(locus)}`}>
-        {verdict || (varsome ? 'No Verdict' : 'NA')}
+        {verdict || (varsome ? 'No Verdict' : 'No Data')}
       </ExternalLink>
     </Space>
   );
