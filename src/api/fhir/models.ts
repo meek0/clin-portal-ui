@@ -297,6 +297,7 @@ export interface ServiceRequestEntity {
     reference: string;
     resource: PatientServiceRequestFragment;
   };
+  basedOn: { reference: string };
 }
 
 export type ServiceRequestEntityExtension = Extension<{

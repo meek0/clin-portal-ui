@@ -55,6 +55,7 @@ const generateSearchFilter = (search: string) =>
       'patient_mrn',
       'patient_id',
       'sequencing_requests.request_id',
+      'request_id',
     ].map((key) =>
       generateValueFilter({
         field: key,

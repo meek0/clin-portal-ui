@@ -16,6 +16,7 @@ import MaleNotAffectedIcon from 'components/icons/MaleNotAffectedIcon';
 import { ReportNames } from 'store/reports/types';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
+import GqLine from '../GQLine';
 import ReportButton from '../Report/DownloadButton';
 
 import { HcComplementDescription } from './HcDescription';
@@ -77,7 +78,9 @@ const OccurrenceDrawer = ({
   <Drawer
     title={<Tooltip title={variantId}>Occurrence</Tooltip>}
     placement="right"
-    onClose={() => toggle(!opened)}
+    onClose={() => {
+      toggle(!opened);
+    }}
     visible={opened}
     closeIcon={<CloseOutlined size={16} />}
     width={500}
@@ -163,7 +166,7 @@ const OccurrenceDrawer = ({
           {donor?.ad_ratio ? donor?.ad_ratio.toFixed(2) : TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
         <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
-          {donor?.gq ? donor.gq : TABLE_EMPTY_PLACE_HOLDER}
+          {<GqLine value={donor?.gq} />}
         </Descriptions.Item>
         <Descriptions.Item label={intl.get('screen.patientsnv.drawer.filter')}>
           {donor?.filters}

@@ -7,7 +7,8 @@ import NoData from 'views/Snv/Entity/NoData';
 
 import CollapsePanel from 'components/containers/collapse';
 
-const { Text, Title } = Typography;
+const { Title } = Typography;
+import styles from './index.module.scss';
 
 const getCriteriaTagColor = (criteria: string) => {
   switch (criteria.toLowerCase().substring(0, 2)) {
@@ -94,24 +95,23 @@ const ACMGCriteria = ({ data }: Props) => {
   return (
     <CollapsePanel
       header={
-        <>
+        <Space size="middle">
           <Title level={4}>
             {`${intl.get('screen.variantDetails.summaryTab.acmgCriteriaTitle')}`}
           </Title>
-          <Space size={4} style={{ marginLeft: '20px' }}>
-            {verdict && (
-              <>
-                <Text>{`${intl.get('variant.acmg.verdict.label')}: `}</Text>
-                <ExternalLink
-                  onClick={(e) => e.stopPropagation()}
-                  href={`https://varsome.com/variant/${varsome.variant_id}`}
-                >
-                  {verdict.verdict}
-                </ExternalLink>
-              </>
-            )}
-          </Space>
-        </>
+          {verdict && (
+            <>
+              <ExternalLink
+                onClick={(e) => e.stopPropagation()}
+                className={styles.externalLink}
+                href={`https://varsome.com/variant/${varsome.variant_id}`}
+                hasIcon={true}
+              >
+                {verdict.verdict}
+              </ExternalLink>
+            </>
+          )}
+        </Space>
       }
       loading={data.loading}
     >

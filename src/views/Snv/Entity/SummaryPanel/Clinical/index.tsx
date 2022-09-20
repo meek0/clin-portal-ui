@@ -36,19 +36,21 @@ const ClinicalCard = ({ locus }: OwnProps) => {
       <Space direction="vertical" className={styles.clinicalCard} size={16}>
         <CollapsePanel
           header={
-            <Title level={4}>
-              ClinVar{' '}
+            <Space size="middle">
+              <Title level={4}>ClinVar</Title>
               {clinvarId ? (
                 <ExternalLink
-                  href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvarId}`}
                   onClick={(e) => e.stopPropagation()}
+                  className={styles.externalLink}
+                  href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvarId}`}
+                  hasIcon={true}
                 >
                   {clinvarId}
                 </ExternalLink>
               ) : (
                 ''
               )}
-            </Title>
+            </Space>
           }
           loading={loading}
         >
