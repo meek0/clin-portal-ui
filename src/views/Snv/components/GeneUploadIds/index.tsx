@@ -70,7 +70,10 @@ const GenesUploadIds = ({ queryBuilderId }: OwnProps) => (
       const genes: GeneEntity[] = hydrateResults(response.data?.data?.Genes?.hits?.edges || []);
 
       const matchResults = ids.map((id, index) => {
-        const gene = genes.find((gene) => [gene.symbol, gene.ensembl_gene_id].includes(id));
+        const upperCaseId = id.toUpperCase();
+        const gene = genes.find((gene) =>
+          [gene.symbol, gene.ensembl_gene_id].includes(upperCaseId),
+        );
         return gene
           ? {
               key: index.toString(),
