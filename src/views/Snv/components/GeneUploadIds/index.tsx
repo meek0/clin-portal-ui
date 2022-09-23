@@ -72,7 +72,7 @@ const GenesUploadIds = ({ queryBuilderId }: OwnProps) => (
       const matchResults = ids.map((id, index) => {
         const upperCaseId = id.toUpperCase();
         const gene = genes.find((gene) =>
-          [gene.symbol, gene.ensembl_gene_id].includes(upperCaseId),
+          [gene.symbol?.toUpperCase(), gene.ensembl_gene_id?.toUpperCase()].includes(upperCaseId),
         );
         return gene
           ? {
