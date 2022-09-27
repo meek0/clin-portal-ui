@@ -369,6 +369,8 @@
   "screen.patientsnv.drawer.notaffected": "Not affected",
   "screen.patientsnv.drawer.parental.origin": "Parental origin",
   "screen.patientsnv.drawer.seq.method": "Sequencing metric",
+  "screen.patientsnv.drawer.detail": "details",
+  "screen.patientsnv.drawer.modal.close": "Close",
   "screen.patientsnv.drawer.transmission": "Transmission",
   "screen.patientsnv.filter.expand.all": "Expand all",
   "screen.patientsnv.filter.grouptitle.genepanel": "Gene panels",

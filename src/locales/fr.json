@@ -368,6 +368,8 @@
   "screen.patientsnv.drawer.notaffected": "Pas atteint",
   "screen.patientsnv.drawer.parental.origin": "Origine parentale",
   "screen.patientsnv.drawer.seq.method": "Métrique de séquençage",
+  "screen.patientsnv.drawer.detail": "détails",
+  "screen.patientsnv.drawer.modal.close": "Fermer",
   "screen.patientsnv.drawer.transmission": "Transmission",
   "screen.patientsnv.filter.expand.all": "Tout ouvrir",
   "screen.patientsnv.filter.grouptitle.genepanel": "Panels de gènes",
