@@ -7,6 +7,7 @@ import { DecodedRpt } from '../../auth/types';
 export enum Roles {
   Practitioner,
   LDM,
+  Download,
 }
 
 type LimitToProps = {
@@ -14,6 +15,9 @@ type LimitToProps = {
   roles: Roles[];
   shouldMatchAll?: boolean;
 };
+
+const canDownload = (rptToken: DecodedRpt) =>
+  !!rptToken.authorization.permissions.find((x) => x.rsname === 'download');
 
 const isPractitioner = (rptToken: DecodedRpt) =>
   !!rptToken.authorization.permissions.find((x) => x.rsname === 'ServiceRequest');
@@ -27,12 +31,18 @@ const hasRole = (role: Roles, rpt: DecodedRpt) => {
       return isPractitioner(rpt);
     case Roles.LDM:
       return isLdm(rpt);
+    case Roles.Download:
+      return canDownload(rpt);
     default:
       return false;
   }
 };
 
-const validate = (roles: Roles[], rptToken: DecodedRpt | undefined, shouldMatchAll: boolean) => {
+export const validate = (
+  roles: Roles[],
+  rptToken: DecodedRpt | undefined,
+  shouldMatchAll: boolean,
+) => {
   const matchRoles = rptToken ? !!roles.filter((x) => hasRole(x, rptToken)).length : 0;
   return shouldMatchAll ? matchRoles === roles.length : !!matchRoles;
 };

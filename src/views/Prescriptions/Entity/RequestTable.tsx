@@ -6,6 +6,7 @@ import { extractServiceRequestId } from 'api/fhir/helper';
 import { PatientRequest } from 'api/fhir/models';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
+import { LimitTo, Roles } from 'components/Roles/Rules';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
 import { STATIC_ROUTES } from 'utils/routes';
@@ -52,20 +53,24 @@ const getRequestColumns = (patientId: string): TableColumnType<Record<string, an
     title: 'Liens',
     render: (data: PatientRequest) => (
       <Space size="middle">
-        <Link
-          to={`${STATIC_ROUTES.ARCHIVE_EXPLORATION}?search=${extractServiceRequestId(data.id)}`}
-        >
-          <Space size={4}>
-            <FileTextOutlined />
-            Fichiers
-          </Space>
-        </Link>
-        <Link to={`/snv/exploration/patient/${patientId}/${extractServiceRequestId(data.id)}`}>
-          <Space size={4}>
-            <LineStyleIcon height="15" width="15" />
-            Variants
-          </Space>
-        </Link>
+        <LimitTo roles={[Roles.Download]}>
+          <Link
+            to={`${STATIC_ROUTES.ARCHIVE_EXPLORATION}?search=${extractServiceRequestId(data.id)}`}
+          >
+            <Space size={4}>
+              <FileTextOutlined />
+              Fichiers
+            </Space>
+          </Link>
+        </LimitTo>
+        <LimitTo roles={[Roles.LDM]}>
+          <Link to={`/snv/exploration/patient/${patientId}/${extractServiceRequestId(data.id)}`}>
+            <Space size={4}>
+              <LineStyleIcon height="15" width="15" />
+              Variants
+            </Space>
+          </Link>
+        </LimitTo>
       </Space>
     ),
   },

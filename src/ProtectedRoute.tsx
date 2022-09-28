@@ -2,18 +2,22 @@ import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import { useKeycloak } from '@react-keycloak/web';
 
+import LoginWrapper from 'components/LoginWrapper';
+import Forbidden from 'components/Results/Forbidden';
+import { Roles, validate } from 'components/Roles/Rules';
 import Spinner from 'components/uiKit/Spinner';
 import ConditionalWrapper from 'components/utils/ConditionalWrapper';
-
-import LoginWrapper from './components/LoginWrapper';
+import { useRpt } from 'hooks/useRpt';
 
 type OwnProps = Omit<RouteProps, 'component' | 'render' | 'children'> & {
   layout?: (children: any) => React.ReactElement;
+  roles?: Roles[];
   children: React.ReactNode;
 };
 
-const ProtectedRoute = ({ children, layout, ...routeProps }: OwnProps) => {
+const ProtectedRoute = ({ roles, children, layout, ...routeProps }: OwnProps) => {
   const { keycloak, initialized } = useKeycloak();
+  const { decodedRpt } = useRpt();
   const RouteLayout = layout!;
   const keycloakIsReady = keycloak && initialized;
   const showLogin = keycloakIsReady && !keycloak.authenticated;
@@ -24,6 +28,10 @@ const ProtectedRoute = ({ children, layout, ...routeProps }: OwnProps) => {
 
   if (showLogin) {
     return <LoginWrapper Component={<Spinner size={'large'} />} />;
+  }
+
+  if (roles && !validate(roles, decodedRpt, false)) {
+    children = <Forbidden />;
   }
 
   return (

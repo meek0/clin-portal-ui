@@ -21,6 +21,7 @@ import ErrorPage from 'views/Error';
 
 import ErrorBoundary from 'components/ErrorBoundary';
 import PageLayout from 'components/Layout';
+import { Roles } from 'components/Roles/Rules';
 import Spinner from 'components/uiKit/Spinner';
 import NotificationContextHolder from 'components/utils/NotificationContextHolder';
 import { useLang } from 'store/global';
@@ -94,6 +95,7 @@ const App = () => {
                 exact
                 path={DYNAMIC_ROUTES.SNV_EXPLORATION_PATIENT}
                 layout={PageLayout}
+                roles={[Roles.LDM]}
               >
                 <SnvExplorationPatient />
               </ProtectedRoute>
@@ -101,16 +103,32 @@ const App = () => {
                 exact
                 path={DYNAMIC_ROUTES.CNV_EXPLORATION_PATIENT}
                 layout={PageLayout}
+                roles={[Roles.LDM]}
               >
                 <CnvExplorationPatient />
               </ProtectedRoute>
-              <ProtectedRoute exact path={STATIC_ROUTES.SNV_EXPLORATION_RQDM} layout={PageLayout}>
+              <ProtectedRoute
+                exact
+                path={STATIC_ROUTES.SNV_EXPLORATION_RQDM}
+                layout={PageLayout}
+                roles={[Roles.LDM]}
+              >
                 <SnvExplorationRqdm />
               </ProtectedRoute>
-              <ProtectedRoute exact path={DYNAMIC_ROUTES.VARIANT_ENTITY} layout={PageLayout}>
+              <ProtectedRoute
+                exact
+                path={DYNAMIC_ROUTES.VARIANT_ENTITY}
+                layout={PageLayout}
+                roles={[Roles.LDM]}
+              >
                 <VariantEntity />
               </ProtectedRoute>
-              <ProtectedRoute exact path={STATIC_ROUTES.ARCHIVE_EXPLORATION} layout={PageLayout}>
+              <ProtectedRoute
+                exact
+                path={STATIC_ROUTES.ARCHIVE_EXPLORATION}
+                layout={PageLayout}
+                roles={[Roles.Download]}
+              >
                 <Archives />
               </ProtectedRoute>
               <Route

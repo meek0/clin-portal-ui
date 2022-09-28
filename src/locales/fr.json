@@ -241,6 +241,8 @@
   "report.name.interpretation": "interprétation",
   "report.notification.error.description": "Le téléchargement du rapport a échoué.",
   "report.notification.success.description": "Le rapport à été téléchargé.",
+  "result.forbidden.error.description": "Vous ne pouvez pas visualiser cette page",
+  "result.forbidden.error.title": "Accès manquant",
   "result.notfound.error.description": "Ressource introuvable",
   "result.notfound.error.title": "Pas trouvé",
   "result.server.error.description": "Une erreur s'est produite et nous ne sommes pas en mesure de charger le contenu pour le moment.",
