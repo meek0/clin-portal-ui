@@ -14,7 +14,7 @@ import {
 import { TCompleteAnalysis } from './types';
 
 export const cleanAnalysisData = (analysis: TCompleteAnalysis) => {
-  const analysisCopy = { ...analysis };
+  const analysisCopy = JSON.parse(JSON.stringify(analysis));
 
   if (analysisCopy.paraclinical_exams) {
     analysisCopy.paraclinical_exams = cleanParaclinicalExams(analysisCopy.paraclinical_exams);
@@ -22,6 +22,15 @@ export const cleanAnalysisData = (analysis: TCompleteAnalysis) => {
 
   if (analysisCopy.clinical_signs) {
     analysisCopy.clinical_signs = cleanClinicalSigns(analysisCopy.clinical_signs);
+  }
+
+  if (analysisCopy.patient?.ramq) {
+    analysisCopy.patient.ramq = analysisCopy.patient.ramq.replace(/\s/g, '');
+  }
+
+  if (analysisCopy.patient?.additional_info.mother_ramq) {
+    analysisCopy.patient.additional_info.mother_ramq =
+      analysisCopy.patient.additional_info.mother_ramq.replace(/\s/g, '');
   }
 
   return analysisCopy;

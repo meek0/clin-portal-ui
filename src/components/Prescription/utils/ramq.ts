@@ -15,7 +15,7 @@ export const formatRamq = (value: string) =>
     .splice(0, RAMQ_NUMBER_LENGTH)
     .reduce(
       (acc, char, index) =>
-        char !== ' ' && [3, 7].includes(index) ? `${acc}${char}` : `${acc}${char}`,
+        char !== ' ' && [3, 7].includes(index) ? `${acc}${char} ` : `${acc}${char}`,
       '',
     )
     .trimEnd();
