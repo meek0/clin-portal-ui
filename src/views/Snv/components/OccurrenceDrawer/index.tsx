@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import intl from 'react-intl-universal';
 import { CloseOutlined, DownloadOutlined } from '@ant-design/icons';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
@@ -20,6 +20,7 @@ import GqLine from '../GQLine';
 import ReportButton from '../Report/DownloadButton';
 
 import { HcComplementDescription } from './HcDescription';
+import SequencingMetricModal from './SequencingMetricModal';
 
 import style from './index.module.scss';
 
@@ -74,126 +75,178 @@ const OccurrenceDrawer = ({
   rpt,
   toggleModal,
   variantId,
-}: OwnProps) => (
-  <Drawer
-    title={<Tooltip title={variantId}>Occurrence</Tooltip>}
-    placement="right"
-    onClose={() => {
-      toggle(!opened);
-    }}
-    visible={opened}
-    closeIcon={<CloseOutlined size={16} />}
-    width={500}
-    className={cx(style.occurenceDrawer, 'occurenceDrawer')}
-  >
-    <Space size="large" direction="vertical">
-      <Descriptions column={1} className={cx(style.description, 'description')}>
-        <Descriptions.Item label={'Variant'}>
-          {variantId ?? TABLE_EMPTY_PLACE_HOLDER}
-        </Descriptions.Item>
-        <Descriptions.Item label={'Patient'}>
-          {patientId ?? TABLE_EMPTY_PLACE_HOLDER}
-        </Descriptions.Item>
-      </Descriptions>
-      <Descriptions
-        column={1}
-        className={cx(style.description, 'description')}
-        title={capitalize(intl.get('zygosity'))}
+}: OwnProps) => {
+  const [modalOpened, setModalVisible] = useState(false);
+  return (
+    <>
+      <Drawer
+        title={<Tooltip title={variantId}>Occurrence</Tooltip>}
+        placement="right"
+        onClose={() => {
+          toggle(!opened);
+        }}
+        visible={opened}
+        closeIcon={<CloseOutlined size={16} />}
+        width={500}
+        className={cx(style.occurenceDrawer, 'occurenceDrawer')}
       >
-        <Descriptions.Item label={capitalize(intl.get('zygosity'))}>
-          {donor?.zygosity ?? TABLE_EMPTY_PLACE_HOLDER}
-        </Descriptions.Item>
-        <Descriptions.Item label={capitalize(intl.get('compound.heterozygous.abbrev', { num: 0 }))}>
-          <HcComplementDescription
-            hcComplements={donor?.hc_complement}
-            defaultText={TABLE_EMPTY_PLACE_HOLDER}
-          />
-        </Descriptions.Item>
-        <Descriptions.Item
-          label={capitalize(intl.get('potential.compound.heterozygous.abbrev', { num: 0 }))}
-        >
-          <HcComplementDescription
-            hcComplements={donor?.possibly_hc_complement}
-            defaultText={TABLE_EMPTY_PLACE_HOLDER}
-          />
-        </Descriptions.Item>
-      </Descriptions>
-      {(donor?.father_id || donor?.mother_id) && (
-        <Descriptions
-          title={capitalize(intl.get('family'))}
-          column={1}
-          className={cx(style.description, 'description')}
-        >
-          {donor?.mother_id && (
-            <Descriptions.Item
-              label={getParentTitle('mother', donor?.mother_id!, donor?.mother_affected_status!)}
-            >
-              {donor?.mother_calls ? donor?.mother_calls.join('/') : TABLE_EMPTY_PLACE_HOLDER}
+        <Space size="large" direction="vertical">
+          <Descriptions column={1} className={cx(style.description, 'description')}>
+            <Descriptions.Item label={'Variant'}>
+              {variantId ?? TABLE_EMPTY_PLACE_HOLDER}
             </Descriptions.Item>
-          )}
-          {donor?.father_id && (
-            <Descriptions.Item
-              label={getParentTitle('father', donor?.father_id!, donor?.father_affected_status!)}
-            >
-              {donor?.father_calls ? donor?.father_calls.join('/') : TABLE_EMPTY_PLACE_HOLDER}
+            <Descriptions.Item label={'Patient'}>
+              {patientId ?? TABLE_EMPTY_PLACE_HOLDER}
             </Descriptions.Item>
+          </Descriptions>
+          <Descriptions
+            column={1}
+            className={cx(style.description, 'description')}
+            title={capitalize(intl.get('zygosity'))}
+          >
+            <Descriptions.Item label={capitalize(intl.get('zygosity'))}>
+              {donor?.zygosity ?? TABLE_EMPTY_PLACE_HOLDER}
+            </Descriptions.Item>
+            <Descriptions.Item
+              label={capitalize(intl.get('compound.heterozygous.abbrev', { num: 0 }))}
+            >
+              <HcComplementDescription
+                hcComplements={donor?.hc_complement}
+                defaultText={TABLE_EMPTY_PLACE_HOLDER}
+              />
+            </Descriptions.Item>
+            <Descriptions.Item
+              label={capitalize(intl.get('potential.compound.heterozygous.abbrev', { num: 0 }))}
+            >
+              <HcComplementDescription
+                hcComplements={donor?.possibly_hc_complement}
+                defaultText={TABLE_EMPTY_PLACE_HOLDER}
+              />
+            </Descriptions.Item>
+          </Descriptions>
+          {(donor?.father_id || donor?.mother_id) && (
+            <Descriptions
+              title={capitalize(intl.get('family'))}
+              column={1}
+              className={cx(style.description, 'description')}
+            >
+              {donor?.mother_id && (
+                <Descriptions.Item
+                  label={getParentTitle(
+                    'mother',
+                    donor?.mother_id!,
+                    donor?.mother_affected_status!,
+                  )}
+                >
+                  {donor?.mother_calls ? (
+                    <Space size={4}>
+                      <>
+                        <span>{donor?.mother_calls.join('/')}</span>
+                        <span>
+                          (
+                          <Button size="small" onClick={() => setModalVisible(true)} type="link">
+                            {intl.get('screen.patientsnv.drawer.detail')}
+                          </Button>
+                          )
+                        </span>
+                      </>
+                    </Space>
+                  ) : (
+                    TABLE_EMPTY_PLACE_HOLDER
+                  )}
+                </Descriptions.Item>
+              )}
+              {donor?.father_id && (
+                <Descriptions.Item
+                  label={getParentTitle(
+                    'father',
+                    donor?.father_id!,
+                    donor?.father_affected_status!,
+                  )}
+                >
+                  {donor?.father_calls ? (
+                    <Space size={4}>
+                      <>
+                        <span>{donor?.father_calls.join('/')}</span>
+                        <span>
+                          (
+                          <Button size="small" onClick={() => setModalVisible(true)} type="link">
+                            {intl.get('screen.patientsnv.drawer.detail')}
+                          </Button>
+                          )
+                        </span>
+                      </>
+                    </Space>
+                  ) : (
+                    TABLE_EMPTY_PLACE_HOLDER
+                  )}
+                </Descriptions.Item>
+              )}
+              <Descriptions.Item label={intl.get('screen.patientsnv.drawer.transmission')}>
+                {removeUnderscoreAndCapitalize(donor?.transmission! || '').defaultMessage(
+                  TABLE_EMPTY_PLACE_HOLDER,
+                )}
+              </Descriptions.Item>
+              <Descriptions.Item label={intl.get('screen.patientsnv.drawer.parental.origin')}>
+                {donor?.parental_origin
+                  ? capitalize(donor?.parental_origin)
+                  : TABLE_EMPTY_PLACE_HOLDER}
+              </Descriptions.Item>
+            </Descriptions>
           )}
-          <Descriptions.Item label={intl.get('screen.patientsnv.drawer.transmission')}>
-            {removeUnderscoreAndCapitalize(donor?.transmission! || '').defaultMessage(
-              TABLE_EMPTY_PLACE_HOLDER,
-            )}
-          </Descriptions.Item>
-          <Descriptions.Item label={intl.get('screen.patientsnv.drawer.parental.origin')}>
-            {donor?.parental_origin ? capitalize(donor?.parental_origin) : TABLE_EMPTY_PLACE_HOLDER}
-          </Descriptions.Item>
-        </Descriptions>
-      )}
-      <Descriptions
-        title={intl.get('screen.patientsnv.drawer.seq.method')}
-        column={1}
-        className={cx(style.description, 'description')}
-      >
-        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.depth.quality')}>
-          {donor?.qd ?? TABLE_EMPTY_PLACE_HOLDER}
-        </Descriptions.Item>
-        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.allprof')}>
-          {donor?.ad_alt ?? TABLE_EMPTY_PLACE_HOLDER}
-        </Descriptions.Item>
-        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.alltotal')}>
-          {donor?.ad_total ?? TABLE_EMPTY_PLACE_HOLDER}
-        </Descriptions.Item>
-        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.allratio')}>
-          {donor?.ad_ratio ? donor?.ad_ratio.toFixed(2) : TABLE_EMPTY_PLACE_HOLDER}
-        </Descriptions.Item>
-        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
-          {<GqLine value={donor?.gq} />}
-        </Descriptions.Item>
-        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.filter')}>
-          {donor?.filters}
-        </Descriptions.Item>
-      </Descriptions>
-      <Divider style={{ margin: 0 }} />
-      <Space>
-        <Button
-          loading={loadingRpt}
-          disabled={loadingRpt || !rpt}
-          type="primary"
-          onClick={() => toggleModal(true)}
-        >
-          {intl.get('open.in.igv')}
-          <ExternalLinkIcon height="14" width="14" className="anticon" />
-        </Button>
-        <ReportButton
-          icon={<DownloadOutlined width={'16'} height={'16'} />}
-          patientId={patientId}
-          variantId={variantId}
-          name={ReportNames.transcript}
-          tooltipTitle={intl.get('screen.patientsnv.drawer.download.report.tooltip')}
-          size={'middle'}
-        />
-      </Space>
-    </Space>
-  </Drawer>
-);
+          <Descriptions
+            title={intl.get('screen.patientsnv.drawer.seq.method')}
+            column={1}
+            className={cx(style.description, 'description')}
+          >
+            <Descriptions.Item label={intl.get('screen.patientsnv.drawer.depth.quality')}>
+              {donor?.qd ?? TABLE_EMPTY_PLACE_HOLDER}
+            </Descriptions.Item>
+            <Descriptions.Item label={intl.get('screen.patientsnv.drawer.allprof')}>
+              {donor?.ad_alt ?? TABLE_EMPTY_PLACE_HOLDER}
+            </Descriptions.Item>
+            <Descriptions.Item label={intl.get('screen.patientsnv.drawer.alltotal')}>
+              {donor?.ad_total ?? TABLE_EMPTY_PLACE_HOLDER}
+            </Descriptions.Item>
+            <Descriptions.Item label={intl.get('screen.patientsnv.drawer.allratio')}>
+              {donor?.ad_ratio ? donor?.ad_ratio.toFixed(2) : TABLE_EMPTY_PLACE_HOLDER}
+            </Descriptions.Item>
+            <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
+              {<GqLine value={donor?.gq} />}
+            </Descriptions.Item>
+            <Descriptions.Item label={intl.get('screen.patientsnv.drawer.filter')}>
+              {donor?.filters}
+            </Descriptions.Item>
+          </Descriptions>
+          <Divider style={{ margin: 0 }} />
+          <Space>
+            <Button
+              loading={loadingRpt}
+              disabled={loadingRpt || !rpt}
+              type="primary"
+              onClick={() => toggleModal(true)}
+            >
+              {intl.get('open.in.igv')}
+              <ExternalLinkIcon height="14" width="14" className="anticon" />
+            </Button>
+            <ReportButton
+              icon={<DownloadOutlined width={'16'} height={'16'} />}
+              patientId={patientId}
+              variantId={variantId}
+              name={ReportNames.transcript}
+              tooltipTitle={intl.get('screen.patientsnv.drawer.download.report.tooltip')}
+              size={'middle'}
+            />
+          </Space>
+        </Space>
+      </Drawer>
+      <SequencingMetricModal
+        donor={donor}
+        isModalOpen={modalOpened}
+        handleCancel={() => setModalVisible(false)}
+      />
+    </>
+  );
+};
 
 export default OccurrenceDrawer;

@@ -83,10 +83,20 @@ export const VARIANT_QUERY = gql`
                     mother_zygosity
                     mother_affected_status
                     mother_calls
+                    mother_qd
+                    mother_ad_alt
+                    mother_ad_total
+                    mother_ad_ratio
+                    mother_gq
                     father_id
                     father_zygosity
                     father_affected_status
                     father_calls
+                    father_qd
+                    father_ad_alt
+                    father_ad_total
+                    father_ad_ratio
+                    father_gq
                     parental_origin
                     is_hc
                     is_possibly_hc
