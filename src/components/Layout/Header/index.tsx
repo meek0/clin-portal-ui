@@ -42,7 +42,7 @@ const Header = () => {
             icon={<HomeOutlined />}
             title={intl.get('layout.main.menu.home')}
           />
-          <LimitTo key="archives" roles={[Roles.Practitioner]}>
+          <LimitTo key="prescriptions" roles={[Roles.Practitioner]}>
             <HeaderLink
               key="prescriptions"
               currentPathName={currentPathName}
