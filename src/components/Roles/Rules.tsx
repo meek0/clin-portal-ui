@@ -6,6 +6,7 @@ import { DecodedRpt } from '../../auth/types';
 
 export enum Roles {
   Practitioner,
+  Prescriber,
   Variants,
   Download,
 }
@@ -20,7 +21,14 @@ const canDownload = (rptToken: DecodedRpt) =>
   !!rptToken.authorization.permissions.find((x) => x.rsname === 'download');
 
 const isPractitioner = (rptToken: DecodedRpt) =>
-  !!rptToken.authorization.permissions.find((x) => x.rsname === 'ServiceRequest');
+  !!rptToken.authorization.permissions.find(
+    (x) => x.rsname === 'ServiceRequest' && x.scopes?.some((s) => s === 'read'),
+  );
+
+const isPrescriber = (rptToken: DecodedRpt) =>
+  !!rptToken.authorization.permissions.find(
+    (x) => x.rsname === 'ServiceRequest' && x.scopes?.some((s) => s === 'create'),
+  );
 
 const isGenetician = (rptToken: DecodedRpt) =>
   !!rptToken.authorization.permissions.find((x) => x.rsname === 'Variants');
@@ -29,6 +37,8 @@ const hasRole = (role: Roles, rpt: DecodedRpt) => {
   switch (role) {
     case Roles.Practitioner:
       return isPractitioner(rpt);
+    case Roles.Prescriber:
+      return isPrescriber(rpt);
     case Roles.Variants:
       return isGenetician(rpt);
     case Roles.Download:

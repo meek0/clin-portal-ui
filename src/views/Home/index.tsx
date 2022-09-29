@@ -50,7 +50,7 @@ const Home = () => {
                   </Col>
                 </LimitTo>
                 {isEnabled && (
-                  <LimitTo roles={[Roles.Practitioner]}>
+                  <LimitTo roles={[Roles.Prescriber]}>
                     <Col lg={12} className={styles.contentCol}>
                       <ActionButton
                         icon={<MedicineBoxFilled />}
