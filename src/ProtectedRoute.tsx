@@ -17,7 +17,6 @@ type OwnProps = Omit<RouteProps, 'component' | 'render' | 'children'> & {
 
 const ProtectedRoute = ({ roles, children, layout, ...routeProps }: OwnProps) => {
   const { keycloak, initialized } = useKeycloak();
-  const { decodedRpt } = useRpt();
   const RouteLayout = layout!;
   const keycloakIsReady = keycloak && initialized;
   const showLogin = keycloakIsReady && !keycloak.authenticated;
@@ -29,6 +28,9 @@ const ProtectedRoute = ({ roles, children, layout, ...routeProps }: OwnProps) =>
   if (showLogin) {
     return <LoginWrapper Component={<Spinner size={'large'} />} />;
   }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { decodedRpt } = useRpt();
 
   if (roles && !validate(roles, decodedRpt, false)) {
     children = <Forbidden />;
