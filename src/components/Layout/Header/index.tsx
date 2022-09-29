@@ -42,13 +42,15 @@ const Header = () => {
             icon={<HomeOutlined />}
             title={intl.get('layout.main.menu.home')}
           />
-          <HeaderLink
-            key="prescriptions"
-            currentPathName={currentPathName}
-            to={STATIC_ROUTES.PRESCRIPTION_SEARCH}
-            icon={<MedicineBoxOutlined />}
-            title={intl.get('layout.main.menu.prescriptions')}
-          />
+          <LimitTo key="archives" roles={[Roles.Practitioner]}>
+            <HeaderLink
+              key="prescriptions"
+              currentPathName={currentPathName}
+              to={STATIC_ROUTES.PRESCRIPTION_SEARCH}
+              icon={<MedicineBoxOutlined />}
+              title={intl.get('layout.main.menu.prescriptions')}
+            />
+          </LimitTo>
           <LimitTo key="archives" roles={[Roles.Download]}>
             <HeaderLink
               key="archives"
