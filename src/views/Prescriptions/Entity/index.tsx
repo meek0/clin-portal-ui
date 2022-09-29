@@ -11,6 +11,7 @@ import LineStyleIcon from 'components/icons/LineStyleIcon';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import NotFound from 'components/Results/NotFound';
+import { LimitTo, Roles } from 'components/Roles/Rules';
 
 import AnalysisCard from './AnalysisCard';
 import ClinicalInformationCard from './ClinicalInformationCard';
@@ -36,16 +37,19 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
         icon: <MedicineBoxOutlined />,
         title: intl.get('screen.prescription.entity.title', { id: prescriptionId }),
         actions: [
-          <Link
-            key="variants"
-            to={`/snv/exploration/patient/${extractPatientId(
-              prescription?.subject?.resource?.id!,
-            )}/${prescriptionId}`}
-          >
-            <Button type="primary" icon={<LineStyleIcon height="14" width="14" />}>
-              {intl.get('screen.prescription.entity.see.variant')}
-            </Button>
-          </Link>,
+          <LimitTo key="variants" roles={[Roles.Variants]}>
+            <Link
+              key="variants"
+              to={`/snv/exploration/patient/${extractPatientId(
+                prescription?.subject?.resource?.id!,
+              )}/${prescriptionId}`}
+            >
+              <Button type="primary" icon={<LineStyleIcon height="14" width="14" />}>
+                {intl.get('screen.prescription.entity.see.variant')}
+              </Button>
+            </Link>
+            ,
+          </LimitTo>,
         ],
       }}
     >

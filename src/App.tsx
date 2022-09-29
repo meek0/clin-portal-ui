@@ -21,6 +21,7 @@ import ErrorPage from 'views/Error';
 
 import ErrorBoundary from 'components/ErrorBoundary';
 import PageLayout from 'components/Layout';
+import { Roles } from 'components/Roles/Rules';
 import Spinner from 'components/uiKit/Spinner';
 import NotificationContextHolder from 'components/utils/NotificationContextHolder';
 import { useLang } from 'store/global';
@@ -73,17 +74,32 @@ const App = () => {
               <ProtectedRoute exact path={STATIC_ROUTES.HOME} layout={PageLayout}>
                 <HomePage />
               </ProtectedRoute>
-              <ProtectedRoute exact path={STATIC_ROUTES.PRESCRIPTION_SEARCH} layout={PageLayout}>
+              <ProtectedRoute
+                exact
+                path={STATIC_ROUTES.PRESCRIPTION_SEARCH}
+                layout={PageLayout}
+                roles={[Roles.Practitioner]}
+              >
                 <PrescriptionSearch />
               </ProtectedRoute>
-              <ProtectedRoute exact path={DYNAMIC_ROUTES.PRESCRIPTION_ENTITY} layout={PageLayout}>
+              <ProtectedRoute
+                exact
+                path={DYNAMIC_ROUTES.PRESCRIPTION_ENTITY}
+                layout={PageLayout}
+                roles={[Roles.Practitioner]}
+              >
                 {(
                   props: RouteChildrenProps<{
                     id: string;
                   }>,
                 ) => <PrescriptionEntity prescriptionId={props.match?.params.id!} />}
               </ProtectedRoute>
-              <ProtectedRoute exact path={DYNAMIC_ROUTES.BIOINFO_ANALYSIS} layout={PageLayout}>
+              <ProtectedRoute
+                exact
+                path={DYNAMIC_ROUTES.BIOINFO_ANALYSIS}
+                layout={PageLayout}
+                roles={[Roles.Download]}
+              >
                 {(
                   props: RouteChildrenProps<{
                     id: string;
@@ -94,6 +110,7 @@ const App = () => {
                 exact
                 path={DYNAMIC_ROUTES.SNV_EXPLORATION_PATIENT}
                 layout={PageLayout}
+                roles={[Roles.Variants]}
               >
                 <SnvExplorationPatient />
               </ProtectedRoute>
@@ -101,16 +118,32 @@ const App = () => {
                 exact
                 path={DYNAMIC_ROUTES.CNV_EXPLORATION_PATIENT}
                 layout={PageLayout}
+                roles={[Roles.Variants]}
               >
                 <CnvExplorationPatient />
               </ProtectedRoute>
-              <ProtectedRoute exact path={STATIC_ROUTES.SNV_EXPLORATION_RQDM} layout={PageLayout}>
+              <ProtectedRoute
+                exact
+                path={STATIC_ROUTES.SNV_EXPLORATION_RQDM}
+                layout={PageLayout}
+                roles={[Roles.Variants]}
+              >
                 <SnvExplorationRqdm />
               </ProtectedRoute>
-              <ProtectedRoute exact path={DYNAMIC_ROUTES.VARIANT_ENTITY} layout={PageLayout}>
+              <ProtectedRoute
+                exact
+                path={DYNAMIC_ROUTES.VARIANT_ENTITY}
+                layout={PageLayout}
+                roles={[Roles.Variants]}
+              >
                 <VariantEntity />
               </ProtectedRoute>
-              <ProtectedRoute exact path={STATIC_ROUTES.ARCHIVE_EXPLORATION} layout={PageLayout}>
+              <ProtectedRoute
+                exact
+                path={STATIC_ROUTES.ARCHIVE_EXPLORATION}
+                layout={PageLayout}
+                roles={[Roles.Download]}
+              >
                 <Archives />
               </ProtectedRoute>
               <Route

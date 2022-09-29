@@ -242,6 +242,8 @@
   "report.name.interpretation": "interpretation",
   "report.notification.error.description": "We were unable to download the report.",
   "report.notification.success.description": "The report download is complete.",
+  "result.forbidden.error.description": "You are not authorized to access this page.",
+  "result.forbidden.error.title": "403",
   "result.notfound.error.description": "Resource not found",
   "result.notfound.error.title": "Not found",
   "result.server.error.description": "An error has occured and we are not able to load content at this time.",

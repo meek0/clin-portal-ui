@@ -39,18 +39,18 @@ const Home = () => {
             wrapperClassName={styles.contentCardWrapper}
             content={
               <Row gutter={[48, 48]}>
-                <LimitTo roles={[Roles.Practitioner, Roles.LDM]}>
+                <LimitTo roles={[Roles.Practitioner]}>
                   <Col xxl={24} className={styles.contentCol}>
                     <PrescriptionSearchBox />
                   </Col>
                 </LimitTo>
-                <LimitTo roles={[Roles.LDM]}>
+                <LimitTo roles={[Roles.Variants]}>
                   <Col xxl={24} className={styles.contentCol}>
                     <VariantSearchBox />
                   </Col>
                 </LimitTo>
                 {isEnabled && (
-                  <LimitTo roles={[Roles.Practitioner, Roles.LDM]}>
+                  <LimitTo roles={[Roles.Prescriber]}>
                     <Col lg={12} className={styles.contentCol}>
                       <ActionButton
                         icon={<MedicineBoxFilled />}

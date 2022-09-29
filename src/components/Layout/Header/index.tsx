@@ -10,6 +10,7 @@ import { getUserFirstName } from 'auth/keycloak';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import HeaderLink from 'components/Layout/Header/HeaderLink';
+import { LimitTo, Roles } from 'components/Roles/Rules';
 import { globalActions, useLang } from 'store/global';
 import { LANG } from 'utils/constants';
 import EnvironmentVariables from 'utils/EnvVariables';
@@ -41,27 +42,33 @@ const Header = () => {
             icon={<HomeOutlined />}
             title={intl.get('layout.main.menu.home')}
           />
-          <HeaderLink
-            key="prescriptions"
-            currentPathName={currentPathName}
-            to={STATIC_ROUTES.PRESCRIPTION_SEARCH}
-            icon={<MedicineBoxOutlined />}
-            title={intl.get('layout.main.menu.prescriptions')}
-          />
-          <HeaderLink
-            key="archives"
-            currentPathName={currentPathName}
-            to={STATIC_ROUTES.ARCHIVE_EXPLORATION}
-            icon={<FileTextOutlined />}
-            title={intl.get('layout.main.menu.archives')}
-          />
-          <HeaderLink
-            key="variants"
-            currentPathName={currentPathName}
-            to={STATIC_ROUTES.SNV_EXPLORATION_RQDM}
-            icon={<LineStyleIcon height="14" width="14" />}
-            title={intl.get('layout.main.menu.variants')}
-          />
+          <LimitTo key="prescriptions" roles={[Roles.Practitioner]}>
+            <HeaderLink
+              key="prescriptions"
+              currentPathName={currentPathName}
+              to={STATIC_ROUTES.PRESCRIPTION_SEARCH}
+              icon={<MedicineBoxOutlined />}
+              title={intl.get('layout.main.menu.prescriptions')}
+            />
+          </LimitTo>
+          <LimitTo key="archives" roles={[Roles.Download]}>
+            <HeaderLink
+              key="archives"
+              currentPathName={currentPathName}
+              to={STATIC_ROUTES.ARCHIVE_EXPLORATION}
+              icon={<FileTextOutlined />}
+              title={intl.get('layout.main.menu.archives')}
+            />
+          </LimitTo>
+          <LimitTo key="variants" roles={[Roles.Variants]}>
+            <HeaderLink
+              key="variants"
+              currentPathName={currentPathName}
+              to={STATIC_ROUTES.SNV_EXPLORATION_RQDM}
+              icon={<LineStyleIcon height="14" width="14" />}
+              title={intl.get('layout.main.menu.variants')}
+            />
+          </LimitTo>
         </nav>
       }
       extra={
