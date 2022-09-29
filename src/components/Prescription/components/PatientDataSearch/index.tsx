@@ -289,15 +289,17 @@ const PatientDataSearch = ({
                   },
                 }}
                 inputProps={{
-                  placeholder: 'AAAA00000000',
+                  placeholder: 'AAAA 0000 0000',
                   onSearch: (value, search) => {
+                    const fixedRamq = value.replace(/\s/g, '');
                     resetFieldError(form, getName(PATIENT_DATA_FI_KEY.RAMQ_NUMBER));
 
                     if (
-                      extractBirthDateAndSexFromRamq(value, INPUT_DATE_OUTPUT_FORMAT).birthDate &&
-                      isRamqValid(value)
+                      extractBirthDateAndSexFromRamq(fixedRamq, INPUT_DATE_OUTPUT_FORMAT)
+                        .birthDate &&
+                      isRamqValid(fixedRamq)
                     ) {
-                      (search as Function)(value.replace(/\s/g, ''));
+                      (search as Function)(fixedRamq);
                     } else {
                       setFieldError(
                         form,
