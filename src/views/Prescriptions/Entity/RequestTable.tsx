@@ -63,7 +63,7 @@ const getRequestColumns = (patientId: string): TableColumnType<Record<string, an
             </Space>
           </Link>
         </LimitTo>
-        <LimitTo roles={[Roles.LDM]}>
+        <LimitTo roles={[Roles.Variants]}>
           <Link to={`/snv/exploration/patient/${patientId}/${extractServiceRequestId(data.id)}`}>
             <Space size={4}>
               <LineStyleIcon height="15" width="15" />

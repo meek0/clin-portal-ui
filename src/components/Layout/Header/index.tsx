@@ -58,7 +58,7 @@ const Header = () => {
               title={intl.get('layout.main.menu.archives')}
             />
           </LimitTo>
-          <LimitTo key="variants" roles={[Roles.LDM]}>
+          <LimitTo key="variants" roles={[Roles.Variants]}>
             <HeaderLink
               key="variants"
               currentPathName={currentPathName}

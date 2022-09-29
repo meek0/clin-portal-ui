@@ -37,7 +37,7 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
         icon: <MedicineBoxOutlined />,
         title: intl.get('screen.prescription.entity.title', { id: prescriptionId }),
         actions: [
-          <LimitTo key="variants" roles={[Roles.LDM]}>
+          <LimitTo key="variants" roles={[Roles.Variants]}>
             <Link
               key="variants"
               to={`/snv/exploration/patient/${extractPatientId(
