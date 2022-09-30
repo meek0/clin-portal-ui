@@ -48,7 +48,6 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
                 {intl.get('screen.prescription.entity.see.variant')}
               </Button>
             </Link>
-            ,
           </LimitTo>,
         ],
       }}
