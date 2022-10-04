@@ -1,11 +1,14 @@
 import React from 'react';
 import intl from 'react-intl-universal';
 import { Button, Descriptions, Modal, Space } from 'antd';
+import cx from 'classnames';
 import { DonorsEntity } from 'graphql/variants/models';
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
 import GqLine from '../../GQLine';
+
+import style from './index.module.scss';
 
 type Props = {
   donor: DonorsEntity | undefined;
@@ -15,7 +18,7 @@ type Props = {
 
 const SequencingMetricModal = ({ donor, isModalOpen, handleCancel }: Props) => (
   <Modal
-    title={intl.get('screen.patientsnv.drawer.seq.method')}
+    title={intl.get('screen.patientsnv.drawer.seq.method.parent')}
     visible={isModalOpen}
     onCancel={handleCancel}
     footer={[
@@ -26,7 +29,13 @@ const SequencingMetricModal = ({ donor, isModalOpen, handleCancel }: Props) => (
     width={740}
   >
     <Space>
-      <Descriptions title={intl.get('MTH')} layout="horizontal" column={1} size="small">
+      <Descriptions
+        title={intl.get('MTH')}
+        layout="horizontal"
+        column={1}
+        size="small"
+        className={cx(style.description, 'description')}
+      >
         <Descriptions.Item label={intl.get('screen.patientsnv.drawer.depth.quality')}>
           {donor?.mother_qd ?? TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
@@ -42,8 +51,17 @@ const SequencingMetricModal = ({ donor, isModalOpen, handleCancel }: Props) => (
         <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
           {<GqLine value={donor?.mother_gq} />}
         </Descriptions.Item>
+        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.filter')}>
+          {donor?.filters}
+        </Descriptions.Item>
       </Descriptions>
-      <Descriptions title={intl.get('FTH')} layout="horizontal" column={1} size="small">
+      <Descriptions
+        title={intl.get('FTH')}
+        layout="horizontal"
+        column={1}
+        size="small"
+        className={cx(style.description, 'description')}
+      >
         <Descriptions.Item label={intl.get('screen.patientsnv.drawer.depth.quality')}>
           {donor?.father_qd ?? TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
@@ -58,6 +76,9 @@ const SequencingMetricModal = ({ donor, isModalOpen, handleCancel }: Props) => (
         </Descriptions.Item>
         <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
           {<GqLine value={donor?.father_gq} />}
+        </Descriptions.Item>
+        <Descriptions.Item label={intl.get('screen.patientsnv.drawer.filter')}>
+          {donor?.filters}
         </Descriptions.Item>
       </Descriptions>
     </Space>
