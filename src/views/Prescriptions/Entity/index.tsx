@@ -10,7 +10,7 @@ import ApolloProvider from 'providers/ApolloProvider';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
-import NotFound from 'components/Results/NotFound';
+import Forbidden from 'components/Results/Forbidden';
 import { LimitTo, Roles } from 'components/Roles/Rules';
 
 import AnalysisCard from './AnalysisCard';
@@ -28,7 +28,7 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
   const { prescription, loading } = useServiceRequestEntity(prescriptionId);
 
   if (!loading && !prescription) {
-    return <NotFound />;
+    return <Forbidden />;
   }
 
   return (
