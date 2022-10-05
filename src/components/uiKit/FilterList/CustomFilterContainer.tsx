@@ -3,6 +3,7 @@ import FilterContainer from '@ferlab/ui/core/components/filters/FilterContainer'
 import { IFilter, IFilterGroup } from '@ferlab/ui/core/components/filters/types';
 import { updateActiveQueryFilters } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { underscoreToDot } from '@ferlab/ui/core/data/arranger/formatting';
+import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { getSelectedFilters } from '@ferlab/ui/core/data/sqon/utils';
 import { ExtendedMapping, ExtendedMappingResults, GqlResults } from 'graphql/models';
 import { getFilterGroup, getFilters } from 'graphql/utils/Filters';
@@ -48,14 +49,14 @@ const CustomFilterContainer = ({
     // eslint-disable-next-line
   }, [filterOpen]);
 
-  const onChange = (fg: IFilterGroup, f: IFilter[]) => {
+  const onChange = (fg: IFilterGroup, f: IFilter[]) =>
     updateActiveQueryFilters({
       queryBuilderId,
       filterGroup: fg,
       selectedFilters: f,
       index,
+      operator: BooleanOperators.or,
     });
-  };
 
   const aggregations = results?.aggregations ? results?.aggregations[filterKey] : {};
   const filterGroup = getFilterGroup(found, aggregations, [], true);

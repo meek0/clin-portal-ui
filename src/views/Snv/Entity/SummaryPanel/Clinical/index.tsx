@@ -40,7 +40,7 @@ const ClinicalCard = ({ locus }: OwnProps) => {
               <Title level={4}>ClinVar</Title>
               {clinvarId ? (
                 <ExternalLink
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e: { stopPropagation: () => any }) => e.stopPropagation()}
                   className={styles.externalLink}
                   href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvarId}`}
                   hasIcon={true}

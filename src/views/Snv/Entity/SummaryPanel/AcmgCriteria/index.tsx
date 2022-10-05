@@ -102,7 +102,7 @@ const ACMGCriteria = ({ data }: Props) => {
           {verdict && (
             <>
               <ExternalLink
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e: { stopPropagation: () => any }) => e.stopPropagation()}
                 className={styles.externalLink}
                 href={`https://varsome.com/variant/${varsome.variant_id}`}
                 hasIcon={true}
