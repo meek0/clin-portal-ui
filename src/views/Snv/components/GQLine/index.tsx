@@ -11,7 +11,7 @@ interface OwnProps {
 }
 
 const GqLine = ({ value }: OwnProps) =>
-  value ? (
+  value || typeof value === 'number' ? (
     <Space>
       {value < 20 ? (
         <QgLowBadgeIcon svgClass={style.low} />
