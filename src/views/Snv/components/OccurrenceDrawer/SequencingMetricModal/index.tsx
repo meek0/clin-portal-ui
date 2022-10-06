@@ -46,7 +46,9 @@ const SequencingMetricModal = ({ donor, isModalOpen, handleCancel }: Props) => (
           {donor?.mother_ad_total ?? TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
         <Descriptions.Item label={intl.get('screen.patientsnv.drawer.allratio')}>
-          {donor?.mother_ad_ratio ? donor?.ad_ratio.toFixed(2) : TABLE_EMPTY_PLACE_HOLDER}
+          {donor?.mother_ad_ratio || typeof donor?.mother_ad_ratio === 'number'
+            ? donor?.mother_ad_ratio.toFixed(2)
+            : TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
         <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
           {<GqLine value={donor?.mother_gq} />}
@@ -72,7 +74,9 @@ const SequencingMetricModal = ({ donor, isModalOpen, handleCancel }: Props) => (
           {donor?.father_ad_total ?? TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
         <Descriptions.Item label={intl.get('screen.patientsnv.drawer.allratio')}>
-          {donor?.father_ad_ratio ? donor?.ad_ratio.toFixed(2) : TABLE_EMPTY_PLACE_HOLDER}
+          {donor?.father_ad_ratio || typeof donor?.father_ad_ratio === 'number'
+            ? donor?.father_ad_ratio.toFixed(2)
+            : TABLE_EMPTY_PLACE_HOLDER}
         </Descriptions.Item>
         <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
           {<GqLine value={donor?.father_gq} />}
