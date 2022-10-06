@@ -628,6 +628,8 @@
   "upload.gene.ids.modal.mappedTo": "Mapped To",
   "upload.gene.ids.modal.collapseTitle": "Summary Table  ({matchCount} matched, {unMatchCount} unmatched)",
   "upload.gene.ids.modal.input.label": "Copy-paste a list of identifiers or upload a file",
+  "upload.gene.ids.modal.input.limit": "Maximum",
+  "upload.gene.ids.modal.input.limit.text": "items allowed per upload",
   "upload.gene.ids.modal.match": "Matched ({count})",
   "upload.gene.ids.modal.unmatch": "Unmatched ({count})",
   "upload.gene.ids.modal.table.message": "{submittedCount} submitted identifiers mapped to {mappedCount} unique system identifiers",
