@@ -41,12 +41,15 @@ const GenesUploadIds = ({ queryBuilderId }: OwnProps) => (
           mappedCount,
         }),
       inputLabel: intl.get('upload.gene.ids.modal.input.label'),
+      inputLimitError: intl.get('upload.gene.ids.modal.input.limit'),
+      inputLimitErrorText: intl.get('upload.gene.ids.modal.input.limit.text'),
       matchTable: {
         idColTitle: intl.get('upload.gene.ids.modal.match.table.idcol.title'),
         matchToFieldColTitle: intl.get('upload.gene.ids.modal.match.table.matchcol.title'),
         mappedToFieldColTitle: intl.get('upload.gene.ids.modal.match.table.mappedcol.title'),
       },
     }}
+    limitItem={1500}
     placeHolder="ex. ENSG00000157764, TP53"
     fetchMatch={async (ids) => {
       const response = await ArrangerApi.graphqlRequest({

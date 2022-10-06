@@ -629,6 +629,8 @@
   "upload.gene.ids.modal.mappedTo": "Correspond à",
   "upload.gene.ids.modal.collapseTitle": "Résumé ({matchCount} reconnus, {unMatchCount} inconnus)",
   "upload.gene.ids.modal.input.label": "Copier-coller une liste d'identifiants ou téléverser un fichier",
+  "upload.gene.ids.modal.input.limit": "Limite de",
+  "upload.gene.ids.modal.input.limit.text": "éléments par téléversement atteinte",
   "upload.gene.ids.modal.match": "Reconnus ({count})",
   "upload.gene.ids.modal.unmatch": "Inconnus ({count})",
   "upload.gene.ids.modal.table.message": "{submittedCount} identifiants soumis correspondant à {mappedCount} identifiants système uniques",
