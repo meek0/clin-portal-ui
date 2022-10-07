@@ -22,6 +22,11 @@ export const getFiltersDictionary = (): FiltersDict => ({
   messages: {
     errorNoData: intl.get('querybuilder.filters.messages.empty'),
   },
+  range: {
+    max: intl.get('querybuilder.filters.range.max'),
+    min: intl.get('querybuilder.filters.range.min'),
+    noData: intl.get('querybuilder.filters.range.noData'),
+  },
   operators: {
     lessThan: intl.get('querybuilder.filters.operators.lessthan'),
     lessThanOfEqual: intl.get('querybuilder.filters.operators.lessthanorequal'),
