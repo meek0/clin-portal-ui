@@ -55,7 +55,7 @@ const GenesUploadIds = ({ queryBuilderId }: OwnProps) => (
       const response = await ArrangerApi.graphqlRequest({
         query: CHECK_GENE_MATCH_QUERY.loc?.source.body,
         variables: {
-          first: 1000,
+          first: 1500,
           offset: 0,
           sqon: generateQuery({
             operator: BooleanOperators.or,
