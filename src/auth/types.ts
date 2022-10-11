@@ -4,6 +4,9 @@ export type DecodedRpt = {
   iat: number;
   auth_time: number;
   iss: string;
+  realm_access: {
+    roles: string[];
+  };
   authorization: {
     permissions: {
       scopes: string[];

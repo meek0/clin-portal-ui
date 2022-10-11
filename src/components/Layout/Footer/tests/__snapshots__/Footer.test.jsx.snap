@@ -12,52 +12,7 @@ exports[`Footer should be as the snapshot 1`] = `
     <div
       className="ant-col"
       style={Object {}}
-    >
-      <nav>
-        <ul>
-          <li>
-            <a
-              className=""
-              href="https://notebook.qa.cqgc.hsj.rtss.qc.ca"
-              rel="noreferrer"
-              target="_blank"
-            >
-              <div
-                className="ant-space ant-space-horizontal ant-space-align-center"
-                style={Object {}}
-              >
-                <div
-                  className="ant-space-item"
-                  style={Object {}}
-                >
-                  Zeppelin
-                </div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a
-              className=""
-              href="https://fhir-console.qa.cqgc.hsj.rtss.qc.ca/home"
-              rel="noreferrer"
-              target="_blank"
-            >
-              <div
-                className="ant-space ant-space-horizontal ant-space-align-center"
-                style={Object {}}
-              >
-                <div
-                  className="ant-space-item"
-                  style={Object {}}
-                >
-                  Fhir
-                </div>
-              </div>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    />
     <div
       className="ant-col"
       style={Object {}}

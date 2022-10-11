@@ -9,6 +9,7 @@ export enum Roles {
   Prescriber,
   Variants,
   Download,
+  Links,
 }
 
 type LimitToProps = {
@@ -18,20 +19,23 @@ type LimitToProps = {
 };
 
 const canDownload = (rptToken: DecodedRpt) =>
-  !!rptToken.authorization.permissions.find((x) => x.rsname === 'download');
+  !!rptToken.authorization?.permissions.find((x) => x.rsname === 'download');
+
+const canSeeLinks = (rptToken: DecodedRpt) =>
+  !!rptToken.realm_access?.roles?.find((x) => x === 'clin_administrator');
 
 const isPractitioner = (rptToken: DecodedRpt) =>
-  !!rptToken.authorization.permissions.find(
+  !!rptToken.authorization?.permissions.find(
     (x) => x.rsname === 'ServiceRequest' && x.scopes?.some((s) => s === 'read'),
   );
 
 const isPrescriber = (rptToken: DecodedRpt) =>
-  !!rptToken.authorization.permissions.find(
+  !!rptToken.authorization?.permissions.find(
     (x) => x.rsname === 'ServiceRequest' && x.scopes?.some((s) => s === 'create'),
   );
 
 const isGenetician = (rptToken: DecodedRpt) =>
-  !!rptToken.authorization.permissions.find((x) => x.rsname === 'Variants');
+  !!rptToken.authorization?.permissions.find((x) => x.rsname === 'Variants');
 
 const hasRole = (role: Roles, rpt: DecodedRpt) => {
   switch (role) {
@@ -43,6 +47,8 @@ const hasRole = (role: Roles, rpt: DecodedRpt) => {
       return isGenetician(rpt);
     case Roles.Download:
       return canDownload(rpt);
+    case Roles.Links:
+      return canSeeLinks(rpt);
     default:
       return false;
   }
