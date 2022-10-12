@@ -91,6 +91,20 @@ const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
           }
         }
       }
+      requester @flatten {
+        requester: resource(type: PractitionerRole) {
+          practitioner @flatten {
+            practitioner: resource(type: Practitioner){
+              id
+              name @first{
+                family
+                given
+              }
+            }
+          
+          }
+        }
+      }
       status
     }
     clinicalImpressions: ClinicalImpressionList(_reference: patient) {
@@ -98,20 +112,6 @@ const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
       investigation {
         item {
           reference
-          resource {
-            code {
-              coding {
-                system
-                code
-              }
-            }
-            interpretation {
-              coding {
-                code
-                system
-              }
-            }
-          }
         }
       }
     }
@@ -125,6 +125,9 @@ export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
       id
       authoredOn
       status
+      note @first{
+        text
+      }
       code @flatten {
         coding(system: "http://fhir.cqgc.ferlab.bio/CodeSystem/analysis-request-code")
           @flatten
@@ -137,6 +140,57 @@ export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
           alias @first
           name
         }
+      }
+      requester @flatten {
+        requester: resource(type: PractitionerRole) {
+          id
+          organization {
+            reference
+          }
+          practitioner @flatten {
+            practitioner: resource(type: Practitioner){
+              id
+              name @first{
+                family
+                given
+              }
+              identifier @first {
+                value
+              }
+            }
+          
+          }
+        }
+      }
+      supportingInfo @first @flatten {
+        observation: resource {
+          id
+          status
+          investigation @first {
+            item  @flatten{
+              item: resource(type: Observation) {
+                id
+                resourceType
+                code @first @flatten{
+                  coding @first{
+                    code
+                  }
+                }
+                category{
+                  coding{
+                    code
+                  }
+                }
+              }
+              item: resource(type: "FamilyMemberHistory") {
+                id
+                resourceType
+              }
+              
+            }
+          }
+        }
+  
       }
       basedOn @first {
         reference
@@ -307,4 +361,150 @@ export const ANALYSIS_TASK_QUERY = (taskId: string) => gql`
     }
   }
 }
+`;
+
+export const ANALYSE_CODESYSTEME = (id: string) => gql`
+  query GetCodeSystemEntity($id: String = "${id}") {
+    CodeSystem(id: $id) {
+      concept {
+        code
+        display
+        designation {
+          value
+          language
+        }
+      }
+    }
+  }
+`;
+
+export const ANALYSE_ETH_OBSERVATION = (id: string) => gql`
+  query GetETHNObservation($id: String = "${id}") {
+    Observation(id: $id) {
+      id
+      valueCodeableConcept{
+        coding @first{
+          code
+          display
+          system
+        }
+      }
+    }
+  }
+`;
+
+export const ANALYSE_PHENOTYPE_OBSERVATION = (ids: string[]) => gql`
+    query getPhenotypeObservation {
+        ${ids.map(
+          (id) => `
+            Observation(id: "${id}") {
+              id
+              extension: extension(url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/age-at-onset") @first {
+                valueCoding {
+                  code
+                }
+              }
+              valueCodeableConcept{
+                coding @first{
+                  code
+                }
+              }
+              interpretation @first{
+                coding @first{
+                  code
+                }
+              }
+            }
+        `,
+        )}
+    }
+`;
+
+export const ANALYSE_GENERALOBS_INDICATION_OBSERVATION = (id: string) => gql`
+  query GetGeneralObservationObservation($id: String = "${id}") {
+    Observation(id: $id) {
+      id
+      valueString
+    }
+  }
+`;
+
+export const ANALYSE_PARACLINIQUE_OBSERVATION = (ids: string[] | null) => gql`
+    query getParacliniqueObservation {
+        ${
+          ids
+            ? ids.map(
+                (id) => `
+            Observation(id: "${id}")
+              {
+              id
+              code @flatten{
+                coding @first @flatten{
+                  code
+                } 
+              }
+              interpretation @first{
+                coding @first{
+                  code
+                }
+              }
+              valueString
+            }
+        `,
+              )
+            : null
+        }
+    }
+`;
+
+export const ANALYSE_COMPLEX_PARACLINIQUE_OBSERVATION = (ids: string[] | null) => gql`
+    query getParacliniqueObservation {
+        ${
+          ids
+            ? ids.map(
+                (id) => `
+            Observation(id: "${id}")
+              {
+              id
+              code @flatten{
+                coding @first @flatten{
+                  code
+                } 
+              }
+              interpretation @first{
+                coding @first{
+                  code
+                }
+              }
+              valueCodeableConcept{
+                coding{
+                  code
+                }
+              }
+            }
+        `,
+              )
+            : null
+        }
+    }
+`;
+
+export const ANALYSE_FMH = (ids: string[]) => gql`
+    query getParacliniqueObservation {
+        ${ids.map(
+          (id) => `
+            FamilyMemberHistory(id: "${id}") {
+              id
+              relationship{
+                  coding{
+                    code
+                  }
+                }
+                note @first{
+                  text
+                }
+            }
+        `,
+        )}
+    }
 `;
