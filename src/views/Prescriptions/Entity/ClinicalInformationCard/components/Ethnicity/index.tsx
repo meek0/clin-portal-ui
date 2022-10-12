@@ -17,9 +17,7 @@ export const Ethnicity = ({ id }: IDOwnProps) => {
     return o.code === ethValue?.valueCodeableConcept?.coding.code;
   });
   if (value) {
-    const valueDisplay = find(value?.designation, function (o) {
-      return o.language === lang;
-    });
+    const valueDisplay = find(value?.designation, (o) => o.language === lang);
 
     return <>{valueDisplay ? valueDisplay.value : value.display}</>;
   }

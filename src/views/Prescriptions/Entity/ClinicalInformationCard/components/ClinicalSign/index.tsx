@@ -31,11 +31,7 @@ const addIfExist = (
   currentOption: IHpoNode,
   setList: Dispatch<SetStateAction<IHpoNode[]>>,
 ) => {
-  const isExisting = some(list, currentOption);
-  if (!isExisting) {
-    const tempo = [...list, currentOption];
-    setList(tempo);
-  }
+  some(list, currentOption) ? setList([...list, currentOption]) : null;
 };
 
 const handleHpoSearchTerm = (

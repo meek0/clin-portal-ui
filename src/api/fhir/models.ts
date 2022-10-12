@@ -373,7 +373,7 @@ export interface PatientServiceRequestFragment {
   requests: PatientRequest[];
 }
 
-export interface PhenotypeRequestEntity {
+export type PhenotypeRequestEntity = {
   id: string;
   extension: {
     valueCoding: {
@@ -390,9 +390,9 @@ export interface PhenotypeRequestEntity {
       code: string;
     };
   };
-}
+};
 
-export interface ParaclinicEntity {
+export type ParaclinicEntity = {
   id: string;
   code: string;
   interpretation: {
@@ -406,9 +406,9 @@ export interface ParaclinicEntity {
       code: string;
     }[];
   };
-}
+};
 
-export interface CodeListEntity {
+export type CodeListEntity = {
   concept: {
     code: string;
     display: string;
@@ -417,9 +417,9 @@ export interface CodeListEntity {
       language: string;
     }[];
   }[];
-}
+};
 
-export interface FamilyMemberHistoryEntity {
+export type FamilyMemberHistoryEntity = {
   id: string;
   relationship: {
     coding: {
@@ -429,7 +429,7 @@ export interface FamilyMemberHistoryEntity {
   note: {
     text: string;
   };
-}
+};
 
 export type RequesterType = {
   id: string;
