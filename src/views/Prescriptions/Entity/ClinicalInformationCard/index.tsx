@@ -20,10 +20,10 @@ import { Paraclinique } from './components/Paraclinique';
 
 import styles from './index.module.scss';
 
-interface OwnProps {
+type OwnProps = {
   prescription?: ServiceRequestEntity;
   loading: boolean;
-}
+};
 
 const ClinicalInformation = ({ prescription, loading }: OwnProps) => {
   let ethnValue = undefined;

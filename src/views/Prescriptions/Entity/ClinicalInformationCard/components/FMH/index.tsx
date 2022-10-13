@@ -6,21 +6,20 @@ import { EMPTY_FIELD } from 'components/Prescription/Analysis/AnalysisForm/Reusa
 import { useLang } from 'store/global';
 import { LANG } from 'utils/constants';
 
-interface IDOwnProps {
+type IDOwnProps = {
   ids: string[];
-}
+};
 
 const getFamilyHistoryInfo = (
   fmh: FamilyMemberHistoryEntity,
   codeList: CodeListEntity,
   lang: LANG,
 ) => {
-  const relationShipCode = find(codeList?.concept, function (o) {
-    return o.code === fmh?.relationship?.coding[0]?.code;
-  });
-  const valueDisplay = find(relationShipCode?.designation, function (o) {
-    return o.language === lang;
-  });
+  const relationShipCode = find(
+    codeList?.concept,
+    (o) => o.code === fmh?.relationship?.coding[0]?.code,
+  );
+  const valueDisplay = find(relationShipCode?.designation, (o) => o.language === lang);
 
   const fmhValue = `${fmh.note.text} (${
     valueDisplay ? valueDisplay.value : fmh?.relationship?.coding[0]?.code

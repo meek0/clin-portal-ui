@@ -13,10 +13,10 @@ import { find, map, some } from 'lodash';
 
 import { useLang } from 'store/global';
 
-interface OwnProps {
+type OwnProps = {
   ids: string[];
   complexIds: string[] | null;
-}
+};
 
 const combineValue = (
   paracliniqueValue: ParaclinicEntity,
@@ -39,14 +39,10 @@ const displayComplexParaclinique = (
   hpoList: IHpoNode[],
 ) => {
   const codeSystemInfo = find(codeInfo?.concept, (c) => c.code === value?.code);
-  const label = find(codeSystemInfo?.designation, function (o) {
-    return o.language === lang;
-  });
+  const label = find(codeSystemInfo?.designation, (o) => o.language === lang);
   const valueList: string[] = [];
   value.valueCodeableConcept.coding.forEach((v) => {
-    const hpo = find(hpoList, function (o) {
-      return o.hpo_id === v.code;
-    });
+    const hpo = find(hpoList, (o) => o.hpo_id === v.code);
     hpo ? valueList.push(hpo.name) : null;
   });
   return (
@@ -65,9 +61,7 @@ const displayComplexParaclinique = (
 
 const displayParaclinique = (value: ParaclinicEntity, codeInfo: CodeListEntity, lang: string) => {
   const codeSystemInfo = find(codeInfo?.concept, (c) => c.code === value?.code);
-  const label = find(codeSystemInfo?.designation, function (o) {
-    return o.language === lang;
-  });
+  const label = find(codeSystemInfo?.designation, (o) => o.language === lang);
   return (
     <Descriptions.Item
       key={value?.id.split('/')[1]}

@@ -12,14 +12,14 @@ import { filter, find, map, some } from 'lodash';
 
 import { EMPTY_FIELD } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
 
-interface ClinicalSignOwnProps {
+type ClinicalSignOwnProps = {
   phenotypeIds: string[];
   generalObervationId: string | undefined;
-}
+};
 
-interface IDOwnProps {
+type IDOwnProps = {
   id: string;
-}
+};
 
 const Observation = ({ id }: IDOwnProps) => {
   const { generalObervationValue } = useGeneralObservationEntity(id);
@@ -87,13 +87,9 @@ export const ClinicalSign = ({ phenotypeIds, generalObervationId }: ClinicalSign
   let positive = [];
   let negative = [];
   if (Array.isArray(phenotypeValue)) {
-    positive = filter(phenotypeValue, function (o) {
-      return o?.interpretation?.coding?.code === 'POS';
-    });
+    positive = filter(phenotypeValue, (o) => o?.interpretation?.coding?.code === 'POS');
 
-    negative = filter(phenotypeValue, function (o) {
-      return o?.interpretation?.coding?.code === 'NEG';
-    });
+    negative = filter(phenotypeValue, (o) => o?.interpretation?.coding?.code === 'NEG');
   } else {
     positive = [phenotypeValue];
   }
