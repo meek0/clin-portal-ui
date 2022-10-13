@@ -1,7 +1,7 @@
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
 import { MedicineBoxOutlined } from '@ant-design/icons';
-import { Button, Col, Row } from 'antd';
+import { Button, Card, Col, Row } from 'antd';
 import { extractPatientId } from 'api/fhir/helper';
 import { useServiceRequestEntity } from 'graphql/prescriptions/actions';
 import { GraphqlBackend } from 'providers';
@@ -60,6 +60,13 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
           <Col span={12}>
             <PatientCard prescription={prescription} loading={loading} />
           </Col>
+          {prescription?.note && (
+            <Col span={24}>
+              <Card title={intl.get('screen.prescription.entity.comment.card.title')}>
+                {prescription?.note.text}
+              </Card>
+            </Col>
+          )}
           <Col span={24}>
             <ClinicalInformationCard prescription={prescription} loading={loading} />
           </Col>

@@ -6,6 +6,7 @@ import { extractServiceRequestId } from 'api/fhir/helper';
 import { PatientRequest } from 'api/fhir/models';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
+import { EMPTY_FIELD } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
 import { LimitTo, Roles } from 'components/Roles/Rules';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
@@ -39,6 +40,16 @@ const getRequestColumns = (patientId: string): TableColumnType<Record<string, an
     dataIndex: 'authoredOn',
     title: 'Créée le',
     render: (authoredOn) => formatDate(authoredOn),
+  },
+  {
+    key: 'requester',
+    dataIndex: 'requester',
+    title: 'Requérant',
+    render: (requester) =>
+      requester
+        ? `${requester.practitioner?.name.family.toLocaleUpperCase()} 
+      ${requester.practitioner?.name?.given?.join(' ')}`
+        : EMPTY_FIELD,
   },
   {
     key: 'specimen_id',

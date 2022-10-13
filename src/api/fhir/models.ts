@@ -286,6 +286,35 @@ export interface ServiceRequestEntity {
   authoredOn: string;
   status: string;
   code: string;
+  note: {
+    text: string;
+  };
+  requester: RequesterType;
+  observation: {
+    id: string;
+    investigation: {
+      item: {
+        id: string[];
+        resourceType: string;
+        note: {
+          text: string;
+        };
+        relationship: {
+          coding: {
+            code: string;
+          };
+        };
+        coding: {
+          code: string;
+        };
+        category: {
+          coding: {
+            code: string;
+          }[];
+        }[];
+      }[];
+    };
+  };
   extensions: ServiceRequestEntityExtension[];
   performer: {
     resource: {
@@ -304,6 +333,18 @@ export type ServiceRequestEntityExtension = Extension<{
   reference: string;
   resource: PatientServiceRequestFragment;
 }>;
+
+export type FamilyMemberHistoryType = {
+  resourceType: string;
+  note: {
+    text: string;
+  };
+  relationship: {
+    coding: {
+      code: string;
+    };
+  };
+};
 
 export interface PatientRequestSpecimen {
   reference: string;
@@ -331,3 +372,78 @@ export interface PatientServiceRequestFragment {
   person: Person[];
   requests: PatientRequest[];
 }
+
+export type PhenotypeRequestEntity = {
+  id: string;
+  extension: {
+    valueCoding: {
+      code: string;
+    };
+  };
+  valueCodeableConcept: {
+    coding: {
+      code: string;
+    };
+  };
+  interpretation: {
+    coding: {
+      code: string;
+    };
+  };
+};
+
+export type ParaclinicEntity = {
+  id: string;
+  code: string;
+  interpretation: {
+    coding: {
+      code: string;
+    };
+  };
+  valueString: string;
+  valueCodeableConcept: {
+    coding: {
+      code: string;
+    }[];
+  };
+};
+
+export type CodeListEntity = {
+  concept: {
+    code: string;
+    display: string;
+    designation: {
+      value: string;
+      language: string;
+    }[];
+  }[];
+};
+
+export type FamilyMemberHistoryEntity = {
+  id: string;
+  relationship: {
+    coding: {
+      code: string;
+    }[];
+  };
+  note: {
+    text: string;
+  };
+};
+
+export type RequesterType = {
+  id: string;
+  organization: {
+    reference: string;
+  };
+  practitioner: {
+    id: string;
+    name: {
+      family: string;
+      given: string[];
+    };
+    identifier: {
+      value: string;
+    };
+  };
+};
