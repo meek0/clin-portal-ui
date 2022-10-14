@@ -41,7 +41,14 @@ export const SEARCH_PATIENT_FILES_QUERY = (searchValue: string) => gql`
       _filter: "(patient eq ${searchValue}) or (input_specimen.accession eq ${searchValue}) or (run-name eq ${searchValue}) or (focus eq ${searchValue})"
     ) {
       id
-      focus{reference}
+      focus{
+        request: resource {
+          id
+          basedOn @first {
+            reference
+          }
+        }
+      }
       authoredOn
       experiment: extension(
           url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/sequencing-experiment"
