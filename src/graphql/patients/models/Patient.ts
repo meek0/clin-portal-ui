@@ -69,7 +69,12 @@ export interface FhirTask {
   id: string;
   docs: FhirDoc[];
   focus: {
-    reference: string;
+    request: {
+      id: string;
+      basedOn: {
+        reference: string;
+      };
+    };
   };
   owner: FhirOwner;
   runDate: string;

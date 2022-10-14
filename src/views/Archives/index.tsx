@@ -34,6 +34,7 @@ export type DocsWithTaskInfo = FhirDoc & {
   patientId: string;
   hash: string;
   srRef: string;
+  basedOnSrRef: string;
   size: string;
   title: string;
   format: string;
@@ -62,7 +63,8 @@ const extracDocsFromTask = (tasks: PatientTaskResults) => {
         taskId: task.id,
         patientId: extractPatientId(doc.patientReference),
         hash: doc.content[0].attachment.hash,
-        srRef: extractServiceRequestId(task.focus.reference),
+        srRef: extractServiceRequestId(task.focus.request.id),
+        basedOnSrRef: extractServiceRequestId(task.focus.request.basedOn.reference),
         size: formatFileSize(Number(doc.content[0].attachment.size)) as string,
         title: doc.content[0].attachment.title,
         format: doc.content[0].format,

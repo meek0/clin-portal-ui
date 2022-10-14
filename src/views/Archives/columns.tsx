@@ -42,7 +42,7 @@ export const getAchivesTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
     key: 'request',
     title: intl.get('screen.archives.table.column.request'),
     render: (record: DocsWithTaskInfo) => (
-      <Link to={`/prescription/entity/${extractTaskId(record.srRef)}`}>{record.srRef}</Link>
+      <Link to={`/prescription/entity/${extractTaskId(record.basedOnSrRef)}`}>{record.srRef}</Link>
     ),
   },
   {
