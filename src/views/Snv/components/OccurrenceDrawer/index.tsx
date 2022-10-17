@@ -188,9 +188,9 @@ const OccurrenceDrawer = ({
                 )}
               </Descriptions.Item>
               <Descriptions.Item label={intl.get('screen.patientsnv.drawer.parental.origin')}>
-                {donor?.parental_origin
-                  ? capitalize(donor?.parental_origin)
-                  : TABLE_EMPTY_PLACE_HOLDER}
+                {removeUnderscoreAndCapitalize(donor?.parental_origin || '').defaultMessage(
+                  TABLE_EMPTY_PLACE_HOLDER,
+                )}
               </Descriptions.Item>
             </Descriptions>
           )}

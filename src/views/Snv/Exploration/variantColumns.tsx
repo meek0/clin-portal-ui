@@ -285,12 +285,10 @@ export const getVariantColumns = (
         title: intl.get('po'),
         tooltip: intl.get('parental.origin'),
         defaultHidden: true,
-        render: (record: VariantEntity) => {
-          const donor = findDonorById(record.donors, patientId);
-          return donor?.parental_origin
-            ? capitalize(intl.get(donor?.parental_origin))
-            : TABLE_EMPTY_PLACE_HOLDER;
-        },
+        render: (record: VariantEntity) =>
+          removeUnderscoreAndCapitalize(
+            findDonorById(record.donors, patientId)?.parental_origin! || '',
+          ).defaultMessage(TABLE_EMPTY_PLACE_HOLDER),
       },
       {
         key: 'alt',
