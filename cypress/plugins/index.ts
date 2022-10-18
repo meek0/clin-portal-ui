@@ -35,10 +35,10 @@ module.exports = (on: Cypress.PluginEvents, config: Cypress.ConfigOptions) => {
   config.env.username_G_CHUS             = process.env.CYPRESS_USERNAME_G_CHUS;
   config.env.password                    = process.env.CYPRESS_PASSWORD;
 
-  config.env.mrn_283773 = process.env.CYPRESS_MRN_283773;
-  config.env.mrn_283824 = process.env.CYPRESS_MRN_283824;
-  config.env.mrn_283897 = process.env.CYPRESS_MRN_283897;
-  config.env.mrn_283834 = process.env.CYPRESS_MRN_283834;
+  config.env.presc_EP_CHUSJ_LDM_CHUSJ = process.env.CYPRESS_PRESC_EP_CHUSJ_LDM_CHUSJ;
+  config.env.presc_EP_CUSM_LDM_CHUSJ  = process.env.CYPRESS_PRESC_EP_CUSM_LDM_CHUSJ;
+  config.env.presc_EP_CUSM_LDM_CUSM   = process.env.CYPRESS_PRESC_EP_CUSM_LDM_CUSM;
+  config.env.presc_EP_CHUS_LDM_CHUS   = process.env.CYPRESS_PRESC_EP_CHUS_LDM_CHUS;
 
   return config;
 };
