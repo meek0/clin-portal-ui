@@ -31,19 +31,21 @@ const addIfExist = (
   currentOption: IHpoNode,
   setList: Dispatch<SetStateAction<IHpoNode[]>>,
 ) => {
-  some(list, currentOption) ? setList([...list, currentOption]) : null;
+  !some(list, currentOption) ? setList([...list, currentOption]) : null;
 };
 
 const handleHpoSearchTerm = (
   term: string,
   setCurrentOptions: Dispatch<SetStateAction<IHpoNode | undefined>>,
 ) => {
-  HpoApi.searchHpos(term.toLowerCase().trim()).then(({ data, error }) => {
-    if (!error) {
-      const results = map(data?.hits, '_source');
-      setCurrentOptions(results[0]);
-    }
-  });
+  term
+    ? HpoApi.searchHpos(term.toLowerCase().trim()).then(({ data, error }) => {
+        if (!error) {
+          const results = map(data?.hits, '_source');
+          setCurrentOptions(results[0]);
+        }
+      })
+    : null;
 };
 
 export const ClinicalSign = ({ phenotypeIds, generalObervationId }: ClinicalSignOwnProps) => {
@@ -54,9 +56,9 @@ export const ClinicalSign = ({ phenotypeIds, generalObervationId }: ClinicalSign
   const { phenotypeValue } = useObservationPhenotypeEntity(phenotypeIds);
 
   const getHpoValue = (element: PhenotypeRequestEntity) => {
-    handleHpoSearchTerm(element.valueCodeableConcept.coding.code, setCurrentHPOOptions);
+    handleHpoSearchTerm(element.valueCodeableConcept?.coding?.code, setCurrentHPOOptions);
     element.extension
-      ? handleHpoSearchTerm(element.extension.valueCoding.code, setCurrentAgeOptions)
+      ? handleHpoSearchTerm(element.extension.valueCoding?.code, setCurrentAgeOptions)
       : null;
   };
 
@@ -67,7 +69,7 @@ export const ClinicalSign = ({ phenotypeIds, generalObervationId }: ClinicalSign
           getHpoValue(element);
         });
       } else {
-        getHpoValue(phenotypeValue.valueCodeableConcept.coding.code);
+        getHpoValue(phenotypeValue);
       }
     }
   }, [phenotypeValue]);
