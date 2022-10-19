@@ -102,6 +102,9 @@ export const getQueryBuilderDictionary = (
         chromosome: {
           true: '1',
         },
+        'donors.parental_origin': {
+          both: intl.get('filters.options.donors.parental_origin.both'),
+        },
       },
     },
     actions: {

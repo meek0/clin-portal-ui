@@ -129,6 +129,7 @@
   "filters.options.variant_class.insertion": "Insertion",
   "filters.options.variant_class.inversion": "Inversion",
   "filters.options.variant_class.substitution": "Substitution",
+  "filters.options.donors.parental_origin.both": "Father and Mother",
   "first.name": "Prénom",
   "folder": "Dossier",
   "footer.navigation.fhir": "Fhir",

@@ -188,9 +188,11 @@ const OccurrenceDrawer = ({
                 )}
               </Descriptions.Item>
               <Descriptions.Item label={intl.get('screen.patientsnv.drawer.parental.origin')}>
-                {removeUnderscoreAndCapitalize(donor?.parental_origin || '').defaultMessage(
-                  TABLE_EMPTY_PLACE_HOLDER,
-                )}
+                {donor?.parental_origin === 'both'
+                  ? intl.get('filters.options.donors.parental_origin.both')
+                  : removeUnderscoreAndCapitalize(donor?.parental_origin || '').defaultMessage(
+                      TABLE_EMPTY_PLACE_HOLDER,
+                    )}
               </Descriptions.Item>
             </Descriptions>
           )}

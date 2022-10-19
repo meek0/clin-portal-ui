@@ -286,9 +286,11 @@ export const getVariantColumns = (
         tooltip: intl.get('parental.origin'),
         defaultHidden: true,
         render: (record: VariantEntity) =>
-          removeUnderscoreAndCapitalize(
-            findDonorById(record.donors, patientId)?.parental_origin! || '',
-          ).defaultMessage(TABLE_EMPTY_PLACE_HOLDER),
+          findDonorById(record.donors, patientId)?.parental_origin === 'both'
+            ? intl.get('filters.options.donors.parental_origin.both')
+            : removeUnderscoreAndCapitalize(
+                findDonorById(record.donors, patientId)?.parental_origin! || '',
+              ).defaultMessage(TABLE_EMPTY_PLACE_HOLDER),
       },
       {
         key: 'alt',
