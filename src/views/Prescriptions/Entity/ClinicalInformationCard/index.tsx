@@ -36,7 +36,7 @@ const ClinicalInformation = ({ prescription, loading }: OwnProps) => {
   const familyHistory: string[] = [];
   prescription?.observation?.investigation.item.forEach((e) => {
     if (e.resourceType === 'Observation') {
-      if (e.category[0].coding[0].code === 'procedure') {
+      if (e.category?.[0]?.coding?.[0]?.code === 'procedure') {
         if (e.coding.code === 'BMUS' || e.coding.code === 'EMG') {
           complexParaclinique.push(e.id[0]);
         } else {
@@ -82,11 +82,11 @@ const ClinicalInformation = ({ prescription, loading }: OwnProps) => {
                 {<ClinicalSign phenotypeIds={phenotype} generalObervationId={generalObservation} />}
               </Card.Grid>
             )}
-            {paraclinique.length > 0 && (
+            {(paraclinique.length > 0 || complexParaclinique.length > 0) && (
               <Card.Grid className={styles.cardGrid} hoverable={false}>
                 {
                   <Paraclinique
-                    ids={paraclinique}
+                    ids={paraclinique.length > 0 ? paraclinique : null}
                     complexIds={complexParaclinique.length > 0 ? complexParaclinique : null}
                   />
                 }

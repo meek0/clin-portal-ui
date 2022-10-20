@@ -14,7 +14,7 @@ import { find, map, some } from 'lodash';
 import { useLang } from 'store/global';
 
 type OwnProps = {
-  ids: string[];
+  ids: string[] | null;
   complexIds: string[] | null;
 };
 
@@ -97,10 +97,12 @@ export const Paraclinique = ({ ids, complexIds }: OwnProps) => {
   };
 
   useEffect(() => {
-    if (paracliniqueValue) {
+    if (paracliniqueValue || complexParacliniqueValue) {
       complexParacliniqueValue
         ? setAllParacliniqueValue(combineValue(paracliniqueValue, complexParacliniqueValue))
-        : setAllParacliniqueValue(paracliniqueValue);
+        : Array.isArray(paracliniqueValue)
+        ? setAllParacliniqueValue(paracliniqueValue)
+        : setAllParacliniqueValue([paracliniqueValue]);
     }
   }, [paracliniqueValue, complexParacliniqueValue]);
 
