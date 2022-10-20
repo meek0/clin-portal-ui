@@ -32,7 +32,7 @@ const ProtectedRoute = ({ roles, children, layout, ...routeProps }: OwnProps) =>
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { decodedRpt } = useRpt();
 
-  if (roles && !validate(roles, decodedRpt, false)) {
+  if (roles && decodedRpt && !validate(roles, decodedRpt, false)) {
     children = <Forbidden />;
   }
 
