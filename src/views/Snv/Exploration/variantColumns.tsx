@@ -45,6 +45,11 @@ const formatRqdm = (rqdm: frequency_RQDMEntity) => {
   return `${rqdm.total.pc} / ${rqdm.total.pn} (${(rqdm.total.pf * 100).toPrecision(3)}%)`;
 };
 
+const displayParentalOrigin = (parental_origin: string) =>
+  intl.get(`filters.options.donors.parental_origin.${parental_origin}`)
+    ? intl.get(`filters.options.donors.parental_origin.${parental_origin}`)
+    : removeUnderscoreAndCapitalize(parental_origin || '').defaultMessage(TABLE_EMPTY_PLACE_HOLDER);
+
 const getAcmgRuleContent = (varsome: Varsome) =>
   varsome
     ? varsome.acmg.classifications.hits.edges
@@ -286,9 +291,9 @@ export const getVariantColumns = (
         tooltip: intl.get('parental.origin'),
         defaultHidden: true,
         render: (record: VariantEntity) =>
-          removeUnderscoreAndCapitalize(
-            findDonorById(record.donors, patientId)?.parental_origin! || '',
-          ).defaultMessage(TABLE_EMPTY_PLACE_HOLDER),
+          findDonorById(record.donors, patientId)
+            ? displayParentalOrigin(findDonorById(record.donors, patientId)?.parental_origin!)
+            : TABLE_EMPTY_PLACE_HOLDER,
       },
       {
         key: 'alt',

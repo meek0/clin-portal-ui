@@ -66,6 +66,11 @@ const getParentTitle = (who: 'mother' | 'father', id: string, affected: boolean)
   );
 };
 
+const displayParentalOrigin = (parental_origin: string) =>
+  intl.get(`filters.options.donors.parental_origin.${parental_origin}`)
+    ? intl.get(`filters.options.donors.parental_origin.${parental_origin}`)
+    : removeUnderscoreAndCapitalize(parental_origin || '').defaultMessage(TABLE_EMPTY_PLACE_HOLDER);
+
 const OccurrenceDrawer = ({
   donor,
   patientId,
@@ -188,9 +193,9 @@ const OccurrenceDrawer = ({
                 )}
               </Descriptions.Item>
               <Descriptions.Item label={intl.get('screen.patientsnv.drawer.parental.origin')}>
-                {removeUnderscoreAndCapitalize(donor?.parental_origin || '').defaultMessage(
-                  TABLE_EMPTY_PLACE_HOLDER,
-                )}
+                {donor?.parental_origin
+                  ? displayParentalOrigin(donor?.parental_origin)
+                  : TABLE_EMPTY_PLACE_HOLDER}
               </Descriptions.Item>
             </Descriptions>
           )}
