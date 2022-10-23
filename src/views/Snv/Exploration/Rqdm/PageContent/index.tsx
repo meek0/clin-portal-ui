@@ -12,6 +12,8 @@ import {
   VARIANT_RQDM_QB_ID,
 } from 'views/Snv/utils/constant';
 
+import { VARIANT_RQDM_QB_ID_FILTER_TAG } from 'utils/queryBuilder';
+
 import VariantContentLayout from '../../components/VariantContentLayout';
 
 import VariantsTab from './tabs/Variants';
@@ -48,6 +50,7 @@ const PageContent = ({ variantMapping }: OwnProps) => {
   return (
     <VariantContentLayout
       queryBuilderId={VARIANT_RQDM_QB_ID}
+      savedFilterTag={VARIANT_RQDM_QB_ID_FILTER_TAG}
       variantMapping={variantMapping}
       activeQuery={activeQuery}
       variantResults={variantResults}

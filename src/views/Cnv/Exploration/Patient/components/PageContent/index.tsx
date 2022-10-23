@@ -8,11 +8,13 @@ import { ExtendedMappingResults } from 'graphql/models';
 import { cloneDeep } from 'lodash';
 import VariantContentLayout from 'views/Cnv/Exploration/components/VariantContentLayout';
 import {
+  CNV_VARIANT_PATIENT_QB_ID,
   DEFAULT_PAGE_INDEX,
   DEFAULT_QUERY_CONFIG,
-  VARIANT_PATIENT_QB_ID,
 } from 'views/Cnv/utils/constant';
 import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
+
+import { CNV_EXPLORATION_PATIENT_FILTER_TAG } from 'utils/queryBuilder';
 
 import VariantsTable from './components/Variants';
 
@@ -23,7 +25,7 @@ type OwnProps = {
 };
 
 const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) => {
-  const { queryList, activeQuery } = useQueryBuilderState(VARIANT_PATIENT_QB_ID);
+  const { queryList, activeQuery } = useQueryBuilderState(CNV_VARIANT_PATIENT_QB_ID);
   const [variantQueryConfig, setVariantQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) => {
@@ -52,7 +54,8 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
 
   return (
     <VariantContentLayout
-      queryBuilderId={VARIANT_PATIENT_QB_ID}
+      queryBuilderId={CNV_VARIANT_PATIENT_QB_ID}
+      savedFilterTag={CNV_EXPLORATION_PATIENT_FILTER_TAG}
       variantMapping={variantMapping}
       activeQuery={activeQuery}
       variantResults={variantResults}
