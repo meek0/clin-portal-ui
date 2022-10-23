@@ -1,13 +1,13 @@
-import intl from 'react-intl-universal';
 import { setQueryBuilderState } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { SavedFilterApi } from 'api/savedFilter';
 import {
   TUserSavedFilter,
   TUserSavedFilterInsert,
-  TUserSavedFilterUpdate,
+  TUserSavedFilterUpdate
 } from 'api/savedFilter/models';
 import { isEmpty } from 'lodash';
+import intl from 'react-intl-universal';
 import { v4 } from 'uuid';
 
 import { globalActions } from 'store/global';
@@ -84,21 +84,6 @@ const updateSavedFilter = createAsyncThunk<
   return data!;
 });
 
-const setSavedFilterAsDefault = createAsyncThunk<
-  TUserSavedFilter,
-  TUserSavedFilterUpdate & { id: string },
-  { rejectValue: string }
->('savedfilters/setDefault', async (filter, thunkAPI) => {
-  const { id, ...filterInfo } = filter;
-  const { data, error } = await SavedFilterApi.setAsDefault(id, filterInfo);
-
-  if (error) {
-    return thunkAPI.rejectWithValue(error.message);
-  }
-
-  return data!;
-});
-
 const deleteSavedFilter = createAsyncThunk<string, string, { rejectValue: string }>(
   'savedfilters/delete',
   async (id, thunkAPI) => {
@@ -124,6 +109,5 @@ export {
   createSavedFilter,
   updateSavedFilter,
   deleteSavedFilter,
-  setSavedFilterAsDefault,
   fetchSharedSavedFilter,
 };

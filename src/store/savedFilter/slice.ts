@@ -7,9 +7,7 @@ import {
   createSavedFilter,
   deleteSavedFilter,
   fetchSavedFilters,
-  fetchSharedSavedFilter,
-  setSavedFilterAsDefault,
-  updateSavedFilter,
+  fetchSharedSavedFilter, updateSavedFilter
 } from './thunks';
 
 export const SavedFilterState: initialState = {
@@ -94,24 +92,6 @@ const savedFilterSlice = createSlice({
       };
     });
     builder.addCase(updateSavedFilter.rejected, (state, action) => ({
-      ...state,
-      error: action.payload,
-      isUpdating: false,
-    }));
-    // Set Default
-    builder.addCase(setSavedFilterAsDefault.pending, (state) => {
-      state.isUpdating = true;
-      state.error = undefined;
-    });
-    builder.addCase(setSavedFilterAsDefault.fulfilled, (state, action) => ({
-      ...state,
-      savedFilters: state.savedFilters.map((savedFilter) => ({
-        ...savedFilter,
-        favorite: savedFilter.id === action.payload.id ? true : false,
-      })),
-      isUpdating: false,
-    }));
-    builder.addCase(setSavedFilterAsDefault.rejected, (state, action) => ({
       ...state,
       error: action.payload,
       isUpdating: false,
