@@ -24,6 +24,8 @@ export const enum MIME_TYPES {
   APPLICATION_XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 }
 
+export const FILTER_ID_QUERY_PARAM_KEY = 'filterId';
+export const SHARED_FILTER_ID_QUERY_PARAM_KEY = 'sharedFilterId';
 export const TABLE_EMPTY_PLACE_HOLDER = '-';
 export const MAIN_SCROLL_WRAPPER_ID = 'main-scroll-wrapper';
 

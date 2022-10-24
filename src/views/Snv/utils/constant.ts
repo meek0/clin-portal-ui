@@ -1,6 +1,6 @@
 import { IQueryConfig } from 'utils/searchPageTypes';
 
-export const VARIANT_PATIENT_QB_ID = 'patient-variant-repo';
+export const SNV_VARIANT_PATIENT_QB_ID = 'patient-variant-repo';
 export const VARIANT_RQDM_QB_ID = 'rqdm-variant-repo';
 
 export const DEFAULT_PAGE_INDEX = 1;

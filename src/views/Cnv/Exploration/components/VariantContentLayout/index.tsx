@@ -13,6 +13,8 @@ import { ExtendedMapping, ExtendedMappingResults, IQueryResults } from 'graphql/
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import GenericFilters from 'components/uiKit/FilterList/GenericFilters';
+import useQBStateWithSavedFilters from 'hooks/useQBStateWithSavedFilters';
+import useSavedFiltersActions from 'hooks/useSavedFiltersActions';
 import { useGlobals } from 'store/global';
 import { getQueryBuilderDictionary } from 'utils/translation';
 
@@ -20,6 +22,7 @@ import styles from './index.module.scss';
 
 interface OwnProps {
   queryBuilderId: string;
+  savedFilterTag: string;
   activeQuery: ISyntheticSqon;
   variantResults: IQueryResults<VariantEntity[]>;
   variantMapping: ExtendedMappingResults;
@@ -29,6 +32,7 @@ interface OwnProps {
 
 const VariantContentLayout = ({
   queryBuilderId,
+  savedFilterTag,
   activeQuery,
   variantResults,
   variantMapping,
@@ -39,6 +43,12 @@ const VariantContentLayout = ({
   const [selectedFilterContent, setSelectedFilterContent] = useState<
     React.ReactElement | undefined
   >(undefined);
+  const { selectedSavedFilter, savedFilterList } = useQBStateWithSavedFilters(
+    queryBuilderId,
+    savedFilterTag,
+  );
+  const { handleOnDeleteFilter, handleOnSaveFilter, handleOnShareFilter, handleOnUpdateFilter } =
+    useSavedFiltersActions(savedFilterTag);
 
   const facetTransResolver = (key: string) => {
     const title = intl.get(`filters.group.${key}`);
@@ -56,7 +66,20 @@ const VariantContentLayout = ({
         className="variant-patient-repo__query-builder"
         headerConfig={{
           showHeader: true,
-          showTools: false,
+          showTools: true,
+          options: {
+            enableEditTitle: true,
+            enableDuplicate: true,
+            enableFavoriteFilter: false,
+            enableShare: true,
+            enableUndoChanges: true,
+          },
+          selectedSavedFilter: selectedSavedFilter,
+          savedFilters: savedFilterList,
+          onShareFilter: handleOnShareFilter,
+          onUpdateFilter: handleOnUpdateFilter,
+          onSaveFilter: handleOnSaveFilter,
+          onDeleteFilter: handleOnDeleteFilter,
           collapseProps: {
             headerBorderOnly: true,
           },

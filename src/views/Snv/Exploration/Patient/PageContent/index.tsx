@@ -10,9 +10,11 @@ import { cloneDeep } from 'lodash';
 import {
   DEFAULT_PAGE_INDEX,
   DEFAULT_QUERY_CONFIG,
-  VARIANT_PATIENT_QB_ID,
+  SNV_VARIANT_PATIENT_QB_ID,
 } from 'views/Snv/utils/constant';
 import { wrapSqonWithDonorIdAndSrId } from 'views/Snv/utils/helper';
+
+import { SNV_EXPLORATION_PATIENT_FILTER_TAG } from 'utils/queryBuilder';
 
 import VariantContentLayout from '../../components/VariantContentLayout';
 
@@ -25,7 +27,7 @@ type OwnProps = {
 };
 
 const PageContent = ({ variantMapping, patientId }: OwnProps) => {
-  const { queryList, activeQuery } = useQueryBuilderState(VARIANT_PATIENT_QB_ID);
+  const { queryList, activeQuery } = useQueryBuilderState(SNV_VARIANT_PATIENT_QB_ID);
   const [variantQueryConfig, setVariantQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
@@ -55,7 +57,8 @@ const PageContent = ({ variantMapping, patientId }: OwnProps) => {
 
   return (
     <VariantContentLayout
-      queryBuilderId={VARIANT_PATIENT_QB_ID}
+      queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
+      savedFilterTag={SNV_EXPLORATION_PATIENT_FILTER_TAG}
       variantMapping={variantMapping}
       activeQuery={activeQuery}
       variantResults={variantResults}

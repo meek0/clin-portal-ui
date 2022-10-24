@@ -70,3 +70,6 @@ export const formatQuerySortList = (sorter: SorterResult<any> | SorterResult<any
 
 export const getPositionAt = (value: string, subString: string, index: number) =>
   value.split(subString, index).join(subString).length;
+
+export const getCurrentUrl = () =>
+  window.location.protocol + '//' + window.location.host + window.location.pathname;

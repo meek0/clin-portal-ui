@@ -24,10 +24,12 @@ import PageLayout from 'components/Layout';
 import { Roles } from 'components/Roles/Rules';
 import Spinner from 'components/uiKit/Spinner';
 import NotificationContextHolder from 'components/utils/NotificationContextHolder';
+import useQueryParams from 'hooks/useQueryParams';
 import { useLang } from 'store/global';
 import { fetchFhirServiceRequestCodes } from 'store/global/thunks';
+import { fetchSavedFilters, fetchSharedSavedFilter } from 'store/savedFilter/thunks';
 import { fetchConfig, fetchPractitionerRole } from 'store/user/thunks';
-import { LANG } from 'utils/constants';
+import { LANG, SHARED_FILTER_ID_QUERY_PARAM_KEY } from 'utils/constants';
 import { DYNAMIC_ROUTES, STATIC_ROUTES } from 'utils/routes';
 
 const loadableProps = { fallback: <Spinner size="large" /> };
@@ -50,14 +52,21 @@ const Archives = loadable(() => import('views/Archives'), loadableProps);
 const App = () => {
   const lang = useLang();
   const dispatch = useDispatch();
+  const params = useQueryParams();
   const { keycloak, initialized } = useKeycloak();
   const keycloakIsReady = keycloak && initialized;
 
   useEffect(() => {
     if (keycloakIsReady && keycloak.authenticated) {
+      dispatch(fetchSavedFilters());
       dispatch(fetchPractitionerRole());
       dispatch(fetchFhirServiceRequestCodes());
       dispatch(fetchConfig());
+
+      const sharedFilterId = params.get(SHARED_FILTER_ID_QUERY_PARAM_KEY);
+      if (sharedFilterId) {
+        dispatch(fetchSharedSavedFilter(sharedFilterId));
+      }
     }
     // eslint-disable-next-line
   }, [keycloakIsReady, keycloak]);

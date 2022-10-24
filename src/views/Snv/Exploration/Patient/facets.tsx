@@ -5,7 +5,7 @@ import { INDEXES } from 'graphql/constants';
 import { ExtendedMappingResults } from 'graphql/models';
 import GenesUploadIds from 'views/Snv/components/GeneUploadIds';
 import VariantGeneSearch from 'views/Snv/components/VariantGeneSearch';
-import { FilterTypes, VARIANT_PATIENT_QB_ID } from 'views/Snv/utils/constant';
+import { FilterTypes, SNV_VARIANT_PATIENT_QB_ID } from 'views/Snv/utils/constant';
 
 import DiseaseIcon from 'components/icons/DiseaseIcon';
 import FrequencyIcon from 'components/icons/FrequencyIcon';
@@ -36,7 +36,7 @@ const filterGroups: {
       <VariantGeneSearch
         key="variants"
         type={SuggestionType.VARIANTS}
-        queryBuilderId={VARIANT_PATIENT_QB_ID}
+        queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
       />,
     ],
     groups: [
@@ -56,9 +56,9 @@ const filterGroups: {
       <VariantGeneSearch
         key="genes"
         type={SuggestionType.GENES}
-        queryBuilderId={VARIANT_PATIENT_QB_ID}
+        queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
       />,
-      <GenesUploadIds key="geneIds" queryBuilderId={VARIANT_PATIENT_QB_ID} />,
+      <GenesUploadIds key="geneIds" queryBuilderId={SNV_VARIANT_PATIENT_QB_ID} />,
     ],
     groups: [
       {
@@ -161,7 +161,7 @@ export const getMenuItems = (
     panelContent: filtersContainer(
       variantMappingResults,
       INDEXES.VARIANT,
-      VARIANT_PATIENT_QB_ID,
+      SNV_VARIANT_PATIENT_QB_ID,
       filterGroups[FilterTypes.Rqdm],
       filterMapper,
     ),
@@ -173,7 +173,7 @@ export const getMenuItems = (
     panelContent: filtersContainer(
       variantMappingResults,
       INDEXES.VARIANT,
-      VARIANT_PATIENT_QB_ID,
+      SNV_VARIANT_PATIENT_QB_ID,
       filterGroups[FilterTypes.Variant],
       filterMapper,
     ),
@@ -185,7 +185,7 @@ export const getMenuItems = (
     panelContent: filtersContainer(
       variantMappingResults,
       INDEXES.VARIANT,
-      VARIANT_PATIENT_QB_ID,
+      SNV_VARIANT_PATIENT_QB_ID,
       filterGroups[FilterTypes.Gene],
       filterMapper,
     ),
@@ -197,7 +197,7 @@ export const getMenuItems = (
     panelContent: filtersContainer(
       variantMappingResults,
       INDEXES.VARIANT,
-      VARIANT_PATIENT_QB_ID,
+      SNV_VARIANT_PATIENT_QB_ID,
       filterGroups[FilterTypes.Frequency],
       filterMapper,
     ),
@@ -209,7 +209,7 @@ export const getMenuItems = (
     panelContent: filtersContainer(
       variantMappingResults,
       INDEXES.VARIANT,
-      VARIANT_PATIENT_QB_ID,
+      SNV_VARIANT_PATIENT_QB_ID,
       filterGroups[FilterTypes.Pathogenicity],
       filterMapper,
     ),
@@ -221,7 +221,7 @@ export const getMenuItems = (
     panelContent: filtersContainer(
       variantMappingResults,
       INDEXES.VARIANT,
-      VARIANT_PATIENT_QB_ID,
+      SNV_VARIANT_PATIENT_QB_ID,
       filterGroups[FilterTypes.Occurrence],
       filterMapper,
     ),

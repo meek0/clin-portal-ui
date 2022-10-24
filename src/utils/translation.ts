@@ -71,6 +71,69 @@ export const getQueryBuilderDictionary = (
   };
 
   return {
+    queryBuilderHeader: {
+      manageFilters: {
+        modalTitle: intl.get('querybuilder.header.myFiltersDropdown.manageMyFilter'),
+        okText: intl.get('cancel'),
+        lastSavedAt: intl.get('querybuilder.header.manageFilters.lastSaved'),
+      },
+      modal: {
+        edit: {
+          title: intl.get('querybuilder.header.modal.edit.title'),
+          okText: intl.get('querybuilder.header.modal.edit.okText'),
+          cancelText: intl.get('querybuilder.header.modal.edit.cancelText'),
+          content: '',
+          input: {
+            label: intl.get('querybuilder.header.modal.edit.input.label'),
+            placeholder: intl.get('querybuilder.header.modal.edit.input.placeholder'),
+            maximumLength: intl.get('querybuilder.header.modal.edit.input.maximumLength'),
+          },
+        },
+        saveThisFilter: intl.get('querybuilder.header.modal.saveThisFilter'),
+        confirmUnsaved: {
+          title: intl.get('querybuilder.header.modal.confirmUnsaved.title'),
+          openSavedFilter: {
+            okText: intl.get('querybuilder.header.modal.confirmUnsaved.openSavedFilter.okText'),
+            cancelText: intl.get(
+              'querybuilder.header.modal.confirmUnsaved.openSavedFilter.cancelText',
+            ),
+            content: intl.get('querybuilder.header.modal.confirmUnsaved.openSavedFilter.content'),
+          },
+          createNewFilter: {
+            okText: intl.get('querybuilder.header.modal.confirmUnsaved.createNewFilter.okText'),
+            cancelText: intl.get(
+              'querybuilder.header.modal.confirmUnsaved.createNewFilter.cancelText',
+            ),
+            content: intl.get('querybuilder.header.modal.confirmUnsaved.createNewFilter.content'),
+          },
+        },
+      },
+      popupConfirm: {
+        delete: {
+          title: intl.get('querybuilder.header.popupConfirm.delete.title'),
+          okText: intl.get('querybuilder.header.popupConfirm.delete.okText'),
+          cancelText: intl.get('querybuilder.header.popupConfirm.delete.cancelText'),
+          content: intl.get('querybuilder.header.popupConfirm.delete.content'),
+        },
+      },
+      tooltips: {
+        newQueryBuilder: intl.get('querybuilder.header.tooltips.newQueryBuilder'),
+        save: intl.get('querybuilder.header.tooltips.save'),
+        saveChanges: intl.get('querybuilder.header.tooltips.saveChanges'),
+        delete: intl.get('querybuilder.header.tooltips.delete'),
+        duplicateQueryBuilder: intl.get('querybuilder.header.tooltips.duplicateQueryBuilder'),
+        share: intl.get('querybuilder.header.tooltips.share'),
+        setAsDefaultFilter: intl.get('querybuilder.header.tooltips.setAsDefaultFilter'),
+        unsetDefaultFilter: intl.get('querybuilder.header.tooltips.unsetDefaultFilter'),
+        undoChanges: intl.get('querybuilder.header.tooltips.undoChanges'),
+        noSavedFilters: intl.get('querybuilder.header.tooltips.noSavedFilters'),
+      },
+      myFiltersDropdown: {
+        title: intl.get('querybuilder.header.myFiltersDropdown.title'),
+        manageMyFilter: intl.get('querybuilder.header.myFiltersDropdown.manageMyFilter'),
+      },
+      duplicateFilterTitleSuffix: intl.get('querybuilder.header.duplicateFilterTitleSuffix'),
+    },
     query: {
       combine: {
         and: intl.get('querybuilder.query.combine.and'),

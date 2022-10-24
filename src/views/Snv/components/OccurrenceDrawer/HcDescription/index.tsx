@@ -9,7 +9,7 @@ import {
   PossiblyHcComplement,
   PossiblyHcComplementHits,
 } from 'graphql/variants/models';
-import { VARIANT_PATIENT_QB_ID } from 'views/Snv/utils/constant';
+import { SNV_VARIANT_PATIENT_QB_ID } from 'views/Snv/utils/constant';
 
 import style from './index.module.scss';
 
@@ -66,7 +66,7 @@ export const HcComplementDescription = ({
               className={style.hcCountLink}
               onClick={() =>
                 addQuery({
-                  queryBuilderId: VARIANT_PATIENT_QB_ID,
+                  queryBuilderId: SNV_VARIANT_PATIENT_QB_ID,
                   query: generateQuery({
                     newFilters: [
                       generateValueFilter({
