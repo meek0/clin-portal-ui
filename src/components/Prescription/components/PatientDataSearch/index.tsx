@@ -346,8 +346,7 @@ const PatientDataSearch = ({
                       setFieldValue(form, getName(PATIENT_DATA_FI_KEY.SEX), ramqData.sex);
                     }
                   }
-
-                  if (isNewFileNumber && !isEmpty(value)) {
+                  if (isNewFileNumber && !!value?.mrn) {
                     setFieldError(
                       form,
                       getName(PATIENT_DATA_FI_KEY.RAMQ_NUMBER),
