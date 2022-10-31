@@ -24,7 +24,7 @@ const filterGroups: {
   [FilterTypes.Patient]: {
     groups: [
       {
-        facets: ['donors__analysis_code', 'donors__affected_status', 'donors__gender'],
+        facets: ['donors__analysis_code', 'donors__affected_status_code', 'donors__gender'],
       },
     ],
   },
