@@ -112,6 +112,20 @@ const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
       investigation {
         item {
           reference
+          item: resource(type: Observation) {
+            id
+            resourceType
+            code {
+              coding @first {
+                code
+              }
+            }
+            interpretation {
+              coding @first {
+                code
+              }
+            }
+          }
         }
       }
     }
