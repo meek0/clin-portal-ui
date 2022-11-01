@@ -191,6 +191,7 @@ export const getVariantColumns = (
         className: style.userAffectedBtnCell,
         key: 'actions',
         title: intl.get('screen.patientsnv.results.table.actions'),
+        fixed: 'right',
         render: (record: VariantEntity) => (
           <Space align={'center'}>
             <Tooltip title={intl.get('occurrence.patient')}>
