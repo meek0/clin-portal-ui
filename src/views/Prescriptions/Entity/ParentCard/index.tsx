@@ -3,7 +3,7 @@ import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Descriptions, Divider, Space, Typography } from 'antd';
 import { extractPatientId } from 'api/fhir/helper';
 import { ServiceRequestEntityExtension } from 'api/fhir/models';
-import { checkIfPatientIsAffected } from 'api/fhir/patientHelper';
+import { getPatientAffectedStatus } from 'api/fhir/patientHelper';
 import { get } from 'lodash';
 
 import CollapsePanel from 'components/containers/collapse';
@@ -40,7 +40,7 @@ const ParentCard = ({ extension, loading }: OwnProps) => (
                 <Divider />
                 <Descriptions column={1} size="small" className="label-20">
                   <Descriptions.Item label="Statut">
-                    {intl.get(checkIfPatientIsAffected(extension) ? 'affected' : 'not_affected')}
+                    {intl.get(getPatientAffectedStatus(extension))}
                   </Descriptions.Item>
                 </Descriptions>
               </>

@@ -109,6 +109,7 @@ const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
     }
     clinicalImpressions: ClinicalImpressionList(_reference: patient) {
       id
+      resourceType
       investigation {
         item {
           reference
@@ -120,7 +121,7 @@ const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
                 code
               }
             }
-            interpretation {
+            interpretation @first {
               coding @first {
                 code
               }
