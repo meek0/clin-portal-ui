@@ -35,6 +35,22 @@ type SymbolToConsequences = {
   [key: string]: ArrangerEdge<ConsequenceEntity>[];
 };
 
+export const distinctConsequences = (consequences: ArrangerEdge<ConsequenceEntity>[]) => {
+  const uniqueKeys: String[] = [];
+  return consequences.filter((c) => {
+    // ignore empty consequence
+    const consequence = c.node?.consequences?.[0];
+    if (!consequence) return false;
+    // compute unicity key
+    const symbol = c.node?.symbol || keyNoSymbol;
+    const keyForCurrentConsequence = `${symbol}_${consequence}`;
+    // filter consequence based on key
+    const isUnique = !uniqueKeys.includes(keyForCurrentConsequence);
+    if (isUnique) uniqueKeys.push(keyForCurrentConsequence);
+    return isUnique;
+  });
+};
+
 export const generateConsequencesDataLines = (
   rawConsequences: ArrangerEdge<ConsequenceEntity>[] | null,
 ): ArrangerEdge<ConsequenceEntity>[] => {
@@ -54,7 +70,7 @@ export const generateConsequencesDataLines = (
     {},
   );
 
-  return Object.entries(symbolToConsequences).reduce(
+  const consequences = Object.entries(symbolToConsequences).reduce(
     (acc: ArrangerEdge<ConsequenceEntity>[], [key, consequences]) => {
       // no gene then show
       if (key === keyNoSymbol) {
@@ -66,4 +82,6 @@ export const generateConsequencesDataLines = (
     },
     [],
   );
+
+  return distinctConsequences(consequences);
 };
