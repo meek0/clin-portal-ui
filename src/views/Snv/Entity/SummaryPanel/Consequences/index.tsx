@@ -134,12 +134,12 @@ const makeTables = (
   return orderConsequencesForTable(orderedGenes);
 };
 
-const makeRows = (consequences: ArrangerEdge<ConsequenceEntity>[]) =>
+export const makeRows = (consequences: ArrangerEdge<ConsequenceEntity>[]) =>
   consequences.map((consequence: ArrangerEdge<ConsequenceEntity>, index: number) => ({
     key: `${index + 1}`,
-    aa: consequence.node.aa_change,
+    aa: consequence.node.hgvsp?.split(':')[1],
     consequences: consequence.node.consequences.filter((c) => c || c.length > 0),
-    codingDna: consequence.node.coding_dna_change,
+    codingDna: consequence.node.hgvsc?.split(':')[1],
     strand: consequence.node.strand,
     vep: consequence.node.vep_impact,
     impact: [

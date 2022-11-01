@@ -187,6 +187,8 @@ export type ConsequenceEntity = {
   consequences: string[];
   vep_impact: Impact;
   aa_change: string | undefined | null;
+  hgvsc: string;
+  hgvsp: string;
   impact_score: number | null;
   canonical: boolean;
   coding_dna_change: string;

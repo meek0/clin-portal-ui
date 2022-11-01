@@ -30,8 +30,8 @@ export const VARIANT_QUERY = gql`
                     #canonical
                     vep_impact
                     consequences
-                    aa_change
                     impact_score
+                    hgvsc
                   }
                 }
               }
@@ -326,6 +326,8 @@ export const TAB_SUMMARY_QUERY = gql`
                     ensembl_gene_id
                     coding_dna_change
                     aa_change
+                    hgvsc
+                    hgvsp
                     strand
                     canonical
                     conservations {
