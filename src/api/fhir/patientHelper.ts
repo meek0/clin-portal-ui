@@ -24,7 +24,7 @@ export const formatRamq = (value: string) =>
         .trimEnd()
     : value;
 
-export const checkIfPatientIfAffected = (extension: ServiceRequestEntityExtension) =>
+export const checkIfPatientIsAffected = (extension: ServiceRequestEntityExtension) =>
   get(get(extension, 'extension[1].valueReference.resource', {}), 'clinicalImpressions', []).some(
     (impression: ClinicalImpression) =>
       get(impression.investigation[0], 'item[0].resource.interpretation.coding[0].code', 'NEG') ===
