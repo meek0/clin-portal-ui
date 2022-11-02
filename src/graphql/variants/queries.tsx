@@ -76,6 +76,7 @@ export const VARIANT_QUERY = gql`
                     ad_total
                     ad_ratio
                     affected_status
+                    affected_status_code
                     qd
                     gq
                     filters
@@ -510,6 +511,7 @@ export const TAB_PATIENT_QUERY = gql`
                     ad_total
                     ad_ratio
                     affected_status
+                    affected_status_code
                     qd
                     gq
                     service_request_id

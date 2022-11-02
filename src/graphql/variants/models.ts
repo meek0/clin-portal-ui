@@ -76,6 +76,7 @@ export type DonorsEntity = {
   ad_total: number;
   ad_ratio: number;
   affected_status: boolean;
+  affected_status_code: string;
   qd: number;
   gq: number;
   filters?: string[];
