@@ -653,6 +653,7 @@
   "screen.variantdetails.tab.summary": "Résumé",
   "screen.variantsearch.rqdm.title": "Banque de variants du RQDM",
   "screen.variantsearch.table.gnomAd": "gnomAD ",
+  "screen.variantsearch.table.gnomAd.tooltip": "gnomAD Génome 2.1.1",
   "screen.variantsearch.title": "Variants",
   "see.less": "Voir moins",
   "see.more": "Voir plus",
