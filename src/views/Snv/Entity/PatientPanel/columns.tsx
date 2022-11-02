@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tooltip } from 'antd';
 import { ColumnFilterItem } from 'antd/lib/table/interface';
-import { AFFECTED_STATUS_CODE, AffectedStatusCode } from 'api/fhir/patientHelper';
 import { ArrangerEdge, ArrangerHits } from 'graphql/models';
 import { DonorsEntity, TTableDonorEntity } from 'graphql/variants/models';
 
