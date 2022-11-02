@@ -48,6 +48,7 @@ const makeRows = (donors: ArrangerEdge<DonorsEntity>[]): TTableDonorEntity[] =>
     ad_total: donor.node.ad_total,
     ad_ratio: donor.node.ad_ratio,
     affected_status: donor.node.affected_status,
+    affected_status_code: donor.node.affected_status_code,
   }));
 
 interface DataSourceState {

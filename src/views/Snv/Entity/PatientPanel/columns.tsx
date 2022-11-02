@@ -93,22 +93,16 @@ export const getPatientPanelColumns = (
     onFilter: (value, record: DonorsEntity) => value === record.gender,
   },
   {
-    key: 'affected_status',
-    dataIndex: 'affected_status',
+    key: 'affected_status_code',
+    dataIndex: 'affected_status_code',
     title: intl.get('screen.variantDetails.patientsTab.status'),
-    render: (affected_status: boolean) =>
-      intl.get(`screen.variantDetails.patientsTab.${affected_status ? 'affected' : 'notaffected'}`),
-    filters: [
-      {
-        text: intl.get('screen.variantDetails.patientsTab.affected'),
-        value: true,
-      },
-      {
-        text: intl.get('screen.variantDetails.patientsTab.notaffected'),
-        value: false,
-      },
-    ],
-    onFilter: (value, record: DonorsEntity) => value === record.affected_status,
+    render: (affected_status_code: string) =>
+      intl.get(`screen.variantDetails.patientsTab.${affected_status_code}`),
+    filters: ['POS', 'NEG', 'IND'].map((value: string) => ({
+      text: intl.get(`screen.variantDetails.patientsTab.${value}`),
+      value,
+    })),
+    onFilter: (value, record: DonorsEntity) => value === record.affected_status_code,
   },
   {
     key: 'filters',

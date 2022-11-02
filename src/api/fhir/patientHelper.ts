@@ -1,8 +1,16 @@
 import { capitalize, get } from 'lodash';
 
-import { ClinicalImpression, Name, Patient, ServiceRequestEntityExtension } from './models';
+import { Name, Patient, ServiceRequestEntityExtension } from './models';
 
 export const RAMQ_NUMBER_LENGTH = 12;
+
+export type AffectedStatusCode = 'POS' | 'NEG' | 'IND';
+
+export const AFFECTED_STATUS_CODE = {
+  POS: 'affected',
+  NEG: 'not_affected',
+  IND: 'unknown',
+};
 
 export const getRAMQValue = (patient?: Patient): string | undefined =>
   patient
@@ -24,11 +32,13 @@ export const formatRamq = (value: string) =>
         .trimEnd()
     : value;
 
-export const checkIfPatientIfAffected = (extension: ServiceRequestEntityExtension) =>
-  get(get(extension, 'extension[1].valueReference.resource', {}), 'clinicalImpressions', []).some(
-    (impression: ClinicalImpression) =>
-      get(impression.investigation[0], 'item[0].resource.interpretation.coding[0].code', 'NEG') ===
-      'POS',
+export const getPatientAffectedStatus = (extension: ServiceRequestEntityExtension) => {
+  const item = get(
+    extension,
+    'extension[1].valueReference.resource.clinicalImpressions[0].investigation[0].item[0].item',
+    [],
   );
+  return AFFECTED_STATUS_CODE[get(item, 'interpretation.coding.code') as AffectedStatusCode];
+};
 
 export const formatName = (name: Name) => `${name.family.toUpperCase()} ${capitalize(name.given)} `;
