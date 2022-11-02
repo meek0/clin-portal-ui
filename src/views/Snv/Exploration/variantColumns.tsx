@@ -148,11 +148,11 @@ export const getVariantColumns = (
     {
       key: 'external_frequencies',
       title: intl.get('screen.variantsearch.table.gnomAd'),
-      tooltip: `${intl.get('screen.variantsearch.table.gnomAd')} exomes`,
+      tooltip: `${intl.get('screen.variantsearch.table.gnomAd.tooltip')}`,
       dataIndex: 'external_frequencies',
       render: (external_frequencies: ExternalFrequenciesEntity) =>
-        external_frequencies.gnomad_exomes_2_1_1
-          ? external_frequencies.gnomad_exomes_2_1_1.af.toExponential(3)
+        external_frequencies.gnomad_genomes_2_1_1
+          ? external_frequencies.gnomad_genomes_2_1_1.af.toExponential(3)
           : TABLE_EMPTY_PLACE_HOLDER,
     },
     {
