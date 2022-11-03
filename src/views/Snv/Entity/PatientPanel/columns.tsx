@@ -98,7 +98,7 @@ export const getPatientPanelColumns = (
     title: intl.get('screen.variantDetails.patientsTab.status'),
     render: (affected_status_code: string) =>
       intl.get(`screen.variantDetails.patientsTab.${affected_status_code}`),
-    filters: ['POS', 'NEG', 'IND'].map((value: string) => ({
+    filters: ['affected', 'not_affected', 'unknown'].map((value: string) => ({
       text: intl.get(`screen.variantDetails.patientsTab.${value}`),
       value,
     })),
