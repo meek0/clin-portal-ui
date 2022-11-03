@@ -188,42 +188,6 @@ export const getVariantColumns = (
         },
       },
       {
-        className: style.userAffectedBtnCell,
-        key: 'actions',
-        title: intl.get('screen.patientsnv.results.table.actions'),
-        fixed: 'right',
-        render: (record: VariantEntity) => (
-          <Space align={'center'}>
-            <Tooltip title={intl.get('occurrence.patient')}>
-              <Button
-                type={'text'}
-                onClick={() => drawerCb && drawerCb(record)}
-                icon={<UserAffectedIcon width={'18px'} height={'18px'} />}
-                size={'small'}
-              />
-            </Tooltip>
-            <ReportButton
-              patientId={patientId}
-              variantId={record.hgvsg}
-              name={ReportNames.transcript}
-              iconOnly
-              icon={<DownloadOutlined />}
-              tooltipTitle={intl.get('download.report')}
-              size={'small'}
-            />
-            <Tooltip title={intl.get('open.in.igv')}>
-              <Button
-                onClick={() => igvModalCb && igvModalCb(record)}
-                icon={<LineStyleIcon width={'18px'} height={'18px'} />}
-                type={'text'}
-                size={'small'}
-              />
-            </Tooltip>
-          </Space>
-        ),
-        align: 'center',
-      },
-      {
         ...getAcmgCriteriaCol(),
       },
       {
@@ -328,6 +292,42 @@ export const getVariantColumns = (
         defaultHidden: true,
         render: (record: VariantEntity) =>
           findDonorById(record.donors, patientId)?.filters ?? TABLE_EMPTY_PLACE_HOLDER,
+      },
+      {
+        className: style.userAffectedBtnCell,
+        key: 'actions',
+        title: intl.get('screen.patientsnv.results.table.actions'),
+        fixed: 'right',
+        render: (record: VariantEntity) => (
+          <Space align={'center'}>
+            <Tooltip title={intl.get('occurrence.patient')}>
+              <Button
+                type={'text'}
+                onClick={() => drawerCb && drawerCb(record)}
+                icon={<UserAffectedIcon width={'18px'} height={'18px'} />}
+                size={'small'}
+              />
+            </Tooltip>
+            <ReportButton
+              patientId={patientId}
+              variantId={record.hgvsg}
+              name={ReportNames.transcript}
+              iconOnly
+              icon={<DownloadOutlined />}
+              tooltipTitle={intl.get('download.report')}
+              size={'small'}
+            />
+            <Tooltip title={intl.get('open.in.igv')}>
+              <Button
+                onClick={() => igvModalCb && igvModalCb(record)}
+                icon={<LineStyleIcon width={'18px'} height={'18px'} />}
+                type={'text'}
+                size={'small'}
+              />
+            </Tooltip>
+          </Space>
+        ),
+        align: 'center',
       },
     );
   }
