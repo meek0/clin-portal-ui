@@ -5,7 +5,7 @@ describe('variant: table', () => {
     const expected = {
       key: 'external_frequencies',
       title: 'gnomAD ',
-      tooltip: 'gnomAD Génome 2.1.1',
+      tooltip: 'gnomAD Génomes 2.1.1',
       dataIndex: 'external_frequencies',
     };
     const gnomADVariant = getVariantColumns().find((v) => v.key === 'external_frequencies');
