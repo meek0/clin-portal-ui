@@ -140,6 +140,9 @@ export const VARIANT_QUERY = gql`
               gnomad_exomes_2_1_1 {
                 af
               }
+              gnomad_genomes_2_1_1 {
+                af
+              }
             }
 
             genes {
