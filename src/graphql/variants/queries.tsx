@@ -32,6 +32,7 @@ export const VARIANT_QUERY = gql`
                     consequences
                     impact_score
                     hgvsc
+                    aa_change
                   }
                 }
               }
