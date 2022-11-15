@@ -8,7 +8,7 @@ on:
 jobs:
   build_staging:
     name: Publish Staging Image
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set the Staging configuration file
@@ -22,7 +22,7 @@ jobs:
         tag_format: "staging-{semver}"
   build_prod:
     name: Publish Prod Image
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set the Prod configuration file
