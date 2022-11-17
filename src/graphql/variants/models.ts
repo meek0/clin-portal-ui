@@ -209,6 +209,7 @@ export type PredictionEntity = {
   fathmm_pred: number;
   FATHMM_converted_rankscore: number;
   cadd_score: number;
+  cadd_phred: number;
   dann_score: number;
   lrt_pred: string;
   lrt_converted_rankscore: number;
