@@ -2,8 +2,8 @@ import { filterByTypeAndWeight } from 'utils/suggestions';
 
 describe('filterByTypeAndWeight', () => {
   test('Should be robust', () => {
-    expect(filterByTypeAndWeight(null, null)).toEqual([]);
-    expect(filterByTypeAndWeight([], null)).toEqual([]);
+    expect(filterByTypeAndWeight(null, null, null)).toEqual([]);
+    expect(filterByTypeAndWeight(null, [], null)).toEqual([]);
   });
   test('Should filter by type and default min weight (=0)', () => {
     const suggestions = [
@@ -53,7 +53,7 @@ describe('filterByTypeAndWeight', () => {
         ],
       },
     ];
-    expect(filterByTypeAndWeight(suggestions, 'variant')).toEqual(expected);
+    expect(filterByTypeAndWeight('foo', suggestions, 'variant')).toEqual(expected);
   });
   test('Should filter by type and custom min weight', () => {
     const suggestions = [
@@ -105,6 +105,32 @@ describe('filterByTypeAndWeight', () => {
         ],
       },
     ];
-    expect(filterByTypeAndWeight(suggestions, 'variant', 2)).toEqual(expected);
+    expect(filterByTypeAndWeight('foo', suggestions, 'variant', 2)).toEqual(expected);
+  });
+  test('Should contains the value non-sensitive', () => {
+    const suggestions = [
+      {
+        type: 'variant',
+        suggest: [
+          {
+            weight: 0,
+            input: ['foo', 'bar'],
+          },
+        ],
+      },
+    ];
+    const expected = [
+      {
+        type: 'variant',
+        suggest: [
+          {
+            weight: 0,
+            input: ['foo', 'bar'],
+          },
+        ],
+      },
+    ];
+    expect(filterByTypeAndWeight('f', suggestions, 'variant', 0)).toEqual(expected);
+    expect(filterByTypeAndWeight('bAr', suggestions, 'variant', 0)).toEqual(expected);
   });
 });

@@ -30,7 +30,7 @@ const VariantSearchBox = () => {
           if (value) {
             const { data } = await ArrangerApi.searchSuggestions(SuggestionType.VARIANTS, value);
             setSuggestions(
-              filterByTypeAndWeight(data?.suggestions ?? [], GenomicFeatureType.VARIANT, 4),
+              filterByTypeAndWeight(value, data?.suggestions ?? [], GenomicFeatureType.VARIANT, 4),
             );
           }
         },
