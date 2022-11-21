@@ -23,7 +23,7 @@ export const OtherActions = ({ patientId, record }: OwnProps) => {
     },
     {
       key: 'UCSC',
-      icon: <GeneIcon height="18" width="18" />,
+      icon: <GeneIcon height="12" width="12" />,
       label: (
         <a
           target="_blank"
