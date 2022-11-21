@@ -22,6 +22,7 @@ export const VARIANT_QUERY = gql`
             rsnumber
             chromosome
             start
+            end
             consequences {
               hits {
                 edges {
