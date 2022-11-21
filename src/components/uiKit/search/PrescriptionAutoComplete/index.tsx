@@ -10,23 +10,16 @@ import { hydrateResults } from 'graphql/models';
 import { AnalysisResult, IAnalysisResultTree } from 'graphql/prescriptions/models/Prescription';
 import { PRESCRIPTIONS_SEARCH_QUERY } from 'graphql/prescriptions/queries';
 import { isEmpty } from 'lodash';
+import { commonPrescriptionFilterFields } from 'views/Prescriptions/utils/constant';
 
-import OptionItem from './OptionItem';
+import OptionItem from 'components/uiKit/search/PrescriptionAutoComplete/OptionItem';
 
 import styles from './index.module.scss';
 
 const generateSearchFilter = (search: string) =>
   generateQuery({
     operator: BooleanOperators.or,
-    newFilters: [
-      'prescription_id',
-      'patient_mrn',
-      'patient_id',
-      'mother_id',
-      'father_id',
-      'sequencing_requests.request_id',
-      'sequencing_requests.sample',
-    ].map((key) =>
+    newFilters: commonPrescriptionFilterFields.map((key) =>
       generateValueFilter({
         field: key,
         value: [`${search}*`],
