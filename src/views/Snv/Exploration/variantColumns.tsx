@@ -1,6 +1,5 @@
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
-import { DownloadOutlined } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
@@ -24,15 +23,14 @@ import ConsequencesCell from 'views/Snv/components/ConsequencesCell';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import UserAffectedIcon from 'components/icons/UserAffectedIcon';
-import { ReportNames } from 'store/reports/types';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
 import GqLine from '../components/GQLine';
 import { HcComplementDescription } from '../components/OccurrenceDrawer/HcDescription';
-import ReportButton from '../components/Report/DownloadButton';
 import { TAB_ID } from '../Entity';
 
 import AcmgVerdict from './components/AcmgVerdict';
+import { OtherActions } from './components/OtherActions';
 
 import style from './variantColumns.module.scss';
 
@@ -302,29 +300,21 @@ export const getVariantColumns = (
           <Space align={'center'}>
             <Tooltip title={intl.get('occurrence.patient')}>
               <Button
-                type={'text'}
+                type={'link'}
                 onClick={() => drawerCb && drawerCb(record)}
                 icon={<UserAffectedIcon width={'18px'} height={'18px'} />}
                 size={'small'}
               />
             </Tooltip>
-            <ReportButton
-              patientId={patientId}
-              variantId={record.hgvsg}
-              name={ReportNames.transcript}
-              iconOnly
-              icon={<DownloadOutlined />}
-              tooltipTitle={intl.get('download.report')}
-              size={'small'}
-            />
             <Tooltip title={intl.get('open.in.igv')}>
               <Button
                 onClick={() => igvModalCb && igvModalCb(record)}
                 icon={<LineStyleIcon width={'18px'} height={'18px'} />}
-                type={'text'}
+                type={'link'}
                 size={'small'}
               />
             </Tooltip>
+            <OtherActions patientId={patientId} record={record} />
           </Space>
         ),
         align: 'center',
