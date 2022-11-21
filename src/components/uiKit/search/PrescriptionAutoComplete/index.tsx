@@ -25,6 +25,7 @@ const generateSearchFilter = (search: string) =>
       'mother_id',
       'father_id',
       'sequencing_requests.request_id',
+      'sequencing_requests.sample',
     ].map((key) =>
       generateValueFilter({
         field: key,
