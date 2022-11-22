@@ -739,6 +739,16 @@ exports[`SequencingTable should be as the snapshot 1`] = `
                           </span>
                         </div>
                       </th>
+                      <th
+                        className="ant-table-cell"
+                        colSpan={null}
+                        onMouseEnter={[Function]}
+                        onMouseLeave={[Function]}
+                        rowSpan={null}
+                        style={Object {}}
+                      >
+                        Liens
+                      </th>
                     </tr>
                   </thead>
                   <tbody
@@ -754,7 +764,7 @@ exports[`SequencingTable should be as the snapshot 1`] = `
                     >
                       <td
                         className="ant-table-cell"
-                        colSpan={10}
+                        colSpan={11}
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         rowSpan={null}
