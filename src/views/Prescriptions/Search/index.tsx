@@ -16,15 +16,19 @@ import {
 import { cloneDeep, isEmpty } from 'lodash';
 import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
+import Sidebar from 'views/Prescriptions/Search/components/Sidebar';
+import PrescriptionsTable from 'views/Prescriptions/Search/components/table/PrescriptionTable';
+import SequencingsTable from 'views/Prescriptions/Search/components/table/SequencingTable';
+import {
+  PRESCRIPTION_QB_ID,
+  PRESCRIPTION_SCROLL_ID,
+  TableTabs,
+} from 'views/Prescriptions/Search/utils/contstant';
+import { commonPrescriptionFilterFields } from 'views/Prescriptions/utils/constant';
 
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import { IQueryConfig } from 'utils/searchPageTypes';
-
-import Sidebar from './components/Sidebar';
-import PrescriptionsTable from './components/table/PrescriptionTable';
-import SequencingsTable from './components/table/SequencingTable';
-import { PRESCRIPTION_QB_ID, PRESCRIPTION_SCROLL_ID, TableTabs } from './utils/contstant';
 
 import styles from './index.module.scss';
 
@@ -50,13 +54,7 @@ const adjustSqon = (sqon: ISyntheticSqon) =>
 const generateSearchFilter = (search: string) =>
   generateQuery({
     operator: BooleanOperators.or,
-    newFilters: [
-      'prescription_id',
-      'patient_mrn',
-      'patient_id',
-      'sequencing_requests.request_id',
-      'request_id',
-    ].map((key) =>
+    newFilters: commonPrescriptionFilterFields.map((key) =>
       generateValueFilter({
         field: key,
         value: [`${search}*`],
