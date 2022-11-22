@@ -40,6 +40,9 @@ export const getFiltersDictionary = (): FiltersDict => ({
 });
 
 export const getProTableDictionary = (): IProTableDictionary => ({
+  tooltips: {
+    tableExport: intl.get('protable.tooltips.export'),
+  },
   itemCount: {
     results: intl.get('protable.results'),
     noResults: intl.get('protable.noResults'),

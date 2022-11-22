@@ -282,6 +282,7 @@
   "protable.selectAllResults": "Select all results",
   "protable.selected": "item selected",
   "protable.selectedPlural": "items selected",
+  "protable.tooltips.export": "Export as TSV",
   "qd": "QD",
   "qd.tooltip": "Quality Depth",
   "querybuilder.actions.addQuery": "New query",

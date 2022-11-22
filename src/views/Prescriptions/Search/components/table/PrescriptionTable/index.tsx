@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { GqlResults } from 'graphql/models';
 import { AnalysisResult, ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import { DEFAULT_PAGE_SIZE } from 'views/Prescriptions/Search';
 import { PRESCRIPTION_SCROLL_ID } from 'views/Prescriptions/Search/utils/contstant';
+import {
+  exportAsTSV,
+  extractSelectionFromResults,
+  makeFilenameDatePart,
+} from 'views/Prescriptions/utils/export';
 
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
-import { formatQuerySortList, scrollToTop } from 'utils/helper';
+import { downloadText, formatQuerySortList, scrollToTop } from 'utils/helper';
 import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
@@ -25,6 +30,15 @@ interface OwnProps {
   queryConfig: IQueryConfig;
 }
 
+const download = (results: GqlResults<AnalysisResult> | null, selectedKeys: string[]) => {
+  if (results) {
+    const data = extractSelectionFromResults(results.data, selectedKeys, 'prescription_id');
+    const headers = prescriptionsColumns().map((c) => c.key);
+    const tsv = exportAsTSV(data, headers);
+    downloadText(tsv, `PR_${makeFilenameDatePart()}.tsv`);
+  }
+};
+
 const PrescriptionsTable = ({
   results,
   setQueryConfig,
@@ -33,6 +47,7 @@ const PrescriptionsTable = ({
 }: OwnProps): React.ReactElement => {
   const dispatch = useDispatch();
   const { user } = useUser();
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   return (
     <ProTable<ITableAnalysisResult>
       tableId="prescription_table"
@@ -54,6 +69,7 @@ const PrescriptionsTable = ({
         });
         scrollToTop(PRESCRIPTION_SCROLL_ID);
       }}
+      enableRowSelection
       headerConfig={{
         itemCount: {
           pageIndex: queryConfig.pageIndex,
@@ -61,6 +77,13 @@ const PrescriptionsTable = ({
           total: results?.total || 0,
         },
         enableColumnSort: true,
+        onSelectedRowsChange: (e) => {
+          setSelectedKeys(e);
+        },
+        enableTableExport: true,
+        onTableExportClick: () => {
+          download(results, selectedKeys);
+        },
         onColumnSortChange: (columns) => {
           dispatch(
             updateConfig({

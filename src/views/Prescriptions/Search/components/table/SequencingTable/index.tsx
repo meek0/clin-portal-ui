@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { GqlResults } from 'graphql/models';
 import { ITableSequencingResult, SequencingResult } from 'graphql/sequencing/models';
 import { DEFAULT_PAGE_SIZE } from 'views/Prescriptions/Search';
 import { SEQUENCING_SCROLL_ID } from 'views/Prescriptions/Search/utils/contstant';
+import {
+  exportAsTSV,
+  extractSelectionFromResults,
+  makeFilenameDatePart,
+} from 'views/Prescriptions/utils/export';
 
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
-import { formatQuerySortList, scrollToTop } from 'utils/helper';
+import { downloadText, formatQuerySortList, scrollToTop } from 'utils/helper';
 import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
@@ -25,6 +30,15 @@ interface OwnProps {
   queryConfig: IQueryConfig;
 }
 
+const download = (results: GqlResults<SequencingResult> | null, selectedKeys: string[]) => {
+  if (results) {
+    const data = extractSelectionFromResults(results.data, selectedKeys, 'request_id');
+    const headers = sequencingsColumns().map((c) => c.key);
+    const tsv = exportAsTSV(data, headers);
+    downloadText(tsv, `RQ_${makeFilenameDatePart()}.tsv`);
+  }
+};
+
 const SequencingsTable = ({
   results,
   setQueryConfig,
@@ -33,6 +47,7 @@ const SequencingsTable = ({
 }: OwnProps): React.ReactElement => {
   const dispatch = useDispatch();
   const { user } = useUser();
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   return (
     <ProTable<ITableSequencingResult>
       tableId="sequencing_table"
@@ -54,6 +69,7 @@ const SequencingsTable = ({
         });
         scrollToTop(SEQUENCING_SCROLL_ID);
       }}
+      enableRowSelection
       headerConfig={{
         itemCount: {
           pageIndex: queryConfig.pageIndex,
@@ -61,6 +77,13 @@ const SequencingsTable = ({
           total: results?.total || 0,
         },
         enableColumnSort: true,
+        onSelectedRowsChange: (e) => {
+          setSelectedKeys(e);
+        },
+        enableTableExport: true,
+        onTableExportClick: () => {
+          download(results, selectedKeys);
+        },
         onColumnSortChange: (columns) => {
           dispatch(
             updateConfig({
