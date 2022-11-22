@@ -32,3 +32,14 @@
 .rqdmCell {
   min-width: 100px;
 }
+
+.fixedVariantTableCellElipsis {
+  max-width: 200px;
+  width: 200px;
+  div{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: unset;
+    white-space: nowrap;
+  }
+}
