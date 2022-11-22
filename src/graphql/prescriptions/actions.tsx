@@ -14,6 +14,7 @@ import {
   ANALYSE_GENERALOBS_INDICATION_OBSERVATION,
   ANALYSE_PARACLINIQUE_OBSERVATION,
   ANALYSE_PHENOTYPE_OBSERVATION,
+  ANALYSE_VALUESET,
   ANALYSIS_ENTITY_QUERY,
   ANALYSIS_TASK_QUERY,
   PRESCRIPTIONS_QUERY,
@@ -40,6 +41,16 @@ export const useCodeSystem = (id: string) => {
   });
   return {
     codeInfo: data?.CodeSystem,
+  };
+};
+export const useValueSet = (id: string) => {
+  const { data } = useLazyResultQueryOnLoadOnly<any>(ANALYSE_VALUESET(id), {
+    variables: {
+      id: id,
+    },
+  });
+  return {
+    valueSet: data?.ValueSet,
   };
 };
 
