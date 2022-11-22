@@ -1,496 +1,393 @@
 /// <reference types="Cypress" />
 import '../../support/commands';
 
-const epCHUSJ_ldmCHUSJ = JSON.parse(Cypress.env('mrn_283773'));
-const epCUSM_ldmCHUSJ = JSON.parse(Cypress.env('mrn_283824'));
-const epCUSM_ldmCUSM = JSON.parse(Cypress.env('mrn_283897'));
-const epCHUS_ldmCHUS = JSON.parse(Cypress.env('mrn_283834'));
-
-const strPrescUrlCHUSJCHUSJ = '/prescription/entity/' + epCHUSJ_ldmCHUSJ.prescriptionId;
-const strPrescUrlCUSMCHUSJ = '/prescription/entity/' + epCUSM_ldmCHUSJ.prescriptionId;
-const strPrescUrlCUSMCUSM = '/prescription/entity/' + epCUSM_ldmCUSM.prescriptionId;
-const strPrescUrlCHUSCHUS = '/prescription/entity/' + epCHUS_ldmCHUS.prescriptionId;
-const strVarUrlCHUSJCHUSJ =
-  '/snv/exploration/patient/' + epCHUSJ_ldmCHUSJ.patientId + '/' + epCHUSJ_ldmCHUSJ.prescriptionId;
-const strVarUrlCUSMCHUSJ =
-  '/snv/exploration/patient/' + epCUSM_ldmCHUSJ.patientId + '/' + epCUSM_ldmCHUSJ.prescriptionId;
-const strVarUrlCUSMCUSM =
-  '/snv/exploration/patient/' + epCUSM_ldmCUSM.patientId + '/' + epCUSM_ldmCUSM.prescriptionId;
-const strVarUrlCHUSCHUS =
-  '/snv/exploration/patient/' + epCHUS_ldmCHUS.patientId + '/' + epCHUS_ldmCHUS.prescriptionId;
+const epCHUSJ_ldmCHUSJ = JSON.parse(Cypress.env('presc_EP_CHUSJ_LDM_CHUSJ'));
+const epCUSM_ldmCHUSJ  = JSON.parse(Cypress.env('presc_EP_CUSM_LDM_CHUSJ'));
+const epCUSM_ldmCUSM   = JSON.parse(Cypress.env('presc_EP_CUSM_LDM_CUSM'));
+const epCHUS_ldmCHUS   = JSON.parse(Cypress.env('presc_EP_CHUS_LDM_CHUS'));
 
 describe('Accès des utilisateurs', () => {
+
   it('Docteur et généticien (CHUSJ, CUSM, CHUS)', () => {
-    // Se connecter
-    cy.visit('/');
-    cy.wait(2000);
-    cy.get('input[type="email"]').type(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'));
-    cy.get('input[type="password"]').type(Cypress.env('password'), { log: false });
-    cy.get('button[type="submit"]').click();
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
 
     // Les prescriptions de tous les EPs sont visibles
-    cy.visit('/prescription/search');
-    cy.wait(2000);
-    cy.contains('LDM-CHUSJ');
-    cy.contains('LDM-CUSM');
-    cy.contains('LDM-CHUS');
+    cy.visitPrescriptionsPage();
+    cy.contains('LDM-CHUSJ').should('exist');
+    cy.contains('LDM-CUSM').should('exist');
+    cy.contains(/^LDM-CHUS$/).should('exist');
 
     // Accéder à la page de tous les variants
-    cy.visit('/snv/exploration');
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPage();
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUSJ
-    cy.visit(strPrescUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('Jacob');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.contains(epCHUSJ_ldmCHUSJ.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
 
     // Accéder aux variants d'un patient du CHUSJ
-    cy.visit(strVarUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strPrescUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('Henri');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
+    cy.contains(epCUSM_ldmCHUSJ.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strVarUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strPrescUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('Maya');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
+    cy.contains(epCUSM_ldmCUSM.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strVarUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUS
-    cy.visit(strPrescUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('Tristan');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
+    cy.contains(epCHUS_ldmCHUS.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CHUS
-    cy.visit(strVarUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     cy.logout;
   });
 
   it('Généticien (CHUSJ, CUSM, CHUS)', () => {
-    // Se connecter
-    cy.visit('/');
-    cy.wait(2000);
-    cy.get('input[type="email"]').type(Cypress.env('username_G_CHUSJ_CUSM_CHUS'));
-    cy.get('input[type="password"]').type(Cypress.env('password'), { log: false });
-    cy.get('button[type="submit"]').click();
+    cy.login(Cypress.env('username_G_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
 
     // Les prescriptions de tous les EPs sont visibles
-    cy.visit('/prescription/search');
-    cy.wait(2000);
-    cy.contains('LDM-CHUSJ');
-    cy.contains('LDM-CUSM');
-    cy.contains('LDM-CHUS');
+    cy.visitPrescriptionsPage();
+    cy.contains('LDM-CHUSJ').should('exist');
+    cy.contains('LDM-CUSM').should('exist');
+    cy.contains('LDM-CHUS').should('exist');
 
     // Accéder à la page de tous les variants
-    cy.visit('/snv/exploration');
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPage();
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUSJ
-    cy.visit(strPrescUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('Jacob');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.contains(epCHUSJ_ldmCHUSJ.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
 
     // Accéder aux variants d'un patient du CHUSJ
-    cy.visit(strVarUrlCHUSJCHUSJ);
-    cy.wait(2000);
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strPrescUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('Henri');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
+    cy.contains(epCUSM_ldmCHUSJ.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strVarUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strPrescUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('Maya');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
+    cy.contains(epCUSM_ldmCUSM.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strVarUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUS
-    cy.visit(strPrescUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('Tristan');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
+    cy.contains(epCHUS_ldmCHUS.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CHUS
-    cy.visit(strVarUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     cy.logout;
   });
 
   it('Docteur et généticien (CHUSJ)', () => {
-    // Se connecter
-    cy.visit('/');
-    cy.wait(2000);
-    cy.get('input[type="email"]').type(Cypress.env('username_DG_CHUSJ'));
-    cy.get('input[type="password"]').type(Cypress.env('password'), { log: false });
-    cy.get('button[type="submit"]').click();
+    cy.login(Cypress.env('username_DG_CHUSJ'), Cypress.env('password'));
 
     // Les prescriptions de tous les EPs sont visibles
-    cy.visit('/prescription/search');
-    cy.wait(2000);
-    cy.contains('LDM-CHUSJ');
-    cy.contains('LDM-CUSM');
-    cy.contains('LDM-CHUS');
+    cy.visitPrescriptionsPage();
+    cy.contains('LDM-CHUSJ').should('exist');
+    cy.contains('LDM-CUSM').should('exist');
+    cy.contains(/^LDM-CHUS$/).should('exist');
 
     // Accéder à la page de tous les variants
-    cy.visit('/snv/exploration');
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPage();
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUSJ
-    cy.visit(strPrescUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('Jacob');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.contains(epCHUSJ_ldmCHUSJ.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
 
     // Accéder aux variants d'un patient du CHUSJ
-    cy.visit(strVarUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strPrescUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('Henri');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
+    cy.contains(epCUSM_ldmCHUSJ.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strVarUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strPrescUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCUSM_ldmCUSM.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strVarUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUS
-    cy.visit(strPrescUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCHUS_ldmCHUS.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CHUS
-    cy.visit(strVarUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     cy.logout;
   });
 
   it('Généticien (CHUSJ)', () => {
-    // Se connecter
-    cy.visit('/');
-    cy.wait(2000);
-    cy.get('input[type="email"]').type(Cypress.env('username_G_CHUSJ'));
-    cy.get('input[type="password"]').type(Cypress.env('password'), { log: false });
-    cy.get('button[type="submit"]').click();
+    cy.login(Cypress.env('username_G_CHUSJ'), Cypress.env('password'));
 
     // Les prescriptions de tous les EPs sont visibles
-    cy.visit('/prescription/search');
-    cy.wait(2000);
-    cy.contains('LDM-CHUSJ');
-    cy.contains('LDM-CUSM');
-    cy.contains('LDM-CHUS');
+    cy.visitPrescriptionsPage();
+    cy.contains('LDM-CHUSJ').should('exist');
+    cy.contains('LDM-CUSM').should('exist');
+    cy.contains(/^LDM-CHUS$/).should('exist');
 
     // Accéder à la page de tous les variants
-    cy.visit('/snv/exploration');
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPage();
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUSJ
-    cy.visit(strPrescUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('Jacob');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.contains(epCHUSJ_ldmCHUSJ.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
 
     // Accéder aux variants d'un patient du CHUSJ
-    cy.visit(strVarUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strPrescUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('Henri');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
+    cy.contains(epCUSM_ldmCHUSJ.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strVarUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strPrescUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCUSM_ldmCUSM.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strVarUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUS
-    cy.visit(strPrescUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCHUS_ldmCHUS.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CHUS
-    cy.visit(strVarUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     cy.logout;
   });
 
   it('Généticien (CUSM)', () => {
-    // Se connecter
-    cy.visit('/');
-    cy.wait(2000);
-    cy.get('input[type="email"]').type(Cypress.env('username_G_CUSM'));
-    cy.get('input[type="password"]').type(Cypress.env('password'), { log: false });
-    cy.get('button[type="submit"]').click();
+    cy.login(Cypress.env('username_G_CUSM'), Cypress.env('password'));
 
     // Les prescriptions de tous les EPs sont visibles
-    cy.visit('/prescription/search');
-    cy.wait(2000);
-    cy.contains('LDM-CHUSJ');
-    cy.contains('LDM-CUSM');
-    cy.contains('LDM-CHUS');
+    cy.visitPrescriptionsPage();
+    cy.contains('LDM-CHUSJ').should('exist');
+    cy.contains('LDM-CUSM').should('exist');
+    cy.contains(/^LDM-CHUS$/).should('exist');
 
     // Accéder à la page de tous les variants
-    cy.visit('/snv/exploration');
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPage();
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUSJ
-    cy.visit(strPrescUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCHUSJ_ldmCHUSJ.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
 
     // Accéder aux variants d'un patient du CHUSJ
-    cy.visit(strVarUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strPrescUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCUSM_ldmCHUSJ.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strVarUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strPrescUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('Maya');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
+    cy.contains(epCUSM_ldmCUSM.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strVarUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUS
-    cy.visit(strPrescUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCHUS_ldmCHUS.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CHUS
-    cy.visit(strVarUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     cy.logout;
   });
 
   it('Docteur et généticien (CHUS)', () => {
-    // Se connecter
-    cy.visit('/');
-    cy.wait(2000);
-    cy.get('input[type="email"]').type(Cypress.env('username_DG_CHUS'));
-    cy.get('input[type="password"]').type(Cypress.env('password'), { log: false });
-    cy.get('button[type="submit"]').click();
+    cy.login(Cypress.env('username_DG_CHUS'), Cypress.env('password'));
 
     // Les prescriptions de tous les EPs sont visibles
-    cy.visit('/prescription/search');
-    cy.wait(2000);
-    cy.contains('LDM-CHUSJ');
-    cy.contains('LDM-CUSM');
-    cy.contains('LDM-CHUS');
+    cy.visitPrescriptionsPage();
+    cy.contains('LDM-CHUSJ').should('exist');
+    cy.contains('LDM-CUSM').should('exist');
+    cy.contains(/^LDM-CHUS$/).should('exist');
 
     // Accéder à la page de tous les variants
-    cy.visit('/snv/exploration');
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPage();
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUSJ
-    cy.visit(strPrescUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCHUSJ_ldmCHUSJ.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
 
     // Accéder aux variants d'un patient du CHUSJ
-    cy.visit(strVarUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strPrescUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCUSM_ldmCHUSJ.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strVarUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strPrescUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCUSM_ldmCUSM.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strVarUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUS
-    cy.visit(strPrescUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('Tristan');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
+    cy.contains(epCHUS_ldmCHUS.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CHUS
-    cy.visit(strVarUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     cy.logout;
   });
 
   it('Généticien (CHUS)', () => {
-    // Se connecter
-    cy.visit('/');
-    cy.wait(2000);
-    cy.get('input[type="email"]').type(Cypress.env('username_G_CHUS'));
-    cy.get('input[type="password"]').type(Cypress.env('password'), { log: false });
-    cy.get('button[type="submit"]').click();
+    cy.login(Cypress.env('username_G_CHUS'), Cypress.env('password'));
 
     // Les prescriptions de tous les EPs sont visibles
-    cy.visit('/prescription/search');
-    cy.wait(2000);
-    cy.contains('LDM-CHUSJ');
-    cy.contains('LDM-CUSM');
-    cy.contains('LDM-CHUS');
+    cy.visitPrescriptionsPage();
+    cy.contains('LDM-CHUSJ').should('exist');
+    cy.contains('LDM-CUSM').should('exist');
+    cy.contains(/^LDM-CHUS$/).should('exist');
 
     // Accéder à la page de tous les variants
-    cy.visit('/snv/exploration');
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPage();
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUSJ
-    cy.visit(strPrescUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCHUSJ_ldmCHUSJ.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
 
     // Accéder aux variants d'un patient du CHUSJ
-    cy.visit(strVarUrlCHUSJCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strPrescUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCUSM_ldmCHUSJ.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
-    cy.visit(strVarUrlCUSMCHUSJ);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strPrescUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('*****');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
+    cy.contains('*****').should('exist');
+    cy.contains(epCUSM_ldmCUSM.firstNameProb).should('not.exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
-    cy.visit(strVarUrlCUSMCUSM);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     // Accéder à la page Prescription d'un patient du CHUS
-    cy.visit(strPrescUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('Tristan');
-    cy.contains('Variants');
-    cy.contains('Fichiers');
+    cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
+    cy.contains(epCHUS_ldmCHUS.firstNameProb).should('exist');
+    cy.contains('Variants').should('exist');
+    cy.contains('Fichiers').should('exist');
     // Accéder aux variants d'un patient du CHUS
-    cy.visit(strVarUrlCHUSCHUS);
-    cy.wait(2000);
-    cy.contains('Résultats');
+    cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
+    cy.contains('Résultats').should('exist', {timeout: 20*1000});
 
     cy.logout;
   });
