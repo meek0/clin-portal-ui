@@ -21,6 +21,14 @@ export const toKebabCase = (str: string) => {
 export const formatTimestampToISODate = (timestamp: number) =>
   new Date(timestamp).toISOString().split('T')[0];
 
+export const downloadText = (text: string, filename: string, type = ' text/csv') => {
+  if (text && text.length > 0) {
+    const byteArray = new TextEncoder().encode(text);
+    const blob = new Blob([byteArray], { type: type });
+    downloadFile(blob, filename);
+  }
+};
+
 export const downloadFile = (blob: Blob, filename: string) => {
   const downloadLinkElement = document.createElement('a');
   downloadLinkElement.href = window.URL.createObjectURL(blob);

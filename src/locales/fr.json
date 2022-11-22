@@ -281,6 +281,7 @@
   "protable.selectAllResults": "Sélectionner tous les résultats",
   "protable.selected": "élément sélectionné",
   "protable.selectedPlural": "éléments sélectionnés",
+  "protable.tooltips.export": "Télécharger",
   "qd": "QP",
   "qd.tooltip": "Qualité de profondeur",
   "querybuilder.actions.addQuery": "Nouvelle requête",
