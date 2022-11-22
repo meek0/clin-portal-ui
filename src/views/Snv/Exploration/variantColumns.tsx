@@ -74,14 +74,16 @@ export const getVariantColumns = (
       title: intl.get('screen.patientsnv.results.table.variant'),
       key: 'hgvsg',
       dataIndex: 'hgvsg',
-      className: cx(style.variantTableCell, style.variantTableCellElipsis),
+      className: cx(style.fixedVariantTableCellElipsis, style.fixedVariantTableCellElipsis),
       fixed: 'left',
       render: (hgvsg: string, entity: VariantEntity) =>
         hgvsg ? (
           <Tooltip placement="topLeft" title={hgvsg}>
-            <Link target="_blank" to={`/variant/entity/${entity.locus}/${TAB_ID.SUMMARY}`}>
-              {hgvsg}
-            </Link>
+            <div>
+              <Link target="_blank" to={`/variant/entity/${entity.locus}/${TAB_ID.SUMMARY}`}>
+                {hgvsg}
+              </Link>
+            </div>
           </Tooltip>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
