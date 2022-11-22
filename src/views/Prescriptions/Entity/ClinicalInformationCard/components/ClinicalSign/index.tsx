@@ -7,10 +7,12 @@ import { IHpoNode } from 'api/hpo/models';
 import {
   useGeneralObservationEntity,
   useObservationPhenotypeEntity,
+  useValueSet,
 } from 'graphql/prescriptions/actions';
 import { filter, find, map, some } from 'lodash';
 
 import { EMPTY_FIELD } from 'components/Prescription/Analysis/AnalysisForm/ReusableSteps/constant';
+import { useLang } from 'store/global';
 
 type ClinicalSignOwnProps = {
   phenotypeIds: string[];
@@ -54,6 +56,8 @@ export const ClinicalSign = ({ phenotypeIds, generalObervationId }: ClinicalSign
   const [hpoList, setHpoList] = useState<IHpoNode[]>([]);
   const [ageList, setAgeList] = useState<IHpoNode[]>([]);
   const { phenotypeValue } = useObservationPhenotypeEntity(phenotypeIds);
+  const { valueSet } = useValueSet('age-at-onset');
+  const lang = useLang();
 
   const getHpoValue = (element: PhenotypeRequestEntity) => {
     handleHpoSearchTerm(element.valueCodeableConcept?.coding?.code, setCurrentHPOOptions);
@@ -99,7 +103,15 @@ export const ClinicalSign = ({ phenotypeIds, generalObervationId }: ClinicalSign
   const displayHpo = (hpoValue: string, age: string = '') => {
     const hpoInfo = find(hpoList, (h: IHpoNode) => h.hpo_id === hpoValue);
     const ageInfo = find(ageList, (h: IHpoNode) => h.hpo_id === age);
-    const ageDisplay = ` - ${ageInfo?.name}`;
+    const ageValue = find(valueSet?.concept, (o) => o.code === ageInfo?.hpo_id);
+    const ageDisplay = ageValue
+      ? ` - ${
+          find(ageValue?.designation, (o) => o.language === lang)
+            ? find(ageValue?.designation, (o) => o.language === lang)?.value
+            : ageValue.display
+        }`
+      : ` - ${ageInfo?.name}`;
+
     return `${hpoInfo ? hpoInfo.name : ''} (${hpoValue})${ageInfo ? ageDisplay : ''}`;
   };
 

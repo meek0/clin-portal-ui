@@ -540,3 +540,22 @@ export const ANALYSE_FMH = (ids: string[]) => gql`
         )}
     }
 `;
+
+export const ANALYSE_VALUESET = (id: string) => gql`
+  query GetValueSetEntity($id: String = "${id}") {
+    ValueSet(id: $id) {
+    compose @flatten {
+      include @flatten {
+        concept {
+          code
+          display
+          designation{
+            language
+            value
+          }
+        }
+      }
+    }
+  }
+  }
+`;
