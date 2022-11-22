@@ -14,3 +14,28 @@ export const exportAsTSV = (data: any[], headers: string[]): string => {
   }
   return tsv;
 };
+
+export const extractSelectionFromResults = (
+  data: any[],
+  selectedKeys: string[],
+  key: string,
+): any[] =>
+  selectedKeys?.length > 0 // if no selection then download all
+    ? data.filter((row) => selectedKeys.includes(row[key]))
+    : data;
+
+const joinWithPadding = (l: number[]) => l.reduce((xs, x) => xs + `${x}`.padStart(2, '0'), '');
+
+export const makeFilenameDatePart = (date = new Date()) => {
+  const prefixes = joinWithPadding([
+    date.getUTCFullYear(),
+    date.getUTCMonth() + 1,
+    date.getUTCDate(),
+  ]);
+  const suffixes = joinWithPadding([
+    date.getUTCHours(),
+    date.getUTCMinutes(),
+    date.getUTCSeconds(),
+  ]);
+  return `${prefixes}T${suffixes}Z`;
+};

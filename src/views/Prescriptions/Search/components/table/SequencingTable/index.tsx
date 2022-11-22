@@ -5,7 +5,11 @@ import { GqlResults } from 'graphql/models';
 import { ITableSequencingResult, SequencingResult } from 'graphql/sequencing/models';
 import { DEFAULT_PAGE_SIZE } from 'views/Prescriptions/Search';
 import { SEQUENCING_SCROLL_ID } from 'views/Prescriptions/Search/utils/contstant';
-import { exportAsTSV } from 'views/Prescriptions/utils/export';
+import {
+  exportAsTSV,
+  extractSelectionFromResults,
+  makeFilenameDatePart,
+} from 'views/Prescriptions/utils/export';
 
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
@@ -27,10 +31,12 @@ interface OwnProps {
 }
 
 const download = (results: GqlResults<SequencingResult> | null, selectedKeys: string[]) => {
-  const data = results?.data.filter((row) => selectedKeys.includes(row.request_id)) as any[];
-  const headers = sequencingsColumns().map((c) => c.key);
-  const tsv = exportAsTSV(data, headers);
-  downloadText(tsv, 'requests.tsv');
+  if (results) {
+    const data = extractSelectionFromResults(results.data, selectedKeys, 'request_id');
+    const headers = sequencingsColumns().map((c) => c.key);
+    const tsv = exportAsTSV(data, headers);
+    downloadText(tsv, `RQ_${makeFilenameDatePart()}.tsv`);
+  }
 };
 
 const SequencingsTable = ({

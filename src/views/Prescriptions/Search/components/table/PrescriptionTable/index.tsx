@@ -5,7 +5,11 @@ import { GqlResults } from 'graphql/models';
 import { AnalysisResult, ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import { DEFAULT_PAGE_SIZE } from 'views/Prescriptions/Search';
 import { PRESCRIPTION_SCROLL_ID } from 'views/Prescriptions/Search/utils/contstant';
-import { exportAsTSV } from 'views/Prescriptions/utils/export';
+import {
+  exportAsTSV,
+  extractSelectionFromResults,
+  makeFilenameDatePart,
+} from 'views/Prescriptions/utils/export';
 
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
@@ -27,10 +31,12 @@ interface OwnProps {
 }
 
 const download = (results: GqlResults<AnalysisResult> | null, selectedKeys: string[]) => {
-  const data = results?.data.filter((row) => selectedKeys.includes(row.prescription_id)) as any[];
-  const headers = prescriptionsColumns().map((c) => c.key);
-  const tsv = exportAsTSV(data, headers);
-  downloadText(tsv, 'prescriptions.tsv');
+  if (results) {
+    const data = extractSelectionFromResults(results.data, selectedKeys, 'prescription_id');
+    const headers = prescriptionsColumns().map((c) => c.key);
+    const tsv = exportAsTSV(data, headers);
+    downloadText(tsv, `PR_${makeFilenameDatePart()}.tsv`);
+  }
 };
 
 const PrescriptionsTable = ({
