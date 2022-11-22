@@ -345,6 +345,7 @@ export const TAB_SUMMARY_QUERY = gql`
                       fathmm_pred
                       FATHMM_converted_rankscore
                       cadd_score
+                      cadd_phred
                       dann_score
                       lrt_pred
                       lrt_converted_rankscore

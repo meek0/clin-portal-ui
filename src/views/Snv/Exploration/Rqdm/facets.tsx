@@ -94,6 +94,7 @@ const filterGroups: {
           'consequences__predictions__polyphen2_hvar_pred',
           'consequences__predictions__fathmm_pred',
           'consequences__predictions__cadd_score',
+          'consequences__predictions__cadd_phred',
           'consequences__predictions__dann_score',
           'consequences__predictions__lrt_pred',
           'consequences__predictions__revel_rankscore',

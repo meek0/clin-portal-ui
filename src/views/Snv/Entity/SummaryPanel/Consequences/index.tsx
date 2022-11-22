@@ -158,7 +158,8 @@ export const makeRows = (consequences: ArrangerEdge<ConsequenceEntity>[]) =>
         consequence.node.predictions?.fathmm_pred,
         consequence.node.predictions?.FATHMM_converted_rankscore,
       ],
-      ['Cadd', null, consequence.node.predictions?.cadd_score],
+      ['Cadd (Raw)', null, consequence.node.predictions?.cadd_score],
+      ['Cadd (Phred)', null, consequence.node.predictions?.cadd_phred],
       ['Dann', null, consequence.node.predictions?.dann_score],
       [
         'Lrt',
