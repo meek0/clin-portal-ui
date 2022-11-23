@@ -51,6 +51,10 @@ const DEFAULT_SORT = [
     field: 'created_on',
     order: 'desc',
   },
+  {
+    field: '_id',
+    order: 'desc',
+  },
 ];
 
 const adjustSqon = (sqon: ISyntheticSqon) =>
