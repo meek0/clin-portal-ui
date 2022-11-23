@@ -165,6 +165,7 @@ const IGVModal = ({ donor, variantEntity, isOpen = false, toggleModal, rpt }: Ow
                     indexURL: 'https://s3.amazonaws.com/igv.org.genomes/hg38/ncbiRefSeq.txt.gz.tbi',
                     order: 0,
                     visibilityWindow: -1,
+                    displayMode: 'SQUISHED',
                   },
                 ],
               },
