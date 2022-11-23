@@ -43,9 +43,8 @@ export const extractSelectionFromResults = (
     return [];
   } else if (dataKeys.length === 1 && dataKeys[0] === ALL_KEYS) {
     return data;
-  } else {
-    return data.filter((row) => dataKeys.includes(row[key]));
   }
+  return data.filter((row) => dataKeys.includes(row[key]));
 };
 
 const joinWithPadding = (l: number[]) => l.reduce((xs, x) => xs + `${x}`.padStart(2, '0'), '');

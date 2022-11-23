@@ -220,9 +220,7 @@ const PrescriptionSearch = (): React.ReactElement => {
                 results={prescriptions}
                 queryConfig={prescriptionQueryConfig}
                 setQueryConfig={setPrescriptionQueryConfig}
-                setDownloadKeys={(keys) => {
-                  setDownloadPrescriptionKeys(keys);
-                }}
+                setDownloadKeys={setDownloadPrescriptionKeys}
                 loading={prescriptions.loading}
               />
             </Tabs.TabPane>
@@ -240,9 +238,7 @@ const PrescriptionSearch = (): React.ReactElement => {
                 results={sequencings}
                 queryConfig={sequencingQueryConfig}
                 setQueryConfig={setSequencingQueryConfig}
-                setDownloadKeys={(keys) => {
-                  setDownloadSequencingKeys(keys);
-                }}
+                setDownloadKeys={setDownloadSequencingKeys}
                 loading={sequencings.loading}
               />
             </Tabs.TabPane>

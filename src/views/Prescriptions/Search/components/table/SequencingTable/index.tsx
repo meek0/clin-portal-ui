@@ -66,9 +66,8 @@ const SequencingsTable = ({
           total: results?.total || 0,
         },
         enableColumnSort: true,
-        onSelectedRowsChange: (keys) => {
-          setSelectedKeys(keys);
-        },
+        onSelectedRowsChange: setSelectedKeys,
+
         onSelectAllResultsChange: () => {
           setSelectedKeys([ALL_KEYS]);
         },
