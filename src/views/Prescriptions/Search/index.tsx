@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { MedicineBoxOutlined, SolutionOutlined } from '@ant-design/icons';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
@@ -30,6 +30,11 @@ import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import { IQueryConfig } from 'utils/searchPageTypes';
 
+import { downloadAsTSV } from '../utils/export';
+
+import { prescriptionsColumns } from './components/table/PrescriptionTable/columns';
+import { sequencingsColumns } from './components/table/SequencingTable/columns';
+
 import styles from './index.module.scss';
 
 export const DEFAULT_PAGE_SIZE = 20;
@@ -44,6 +49,13 @@ const DEFAULT_QUERY_CONFIG: IQueryConfig = {
 const DEFAULT_SORT = [
   {
     field: 'created_on',
+    order: 'desc',
+  },
+];
+
+const ID_SORT = [
+  {
+    field: '_id',
     order: 'desc',
   },
 ];
@@ -75,7 +87,18 @@ const PrescriptionSearch = (): React.ReactElement => {
   const [prescriptionQueryConfig, setPrescriptionQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
   const [sequencingQueryConfig, setSequencingQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
   const [searchValue, setSearchValue] = useState('');
+  const [downloadPrescriptionKeys, setDownloadPrescriptionKeys] = useState<string[]>([]);
+  const [downloadSequencingKeys, setDownloadSequencingKeys] = useState<string[]>([]);
   const sequencingActiveQuery = setPrescriptionStatusInActiveQuery(activeQuery);
+
+  const sequencingsSort = isEmpty(sequencingQueryConfig.sort)
+    ? [...DEFAULT_SORT, ...ID_SORT]
+    : [...sequencingQueryConfig.sort, ...ID_SORT];
+
+  const prescriptionsSort = isEmpty(prescriptionQueryConfig.sort)
+    ? [...DEFAULT_SORT, ...ID_SORT]
+    : [...prescriptionQueryConfig.sort, ...ID_SORT];
+
   const sequencings = useSequencingRequests({
     first: sequencingQueryConfig.size,
     offset: sequencingQueryConfig.size * (sequencingQueryConfig.pageIndex - 1),
@@ -87,7 +110,7 @@ const PrescriptionSearch = (): React.ReactElement => {
           : generateMultipleQuery(searchValue, sequencingActiveQuery),
       ),
     ),
-    sort: isEmpty(sequencingQueryConfig.sort) ? DEFAULT_SORT : sequencingQueryConfig.sort,
+    sort: sequencingsSort,
   });
 
   const prescriptions = usePrescription({
@@ -97,8 +120,63 @@ const PrescriptionSearch = (): React.ReactElement => {
       queryList,
       searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
     ),
-    sort: isEmpty(prescriptionQueryConfig.sort) ? DEFAULT_SORT : prescriptionQueryConfig.sort,
+    sort: prescriptionsSort,
   });
+
+  // query is always done, unfortunately but response size is limited if nothing to download
+  const prescriptionsToDownload = usePrescription({
+    first: downloadPrescriptionKeys.length > 0 ? prescriptions.total : 0,
+    offset: 0,
+    sqon: resolveSyntheticSqon(
+      queryList,
+      searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
+    ),
+    sort: prescriptionsSort,
+  });
+
+  // query is always done, unfortunately but response size is limited if nothing to download
+  const sequencingsToDownload = useSequencingRequests({
+    first: downloadSequencingKeys.length > 0 ? sequencings.total : 0,
+    offset: 0,
+    sqon: adjustSqon(
+      resolveSyntheticSqon(
+        queryList,
+        searchValue.length === 0
+          ? sequencingActiveQuery
+          : generateMultipleQuery(searchValue, sequencingActiveQuery),
+      ),
+    ),
+    sort: sequencingsSort,
+  });
+
+  useEffect(() => {
+    // download only when both prescriptionsToDownload and something to download
+    if (downloadPrescriptionKeys.length > 0 && prescriptionsToDownload.data.length > 0) {
+      downloadAsTSV(
+        prescriptionsToDownload.data,
+        downloadPrescriptionKeys,
+        'prescription_id',
+        prescriptionsColumns(),
+        'PR',
+      );
+      setDownloadPrescriptionKeys([]); // reset download
+    }
+  }, [downloadPrescriptionKeys, prescriptionsToDownload.data]);
+
+  useEffect(() => {
+    // download only when both sequencingsToDownload and something to download
+    if (downloadSequencingKeys.length > 0 && sequencingsToDownload.data.length > 0) {
+      downloadAsTSV(
+        sequencingsToDownload.data,
+        downloadSequencingKeys,
+        'request_id',
+        sequencingsColumns(),
+        'RQ',
+      );
+      setDownloadSequencingKeys([]); // reset download
+    }
+  }, [downloadSequencingKeys, sequencingsToDownload.data]);
+
   const searchPrescription = (value: any) => {
     if (value.target.value) {
       setSearchValue(value.target.value);
@@ -142,6 +220,9 @@ const PrescriptionSearch = (): React.ReactElement => {
                 results={prescriptions}
                 queryConfig={prescriptionQueryConfig}
                 setQueryConfig={setPrescriptionQueryConfig}
+                setDownloadKeys={(keys) => {
+                  setDownloadPrescriptionKeys(keys);
+                }}
                 loading={prescriptions.loading}
               />
             </Tabs.TabPane>
@@ -159,6 +240,9 @@ const PrescriptionSearch = (): React.ReactElement => {
                 results={sequencings}
                 queryConfig={sequencingQueryConfig}
                 setQueryConfig={setSequencingQueryConfig}
+                setDownloadKeys={(keys) => {
+                  setDownloadSequencingKeys(keys);
+                }}
                 loading={sequencings.loading}
               />
             </Tabs.TabPane>

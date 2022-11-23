@@ -5,16 +5,12 @@ import { GqlResults } from 'graphql/models';
 import { ITableSequencingResult, SequencingResult } from 'graphql/sequencing/models';
 import { DEFAULT_PAGE_SIZE } from 'views/Prescriptions/Search';
 import { SEQUENCING_SCROLL_ID } from 'views/Prescriptions/Search/utils/contstant';
-import {
-  exportAsTSV,
-  extractSelectionFromResults,
-  makeFilenameDatePart,
-} from 'views/Prescriptions/utils/export';
+import { ALL_KEYS } from 'views/Prescriptions/utils/export';
 
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
-import { downloadText, formatQuerySortList, scrollToTop } from 'utils/helper';
-import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
+import { formatQuerySortList, scrollToTop } from 'utils/helper';
+import { IQueryConfig, TDownload, TQueryConfigCb } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
 import { sequencingsColumns } from './columns';
@@ -27,21 +23,14 @@ interface OwnProps {
   extra?: React.ReactElement;
   loading?: boolean;
   setQueryConfig: TQueryConfigCb;
+  setDownloadKeys: TDownload;
   queryConfig: IQueryConfig;
 }
-
-const download = (results: GqlResults<SequencingResult> | null, selectedKeys: string[]) => {
-  if (results) {
-    const data = extractSelectionFromResults(results.data, selectedKeys, 'request_id');
-    const headers = sequencingsColumns().map((c) => c.key);
-    const tsv = exportAsTSV(data, headers);
-    downloadText(tsv, `RQ_${makeFilenameDatePart()}.tsv`);
-  }
-};
 
 const SequencingsTable = ({
   results,
   setQueryConfig,
+  setDownloadKeys,
   queryConfig,
   loading = false,
 }: OwnProps): React.ReactElement => {
@@ -77,12 +66,19 @@ const SequencingsTable = ({
           total: results?.total || 0,
         },
         enableColumnSort: true,
-        onSelectedRowsChange: (e) => {
-          setSelectedKeys(e);
+        onSelectedRowsChange: (keys) => {
+          setSelectedKeys(keys);
+        },
+        onSelectAllResultsChange: () => {
+          setSelectedKeys([ALL_KEYS]);
         },
         enableTableExport: true,
         onTableExportClick: () => {
-          download(results, selectedKeys);
+          if (selectedKeys.length === 0) {
+            setDownloadKeys([ALL_KEYS]);
+          } else {
+            setDownloadKeys(selectedKeys);
+          }
         },
         onColumnSortChange: (columns) => {
           dispatch(
