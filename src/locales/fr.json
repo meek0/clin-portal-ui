@@ -354,7 +354,7 @@
   "querybuilder.header.myFiltersDropdown.title": "Mes filtres",
   "querybuilder.header.myFiltersDropdown.manageMyFilter": "Gérer les filtres",
   "querybuilder.header.duplicateFilterTitleSuffix": "COPIÉ",
-  "querybuilder.header.manageFilters.lastSaved": "Dernier enregistrement: {date}",
+  "querybuilder.header.manageFilters.lastSaved": "Dernier enregistrement : {date}",
   "ramq": "RAMQ",
   "ramq.number.invalid": "Le numéro de RAMQ est invalide",
   "refSeq": "RefSeq ID",
