@@ -273,6 +273,10 @@ export interface IVariantTrack extends ICommonTrack {
    */
   displayMode?: 'COLLAPSED' | 'EXPANDED' | 'SQUISHED';
   /**
+   * Specify an INFO field to color variants by. Optional.
+   */
+  colorBy?: 'SVTYPE';
+  /**
    * CSS color used to represent homozygous non-reference calls.
    * @default "rgb(17,248,254)"
    */
