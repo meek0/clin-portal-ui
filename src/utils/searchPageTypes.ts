@@ -9,6 +9,8 @@ export type TPagingConfigCb = (config: TPagingConfig) => void;
 
 export type TQueryConfigCb = (config: IQueryConfig) => void;
 
+export type TDownload = (keys: string[]) => void;
+
 export interface IQueryConfig {
   pageIndex: number;
   size: number;
