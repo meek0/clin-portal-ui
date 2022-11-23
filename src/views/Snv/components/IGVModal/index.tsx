@@ -147,7 +147,27 @@ const IGVModal = ({ donor, variantEntity, isOpen = false, toggleModal, rpt }: Ow
             className={cx(style.igvContainer, 'igvContainer')}
             options={{
               palette: ['#00A0B0', '#6A4A3C', '#CC333F', '#EB6841'],
-              genome: 'hg38',
+              reference: {
+                id: 'hg38',
+                name: 'Human (GRCh38/hg38)',
+                fastaURL:
+                  'https://s3.amazonaws.com/igv.broadinstitute.org/genomes/seq/hg38/hg38.fa',
+                indexURL:
+                  'https://s3.amazonaws.com/igv.broadinstitute.org/genomes/seq/hg38/hg38.fa.fai',
+                cytobandURL:
+                  'https://s3.amazonaws.com/igv.org.genomes/hg38/annotations/cytoBandIdeo.txt.gz',
+                aliasURL: 'https://s3.amazonaws.com/igv.org.genomes/hg38/hg38_alias.tab',
+                tracks: [
+                  {
+                    name: 'Refseq Genes',
+                    format: 'refgene',
+                    url: 'https://s3.amazonaws.com/igv.org.genomes/hg38/ncbiRefSeq.txt.gz',
+                    indexURL: 'https://s3.amazonaws.com/igv.org.genomes/hg38/ncbiRefSeq.txt.gz.tbi',
+                    order: 0,
+                    visibilityWindow: -1,
+                  },
+                ],
+              },
               locus: formatLocus(variantEntity?.start, variantEntity?.chromosome, 20),
               tracks: buildTracks(results!, motherResults, fatherResults, rpt, donor!),
             }}

@@ -1,7 +1,11 @@
 interface IReference {
   id: string;
-  fastaURL?: string;
+  name: string;
+  fastaURL: string;
+  indexURL?: string;
   cytobandURL?: string;
+  aliasURL?: string;
+  tracks?: IIGVTrack[];
 }
 
 export interface ITrackDefaults {
