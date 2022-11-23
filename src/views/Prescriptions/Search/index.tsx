@@ -51,6 +51,9 @@ const DEFAULT_SORT = [
     field: 'created_on',
     order: 'desc',
   },
+];
+
+const ID_SORT = [
   {
     field: '_id',
     order: 'desc',
@@ -88,6 +91,14 @@ const PrescriptionSearch = (): React.ReactElement => {
   const [downloadSequencingKeys, setDownloadSequencingKeys] = useState<string[]>([]);
   const sequencingActiveQuery = setPrescriptionStatusInActiveQuery(activeQuery);
 
+  const sequencingsSort = isEmpty(sequencingQueryConfig.sort)
+    ? [...DEFAULT_SORT, ...ID_SORT]
+    : [...sequencingQueryConfig.sort, ...ID_SORT];
+
+  const prescriptionsSort = isEmpty(prescriptionQueryConfig.sort)
+    ? [...DEFAULT_SORT, ...ID_SORT]
+    : [...prescriptionQueryConfig.sort, ...ID_SORT];
+
   const sequencings = useSequencingRequests({
     first: sequencingQueryConfig.size,
     offset: sequencingQueryConfig.size * (sequencingQueryConfig.pageIndex - 1),
@@ -99,7 +110,7 @@ const PrescriptionSearch = (): React.ReactElement => {
           : generateMultipleQuery(searchValue, sequencingActiveQuery),
       ),
     ),
-    sort: isEmpty(sequencingQueryConfig.sort) ? DEFAULT_SORT : sequencingQueryConfig.sort,
+    sort: sequencingsSort,
   });
 
   const prescriptions = usePrescription({
@@ -109,7 +120,7 @@ const PrescriptionSearch = (): React.ReactElement => {
       queryList,
       searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
     ),
-    sort: isEmpty(prescriptionQueryConfig.sort) ? DEFAULT_SORT : prescriptionQueryConfig.sort,
+    sort: prescriptionsSort,
   });
 
   // query is always done, unfortunately but response size is limited if nothing to download
@@ -120,7 +131,7 @@ const PrescriptionSearch = (): React.ReactElement => {
       queryList,
       searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
     ),
-    sort: isEmpty(prescriptionQueryConfig.sort) ? DEFAULT_SORT : prescriptionQueryConfig.sort,
+    sort: prescriptionsSort,
   });
 
   // query is always done, unfortunately but response size is limited if nothing to download
@@ -135,7 +146,7 @@ const PrescriptionSearch = (): React.ReactElement => {
           : generateMultipleQuery(searchValue, sequencingActiveQuery),
       ),
     ),
-    sort: isEmpty(sequencingQueryConfig.sort) ? DEFAULT_SORT : sequencingQueryConfig.sort,
+    sort: sequencingsSort,
   });
 
   useEffect(() => {
