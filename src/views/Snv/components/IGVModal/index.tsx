@@ -1,4 +1,3 @@
-import React from 'react';
 import intl from 'react-intl-universal';
 import { Modal } from 'antd';
 import axios from 'axios';
@@ -34,6 +33,10 @@ const FHIR_CRAM_CRAI_DOC_TYPE = 'ALIR';
 const FHIR_CRAM_TYPE = 'CRAM';
 const FHIR_CRAI_TYPE = 'CRAI';
 
+const FHIR_VCF_TBI_DOC_TYPE = 'GCNV';
+const FHIR_VCF_TYPE = 'VCF';
+const FHIR_TBI_TYPE = 'TBI';
+
 const getPresignedUrl = (file: string, rpt: string) =>
   axios
     .get(`${file}?format=json`, {
@@ -41,40 +44,61 @@ const getPresignedUrl = (file: string, rpt: string) =>
     })
     .then((response) => response.data.url);
 
-const findCramAndCraiFiles = (doc: FhirDoc): ITrackFiles => ({
-  indexFile: doc?.content!.find((content) => content.format === FHIR_CRAI_TYPE)?.attachment.url,
-  mainFile: doc?.content!.find((content) => content.format === FHIR_CRAM_TYPE)?.attachment.url,
+const findDoc = (files: PatientFileResults, docType: string): FhirDoc | undefined =>
+  files.docs.find((doc) => doc.type === docType);
+
+const findFiles = (doc: FhirDoc, mainType: string, indexType: string): ITrackFiles => ({
+  mainFile: doc?.content!.find((content) => content.format === mainType)?.attachment.url,
+  indexFile: doc?.content!.find((content) => content.format === indexType)?.attachment.url,
 });
 
-const generateCramTrack = (
+const trackName = (
+  doc: FhirDoc | undefined,
+  patientId: string,
+  gender: GENDER,
+  position: PATIENT_POSITION | PARENT_TYPE,
+) => `${doc?.sample.value!} ${getPatientPosition(gender, position)}`;
+
+const generateTracks = (
   files: PatientFileResults,
   patientId: string,
   gender: GENDER,
   position: PATIENT_POSITION | PARENT_TYPE,
   rpt: string,
-): IIGVTrack => {
-  const cramDoc = files.docs.find((doc) => doc.type === FHIR_CRAM_CRAI_DOC_TYPE);
-  const cramCraiFiles = findCramAndCraiFiles(cramDoc!);
-  const cramTrackName = `${cramDoc?.sample.value!} (${patientId} : ${getPatientPosition(
-    gender,
-    position,
-  )})`;
+): IIGVTrack[] => {
+  const cramDoc = findDoc(files, FHIR_CRAM_CRAI_DOC_TYPE);
+  const cramFiles = findFiles(cramDoc!, FHIR_CRAM_TYPE, FHIR_CRAI_TYPE);
 
-  return {
-    type: 'alignment',
-    format: 'cram',
-    url: getPresignedUrl(cramCraiFiles.mainFile!, rpt),
-    indexURL: getPresignedUrl(cramCraiFiles.indexFile!, rpt),
-    name: cramTrackName,
-    height: 500,
-    colorBy: 'strand',
-    sort: {
-      chr: 'chr8',
-      option: 'BASE',
-      position: 128750986,
-      direction: 'ASC',
+  const vcfDoc = findDoc(files, FHIR_VCF_TBI_DOC_TYPE);
+  const vcfFiles = findFiles(vcfDoc!, FHIR_VCF_TYPE, FHIR_TBI_TYPE);
+
+  return [
+    {
+      type: 'alignment',
+      format: 'cram',
+      url: getPresignedUrl(cramFiles.mainFile!, rpt),
+      indexURL: getPresignedUrl(cramFiles.indexFile!, rpt),
+      name: 'Reads: ' + trackName(cramDoc, patientId, gender, position),
+      autoHeight: true,
+      maxHeight: 500,
+      colorBy: 'strand',
+      sort: {
+        chr: 'chr8',
+        option: 'BASE',
+        position: 128750986,
+        direction: 'ASC',
+      },
     },
-  };
+    {
+      type: 'variant',
+      format: 'vcf',
+      url: getPresignedUrl(vcfFiles.mainFile!, rpt),
+      indexURL: getPresignedUrl(vcfFiles.indexFile!, rpt),
+      name: 'CNVs: ' + trackName(vcfDoc, patientId, gender, position),
+      autoHeight: true,
+      colorBy: 'SVTYPE',
+    },
+  ];
 };
 
 const buildTracks = (
@@ -91,7 +115,7 @@ const buildTracks = (
   const tracks: IIGVTrack[] = [];
 
   tracks.push(
-    generateCramTrack(
+    ...generateTracks(
       patientFiles,
       donor.patient_id,
       donor.gender as GENDER,
@@ -102,13 +126,13 @@ const buildTracks = (
 
   if (donor.mother_id && motherFiles) {
     tracks.push(
-      generateCramTrack(motherFiles, donor.mother_id, GENDER.FEMALE, PARENT_TYPE.MOTHER, rpt),
+      ...generateTracks(motherFiles, donor.mother_id, GENDER.FEMALE, PARENT_TYPE.MOTHER, rpt),
     );
   }
 
   if (donor.father_id && fatherFiles) {
     tracks.push(
-      generateCramTrack(fatherFiles, donor.father_id, GENDER.MALE, PARENT_TYPE.FATHER, rpt),
+      ...generateTracks(fatherFiles, donor.father_id, GENDER.MALE, PARENT_TYPE.FATHER, rpt),
     );
   }
 
@@ -147,7 +171,34 @@ const IGVModal = ({ donor, variantEntity, isOpen = false, toggleModal, rpt }: Ow
             className={cx(style.igvContainer, 'igvContainer')}
             options={{
               palette: ['#00A0B0', '#6A4A3C', '#CC333F', '#EB6841'],
-              genome: 'hg38',
+              reference: {
+                id: 'hg38_1kg',
+                ucscID: 'hg38',
+                blatDB: 'hg38',
+                name: 'Human (hg38 1kg/GATK)',
+                fastaURL:
+                  'https://1000genomes.s3.amazonaws.com/technical/reference/GRCh38_reference_genome' +
+                  '/GRCh38_full_analysis_set_plus_decoy_hla.fa',
+                indexURL:
+                  'https://1000genomes.s3.amazonaws.com/technical/reference/GRCh38_reference_genome' +
+                  '/GRCh38_full_analysis_set_plus_decoy_hla.fa.fai',
+                cytobandURL:
+                  'https://s3.amazonaws.com/igv.org.genomes/hg38/annotations/cytoBandIdeo.txt.gz',
+                tracks: [
+                  {
+                    name: 'Refseq Genes',
+                    format: 'refgene',
+                    url: 'https://s3.amazonaws.com/igv.org.genomes/hg38/ncbiRefSeq.sorted.txt.gz',
+                    indexURL:
+                      'https://s3.amazonaws.com/igv.org.genomes/hg38/ncbiRefSeq.sorted.txt.gz.tbi',
+                    order: 0,
+                    visibilityWindow: -1,
+                    displayMode: 'EXPANDED',
+                    autoHeight: true,
+                    maxHeight: 160,
+                  },
+                ],
+              },
               locus: formatLocus(variantEntity?.start, variantEntity?.chromosome, 20),
               tracks: buildTracks(results!, motherResults, fatherResults, rpt, donor!),
             }}

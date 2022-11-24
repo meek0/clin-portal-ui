@@ -1,7 +1,13 @@
 interface IReference {
   id: string;
-  fastaURL?: string;
+  ucscID?: string;
+  blatDB?: string;
+  name: string;
+  fastaURL: string;
+  indexURL?: string;
   cytobandURL?: string;
+  aliasURL?: string;
+  tracks?: IIGVTrack[];
 }
 
 export interface ITrackDefaults {
@@ -268,6 +274,10 @@ export interface IVariantTrack extends ICommonTrack {
    * @default EXPANDED
    */
   displayMode?: 'COLLAPSED' | 'EXPANDED' | 'SQUISHED';
+  /**
+   * Specify an INFO field to color variants by. Optional.
+   */
+  colorBy?: 'SVTYPE';
   /**
    * CSS color used to represent homozygous non-reference calls.
    * @default "rgb(17,248,254)"
