@@ -26156,6 +26156,9 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .ant-table-tbody > tr:nth-child(even) {
   background-color: #f8fafc;
 }
+.ant-table-tbody > tr:nth-child(even) td {
+  background-color: #f8fafc;
+}
 .ant-table-filter-dropdown-btns {
   padding: 8px;
 }
