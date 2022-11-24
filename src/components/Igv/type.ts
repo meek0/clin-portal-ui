@@ -1,5 +1,7 @@
 interface IReference {
   id: string;
+  ucscID?: string;
+  blatDB?: string;
   name: string;
   fastaURL: string;
   indexURL?: string;
