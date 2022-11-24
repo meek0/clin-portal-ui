@@ -57,7 +57,7 @@ const trackName = (
   patientId: string,
   gender: GENDER,
   position: PATIENT_POSITION | PARENT_TYPE,
-) => `${doc?.sample.value!} (${patientId} : ${getPatientPosition(gender, position)})`;
+) => `${doc?.sample.value!} ${getPatientPosition(gender, position)}`;
 
 const generateTracks = (
   files: PatientFileResults,
@@ -78,8 +78,9 @@ const generateTracks = (
       format: 'cram',
       url: getPresignedUrl(cramFiles.mainFile!, rpt),
       indexURL: getPresignedUrl(cramFiles.indexFile!, rpt),
-      name: 'Alignment ' + trackName(cramDoc, patientId, gender, position),
-      height: 500,
+      name: 'Reads: ' + trackName(cramDoc, patientId, gender, position),
+      autoHeight: true,
+      maxHeight: 500,
       colorBy: 'strand',
       sort: {
         chr: 'chr8',
@@ -93,8 +94,9 @@ const generateTracks = (
       format: 'vcf',
       url: getPresignedUrl(vcfFiles.mainFile!, rpt),
       indexURL: getPresignedUrl(vcfFiles.indexFile!, rpt),
-      name: 'Variant ' + trackName(vcfDoc, patientId, gender, position),
-      height: 200,
+      name: 'CNVs: ' + trackName(vcfDoc, patientId, gender, position),
+      autoHeight: true,
+      maxHeight: 200,
       colorBy: 'SVTYPE',
     },
   ];
