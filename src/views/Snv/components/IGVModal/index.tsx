@@ -96,7 +96,6 @@ const generateTracks = (
       indexURL: getPresignedUrl(vcfFiles.indexFile!, rpt),
       name: 'CNVs: ' + trackName(vcfDoc, patientId, gender, position),
       autoHeight: true,
-      maxHeight: 200,
       colorBy: 'SVTYPE',
     },
   ];
@@ -196,7 +195,7 @@ const IGVModal = ({ donor, variantEntity, isOpen = false, toggleModal, rpt }: Ow
                     visibilityWindow: -1,
                     displayMode: 'EXPANDED',
                     autoHeight: true,
-                    maxHeight: 200,
+                    maxHeight: 160,
                   },
                 ],
               },
