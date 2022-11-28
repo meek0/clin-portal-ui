@@ -49,7 +49,7 @@
   "filters.group.consequences.consequences": "Consequences",
   "filters.group.consequences.predictions.cadd_score": "CADD (Raw)",
   "filters.group.consequences.predictions.cadd_phred": "CADD (Phred)",
-  "filters.group.consequences.predictions.dann_score": "DANM",
+  "filters.group.consequences.predictions.dann_score": "DANN",
   "filters.group.consequences.predictions.fathmm_pred": "FATHMM",
   "filters.group.consequences.predictions.lrt_pred": "LRT",
   "filters.group.consequences.predictions.polyphen2_hvar_pred": "Polyphen 2 HVAR",
