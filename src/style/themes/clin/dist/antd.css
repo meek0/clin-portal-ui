@@ -26368,6 +26368,9 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .ant-btn-lg.iconRight .anticon {
   height: 16px;
 }
+.ant-btn-icon-only.ant-btn-sm > * {
+  font-size: 16px ;
+}
 :not(.ant-btn-lg).iconRight .anticon {
   height: 14px;
 }
@@ -26537,6 +26540,9 @@ div[class$='-has-error'] .ant-radio-inner:hover {
 }
 body {
   color: #364a63;
+}
+.ant-dropdown-menu-item-icon {
+  font-size: 16px;
 }
 .ant-radio-button-wrapper-disabled.ant-radio-button-wrapper-checked {
   border-color: #8b9db2;
