@@ -120,7 +120,7 @@ const externalFreqColumns = [
     dataIndex: 'cohort',
     render: (cohort: { cohortName: string; link?: string }) => {
       const cohortName = cohort.cohortName;
-      if (['TopMed', 'Gnomad Genomes (v3)'].includes(cohortName)) {
+      if (['TopMed', 'gnomAD Genome (v3)'].includes(cohortName)) {
         return <ExternalLink href={cohort.link!}>{cohortName}</ExternalLink>;
       }
       return cohortName;
@@ -177,7 +177,7 @@ const makeRowForExternalFreq = (
     {
       key: 'Gnomad Genomes (v3)',
       cohort: {
-        cohortName: 'Gnomad Genomes (v3)',
+        cohortName: 'gnomAD Genome (v3)',
         link: `https://gnomad.broadinstitute.org/variant/${locus}?dataset=gnomad_r3`,
       },
       alt: gnomadGenomes3.ac,
@@ -188,7 +188,7 @@ const makeRowForExternalFreq = (
     {
       key: 'Gnomad Genomes (v2.1.1)',
       cohort: {
-        cohortName: 'Gnomad Genomes (v2.1.1)',
+        cohortName: 'gnomAD Genome (v2.1.1)',
       },
       alt: gnomadGenomes2_1_1.ac,
       altRef: gnomadGenomes2_1_1.an,
@@ -198,7 +198,7 @@ const makeRowForExternalFreq = (
     {
       key: 'Gnomad Exomes (v2.1.1)',
       cohort: {
-        cohortName: 'Gnomad Exomes (v2.1.1)',
+        cohortName: 'gnomAD Exome (v2.1.1)',
       },
       alt: gnomadExomes2_1_1.ac,
       altRef: gnomadExomes2_1_1.an,
