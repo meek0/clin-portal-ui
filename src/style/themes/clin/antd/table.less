@@ -63,8 +63,11 @@
     > tr:nth-child(even) {
       background-color: @gray-2;
       td{
-        background-color: @gray-2;
+        &:not(.@{table-prefix-cls}-column-sort){
+          background-color: @gray-2;
+        }  
       }
+  
     }
   }
 
