@@ -150,7 +150,7 @@
   "global.search.variants.emptyText": "No variant found",
   "global.search.variants.placeholder": "e.g. 10-100063679-T-C, rs341",
   "global.search.variants.title": "Search by variant",
-  "global.search.variants.tooltip": "Search by locus, AA change, dbSNP ID and ClinVar ID",
+  "global.search.variants.tooltip": "Search by locus, dbSNP ID and ClinVar ID",
   "gq.tooltip": "Genotype Quality : only occurrences with GQ ≥ 20 are taken into account for frequency calculation",
   "header.navigation.patient": "Patients",
   "home.prescription.search.box.label": "Search by prescription number, request, file",
