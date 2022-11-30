@@ -23,7 +23,7 @@ export const OtherActions = ({ patientId, record }: OwnProps) => {
     },
     {
       key: 'UCSC',
-      icon: <GeneIcon height="12" width="12" />,
+      icon: <GeneIcon height="16" width="16" />,
       label: (
         <a
           target="_blank"
@@ -69,7 +69,7 @@ export const OtherActions = ({ patientId, record }: OwnProps) => {
         }
         placement="bottomLeft"
       >
-        <Button icon={<MoreOutlined width={'18px'} height={'18px'} />} type="link" size={'small'} />
+        <Button icon={<MoreOutlined />} type="link" size={'small'} />
       </Dropdown>
     </Tooltip>
   );
