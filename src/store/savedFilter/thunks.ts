@@ -1,13 +1,13 @@
+import intl from 'react-intl-universal';
 import { setQueryBuilderState } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { SavedFilterApi } from 'api/savedFilter';
 import {
   TUserSavedFilter,
   TUserSavedFilterInsert,
-  TUserSavedFilterUpdate
+  TUserSavedFilterUpdate,
 } from 'api/savedFilter/models';
 import { isEmpty } from 'lodash';
-import intl from 'react-intl-universal';
 import { v4 } from 'uuid';
 
 import { globalActions } from 'store/global';
@@ -56,8 +56,21 @@ const createSavedFilter = createAsyncThunk<
   const { data, error } = await SavedFilterApi.create(filter);
 
   if (error) {
+    thunkAPI.dispatch(
+      globalActions.displayMessage({
+        type: 'error',
+        content: intl.get('api.savedFilter.error.messageUpdate'),
+      }),
+    );
     return thunkAPI.rejectWithValue(error.message);
   }
+
+  thunkAPI.dispatch(
+    globalActions.displayMessage({
+      type: 'success',
+      content: intl.get('api.savedFilter.success.messageSaved'),
+    }),
+  );
 
   return data!;
 });
@@ -72,14 +85,20 @@ const updateSavedFilter = createAsyncThunk<
 
   if (error) {
     thunkAPI.dispatch(
-      globalActions.displayNotification({
+      globalActions.displayMessage({
         type: 'error',
-        message: intl.get('api.savedFilter.error.title'),
-        description: intl.get('api.savedFilter.error.messageUpdate'),
+        content: intl.get('api.savedFilter.error.messageUpdate'),
       }),
     );
     return thunkAPI.rejectWithValue(error.message);
   }
+
+  thunkAPI.dispatch(
+    globalActions.displayMessage({
+      type: 'success',
+      content: intl.get('api.savedFilter.success.messageSaved'),
+    }),
+  );
 
   return data!;
 });
@@ -99,6 +118,13 @@ const deleteSavedFilter = createAsyncThunk<string, string, { rejectValue: string
       );
       return thunkAPI.rejectWithValue(error.message);
     }
+
+    thunkAPI.dispatch(
+      globalActions.displayMessage({
+        type: 'success',
+        content: intl.get('api.savedFilter.success.messageDeleted'),
+      }),
+    );
 
     return data!;
   },

@@ -702,5 +702,10 @@
   "variant.acmg.verdict.label": "Verdict",
   "x.weeks": "{weeks, plural, =1 {# week} other {# weeks}}",
   "yes": "Yes",
-  "zygosity": "zygozity"
+  "zygosity": "zygozity",
+  "api.savedFilter.error.title": "Error",
+  "api.savedFilter.error.messageUpdate": "Unable to update filter",
+  "api.savedFilter.error.messageDelete": "Unable to delete filter",
+  "api.savedFilter.success.messageSaved": "Filter saved",
+  "api.savedFilter.success.messageDeleted": "Filter deleted"
 }
