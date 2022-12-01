@@ -3,6 +3,16 @@ import { cleanAnalysisData } from '../utils';
 describe('cleanAnalysisData', () => {
   test('Should remove NA from sign', () => {
     const payload = {
+      paraclinical_exams: {
+        exams: [
+          {
+            interpretation: 'not_done',
+          },
+          {
+            interpretation: 'abnormal',
+          },
+        ],
+      },
       clinical_signs: {
         signs: [
           {
@@ -16,7 +26,14 @@ describe('cleanAnalysisData', () => {
           },
         ],
       },
+      patient: {
+        ramq: 'XXXX 0000 1111',
+        additional_info: {
+          mother_ramq: 'XXXX 0000 1111',
+        },
+      },
       mother: {
+        ramq: 'XXXX 0000 1111',
         signs: [
           {
             is_observed: 'NA',
@@ -27,6 +44,7 @@ describe('cleanAnalysisData', () => {
         ],
       },
       father: {
+        ramq: 'XXXX 0000 1111',
         signs: [
           {
             is_observed: 'NA',
@@ -39,6 +57,13 @@ describe('cleanAnalysisData', () => {
     };
 
     const expected = {
+      paraclinical_exams: {
+        exams: [
+          {
+            interpretation: 'abnormal',
+          },
+        ],
+      },
       clinical_signs: {
         signs: [
           {
@@ -49,7 +74,14 @@ describe('cleanAnalysisData', () => {
           },
         ],
       },
+      patient: {
+        ramq: 'XXXX00001111',
+        additional_info: {
+          mother_ramq: 'XXXX00001111',
+        },
+      },
       mother: {
+        ramq: 'XXXX00001111',
         signs: [
           {
             is_observed: false,
@@ -57,6 +89,7 @@ describe('cleanAnalysisData', () => {
         ],
       },
       father: {
+        ramq: 'XXXX00001111',
         signs: [
           {
             is_observed: true,
