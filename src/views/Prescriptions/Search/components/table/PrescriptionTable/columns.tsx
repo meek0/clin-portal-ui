@@ -1,14 +1,12 @@
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
-import { Space } from 'antd';
-import { extractOrganizationId, extractPatientId } from 'api/fhir/helper';
+import { extractOrganizationId } from 'api/fhir/helper';
 import { AnalysisResult, ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
+import Links from 'views/Prescriptions/components/Links';
 import StatusTag from 'views/Prescriptions/components/StatusTag';
 import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
 
-import LineStyleIcon from 'components/icons/LineStyleIcon';
-import { LimitTo, Roles } from 'components/Roles/Rules';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
 
@@ -103,19 +101,11 @@ export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
     key: 'links',
     title: intl.get('screen.patientsearch.table.links'),
     render: (results: AnalysisResult) => (
-      <LimitTo key="variants" roles={[Roles.Variants]}>
-        <Link
-          key="variants"
-          to={`/snv/exploration/patient/${extractPatientId(results.patient_id)}/${
-            results.prescription_id
-          }`}
-        >
-          <Space size={4}>
-            <LineStyleIcon height="15" width="15" />
-            {intl.get('links.variants')}
-          </Space>
-        </Link>
-      </LimitTo>
+      <Links
+        patientId={results.patient_id}
+        prescriptionId={results.prescription_id}
+        withDownload={false}
+      />
     ),
   },
 ];

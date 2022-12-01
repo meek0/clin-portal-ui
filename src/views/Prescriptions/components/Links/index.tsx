@@ -11,22 +11,25 @@ import { STATIC_ROUTES } from 'utils/routes';
 interface OwnProps {
   patientId: string;
   prescriptionId: string;
+  withDownload?: boolean;
 }
 
-const Links = ({ patientId, prescriptionId }: OwnProps) => (
+const Links = ({ patientId, prescriptionId, withDownload = true }: OwnProps) => (
   <Space size="middle">
-    <LimitTo roles={[Roles.Download]}>
-      <Link
-        to={`${STATIC_ROUTES.ARCHIVE_EXPLORATION}?search=${extractServiceRequestId(
-          prescriptionId,
-        )}`}
-      >
-        <Space size={4}>
-          <FileTextOutlined />
-          {intl.get('links.files')}
-        </Space>
-      </Link>
-    </LimitTo>
+    {withDownload && (
+      <LimitTo roles={[Roles.Download]}>
+        <Link
+          to={`${STATIC_ROUTES.ARCHIVE_EXPLORATION}?search=${extractServiceRequestId(
+            prescriptionId,
+          )}`}
+        >
+          <Space size={4}>
+            <FileTextOutlined />
+            {intl.get('links.files')}
+          </Space>
+        </Link>
+      </LimitTo>
+    )}
     <LimitTo roles={[Roles.Variants]}>
       <Link to={`/snv/exploration/patient/${patientId}/${extractServiceRequestId(prescriptionId)}`}>
         <Space size={4}>
