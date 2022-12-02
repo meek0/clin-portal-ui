@@ -56,6 +56,14 @@ Cypress.Commands.add('logout', () => {
     cy.exec('npm cache clear --force')
 });
 
+Cypress.Commands.add('visitArchivesPatientPage', (patientId: string) => {
+    cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
+    
+    cy.visit('/archive/exploration?search='+patientId);
+
+    cy.wait('@getPOSTgraphql', {timeout: 5000});
+});
+
 Cypress.Commands.add('visitCNVsPatientPage', (patientId: string, prescriptionId: string, nbGraphqlCalls: number) => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     

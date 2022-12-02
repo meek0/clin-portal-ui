@@ -5,14 +5,14 @@ const epCHUSJ_ldmCHUSJ = JSON.parse(Cypress.env('presc_EP_CHUSJ_LDM_CHUSJ'));
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-})
+});
 
 describe('Page des prescriptions et des requêtes', () => {
   describe('Filtrer avec les facettes', () => {
 
     beforeEach(() => {
       cy.visitPrescriptionsPage();
-    })
+    });
 
     describe('Statut', () => {
       it('Approuvée', () => {
@@ -24,7 +24,7 @@ describe('Page des prescriptions et des requêtes', () => {
         cy.get('body').contains('Requêtes (3)').should('exist');
       });
 
-      it('Soumise', () => {
+      it.skip('Soumise', () => {
         cy.checkValueFacet(0, 'Soumise');
 
         cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
@@ -44,7 +44,7 @@ describe('Page des prescriptions et des requêtes', () => {
         cy.get('body').contains('Requêtes (3)').should('exist');
       });
 
-      it('On-hold', () => {
+      it.skip('On-hold', () => {
         cy.checkValueFacet(1, 'On-hold');
 
         cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
@@ -82,7 +82,7 @@ describe('Page des prescriptions et des requêtes', () => {
         cy.get('body').contains('Requêtes (3)').should('exist');
       });
 
-      it('Global Muscular diseases (Global Panel) (MMG)', () => {
+      it.skip('Global Muscular diseases (Global Panel) (MMG)', () => {
         cy.checkValueFacet(2, 'MMG');
 
         cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
@@ -91,7 +91,7 @@ describe('Page des prescriptions et des requêtes', () => {
         cy.get('body').contains('Requêtes 0').should('exist');
       });
 
-      it('Muscular Dystrophies (DYSM)', () => {
+      it.skip('Muscular Dystrophies (DYSM)', () => {
         cy.checkValueFacet(2, 'DYSM');
 
         cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});

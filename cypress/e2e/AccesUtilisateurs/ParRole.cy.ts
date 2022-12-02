@@ -17,6 +17,9 @@ describe('Accès des utilisateurs', () => {
     cy.contains('LDM-CUSM').should('exist');
     cy.contains(/^LDM-CHUS$/).should('exist');
 
+    // Les liens "Fichiers" et "Variants" du tableau des requêtes sont visibles
+    // TODO
+
     // Accéder à la page de tous les variants
     cy.visitVariantsPage();
     cy.contains('Résultats').should('exist', {timeout: 20*1000});
@@ -70,6 +73,9 @@ describe('Accès des utilisateurs', () => {
     cy.contains('LDM-CUSM').should('exist');
     cy.contains('LDM-CHUS').should('exist');
 
+    // Les liens "Fichiers" et "Variants" du tableau des requêtes sont visibles
+    // TODO
+
     // Accéder à la page de tous les variants
     cy.visitVariantsPage();
     cy.contains('Résultats').should('exist', {timeout: 20*1000});
@@ -122,6 +128,9 @@ describe('Accès des utilisateurs', () => {
     cy.contains('LDM-CHUSJ').should('exist');
     cy.contains('LDM-CUSM').should('exist');
     cy.contains(/^LDM-CHUS$/).should('exist');
+
+    // Les liens "Fichiers" et "Variants" du tableau des requêtes sont visibles
+    // TODO
 
     // Accéder à la page de tous les variants
     cy.visitVariantsPage();
@@ -178,6 +187,9 @@ describe('Accès des utilisateurs', () => {
     cy.contains('LDM-CUSM').should('exist');
     cy.contains(/^LDM-CHUS$/).should('exist');
 
+    // Les liens "Fichiers" et "Variants" du tableau des requêtes sont visibles
+    // TODO
+
     // Accéder à la page de tous les variants
     cy.visitVariantsPage();
     cy.contains('Résultats').should('exist', {timeout: 20*1000});
@@ -232,6 +244,9 @@ describe('Accès des utilisateurs', () => {
     cy.contains('LDM-CHUSJ').should('exist');
     cy.contains('LDM-CUSM').should('exist');
     cy.contains(/^LDM-CHUS$/).should('exist');
+
+    // Les liens "Fichiers" et "Variants" du tableau des requêtes sont visibles
+    // TODO
 
     // Accéder à la page de tous les variants
     cy.visitVariantsPage();
@@ -289,6 +304,9 @@ describe('Accès des utilisateurs', () => {
     cy.contains('LDM-CUSM').should('exist');
     cy.contains(/^LDM-CHUS$/).should('exist');
 
+    // Les liens "Fichiers" et "Variants" du tableau des requêtes sont visibles
+    // TODO
+
     // Accéder à la page de tous les variants
     cy.visitVariantsPage();
     cy.contains('Résultats').should('exist', {timeout: 20*1000});
@@ -344,6 +362,9 @@ describe('Accès des utilisateurs', () => {
     cy.contains('LDM-CHUSJ').should('exist');
     cy.contains('LDM-CUSM').should('exist');
     cy.contains(/^LDM-CHUS$/).should('exist');
+
+    // Les liens "Fichiers" et "Variants" du tableau des requêtes sont visibles
+    // TODO
 
     // Accéder à la page de tous les variants
     cy.visitVariantsPage();

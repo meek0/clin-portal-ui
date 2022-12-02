@@ -5,19 +5,19 @@ const epCHUSJ_ldmCHUSJ = JSON.parse(Cypress.env('presc_EP_CHUSJ_LDM_CHUSJ'));
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-})
+});
 
 describe('Page des variants', () => {
   describe('Filtrer avec les facettes', () => {
 
     beforeEach(() => {
       cy.visitVariantsPage();
-    })
+    });
 
     describe('Patient', () => {
       beforeEach(() => {
         cy.get('li[data-key="patient"]').click({force: true});
-      })
+      });
 
       it('Analyse', () => {
         cy.get('span[class*="FilterContainer_title"]', {timeout: 5000}).contains('Analyse').click({force: true});
@@ -32,11 +32,11 @@ describe('Page des variants', () => {
       it('Statut clinique', () => {
         cy.get('span[class*="FilterContainer_title"]', {timeout: 5000}).contains('Statut clinique').click({force: true});
 
-        cy.get('div[class*="CheckboxFilter_checkboxFilterItem"]', {timeout: 5000}).contains('Inconnu')
+        cy.get('div[class*="CheckboxFilter_checkboxFilterItem"]', {timeout: 5000}).contains('Non atteint')
           .find('[type="checkbox"]').check({force: true});
           cy.clickApplyFacet();
 
-        cy.get('body').contains('308 378').should('exist');
+        cy.get('body').contains('511 795').should('exist');
       });
 
       it('Sexe', () => {

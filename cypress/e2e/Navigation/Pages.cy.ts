@@ -7,11 +7,11 @@ describe('Affichage de toutes les pages et modals', () => {
 
   beforeEach(() => {
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  })
+  });
 
   it('Accueil', () => {
     cy.contains('Rechercher une prescription').should('exist', {timeout: 20*1000});
-    cy.contains('Rechercher par numéro de prescription, requête, dossier:').should('exist', {timeout: 20*1000});
+    cy.contains('Rechercher par numéro de prescription, requête, dossier, échantillon:').should('exist', {timeout: 20*1000});
     cy.contains('Rechercher un variant').should('exist', {timeout: 20*1000});
     cy.contains('Rechercher par locus, dbSNP, ClinVar:').should('exist', {timeout: 20*1000});
     cy.contains('Zeppelin').should('exist', {timeout: 20*1000});
@@ -19,27 +19,11 @@ describe('Affichage de toutes les pages et modals', () => {
 
     cy.log('Page Prescriptions - Onglet Prescriptions');
     cy.get('body').find('a[href="/prescription/search"]').click();
-    cy.contains('Rechercher par numéro de prescription, requête, dossier:').should('exist', {timeout: 20*1000});
-    cy.contains('Prescription').should('exist', {timeout: 20*1000});
-    cy.contains('Patient').should('exist', {timeout: 20*1000});
-    cy.contains('Statut').should('exist', {timeout: 20*1000});
-    cy.contains('Créée le').should('exist', {timeout: 20*1000});
-    cy.contains('Analyse').should('exist', {timeout: 20*1000});
-    cy.contains('LDM').should('exist', {timeout: 20*1000});
-    cy.contains('EP').should('exist', {timeout: 20*1000});
+    cy.contains('Rechercher par numéro de prescription, requête, dossier, échantillon:').should('exist', {timeout: 20*1000});
 
     cy.log('Page Prescriptions - Onglet Requêtes');
     cy.get('div[id*="tab-requests"]').click({force: true});
-    cy.contains('Rechercher par numéro de prescription, requête, dossier:').should('exist', {timeout: 20*1000});
-    cy.contains('Requête').should('exist', {timeout: 20*1000});
-    cy.contains('Échantillon').should('exist', {timeout: 20*1000});
-    cy.contains('Patient').should('exist', {timeout: 20*1000});
-    cy.contains('Statut').should('exist', {timeout: 20*1000});
-    cy.contains('Créée le').should('exist', {timeout: 20*1000});
-    cy.contains('Analyse').should('exist', {timeout: 20*1000});
-    cy.contains('LDM').should('exist', {timeout: 20*1000});
-    cy.contains('EP').should('exist', {timeout: 20*1000});
-    cy.contains('Prescription').should('exist', {timeout: 20*1000});
+    cy.contains('Rechercher par numéro de prescription, requête, dossier, échantillon:').should('exist', {timeout: 20*1000});
     
     cy.log('Page Archives');
     cy.get('body').find('a[href="/archive/exploration"]').click();
@@ -55,23 +39,16 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Gène').should('exist', {timeout: 20*1000});
     cy.contains('Fréquence').should('exist', {timeout: 20*1000});
     cy.contains('Pathogénicité').should('exist', {timeout: 20*1000});
-    cy.contains('Requête de variants').should('exist', {timeout: 20*1000});
+    cy.contains('Filtre sans titre').should('exist', {timeout: 20*1000});
     cy.contains('Mes filtres').should('exist', {timeout: 20*1000});
     cy.contains('Utiliser les filtres pour créer une requête').should('exist', {timeout: 20*1000});
-    cy.contains('Variant').should('exist', {timeout: 20*1000});
-    cy.contains('Type').should('exist', {timeout: 20*1000});
-    cy.contains('dbSNP').should('exist', {timeout: 20*1000});
-    cy.contains('Conséquences').should('exist', {timeout: 20*1000});
-    cy.contains('ClinVar').should('exist', {timeout: 20*1000});
-    cy.contains('ACMG').should('exist', {timeout: 20*1000});
-    cy.contains('gnomAD').should('exist', {timeout: 20*1000});
-    cy.contains('RQDM').should('exist', {timeout: 20*1000});
   });
  
   it('Prescription', () => {
     cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
     cy.visit('/prescription/entity/'+epCHUSJ_ldmCHUSJ.prescriptionId);
     cy.wait('@getPOSTgraphql', {timeout: 5000});
+
     cy.contains('Prescription ID : '+epCHUSJ_ldmCHUSJ.prescriptionId).should('exist', {timeout: 20*1000});
     cy.contains('Voir les variants').should('exist', {timeout: 20*1000});
     cy.contains('Analyse').should('exist', {timeout: 20*1000});
@@ -114,6 +91,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
     cy.visit('/bioinformatics-analysis/'+epCHUSJ_ldmCHUSJ.bioAnalysisId);
     cy.wait('@getPOSTgraphql', {timeout: 5000});
+
     cy.contains('Analyse bioinformatique : '+epCHUSJ_ldmCHUSJ.bioAnalysisId).should('exist', {timeout: 20*1000});
     cy.contains('ID').should('exist', {timeout: 20*1000});
     cy.contains('Type d\'analyse').should('exist', {timeout: 20*1000});
@@ -148,6 +126,9 @@ describe('Affichage de toutes les pages et modals', () => {
  
   it('Variants d\'un patient', () => {
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+    cy.get('svg[data-icon="setting"]').click({force: true});
+    cy.get('button[class*="ProTablePopoverColumnResetBtn"]').click({force: true});
+
     cy.contains('Variants').should('exist', {timeout: 20*1000});
     cy.contains('SNV').should('exist', {timeout: 20*1000});
     cy.contains('CNV').should('exist', {timeout: 20*1000});
@@ -161,20 +142,9 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Fréquence').should('exist', {timeout: 20*1000});
     cy.contains('Pathogénicité').should('exist', {timeout: 20*1000});
     cy.contains('Occurrence').should('exist', {timeout: 20*1000});
-    cy.contains('Requête de variants').should('exist', {timeout: 20*1000});
+    cy.contains('Filtre sans titre').should('exist', {timeout: 20*1000});
     cy.contains('Mes filtres').should('exist', {timeout: 20*1000});
     cy.contains('Utiliser les filtres pour créer une requête').should('exist', {timeout: 20*1000});
-    cy.contains('Variant').should('exist', {timeout: 20*1000});
-    cy.contains('Type').should('exist', {timeout: 20*1000});
-    cy.contains('dbSNP').should('exist', {timeout: 20*1000});
-    cy.contains('Conséquences').should('exist', {timeout: 20*1000});
-    cy.contains('ClinVar').should('exist', {timeout: 20*1000});
-    cy.contains('ACMG').should('exist', {timeout: 20*1000});
-    cy.contains('gnomAD').should('exist', {timeout: 20*1000});
-    cy.contains('RQDM').should('exist', {timeout: 20*1000});
-    cy.contains('QG').should('exist', {timeout: 20*1000});
-    cy.contains('Zygosité').should('exist', {timeout: 20*1000});
-    cy.contains('Actions').should('exist', {timeout: 20*1000});
 
     cy.log('Téléverser une liste de gènes');
     cy.get('body').find('span[class*="SidebarMenu_sidebarMenuItemTitle"]').contains('Gène').click({force: true});
@@ -187,7 +157,7 @@ describe('Affichage de toutes les pages et modals', () => {
 
     cy.log('Enregistrer le filtre');
     cy.get('body').find('button[class*="QueryBuilderHeader_iconBtnAction"]').click({force: true});
-    cy.contains('Save this filter').should('exist', {timeout: 20*1000});
+    cy.contains('Sauvegarder ce filtre').should('exist', {timeout: 20*1000});
     cy.contains('Nom du filtre').should('exist', {timeout: 20*1000});
     cy.contains('Annuler').should('exist', {timeout: 20*1000});
     cy.contains('Sauvegarder').should('exist', {timeout: 20*1000});
@@ -242,6 +212,9 @@ describe('Affichage de toutes les pages et modals', () => {
  
   it('CNVs d\'un patient', () => {
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 11);
+    cy.get('svg[data-icon="setting"]').click({force: true});
+    cy.get('button[class*="ProTablePopoverColumnResetBtn"]').click({force: true});
+
     cy.contains('Variants').should('exist', {timeout: 20*1000});
     cy.contains('SNV').should('exist', {timeout: 20*1000});
     cy.contains('CNV').should('exist', {timeout: 20*1000});
@@ -254,18 +227,9 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Filtre').should('exist', {timeout: 20*1000});
     cy.contains('CnvQual').should('exist', {timeout: 20*1000});
     cy.contains('Qualité').should('exist', {timeout: 20*1000});
-    cy.contains('Requête de variants').should('exist', {timeout: 20*1000});
+    cy.contains('Filtre sans titre').should('exist', {timeout: 20*1000});
     cy.contains('Mes filtres').should('exist', {timeout: 20*1000});
     cy.contains('Utiliser les filtres pour créer une requête').should('exist', {timeout: 20*1000});
-    cy.contains('Variant').should('exist', {timeout: 20*1000});
-    cy.contains('Chr.').should('exist', {timeout: 20*1000});
-    cy.contains('Début').should('exist', {timeout: 20*1000});
-    cy.contains('Fin').should('exist', {timeout: 20*1000});
-    cy.contains('Événement').should('exist', {timeout: 20*1000});
-    cy.contains('Longueur').should('exist', {timeout: 20*1000});
-    cy.contains('CN').should('exist', {timeout: 20*1000});
-    cy.contains('# Gènes').should('exist', {timeout: 20*1000});
-    cy.contains('Gènes').should('exist', {timeout: 20*1000});
 
     cy.log('Liste des gènes chevauchants');
     cy.get('body').find('div[class="ant-table-wrapper"]').find('tr[data-row-key="0"]').contains('CLSTN1').click({force: true});
@@ -286,6 +250,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.wait('@getPOSTgraphql', {timeout: 5000});
     cy.wait('@getPOSTgraphql', {timeout: 5000});
     cy.wait('@getPOSTgraphql', {timeout: 5000});
+
     cy.contains('chr10:g.1096268T>C').should('exist', {timeout: 20*1000});
     cy.contains('GERMLINE').should('exist', {timeout: 20*1000});
     cy.contains('HIGH').should('exist', {timeout: 20*1000});
@@ -326,9 +291,9 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('# Homozygotes').should('exist', {timeout: 20*1000});
     cy.contains('Fréquence').should('exist', {timeout: 20*1000});
     cy.contains('TopMed').should('exist', {timeout: 20*1000});
-    cy.contains('Gnomad Genomes (v3)').should('exist', {timeout: 20*1000});
-    cy.contains('Gnomad Genomes (v2.1.1)').should('exist', {timeout: 20*1000});
-    cy.contains('Gnomad Exomes (v2.1.1)').should('exist', {timeout: 20*1000});
+    cy.contains('gnomAD Genome (v3)').should('exist', {timeout: 20*1000});
+    cy.contains('gnomAD Genome (v2.1.1)').should('exist', {timeout: 20*1000});
+    cy.contains('gnomAD Exome (v2.1.1)').should('exist', {timeout: 20*1000});
     cy.contains('1000 Genomes').should('exist', {timeout: 20*1000});
     cy.contains('Associations cliniques').should('exist', {timeout: 20*1000});
     cy.contains('Interprétation').should('exist', {timeout: 20*1000});

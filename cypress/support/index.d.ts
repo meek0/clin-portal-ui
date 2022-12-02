@@ -6,6 +6,7 @@ declare namespace Cypress {
     clickApplyFacet(): cy & CyEventEmitter;
     login(user: string, password: string): cy & CyEventEmitter;
     logout(): cy & CyEventEmitter;
+    visitArchivesPatientPage(patientId: string): cy & CyEventEmitter;
     visitCNVsPatientPage(patientId: string, prescriptionId: string, nbGraphqlCalls: number): cy & CyEventEmitter;
     visitPrescriptionEntityPage(prescriptionId: string): cy & CyEventEmitter;
     visitPrescriptionsPage(): cy & CyEventEmitter;
