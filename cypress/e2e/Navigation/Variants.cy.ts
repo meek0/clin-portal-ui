@@ -6,7 +6,7 @@ const epCHUSJ_ldmCHUSJ = JSON.parse(Cypress.env('presc_EP_CHUSJ_LDM_CHUSJ'));
 describe('Affichage de tous les variants [!! Très long à exécuter !!]', () => {
   beforeEach(() => {
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  })
+  });
 
   Cypress.on('uncaught:exception', (err, runnable) => {
     return false;

@@ -12,13 +12,18 @@ describe('Page d\'archives', () => {
 
     beforeEach(() => {
       cy.visit('/archive/exploration');
-    })
+    });
 
     it('Par numéro de requête du cas-index', () => {
       cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
       cy.get('input').first().type(epCHUSJ_ldmCHUSJ.requestProbId, {force: true});
       cy.get('button[class*="ant-input-search-button"]').click({force: true});
       cy.wait('@getPOSTgraphql', {timeout: 5000});
+      
+      cy.intercept('**/user').as('getUser');
+      cy.get('svg[data-icon="setting"]').click({force: true});
+      cy.get('button[class*="ProTablePopoverColumnResetBtn"]').click({force: true});
+      cy.wait('@getUser', {timeout: 20*1000});
 
       cy.get('body').contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist');
       cy.get('body').contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
