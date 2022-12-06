@@ -6,7 +6,7 @@ export const SNV_VARIANT_PATIENT_QB_ID = 'patient-variant-repo';
 export const VARIANT_RQDM_QB_ID = 'rqdm-variant-repo';
 
 export const DEFAULT_PAGE_INDEX = 1;
-export const DEFAULT_PAGE_SIZE = 10;
+export const DEFAULT_PAGE_SIZE = 20;
 
 export const SCROLL_WRAPPER_ID = 'snv-scroll-wrapper';
 
