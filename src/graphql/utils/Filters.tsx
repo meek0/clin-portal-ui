@@ -65,7 +65,7 @@ export const generateFilters = ({
         (f: ExtendedMapping) => f.field === underscoreToDot(key),
       );
 
-      const filterGroup = getFilterGroup(found, aggregations[key], [], filterFooter);
+      const filterGroup = getFilterGroup(found, aggregations[key], [], filterFooter, index);
       const filters = getFilters(aggregations, key);
       const selectedFilters = getSelectedFilters({
         queryBuilderId,
@@ -142,13 +142,20 @@ export const getFilterGroup = (
   aggregation: any,
   rangeTypes: string[],
   filterFooter: boolean,
+  index: string | undefined,
 ): IFilterGroup => {
+  const title = intl
+    .get(`${index}.filters.group.${extendedMapping?.field}`)
+    .defaultMessage(
+      intl
+        .get(`filters.group.${extendedMapping?.field}`)
+        .defaultMessage(extendedMapping?.displayName || ''),
+    );
+
   if (isRangeAgg(aggregation)) {
     return {
       field: extendedMapping?.field || '',
-      title: intl
-        .get(`filters.group.${extendedMapping?.field}`)
-        .defaultMessage(extendedMapping?.displayName || ''),
+      title,
       type: getFilterType(extendedMapping?.type || ''),
       config: {
         min: aggregation.stats.min,
@@ -163,9 +170,7 @@ export const getFilterGroup = (
 
   return {
     field: extendedMapping?.field || '',
-    title: intl
-      .get(`filters.group.${extendedMapping?.field}`)
-      .defaultMessage(extendedMapping?.displayName || ''),
+    title,
     type: getFilterType(extendedMapping?.type || ''),
     config: {
       nameMapping: [],

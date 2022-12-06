@@ -23,7 +23,6 @@ export const filtersContainer = (
       extendedMappingResults={mappingResults}
       filterInfo={filterInfo}
       filterMapper={filterMapper}
-      showExpandBtn={false}
     />
   );
 };

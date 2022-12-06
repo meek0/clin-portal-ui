@@ -51,7 +51,9 @@ const VariantContentLayout = ({
     useSavedFiltersActions(savedFilterTag);
 
   const facetTransResolver = (key: string) => {
-    const title = intl.get(`filters.group.${key}`);
+    const title = intl
+      .get(`${INDEXES.CNV}.filters.group.${key}`)
+      .defaultMessage(intl.get(`filters.group.${key}`));
 
     return title
       ? title
@@ -100,7 +102,7 @@ const VariantContentLayout = ({
             );
           },
           selectedFilterContent: selectedFilterContent,
-          blacklistedFacets: [],
+          blacklistedFacets: ['genes.symbol'],
         }}
         enableCombine
         enableShowHideLabels

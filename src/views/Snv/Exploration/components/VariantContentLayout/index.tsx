@@ -53,7 +53,10 @@ const VariantContentLayout = ({
 
   const facetTransResolver = (key: string) => {
     if (key === 'locus') return 'Variant';
-    const title = intl.get(`filters.group.${key}`);
+
+    const title = intl
+      .get(`${INDEXES.VARIANT}.filters.group.${key}`)
+      .defaultMessage(intl.get(`filters.group.${key}`));
 
     return title
       ? title

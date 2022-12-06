@@ -3,10 +3,13 @@ import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { SuggestionType } from 'api/arranger/models';
 import { INDEXES } from 'graphql/constants';
 import { ExtendedMappingResults } from 'graphql/models';
-import GenesUploadIds from 'views/Snv/components/GeneUploadIds';
-import VariantGeneSearch from 'views/Snv/components/VariantGeneSearch';
-import { FilterTypes, SNV_VARIANT_PATIENT_QB_ID } from 'views/Snv/utils/constant';
+import {
+  FilterTypes,
+  GeneSearchFieldsMapping,
+  SNV_VARIANT_PATIENT_QB_ID,
+} from 'views/Snv/utils/constant';
 
+import GenesUploadIds from 'components/GeneUploadIds';
 import DiseaseIcon from 'components/icons/DiseaseIcon';
 import FrequencyIcon from 'components/icons/FrequencyIcon';
 import GeneIcon from 'components/icons/GeneIcon';
@@ -15,6 +18,7 @@ import OccurenceIcon from 'components/icons/OccurenceIcon';
 import RqdmIcon from 'components/icons/RqdmIcon';
 import { TCustomFilterMapper } from 'components/uiKit/FilterList';
 import { FilterInfo } from 'components/uiKit/FilterList/types';
+import VariantGeneSearch from 'components/VariantGeneSearch';
 
 import { filtersContainer } from '../components/filtersContainer';
 
@@ -35,6 +39,8 @@ const filterGroups: {
     customSearches: [
       <VariantGeneSearch
         key="variants"
+        index={INDEXES.VARIANT}
+        fields={GeneSearchFieldsMapping}
         type={SuggestionType.VARIANTS}
         queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
       />,
@@ -55,10 +61,16 @@ const filterGroups: {
     customSearches: [
       <VariantGeneSearch
         key="genes"
+        index={INDEXES.VARIANT}
+        fields={GeneSearchFieldsMapping}
         type={SuggestionType.GENES}
         queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
       />,
-      <GenesUploadIds key="geneIds" queryBuilderId={SNV_VARIANT_PATIENT_QB_ID} />,
+      <GenesUploadIds
+        key="geneIds"
+        field="consequences.symbol_id_1"
+        queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
+      />,
     ],
     groups: [
       {

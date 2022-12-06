@@ -1,3 +1,5 @@
+import { SuggestionType } from 'api/arranger/models';
+
 import { IQueryConfig } from 'utils/searchPageTypes';
 
 export const SNV_VARIANT_PATIENT_QB_ID = 'patient-variant-repo';
@@ -28,3 +30,8 @@ export enum FilterTypes {
   Occurrence,
   Patient,
 }
+
+export const GeneSearchFieldsMapping = {
+  [SuggestionType.GENES]: 'consequences.symbol',
+  [SuggestionType.VARIANTS]: 'locus',
+};
