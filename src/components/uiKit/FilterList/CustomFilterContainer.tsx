@@ -57,7 +57,7 @@ const CustomFilterContainer = ({
     });
 
   const aggregations = results?.aggregations ? results?.aggregations[filterKey] : {};
-  const filterGroup = getFilterGroup(found, aggregations, [], true);
+  const filterGroup = getFilterGroup(found, aggregations, [], true, index);
   const filters = results?.aggregations ? getFilters(results?.aggregations, filterKey) : [];
   const selectedFilters = results?.data
     ? getSelectedFilters({

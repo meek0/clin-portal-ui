@@ -13,9 +13,10 @@ import { GeneEntity } from 'graphql/variants/models';
 
 interface OwnProps {
   queryBuilderId: string;
+  field: string;
 }
 
-const GenesUploadIds = ({ queryBuilderId }: OwnProps) => (
+const GenesUploadIds = ({ queryBuilderId, field }: OwnProps) => (
   <UploadIds
     dictionary={{
       modalTitle: intl.get('upload.gene.ids.modal.title'),
@@ -92,7 +93,7 @@ const GenesUploadIds = ({ queryBuilderId }: OwnProps) => (
     onUpload={(match) =>
       updateActiveQueryField({
         queryBuilderId,
-        field: 'consequences.symbol_id_1',
+        field,
         value: match.map((value) => value.mappedTo),
         index: INDEXES.VARIANT,
         overrideValuesName: intl.get('upload.gene.ids.modal.pill.title'),

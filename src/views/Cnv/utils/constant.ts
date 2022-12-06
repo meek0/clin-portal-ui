@@ -15,3 +15,10 @@ export const DEFAULT_QUERY_CONFIG: IQueryConfig = {
     { field: 'start', order: 'asc' },
   ],
 };
+
+export enum FilterTypes {
+  Variant,
+  Gene,
+  Rqdm,
+  Occurrence,
+}

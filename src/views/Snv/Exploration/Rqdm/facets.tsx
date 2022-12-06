@@ -3,16 +3,16 @@ import { UserOutlined } from '@ant-design/icons';
 import { SuggestionType } from 'api/arranger/models';
 import { INDEXES } from 'graphql/constants';
 import { ExtendedMappingResults } from 'graphql/models';
-import GenesUploadIds from 'views/Snv/components/GeneUploadIds';
-import VariantGeneSearch from 'views/Snv/components/VariantGeneSearch';
-import { FilterTypes, VARIANT_RQDM_QB_ID } from 'views/Snv/utils/constant';
+import { FilterTypes, GeneSearchFieldsMapping, VARIANT_RQDM_QB_ID } from 'views/Snv/utils/constant';
 
+import GenesUploadIds from 'components/GeneUploadIds';
 import DiseaseIcon from 'components/icons/DiseaseIcon';
 import FrequencyIcon from 'components/icons/FrequencyIcon';
 import GeneIcon from 'components/icons/GeneIcon';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TCustomFilterMapper } from 'components/uiKit/FilterList';
 import { FilterInfo } from 'components/uiKit/FilterList/types';
+import VariantGeneSearch from 'components/VariantGeneSearch';
 
 import { filtersContainer } from '../components/filtersContainer';
 
@@ -32,6 +32,8 @@ const filterGroups: {
     customSearches: [
       <VariantGeneSearch
         key="variants"
+        index={INDEXES.VARIANT}
+        fields={GeneSearchFieldsMapping}
         type={SuggestionType.VARIANTS}
         queryBuilderId={VARIANT_RQDM_QB_ID}
       />,
@@ -55,10 +57,16 @@ const filterGroups: {
     customSearches: [
       <VariantGeneSearch
         key="genes"
+        index={INDEXES.GENE}
+        fields={GeneSearchFieldsMapping}
         type={SuggestionType.GENES}
         queryBuilderId={VARIANT_RQDM_QB_ID}
       />,
-      <GenesUploadIds key="genes_upload_ids" queryBuilderId={VARIANT_RQDM_QB_ID} />,
+      <GenesUploadIds
+        key="genes_upload_ids"
+        field="consequences.symbol_id_1"
+        queryBuilderId={VARIANT_RQDM_QB_ID}
+      />,
     ],
     groups: [
       {

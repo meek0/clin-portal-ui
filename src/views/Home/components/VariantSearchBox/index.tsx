@@ -4,9 +4,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { ArrangerApi } from 'api/arranger';
 import { GenomicFeatureType, Suggestion, SuggestionType } from 'api/arranger/models';
 import { isEmpty } from 'lodash';
-import OptionItem from 'views/Snv/components/VariantGeneSearch/OptionItem';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
+import OptionItem from 'components/VariantGeneSearch/OptionItem';
 import { filterByTypeAndWeight } from 'utils/suggestions';
 
 import SearchBox from '../SearchBox';

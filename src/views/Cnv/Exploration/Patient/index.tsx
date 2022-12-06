@@ -16,7 +16,7 @@ import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
 import VariantSearchLayout from '../components/VariantSearchLayout';
 
 import PageContent from './components/PageContent';
-import { getFilters } from './facets';
+import { getMenuItems } from './facets';
 
 const CnvExplorationPatient = () => {
   const { patientid, prescriptionid } = useParams<{ patientid: string; prescriptionid: string }>();
@@ -60,7 +60,7 @@ const CnvExplorationPatient = () => {
         ],
         loading: headerLoading,
       }}
-      sidebarContent={getFilters(variantMappingResults, filterMapper)}
+      menuItems={getMenuItems(variantMappingResults, filterMapper)}
     >
       <PageContent
         variantMapping={variantMappingResults}
