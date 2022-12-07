@@ -75,7 +75,7 @@
   "filters.group.donors.zygosity": "Zygosity",
   "filters.group.ep": "Prescribing institution",
   "cnv.filters.group.filters": "Filter (Dragen)",
-  "cnv.filters.group.svlen": "CNV Size",
+  "cnv.filters.group.reflen": "CNV Size",
   "cnv.filters.group.start": "CNV Start",
   "cnv.filters.group.end": "CNV End",
   "cnv.filters.group.qual": "CNV Quality",
