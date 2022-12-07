@@ -76,7 +76,7 @@
   "filters.group.donors.zygosity": "Zygosité",
   "filters.group.ep": "Établissement prescripteur",
   "cnv.filters.group.filters": "Filtre (Dragen)",
-  "cnv.filters.group.svlen": "Longueur du CNV",
+  "cnv.filters.group.reflen": "Longueur du CNV",
   "cnv.filters.group.start": "Début du CNV",
   "cnv.filters.group.end": "Fin du CNV",
   "cnv.filters.group.qual": "Qualité du CNV",

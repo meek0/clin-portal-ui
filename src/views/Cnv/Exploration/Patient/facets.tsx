@@ -31,7 +31,7 @@ const filterGroups: {
   [FilterTypes.Variant]: {
     groups: [
       {
-        facets: ['type', 'svlen', 'chromosome', 'start', 'end'],
+        facets: ['type', 'reflen', 'chromosome', 'start', 'end'],
       },
     ],
   },
