@@ -386,6 +386,10 @@ export const TAB_SUMMARY_QUERY = gql`
                     symbol
                     location
                     biotype
+                    spliceai {
+                      ds
+                      type
+                    }
                   }
                 }
               }
@@ -452,6 +456,9 @@ export const TAB_CLINICAL_QUERY = gql`
                   node {
                     symbol
                     omim_gene_id
+                    spliceai {
+                      ds
+                    }
                     omim {
                       hits {
                         edges {

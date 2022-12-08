@@ -181,6 +181,10 @@ export type GeneEntity = {
   ddd: ArrangerResultsTree<DddEntity>;
   cosmic: ArrangerResultsTree<CosmicEntity>;
   biotype: string;
+  spliceai: {
+    ds: string;
+    type: string[];
+  };
 };
 
 export type ConsequenceEntity = {
