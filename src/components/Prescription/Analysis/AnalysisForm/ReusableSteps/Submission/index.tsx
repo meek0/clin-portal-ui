@@ -84,8 +84,7 @@ const Submission = () => {
   const needToSelectSupervisor = () => {
     const org = getPrescribingOrg()!;
     const role = findPractitionerRoleByOrganization(user.practitionerRoles, org);
-
-    return isPractitionerResident(role!) || true;
+    return isPractitionerResident(role!);
   };
 
   const getPrescribingOrg = () =>
