@@ -445,7 +445,7 @@
   "screen.patientcnv.modal.genes.table.number_exons": "# Exons",
   "screen.patientcnv.modal.genes.table.number_exons.tooltip": "Overlapped exon number",
   "screen.patientcnv.modal.genes.table.overlapping": "Overlapping with CNV",
-  "screen.patientcnv.modal.genes.table.panel": "Panel",
+  "screen.patientcnv.modal.genes.table.panel": "Panels",
   "screen.patientcnv.modal.genes.table.panel.tooltip": "Gene Panels",
   "screen.patientcnv.modal.genes.table.percent_cnv": "% CNV",
   "screen.patientcnv.modal.genes.table.percent_cnv.tooltip": "% overlapped CNV length",

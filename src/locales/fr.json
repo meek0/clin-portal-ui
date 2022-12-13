@@ -446,7 +446,7 @@
   "screen.patientcnv.modal.genes.table.number_exons": "# Exons",
   "screen.patientcnv.modal.genes.table.number_exons.tooltip": "Nombres d'exons chevauchés",
   "screen.patientcnv.modal.genes.table.overlapping": "Chevauchement avec le CNV",
-  "screen.patientcnv.modal.genes.table.panel": "Panel",
+  "screen.patientcnv.modal.genes.table.panel": "Panels",
   "screen.patientcnv.modal.genes.table.panel.tooltip": "Panels du gène",
   "screen.patientcnv.modal.genes.table.percent_cnv": "% CNV",
   "screen.patientcnv.modal.genes.table.percent_cnv.tooltip": "% de la longueur du CNV chevauché",
