@@ -43,7 +43,7 @@ export const AGGREGATION_QUERY = (
   return gql`
       query AggregationInformation($sqon: JSON) {
         ${index} {
-           aggregations (filters: $sqon, include_missing:false){
+           aggregations (filters: $sqon, include_missing:true){
             ${generateAggregations(extendedMappingsFields)}
           }
         }
@@ -51,7 +51,7 @@ export const AGGREGATION_QUERY = (
     `;
 };
 
-const generateAggregations = (extendedMappingFields: ExtendedMapping[]) => {
+export const generateAggregations = (extendedMappingFields: ExtendedMapping[]) => {
   const aggs = extendedMappingFields.map((f) => {
     if (['keyword', 'id'].includes(f.type)) {
       return (
