@@ -4,9 +4,11 @@ import ProTable from '@ferlab/ui/core/components/ProTable';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 import { IQueryResults } from 'graphql/models';
 import GenesModal from 'views/Cnv/Exploration/components/GenesModal';
+import IGVModal from 'views/Cnv/Exploration/components/IGVModal';
 import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
 import { DEFAULT_PAGE_SIZE } from 'views/Cnv/utils/constant';
 
+import { useRpt } from 'hooks/useRpt';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
 import { formatQuerySortList } from 'utils/helper';
@@ -19,22 +21,35 @@ type OwnProps = {
   results: IQueryResults<VariantEntity[]>;
   setQueryConfig: TQueryConfigCb;
   queryConfig: IQueryConfig;
-  patientId?: string;
 };
 
 const VariantsTable = ({ results, setQueryConfig, queryConfig }: OwnProps) => {
   const dispatch = useDispatch();
   const { user } = useUser();
+  const { rpt } = useRpt();
   const [selectedVariant, setSelectedVariant] = useState<VariantEntity | undefined>(undefined);
   const [genesModalOpened, toggleGenesModal] = useState(false);
+  const [modalOpened, toggleModal] = useState(false);
 
   const openGenesModal = (record: VariantEntity) => {
     setSelectedVariant(record);
     toggleGenesModal(true);
   };
 
+  const openIgvModal = (record: VariantEntity) => {
+    setSelectedVariant(record);
+    toggleModal(true);
+  };
   return (
     <>
+      {selectedVariant && (
+        <IGVModal
+          rpt={rpt}
+          variantEntity={selectedVariant}
+          isOpen={modalOpened}
+          toggleModal={toggleModal}
+        />
+      )}
       <GenesModal
         variantEntity={selectedVariant}
         isOpen={genesModalOpened}
@@ -43,7 +58,7 @@ const VariantsTable = ({ results, setQueryConfig, queryConfig }: OwnProps) => {
       <ProTable<ITableVariantEntity>
         tableId="variant_table"
         wrapperClassName={style.variantTableWrapper}
-        columns={getVariantColumns(openGenesModal)}
+        columns={getVariantColumns(openGenesModal, openIgvModal)}
         initialColumnState={user.config.data_exploration?.tables?.patientCnv?.columns}
         dataSource={results.data.map((i, index) => ({ ...i, key: `${index}` }))}
         loading={results.loading}

@@ -30,6 +30,10 @@ export type VariantEntity = {
   sm: number;
   bc: number;
   pe: number[];
+  father_id: string;
+  mother_id: string;
+  is_proband: string;
+  gender: string;
   genes: ArrangerResultsTree<GeneEntity>;
 };
 

@@ -66,7 +66,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
           results={variantResults}
           setQueryConfig={setVariantQueryConfig}
           queryConfig={variantQueryConfig}
-          patientId={patientId!}
         />
       </Card>
     </VariantContentLayout>
