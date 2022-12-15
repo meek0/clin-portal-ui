@@ -34,6 +34,10 @@ export const VARIANT_QUERY = gql`
             sm
             bc
             pe
+            father_id
+            mother_id
+            is_proband
+            gender
             genes {
               hits {
                 edges {

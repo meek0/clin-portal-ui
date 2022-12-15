@@ -48,8 +48,8 @@ export const getPatientPosition = (gender: string, position: string) => {
   return loweredPosition;
 };
 
-export const formatLocus = (start: number, chromosome: string, bound?: number) =>
-  `chr${chromosome}:${bound ? `${start - bound}-${start + bound}` : start}`;
+export const formatLocus = (start: number, chromosome: string, bound?: number, end?: number) =>
+  `chr${chromosome}:${bound ? `${start - bound}-${end ? end + bound : start + bound}` : start}`;
 
 export const isBoolTrue = (value: number | boolean | string | null) =>
   !!value || 'true' === value?.toString().toLowerCase();

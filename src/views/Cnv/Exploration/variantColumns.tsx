@@ -1,9 +1,10 @@
 import intl from 'react-intl-universal';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
-import { Tooltip } from 'antd';
+import { Button, Space, Tooltip } from 'antd';
 import cx from 'classnames';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 
+import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatGenotype } from 'utils/formatGenotype';
 import { formatDnaLength, formatNumber } from 'utils/formatNumber';
@@ -12,6 +13,7 @@ import style from './variantColumns.module.scss';
 
 export const getVariantColumns = (
   openGenesModal: (record: VariantEntity) => void,
+  igvModalCb?: (record: VariantEntity) => void,
 ): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [
     {
@@ -162,6 +164,25 @@ export const getVariantColumns = (
       dataIndex: 'pe',
       defaultHidden: true,
       render: (pe: string[]) => pe.join(', '),
+    },
+    {
+      className: style.userAffectedBtnCell,
+      key: 'actions',
+      title: intl.get('screen.patientsnv.results.table.actions'),
+      fixed: 'right',
+      render: (record: VariantEntity) => (
+        <Space align={'center'}>
+          <Tooltip title={intl.get('open.in.igv')}>
+            <Button
+              onClick={() => igvModalCb && igvModalCb(record)}
+              icon={<LineStyleIcon width={'100%'} height={'16px'} />}
+              type={'link'}
+              size={'small'}
+            />
+          </Tooltip>
+        </Space>
+      ),
+      align: 'center',
     },
   ];
   return columns;
