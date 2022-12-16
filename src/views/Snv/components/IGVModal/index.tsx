@@ -74,6 +74,15 @@ const generateTracks = (
 
   return [
     {
+      type: 'variant',
+      format: 'vcf',
+      url: getPresignedUrl(vcfFiles.mainFile!, rpt),
+      indexURL: getPresignedUrl(vcfFiles.indexFile!, rpt),
+      name: 'CNVs: ' + trackName(vcfDoc, patientId, gender, position),
+      autoHeight: true,
+      colorBy: 'SVTYPE',
+    },
+    {
       type: 'alignment',
       format: 'cram',
       url: getPresignedUrl(cramFiles.mainFile!, rpt),
@@ -88,15 +97,6 @@ const generateTracks = (
         position: 128750986,
         direction: 'ASC',
       },
-    },
-    {
-      type: 'variant',
-      format: 'vcf',
-      url: getPresignedUrl(vcfFiles.mainFile!, rpt),
-      indexURL: getPresignedUrl(vcfFiles.indexFile!, rpt),
-      name: 'CNVs: ' + trackName(vcfDoc, patientId, gender, position),
-      autoHeight: true,
-      colorBy: 'SVTYPE',
     },
   ];
 };
