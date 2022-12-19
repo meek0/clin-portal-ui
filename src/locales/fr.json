@@ -519,6 +519,8 @@
   "screen.patientsearch.table.updatedOn": "Modifiée le",
   "screen.patientsearch.table.updatedOn.tooltip": "Date de la dernière modification de statut de la prescription (aaaa-mm-jj)",
   "screen.patientsearch.title": "Prescriptions",
+  "screen.patientsnv.results.table.omim": "OMIM",
+  "screen.patientsnv.results.table.omim.tooltip": "Modes de transmission OMIM par gène",
   "screen.patientsnv.category_cohort": "Fréquence",
   "screen.patientsnv.category_genomic": "Gène",
   "screen.patientsnv.category_metric": "Métriques",

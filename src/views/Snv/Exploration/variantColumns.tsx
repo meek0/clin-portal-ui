@@ -2,8 +2,9 @@ import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
+import ExpandableCell from '@ferlab/ui/core/components/tables/ExpandableCell';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
-import { Button, Space, Tooltip } from 'antd';
+import { Button, Space, Tag, Tooltip } from 'antd';
 import cx from 'classnames';
 import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
 import {
@@ -12,6 +13,7 @@ import {
   DonorsEntity,
   ExternalFrequenciesEntity,
   frequency_RQDMEntity,
+  Gene,
   ITableVariantEntity,
   VariantEntity,
   Varsome,
@@ -118,6 +120,51 @@ export const getVariantColumns = (
       render: (consequences: { hits: { edges: Consequence[] } }) => (
         <ConsequencesCell consequences={consequences?.hits?.edges || []} />
       ),
+    },
+    {
+      key: 'omim',
+      title: intl.get('screen.patientsnv.results.table.omim'),
+      tooltip: intl.get('screen.patientsnv.results.table.omim.tooltip'),
+      render: (variant: { genes: { hits: { edges: Gene[] } } }) => {
+        const genesWithOmim = variant.genes.hits.edges.filter(
+          (gene) => gene.node.omim?.hits?.edges?.length,
+        );
+
+        if (!genesWithOmim.length) {
+          return TABLE_EMPTY_PLACE_HOLDER;
+        }
+
+        return (
+          <ExpandableCell<Gene>
+            dataSource={genesWithOmim}
+            nOfElementsWhenCollapsed={2}
+            dictionnary={{
+              'see.less': intl.get('see.less'),
+              'see.more': intl.get('see.more'),
+            }}
+            renderItem={(item, id): React.ReactNode => {
+              const omims = item.node.omim?.hits?.edges || [];
+              const selectedOmim = omims.length ? omims[0] : null;
+              const inheritance = selectedOmim?.node.inheritance as any[];
+
+              return (
+                <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
+                  <ExternalLink href={`https://www.omim.org/entry/${item.node.omim_gene_id}`}>
+                    {item.node.symbol}
+                  </ExternalLink>
+                  <Space size={4}>
+                    {inheritance.map((code) => (
+                      <Tag key={code} color="processing">
+                        {code}
+                      </Tag>
+                    ))}
+                  </Space>
+                </Space>
+              );
+            }}
+          />
+        );
+      },
     },
     {
       key: 'clinvar',

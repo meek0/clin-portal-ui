@@ -551,6 +551,8 @@
   "screen.patientsnv.filter.grouptitle.rqdmpatient": "RQDM Patients",
   "screen.patientsnv.filter.selection.all": "All",
   "screen.patientsnv.filter.selection.none": "None",
+  "screen.patientsnv.results.table.omim": "OMIM",
+  "screen.patientsnv.results.table.omim.tooltip": "Gene's OMIM inheritance modes",
   "screen.patientsnv.results.table.acmgRules": "ACMG rules",
   "screen.patientsnv.results.table.acmgVerdict": "ACMG",
   "screen.patientsnv.results.table.acmgVerdict.tooltip": "ACMG Verdict",

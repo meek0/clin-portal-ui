@@ -225,6 +225,10 @@ export type Consequence = {
   node: ConsequenceEntity;
 };
 
+export type Gene = {
+  node: GeneEntity;
+};
+
 export type ClinVarData = string[] | undefined;
 
 export type ClinVar = {
