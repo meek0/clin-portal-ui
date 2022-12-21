@@ -226,7 +226,18 @@ export type Consequence = {
 };
 
 export type Gene = {
-  node: GeneEntity;
+  node: {
+    id: string;
+    omim_gene_id: string;
+    symbol: string;
+    omim: ArrangerResultsTree<{
+      id: string;
+      omim_id: string;
+      name: string;
+      inheritance_code: string[] | null;
+    }>;
+    biotype: string;
+  };
 };
 
 export type ClinVarData = string[] | undefined;

@@ -153,6 +153,17 @@ export const VARIANT_QUERY = gql`
                   node {
                     symbol
                     biotype
+                    omim_gene_id
+
+                    omim {
+                      hits {
+                        edges {
+                          node {
+                            inheritance_code
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }

@@ -125,7 +125,7 @@ export const getVariantColumns = (
       key: 'omim',
       title: intl.get('screen.patientsnv.results.table.omim'),
       tooltip: intl.get('screen.patientsnv.results.table.omim.tooltip'),
-      render: (variant: { genes: { hits: { edges: Gene[] } } }) => {
+      render: (variant: { genes: { hits: { edges: Gene[] } } }) => {        
         const genesWithOmim = variant.genes.hits.edges.filter(
           (gene) => gene.node.omim?.hits?.edges?.length,
         );
@@ -145,8 +145,9 @@ export const getVariantColumns = (
             renderItem={(item, id): React.ReactNode => {
               const omims = item.node.omim?.hits?.edges || [];
               const selectedOmim = omims.length ? omims[0] : null;
-              const inheritance = selectedOmim?.node.inheritance as any[];
-
+              const inheritance = selectedOmim?.node.inheritance_code || [];
+              
+              
               return (
                 <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
                   <ExternalLink href={`https://www.omim.org/entry/${item.node.omim_gene_id}`}>
