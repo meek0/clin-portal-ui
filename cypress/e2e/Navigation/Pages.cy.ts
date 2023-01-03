@@ -15,7 +15,7 @@ describe('Affichage de toutes les pages et modals', () => {
 
   it('Accueil', () => {
     cy.contains('Rechercher une prescription').should('exist', {timeout: 20*1000});
-    cy.contains('Rechercher par numéro de prescription, requête, dossier, échantillon:').should('exist', {timeout: 20*1000});
+    cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier et numéro de patient:').should('exist', {timeout: 20*1000});
     cy.contains('Rechercher un variant').should('exist', {timeout: 20*1000});
     cy.contains('Rechercher par locus, dbSNP, ClinVar:').should('exist', {timeout: 20*1000});
     cy.get('footer[id="footer"]').find('a[href="'+Cypress.env('zeppelin_URL')+'"]').should('exist', {timeout: 20*1000});
@@ -23,11 +23,11 @@ describe('Affichage de toutes les pages et modals', () => {
 
     cy.log('Page Prescriptions - Onglet Prescriptions');
     cy.get('body').find('a[href="/prescription/search"]').click();
-    cy.contains('Rechercher par numéro de prescription, requête, dossier, échantillon:').should('exist', {timeout: 20*1000});
+    cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier et numéro de patient:').should('exist', {timeout: 20*1000});
 
     cy.log('Page Prescriptions - Onglet Requêtes');
     cy.get('div[id*="tab-requests"]').click({force: true});
-    cy.contains('Rechercher par numéro de prescription, requête, dossier, échantillon:').should('exist', {timeout: 20*1000});
+    cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier et numéro de patient:').should('exist', {timeout: 20*1000});
     
     cy.log('Page Archives');
     cy.get('body').find('a[href="/archive/exploration"]').click();
@@ -209,6 +209,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('mother').should('exist', {timeout: 20*1000});
     cy.contains('father').should('exist', {timeout: 20*1000});
     cy.contains('Refseq Genes').should('exist', {timeout: 20*1000});
+    cy.contains('ERROR').should('not.exist');
     cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
   });
  
