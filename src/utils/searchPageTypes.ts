@@ -1,3 +1,4 @@
+import { IQueryOperationsConfig, ISearchAfter } from '@ferlab/ui/core/graphql/types';
 import { TSortDirection } from 'graphql/queries';
 
 export type TPagingConfig = {
@@ -18,4 +19,7 @@ export interface IQueryConfig {
     field: string;
     order: TSortDirection;
   }[];
+  searchAfter?: ISearchAfter[];
+  firstPageFlag?: any[];
+  operations?: IQueryOperationsConfig;
 }

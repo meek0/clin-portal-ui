@@ -740,5 +740,6 @@
   "inheritant.code.XLD": "X-linked dominant",
   "inheritant.code.YL": "Y-linked",
   "inheritant.code.AR": "Autosomal recessive",
-  "inheritant.code.Mi": "Mitochondrial"
+  "inheritant.code.Mi": "Mitochondrial",
+  "global.proTable.pagination.first": "Début"
 }

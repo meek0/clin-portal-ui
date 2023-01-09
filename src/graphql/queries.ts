@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import { dotToUnderscore, underscoreToDot } from '@ferlab/ui/core/data/arranger/formatting';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
+import { ISearchAfter } from '@ferlab/ui/core/graphql/types';
 
 import { ExtendedMapping, ExtendedMappingResults } from './models';
 
@@ -17,6 +18,7 @@ export type QueryVariable = {
   offset?: number;
   sort?: Sort[];
   pageSize?: number;
+  searchAfter?: ISearchAfter[];
 };
 
 export const INDEX_EXTENDED_MAPPING = (index: string) => gql`

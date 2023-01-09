@@ -1,3 +1,5 @@
+import { ISearchAfter } from '@ferlab/ui/core/graphql/types';
+
 export interface ArrangerNodeData {
   id: string;
   cid?: string;
@@ -65,4 +67,5 @@ export interface IQueryResults<T> {
   data: T;
   loading: boolean;
   total: number;
+  searchAfter?: ISearchAfter;
 }
