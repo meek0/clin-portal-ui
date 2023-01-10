@@ -144,8 +144,12 @@ export const getVariantColumns = (
             }}
             renderItem={(item, id): React.ReactNode => {
               const omims = item.node.omim?.hits?.edges || [];
-              const selectedOmim = omims.length ? omims[0] : null;
-              const inheritance = selectedOmim?.node.inheritance_code || [];
+              const inheritance = omims
+                .reduce<string[]>(
+                  (prev, curr) => [...prev, ...(curr.node.inheritance_code || [])],
+                  [],
+                )
+                .filter((item, pos, self) => self.indexOf(item) == pos);
 
               return (
                 <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
