@@ -15,7 +15,7 @@ afterEach(() => {
   cy.logout();
 });
 
-describe('Page d\'un variant', () => {
+describe('Page d\'un variant (onglet Résumé)', () => {
   describe('Vérifier les informations affichées', () => {
     it('De la section Résumé', () => {
       cy.get('div[class*="Container_container"]').find('span[class*="Summary_infoValue"]').eq(0).contains('1').should('exist');
@@ -216,7 +216,7 @@ describe('Page d\'un variant', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(1).should('not.exist');
     });
     
-    it('Lien varsome de la section Critères ACMG', () => {
+    it('Lien Varsome de la section Critères ACMG', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('div[class*="ant-collapse-header"]').find('a[target="_blank"]').invoke('removeAttr', 'target').click({force: true});
       cy.url().should('include', '10380010455088470004')
     });

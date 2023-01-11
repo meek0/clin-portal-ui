@@ -15,5 +15,7 @@ declare namespace Cypress {
     visitVariantEntityPage(locusId: string): cy & CyEventEmitter;
     visitVariantsPage(): cy & CyEventEmitter;
     visitVariantsPatientPage(patientId: string, prescriptionId: string, nbGraphqlCalls: number): cy & CyEventEmitter;
+
+    loginByGoogleApi(): cy & CyEventEmitter;
   }
 }

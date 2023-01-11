@@ -67,7 +67,7 @@ Cypress.Commands.add('logout', () => {
         if ($div.hasClass('App')) {
             cy.get('span[class="ant-page-header-heading-extra"]')
               .find('span[class*="anticon-down"]').click({force: true});
-            cy.get('span[class="ant-dropdown-menu-title-content"]').click({force: true});
+            cy.get('[data-menu-id*="logout"]').click({force: true});
         };
     });
 
