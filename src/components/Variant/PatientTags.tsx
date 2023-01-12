@@ -9,7 +9,7 @@ import { useGlobals } from 'store/global';
 
 import styles from './index.module.scss';
 
-const getSpecimen = (
+export const getSpecimen = (
   patientId: string,
   prescription?: ServiceRequestEntity,
   basedOnPrescription?: ServiceRequestEntity,
@@ -28,13 +28,15 @@ const getSpecimen = (
       return parentInfo?.extension?.[1]?.valueReference?.resource.requests[0].specimen[0].resource
         .accessionIdentifier.value;
     } else {
+      // specimen with parent is the sample
       return basedOnPrescription?.subject?.resource?.requests?.[0].specimen?.find(
-        (specimen) => !('parent' in specimen.resource),
+        (specimen) => 'parent' in specimen.resource,
       )?.resource.accessionIdentifier.value;
     }
   } else {
+    // specimen with parent is the sample
     return prescription?.subject?.resource?.requests?.[0].specimen?.find(
-      (specimen) => !('parent' in specimen.resource),
+      (specimen) => 'parent' in specimen.resource,
     )?.resource.accessionIdentifier.value;
   }
 };
