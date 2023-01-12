@@ -56,6 +56,12 @@ export const getProTableDictionary = (): IProTableDictionary => ({
     reset: intl.get('protable.reset'),
   },
   numberFormat: formatNumber,
+  pagination: {
+    first: intl.get('global.proTable.pagination.first'),
+    previous: intl.get('previous'),
+    next: intl.get('next'),
+    view: '',
+  },
 });
 
 export const getQueryBuilderDictionary = (

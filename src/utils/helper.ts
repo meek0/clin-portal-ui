@@ -1,5 +1,5 @@
+import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { SorterResult } from 'antd/lib/table/interface';
-import { TSortDirection } from 'graphql/queries';
 import { isArray } from 'lodash';
 
 import { GENDER, PARENT_TYPE, PATIENT_POSITION, UNKNOWN_TAG } from 'utils/constants';
@@ -60,9 +60,8 @@ export const scrollToTop = (scrollContentId: string) =>
     ?.querySelector('.simplebar-content-wrapper')
     ?.scrollTo(0, 0);
 
-export const getOrderFromAntdValue = (order: string): TSortDirection =>
-  order === 'ascend' ? 'asc' : 'desc';
-
+export const getOrderFromAntdValue = (order: string): SortDirection =>
+  order === 'ascend' ? SortDirection.Asc : SortDirection.Desc;
 export const formatQuerySortList = (sorter: SorterResult<any> | SorterResult<any>[]) => {
   const sorters = (isArray(sorter) ? sorter : [sorter]).filter(
     (sorter) => !!sorter.column || !!sorter.order,

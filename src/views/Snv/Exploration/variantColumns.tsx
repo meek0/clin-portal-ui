@@ -78,6 +78,9 @@ export const getVariantColumns = (
       dataIndex: 'hgvsg',
       className: cx(style.fixedVariantTableCellElipsis, style.fixedVariantTableCellElipsis),
       fixed: 'left',
+      sorter: {
+        multiple: 1,
+      },
       render: (hgvsg: string, entity: VariantEntity) =>
         hgvsg ? (
           <Tooltip placement="topLeft" title={hgvsg}>
@@ -95,6 +98,9 @@ export const getVariantColumns = (
       key: 'variant_class',
       title: intl.get('screen.patientsnv.results.table.type'),
       dataIndex: 'variant_class',
+      sorter: {
+        multiple: 1,
+      },
       render: (variant: string) =>
         variant ? intl.get(variant).defaultMessage(capitalize(variant)) : TABLE_EMPTY_PLACE_HOLDER,
     },
@@ -103,6 +109,9 @@ export const getVariantColumns = (
       title: intl.get('screen.patientsnv.results.table.dbsnp'),
       dataIndex: 'rsnumber',
       className: style.dbSnpTableCell,
+      sorter: {
+        multiple: 1,
+      },
       render: (rsNumber: string) =>
         rsNumber ? (
           <ExternalLink href={`https://www.ncbi.nlm.nih.gov/snp/${rsNumber}`}>
@@ -203,6 +212,9 @@ export const getVariantColumns = (
       title: intl.get('screen.variantsearch.table.gnomAd'),
       tooltip: `${intl.get('screen.variantsearch.table.gnomAd.tooltip')}`,
       dataIndex: 'external_frequencies',
+      sorter: {
+        multiple: 1,
+      },
       render: (external_frequencies: ExternalFrequenciesEntity) =>
         external_frequencies.gnomad_genomes_2_1_1
           ? external_frequencies.gnomad_genomes_2_1_1.af.toExponential(3)
@@ -213,6 +225,9 @@ export const getVariantColumns = (
       title: intl.get('screen.patientsnv.results.table.rqdm'),
       tooltip: intl.get('screen.variantDetails.summaryTab.patientTable.patient.tootltip'),
       className: style.rqdmCell,
+      sorter: {
+        multiple: 1,
+      },
       render: (record: VariantEntity) => formatRqdm(record.frequency_RQDM),
     },
   ];
@@ -227,6 +242,9 @@ export const getVariantColumns = (
         key: 'gq',
         title: intl.get('screen.patientsnv.results.table.gq'),
         tooltip: intl.get('gq.tooltip'),
+        sorter: {
+          multiple: 1,
+        },
         render: (record: VariantEntity) => (
           <GqLine value={findDonorById(record.donors, patientId)?.gq} />
         ),
@@ -235,6 +253,9 @@ export const getVariantColumns = (
         key: 'donors_zygosity',
         title: intl.get('screen.patientsnv.results.table.zygosity'),
         dataIndex: 'donors',
+        sorter: {
+          multiple: 1,
+        },
         render: (record: ArrangerResultsTree<DonorsEntity>) => {
           const donor = findDonorById(record, patientId);
           return donor ? donor?.zygosity : TABLE_EMPTY_PLACE_HOLDER;

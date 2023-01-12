@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
+import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { IQueryResults } from 'graphql/models';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
 import IGVModal from 'views/Snv/components//IGVModal';
 import OccurrenceDrawer from 'views/Snv/components/OccurrenceDrawer';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
-import { DEFAULT_PAGE_SIZE } from 'views/Snv/utils/constant';
+import { DEFAULT_PAGE_INDEX, SCROLL_WRAPPER_ID } from 'views/Snv/utils/constant';
 
 import { useRpt } from 'hooks/useRpt';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
 import { formatQuerySortList } from 'utils/helper';
-import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
 import style from './index.module.scss';
@@ -23,9 +23,24 @@ type OwnProps = {
   setQueryConfig: TQueryConfigCb;
   queryConfig: IQueryConfig;
   patientId: string;
+  pageIndex: number;
+  setPageIndex: (value: number) => void;
 };
 
-const VariantsTab = ({ results, setQueryConfig, queryConfig, patientId }: OwnProps) => {
+export const scrollToTop = (scrollContentId: string) =>
+  document
+    .getElementById(scrollContentId)
+    ?.querySelector('.simplebar-content-wrapper')
+    ?.scrollTo(0, 0);
+
+const VariantsTab = ({
+  results,
+  setQueryConfig,
+  queryConfig,
+  patientId,
+  pageIndex,
+  setPageIndex,
+}: OwnProps) => {
   const dispatch = useDispatch();
   const { user } = useUser();
   const { loading: loadingRpt, rpt } = useRpt();
@@ -65,19 +80,19 @@ const VariantsTab = ({ results, setQueryConfig, queryConfig, patientId }: OwnPro
         dataSource={results.data.map((i, index) => ({ ...i, key: `${index}` }))}
         loading={results.loading}
         dictionary={getProTableDictionary()}
-        onChange={({ current, pageSize }, _, sorter) =>
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        onChange={({ current }, _, sorter) => {
+          setPageIndex(DEFAULT_PAGE_INDEX);
           setQueryConfig({
-            pageIndex: current!,
-            size: pageSize!,
-            // @ts-ignore
-            // mismatched between antd and antd used in ferlab-ui
+            pageIndex: DEFAULT_PAGE_INDEX,
+            size: queryConfig.size!,
             sort: formatQuerySortList(sorter),
-          })
-        }
+          });
+        }}
         bordered
         headerConfig={{
           itemCount: {
-            pageIndex: queryConfig.pageIndex,
+            pageIndex: pageIndex,
             pageSize: queryConfig.size,
             total: results.total || 0,
           },
@@ -96,11 +111,15 @@ const VariantsTab = ({ results, setQueryConfig, queryConfig, patientId }: OwnPro
         }}
         size="small"
         pagination={{
-          current: queryConfig.pageIndex,
-          pageSize: queryConfig.size,
-          defaultPageSize: DEFAULT_PAGE_SIZE,
-          total: results.total ?? 0,
-          hideOnSinglePage: true,
+          current: pageIndex,
+          queryConfig,
+          setQueryConfig,
+          onChange: (page: number) => {
+            scrollToTop(SCROLL_WRAPPER_ID);
+            setPageIndex(page);
+          },
+          searchAfter: results.searchAfter,
+          defaultViewPerQuery: queryConfig.size,
         }}
       />
       {results.data.length > 0 && selectedVariant && (

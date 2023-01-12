@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
+import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
+import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Tabs } from 'antd';
 import { ExtendedMappingResults } from 'graphql/models';
 import { useVariants } from 'graphql/variants/actions';
 import {
+  DEFAULT_OFFSET,
   DEFAULT_PAGE_INDEX,
   DEFAULT_QUERY_CONFIG,
+  DEFAULT_SORT_QUERY,
   VARIANT_RQDM_QB_ID,
 } from 'views/Snv/utils/constant';
 
@@ -25,25 +29,45 @@ type OwnProps = {
 const PageContent = ({ variantMapping }: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(VARIANT_RQDM_QB_ID);
   const [variantQueryConfig, setVariantQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
-
+  const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
     resolveSyntheticSqon(queryList, query, 'donors');
 
-  const variantResults = useVariants({
-    first: variantQueryConfig.size,
-    offset: variantQueryConfig.size * (variantQueryConfig.pageIndex - 1),
-    sqon: getVariantResolvedSqon(activeQuery),
-    sort: [
-      { field: 'max_impact_score', order: 'desc' },
-      { field: 'hgvsg', order: 'asc' },
-    ],
-  });
+  const variantResults = useVariants(
+    {
+      first: variantQueryConfig.size,
+      offset: DEFAULT_OFFSET,
+      searchAfter: variantQueryConfig.searchAfter,
+      sqon: getVariantResolvedSqon(activeQuery),
+      sort: tieBreaker({
+        sort: variantQueryConfig.sort,
+        defaultSort: DEFAULT_SORT_QUERY,
+        field: 'hgvsg',
+        order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
+      }),
+    },
+    variantQueryConfig.operations,
+  );
+  useEffect(() => {
+    if (
+      variantQueryConfig.firstPageFlag !== undefined ||
+      variantQueryConfig.searchAfter === undefined
+    ) {
+      return;
+    }
+
+    setVariantQueryConfig({
+      ...variantQueryConfig,
+      firstPageFlag: variantQueryConfig.searchAfter,
+    });
+  }, [variantQueryConfig]);
 
   useEffect(() => {
     setVariantQueryConfig({
       ...variantQueryConfig,
-      pageIndex: DEFAULT_PAGE_INDEX,
+      searchAfter: undefined, // <-- Reset SearchAfter si on change la query
     });
+    setPageIndex(DEFAULT_PAGE_INDEX); // <-- Reset PageIndex
     // eslint-disable-next-line
   }, [JSON.stringify(activeQuery)]);
 
@@ -65,6 +89,8 @@ const PageContent = ({ variantMapping }: OwnProps) => {
             results={variantResults}
             setQueryConfig={setVariantQueryConfig}
             queryConfig={variantQueryConfig}
+            pageIndex={pageIndex}
+            setPageIndex={setPageIndex}
           />
         </Tabs.TabPane>
       </Tabs>
