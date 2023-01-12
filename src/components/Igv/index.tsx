@@ -24,7 +24,12 @@ const IGV = ({ id = 'igvContainer', className = '', options }: OwnProps) => {
   const [previousOptions, setPreviousOptions] = useState<IIGVBrowserOptions | null>(null);
 
   useEffect(() => {
-    if (igvContainerRef.current && !window.igv.browser && options.tracks?.length! > 0) {
+    if (
+      igvContainerRef.current &&
+      window.igv.browser !== true && // window.igv.browser = true during async creation, object otherwise
+      !browser &&
+      options.tracks?.length! > 0
+    ) {
       window.igv.browser = true;
       window.igv.createBrowser(igvContainerRef.current, options).then((browser: any) => {
         window.igv.browser = browser;
