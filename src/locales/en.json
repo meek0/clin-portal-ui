@@ -97,6 +97,7 @@
   "filters.group.genes.omim.name": "OMIM",
   "filters.group.genes.orphanet.panel": "ORPHANET",
   "filters.group.genes.panels": "RQDM Panel",
+  "filters.group.genes.spliceai.ds": "SpliceAI",
   "filters.group.genes.symbol": "Genes",
   "filters.group.hgvsg": "Hgvsg",
   "filters.group.ldm": "Laboratory (LDM)",

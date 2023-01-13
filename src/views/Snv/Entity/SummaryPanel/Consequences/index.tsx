@@ -1,10 +1,11 @@
+/* eslint-disable max-len */
 import React from 'react';
 import intl from 'react-intl-universal';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import ExpandableCell from '@ferlab/ui/core/components/tables/ExpandableCell';
 import ExpandableTable from '@ferlab/ui/core/components/tables/ExpandableTable';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
-import { Space, Tooltip, Typography } from 'antd';
+import { Divider, Space, Tooltip, Typography } from 'antd';
 import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
 import { ConsequenceEntity, GeneEntity, Impact, VariantEntity } from 'graphql/variants/models';
 import capitalize from 'lodash/capitalize';
@@ -337,7 +338,9 @@ const Consequences = ({ data }: OwnProps) => {
             const omim = tableData.omim;
             const biotype = tableData.biotype;
             const orderedConsequences = sortConsequences(tableData.consequences);
-
+            const spliceAI = genes[0].node.spliceai ? genes[0].node.spliceai.ds : 'ND';
+            const spliceAIType = genes[0].node.spliceai ? genes[0].node.spliceai.type : null;
+            const spliceAiLink = `${data.variantData?.chromosome}-${data.variantData?.start}-${data.variantData?.reference}-${data.variantData?.alternate}`;
             return (
               <Space
                 key={index}
@@ -355,19 +358,38 @@ const Consequences = ({ data }: OwnProps) => {
                       </ExternalLink>
                     </span>
                   </Space>
+                  {omim && (
+                    <Space size={4}>
+                      <Divider type="vertical" />
+                      <span>Omim</span>
+                      <span>
+                        <ExternalLink href={`https://omim.org/entry/${omim}`}>{omim}</ExternalLink>
+                      </span>
+                    </Space>
+                  )}
+
+                  {biotype && (
+                    <Space size={4}>
+                      <Divider type="vertical" />
+                      <span className="bold value">{biotype}</span>
+                    </Space>
+                  )}
                   <Space size={4}>
-                    {omim && (
-                      <>
-                        <span>Omim</span>
-                        <span>
-                          <ExternalLink href={`https://omim.org/entry/${omim}`}>
-                            {omim}
-                          </ExternalLink>
-                        </span>
-                      </>
-                    )}
+                    <Divider type="vertical" />
+                    <span>spliceAI Score </span>
+                    <span>
+                      <ExternalLink
+                        href={
+                          spliceAI !== 'ND'
+                            ? `https://spliceailookup.broadinstitute.org/#variant=${spliceAiLink}&hg=38&distance=50&mask=0&precomputed=0`
+                            : 'https://spliceailookup.broadinstitute.org/'
+                        }
+                      >
+                        {spliceAI}
+                      </ExternalLink>
+                    </span>
+                    {spliceAIType && <span>({spliceAIType.join(', ')})</span>}
                   </Space>
-                  <span className="bold value">{biotype}</span>
                 </Space>
                 <ExpandableTable
                   bordered={true}

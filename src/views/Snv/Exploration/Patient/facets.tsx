@@ -97,6 +97,7 @@ const filterGroups: {
           'varsome__acmg__verdict__verdict',
           'varsome__acmg__classifications__name',
           'consequences__vep_impact',
+          'genes__spliceai__ds',
         ],
       },
       {
