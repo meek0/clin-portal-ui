@@ -33,6 +33,10 @@ type TableGroup = {
   symbol: string;
   biotype: string;
   ensembleGeneId: string;
+  spliceai: {
+    ds: string | undefined;
+    type: string[] | undefined;
+  };
 };
 
 type SymbolToConsequences = {
@@ -83,6 +87,8 @@ const groupConsequencesBySymbol = (
       const omim = gene ? gene.node.omim_gene_id : '';
       const biotype = gene ? gene.node.biotype : '';
       const ensembleGeneId = consequence.node.ensembl_gene_id || '';
+      const spliceaiDS = gene?.node?.spliceai?.ds;
+      const spliceAIType = gene?.node?.spliceai?.type;
       const oldConsequences = acc[symbol]?.consequences || [];
 
       return {
@@ -93,6 +99,10 @@ const groupConsequencesBySymbol = (
           symbol,
           ensembleGeneId,
           biotype,
+          spliceai: {
+            ds: spliceaiDS,
+            type: spliceAIType,
+          },
         },
       };
     },
@@ -338,8 +348,8 @@ const Consequences = ({ data }: OwnProps) => {
             const omim = tableData.omim;
             const biotype = tableData.biotype;
             const orderedConsequences = sortConsequences(tableData.consequences);
-            const spliceAI = genes[0].node.spliceai ? genes[0].node.spliceai.ds : 'ND';
-            const spliceAIType = genes[0].node.spliceai ? genes[0].node.spliceai.type : null;
+            const spliceAI = Number(tableData.spliceai.ds) >= 0 ? tableData.spliceai.ds : 'ND';
+            const spliceAIType = tableData.spliceai.type ? tableData.spliceai.type : null;
             const spliceAiLink = `${data.variantData?.chromosome}-${data.variantData?.start}-${data.variantData?.reference}-${data.variantData?.alternate}`;
             return (
               <Space
@@ -379,11 +389,7 @@ const Consequences = ({ data }: OwnProps) => {
                     <span>spliceAI Score </span>
                     <span>
                       <ExternalLink
-                        href={
-                          spliceAI !== 'ND'
-                            ? `https://spliceailookup.broadinstitute.org/#variant=${spliceAiLink}&hg=38&distance=50&mask=0&precomputed=0`
-                            : 'https://spliceailookup.broadinstitute.org/'
-                        }
+                        href={`https://spliceailookup.broadinstitute.org/#variant=${spliceAiLink}&hg=38&distance=50&mask=0&precomputed=0`}
                       >
                         {spliceAI}
                       </ExternalLink>
