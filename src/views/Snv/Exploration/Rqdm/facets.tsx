@@ -93,13 +93,13 @@ const filterGroups: {
           'varsome__acmg__verdict__verdict',
           'varsome__acmg__classifications__name',
           'consequences__vep_impact',
-          'genes__spliceai__ds',
         ],
       },
       {
         title: 'Prédictions',
         facets: [
           'consequences__predictions__sift_pred',
+          'genes__spliceai__ds',
           'consequences__predictions__polyphen2_hvar_pred',
           'consequences__predictions__fathmm_pred',
           'consequences__predictions__cadd_score',
