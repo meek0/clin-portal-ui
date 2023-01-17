@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import ExpandableCell from '@ferlab/ui/core/components/tables/ExpandableCell';
+import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Button, Space, Tag, Tooltip } from 'antd';
 import cx from 'classnames';
@@ -161,20 +162,22 @@ export const getVariantColumns = (
                 .filter((item, pos, self) => self.indexOf(item) == pos);
 
               return (
-                <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
-                  <ExternalLink href={`https://www.omim.org/entry/${item.node.omim_gene_id}`}>
-                    {item.node.symbol}
-                  </ExternalLink>
-                  <Space size={4}>
-                    {inheritance.length
-                      ? inheritance.map((code) => (
-                          <Tooltip key={code} title={intl.get(`inheritant.code.${code}`)}>
-                            <Tag color="processing">{code}</Tag>
-                          </Tooltip>
-                        ))
-                      : TABLE_EMPTY_PLACE_HOLDER}
+                <StackLayout horizontal>
+                  <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
+                    <ExternalLink href={`https://www.omim.org/entry/${item.node.omim_gene_id}`}>
+                      {item.node.symbol}
+                    </ExternalLink>
+                    <Space size={4}>
+                      {inheritance.length
+                        ? inheritance.map((code) => (
+                            <Tooltip key={code} title={intl.get(`inheritant.code.${code}`)}>
+                              <Tag color="processing">{code}</Tag>
+                            </Tooltip>
+                          ))
+                        : TABLE_EMPTY_PLACE_HOLDER}
+                    </Space>
                   </Space>
-                </Space>
+                </StackLayout>
               );
             }}
           />
