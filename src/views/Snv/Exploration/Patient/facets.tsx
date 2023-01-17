@@ -141,10 +141,15 @@ const filterGroups: {
   [FilterTypes.Occurrence]: {
     groups: [
       {
+        facets: ['donors__zygosity'],
+      },
+      {
+        title: intl.get('screen.patientsnv.category_parental_analysis'),
         facets: [
-          'donors__zygosity',
-          'donors__transmission',
+          'donors__mother_zygosity',
+          'donors__father_zygosity',
           'donors__parental_origin',
+          'donors__transmission',
           'donors__is_hc',
           'donors__is_possibly_hc',
         ],
