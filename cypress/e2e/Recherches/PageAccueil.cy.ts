@@ -54,7 +54,7 @@ describe('Page d\'accueil', () => {
     });
 
     it('Par numéro d\'échantillon du cas-index', () => {
-      cy.get('input').first().type('SP_'+epCHUSJ_ldmCHUSJ.sampleProbId, {force: true});
+      cy.get('input').first().type(epCHUSJ_ldmCHUSJ.sampleProbId, {force: true});
 
       cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
       cy.get('a[href*="/prescription/entity/'+epCHUSJ_ldmCHUSJ.prescriptionId+'"]').click({force: true});
@@ -94,7 +94,7 @@ describe('Page d\'accueil', () => {
     });
 
     it('Par numéro d\'échantillon de la mère', () => {
-      cy.get('input').first().type('SP_'+epCHUSJ_ldmCHUSJ.sampleMthId, {force: true});
+      cy.get('input').first().type(epCHUSJ_ldmCHUSJ.sampleMthId, {force: true});
 
       cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
       cy.get('a[href*="/prescription/entity/'+epCHUSJ_ldmCHUSJ.prescriptionId+'"]').click({force: true});
@@ -134,7 +134,7 @@ describe('Page d\'accueil', () => {
     });
 
     it('Par numéro d\'échantillon du père', () => {
-      cy.get('input').first().type('SP_'+epCHUSJ_ldmCHUSJ.sampleFthId, {force: true});
+      cy.get('input').first().type(epCHUSJ_ldmCHUSJ.sampleFthId, {force: true});
 
       cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
       cy.get('a[href*="/prescription/entity/'+epCHUSJ_ldmCHUSJ.prescriptionId+'"]').click({force: true});

@@ -158,3 +158,5 @@ Cypress.Commands.add('visitVariantsPatientPage', (patientId: string, prescriptio
 
     cy.resetColumns(0);
 });
+
+Cypress.Commands.overwrite('log', (subject, message) => cy.task('log', message));

@@ -20,6 +20,10 @@ module.exports = (on: Cypress.PluginEvents, config: Cypress.ConfigOptions) => {
         });
       });
     },
+    log (message: any) {
+      console.log(message);
+      return null
+    },
   });
 
   if (!config.env) {

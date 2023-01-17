@@ -47,7 +47,7 @@ describe('Page des prescriptions et des requêtes', () => {
     });
 
     it('Par numéro d\'échantillon du cas-index', () => {
-      cy.get('input[class="ant-input"]').first().type('SP_'+epCHUSJ_ldmCHUSJ.sampleProbId, {force: true});
+      cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.sampleProbId, {force: true});
 
       cy.get('body').contains('Prescriptions (1)').should('exist');
       cy.get('body').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
@@ -75,7 +75,7 @@ describe('Page des prescriptions et des requêtes', () => {
     });
 
     it('Par numéro d\'échantillon de la mère', () => {
-      cy.get('input[class="ant-input"]').first().type('SP_'+epCHUSJ_ldmCHUSJ.sampleMthId, {force: true});
+      cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.sampleMthId, {force: true});
 
       cy.get('body').contains('Prescriptions (1)').should('exist');
       cy.get('body').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
@@ -103,7 +103,7 @@ describe('Page des prescriptions et des requêtes', () => {
     });
 
     it('Par numéro d\'échantillon du père', () => {
-      cy.get('input[class="ant-input"]').first().type('SP_'+epCHUSJ_ldmCHUSJ.sampleFthId, {force: true});
+      cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.sampleFthId, {force: true});
 
       cy.get('body').contains('Prescriptions (1)').should('exist');
       cy.get('body').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
@@ -150,7 +150,7 @@ describe('Page des prescriptions et des requêtes', () => {
     });
 
     it('Par numéro d\'échantillon du cas-index', () => {
-      cy.get('input[class="ant-input"]').first().type('SP_'+epCHUSJ_ldmCHUSJ.sampleProbId, {force: true});
+      cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.sampleProbId, {force: true});
 
       cy.get('body').contains('Requêtes (1)').should('exist');
       cy.get('body').contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
@@ -178,7 +178,7 @@ describe('Page des prescriptions et des requêtes', () => {
     });
 
     it('Par numéro d\'échantillon de la mère', () => {
-      cy.get('input[class="ant-input"]').first().type('SP_'+epCHUSJ_ldmCHUSJ.sampleMthId, {force: true});
+      cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.sampleMthId, {force: true});
 
       cy.get('body').contains('Requêtes (1)').should('exist');
       cy.get('body').contains(epCHUSJ_ldmCHUSJ.requestMthId).should('exist');
@@ -206,7 +206,7 @@ describe('Page des prescriptions et des requêtes', () => {
     });
 
     it('Par numéro d\'échantillon du père', () => {
-      cy.get('input[class="ant-input"]').first().type('SP_'+epCHUSJ_ldmCHUSJ.sampleFthId, {force: true});
+      cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.sampleFthId, {force: true});
 
       cy.get('body').contains('Requêtes (1)').should('exist');
       cy.get('body').contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
