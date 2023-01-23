@@ -5,12 +5,14 @@ import { getAcmgRuleContent, getVariantColumns } from '../variantColumns';
 describe('variant: table', () => {
   test('GnomaAD colonne Should look like this', () => {
     const expected = {
-      key: 'external_frequencies',
+      key: 'external_frequencies.gnomad_genomes_2_1_1.af',
       title: 'gnomAD ',
       tooltip: 'gnomAD Genome 2.1.1',
       dataIndex: 'external_frequencies',
     };
-    const gnomADVariant = getVariantColumns().find((v) => v.key === 'external_frequencies');
+    const gnomADVariant = getVariantColumns().find(
+      (v) => v.key === 'external_frequencies.gnomad_genomes_2_1_1.af',
+    );
     expect(gnomADVariant).toMatchObject(expected);
   });
 

@@ -79,9 +79,10 @@ const PageContent = ({ variantMapping, patientId }: OwnProps) => {
   useEffect(() => {
     setVariantQueryConfig({
       ...variantQueryConfig,
-      searchAfter: undefined, // <-- Reset SearchAfter si on change la query
+      searchAfter: undefined,
     });
-    setPageIndex(DEFAULT_PAGE_INDEX); // <-- Reset PageIndex
+
+    setPageIndex(DEFAULT_PAGE_INDEX);
     // eslint-disable-next-line
   }, [JSON.stringify(activeQuery)]);
 
