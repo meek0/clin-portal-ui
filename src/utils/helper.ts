@@ -62,15 +62,23 @@ export const scrollToTop = (scrollContentId: string) =>
 
 export const getOrderFromAntdValue = (order: string): SortDirection =>
   order === 'ascend' ? SortDirection.Asc : SortDirection.Desc;
+
 export const formatQuerySortList = (sorter: SorterResult<any> | SorterResult<any>[]) => {
   const sorters = (isArray(sorter) ? sorter : [sorter]).filter(
     (sorter) => !!sorter.column || !!sorter.order,
   );
 
-  const r = sorters.map((sorter) => ({
-    field: (sorter.field?.toString()! || sorter.columnKey?.toString()!)?.replaceAll('__', '.'),
-    order: getOrderFromAntdValue(sorter.order!),
-  }));
+  const r = sorters.map((sorter) => {
+    let field = (sorter.field?.toString()! || sorter.columnKey?.toString()!)?.replaceAll('__', '.');
+    if (sorter.columnKey !== sorter.field) {
+      field = sorter.columnKey ? sorter.columnKey.toString() : sorter.field?.toString()!;
+    }
+
+    return {
+      field,
+      order: getOrderFromAntdValue(sorter.order!),
+    };
+  });
 
   return r;
 };

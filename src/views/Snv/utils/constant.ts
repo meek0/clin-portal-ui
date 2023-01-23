@@ -23,9 +23,9 @@ export const DEFAULT_SORT_QUERY = [
 ] as ISort[];
 
 export const DEFAULT_QUERY_CONFIG: IQueryConfig = {
-  pageIndex: DEFAULT_PAGE_INDEX,
+  pageIndex: DEFAULT_OFFSET,
   size: DEFAULT_PAGE_SIZE,
-  sort: [],
+  sort: DEFAULT_SORT_QUERY,
   searchAfter: undefined,
   firstPageFlag: undefined,
   operations: undefined,

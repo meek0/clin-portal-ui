@@ -211,7 +211,7 @@ export const getVariantColumns = (
       ),
     },
     {
-      key: 'external_frequencies',
+      key: 'external_frequencies.gnomad_genomes_2_1_1.af',
       title: intl.get('screen.variantsearch.table.gnomAd'),
       tooltip: `${intl.get('screen.variantsearch.table.gnomAd.tooltip')}`,
       dataIndex: 'external_frequencies',
@@ -224,7 +224,7 @@ export const getVariantColumns = (
           : TABLE_EMPTY_PLACE_HOLDER,
     },
     {
-      key: 'rqdm',
+      key: 'frequency_RQDM.total.pf',
       title: intl.get('screen.patientsnv.results.table.rqdm'),
       tooltip: intl.get('screen.variantDetails.summaryTab.patientTable.patient.tootltip'),
       className: style.rqdmCell,
@@ -242,23 +242,17 @@ export const getVariantColumns = (
   if (patientId) {
     columns.push(
       {
-        key: 'gq',
+        key: 'donors.gq',
         title: intl.get('screen.patientsnv.results.table.gq'),
         tooltip: intl.get('gq.tooltip'),
-        sorter: {
-          multiple: 1,
-        },
         render: (record: VariantEntity) => (
           <GqLine value={findDonorById(record.donors, patientId)?.gq} />
         ),
       },
       {
-        key: 'donors_zygosity',
+        key: 'donors.zygosity',
         title: intl.get('screen.patientsnv.results.table.zygosity'),
         dataIndex: 'donors',
-        sorter: {
-          multiple: 1,
-        },
         render: (record: ArrangerResultsTree<DonorsEntity>) => {
           const donor = findDonorById(record, patientId);
           return donor ? donor?.zygosity : TABLE_EMPTY_PLACE_HOLDER;

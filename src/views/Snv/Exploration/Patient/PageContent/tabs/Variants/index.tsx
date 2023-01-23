@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
+import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
 import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { IQueryResults } from 'graphql/models';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
@@ -117,6 +118,20 @@ const VariantsTab = ({
           onChange: (page: number) => {
             scrollToTop(SCROLL_WRAPPER_ID);
             setPageIndex(page);
+          },
+          onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
+            dispatch(
+              updateConfig({
+                data_exploration: {
+                  tables: {
+                    patientSnv: {
+                      ...user?.config.data_exploration?.tables?.patientSnv,
+                      viewPerQuery,
+                    },
+                  },
+                },
+              }),
+            );
           },
           searchAfter: results.searchAfter,
           defaultViewPerQuery: queryConfig.size,
