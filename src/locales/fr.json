@@ -1,6 +1,8 @@
 {
   "FTH": "Père",
   "MTH": "Mère",
+  "SIS": "Soeur",
+  "BRO": "Frère",
   "SNV": "SNV",
   "abnormal": "Anormal",
   "acmg.criteria": "Critères ACMG",
@@ -601,6 +603,7 @@
   "screen.prescription.entity.patient.card.requester": "Médecin prescripteur",
   "screen.prescription.entity.patientContent.folder": "Dossier",
   "screen.prescription.entity.patientContent.patientId": "ID patient",
+  "screen.prescription.entity.clinicalInformation": "Information clinique Cas-index",
   "screen.prescription.entity.see.variant": "Voir les variants",
   "screen.prescription.entity.familyHistory": "Historique familiale",
   "screen.prescription.entity.inbreeding": "Présence de consanguinité",

@@ -74,7 +74,10 @@ const ClinicalInformation = ({ prescription, loading }: OwnProps) => {
     }
   });
   return (
-    <CollapsePanel header={<Title level={4}>Information clinique</Title>} loading={loading}>
+    <CollapsePanel
+      header={<Title level={4}>{intl.get('screen.prescription.entity.clinicalInformation')}</Title>}
+      loading={loading}
+    >
       {prescription ? (
         <Space direction="vertical" size="middle">
           <div>
