@@ -2,12 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Space, Tag } from 'antd';
 import { extractServiceRequestId } from 'api/fhir/helper';
-import { ServiceRequestEntity } from 'api/fhir/models';
+import { PatientServiceRequestFragment, ServiceRequestEntity } from 'api/fhir/models';
 import { getPositionTag } from 'graphql/prescriptions/helper';
 
 import { useGlobals } from 'store/global';
 
 import styles from './index.module.scss';
+
+// specimen with parent is the sample
+const extractSampleValue = (resource?: PatientServiceRequestFragment): string | undefined =>
+  resource?.requests?.[0].specimen?.find((specimen) => 'parent' in specimen.resource)?.resource
+    .accessionIdentifier.value;
 
 export const getSpecimen = (
   patientId: string,
@@ -25,19 +30,12 @@ export const getSpecimen = (
       const parentInfo = basedOnPrescription.extensions?.find((p) =>
         p.extension?.[1]?.valueReference?.reference.includes(patientId),
       );
-      return parentInfo?.extension?.[1]?.valueReference?.resource.requests[0].specimen[0].resource
-        .accessionIdentifier.value;
+      return extractSampleValue(parentInfo?.extension?.[1]?.valueReference?.resource);
     } else {
-      // specimen with parent is the sample
-      return basedOnPrescription?.subject?.resource?.requests?.[0].specimen?.find(
-        (specimen) => 'parent' in specimen.resource,
-      )?.resource.accessionIdentifier.value;
+      return extractSampleValue(basedOnPrescription?.subject?.resource);
     }
   } else {
-    // specimen with parent is the sample
-    return prescription?.subject?.resource?.requests?.[0].specimen?.find(
-      (specimen) => 'parent' in specimen.resource,
-    )?.resource.accessionIdentifier.value;
+    return extractSampleValue(prescription?.subject?.resource);
   }
 };
 
