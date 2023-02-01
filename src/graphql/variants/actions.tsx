@@ -11,11 +11,12 @@ export const useVariants = (
   variables?: QueryVariable,
   operations?: IQueryOperationsConfig,
 ): IQueryResults<VariantEntity[]> => {
-  const { loading, result } = useLazyResultQuery<IVariantResultTree>(VARIANT_QUERY, {
+  const { error, loading, result } = useLazyResultQuery<IVariantResultTree>(VARIANT_QUERY, {
     variables,
   });
 
   return {
+    error,
     loading,
     data: hydrateResults(result?.Variants?.hits?.edges || [], operations?.previous),
     total: result?.Variants?.hits?.total || 0,

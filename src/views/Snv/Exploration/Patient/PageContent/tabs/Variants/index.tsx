@@ -6,6 +6,7 @@ import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { IQueryResults } from 'graphql/models';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
+import { ALL_KEYS, VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import IGVModal from 'views/Snv/components//IGVModal';
 import OccurrenceDrawer from 'views/Snv/components/OccurrenceDrawer';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
@@ -16,6 +17,7 @@ import { useRpt } from 'hooks/useRpt';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
 import { formatQuerySortList } from 'utils/helper';
+import { TDownload } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
 import style from './index.module.scss';
@@ -27,6 +29,7 @@ type OwnProps = {
   patientId: string;
   pageIndex: number;
   setPageIndex: (value: number) => void;
+  setDownloadKeys: TDownload;
 };
 
 export const scrollToTop = (scrollContentId: string) =>
@@ -42,6 +45,7 @@ const VariantsTab = ({
   patientId,
   pageIndex,
   setPageIndex,
+  setDownloadKeys,
 }: OwnProps) => {
   const dispatch = useDispatch();
   const { user } = useUser();
@@ -49,6 +53,7 @@ const VariantsTab = ({
   const [drawerOpened, toggleDrawer] = useState(false);
   const [modalOpened, toggleModal] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<VariantEntity | undefined>(undefined);
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
   const openDrawer = (record: VariantEntity) => {
     setSelectedVariant(record);
@@ -82,7 +87,7 @@ const VariantsTab = ({
             wrapperClassName={style.variantTabWrapper}
             columns={getVariantColumns(patientId, openDrawer, openIgvModal)}
             initialColumnState={initialColumnState}
-            dataSource={results.data.map((i, index) => ({ ...i, key: `${index}` }))}
+            dataSource={results.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
             loading={results.loading}
             dictionary={getProTableDictionary()}
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -95,13 +100,26 @@ const VariantsTab = ({
               });
             }}
             bordered
+            enableRowSelection
             headerConfig={{
+              enableTableExport: true,
               itemCount: {
                 pageIndex: pageIndex,
                 pageSize: queryConfig.size,
                 total: results.total || 0,
               },
               enableColumnSort: true,
+              onSelectedRowsChange: setSelectedKeys,
+              onSelectAllResultsChange: () => {
+                setSelectedKeys([ALL_KEYS]);
+              },
+              onTableExportClick: () => {
+                if (selectedKeys.length === 0) {
+                  setDownloadKeys([ALL_KEYS]);
+                } else {
+                  setDownloadKeys(selectedKeys);
+                }
+              },
               onColumnSortChange: (columns) => {
                 dispatch(
                   updateConfig({

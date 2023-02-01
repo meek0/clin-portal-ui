@@ -19,6 +19,7 @@ import {
 } from 'views/Snv/utils/constant';
 import { wrapSqonWithDonorIdAndSrId } from 'views/Snv/utils/helper';
 
+import Download from 'components/Variant/Download';
 import { SNV_EXPLORATION_PATIENT_FILTER_TAG } from 'utils/queryBuilder';
 
 import VariantContentLayout from '../../components/VariantContentLayout';
@@ -38,6 +39,7 @@ const PageContent = ({ variantMapping, patientId }: OwnProps) => {
     size: DEFAULT_PAGE_SIZE,
   });
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
+  const [downloadKeys, setDownloadKeys] = useState<string[]>([]);
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
     wrapSqonWithDonorIdAndSrId(
@@ -46,21 +48,20 @@ const PageContent = ({ variantMapping, patientId }: OwnProps) => {
       /** prescriptionId Need to fix bug in ETL */
     );
 
-  const variantResults = useVariants(
-    {
-      first: variantQueryConfig.size,
-      offset: DEFAULT_OFFSET,
-      searchAfter: variantQueryConfig.searchAfter,
-      sqon: getVariantResolvedSqon(activeQuery),
-      sort: tieBreaker({
-        sort: variantQueryConfig.sort,
-        defaultSort: DEFAULT_SORT_QUERY,
-        field: 'hgvsg',
-        order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
-      }),
-    },
-    variantQueryConfig.operations,
-  );
+  const queryVariables = {
+    first: variantQueryConfig.size,
+    offset: DEFAULT_OFFSET,
+    searchAfter: variantQueryConfig.searchAfter,
+    sqon: getVariantResolvedSqon(activeQuery),
+    sort: tieBreaker({
+      sort: variantQueryConfig.sort,
+      defaultSort: DEFAULT_SORT_QUERY,
+      field: 'hgvsg',
+      order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
+    }),
+  };
+
+  const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
 
   useEffect(() => {
     if (
@@ -107,6 +108,14 @@ const PageContent = ({ variantMapping, patientId }: OwnProps) => {
             patientId={patientId!}
             pageIndex={pageIndex}
             setPageIndex={setPageIndex}
+            setDownloadKeys={setDownloadKeys}
+          />
+          <Download
+            downloadKeys={downloadKeys}
+            setDownloadKeys={setDownloadKeys}
+            queryVariables={queryVariables}
+            queryConfig={variantQueryConfig}
+            variants={variantResults}
           />
         </Tabs.TabPane>
       </Tabs>

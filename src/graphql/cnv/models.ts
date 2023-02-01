@@ -35,6 +35,8 @@ export type VariantEntity = {
   is_proband: string;
   gender: string;
   genes: ArrangerResultsTree<GeneEntity>;
+  locus: string;
+  hash: string;
 };
 
 export type GeneEntity = {
