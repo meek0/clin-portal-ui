@@ -81,70 +81,11 @@ const PrescriptionSearch = (): React.ReactElement => {
   const [downloadPrescriptionKeys, setDownloadPrescriptionKeys] = useState<string[]>([]);
   const [downloadSequencingKeys, setDownloadSequencingKeys] = useState<string[]>([]);
   const sequencingActiveQuery = setPrescriptionStatusInActiveQuery(activeQuery);
-  const sequencings = useSequencingRequests(
-    {
-      first: sequencingQueryConfig.size,
-      offset: DEFAULT_OFFSET,
-      searchAfter: sequencingQueryConfig.searchAfter,
-      sqon: adjustSqon(
-        resolveSyntheticSqon(
-          queryList,
-          searchValue.length === 0
-            ? sequencingActiveQuery
-            : generateMultipleQuery(searchValue, sequencingActiveQuery),
-        ),
-      ),
-      sort: tieBreaker({
-        sort: sequencingQueryConfig.sort,
-        defaultSort: DEFAULT_SORT_QUERY,
-        field: '_id',
-        order: sequencingQueryConfig.operations?.previous ? SortDirection.Asc : SortDirection.Desc,
-      }),
-    },
-    sequencingQueryConfig.operations,
-  );
 
-  const prescriptions = usePrescription(
-    {
-      first: prescriptionQueryConfig.size,
-      offset: DEFAULT_OFFSET,
-      searchAfter: prescriptionQueryConfig.searchAfter,
-      sqon: resolveSyntheticSqon(
-        queryList,
-        searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
-      ),
-      sort: tieBreaker({
-        sort: prescriptionQueryConfig.sort,
-        defaultSort: DEFAULT_SORT_QUERY,
-        field: '_id',
-        order: prescriptionQueryConfig.operations?.previous
-          ? SortDirection.Asc
-          : SortDirection.Desc,
-      }),
-    },
-    prescriptionQueryConfig.operations,
-  );
-
-  // query is always done, unfortunately but response size is limited if nothing to download
-  const prescriptionsToDownload = usePrescription({
-    first: downloadPrescriptionKeys.length > 0 ? prescriptions.total : 0,
-    offset: 0,
-    sqon: resolveSyntheticSqon(
-      queryList,
-      searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
-    ),
-    sort: tieBreaker({
-      sort: prescriptionQueryConfig.sort,
-      defaultSort: DEFAULT_SORT_QUERY,
-      field: '_id',
-      order: prescriptionQueryConfig.operations?.previous ? SortDirection.Asc : SortDirection.Desc,
-    }),
-  });
-
-  // query is always done, unfortunately but response size is limited if nothing to download
-  const sequencingsToDownload = useSequencingRequests({
-    first: downloadSequencingKeys.length > 0 ? sequencings.total : 0,
-    offset: 0,
+  const sequencingsQueryVariables = {
+    first: sequencingQueryConfig.size,
+    offset: DEFAULT_OFFSET,
+    searchAfter: sequencingQueryConfig.searchAfter,
     sqon: adjustSqon(
       resolveSyntheticSqon(
         queryList,
@@ -159,6 +100,44 @@ const PrescriptionSearch = (): React.ReactElement => {
       field: '_id',
       order: sequencingQueryConfig.operations?.previous ? SortDirection.Asc : SortDirection.Desc,
     }),
+  };
+
+  const sequencings = useSequencingRequests(
+    sequencingsQueryVariables,
+    sequencingQueryConfig.operations,
+  );
+
+  const prescriptionsQueryVariables = {
+    first: prescriptionQueryConfig.size,
+    offset: DEFAULT_OFFSET,
+    searchAfter: prescriptionQueryConfig.searchAfter,
+    sqon: resolveSyntheticSqon(
+      queryList,
+      searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
+    ),
+    sort: tieBreaker({
+      sort: prescriptionQueryConfig.sort,
+      defaultSort: DEFAULT_SORT_QUERY,
+      field: '_id',
+      order: prescriptionQueryConfig.operations?.previous ? SortDirection.Asc : SortDirection.Desc,
+    }),
+  };
+
+  const prescriptions = usePrescription(
+    prescriptionsQueryVariables,
+    prescriptionQueryConfig.operations,
+  );
+
+  // query is always done, unfortunately but response size is limited if nothing to download
+  const prescriptionsToDownload = usePrescription({
+    ...prescriptionsQueryVariables,
+    first: downloadPrescriptionKeys.length > 0 ? prescriptions.total : 0,
+  });
+
+  // query is always done, unfortunately but response size is limited if nothing to download
+  const sequencingsToDownload = useSequencingRequests({
+    ...sequencingsQueryVariables,
+    first: downloadSequencingKeys.length > 0 ? sequencings.total : 0,
   });
 
   useEffect(() => {
@@ -201,7 +180,11 @@ const PrescriptionSearch = (): React.ReactElement => {
 
   useEffect(() => {
     // download only when both prescriptionsToDownload and something to download
-    if (downloadPrescriptionKeys.length > 0 && prescriptionsToDownload.data.length > 0) {
+    if (
+      downloadPrescriptionKeys.length > 0 &&
+      !prescriptionsToDownload.loading &&
+      prescriptionsToDownload.data.length > 0
+    ) {
       downloadAsTSV(
         prescriptionsToDownload.data,
         downloadPrescriptionKeys,
@@ -211,11 +194,15 @@ const PrescriptionSearch = (): React.ReactElement => {
       );
       setDownloadPrescriptionKeys([]); // reset download
     }
-  }, [downloadPrescriptionKeys, prescriptionsToDownload.data]);
+  }, [downloadPrescriptionKeys, prescriptionsToDownload]);
 
   useEffect(() => {
     // download only when both sequencingsToDownload and something to download
-    if (downloadSequencingKeys.length > 0 && sequencingsToDownload.data.length > 0) {
+    if (
+      downloadSequencingKeys.length > 0 &&
+      !sequencingsToDownload.loading &&
+      sequencingsToDownload.data.length > 0
+    ) {
       downloadAsTSV(
         sequencingsToDownload.data,
         downloadSequencingKeys,
@@ -225,7 +212,7 @@ const PrescriptionSearch = (): React.ReactElement => {
       );
       setDownloadSequencingKeys([]); // reset download
     }
-  }, [downloadSequencingKeys, sequencingsToDownload.data]);
+  }, [downloadSequencingKeys, sequencingsToDownload]);
 
   const searchPrescription = (value: any) => {
     if (value.target.value) {

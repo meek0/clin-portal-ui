@@ -60,6 +60,7 @@ const Download = ({ downloadKeys, setDownloadKeys, queryVariables, variants }: O
                 </p>
               </>
             ),
+            okText: intl.get('screen.patientsnv.results.table.download.limit.button'),
           });
         }
       } else if (variantsToDownload.data.length > 0) {
