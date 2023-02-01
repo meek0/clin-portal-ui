@@ -2,24 +2,31 @@ import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { MedicineBoxOutlined, SolutionOutlined } from '@ant-design/icons';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
+import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
+import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Input, Space, Tabs } from 'antd';
 import { usePrescription, usePrescriptionMapping } from 'graphql/prescriptions/actions';
 import {
   setPrescriptionStatusInActiveQuery,
   useSequencingRequests,
 } from 'graphql/sequencing/actions';
-import { cloneDeep, isEmpty } from 'lodash';
+import { cloneDeep } from 'lodash';
 import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
 import Sidebar from 'views/Prescriptions/Search/components/Sidebar';
 import PrescriptionsTable from 'views/Prescriptions/Search/components/table/PrescriptionTable';
 import SequencingsTable from 'views/Prescriptions/Search/components/table/SequencingTable';
 import {
+  DEFAULT_OFFSET,
+  DEFAULT_PAGE_INDEX,
+  DEFAULT_PAGE_SIZE,
+  DEFAULT_QUERY_CONFIG,
+  DEFAULT_SORT_QUERY,
   PRESCRIPTION_QB_ID,
   PRESCRIPTION_SCROLL_ID,
   TableTabs,
@@ -28,7 +35,6 @@ import { commonPrescriptionFilterFields } from 'views/Prescriptions/utils/consta
 
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
-import { IQueryConfig } from 'utils/searchPageTypes';
 
 import { downloadAsTSV } from '../utils/export';
 
@@ -36,29 +42,6 @@ import { prescriptionsColumns } from './components/table/PrescriptionTable/colum
 import { sequencingsColumns } from './components/table/SequencingTable/columns';
 
 import styles from './index.module.scss';
-
-export const DEFAULT_PAGE_SIZE = 20;
-export const DEFAULT_PAGE = 1;
-
-const DEFAULT_QUERY_CONFIG: IQueryConfig = {
-  pageIndex: DEFAULT_PAGE,
-  size: DEFAULT_PAGE_SIZE,
-  sort: [],
-};
-
-const DEFAULT_SORT = [
-  {
-    field: 'created_on',
-    order: 'desc',
-  },
-];
-
-const ID_SORT = [
-  {
-    field: '_id',
-    order: 'desc',
-  },
-];
 
 const adjustSqon = (sqon: ISyntheticSqon) =>
   JSON.parse(JSON.stringify(sqon).replace('sequencing_requests.status', 'status'));
@@ -84,44 +67,63 @@ const generateMultipleQuery = (searchValue: string, activeQuery: ISyntheticSqon)
 const PrescriptionSearch = (): React.ReactElement => {
   const extendedMapping = usePrescriptionMapping();
   const { queryList, activeQuery } = useQueryBuilderState(PRESCRIPTION_QB_ID);
-  const [prescriptionQueryConfig, setPrescriptionQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
-  const [sequencingQueryConfig, setSequencingQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
+  const [prescriptionPageIndex, setPrescriptionPageIndex] = useState(DEFAULT_PAGE_INDEX);
+  const [sequencingPageIndex, setSequencingPageIndex] = useState(DEFAULT_PAGE_INDEX);
+  const [prescriptionQueryConfig, setPrescriptionQueryConfig] = useState({
+    ...DEFAULT_QUERY_CONFIG,
+    size: DEFAULT_PAGE_SIZE,
+  });
+  const [sequencingQueryConfig, setSequencingQueryConfig] = useState({
+    ...DEFAULT_QUERY_CONFIG,
+    size: DEFAULT_PAGE_SIZE,
+  });
   const [searchValue, setSearchValue] = useState('');
   const [downloadPrescriptionKeys, setDownloadPrescriptionKeys] = useState<string[]>([]);
   const [downloadSequencingKeys, setDownloadSequencingKeys] = useState<string[]>([]);
   const sequencingActiveQuery = setPrescriptionStatusInActiveQuery(activeQuery);
-
-  const sequencingsSort = isEmpty(sequencingQueryConfig.sort)
-    ? [...DEFAULT_SORT, ...ID_SORT]
-    : [...sequencingQueryConfig.sort, ...ID_SORT];
-
-  const prescriptionsSort = isEmpty(prescriptionQueryConfig.sort)
-    ? [...DEFAULT_SORT, ...ID_SORT]
-    : [...prescriptionQueryConfig.sort, ...ID_SORT];
-
-  const sequencings = useSequencingRequests({
-    first: sequencingQueryConfig.size,
-    offset: sequencingQueryConfig.size * (sequencingQueryConfig.pageIndex - 1),
-    sqon: adjustSqon(
-      resolveSyntheticSqon(
-        queryList,
-        searchValue.length === 0
-          ? sequencingActiveQuery
-          : generateMultipleQuery(searchValue, sequencingActiveQuery),
+  const sequencings = useSequencingRequests(
+    {
+      first: sequencingQueryConfig.size,
+      offset: DEFAULT_OFFSET,
+      searchAfter: sequencingQueryConfig.searchAfter,
+      sqon: adjustSqon(
+        resolveSyntheticSqon(
+          queryList,
+          searchValue.length === 0
+            ? sequencingActiveQuery
+            : generateMultipleQuery(searchValue, sequencingActiveQuery),
+        ),
       ),
-    ),
-    sort: sequencingsSort,
-  });
+      sort: tieBreaker({
+        sort: sequencingQueryConfig.sort,
+        defaultSort: DEFAULT_SORT_QUERY,
+        field: '_id',
+        order: sequencingQueryConfig.operations?.previous ? SortDirection.Asc : SortDirection.Desc,
+      }),
+    },
+    sequencingQueryConfig.operations,
+  );
 
-  const prescriptions = usePrescription({
-    first: prescriptionQueryConfig.size,
-    offset: prescriptionQueryConfig.size * (prescriptionQueryConfig.pageIndex - 1),
-    sqon: resolveSyntheticSqon(
-      queryList,
-      searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
-    ),
-    sort: prescriptionsSort,
-  });
+  const prescriptions = usePrescription(
+    {
+      first: prescriptionQueryConfig.size,
+      offset: DEFAULT_OFFSET,
+      searchAfter: prescriptionQueryConfig.searchAfter,
+      sqon: resolveSyntheticSqon(
+        queryList,
+        searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
+      ),
+      sort: tieBreaker({
+        sort: prescriptionQueryConfig.sort,
+        defaultSort: DEFAULT_SORT_QUERY,
+        field: '_id',
+        order: prescriptionQueryConfig.operations?.previous
+          ? SortDirection.Asc
+          : SortDirection.Desc,
+      }),
+    },
+    prescriptionQueryConfig.operations,
+  );
 
   // query is always done, unfortunately but response size is limited if nothing to download
   const prescriptionsToDownload = usePrescription({
@@ -131,7 +133,12 @@ const PrescriptionSearch = (): React.ReactElement => {
       queryList,
       searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
     ),
-    sort: prescriptionsSort,
+    sort: tieBreaker({
+      sort: prescriptionQueryConfig.sort,
+      defaultSort: DEFAULT_SORT_QUERY,
+      field: '_id',
+      order: prescriptionQueryConfig.operations?.previous ? SortDirection.Asc : SortDirection.Desc,
+    }),
   });
 
   // query is always done, unfortunately but response size is limited if nothing to download
@@ -146,8 +153,51 @@ const PrescriptionSearch = (): React.ReactElement => {
           : generateMultipleQuery(searchValue, sequencingActiveQuery),
       ),
     ),
-    sort: sequencingsSort,
+    sort: tieBreaker({
+      sort: sequencingQueryConfig.sort,
+      defaultSort: DEFAULT_SORT_QUERY,
+      field: '_id',
+      order: sequencingQueryConfig.operations?.previous ? SortDirection.Asc : SortDirection.Desc,
+    }),
   });
+
+  useEffect(() => {
+    if (
+      prescriptionQueryConfig.firstPageFlag !== undefined ||
+      prescriptionQueryConfig.searchAfter === undefined
+    ) {
+      return;
+    }
+
+    setPrescriptionQueryConfig({
+      ...prescriptionQueryConfig,
+      firstPageFlag: prescriptionQueryConfig.searchAfter,
+    });
+  }, [prescriptionQueryConfig]);
+
+  useEffect(() => {
+    if (
+      sequencingQueryConfig.firstPageFlag !== undefined ||
+      sequencingQueryConfig.searchAfter === undefined
+    ) {
+      return;
+    }
+
+    setSequencingQueryConfig({
+      ...sequencingQueryConfig,
+      firstPageFlag: sequencingQueryConfig.searchAfter,
+    });
+  }, [sequencingQueryConfig]);
+
+  /*   useEffect(() => {
+    setPrescriptionQueryConfig({
+      ...prescriptionQueryConfig,
+      searchAfter: undefined,
+    });
+
+    setSequencingPageIndex(DEFAULT_PAGE_INDEX);
+    // eslint-disable-next-line
+  }, [JSON.stringify(activeQuery)]); */
 
   useEffect(() => {
     // download only when both prescriptionsToDownload and something to download
@@ -222,6 +272,8 @@ const PrescriptionSearch = (): React.ReactElement => {
                 setQueryConfig={setPrescriptionQueryConfig}
                 setDownloadKeys={setDownloadPrescriptionKeys}
                 loading={prescriptions.loading}
+                pageIndex={prescriptionPageIndex}
+                setPageIndex={setPrescriptionPageIndex}
               />
             </Tabs.TabPane>
             <Tabs.TabPane
@@ -240,6 +292,8 @@ const PrescriptionSearch = (): React.ReactElement => {
                 setQueryConfig={setSequencingQueryConfig}
                 setDownloadKeys={setDownloadSequencingKeys}
                 loading={sequencings.loading}
+                pageIndex={sequencingPageIndex}
+                setPageIndex={setSequencingPageIndex}
               />
             </Tabs.TabPane>
           </Tabs>

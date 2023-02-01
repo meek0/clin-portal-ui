@@ -1,6 +1,7 @@
 import { ISyntheticSqon, IValueFilter } from '@ferlab/ui/core/data/sqon/types';
-import { GqlResults, hydrateResults } from 'graphql/models';
-import { QueryVariable } from 'graphql/queries';
+import { IQueryOperationsConfig, IQueryVariable } from '@ferlab/ui/core/graphql/types';
+import { computeSearchAfter, hydrateResults } from '@ferlab/ui/core/graphql/utils';
+import { GqlResults } from 'graphql/models';
 import { useLazyResultQuery } from 'graphql/utils/query';
 import cloneDeep from 'lodash/cloneDeep';
 
@@ -26,15 +27,19 @@ export const setPrescriptionStatusInActiveQuery = (activeQuery: ISyntheticSqon):
   };
 };
 
-export const useSequencingRequests = (variables: QueryVariable): GqlResults<SequencingResult> => {
+export const useSequencingRequests = (
+  variables: IQueryVariable,
+  operations?: IQueryOperationsConfig,
+): GqlResults<SequencingResult> => {
   const { loading, result } = useLazyResultQuery<any>(SEQUENCING_QUERY, {
     variables: variables,
   });
   const sequencings = result?.Sequencings;
   return {
     aggregations: sequencings?.aggregations || {},
-    data: hydrateResults(sequencings?.hits?.edges || []),
+    data: hydrateResults(sequencings?.hits?.edges || [], operations?.previous),
     loading,
     total: sequencings?.hits.total,
+    searchAfter: computeSearchAfter(sequencings?.hits?.edges || [], operations),
   };
 };

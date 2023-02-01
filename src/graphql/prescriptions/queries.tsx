@@ -3,10 +3,11 @@ import { gql } from '@apollo/client';
 import { analysisFields } from './models/Prescription';
 
 export const PRESCRIPTIONS_QUERY = gql`
-  query PrescriptionsInformation ($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort]) {
+  query PrescriptionsInformation ($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort], $searchAfter: JSON) {
     Analyses {
-      hits(filters: $sqon, first: $first, offset: $offset, sort: $sort) {
+      hits(filters: $sqon, first: $first, offset: $offset, sort: $sort, searchAfter: $searchAfter) {
         edges {
+          searchAfter
           node {
             id
             patient_id

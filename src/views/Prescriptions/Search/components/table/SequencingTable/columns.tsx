@@ -17,6 +17,7 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
       <Link to={`/prescription/entity/${results.prescription_id}`}>{results.request_id}</Link>
     ),
     title: intl.get('screen.sequencingsearch.table.request'),
+    sorter: { multiple: 1 },
   },
   {
     key: 'sample',
@@ -30,6 +31,7 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     dataIndex: ['patient_id'],
     render: (patient_id: string) => patient_id,
     title: intl.get('screen.patientsearch.table.patient'),
+    sorter: { multiple: 1 },
   },
   {
     key: 'status',

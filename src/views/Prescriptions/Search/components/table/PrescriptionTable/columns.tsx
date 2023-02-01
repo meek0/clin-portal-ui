@@ -18,12 +18,14 @@ export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
       <Link to={`/prescription/entity/${prescription_id}`}>{prescription_id}</Link>
     ),
     title: intl.get('screen.patientsearch.table.prescription'),
+    sorter: { multiple: 1 },
   },
   {
     key: 'patient_id',
     dataIndex: ['patient_id'],
     render: (patient_id: string) => patient_id,
     title: intl.get('screen.patientsearch.table.patient'),
+    sorter: { multiple: 1 },
   },
   {
     key: 'status',

@@ -1,8 +1,10 @@
 import { ApolloError } from '@apollo/client';
+import { IQueryOperationsConfig, IQueryVariable } from '@ferlab/ui/core/graphql/types';
+import { computeSearchAfter, hydrateResults } from '@ferlab/ui/core/graphql/utils';
 import { AnalysisTaskEntity, ServiceRequestEntity } from 'api/fhir/models';
-import { ExtendedMappingResults, GqlResults, hydrateResults } from 'graphql/models';
+import { ExtendedMappingResults, GqlResults } from 'graphql/models';
 import { AnalysisResult } from 'graphql/prescriptions/models/Prescription';
-import { INDEX_EXTENDED_MAPPING, QueryVariable } from 'graphql/queries';
+import { INDEX_EXTENDED_MAPPING } from 'graphql/queries';
 import { useLazyResultQuery, useLazyResultQueryOnLoadOnly } from 'graphql/utils/query';
 
 import {
@@ -20,16 +22,20 @@ import {
   PRESCRIPTIONS_QUERY,
 } from './queries';
 
-export const usePrescription = (variables: QueryVariable): GqlResults<AnalysisResult> => {
+export const usePrescription = (
+  variables?: IQueryVariable,
+  operations?: IQueryOperationsConfig,
+): GqlResults<AnalysisResult> => {
   const { loading, result } = useLazyResultQuery<any>(PRESCRIPTIONS_QUERY, {
     variables: variables,
   });
   const prescriptions = result?.Analyses;
   return {
     aggregations: prescriptions?.aggregations || {},
-    data: hydrateResults(prescriptions?.hits?.edges || []),
+    data: hydrateResults(prescriptions?.hits?.edges || [], operations?.previous),
     loading,
     total: prescriptions?.hits.total,
+    searchAfter: computeSearchAfter(prescriptions?.hits?.edges || [], operations),
   };
 };
 
