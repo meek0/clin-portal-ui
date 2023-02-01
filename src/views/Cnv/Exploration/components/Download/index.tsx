@@ -5,6 +5,7 @@ import { Modal } from 'antd';
 import { useVariants } from 'graphql/cnv/actions';
 import { VariantEntity } from 'graphql/cnv/models';
 import { IQueryResults } from 'graphql/models';
+import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
 import {
   buildVariantsDownloadCount,
   buildVariantsDownloadSqon,
@@ -12,7 +13,6 @@ import {
   MAX_VARIANTS_DOWNLOAD,
   VARIANT_KEY,
 } from 'views/Prescriptions/utils/export';
-import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
 
 import { globalActions } from 'store/global';
 import { TDownload } from 'utils/searchPageTypes';
@@ -68,8 +68,11 @@ const Download = ({ downloadKeys, setDownloadKeys, queryVariables, variants }: O
           variantsToDownload.data,
           downloadKeys,
           VARIANT_KEY,
-          getVariantColumns(),
-          'SNV',
+          getVariantColumns(
+            () => {},
+            () => {},
+          ),
+          'CNV',
         );
       }
       setDownloadKeys([]); // reset download

@@ -49,7 +49,6 @@ export const buildVariantsDownloadSqon = (
         {
           content: {
             field: key,
-            index: 'Variants',
             value: keys || [],
           },
           op: 'in',

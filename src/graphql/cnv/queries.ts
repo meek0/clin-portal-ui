@@ -18,6 +18,8 @@ export const VARIANT_QUERY = gql`
         edges {
           node {
             id
+            hash
+            aliquot_id
             patient_id
             chromosome
             sort_chromosome

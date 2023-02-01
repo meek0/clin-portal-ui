@@ -62,7 +62,7 @@ describe('buildVariantsDownloadCount', () => {
 describe('buildVariantsDownloadSqon', () => {
   test('should be return empty sqon if no keys', () => {
     expect(buildVariantsDownloadSqon(null, 'key', {})).toEqual({
-      content: [{ content: { field: 'key', index: 'Variants', value: [] }, op: 'in' }],
+      content: [{ content: { field: 'key', value: [] }, op: 'in' }],
       op: 'and',
     });
   });
@@ -71,7 +71,7 @@ describe('buildVariantsDownloadSqon', () => {
   });
   test('should return sqon by keys if selection of rows', () => {
     expect(buildVariantsDownloadSqon(['1', '2', '3'], 'key', {})).toEqual({
-      content: [{ content: { field: 'key', index: 'Variants', value: ['1', '2', '3'] }, op: 'in' }],
+      content: [{ content: { field: 'key', value: ['1', '2', '3'] }, op: 'in' }],
       op: 'and',
     });
   });
