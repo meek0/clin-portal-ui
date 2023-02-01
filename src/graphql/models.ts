@@ -23,6 +23,7 @@ export interface GqlResults<DataT> {
   aggregations: Aggregations;
   loading: boolean;
   total: number;
+  searchAfter?: ISearchAfter;
 }
 
 // Recursive type that can represent nested query

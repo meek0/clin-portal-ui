@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
+import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
+import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { GqlResults } from 'graphql/models';
 import { ITableSequencingResult, SequencingResult } from 'graphql/sequencing/models';
-import { DEFAULT_PAGE_SIZE } from 'views/Prescriptions/Search';
-import { SEQUENCING_SCROLL_ID } from 'views/Prescriptions/Search/utils/contstant';
+import {
+  DEFAULT_PAGE_INDEX,
+  SEQUENCING_SCROLL_ID,
+} from 'views/Prescriptions/Search/utils/contstant';
 import { ALL_KEYS } from 'views/Prescriptions/utils/export';
 
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
 import { formatQuerySortList, scrollToTop } from 'utils/helper';
-import { IQueryConfig, TDownload, TQueryConfigCb } from 'utils/searchPageTypes';
+import { TDownload } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
 import { sequencingsColumns } from './columns';
@@ -18,13 +22,15 @@ import { sequencingsColumns } from './columns';
 import styles from './index.module.scss';
 
 interface OwnProps {
-  results: GqlResults<SequencingResult> | null;
+  results: GqlResults<SequencingResult>;
   total?: number;
   extra?: React.ReactElement;
   loading?: boolean;
   setQueryConfig: TQueryConfigCb;
   setDownloadKeys: TDownload;
   queryConfig: IQueryConfig;
+  pageIndex: number;
+  setPageIndex: (value: number) => void;
 }
 
 const SequencingsTable = ({
@@ -33,6 +39,8 @@ const SequencingsTable = ({
   setDownloadKeys,
   queryConfig,
   loading = false,
+  pageIndex,
+  setPageIndex,
 }: OwnProps): React.ReactElement => {
   const dispatch = useDispatch();
   const { user } = useUser();
@@ -48,12 +56,12 @@ const SequencingsTable = ({
       dictionary={getProTableDictionary()}
       showSorterTooltip={false}
       bordered
-      onChange={({ current, pageSize }, _, sorter) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onChange={({ current }, _, sorter) => {
+        setPageIndex(DEFAULT_PAGE_INDEX);
         setQueryConfig({
-          pageIndex: current!,
-          size: pageSize!,
-          // @ts-ignore
-          // mismatched between antd and antd used in ferlab-ui
+          pageIndex: DEFAULT_PAGE_INDEX,
+          size: queryConfig.size!,
           sort: formatQuerySortList(sorter),
         });
         scrollToTop(SEQUENCING_SCROLL_ID);
@@ -61,7 +69,7 @@ const SequencingsTable = ({
       enableRowSelection
       headerConfig={{
         itemCount: {
-          pageIndex: queryConfig.pageIndex,
+          pageIndex: pageIndex,
           pageSize: queryConfig.size,
           total: results?.total || 0,
         },
@@ -93,12 +101,29 @@ const SequencingsTable = ({
       }}
       size="small"
       pagination={{
-        current: queryConfig.pageIndex,
-        pageSize: queryConfig.size,
-        defaultPageSize: DEFAULT_PAGE_SIZE,
-        total: results?.total ?? 0,
-        showSizeChanger: true,
-        hideOnSinglePage: true,
+        current: pageIndex,
+        queryConfig,
+        setQueryConfig,
+        onChange: (page: number) => {
+          scrollToTop(SEQUENCING_SCROLL_ID);
+          setPageIndex(page);
+        },
+        onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
+          dispatch(
+            updateConfig({
+              data_exploration: {
+                tables: {
+                  requests: {
+                    ...user?.config.data_exploration?.tables?.requests,
+                    viewPerQuery,
+                  },
+                },
+              },
+            }),
+          );
+        },
+        searchAfter: results?.searchAfter,
+        defaultViewPerQuery: queryConfig.size,
       }}
     />
   );

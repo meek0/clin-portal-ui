@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
+import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
+import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { GqlResults } from 'graphql/models';
 import { AnalysisResult, ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
-import { DEFAULT_PAGE_SIZE } from 'views/Prescriptions/Search';
-import { PRESCRIPTION_SCROLL_ID } from 'views/Prescriptions/Search/utils/contstant';
+import {
+  DEFAULT_PAGE_INDEX,
+  PRESCRIPTION_SCROLL_ID,
+} from 'views/Prescriptions/Search/utils/contstant';
 import { ALL_KEYS } from 'views/Prescriptions/utils/export';
 
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
 import { formatQuerySortList, scrollToTop } from 'utils/helper';
-import { IQueryConfig, TDownload, TQueryConfigCb } from 'utils/searchPageTypes';
+import { TDownload } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
 import { prescriptionsColumns } from './columns';
@@ -18,13 +22,15 @@ import { prescriptionsColumns } from './columns';
 import styles from './index.module.scss';
 
 interface OwnProps {
-  results: GqlResults<AnalysisResult> | null;
+  results: GqlResults<AnalysisResult>;
   total?: number;
   extra?: React.ReactElement;
   loading?: boolean;
   setQueryConfig: TQueryConfigCb;
   setDownloadKeys: TDownload;
   queryConfig: IQueryConfig;
+  pageIndex: number;
+  setPageIndex: (value: number) => void;
 }
 
 const PrescriptionsTable = ({
@@ -32,6 +38,8 @@ const PrescriptionsTable = ({
   setQueryConfig,
   setDownloadKeys,
   queryConfig,
+  pageIndex,
+  setPageIndex,
   loading = false,
 }: OwnProps): React.ReactElement => {
   const dispatch = useDispatch();
@@ -48,12 +56,12 @@ const PrescriptionsTable = ({
       dictionary={getProTableDictionary()}
       showSorterTooltip={false}
       bordered
-      onChange={({ current, pageSize }, _, sorter) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      onChange={({ current }, _, sorter) => {
+        setPageIndex(DEFAULT_PAGE_INDEX);
         setQueryConfig({
-          pageIndex: current!,
-          size: pageSize!,
-          // @ts-ignore
-          // mismatched between antd and antd used in ferlab-ui
+          pageIndex: DEFAULT_PAGE_INDEX,
+          size: queryConfig.size!,
           sort: formatQuerySortList(sorter),
         });
         scrollToTop(PRESCRIPTION_SCROLL_ID);
@@ -61,7 +69,7 @@ const PrescriptionsTable = ({
       enableRowSelection
       headerConfig={{
         itemCount: {
-          pageIndex: queryConfig.pageIndex,
+          pageIndex: pageIndex,
           pageSize: queryConfig.size,
           total: results?.total || 0,
         },
@@ -92,12 +100,29 @@ const PrescriptionsTable = ({
       }}
       size="small"
       pagination={{
-        current: queryConfig.pageIndex,
-        pageSize: queryConfig.size,
-        defaultPageSize: DEFAULT_PAGE_SIZE,
-        total: results?.total ?? 0,
-        showSizeChanger: true,
-        hideOnSinglePage: true,
+        current: pageIndex,
+        queryConfig,
+        setQueryConfig,
+        onChange: (page: number) => {
+          scrollToTop(PRESCRIPTION_SCROLL_ID);
+          setPageIndex(page);
+        },
+        onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
+          dispatch(
+            updateConfig({
+              data_exploration: {
+                tables: {
+                  prescriptions: {
+                    ...user?.config.data_exploration?.tables?.prescriptions,
+                    viewPerQuery,
+                  },
+                },
+              },
+            }),
+          );
+        },
+        searchAfter: results?.searchAfter,
+        defaultViewPerQuery: queryConfig.size,
       }}
     />
   );
