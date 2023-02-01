@@ -6,6 +6,7 @@ import { Card } from 'antd';
 import { useVariants } from 'graphql/cnv/actions';
 import { ExtendedMappingResults } from 'graphql/models';
 import { cloneDeep } from 'lodash';
+import Download from 'views/Cnv/Exploration/components/Download';
 import VariantContentLayout from 'views/Cnv/Exploration/components/VariantContentLayout';
 import {
   CNV_VARIANT_PATIENT_QB_ID,
@@ -14,7 +15,6 @@ import {
 } from 'views/Cnv/utils/constant';
 import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
 
-import Download from 'components/Variant/Download';
 import { CNV_EXPLORATION_PATIENT_FILTER_TAG } from 'utils/queryBuilder';
 
 import VariantsTable from './components/Variants';
@@ -79,7 +79,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
         downloadKeys={downloadKeys}
         setDownloadKeys={setDownloadKeys}
         queryVariables={queryVariables}
-        queryConfig={variantQueryConfig}
         variants={variantResults}
       />
     </>

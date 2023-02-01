@@ -9,6 +9,7 @@ import { Tabs } from 'antd';
 import { ExtendedMappingResults } from 'graphql/models';
 import { useVariants } from 'graphql/variants/actions';
 import { cloneDeep } from 'lodash';
+import Download from 'views/Snv/components/Download';
 import {
   DEFAULT_OFFSET,
   DEFAULT_PAGE_INDEX,
@@ -19,7 +20,6 @@ import {
 } from 'views/Snv/utils/constant';
 import { wrapSqonWithDonorIdAndSrId } from 'views/Snv/utils/helper';
 
-import Download from 'components/Variant/Download';
 import { SNV_EXPLORATION_PATIENT_FILTER_TAG } from 'utils/queryBuilder';
 
 import VariantContentLayout from '../../components/VariantContentLayout';

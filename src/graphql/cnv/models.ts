@@ -16,6 +16,8 @@ export type VariantEntity = {
   id: string;
   patient_id: string;
   name: string;
+  aliquot_id: string;
+  hash: string;
   type: string;
   qual: number;
   chromosome: string;
@@ -35,8 +37,6 @@ export type VariantEntity = {
   is_proband: string;
   gender: string;
   genes: ArrangerResultsTree<GeneEntity>;
-  locus: string;
-  hash: string;
 };
 
 export type GeneEntity = {

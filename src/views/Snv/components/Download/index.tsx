@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { Modal } from 'antd';
-import { VariantEntity as VariantEntityCNV } from 'graphql/cnv/models';
 import { IQueryResults } from 'graphql/models';
 import { useVariants } from 'graphql/variants/actions';
-import { VariantEntity as VariantEntitySNV } from 'graphql/variants/models';
+import { VariantEntity } from 'graphql/variants/models';
 import {
   buildVariantsDownloadCount,
   buildVariantsDownloadSqon,
@@ -23,7 +22,7 @@ type OwnProps = {
   setDownloadKeys: TDownload;
   queryVariables: any;
   queryConfig: IQueryConfig;
-  variants: IQueryResults<VariantEntitySNV[] | VariantEntityCNV[]>;
+  variants: IQueryResults<VariantEntity[]>;
 };
 
 const Download = ({

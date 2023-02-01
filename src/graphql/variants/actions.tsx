@@ -1,5 +1,6 @@
-import { IQueryOperationsConfig, IQueryResults } from '@ferlab/ui/core/graphql/types';
+import { IQueryOperationsConfig } from '@ferlab/ui/core/graphql/types';
 import { computeSearchAfter, hydrateResults } from '@ferlab/ui/core/graphql/utils';
+import { IQueryResults } from 'graphql/models';
 import { QueryVariable } from 'graphql/queries';
 
 import useLazyResultQuery from 'hooks/graphql/useLazyResultQuery';
