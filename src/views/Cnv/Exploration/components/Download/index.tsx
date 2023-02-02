@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { Modal } from 'antd';
-import { useVariants } from 'graphql/cnv/actions';
+import { useVariantsTSV } from 'graphql/cnv/actions';
 import { VariantEntity } from 'graphql/cnv/models';
 import { IQueryResults } from 'graphql/models';
 import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
@@ -30,7 +30,7 @@ const Download = ({ downloadKeys, setDownloadKeys, queryVariables, variants }: O
 
   const variantToDownloadCount = buildVariantsDownloadCount(downloadKeys, variants.total);
 
-  const variantsToDownload = useVariants({
+  const variantsToDownload = useVariantsTSV({
     ...queryVariables,
     first: variantToDownloadCount,
     searchAfter: undefined,

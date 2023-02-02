@@ -6,18 +6,40 @@ import { downloadText } from 'utils/helper';
 export const ALL_KEYS = '*';
 export const MAX_VARIANTS_DOWNLOAD = 10000;
 export const VARIANT_KEY = 'hash';
+export const JOIN_SEP = ' ';
 
 const valueToStr = (value: any) => {
   if (value) {
     if (Array.isArray(value)) {
-      return value.join(' ');
+      return value.join(JOIN_SEP);
     } else if (typeof value === 'object') {
-      return 'N/A';
+      return getLeafNodes(value);
     }
     return String(value);
   }
   return '';
 };
+
+function getLeafNodes(obj: any) {
+  function traverse(acc: any, value: any) {
+    if (value) {
+      if (typeof value == 'object') {
+        Object.entries(value).forEach(([, v]) => {
+          traverse(acc, v);
+        });
+      } else if (Array.isArray(value)) {
+        acc.push(...value);
+      } else {
+        const str = new String(value);
+        if (!str.startsWith('Variants') && !str.startsWith('cnv')) {
+          acc.push(str);
+        }
+      }
+    }
+    return acc;
+  }
+  return Array.from(new Set(traverse([], obj))).join(JOIN_SEP);
+}
 
 export const buildVariantsDownloadCount = (keys: Array<string>, expectedTotal: number): number => {
   if (keys?.length > 0) {

@@ -3,7 +3,7 @@ import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { Modal } from 'antd';
 import { IQueryResults } from 'graphql/models';
-import { useVariants } from 'graphql/variants/actions';
+import { useVariantsTSV } from 'graphql/variants/actions';
 import { VariantEntity } from 'graphql/variants/models';
 import {
   buildVariantsDownloadCount,
@@ -37,7 +37,7 @@ const Download = ({
 
   const variantToDownloadCount = buildVariantsDownloadCount(downloadKeys, variants.total);
 
-  const variantsToDownload = useVariants(
+  const variantsToDownload = useVariantsTSV(
     {
       ...queryVariables,
       first: variantToDownloadCount,

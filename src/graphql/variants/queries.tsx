@@ -182,6 +182,56 @@ export const VARIANT_QUERY = gql`
   }
 `;
 
+export const VARIANT_QUERY_TSV = gql`
+  query VariantInformation(
+    $sqon: JSON
+    $first: Int
+    $offset: Int
+    $sort: [Sort]
+    $searchAfter: JSON
+  ) {
+    Variants {
+      hits(filters: $sqon, first: $first, offset: $offset, sort: $sort, searchAfter: $searchAfter) {
+        total
+        edges {
+          searchAfter
+          node {
+            hgvsg
+            hash
+            variant_class
+            rsnumber
+            consequences {
+              hits {
+                edges {
+                  node {
+                    symbol
+                  }
+                }
+              }
+            }
+            clinvar {
+              clinvar_id
+              clin_sig
+            }
+            external_frequencies {
+              gnomad_genomes_2_1_1 {
+                af
+              }
+            }
+            frequency_RQDM {
+              total {
+                pc
+                pn
+                pf
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const GET_VARIANT_COUNT = gql`
   query getVariantCount($sqon: JSON) {
     Variants {

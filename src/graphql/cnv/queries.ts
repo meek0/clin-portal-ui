@@ -61,3 +61,49 @@ export const VARIANT_QUERY = gql`
     }
   }
 `;
+
+export const VARIANT_QUERY_TSV = gql`
+  query Cnv($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort]) {
+    cnv {
+      hits(filters: $sqon, first: $first, offset: $offset, sort: $sort) {
+        total
+        edges {
+          node {
+            id
+            hash
+            aliquot_id
+            patient_id
+            chromosome
+            sort_chromosome
+            type
+            qual
+            start
+            end
+            name
+            reflen
+            cn
+            number_genes
+            filters
+            calls
+            sm
+            bc
+            pe
+            father_id
+            mother_id
+            is_proband
+            gender
+            genes {
+              hits {
+                edges {
+                  node {
+                    symbol
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;

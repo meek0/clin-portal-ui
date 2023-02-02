@@ -19,8 +19,11 @@ describe('exportAsTSV', () => {
   test('should export array', () => {
     expect(exportAsTSV([{ foo: ['bar1', 'bar2'] }], ['foo'])).toEqual('foo\nbar1 bar2\n');
   });
-  test('should export object', () => {
-    expect(exportAsTSV([{ foo: {} }], ['foo'])).toEqual('foo\nN/A\n');
+  test('should export object leafs', () => {
+    expect(exportAsTSV([{ foo: { sub: 'leaf' } }], ['foo'])).toEqual('foo\nleaf\n');
+  });
+  test('should ignore some leafs', () => {
+    expect(exportAsTSV([{ foo: { sub1: 'Variants', sub2: 'cnv' } }], ['foo'])).toEqual('foo\n\n');
   });
   test('should export at least headers', () => {
     expect(exportAsTSV([], ['foo'])).toEqual('foo\n');
