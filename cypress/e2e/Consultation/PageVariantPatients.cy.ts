@@ -20,32 +20,102 @@ afterEach(() => {
 describe('Page d\'un variant (onglet Patients)', () => {
   describe('Vérifier les informations affichées', () => {
     it('Des graphiques', () => {
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).contains('Sexe').should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('path[opacity="1"]').eq(0).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains('Indéterminé').should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains(/^1$/).should('exist');
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('path[opacity="1"]').eq(1).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains('Masculin').should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains(/^37$/).should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('path[opacity="1"]').eq(2).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains('Féminin').should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains(/^36$/).should('exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').invoke('text').then((invokeText) => {
+        let orderFeminin  = 1;
+        let orderMasculin = 2;
 
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).contains('Analyse').should('exist');
+        if(invokeText.includes("Masculin")) {
+          orderFeminin  = 2;
+          orderMasculin = 1;
+        };
+          
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).contains('Sexe').should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('path[opacity="1"]').eq(0).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains('Indéterminé').should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains(/^1$/).should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('path[opacity="1"]').eq(orderMasculin).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains('Masculin').should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains(/^37$/).should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('path[opacity="1"]').eq(orderFeminin).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains('Féminin').should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(0).find('div[style*="pointer-events"]').contains(/^36$/).should('exist');
+      });
+
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('path[opacity="1"]').eq(0).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains('RGDI').should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains(/^15$/).should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('path[opacity="1"]').eq(1).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains('MYOC').should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains(/^24$/).should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('path[opacity="1"]').eq(2).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains('HYPM').should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains(/^35$/).should('exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').invoke('text').then((invokeText) => {
+        let label0;
+        let count0;
 
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(2).contains('Filtre (Dragen)').should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(2).find('path[opacity="1"]').eq(0).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(2).find('div[style*="pointer-events"]').contains('PASS').should('exist');
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(2).find('div[style*="pointer-events"]').contains(/^74$/).should('exist');
+        if(invokeText.includes("RGDI")) {
+          label0  = "RGDI";
+          count0 = /^15$/;
+        }
+        else if(invokeText.includes("MYOC")) {
+          label0  = "MYOC";
+          count0 = /^24$/;
+        }
+        else {
+          label0  = "HYPM";
+          count0 = /^35$/;
+        };
+
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).contains('Analyse').should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('path[opacity="1"]').eq(0).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains(label0).should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains(count0).should('exist');
+      });
+
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('path[opacity="1"]').eq(1).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').invoke('text').then((invokeText) => {
+        let label1;
+        let count1;
+
+        if(invokeText.includes("RGDI")) {
+          label1  = "RGDI";
+          count1 = /^15$/;
+        }
+        else if(invokeText.includes("MYOC")) {
+          label1  = "MYOC";
+          count1 = /^24$/;
+        }
+        else {
+          label1  = "HYPM";
+          count1 = /^35$/;
+        };
+
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('path[opacity="1"]').eq(1).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains(label1).should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains(count1).should('exist');
+      });
+
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('path[opacity="1"]').eq(2).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').invoke('text').then((invokeText) => {
+        let label2;
+        let count2;
+
+        if(invokeText.includes("RGDI")) {
+          label2  = "RGDI";
+          count2 = /^15$/;
+        }
+        else if(invokeText.includes("MYOC")) {
+          label2  = "MYOC";
+          count2 = /^24$/;
+        }
+        else {
+          label2  = "HYPM";
+          count2 = /^35$/;
+        };
+
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('path[opacity="1"]').eq(2).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains(label2).should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(1).find('div[style*="pointer-events"]').contains(count2).should('exist');
+      });
+
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(2).contains('Filtre (Dragen)').should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(2).find('path[opacity="1"]').eq(0).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(2).find('div[style*="pointer-events"]').contains('PASS').should('exist');
+        cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(0).find('div[class*="ant-col"]').eq(2).find('div[style*="pointer-events"]').contains(/^74$/).should('exist');
     });
     
     it('Du tableau', () => {

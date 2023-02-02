@@ -27,47 +27,60 @@ describe('Page d\'un variant (onglet Résumé)', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(0).contains('GRCh38').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(1).contains('Pathogenic').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(1).contains('rs370596113').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(2).contains('1 /131').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(2).contains('3.82e-3').should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(2).contains(/^1 \/\d{3}$/).should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(2).contains(/^3.\d{2}e-3$/).should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(2).contains(epCHUSJ_ldmCHUSJ.annotationDate).should('exist');
     });
     
     it('De la section Conséquences géniques', () => {
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).contains('PRDX1').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).contains('Omim').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).contains('176763').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).contains('protein_coding').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(0).contains('-').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(1).contains('downstream_gene_variant').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(2).contains('-').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(3).contains('MODIFIER').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('-').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(5).contains('-').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(6).contains('ENST00000319248').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(6).find('svg[class*="canonicalIcon"]').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(7).contains('NM_181697.3').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).contains('5 autres transcrits +').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(1).should('not.exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).contains('MMACHC').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).contains('Omim').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).contains('609831').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).contains('protein_coding').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(0).contains('p.Arg161Ter').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(1).contains('stop_gained').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(2).contains('c.481C>T').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(3).contains('HIGH').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('Cadd (Raw):').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('0.96997').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('Cadd (Phred):').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('36').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('Voir plus').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('Dann').should('not.exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(5).contains('0.4025').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(6).contains('ENST00000401061').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(6).find('svg[class*="canonicalIcon"]').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(7).contains('NM_015506.3').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).contains('1 autres transcrits +').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(1).should('not.exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).invoke('text').then((invokeText) => {
+        let orderPRDX1  = 0;
+        let orderMMACHC = 1;
+
+        if(invokeText.includes("MMACHC")) {
+          orderPRDX1  = 1;
+          orderMMACHC = 0;
+        };
+          
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('PRDX1').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('Omim').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('176763').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('protein_coding').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(0).contains('-').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(1).contains('downstream_gene_variant').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(2).contains('-').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(3).contains('MODIFIER').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('-').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(5).contains('-').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(6).contains('ENST00000319248').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(6).find('svg[class*="canonicalIcon"]').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(7).contains('NM_181697.3').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('5 autres transcrits +').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(1).should('not.exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('MMACHC').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('Omim').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('609831').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('protein_coding').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('spliceAI Score').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('0.01').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('(AL)').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(0).contains('p.Arg161Ter').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(1).contains('stop_gained').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(2).contains('c.481C>T').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(3).contains('HIGH').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('Cadd (Raw):').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('0.96997').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('Cadd (Phred):').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('36').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('Voir plus').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(4).contains('Dann').should('not.exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(5).contains('0.4025').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(6).contains('ENST00000401061').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(6).find('svg[class*="canonicalIcon"]').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(0).find('td[class*="ant-table-cell"]').eq(7).contains('NM_015506.3').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('1 autres transcrits +').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).find('tr[class*="ant-table-row"]').eq(1).should('not.exist');
+      });
     });
     
     it('De la section Critères ACMG', () => {
@@ -105,7 +118,7 @@ describe('Page d\'un variant (onglet Résumé)', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(2).contains('0').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(3).contains(/^1 \/ \d{3} \(\d\.\d+%\)$/).should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(4).contains('0').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(5).contains('0 / 10 (0%)').should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(5).contains(/^0 \/ \d{2} \(0%\)$/).should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(6).contains('0').should('exist');
     });
     
@@ -147,38 +160,59 @@ describe('Page d\'un variant (onglet Résumé)', () => {
     });
     
     it('De la section Gène - Phénotype', () => {
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(0).find('td[class="ant-table-cell"]').eq(0).contains('Orphanet').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(0).find('td[class="ant-table-cell"]').eq(1).contains('MMACHC').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(0).find('td[class="ant-table-cell"]').eq(2).contains('Methylmalonic acidemia with homocystinuria, type cblC').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(0).find('td[class="ant-table-cell"]').eq(3).contains('Autosomal recessive').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(1).find('td[class="ant-table-cell"]').eq(0).contains('OMIM').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(1).find('td[class="ant-table-cell"]').eq(1).contains('MMACHC (MIM:').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(1).find('td[class="ant-table-cell"]').eq(2).contains('Methylmalonic aciduria and homocystinuria, cblC type').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(1).find('td[class="ant-table-cell"]').eq(3).contains('Autosomal recessive').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(2).find('td[class="ant-table-cell"]').eq(0).contains('OMIM').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(2).find('td[class="ant-table-cell"]').eq(1).contains('PRDX1 (MIM:').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(2).find('td[class="ant-table-cell"]').eq(2).contains('Methylmalonic aciduria and homocystinuria, cblC type, digenic').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(2).find('td[class="ant-table-cell"]').eq(3).contains('Autosomal recessive').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(3).find('td[class="ant-table-cell"]').eq(0).contains('HPO').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(3).find('td[class="ant-table-cell"]').eq(1).contains('MMACHC').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(3).find('td[class="ant-table-cell"]').eq(2).contains('Homocystinuria').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(3).find('td[class="ant-table-cell"]').eq(2).contains('Hemolytic-uremic syndrome').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(3).find('td[class="ant-table-cell"]').eq(2).contains('Dementia').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(3).find('td[class="ant-table-cell"]').eq(2).contains('Lethargy').should('not.exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(3).find('td[class="ant-table-cell"]').eq(2).contains('See more').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(3).find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(4).find('td[class="ant-table-cell"]').eq(0).contains('HPO').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(4).find('td[class="ant-table-cell"]').eq(1).contains('PRDX1').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(4).find('td[class="ant-table-cell"]').eq(2).contains('Abnormality of extrapyramidal motor function').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(4).find('td[class="ant-table-cell"]').eq(2).contains('Dementia').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(4).find('td[class="ant-table-cell"]').eq(2).contains('Homocystinuria').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(4).find('td[class="ant-table-cell"]').eq(2).contains('Muscular hypotonia').should('not.exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(4).find('td[class="ant-table-cell"]').eq(2).contains('See more').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(4).find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(5).find('td[class="ant-table-cell"]').eq(0).contains('DDD').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(5).find('td[class="ant-table-cell"]').eq(1).contains('MMACHC').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(5).find('td[class="ant-table-cell"]').eq(2).contains('METHYLMALONIC ACIDURIA AND HOMOCYSTINURIA, CBLC TYPE').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(5).find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(1).find('td[class="ant-table-cell"]').eq(1).invoke('text').then((invokeText) => {
+        let orderPRDX1  = 1;
+        let orderMMACHC = 2;
+
+        if(invokeText.includes("MMACHC")) {
+          orderMMACHC = 1;
+          orderPRDX1  = 2;
+        };
+          
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(0).find('td[class="ant-table-cell"]').eq(0).contains('Orphanet').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(0).find('td[class="ant-table-cell"]').eq(1).contains('MMACHC').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(0).find('td[class="ant-table-cell"]').eq(2).contains('Methylmalonic acidemia with homocystinuria, type cblC').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(0).find('td[class="ant-table-cell"]').eq(3).contains('Autosomal recessive').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(0).contains('OMIM').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(1).contains('PRDX1 (MIM:').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(2).contains('Methylmalonic aciduria and homocystinuria, cblC type, digenic').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(3).contains('Autosomal recessive').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(0).contains('OMIM').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(1).contains('MMACHC (MIM:').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(2).contains('Methylmalonic aciduria and homocystinuria, cblC type').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(3).contains('Autosomal recessive').should('exist');
+      });
+
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(3).find('td[class="ant-table-cell"]').eq(1).invoke('text').then((invokeText) => {
+        let orderPRDX1  = 3;
+        let orderMMACHC = 4;
+
+        if(invokeText.includes("MMACHC")) {
+          orderMMACHC = 3;
+          orderPRDX1  = 4;
+        };
+
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(0).contains('HPO').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(1).contains('MMACHC').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(2).contains('Homocystinuria').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(2).contains('Hemolytic-uremic syndrome').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(2).contains('Dementia').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(2).contains('Lethargy').should('not.exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(2).contains('See more').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderMMACHC).find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(0).contains('HPO').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(1).contains('PRDX1').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(2).contains('Abnormality of extrapyramidal motor function').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(2).contains('Dementia').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(2).contains('Homocystinuria').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(2).contains('Muscular hypotonia').should('not.exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(2).contains('See more').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(5).find('td[class="ant-table-cell"]').eq(0).contains('DDD').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(5).find('td[class="ant-table-cell"]').eq(1).contains('MMACHC').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(5).find('td[class="ant-table-cell"]').eq(2).contains('METHYLMALONIC ACIDURIA AND HOMOCYSTINURIA, CBLC TYPE').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(5).find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
+      });
     });
   });
  
@@ -192,28 +226,41 @@ describe('Page d\'un variant (onglet Résumé)', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(1).find('a[target="_blank"]').eq(1).invoke('removeAttr', 'target').click({force: true});
       cy.get('body').contains(/^rs370596113$/).should('exist');
     });
-    
+
     it('Lien du gène de la section Conséquences géniques', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('a[target="_blank"]').eq(0).invoke('removeAttr', 'target').click({force: true});
-      cy.get('body').contains(/^PRDX1$/).should('exist');
+      cy.get('body').contains(/^(PRDX1|MMACHC)$/).should('exist');
     });
     
     it('Lien Omim de la section Conséquences géniques', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('a[target="_blank"]').eq(1).invoke('removeAttr', 'target').click({force: true});
       cy.closePopup();
-      cy.get('body').contains(/^\*176763$/).should('exist');
+      cy.get('body').contains(/^(\*176763|\*609831)$/).should('exist');
+    });
+    
+    it('Lien spliceAI de la section Conséquences géniques', () => {
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('a[target="_blank"]').eq(2).invoke('removeAttr', 'target').click({force: true});
+      cy.get('body').contains('1-45508847-C-T').should('exist');
     });
     
     it('Lien RefSeq de la section Conséquences géniques', () => {
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('a[target="_blank"]').eq(2).invoke('removeAttr', 'target').click({force: true});
-      cy.get('body').contains(/^NM_181697.3$/).should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('a[target="_blank"]').eq(3).invoke('removeAttr', 'target').click({force: true});
+      cy.get('body').contains(/^(NM_181697.3|NM_015506.3)$/).should('exist');
     });
     
     it('Lien \'5 autres transcrits\' de la section Conséquences géniques', () => {
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).contains('5 autres transcrits +').click({force: true});
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(1).should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).contains('Afficher moins -').click({force: true});
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('tr[class*="ant-table-row"]').eq(1).should('not.exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).invoke('text').then((invokeText) => {
+        let orderPRDX1  = 0;
+
+        if(invokeText.includes("MMACHC")) {
+          orderPRDX1  = 1;
+        };
+
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('5 autres transcrits +').click({force: true});
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(1).should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('Afficher moins -').click({force: true});
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).find('tr[class*="ant-table-row"]').eq(1).should('not.exist');
+      });
     });
     
     it('Lien Varsome de la section Critères ACMG', () => {
@@ -246,9 +293,17 @@ describe('Page d\'un variant (onglet Résumé)', () => {
     });
     
     it('Lien OMIM du gène de la section Gène - Phénotype', () => {
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(1).find('td[class="ant-table-cell"]').eq(1).find('a[target="_blank"]').invoke('removeAttr', 'target').click({force: true});
-      cy.closePopup();
-      cy.get('body').contains(/^\*609831$/).should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(1).find('td[class="ant-table-cell"]').eq(1).invoke('text').then((invokeText) => {
+        let orderPRDX1  = 1;
+
+        if(invokeText.includes("MMACHC")) {
+          orderPRDX1  = 2;
+        };
+          
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(1).find('a[target="_blank"]').invoke('removeAttr', 'target').click({force: true});
+        cy.closePopup();
+        cy.get('body').contains(/^\*176763$/).should('exist');
+      });
     });
     
     it('Lien OMIM de la condition de la section Gène - Phénotype', () => {
@@ -258,8 +313,16 @@ describe('Page d\'un variant (onglet Résumé)', () => {
     });
     
     it('Lien HPO de la condition de la section Gène - Phénotype', () => {
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(3).find('td[class="ant-table-cell"]').eq(2).find('a[target="_blank"]').eq(0).invoke('removeAttr', 'target').click({force: true});
-      cy.get('body').contains(/^HP:0002156$/).should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(1).find('td[class="ant-table-cell"]').eq(1).invoke('text').then((invokeText) => {
+        let orderPRDX1  = 3;
+
+        if(invokeText.includes("MMACHC")) {
+          orderPRDX1  = 4;
+        };
+          
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(5).find('tr[class*="ant-table-row"]').eq(orderPRDX1).find('td[class="ant-table-cell"]').eq(2).find('a[target="_blank"]').eq(0).invoke('removeAttr', 'target').click({force: true});
+        cy.get('body').contains(/^HP:0002071$/).should('exist');
+      });
     });
     
     it('Lien \'See more\' de la condition de la section Gène - Phénotype', () => {

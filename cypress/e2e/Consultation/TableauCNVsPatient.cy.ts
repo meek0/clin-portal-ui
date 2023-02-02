@@ -60,7 +60,8 @@ describe('Tableau des CNVs d\'un patient', () => {
     cy.get('tr[data-row-key="12"]').contains('57.1 kb').should('exist');
     cy.get('tr[data-row-key="12"]').contains(/^3$/).should('exist');
     cy.get('tr[data-row-key="12"]').contains(/^2$/).should('exist');
-    cy.get('tr[data-row-key="12"]').contains('CFHR1, CFHR3').should('exist');
+    cy.get('tr[data-row-key="12"]').contains('CFHR1').should('exist');
+    cy.get('tr[data-row-key="12"]').contains('CFHR3').should('exist');
     cy.get('tr[data-row-key="12"]').contains('./1').should('exist');
     cy.get('tr[data-row-key="12"]').contains('PASS').should('exist');
     cy.get('tr[data-row-key="12"]').contains(/^75$/).should('exist');
@@ -74,7 +75,7 @@ describe('Tableau des CNVs d\'un patient', () => {
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');
     cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
 
-    cy.get('tr[data-row-key="12"]').contains('CFHR1, CFHR3').click({force: true});
+    cy.get('tr[data-row-key="12"]').contains('CFHR1').click({force: true});
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');
     cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
 

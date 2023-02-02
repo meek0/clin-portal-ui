@@ -4,6 +4,7 @@ export default defineConfig({
   projectId: 'e6jd58',
   chromeWebSecurity: false,
   video: false,
+  videoUploadOnPasses: false,
   screenshotOnRunFailure: true,
   viewportWidth: 1920,
   viewportHeight: 1080,

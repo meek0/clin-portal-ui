@@ -39,7 +39,7 @@ describe('Page d\'une prescription', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).contains('Complétée').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).contains('SP_'+epCHUSJ_ldmCHUSJ.sampleProbId).should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).contains(epCHUSJ_ldmCHUSJ.sampleProbId).should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).contains('Fichiers').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).contains('Variants').should('exist');
     });
@@ -56,7 +56,7 @@ describe('Page d\'une prescription', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).contains(epCHUSJ_ldmCHUSJ.requestMthId).should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).contains('Complétée').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).contains('SP_'+epCHUSJ_ldmCHUSJ.sampleMthId, {matchCase: false}).should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).contains(epCHUSJ_ldmCHUSJ.sampleMthId, {matchCase: false}).should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).contains('Fichiers').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).contains('Variants').should('exist');
     });
@@ -73,7 +73,7 @@ describe('Page d\'une prescription', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).contains('Complétée').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).contains('SP_'+epCHUSJ_ldmCHUSJ.sampleFthId).should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).contains(epCHUSJ_ldmCHUSJ.sampleFthId).should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).contains('Fichiers').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).contains('Variants').should('exist');
     });
