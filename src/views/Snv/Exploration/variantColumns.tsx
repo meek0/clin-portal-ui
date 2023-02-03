@@ -232,6 +232,78 @@ export const getVariantColumns = (
           : TABLE_EMPTY_PLACE_HOLDER,
     },
     {
+      key: 'gene.pli',
+      title: intl.get('screen.patientsnv.results.table.pli'),
+      tooltip: `${intl.get('screen.patientsnv.results.table.pli.tooltip')}`,
+      defaultHidden: true,
+      width: 150,
+      render: (variant: { genes: { hits: { edges: Gene[] } } }) => {
+        const genesWithPli = variant.genes.hits.edges.filter((gene: Gene) => gene.node.gnomad);
+        return genesWithPli.length ? (
+          <ExpandableCell<Gene>
+            dataSource={genesWithPli}
+            nOfElementsWhenCollapsed={2}
+            dictionnary={{
+              'see.less': intl.get('see.less'),
+              'see.more': intl.get('see.more'),
+            }}
+            renderItem={(item, id): React.ReactNode => (
+              <StackLayout horizontal>
+                <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
+                  <>
+                    {genesWithPli.length > 1 && <div>{`${item.node.symbol} : `}</div>}
+                    <ExternalLink
+                      href={`https://gnomad.broadinstitute.org/gene/${item.node.ensembl_gene_id}?dataset=gnomad_r2_1`}
+                    >
+                      {item.node.gnomad.pli.toFixed(2)}
+                    </ExternalLink>
+                  </>
+                </Space>
+              </StackLayout>
+            )}
+          />
+        ) : (
+          'ND'
+        );
+      },
+    },
+    {
+      key: 'gene.loeuf',
+      title: intl.get('screen.patientsnv.results.table.loeuf'),
+      tooltip: `${intl.get('screen.patientsnv.results.table.loeuf.tooltip')}`,
+      defaultHidden: true,
+      width: 150,
+      render: (variant: { genes: { hits: { edges: Gene[] } } }) => {
+        const genesWithloeuf = variant.genes.hits.edges.filter((gene: Gene) => gene.node.gnomad);
+        return genesWithloeuf.length ? (
+          <ExpandableCell<Gene>
+            dataSource={genesWithloeuf}
+            nOfElementsWhenCollapsed={2}
+            dictionnary={{
+              'see.less': intl.get('see.less'),
+              'see.more': intl.get('see.more'),
+            }}
+            renderItem={(item, id): React.ReactNode => (
+              <StackLayout horizontal>
+                <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
+                  <>
+                    {genesWithloeuf.length > 1 && <div>{`${item.node.symbol} : `}</div>}
+                    <ExternalLink
+                      href={`https://gnomad.broadinstitute.org/gene/${item.node.ensembl_gene_id}?dataset=gnomad_r2_1`}
+                    >
+                      {item.node.gnomad.loeuf.toFixed(2)}
+                    </ExternalLink>
+                  </>
+                </Space>
+              </StackLayout>
+            )}
+          />
+        ) : (
+          'ND'
+        );
+      },
+    },
+    {
       key: 'frequency_RQDM.total.pf',
       title: intl.get('screen.patientsnv.results.table.rqdm'),
       tooltip: intl.get('screen.variantDetails.summaryTab.patientTable.patient.tootltip'),
