@@ -8,6 +8,7 @@ import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Tabs } from 'antd';
 import { ExtendedMappingResults } from 'graphql/models';
 import { useVariants } from 'graphql/variants/actions';
+import Download from 'views/Snv/components/Download';
 import {
   DEFAULT_OFFSET,
   DEFAULT_PAGE_INDEX,
@@ -32,22 +33,23 @@ const PageContent = ({ variantMapping }: OwnProps) => {
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
     resolveSyntheticSqon(queryList, query, 'donors');
+  const [downloadKeys, setDownloadKeys] = useState<string[]>([]);
 
-  const variantResults = useVariants(
-    {
-      first: variantQueryConfig.size,
-      offset: DEFAULT_OFFSET,
-      searchAfter: variantQueryConfig.searchAfter,
-      sqon: getVariantResolvedSqon(activeQuery),
-      sort: tieBreaker({
-        sort: variantQueryConfig.sort,
-        defaultSort: DEFAULT_SORT_QUERY,
-        field: 'hgvsg',
-        order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
-      }),
-    },
-    variantQueryConfig.operations,
-  );
+  const queryVariables = {
+    first: variantQueryConfig.size,
+    offset: DEFAULT_OFFSET,
+    searchAfter: variantQueryConfig.searchAfter,
+    sqon: getVariantResolvedSqon(activeQuery),
+    sort: tieBreaker({
+      sort: variantQueryConfig.sort,
+      defaultSort: DEFAULT_SORT_QUERY,
+      field: 'hgvsg',
+      order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
+    }),
+  };
+
+  const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
+
   useEffect(() => {
     if (
       variantQueryConfig.firstPageFlag !== undefined ||
@@ -73,29 +75,39 @@ const PageContent = ({ variantMapping }: OwnProps) => {
   }, [JSON.stringify(activeQuery)]);
 
   return (
-    <VariantContentLayout
-      queryBuilderId={VARIANT_RQDM_QB_ID}
-      savedFilterTag={VARIANT_RQDM_QB_ID_FILTER_TAG}
-      variantMapping={variantMapping}
-      activeQuery={activeQuery}
-      variantResults={variantResults}
-      getVariantResolvedSqon={getVariantResolvedSqon}
-    >
-      <Tabs type="card" activeKey={'variants'}>
-        <Tabs.TabPane
-          tab={intl.get('screen.patientsnv.results.table.variants') || 'Variants'}
-          key="variants"
-        >
-          <VariantsTab
-            results={variantResults}
-            setQueryConfig={setVariantQueryConfig}
-            queryConfig={variantQueryConfig}
-            pageIndex={pageIndex}
-            setPageIndex={setPageIndex}
-          />
-        </Tabs.TabPane>
-      </Tabs>
-    </VariantContentLayout>
+    <>
+      <VariantContentLayout
+        queryBuilderId={VARIANT_RQDM_QB_ID}
+        savedFilterTag={VARIANT_RQDM_QB_ID_FILTER_TAG}
+        variantMapping={variantMapping}
+        activeQuery={activeQuery}
+        variantResults={variantResults}
+        getVariantResolvedSqon={getVariantResolvedSqon}
+      >
+        <Tabs type="card" activeKey={'variants'}>
+          <Tabs.TabPane
+            tab={intl.get('screen.patientsnv.results.table.variants') || 'Variants'}
+            key="variants"
+          >
+            <VariantsTab
+              results={variantResults}
+              setQueryConfig={setVariantQueryConfig}
+              queryConfig={variantQueryConfig}
+              pageIndex={pageIndex}
+              setPageIndex={setPageIndex}
+              setDownloadKeys={setDownloadKeys}
+            />
+          </Tabs.TabPane>
+        </Tabs>
+      </VariantContentLayout>
+      <Download
+        downloadKeys={downloadKeys}
+        setDownloadKeys={setDownloadKeys}
+        queryVariables={queryVariables}
+        queryConfig={variantQueryConfig}
+        variants={variantResults}
+      />
+    </>
   );
 };
 

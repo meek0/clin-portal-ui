@@ -6,6 +6,7 @@ import { Card } from 'antd';
 import { useVariants } from 'graphql/cnv/actions';
 import { ExtendedMappingResults } from 'graphql/models';
 import { cloneDeep } from 'lodash';
+import Download from 'views/Cnv/Exploration/components/Download';
 import VariantContentLayout from 'views/Cnv/Exploration/components/VariantContentLayout';
 import {
   CNV_VARIANT_PATIENT_QB_ID,
@@ -27,6 +28,7 @@ type OwnProps = {
 const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(CNV_VARIANT_PATIENT_QB_ID);
   const [variantQueryConfig, setVariantQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
+  const [downloadKeys, setDownloadKeys] = useState<string[]>([]);
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) => {
     const wrappedQuery = wrapSqonWithPatientIdAndRequestId(
@@ -37,12 +39,14 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     return wrappedQuery;
   };
 
-  const variantResults = useVariants({
+  const queryVariables = {
     first: variantQueryConfig.size,
     offset: variantQueryConfig.size * (variantQueryConfig.pageIndex - 1),
     sqon: getVariantResolvedSqon(activeQuery),
     sort: variantQueryConfig.sort,
-  });
+  };
+
+  const variantResults = useVariants(queryVariables);
 
   useEffect(() => {
     setVariantQueryConfig({
@@ -53,22 +57,31 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
   }, [JSON.stringify(activeQuery)]);
 
   return (
-    <VariantContentLayout
-      queryBuilderId={CNV_VARIANT_PATIENT_QB_ID}
-      savedFilterTag={CNV_EXPLORATION_PATIENT_FILTER_TAG}
-      variantMapping={variantMapping}
-      activeQuery={activeQuery}
-      variantResults={variantResults}
-      getVariantResolvedSqon={getVariantResolvedSqon}
-    >
-      <Card>
-        <VariantsTable
-          results={variantResults}
-          setQueryConfig={setVariantQueryConfig}
-          queryConfig={variantQueryConfig}
-        />
-      </Card>
-    </VariantContentLayout>
+    <>
+      <VariantContentLayout
+        queryBuilderId={CNV_VARIANT_PATIENT_QB_ID}
+        savedFilterTag={CNV_EXPLORATION_PATIENT_FILTER_TAG}
+        variantMapping={variantMapping}
+        activeQuery={activeQuery}
+        variantResults={variantResults}
+        getVariantResolvedSqon={getVariantResolvedSqon}
+      >
+        <Card>
+          <VariantsTable
+            results={variantResults}
+            setQueryConfig={setVariantQueryConfig}
+            queryConfig={variantQueryConfig}
+            setDownloadKeys={setDownloadKeys}
+          />
+        </Card>
+      </VariantContentLayout>
+      <Download
+        downloadKeys={downloadKeys}
+        setDownloadKeys={setDownloadKeys}
+        queryVariables={queryVariables}
+        variants={variantResults}
+      />
+    </>
   );
 };
 

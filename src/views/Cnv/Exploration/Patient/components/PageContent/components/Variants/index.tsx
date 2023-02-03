@@ -7,12 +7,13 @@ import GenesModal from 'views/Cnv/Exploration/components/GenesModal';
 import IGVModal from 'views/Cnv/Exploration/components/IGVModal';
 import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
 import { DEFAULT_PAGE_SIZE } from 'views/Cnv/utils/constant';
+import { ALL_KEYS, VARIANT_KEY } from 'views/Prescriptions/utils/export';
 
 import { useRpt } from 'hooks/useRpt';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
 import { formatQuerySortList } from 'utils/helper';
-import { IQueryConfig, TQueryConfigCb } from 'utils/searchPageTypes';
+import { IQueryConfig, TDownload, TQueryConfigCb } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
 import style from './index.module.scss';
@@ -21,15 +22,17 @@ type OwnProps = {
   results: IQueryResults<VariantEntity[]>;
   setQueryConfig: TQueryConfigCb;
   queryConfig: IQueryConfig;
+  setDownloadKeys: TDownload;
 };
 
-const VariantsTable = ({ results, setQueryConfig, queryConfig }: OwnProps) => {
+const VariantsTable = ({ results, setQueryConfig, queryConfig, setDownloadKeys }: OwnProps) => {
   const dispatch = useDispatch();
   const { user } = useUser();
   const { rpt } = useRpt();
   const [selectedVariant, setSelectedVariant] = useState<VariantEntity | undefined>(undefined);
   const [genesModalOpened, toggleGenesModal] = useState(false);
   const [modalOpened, toggleModal] = useState(false);
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
   const openGenesModal = (record: VariantEntity) => {
     setSelectedVariant(record);
@@ -60,7 +63,7 @@ const VariantsTable = ({ results, setQueryConfig, queryConfig }: OwnProps) => {
         wrapperClassName={style.variantTableWrapper}
         columns={getVariantColumns(openGenesModal, openIgvModal)}
         initialColumnState={user.config.data_exploration?.tables?.patientCnv?.columns}
-        dataSource={results.data.map((i, index) => ({ ...i, key: `${index}` }))}
+        dataSource={results.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
         loading={results.loading}
         dictionary={getProTableDictionary()}
         showSorterTooltip={false}
@@ -72,13 +75,26 @@ const VariantsTable = ({ results, setQueryConfig, queryConfig }: OwnProps) => {
           })
         }
         bordered
+        enableRowSelection
         headerConfig={{
+          enableTableExport: true,
           itemCount: {
             pageIndex: queryConfig.pageIndex,
             pageSize: queryConfig.size,
             total: results.total || 0,
           },
           enableColumnSort: true,
+          onSelectedRowsChange: setSelectedKeys,
+          onSelectAllResultsChange: () => {
+            setSelectedKeys([ALL_KEYS]);
+          },
+          onTableExportClick: () => {
+            if (selectedKeys.length === 0) {
+              setDownloadKeys([ALL_KEYS]);
+            } else {
+              setDownloadKeys(selectedKeys);
+            }
+          },
           onColumnSortChange: (columns) => {
             dispatch(
               updateConfig({
