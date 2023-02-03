@@ -240,6 +240,11 @@ export type Gene = {
       name: string;
       inheritance_code: string[] | null;
     }>;
+    ensembl_gene_id: string;
+    gnomad: {
+      loeuf: number;
+      pli: number;
+    };
     biotype: string;
   };
 };

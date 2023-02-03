@@ -161,7 +161,11 @@ export const VARIANT_QUERY = gql`
                     symbol
                     biotype
                     omim_gene_id
-
+                    ensembl_gene_id
+                    gnomad {
+                      loeuf
+                      pli
+                    }
                     omim {
                       hits {
                         edges {

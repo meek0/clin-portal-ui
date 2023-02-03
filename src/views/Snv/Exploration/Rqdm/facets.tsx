@@ -70,7 +70,12 @@ const filterGroups: {
     ],
     groups: [
       {
-        facets: ['consequences__biotype', 'gene_external_reference'],
+        facets: [
+          'consequences__biotype',
+          'gene_external_reference',
+          'genes__gnomad__pli',
+          'genes__gnomad__loeuf',
+        ],
       },
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.genepanel'),
