@@ -1,12 +1,18 @@
 import intl from 'react-intl-universal';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnsType } from '@ferlab/ui/core/components/ProTable/types';
-import { ITableGeneEntity } from 'graphql/cnv/models';
+import { Tooltip } from 'antd';
+import { ITableGeneEntity, VariantEntity } from 'graphql/cnv/models';
 
+import Type1Icon from 'components/icons/geneOverlapType/Type1Icon';
+import Type2Icon from 'components/icons/geneOverlapType/Type2Icon';
+import Type3Icon from 'components/icons/geneOverlapType/Type3Icon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDnaLength, formatNumber, formatRatio } from 'utils/formatNumber';
 
-export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
+import { GeneOverlapType, getGeneOverlapType } from './utils';
+
+export const getGeneColumns = (variantEntity: VariantEntity): ProColumnsType<ITableGeneEntity> => {
   const columns: ProColumnsType<ITableGeneEntity> = [
     {
       title: intl.get('screen.patientcnv.modal.genes.table.gene'),
@@ -91,6 +97,32 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
             multiple: 1,
           },
           render: (overlap_cnv_ratio: string) => formatRatio(overlap_cnv_ratio),
+        },
+        {
+          title: intl.get('screen.patientcnv.modal.genes.table.overlap_type'),
+          tooltip: intl.get('screen.patientcnv.modal.genes.table.overlap_type.tooltip'),
+          key: 'overlap_type',
+          render: () => {
+            // TODO get start and end from gene?? where??
+            const type = getGeneOverlapType(variantEntity.start, variantEntity.end, 0, 0);
+
+            const Icon =
+              type === GeneOverlapType.TYPE1
+                ? Type1Icon
+                : type === GeneOverlapType.TYPE2
+                ? Type2Icon
+                : Type3Icon;
+
+            return (
+              <Tooltip
+                title={intl.get(`screen.patientcnv.modal.genes.table.overlap_type.tooltip.${type}`)}
+              >
+                <span>
+                  <Icon />
+                </span>
+              </Tooltip>
+            );
+          },
         },
       ],
     },

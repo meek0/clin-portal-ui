@@ -464,6 +464,13 @@
   "screen.patientcnv.modal.genes.table.percent_cnv.tooltip": "% overlapped CNV length",
   "screen.patientcnv.modal.genes.table.percent_gene": "% Gene",
   "screen.patientcnv.modal.genes.table.percent_gene.tooltip": "% overlapped gene length",
+
+  "screen.patientcnv.modal.genes.table.overlap_type": "Type",
+  "screen.patientcnv.modal.genes.table.overlap_type.tooltip": "Gene and CNV overlapping type",
+  "screen.patientcnv.modal.genes.table.overlap_type.tooltip.type1": "Gene falls entirely within the CNV",
+  "screen.patientcnv.modal.genes.table.overlap_type.tooltip.type2": "Gene overlaps the CNV",
+  "screen.patientcnv.modal.genes.table.overlap_type.tooltip.type3": "Gene contains the CNV",
+
   "screen.patientcnv.modal.genes.title": "Overlapping Genes with CNV",
   "screen.patientcnv.results.table.bins_count": "BC",
   "screen.patientcnv.results.table.bins_count.tooltip": "Number of bins in the region",
