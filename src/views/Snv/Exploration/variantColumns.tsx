@@ -231,7 +231,7 @@ export const getVariantColumns = (
           ? external_frequencies.gnomad_genomes_2_1_1.af.toExponential(3)
           : TABLE_EMPTY_PLACE_HOLDER,
     },
-    {
+    /* {
       key: 'gene.pli',
       title: intl.get('screen.patientsnv.results.table.pli'),
       tooltip: `${intl.get('screen.patientsnv.results.table.pli.tooltip')}`,
@@ -302,7 +302,7 @@ export const getVariantColumns = (
           'ND'
         );
       },
-    },
+    }, */
     {
       key: 'frequency_RQDM.total.pf',
       title: intl.get('screen.patientsnv.results.table.rqdm'),
