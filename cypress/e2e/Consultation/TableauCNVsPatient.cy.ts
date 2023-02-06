@@ -52,34 +52,34 @@ afterEach(() => {
 
 describe('Tableau des CNVs d\'un patient', () => {
   it('Vérifier les informations affichées', () => {
-    cy.get('tr[data-row-key="12"]').contains('GAIN:chr1:196774873-196832007').should('exist');
-    cy.get('tr[data-row-key="12"]').contains(/^1$/).should('exist');
-    cy.get('tr[data-row-key="12"]').contains('196 774 872').should('exist');
-    cy.get('tr[data-row-key="12"]').contains('196 832 006').should('exist');
-    cy.get('tr[data-row-key="12"]').contains(/^GAIN$/).should('exist');
-    cy.get('tr[data-row-key="12"]').contains('57.1 kb').should('exist');
-    cy.get('tr[data-row-key="12"]').contains(/^3$/).should('exist');
-    cy.get('tr[data-row-key="12"]').contains(/^2$/).should('exist');
-    cy.get('tr[data-row-key="12"]').contains('CFHR1').should('exist');
-    cy.get('tr[data-row-key="12"]').contains('CFHR3').should('exist');
-    cy.get('tr[data-row-key="12"]').contains('./1').should('exist');
-    cy.get('tr[data-row-key="12"]').contains('PASS').should('exist');
-    cy.get('tr[data-row-key="12"]').contains(/^75$/).should('exist');
-    cy.get('tr[data-row-key="12"]').contains('1.38788').should('exist');
-    cy.get('tr[data-row-key="12"]').contains(/^22$/).should('exist');
-    cy.get('tr[data-row-key="12"]').contains('3, 0').should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('GAIN:chr1:196774873-196832007').should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains(/^1$/).should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('196 774 872').should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('196 832 006').should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains(/^GAIN$/).should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('57.1 kb').should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains(/^3$/).should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains(/^2$/).should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('CFHR1').should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('CFHR3').should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('./1').should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('PASS').should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains(/^75$/).should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('1.38788').should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains(/^22$/).should('exist');
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('3, 0').should('exist');
   });
  
   it('Valider les liens disponibles', () => {
-    cy.get('tr[data-row-key="12"]').contains(/^2$/).click({force: true});
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains(/^2$/).click({force: true});
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');
     cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
 
-    cy.get('tr[data-row-key="12"]').contains('CFHR1').click({force: true});
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('CFHR1').click({force: true});
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');
     cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
 
-    cy.get('tr[data-row-key="12"]').find('svg[class="anticon"]').click({force: true});
+    cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').find('svg[class="anticon"]').click({force: true});
     cy.contains('Alignement et variant').should('exist');
     cy.contains('Zoom in to see features').should('exist');
     cy.contains('ERROR').should('not.exist');
@@ -88,40 +88,88 @@ describe('Tableau des CNVs d\'un patient', () => {
   
   describe('Valider les fonctionnalités du tableau', () => {
     it('Les tris', () => {
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql1');
       cy.get('thead[class="ant-table-thead"]').contains('Chr.').click({force: true});
+      cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
       cy.get('tr[class*="ant-table-row"]').eq(0).contains(/^1$/).should('exist');
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql2');
       cy.get('thead[class="ant-table-thead"]').contains('Chr.').click({force: true});
+      cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
       cy.get('tr[class*="ant-table-row"]').eq(0).contains(/^Y$/).should('exist');
       cy.get('thead[class="ant-table-thead"]').contains('Chr.').click({force: true});
 
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql3');
       cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
+      cy.wait('@getPOSTgraphql3', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql3', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql3', {timeout: 20*1000});
       cy.get('tr[class*="ant-table-row"]').eq(0).contains('14 806').should('exist');
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql4');
       cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
+      cy.wait('@getPOSTgraphql4', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql4', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql4', {timeout: 20*1000});
       cy.get('tr[class*="ant-table-row"]').eq(0).contains('238 158 998').should('exist');
       cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
 
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql5');
       cy.get('thead[class="ant-table-thead"]').contains('CN').click({force: true});
+      cy.wait('@getPOSTgraphql5', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql5', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql5', {timeout: 20*1000});
       cy.get('tr[class*="ant-table-row"]').eq(0).contains(/^0$/).should('exist');
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql6');
       cy.get('thead[class="ant-table-thead"]').contains('CN').click({force: true});
+      cy.wait('@getPOSTgraphql6', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql6', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql6', {timeout: 20*1000});
       cy.get('tr[class*="ant-table-row"]').eq(0).contains(/^6$/).should('exist');
       cy.get('thead[class="ant-table-thead"]').contains('CN').click({force: true});
 
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql7');
       cy.get('thead[class="ant-table-thead"]').contains('Qual.').click({force: true});
+      cy.wait('@getPOSTgraphql7', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql7', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql7', {timeout: 20*1000});
       cy.get('tr[class*="ant-table-row"]').eq(0).contains(/^3$/).should('exist');
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql8');
       cy.get('thead[class="ant-table-thead"]').contains('Qual.').click({force: true});
+      cy.wait('@getPOSTgraphql8', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql8', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql8', {timeout: 20*1000});
       cy.get('tr[class*="ant-table-row"]').eq(0).contains('150').should('exist');
       cy.get('thead[class="ant-table-thead"]').contains('Qual.').click({force: true});
 
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql9');
       cy.get('thead[class="ant-table-thead"]').contains('SM').click({force: true});
+      cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
       cy.get('tr[class*="ant-table-row"]').eq(0).contains('0.00831442').should('exist');
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql10');
       cy.get('thead[class="ant-table-thead"]').contains('SM').click({force: true});
+      cy.wait('@getPOSTgraphql10', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql10', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql10', {timeout: 20*1000});
       cy.get('tr[class*="ant-table-row"]').eq(0).contains('2.7587').should('exist');
       cy.get('thead[class="ant-table-thead"]').contains('SM').click({force: true});
     });
 
     it('Le tri multiple', () => {
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql1');
       cy.get('thead[class="ant-table-thead"]').contains('Chr.').click({force: true});
+      cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
+      cy.intercept('POST', '**/graphql').as('getPOSTgraphql2');
       cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
+      cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
+      cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
       cy.get('tr[class*="ant-table-row"]').eq(0).contains('9 823 627').should('exist');
     });
   

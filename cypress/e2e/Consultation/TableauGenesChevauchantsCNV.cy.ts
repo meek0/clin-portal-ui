@@ -20,7 +20,7 @@ afterEach(() => {
 describe('Tableau des gènes chevauchant un CNV', () => {
   it('Vérifier les informations affichées', () => {
     cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
-    cy.get('tr[data-row-key="79"]').contains(/^2$/).click({force: true});
+    cy.get('tr[data-row-key="00b535001879d47abebd243f45e148428500448a"]').contains(/^2$/).click({force: true});
 
     cy.get('div[role="dialog"]').find('tr[data-row-key="0"]').contains('OCLN').should('exist');
     cy.get('div[role="dialog"]').find('tr[data-row-key="0"]').contains('RGDI').should('exist');
@@ -33,7 +33,7 @@ describe('Tableau des gènes chevauchant un CNV', () => {
  
   it('Valider les liens disponibles', () => {
     cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
-    cy.get('tr[data-row-key="79"]').contains(/^2$/).click({force: true});
+    cy.get('tr[data-row-key="00b535001879d47abebd243f45e148428500448a"]').contains(/^2$/).click({force: true});
 
     cy.get('div[role="dialog"]').find('tr[data-row-key="0"]').contains('OCLN').invoke('removeAttr', 'target').click({force: true});
     cy.get('body').contains(/^OCLN$/).should('exist');
@@ -42,7 +42,7 @@ describe('Tableau des gènes chevauchant un CNV', () => {
   describe('Valider les fonctionnalités du tableau', () => {
     it('Les tris', () => {
       cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
-      cy.get('tr[data-row-key="79"]').contains(/^2$/).click({force: true});
+      cy.get('tr[data-row-key="00b535001879d47abebd243f45e148428500448a"]').contains(/^2$/).click({force: true});
 
       cy.get('div[role="dialog"]').find('thead[class="ant-table-thead"]').contains('Gène').click({force: true});
       cy.get('div[role="dialog"]').find('tr[class*="ant-table-row"]').eq(0).contains('GTF2H2C').should('exist');
@@ -82,7 +82,7 @@ describe('Tableau des gènes chevauchant un CNV', () => {
     });
 
     it('Le tri multiple', () => {
-      cy.get('tr[data-row-key="20"]').contains(/^38$/).click({force: true});
+      cy.get('tr[data-row-key="498403813965c489afc0ba3c70fddbc181703e39"]').contains(/^38$/).click({force: true});
 
       cy.get('div[role="dialog"]').find('thead[class="ant-table-thead"]').contains('# Exons').click({force: true});
       cy.get('div[role="dialog"]').find('thead[class="ant-table-thead"]').contains('Gène').click({force: true});
@@ -90,7 +90,7 @@ describe('Tableau des gènes chevauchant un CNV', () => {
     });
   
     it('La pagination', () => {
-      cy.get('tr[data-row-key="20"]').contains(/^38$/).click({force: true});
+      cy.get('tr[data-row-key="498403813965c489afc0ba3c70fddbc181703e39"]').contains(/^38$/).click({force: true});
 
       cy.get('div[role="dialog"]').find('[class*="ant-pagination-item-2"]').click({force: true});
       cy.get('div[role="dialog"]').find('div[class*="ProTableHeader"]').contains('Résultats 21 - 38 de 38').should('exist');
