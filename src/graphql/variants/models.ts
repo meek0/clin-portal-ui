@@ -197,6 +197,8 @@ export type ConsequenceEntity = {
   hgvsp: string;
   impact_score: number | null;
   canonical: boolean;
+  mane_plus: boolean;
+  mane_select: boolean;
   coding_dna_change: string;
   strand: string;
   refseq_mrna_id: string[];
