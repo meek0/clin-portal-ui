@@ -8,18 +8,22 @@ export enum GeneOverlapType {
  * Type I:  cnvStart <= geneStart & cnvEnd >= geneEnd
  * Type II: cnvStart > geneStart & cnvEnd > geneEnd || cnvStart < geneStart & cnvEnd < geneEnd
  * Type III: cnvStart >= geneStart & cnvEnd <= geneEnd
+ * 
+ * OR
+ * 
+ * Type I:  overlap_gene_ratio = 1 & overlap_cnv_ratio =< 1
+ * Type II: overlap_gene_ratio < 1 & overlap_cnv_ratio < 1
+ * Type III: overlap_gene_ratio < 1 & overlap_cnv_ratio = 1
  */
 export const getGeneOverlapType = (
-  cnvStart: number,
-  cnvEnd: number,
-  geneStart: number,
-  geneEnd: number,
+  overlap_gene_ratio: number,
+  overlap_cnv_ratio: number,
 ): GeneOverlapType => {
-  if (cnvStart <= geneStart && cnvEnd >= geneEnd) {
+  if (overlap_gene_ratio == 1 && overlap_cnv_ratio <= 1) {
     return GeneOverlapType.TYPE1;
   }
 
-  if ((cnvStart > geneStart && cnvEnd > geneEnd) || (cnvStart < geneStart && cnvEnd < geneEnd)) {
+  if (overlap_gene_ratio < 1 && overlap_gene_ratio < 1) {
     return GeneOverlapType.TYPE2;
   }
 
