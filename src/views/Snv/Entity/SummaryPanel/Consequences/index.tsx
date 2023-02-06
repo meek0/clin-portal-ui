@@ -13,6 +13,8 @@ import NoData from 'views/Snv/Entity/NoData';
 
 import CollapsePanel from 'components/containers/collapse';
 import CanonicalIcon from 'components/icons/CanonicalIcon';
+import ManePlusIcon from 'components/icons/ManePlusIcon';
+import ManeSelectIcon from 'components/icons/ManeSelectIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
 import { getVepImpactTag } from '../..';
@@ -184,6 +186,8 @@ export const makeRows = (consequences: ArrangerEdge<ConsequenceEntity>[]) =>
       ids: consequence.node.refseq_mrna_id?.filter((i) => i?.length > 0),
       transcriptId: consequence.node.ensembl_transcript_id,
       isCanonical: consequence.node.canonical,
+      isManePlus: consequence.node.mane_plus,
+      isManeSelect: consequence.node.mane_select,
     },
   }));
 
@@ -276,16 +280,37 @@ const columns = [
   {
     title: () => intl.get('ensemblID'),
     dataIndex: 'transcript',
-    render: (transcript: { transcriptId: string; isCanonical?: boolean }) => (
+    render: (transcript: {
+      transcriptId: string;
+      isCanonical?: boolean;
+      isManePlus?: boolean;
+      isManeSelect: boolean;
+    }) => (
       <Space>
         {transcript.transcriptId}
-        {transcript.isCanonical && (
-          <Tooltip title={intl.get('screen.variantDetails.summaryTab.canonical')}>
-            <div>
-              <CanonicalIcon className={styles.canonicalIcon} height="14" width="14" />
-            </div>
-          </Tooltip>
-        )}
+        <Space size={2}>
+          {transcript.isCanonical && (
+            <Tooltip title={intl.get('screen.variantDetails.summaryTab.canonical')}>
+              <div>
+                <CanonicalIcon className={styles.canonicalIcon} height="14" width="14" />
+              </div>
+            </Tooltip>
+          )}
+          {transcript.isManeSelect && (
+            <Tooltip title={intl.get('screen.variantDetails.summaryTab.canonical')}>
+              <div>
+                <ManeSelectIcon className={styles.canonicalIcon} height="14" width="14" />
+              </div>
+            </Tooltip>
+          )}
+          {transcript.isManePlus && (
+            <Tooltip title={intl.get('screen.variantDetails.summaryTab.canonical')}>
+              <div>
+                <ManePlusIcon className={styles.canonicalIcon} height="14" width="14" />
+              </div>
+            </Tooltip>
+          )}
+        </Space>
       </Space>
     ),
     width: '15%',

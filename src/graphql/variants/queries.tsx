@@ -408,6 +408,8 @@ export const TAB_SUMMARY_QUERY = gql`
                     hgvsp
                     strand
                     canonical
+                    mane_select
+                    mane_plus
                     conservations {
                       phylo_p17way_primate_rankscore
                     }
