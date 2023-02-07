@@ -8,7 +8,7 @@ export const MAX_VARIANTS_DOWNLOAD = 10000;
 export const VARIANT_KEY = 'hash';
 export const JOIN_SEP = ' ';
 
-const valueToStr = (value: any) => {
+const valueToStr = (value: any): string => {
   if (value) {
     if (Array.isArray(value)) {
       return value.join(JOIN_SEP);
@@ -20,7 +20,7 @@ const valueToStr = (value: any) => {
   return '';
 };
 
-function getLeafNodes(obj: any) {
+function getLeafNodes(obj: any): string {
   function traverse(acc: any, value: any) {
     if (value) {
       if (typeof value == 'object') {
@@ -38,7 +38,7 @@ function getLeafNodes(obj: any) {
     }
     return acc;
   }
-  return Array.from(new Set(traverse([], obj))).join(JOIN_SEP);
+  return String(Array.from(new Set(traverse([], obj))).join(JOIN_SEP));
 }
 
 export const buildVariantsDownloadCount = (keys: Array<string>, expectedTotal: number): number => {
@@ -103,9 +103,10 @@ export const downloadAsTSV = (
   key: string,
   columns: any[],
   prefix: string,
+  mapping: any = {},
 ) => {
   const filtered = extractSelectionFromResults(data, dataKeys, key);
-  const headers = columns.map((c) => c.key);
+  const headers = columns.map((c) => get(mapping, c.key, c.key));
   const tsv = exportAsTSV(filtered, headers);
   downloadText(tsv, `${prefix}_${makeFilenameDatePart()}.tsv`, 'text/csv');
 };

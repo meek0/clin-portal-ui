@@ -600,7 +600,7 @@
   "screen.patientsnv.results.table.variants": "Variants",
   "screen.patientsnv.results.table.zygosity": "Zygosité",
   "screen.patientsnv.results.table.download.limit.title": "Nombre maximal dépassé",
-  "screen.patientsnv.results.table.download.limit.message": "Un maximum de {MAX_VARIANTS_DOWNLOAD} items peuvent être exportés à la fois. Veuillez restreindre votre sélection et réessayer.",
+  "screen.patientsnv.results.table.download.limit.message": "Un maximum de {MAX_VARIANTS_DOWNLOAD,number} items peuvent être exportés à la fois. Veuillez restreindre votre sélection et réessayer.",
   "screen.patientsnv.results.table.download.limit.button": "Fermer",
   "screen.patientsnv.results.table.download.info.title": "Le téléchargement se prépare",
   "screen.patientsnv.results.table.download.info.message": "Ce processus peut prendre plusieurs minutes.",
