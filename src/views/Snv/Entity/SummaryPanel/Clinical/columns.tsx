@@ -1,6 +1,7 @@
 import intl from 'react-intl-universal';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
+import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Typography } from 'antd';
 import {
   ClinicalGenesTableSource,
@@ -30,6 +31,7 @@ export const columnsClinVar = [
   {
     title: () => intl.get('interpretation'),
     dataIndex: 'interpretation',
+    render: (interpretation: string) => removeUnderscoreAndCapitalize(interpretation),
   },
   {
     title: () => intl.get('condition'),
