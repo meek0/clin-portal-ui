@@ -5,6 +5,7 @@ import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import ExpandableCell from '@ferlab/ui/core/components/tables/ExpandableCell';
 import ExpandableTable from '@ferlab/ui/core/components/tables/ExpandableTable';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
+import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Divider, Space, Tooltip, Typography } from 'antd';
 import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
 import { ConsequenceEntity, GeneEntity, Impact, VariantEntity } from 'graphql/variants/models';
@@ -210,7 +211,7 @@ const columns = [
       }
       return consequences?.map((item) => (
         <StackLayout key={item} horizontal className={styles.cellList}>
-          <Text>{item}</Text>
+          <Text>{removeUnderscoreAndCapitalize(item)}</Text>
         </StackLayout>
       ));
     },

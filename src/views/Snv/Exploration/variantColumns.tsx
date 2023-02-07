@@ -195,16 +195,22 @@ export const getVariantColumns = (
       dataIndex: 'clinvar',
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
       width: 130,
-      render: (clinVar: ClinVar) =>
-        clinVar?.clin_sig && clinVar.clinvar_id ? (
+      render: (clinVar: ClinVar) => {
+        const clinVarSigFormatted: string[] = [];
+        clinVar?.clin_sig &&
+          clinVar.clin_sig.map((c) => {
+            clinVarSigFormatted.push(removeUnderscoreAndCapitalize(c));
+          });
+        return clinVar?.clin_sig && clinVar.clinvar_id ? (
           <ExternalLink
             href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
           >
-            {clinVar.clin_sig.join(', ')}
+            {clinVarSigFormatted.join(', ')}
           </ExternalLink>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
-        ),
+        );
+      },
     },
     {
       key: 'acmgVerdict',
