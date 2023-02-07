@@ -166,7 +166,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
 
     // Tiroir d'occurrence
-    cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="0"]').find('td[class*="ant-table-cell-fix-right-first"]').find('svg[class="anticon"]').first().click({force: true});
+    cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td[class*="ant-table-cell-fix-right-first"]').find('svg[class="anticon"]').first().click({force: true});
     cy.contains('Occurrence').should('exist', {timeout: 20*1000});
     cy.contains('Variant').should('exist', {timeout: 20*1000});
     cy.contains('Patient').should('exist', {timeout: 20*1000});
@@ -203,7 +203,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.get('body').find('button[class="ant-drawer-close"]').invoke('click');
 
     // IGV
-    cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="0"]').find('td[class*="ant-table-cell-fix-right-first"]').find('svg[class="anticon"]').last().click({force: true});
+    cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td[class*="ant-table-cell-fix-right-first"]').find('svg[class="anticon"]').last().click({force: true});
     cy.contains('Alignement et variant').should('exist', {timeout: 20*1000});
     cy.contains('proband').should('exist', {timeout: 20*1000});
     cy.contains('mother').should('exist', {timeout: 20*1000});
@@ -232,7 +232,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Utiliser les filtres pour créer une requête').should('exist', {timeout: 20*1000});
 
     // Liste des gènes chevauchants
-    cy.get('body').find('div[class="ant-table-wrapper"]').find('tr[data-row-key="0"]').contains('CLSTN1').click({force: true});
+    cy.get('body').find('div[class="ant-table-wrapper"]').find('tr[data-row-key="4c90806f5c0439083cf84982becd12e2993ed4b3"]').contains('CLSTN1').click({force: true});
     cy.contains('Liste des gènes chevauchants le CNV').should('exist', {timeout: 20*1000});
     cy.contains('Gène').should('exist', {timeout: 20*1000});
     cy.contains('Panel').should('exist', {timeout: 20*1000});

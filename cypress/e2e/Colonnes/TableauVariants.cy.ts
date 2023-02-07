@@ -18,39 +18,39 @@ describe('Tableau des variants', () => {
 
     it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(0)
+        .find('th[class*="ant-table-cell"]').eq(1)
         .contains('Variant').should('exist');
       
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(1)
+        .find('th[class*="ant-table-cell"]').eq(2)
         .contains('Type').should('exist');
     
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(2)
+        .find('th[class*="ant-table-cell"]').eq(3)
         .contains('dbSNP').should('exist');
   
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(3)
+        .find('th[class*="ant-table-cell"]').eq(4)
         .contains('Conséquences').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(4)
+        .find('th[class*="ant-table-cell"]').eq(5)
         .contains('OMIM').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(5)
+        .find('th[class*="ant-table-cell"]').eq(6)
         .contains('ClinVar').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(6)
+        .find('th[class*="ant-table-cell"]').eq(7)
         .contains('ACMG').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(7)
+        .find('th[class*="ant-table-cell"]').eq(8)
         .contains('gnomAD').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(8)
+        .find('th[class*="ant-table-cell"]').eq(9)
         .contains('RQDM').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')

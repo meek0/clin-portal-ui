@@ -20,46 +20,46 @@ describe('Tableau des CNVs d\'un patient', () => {
 
     it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(0)
+        .find('th[class*="ant-table-cell"]').eq(1)
         .contains('Variant').should('exist');
       
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(1)
+        .find('th[class*="ant-table-cell"]').eq(2)
         .should('have.class', 'ant-table-column-has-sorters')
         .contains('Chr.').should('exist');
     
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(2)
+        .find('th[class*="ant-table-cell"]').eq(3)
         .should('have.class', 'ant-table-column-has-sorters')
         .contains('Début').should('exist');
   
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(3)
+        .find('th[class*="ant-table-cell"]').eq(4)
         .contains('Fin').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(4)
+        .find('th[class*="ant-table-cell"]').eq(5)
         .contains('Événement').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(5)
+        .find('th[class*="ant-table-cell"]').eq(6)
         .contains('Longueur').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(6)
+        .find('th[class*="ant-table-cell"]').eq(7)
         .should('have.class', 'ant-table-column-has-sorters')
         .contains('CN').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(7)
+        .find('th[class*="ant-table-cell"]').eq(8)
         .contains('# Gènes').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(8)
+        .find('th[class*="ant-table-cell"]').eq(9)
         .contains('Gènes').should('exist');
 /* CLIN-1621
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class*="ant-table-cell"]').eq(9)
+        .find('th[class*="ant-table-cell"]').eq(10)
         .contains('IGV').should('exist');*/
 
       cy.get('thead[class="ant-table-thead"]')

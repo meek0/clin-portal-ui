@@ -12,7 +12,7 @@ beforeEach(() => {
   cy.wait('@getPOSTgraphql', {timeout: 5000});
   cy.wait('@getPOSTgraphql', {timeout: 5000});
 
-  cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="0"]').find('td[class*="ant-table-cell-fix-right-first"]').find('svg[class="anticon"]').first().click({force: true});
+  cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="f9a9cd03d29afa07bd4ac227a9d403404c28d5ef"]').find('td[class*="ant-table-cell-fix-right-first"]').find('svg[class="anticon"]').first().click({force: true});
 });
 
 afterEach(() => {
