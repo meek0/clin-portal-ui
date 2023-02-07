@@ -298,14 +298,14 @@ const columns = [
             </Tooltip>
           )}
           {transcript.isManeSelect && (
-            <Tooltip title={intl.get('screen.variantDetails.summaryTab.canonical')}>
+            <Tooltip title={intl.get('screen.variantDetails.summaryTab.maneSelect')}>
               <div>
                 <ManeSelectIcon className={styles.canonicalIcon} height="14" width="14" />
               </div>
             </Tooltip>
           )}
           {transcript.isManePlus && (
-            <Tooltip title={intl.get('screen.variantDetails.summaryTab.canonical')}>
+            <Tooltip title={intl.get('screen.variantDetails.summaryTab.manePlus')}>
               <div>
                 <ManePlusIcon className={styles.canonicalIcon} height="14" width="14" />
               </div>
