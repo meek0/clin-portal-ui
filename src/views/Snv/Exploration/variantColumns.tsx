@@ -1,3 +1,4 @@
+import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
@@ -140,54 +141,7 @@ export const getVariantColumns = (
       title: intl.get('screen.patientsnv.results.table.omim'),
       tooltip: intl.get('screen.patientsnv.results.table.omim.tooltip'),
       width: 180,
-      render: (variant: { genes: { hits: { edges: Gene[] } } }) => {
-        const genesWithOmim = variant.genes.hits.edges.filter(
-          (gene) => gene.node.omim?.hits?.edges?.length,
-        );
-
-        if (!genesWithOmim.length) {
-          return TABLE_EMPTY_PLACE_HOLDER;
-        }
-
-        return (
-          <ExpandableCell<Gene>
-            dataSource={genesWithOmim}
-            nOfElementsWhenCollapsed={2}
-            dictionnary={{
-              'see.less': intl.get('see.less'),
-              'see.more': intl.get('see.more'),
-            }}
-            renderItem={(item, id): React.ReactNode => {
-              const omims = item.node.omim?.hits?.edges || [];
-              const inheritance = omims
-                .reduce<string[]>(
-                  (prev, curr) => [...prev, ...(curr.node.inheritance_code || [])],
-                  [],
-                )
-                .filter((item, pos, self) => self.indexOf(item) == pos);
-
-              return (
-                <StackLayout horizontal>
-                  <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
-                    <ExternalLink href={`https://www.omim.org/entry/${item.node.omim_gene_id}`}>
-                      {item.node.symbol}
-                    </ExternalLink>
-                    <Space size={4}>
-                      {inheritance.length
-                        ? inheritance.map((code) => (
-                            <Tooltip key={code} title={intl.get(`inheritant.code.${code}`)}>
-                              <Tag color="processing">{code}</Tag>
-                            </Tooltip>
-                          ))
-                        : TABLE_EMPTY_PLACE_HOLDER}
-                    </Space>
-                  </Space>
-                </StackLayout>
-              );
-            }}
-          />
-        );
-      },
+      render: (variant: { genes: { hits: { edges: Gene[] } } }) => omim(variant),
     },
     {
       key: 'clinvar',
@@ -490,4 +444,60 @@ export const getVariantColumns = (
   }
 
   return columns;
+};
+
+export const omimToString = (variant: any) => {
+  const render = omim(variant);
+  if (typeof render === 'string') {
+    return render;
+  } else {
+    return ReactDOMServer.renderToString(render);
+  }
+};
+
+const omim = (variant: { genes: { hits: { edges: Gene[] } } }) => {
+  const genesWithOmim = variant.genes.hits.edges.filter(
+    (gene) => gene.node.omim?.hits?.edges?.length,
+  );
+
+  if (!genesWithOmim.length) {
+    return TABLE_EMPTY_PLACE_HOLDER;
+  }
+
+  return (
+    <ExpandableCell<Gene>
+      dataSource={genesWithOmim}
+      nOfElementsWhenCollapsed={2}
+      dictionnary={{
+        'see.less': intl.get('see.less'),
+        'see.more': intl.get('see.more'),
+      }}
+      renderItem={(item, id): React.ReactNode => {
+        const omims = item.node.omim?.hits?.edges || [];
+        const inheritance = omims
+          .reduce<string[]>((prev, curr) => [...prev, ...(curr.node.inheritance_code || [])], [])
+          .filter((item, pos, self) => self.indexOf(item) == pos);
+
+        return (
+          <StackLayout horizontal>
+            <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
+              <ExternalLink href={`https://www.omim.org/entry/${item.node.omim_gene_id}`}>
+                {item.node.symbol}
+              </ExternalLink>
+              <Space size={4}>
+                {inheritance.length
+                  ? inheritance.map((code) => (
+                      <Tooltip key={code} title={intl.get(`inheritant.code.${code}`)}>
+                        {' '}
+                        <Tag color="processing">{code}</Tag>
+                      </Tooltip>
+                    ))
+                  : TABLE_EMPTY_PLACE_HOLDER}
+              </Space>
+            </Space>
+          </StackLayout>
+        );
+      }}
+    />
+  );
 };

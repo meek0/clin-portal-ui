@@ -1,3 +1,4 @@
+import ReactDOMServer from 'react-dom/server';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { Consequence, Impact } from 'graphql/variants/models';
@@ -42,14 +43,15 @@ const ConsequencesCell = ({ consequences }: OwnProps) => {
               </span>
               {node.symbol && (
                 <span key={toKebabCase(node.symbol)} className={style.symbol}>
+                  {' '}
                   <ExternalLink
                     href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${node.symbol}`}
                   >
                     {node.symbol}
                   </ExternalLink>
                 </span>
-              )}
-              {node.aa_change && <span>{node.aa_change}</span>}
+              )}{' '}
+              {node.aa_change && <span>{node.aa_change}</span>}{' '}
             </StackLayout>
           );
         }
@@ -59,5 +61,10 @@ const ConsequencesCell = ({ consequences }: OwnProps) => {
     </>
   );
 };
+
+export const toString = (row: any) =>
+  ReactDOMServer.renderToString(
+    <ConsequencesCell consequences={row.consequences?.hits?.edges || []} />,
+  );
 
 export default ConsequencesCell;

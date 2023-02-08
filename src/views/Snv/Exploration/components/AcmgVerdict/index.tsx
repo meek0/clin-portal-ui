@@ -1,3 +1,4 @@
+import ReactDOMServer from 'react-dom/server';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { Space } from 'antd';
 import { Varsome } from 'graphql/variants/models';
@@ -21,5 +22,8 @@ const AcmgVerdict = ({ varsome, locus }: OwnProps) => {
     </Space>
   );
 };
+
+export const toString = (row: any) =>
+  ReactDOMServer.renderToString(<AcmgVerdict varsome={row.varsome} locus={row.locus} />);
 
 export default AcmgVerdict;

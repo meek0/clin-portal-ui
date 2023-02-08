@@ -200,6 +200,7 @@ export const VARIANT_QUERY_TSV = gql`
         edges {
           searchAfter
           node {
+            locus
             hgvsg
             hash
             variant_class
@@ -209,6 +210,9 @@ export const VARIANT_QUERY_TSV = gql`
                 edges {
                   node {
                     symbol
+                    consequences
+                    vep_impact
+                    aa_change
                   }
                 }
               }
@@ -227,6 +231,41 @@ export const VARIANT_QUERY_TSV = gql`
                 pc
                 pn
                 pf
+              }
+            }
+            varsome {
+              acmg {
+                verdict {
+                  verdict
+                }
+                classifications {
+                  hits {
+                    edges {
+                      node {
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            genes {
+              hits {
+                edges {
+                  node {
+                    symbol
+                    omim_gene_id
+                    omim {
+                      hits {
+                        edges {
+                          node {
+                            inheritance_code
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }

@@ -2,6 +2,8 @@ import {
   ALL_KEYS,
   buildVariantsDownloadCount,
   buildVariantsDownloadSqon,
+  convertToPlain,
+  customMapping,
   exportAsTSV,
   extractSelectionFromResults,
   makeFilenameDatePart,
@@ -27,6 +29,101 @@ describe('exportAsTSV', () => {
   });
   test('should export at least headers', () => {
     expect(exportAsTSV([], ['foo'])).toEqual('foo\n');
+  });
+  test('should map header', () => {
+    expect(
+      exportAsTSV([{ colInData: 'bar' }], ['colInHeader'], { colInHeader: 'colInData' }),
+    ).toEqual('colInHeader\nbar\n');
+  });
+});
+
+describe('convertToPlain', () => {
+  test('should convert HTML to plain text', () => {
+    expect(convertToPlain('<div className="foo"><p>bar</p></div>')).toEqual('bar');
+  });
+});
+
+describe('customMapping', () => {
+  test('should map acmgVerdict', () => {
+    const row = {
+      locus: 'locus',
+      varsome: {
+        acmg: {
+          verdict: {
+            verdict: 'foo',
+          },
+        },
+      },
+    };
+    expect(customMapping('acmgVerdict', row)).toEqual('foo');
+  });
+  test('should map omim', () => {
+    const row = {
+      genes: {
+        hits: {
+          edges: [
+            {
+              node: {
+                symbol: 'symbol',
+                omim_gene_id: 'id',
+                omim: {
+                  hits: {
+                    edges: [
+                      {
+                        node: {
+                          inheritance_code: ['IC'],
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('omim', row)).toEqual('symbol IC');
+  });
+  test('should map acmgcriteria', () => {
+    const row = {
+      varsome: {
+        acmg: {
+          classifications: {
+            hits: {
+              edges: [
+                {
+                  node: {
+                    met_criteria: 'crit',
+                    name: 'name',
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    };
+    expect(customMapping('acmgcriteria', row)).toEqual('name');
+  });
+  test('should map consequences', () => {
+    const row = {
+      consequences: {
+        hits: {
+          edges: [
+            {
+              node: {
+                symbol: 'symbol',
+                consequences: 'foo',
+                vep_impact: 'impact',
+                aa_change: 'aa',
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('consequences', row)).toEqual('f symbol aa ');
   });
 });
 

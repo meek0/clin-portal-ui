@@ -1,5 +1,8 @@
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import get from 'lodash/get';
+import { toString as consequencesToString } from 'views/Snv/components/ConsequencesCell/index';
+import { toString as acmgVerdictToString } from 'views/Snv/Exploration/components/AcmgVerdict';
+import { getAcmgRuleContent, omimToString } from 'views/Snv/Exploration/variantColumns';
 
 import { downloadText } from 'utils/helper';
 
@@ -80,7 +83,22 @@ export const buildVariantsDownloadSqon = (
   }
 };
 
-export const exportAsTSV = (data: any[], headers: string[]): string => {
+export const convertToPlain = (html: string) => html.replace(/<[^>]+>/g, '');
+
+export const customMapping = (key: string, row: any) => {
+  if (key === 'acmgVerdict') {
+    return convertToPlain(acmgVerdictToString(row));
+  } else if (key === 'omim') {
+    return convertToPlain(omimToString(row));
+  } else if (key === 'acmgcriteria') {
+    return getAcmgRuleContent(row.varsome);
+  } else if (key === 'consequences') {
+    return convertToPlain(consequencesToString(row));
+  }
+  return null;
+};
+
+export const exportAsTSV = (data: any[], headers: string[], mapping: any = {}): string => {
   let tsv = '';
   if (data && headers && headers.length > 0) {
     tsv += headers.join('\t');
@@ -88,7 +106,9 @@ export const exportAsTSV = (data: any[], headers: string[]): string => {
     data.forEach((row) => {
       const values: string[] = [];
       headers.forEach((header) => {
-        values.push(valueToStr(get(row, header, '')));
+        const value =
+          customMapping(header, row) || valueToStr(get(row, get(mapping, header, header), ''));
+        values.push(value);
       });
       tsv += values.join('\t');
       tsv += '\n';
@@ -106,8 +126,8 @@ export const downloadAsTSV = (
   mapping: any = {},
 ) => {
   const filtered = extractSelectionFromResults(data, dataKeys, key);
-  const headers = columns.map((c) => get(mapping, c.key, c.key));
-  const tsv = exportAsTSV(filtered, headers);
+  const headers = columns.map((c) => c.key);
+  const tsv = exportAsTSV(filtered, headers, mapping);
   downloadText(tsv, `${prefix}_${makeFilenameDatePart()}.tsv`, 'text/csv');
 };
 
