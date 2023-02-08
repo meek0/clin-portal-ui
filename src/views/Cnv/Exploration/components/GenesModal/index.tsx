@@ -40,37 +40,35 @@ const GenesModal = ({ variantEntity, isOpen = false, toggleModal }: OwnProps) =>
       centered
       width="90vw"
     >
-      {
-        <ProTable<ITableGeneEntity>
-          tableId="genes_table"
-          columns={getGeneColumns()}
-          dictionary={getProTableDictionary()}
-          dataSource={data}
-          headerConfig={{
-            itemCount: {
-              pageIndex: pageIndex,
-              pageSize: pageSize,
-              total: data?.length || 0,
-            },
-          }}
-          pagination={{
-            current: pageIndex,
+      <ProTable<ITableGeneEntity>
+        tableId="genes_table"
+        columns={getGeneColumns(variantEntity!)}
+        dictionary={getProTableDictionary()}
+        dataSource={data}
+        headerConfig={{
+          itemCount: {
+            pageIndex: pageIndex,
             pageSize: pageSize,
-            defaultPageSize: pageSize,
-            total: data?.length,
-            hideOnSinglePage: true,
-            responsive: true,
-            size: 'small',
-          }}
-          showSorterTooltip={false}
-          onChange={({ current, pageSize }) => {
-            setPageIndex(current!);
-            setPageSize(pageSize!);
-          }}
-          size="small"
-          bordered
-        />
-      }
+            total: data?.length || 0,
+          },
+        }}
+        pagination={{
+          current: pageIndex,
+          pageSize: pageSize,
+          defaultPageSize: pageSize,
+          total: data?.length,
+          hideOnSinglePage: true,
+          responsive: true,
+          size: 'small',
+        }}
+        showSorterTooltip={false}
+        onChange={({ current, pageSize }) => {
+          setPageIndex(current!);
+          setPageSize(pageSize!);
+        }}
+        size="small"
+        bordered
+      />
     </Modal>
   );
 };

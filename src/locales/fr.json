@@ -465,6 +465,13 @@
   "screen.patientcnv.modal.genes.table.percent_cnv.tooltip": "% de la longueur du CNV chevauché",
   "screen.patientcnv.modal.genes.table.percent_gene": "% Gène",
   "screen.patientcnv.modal.genes.table.percent_gene.tooltip": "% de la longueur du gène chevauché",
+
+  "screen.patientcnv.modal.genes.table.overlap_type": "Type",
+  "screen.patientcnv.modal.genes.table.overlap_type.tooltip": "Type de chevauchement entre le gène et le CNV",
+  "screen.patientcnv.modal.genes.table.overlap_type.tooltip.type1": "Gène entièrement contenu dans le CNV",
+  "screen.patientcnv.modal.genes.table.overlap_type.tooltip.type2": "Gène recoupe le CNV à une de ses extrémités",
+  "screen.patientcnv.modal.genes.table.overlap_type.tooltip.type3": "Gène contient entièrement le CNV",
+
   "screen.patientcnv.modal.genes.title": "Liste des gènes chevauchants le CNV",
   "screen.patientcnv.results.table.bins_count": "BC",
   "screen.patientcnv.results.table.bins_count.tooltip": "Nombre de bins dans la région",
