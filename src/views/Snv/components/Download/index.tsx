@@ -4,11 +4,13 @@ import { useDispatch } from 'react-redux';
 import { IQueryResults } from 'graphql/models';
 import { useVariantsTSV } from 'graphql/variants/actions';
 import { VariantEntity } from 'graphql/variants/models';
+import { VARIANT_QUERY_TSV, VARIANT_QUERY_TSV_WITH_DONORS } from 'graphql/variants/queries';
 import {
   buildVariantsDownloadCount,
   buildVariantsDownloadSqon,
   downloadAsTSV,
   MAX_VARIANTS_DOWNLOAD,
+  MAX_VARIANTS_WITH_DONORS_DOWNLOAD,
   VARIANT_KEY,
 } from 'views/Prescriptions/utils/export';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
@@ -37,7 +39,12 @@ const Download = ({
   const [showModalLimit, setShowModalLimit] = useState(false);
   const dispatch = useDispatch();
 
-  const variantToDownloadCount = buildVariantsDownloadCount(downloadKeys, variants.total);
+  const maxAllowed = patientId ? MAX_VARIANTS_WITH_DONORS_DOWNLOAD : MAX_VARIANTS_DOWNLOAD;
+  const variantToDownloadCount = buildVariantsDownloadCount(
+    downloadKeys,
+    variants.total,
+    maxAllowed,
+  );
 
   const variantsToDownload = useVariantsTSV(
     {
@@ -47,6 +54,7 @@ const Download = ({
       sqon: buildVariantsDownloadSqon(downloadKeys, VARIANT_KEY, queryVariables.sqon),
     },
     queryConfig.operations,
+    patientId ? VARIANT_QUERY_TSV_WITH_DONORS : VARIANT_QUERY_TSV,
   );
 
   useEffect(() => {
@@ -96,7 +104,7 @@ const Download = ({
         type={'warning'}
         title={intl.get('screen.patientsnv.results.table.download.limit.title')}
         message={intl.get('screen.patientsnv.results.table.download.limit.message', {
-          MAX_VARIANTS_DOWNLOAD,
+          MAX_VARIANTS_DOWNLOAD: maxAllowed,
         })}
         okText={intl.get('screen.patientsnv.results.table.download.limit.button')}
         showModal={showModalLimit}

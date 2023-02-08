@@ -7,7 +7,7 @@ import { QueryVariable } from 'graphql/queries';
 import useLazyResultQuery from 'hooks/graphql/useLazyResultQuery';
 
 import { IVariantResultTree, VariantEntity } from './models';
-import { VARIANT_QUERY, VARIANT_QUERY_TSV } from './queries';
+import { VARIANT_QUERY } from './queries';
 
 export const useVariants = (
   variables?: QueryVariable,
@@ -30,4 +30,5 @@ export const useVariants = (
 export const useVariantsTSV = (
   variables?: QueryVariable,
   operations?: IQueryOperationsConfig,
-): IQueryResults<VariantEntity[]> => useVariants(variables, operations, VARIANT_QUERY_TSV);
+  query?: DocumentNode,
+): IQueryResults<VariantEntity[]> => useVariants(variables, operations, query);

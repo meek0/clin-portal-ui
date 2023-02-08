@@ -381,24 +381,26 @@ describe('makeFilenameDatePart', () => {
 
 describe('buildVariantsDownloadCount', () => {
   test('should be robust', () => {
-    expect(buildVariantsDownloadCount(null, 0)).toEqual(0);
+    expect(buildVariantsDownloadCount(null, 0, MAX_VARIANTS_DOWNLOAD)).toEqual(0);
   });
   test('should return 0 if no keys to download', () => {
-    expect(buildVariantsDownloadCount([], 0)).toEqual(0);
+    expect(buildVariantsDownloadCount([], 0, MAX_VARIANTS_DOWNLOAD)).toEqual(0);
   });
   test('should return 0 if download ALL but total is bigger than MAX', () => {
-    expect(buildVariantsDownloadCount([ALL_KEYS], MAX_VARIANTS_DOWNLOAD + 1)).toEqual(0);
+    expect(
+      buildVariantsDownloadCount([ALL_KEYS], MAX_VARIANTS_DOWNLOAD + 1, MAX_VARIANTS_DOWNLOAD),
+    ).toEqual(0);
   });
   test('should return TOTAL if download ALL and total <= MAX', () => {
-    expect(buildVariantsDownloadCount([ALL_KEYS], 10)).toEqual(10);
+    expect(buildVariantsDownloadCount([ALL_KEYS], 10, MAX_VARIANTS_DOWNLOAD)).toEqual(10);
   });
   test('should return X if bellow MAX', () => {
-    expect(buildVariantsDownloadCount(['1', '2', '3'], 10)).toEqual(3);
+    expect(buildVariantsDownloadCount(['1', '2', '3'], 10, MAX_VARIANTS_DOWNLOAD)).toEqual(3);
   });
   test('should return 0 if keys length bigger than MAX', () => {
     var keys = [];
     keys.length = MAX_VARIANTS_DOWNLOAD + 1;
-    expect(buildVariantsDownloadCount(keys, 10)).toEqual(0);
+    expect(buildVariantsDownloadCount(keys, 10, MAX_VARIANTS_DOWNLOAD)).toEqual(0);
   });
 });
 

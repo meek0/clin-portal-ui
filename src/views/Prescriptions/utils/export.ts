@@ -13,6 +13,7 @@ import { downloadText } from 'utils/helper';
 
 export const ALL_KEYS = '*';
 export const MAX_VARIANTS_DOWNLOAD = 10000;
+export const MAX_VARIANTS_WITH_DONORS_DOWNLOAD = 1000;
 export const VARIANT_KEY = 'hash';
 export const JOIN_SEP = ' ';
 
@@ -49,15 +50,19 @@ function getLeafNodes(obj: any): string {
   return String(Array.from(new Set(traverse([], obj))).join(JOIN_SEP));
 }
 
-export const buildVariantsDownloadCount = (keys: Array<string>, expectedTotal: number): number => {
+export const buildVariantsDownloadCount = (
+  keys: Array<string>,
+  expectedTotal: number,
+  maxAllowed: number,
+): number => {
   if (keys?.length > 0) {
     if (keys[0] === ALL_KEYS) {
-      if (expectedTotal <= MAX_VARIANTS_DOWNLOAD) {
+      if (expectedTotal <= maxAllowed) {
         return expectedTotal;
       } else {
         return 0;
       }
-    } else if (keys.length <= MAX_VARIANTS_DOWNLOAD) {
+    } else if (keys.length <= maxAllowed) {
       return keys.length;
     }
     return 0;

@@ -28,7 +28,11 @@ const Download = ({ downloadKeys, setDownloadKeys, queryVariables, variants }: O
   const [showModalLimit, setShowModalLimit] = useState(false);
   const dispatch = useDispatch();
 
-  const variantToDownloadCount = buildVariantsDownloadCount(downloadKeys, variants.total);
+  const variantToDownloadCount = buildVariantsDownloadCount(
+    downloadKeys,
+    variants.total,
+    MAX_VARIANTS_DOWNLOAD,
+  );
 
   const variantsToDownload = useVariantsTSV({
     ...queryVariables,
