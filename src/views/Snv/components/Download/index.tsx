@@ -23,6 +23,7 @@ type OwnProps = {
   queryVariables: any;
   queryConfig: IQueryConfig;
   variants: IQueryResults<VariantEntity[]>;
+  patientId?: string;
 };
 
 const Download = ({
@@ -31,6 +32,7 @@ const Download = ({
   queryVariables,
   queryConfig,
   variants,
+  patientId,
 }: OwnProps) => {
   const [showModalLimit, setShowModalLimit] = useState(false);
   const dispatch = useDispatch();
@@ -66,13 +68,15 @@ const Download = ({
           variantsToDownload.data,
           downloadKeys,
           VARIANT_KEY,
-          getVariantColumns(),
+          getVariantColumns(patientId).filter((h) => h.key !== 'actions'), // remove action column,
           'SNV',
+          {},
+          patientId,
         );
       }
       setDownloadKeys([]); // reset download
     }
-  }, [downloadKeys, setDownloadKeys, variantsToDownload, dispatch]);
+  }, [downloadKeys, setDownloadKeys, variantsToDownload, dispatch, patientId]);
 
   useEffect(() => {
     if (downloadKeys.length > 0 && variantToDownloadCount > 0) {

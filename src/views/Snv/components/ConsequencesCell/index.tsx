@@ -62,7 +62,7 @@ const ConsequencesCell = ({ consequences }: OwnProps) => {
   );
 };
 
-export const toString = (row: any) =>
+export const renderToString = (row: any) =>
   ReactDOMServer.renderToString(
     <ConsequencesCell consequences={row.consequences?.hits?.edges || []} />,
   );

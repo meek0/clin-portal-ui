@@ -1,8 +1,13 @@
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
+import { findDonorById } from 'graphql/variants/selector';
 import get from 'lodash/get';
-import { toString as consequencesToString } from 'views/Snv/components/ConsequencesCell/index';
-import { toString as acmgVerdictToString } from 'views/Snv/Exploration/components/AcmgVerdict';
-import { getAcmgRuleContent, omimToString } from 'views/Snv/Exploration/variantColumns';
+import { renderToString as renderConsequencesToString } from 'views/Snv/components/ConsequencesCell/index';
+import { renderToString as renderAcmgVerdictToString } from 'views/Snv/Exploration/components/AcmgVerdict';
+import {
+  getAcmgRuleContent,
+  renderDonorToString,
+  renderOmimToString,
+} from 'views/Snv/Exploration/variantColumns';
 
 import { downloadText } from 'utils/helper';
 
@@ -85,20 +90,45 @@ export const buildVariantsDownloadSqon = (
 
 export const convertToPlain = (html: string) => html.replace(/<[^>]+>/g, '');
 
-export const customMapping = (key: string, row: any) => {
-  if (key === 'acmgVerdict') {
-    return convertToPlain(acmgVerdictToString(row));
-  } else if (key === 'omim') {
-    return convertToPlain(omimToString(row));
-  } else if (key === 'acmgcriteria') {
-    return getAcmgRuleContent(row.varsome);
-  } else if (key === 'consequences') {
-    return convertToPlain(consequencesToString(row));
+export const customMapping = (prefix: string, key: string, row: any, patientId: string = '') => {
+  if (prefix === 'SNV') {
+    if (key === 'acmgVerdict') {
+      return convertToPlain(renderAcmgVerdictToString(row));
+    } else if (key === 'omim') {
+      return convertToPlain(renderOmimToString(row));
+    } else if (key === 'acmgcriteria') {
+      return getAcmgRuleContent(row.varsome);
+    } else if (key === 'consequences') {
+      return convertToPlain(renderConsequencesToString(row));
+    } else if (
+      [
+        'donors.gq',
+        'donors.zygosity',
+        'donors_genotype',
+        'ch',
+        'pch',
+        'transmission',
+        'qd',
+        'po',
+        'alt',
+        'alttotal',
+        'altratio',
+        'filter',
+      ].includes(key)
+    ) {
+      return convertToPlain(renderDonorToString(key, findDonorById(row.donors, patientId)));
+    }
   }
   return null;
 };
 
-export const exportAsTSV = (data: any[], headers: string[], mapping: any = {}): string => {
+export const exportAsTSV = (
+  data: any[],
+  headers: string[],
+  mapping: any = {},
+  prefix: string,
+  patientId?: string,
+): string => {
   let tsv = '';
   if (data && headers && headers.length > 0) {
     tsv += headers.join('\t');
@@ -107,7 +137,8 @@ export const exportAsTSV = (data: any[], headers: string[], mapping: any = {}): 
       const values: string[] = [];
       headers.forEach((header) => {
         const value =
-          customMapping(header, row) || valueToStr(get(row, get(mapping, header, header), ''));
+          customMapping(prefix, header, row, patientId) ||
+          valueToStr(get(row, get(mapping, header, header), ''));
         values.push(value);
       });
       tsv += values.join('\t');
@@ -124,10 +155,11 @@ export const downloadAsTSV = (
   columns: any[],
   prefix: string,
   mapping: any = {},
+  patientId?: string,
 ) => {
   const filtered = extractSelectionFromResults(data, dataKeys, key);
   const headers = columns.map((c) => c.key);
-  const tsv = exportAsTSV(filtered, headers, mapping);
+  const tsv = exportAsTSV(filtered, headers, mapping, prefix, patientId);
   downloadText(tsv, `${prefix}_${makeFilenameDatePart()}.tsv`, 'text/csv');
 };
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
@@ -141,7 +142,7 @@ export const getVariantColumns = (
       title: intl.get('screen.patientsnv.results.table.omim'),
       tooltip: intl.get('screen.patientsnv.results.table.omim.tooltip'),
       width: 180,
-      render: (variant: { genes: { hits: { edges: Gene[] } } }) => omim(variant),
+      render: (variant: { genes: { hits: { edges: Gene[] } } }) => renderOmim(variant),
     },
     {
       key: 'clinvar',
@@ -281,19 +282,16 @@ export const getVariantColumns = (
         title: intl.get('screen.patientsnv.results.table.gq'),
         tooltip: intl.get('gq.tooltip'),
         width: 110,
-        render: (record: VariantEntity) => (
-          <GqLine value={findDonorById(record.donors, patientId)?.gq} />
-        ),
+        render: (record: VariantEntity) =>
+          renderDonorByKey('donors.gq', findDonorById(record.donors, patientId)),
       },
       {
         key: 'donors.zygosity',
         title: intl.get('screen.patientsnv.results.table.zygosity'),
         dataIndex: 'donors',
         width: 100,
-        render: (record: ArrangerResultsTree<DonorsEntity>) => {
-          const donor = findDonorById(record, patientId);
-          return donor ? donor?.zygosity : TABLE_EMPTY_PLACE_HOLDER;
-        },
+        render: (record: ArrangerResultsTree<DonorsEntity>) =>
+          renderDonorByKey('donors.zygosity', findDonorById(record, patientId)),
       },
       {
         ...getAcmgCriteriaCol(),
@@ -304,13 +302,8 @@ export const getVariantColumns = (
         dataIndex: 'donors',
         defaultHidden: true,
         width: 90,
-        render: (record: ArrangerResultsTree<DonorsEntity>) => {
-          const donor = findDonorById(record, patientId);
-          const motherCalls = formatCalls(donor?.mother_calls!);
-          const fatherCalls = formatCalls(donor?.father_calls!);
-
-          return `${motherCalls} : ${fatherCalls}`;
-        },
+        render: (record: ArrangerResultsTree<DonorsEntity>) =>
+          renderDonorByKey('donors_genotype', findDonorById(record, patientId)),
       },
       {
         key: 'ch',
@@ -318,14 +311,8 @@ export const getVariantColumns = (
         tooltip: intl.get('ch.tooltip'),
         defaultHidden: true,
         width: 300,
-        render: (record: VariantEntity) => (
-          <HcComplementDescription
-            hcComplements={findDonorById(record.donors, patientId)?.hc_complement}
-            defaultText={TABLE_EMPTY_PLACE_HOLDER}
-            wrap={false}
-            size={0}
-          />
-        ),
+        render: (record: VariantEntity) =>
+          renderDonorByKey('ch', findDonorById(record.donors, patientId)),
       },
       {
         key: 'pch',
@@ -333,14 +320,8 @@ export const getVariantColumns = (
         tooltip: intl.get('pch.tooltip'),
         defaultHidden: true,
         width: 300,
-        render: (record: VariantEntity) => (
-          <HcComplementDescription
-            hcComplements={findDonorById(record.donors, patientId)?.possibly_hc_complement}
-            defaultText={TABLE_EMPTY_PLACE_HOLDER}
-            wrap={false}
-            size={0}
-          />
-        ),
+        render: (record: VariantEntity) =>
+          renderDonorByKey('pch', findDonorById(record.donors, patientId)),
       },
       {
         key: 'transmission',
@@ -348,9 +329,7 @@ export const getVariantColumns = (
         defaultHidden: true,
         width: 200,
         render: (record: VariantEntity) =>
-          removeUnderscoreAndCapitalize(
-            findDonorById(record.donors, patientId)?.transmission! || '',
-          ).defaultMessage(TABLE_EMPTY_PLACE_HOLDER),
+          renderDonorByKey('transmission', findDonorById(record.donors, patientId)),
       },
       {
         key: 'qd',
@@ -358,10 +337,8 @@ export const getVariantColumns = (
         tooltip: intl.get('qd.tooltip'),
         defaultHidden: true,
         width: 180,
-        render: (record: VariantEntity) => {
-          const donor = findDonorById(record.donors, patientId);
-          return donor?.qd ? donor.qd : TABLE_EMPTY_PLACE_HOLDER;
-        },
+        render: (record: VariantEntity) =>
+          renderDonorByKey('qd', findDonorById(record.donors, patientId)),
       },
       {
         key: 'po',
@@ -370,9 +347,7 @@ export const getVariantColumns = (
         defaultHidden: true,
         width: 180,
         render: (record: VariantEntity) =>
-          findDonorById(record.donors, patientId)
-            ? displayParentalOrigin(findDonorById(record.donors, patientId)?.parental_origin!)
-            : TABLE_EMPTY_PLACE_HOLDER,
+          renderDonorByKey('po', findDonorById(record.donors, patientId)),
       },
       {
         key: 'alt',
@@ -381,7 +356,7 @@ export const getVariantColumns = (
         defaultHidden: true,
         width: 120,
         render: (record: VariantEntity) =>
-          findDonorById(record.donors, patientId)?.ad_alt ?? TABLE_EMPTY_PLACE_HOLDER,
+          renderDonorByKey('alt', findDonorById(record.donors, patientId)),
       },
       {
         key: 'alttotal',
@@ -390,7 +365,7 @@ export const getVariantColumns = (
         defaultHidden: true,
         width: 120,
         render: (record: VariantEntity) =>
-          findDonorById(record.donors, patientId)?.ad_total ?? TABLE_EMPTY_PLACE_HOLDER,
+          renderDonorByKey('alttotal', findDonorById(record.donors, patientId)),
       },
       {
         key: 'altratio',
@@ -399,8 +374,7 @@ export const getVariantColumns = (
         defaultHidden: true,
         width: 120,
         render: (record: VariantEntity) =>
-          (findDonorById(record.donors, patientId)?.ad_ratio ?? 0).toFixed(2) ??
-          TABLE_EMPTY_PLACE_HOLDER,
+          renderDonorByKey('altratio', findDonorById(record.donors, patientId)),
       },
       {
         key: 'filter',
@@ -409,7 +383,7 @@ export const getVariantColumns = (
         defaultHidden: true,
         width: 160,
         render: (record: VariantEntity) =>
-          findDonorById(record.donors, patientId)?.filters ?? TABLE_EMPTY_PLACE_HOLDER,
+          renderDonorByKey('filter', findDonorById(record.donors, patientId)),
       },
       {
         className: style.userAffectedBtnCell,
@@ -446,16 +420,69 @@ export const getVariantColumns = (
   return columns;
 };
 
-export const omimToString = (variant: any) => {
-  const render = omim(variant);
-  if (typeof render === 'string') {
-    return render;
-  } else {
-    return ReactDOMServer.renderToString(render);
+const renderToString = (element: any) => {
+  if (typeof element === 'string' || typeof element === 'number') {
+    return String(element);
+  } else if (element) {
+    return ReactDOMServer.renderToString(element);
   }
+  return '';
 };
 
-const omim = (variant: { genes: { hits: { edges: Gene[] } } }) => {
+export const renderOmimToString = (variant: any) => renderToString(renderOmim(variant));
+
+export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
+  renderToString(renderDonorByKey(key, donor));
+
+// eslint-disable-next-line complexity
+const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
+  if (key === 'donors.gq') {
+    return <GqLine value={donor?.gq} />;
+  } else if (key === 'donors.zygosity') {
+    return donor ? donor?.zygosity : TABLE_EMPTY_PLACE_HOLDER;
+  } else if (key === 'donors_genotype') {
+    const motherCalls = formatCalls(donor?.mother_calls!);
+    const fatherCalls = formatCalls(donor?.father_calls!);
+    return `${motherCalls} : ${fatherCalls}`;
+  } else if (key === 'ch') {
+    return (
+      <HcComplementDescription
+        hcComplements={donor?.hc_complement}
+        defaultText={TABLE_EMPTY_PLACE_HOLDER}
+        wrap={false}
+        size={0}
+      />
+    );
+  } else if (key === 'pch') {
+    return (
+      <HcComplementDescription
+        hcComplements={donor?.possibly_hc_complement}
+        defaultText={TABLE_EMPTY_PLACE_HOLDER}
+        wrap={false}
+        size={0}
+      />
+    );
+  } else if (key === 'transmission') {
+    return removeUnderscoreAndCapitalize(donor?.transmission! || '').defaultMessage(
+      TABLE_EMPTY_PLACE_HOLDER,
+    );
+  } else if (key === 'qd') {
+    return donor?.qd ? donor.qd : TABLE_EMPTY_PLACE_HOLDER;
+  } else if (key === 'po') {
+    return donor ? displayParentalOrigin(donor?.parental_origin!) : TABLE_EMPTY_PLACE_HOLDER;
+  } else if (key === 'alt') {
+    return donor?.ad_alt ?? TABLE_EMPTY_PLACE_HOLDER;
+  } else if (key === 'alttotal') {
+    return donor?.ad_total ?? TABLE_EMPTY_PLACE_HOLDER;
+  } else if (key === 'altratio') {
+    return (donor?.ad_ratio ?? 0).toFixed(2) ?? TABLE_EMPTY_PLACE_HOLDER;
+  } else if (key === 'filter') {
+    return donor?.filters ?? TABLE_EMPTY_PLACE_HOLDER;
+  }
+  return <></>;
+};
+
+const renderOmim = (variant: { genes: { hits: { edges: Gene[] } } }) => {
   const genesWithOmim = variant.genes.hits.edges.filter(
     (gene) => gene.node.omim?.hits?.edges?.length,
   );

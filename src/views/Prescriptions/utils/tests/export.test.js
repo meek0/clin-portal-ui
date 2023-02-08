@@ -35,6 +35,19 @@ describe('exportAsTSV', () => {
       exportAsTSV([{ colInData: 'bar' }], ['colInHeader'], { colInHeader: 'colInData' }),
     ).toEqual('colInHeader\nbar\n');
   });
+  test('should use custom mapping', () => {
+    const row = {
+      locus: 'locus',
+      varsome: {
+        acmg: {
+          verdict: {
+            verdict: 'foo',
+          },
+        },
+      },
+    };
+    expect(exportAsTSV([row], ['acmgVerdict'], {}, 'SNV')).toEqual('acmgVerdict\nfoo\n');
+  });
 });
 
 describe('convertToPlain', () => {
@@ -44,6 +57,9 @@ describe('convertToPlain', () => {
 });
 
 describe('customMapping', () => {
+  test('should map nothing', () => {
+    expect(customMapping(null, null, null)).toEqual(null);
+  });
   test('should map acmgVerdict', () => {
     const row = {
       locus: 'locus',
@@ -55,7 +71,7 @@ describe('customMapping', () => {
         },
       },
     };
-    expect(customMapping('acmgVerdict', row)).toEqual('foo');
+    expect(customMapping('SNV', 'acmgVerdict', row)).toEqual('foo');
   });
   test('should map omim', () => {
     const row = {
@@ -83,7 +99,7 @@ describe('customMapping', () => {
         },
       },
     };
-    expect(customMapping('omim', row)).toEqual('symbol IC');
+    expect(customMapping('SNV', 'omim', row)).toEqual('symbol IC');
   });
   test('should map acmgcriteria', () => {
     const row = {
@@ -104,7 +120,7 @@ describe('customMapping', () => {
         },
       },
     };
-    expect(customMapping('acmgcriteria', row)).toEqual('name');
+    expect(customMapping('SNV', 'acmgcriteria', row)).toEqual('name');
   });
   test('should map consequences', () => {
     const row = {
@@ -123,7 +139,234 @@ describe('customMapping', () => {
         },
       },
     };
-    expect(customMapping('consequences', row)).toEqual('f symbol aa ');
+    expect(customMapping('SNV', 'consequences', row)).toEqual('f symbol aa ');
+  });
+  test('should map donors.gq', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                gq: 42,
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'donors.gq', row, 'p1')).toEqual('42');
+  });
+  test('should map donors.zygosity', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                zygosity: 'foo',
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'donors.zygosity', row, 'p1')).toEqual('foo');
+  });
+  test('should map donors_genotype', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                mother_calls: [0, 1],
+                father_calls: [2, 3],
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'donors_genotype', row, 'p1')).toEqual('0/1 : 2/3');
+  });
+  test('should map ch', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                hc_complement: {
+                  hits: {
+                    edges: [
+                      {
+                        node: {
+                          symbol: 's1',
+                          locus: 'l1',
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'ch', row, 'p1')).toEqual('s1( 2 )');
+  });
+  test('should map pch', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                possibly_hc_complement: {
+                  hits: {
+                    edges: [
+                      {
+                        node: {
+                          symbol: 's2',
+                          count: 10,
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'pch', row, 'p1')).toEqual('s2( 10 )');
+  });
+  test('should map transmission', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                transmission: 'foo',
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'transmission', row, 'p1')).toEqual('Foo');
+  });
+  test('should map qd', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                qd: 42,
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'qd', row, 'p1')).toEqual('42');
+  });
+  test('should map po', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                parental_origin: 'mother',
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'po', row, 'p1')).toEqual('Mother');
+  });
+  test('should map alt', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                ad_alt: 42,
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'alt', row, 'p1')).toEqual('42');
+  });
+  test('should map alttotal', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                ad_total: 42,
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'alttotal', row, 'p1')).toEqual('42');
+  });
+  test('should map altratio', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                ad_ratio: 42,
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'altratio', row, 'p1')).toEqual('42.00');
+  });
+  test('should map filter', () => {
+    const row = {
+      donors: {
+        hits: {
+          edges: [
+            {
+              node: {
+                patient_id: 'p1',
+                filters: ['foo', 'bar'],
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('SNV', 'filter', row, 'p1')).toEqual('foobar');
   });
 });
 

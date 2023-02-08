@@ -268,6 +268,46 @@ export const VARIANT_QUERY_TSV = gql`
                 }
               }
             }
+            donors {
+              hits {
+                edges {
+                  node {
+                    patient_id
+                    gq
+                    qd
+                    zygosity
+                    mother_calls
+                    father_calls
+                    transmission
+                    parental_origin
+                    ad_alt
+                    ad_total
+                    ad_ratio
+                    filters
+                    hc_complement {
+                      hits {
+                        edges {
+                          node {
+                            symbol
+                            locus
+                          }
+                        }
+                      }
+                    }
+                    possibly_hc_complement {
+                      hits {
+                        edges {
+                          node {
+                            symbol
+                            count
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

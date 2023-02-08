@@ -23,7 +23,7 @@ const AcmgVerdict = ({ varsome, locus }: OwnProps) => {
   );
 };
 
-export const toString = (row: any) =>
+export const renderToString = (row: any) =>
   ReactDOMServer.renderToString(<AcmgVerdict varsome={row.varsome} locus={row.locus} />);
 
 export default AcmgVerdict;
