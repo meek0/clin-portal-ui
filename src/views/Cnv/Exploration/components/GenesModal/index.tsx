@@ -42,7 +42,7 @@ const GenesModal = ({ variantEntity, isOpen = false, toggleModal }: OwnProps) =>
     >
       <ProTable<ITableGeneEntity>
         tableId="genes_table"
-        columns={getGeneColumns(variantEntity!)}
+        columns={getGeneColumns()}
         dictionary={getProTableDictionary()}
         dataSource={data}
         headerConfig={{

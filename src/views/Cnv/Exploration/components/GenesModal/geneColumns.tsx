@@ -2,7 +2,7 @@ import intl from 'react-intl-universal';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnsType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tooltip } from 'antd';
-import { GeneEntity, ITableGeneEntity, VariantEntity } from 'graphql/cnv/models';
+import { GeneEntity, ITableGeneEntity } from 'graphql/cnv/models';
 
 import Type1Icon from 'components/icons/geneOverlapType/Type1Icon';
 import Type2Icon from 'components/icons/geneOverlapType/Type2Icon';
@@ -12,7 +12,7 @@ import { formatDnaLength, formatNumber, formatRatio } from 'utils/formatNumber';
 
 import { GeneOverlapType, getGeneOverlapType } from './utils';
 
-export const getGeneColumns = (variantEntity: VariantEntity): ProColumnsType<ITableGeneEntity> => {
+export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
   const columns: ProColumnsType<ITableGeneEntity> = [
     {
       title: intl.get('screen.patientcnv.modal.genes.table.gene'),
@@ -103,7 +103,6 @@ export const getGeneColumns = (variantEntity: VariantEntity): ProColumnsType<ITa
           tooltip: intl.get('screen.patientcnv.modal.genes.table.overlap_type.tooltip'),
           key: 'overlap_type',
           render: (record: GeneEntity) => {
-            // TODO get start and end from gene?? where??
             const type = getGeneOverlapType(record.overlap_gene_ratio, record.overlap_cnv_ratio);
 
             const Icon =
