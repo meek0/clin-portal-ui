@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
-import { Modal } from 'antd';
 import { IQueryResults } from 'graphql/models';
 import { useVariantsTSV } from 'graphql/variants/actions';
 import { VariantEntity } from 'graphql/variants/models';
+import { VARIANT_QUERY_TSV, VARIANT_QUERY_TSV_WITH_DONORS } from 'graphql/variants/queries';
 import {
   buildVariantsDownloadCount,
   buildVariantsDownloadSqon,
   downloadAsTSV,
   MAX_VARIANTS_DOWNLOAD,
+  MAX_VARIANTS_WITH_DONORS_DOWNLOAD,
   VARIANT_KEY,
 } from 'views/Prescriptions/utils/export';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
 
+import GenericModal from 'components/utils/GenericModal';
 import { globalActions } from 'store/global';
 import { IQueryConfig, TDownload } from 'utils/searchPageTypes';
 
@@ -23,6 +25,7 @@ type OwnProps = {
   queryVariables: any;
   queryConfig: IQueryConfig;
   variants: IQueryResults<VariantEntity[]>;
+  patientId?: string;
 };
 
 const Download = ({
@@ -31,11 +34,17 @@ const Download = ({
   queryVariables,
   queryConfig,
   variants,
+  patientId,
 }: OwnProps) => {
-  const [downloadModalLimit, downloadModalLimitHolder] = Modal.useModal();
+  const [showModalLimit, setShowModalLimit] = useState(false);
   const dispatch = useDispatch();
 
-  const variantToDownloadCount = buildVariantsDownloadCount(downloadKeys, variants.total);
+  const maxAllowed = patientId ? MAX_VARIANTS_WITH_DONORS_DOWNLOAD : MAX_VARIANTS_DOWNLOAD;
+  const variantToDownloadCount = buildVariantsDownloadCount(
+    downloadKeys,
+    variants.total,
+    maxAllowed,
+  );
 
   const variantsToDownload = useVariantsTSV(
     {
@@ -45,6 +54,7 @@ const Download = ({
       sqon: buildVariantsDownloadSqon(downloadKeys, VARIANT_KEY, queryVariables.sqon),
     },
     queryConfig.operations,
+    patientId ? VARIANT_QUERY_TSV_WITH_DONORS : VARIANT_QUERY_TSV,
   );
 
   useEffect(() => {
@@ -59,32 +69,22 @@ const Download = ({
             }),
           );
         } else {
-          downloadModalLimit.warning({
-            title: intl.get('screen.patientsnv.results.table.download.limit.title'),
-            content: (
-              <>
-                <p>
-                  {intl.get('screen.patientsnv.results.table.download.limit.message', {
-                    MAX_VARIANTS_DOWNLOAD,
-                  })}
-                </p>
-              </>
-            ),
-            okText: intl.get('screen.patientsnv.results.table.download.limit.button'),
-          });
+          setShowModalLimit(true);
         }
       } else if (variantsToDownload.data.length > 0) {
         downloadAsTSV(
           variantsToDownload.data,
           downloadKeys,
           VARIANT_KEY,
-          getVariantColumns(),
+          getVariantColumns(patientId).filter((h) => h.key !== 'actions'), // remove action column,
           'SNV',
+          {},
+          patientId,
         );
       }
       setDownloadKeys([]); // reset download
     }
-  }, [downloadKeys, setDownloadKeys, downloadModalLimit, variantsToDownload, dispatch]);
+  }, [downloadKeys, setDownloadKeys, variantsToDownload, dispatch, patientId]);
 
   useEffect(() => {
     if (downloadKeys.length > 0 && variantToDownloadCount > 0) {
@@ -98,7 +98,20 @@ const Download = ({
     }
   }, [dispatch, downloadKeys, variantToDownloadCount]);
 
-  return <>{downloadModalLimitHolder}</>;
+  return (
+    <>
+      <GenericModal
+        type={'warning'}
+        title={intl.get('screen.patientsnv.results.table.download.limit.title')}
+        message={intl.get('screen.patientsnv.results.table.download.limit.message', {
+          MAX_VARIANTS_DOWNLOAD: maxAllowed,
+        })}
+        okText={intl.get('screen.patientsnv.results.table.download.limit.button')}
+        showModal={showModalLimit}
+        onClose={() => setShowModalLimit(false)}
+      />
+    </>
+  );
 };
 
 export default Download;

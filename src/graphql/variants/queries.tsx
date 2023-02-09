@@ -200,6 +200,7 @@ export const VARIANT_QUERY_TSV = gql`
         edges {
           searchAfter
           node {
+            locus
             hgvsg
             hash
             variant_class
@@ -209,6 +210,9 @@ export const VARIANT_QUERY_TSV = gql`
                 edges {
                   node {
                     symbol
+                    consequences
+                    vep_impact
+                    aa_change
                   }
                 }
               }
@@ -227,6 +231,170 @@ export const VARIANT_QUERY_TSV = gql`
                 pc
                 pn
                 pf
+              }
+            }
+            varsome {
+              acmg {
+                verdict {
+                  verdict
+                }
+                classifications {
+                  hits {
+                    edges {
+                      node {
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            genes {
+              hits {
+                edges {
+                  node {
+                    symbol
+                    omim_gene_id
+                    omim {
+                      hits {
+                        edges {
+                          node {
+                            inheritance_code
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const VARIANT_QUERY_TSV_WITH_DONORS = gql`
+  query VariantInformation(
+    $sqon: JSON
+    $first: Int
+    $offset: Int
+    $sort: [Sort]
+    $searchAfter: JSON
+  ) {
+    Variants {
+      hits(filters: $sqon, first: $first, offset: $offset, sort: $sort, searchAfter: $searchAfter) {
+        total
+        edges {
+          searchAfter
+          node {
+            locus
+            hgvsg
+            hash
+            variant_class
+            rsnumber
+            consequences {
+              hits {
+                edges {
+                  node {
+                    symbol
+                    consequences
+                    vep_impact
+                    aa_change
+                  }
+                }
+              }
+            }
+            clinvar {
+              clinvar_id
+              clin_sig
+            }
+            external_frequencies {
+              gnomad_genomes_2_1_1 {
+                af
+              }
+            }
+            frequency_RQDM {
+              total {
+                pc
+                pn
+                pf
+              }
+            }
+            varsome {
+              acmg {
+                verdict {
+                  verdict
+                }
+                classifications {
+                  hits {
+                    edges {
+                      node {
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            genes {
+              hits {
+                edges {
+                  node {
+                    symbol
+                    omim_gene_id
+                    omim {
+                      hits {
+                        edges {
+                          node {
+                            inheritance_code
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            donors {
+              hits {
+                edges {
+                  node {
+                    patient_id
+                    gq
+                    qd
+                    zygosity
+                    mother_calls
+                    father_calls
+                    transmission
+                    parental_origin
+                    ad_alt
+                    ad_total
+                    ad_ratio
+                    filters
+                    hc_complement {
+                      hits {
+                        edges {
+                          node {
+                            symbol
+                            locus
+                          }
+                        }
+                      }
+                    }
+                    possibly_hc_complement {
+                      hits {
+                        edges {
+                          node {
+                            symbol
+                            count
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }

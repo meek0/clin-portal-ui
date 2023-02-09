@@ -116,6 +116,7 @@ const PageContent = ({ variantMapping, patientId }: OwnProps) => {
             queryVariables={queryVariables}
             queryConfig={variantQueryConfig}
             variants={variantResults}
+            patientId={patientId}
           />
         </Tabs.TabPane>
       </Tabs>
