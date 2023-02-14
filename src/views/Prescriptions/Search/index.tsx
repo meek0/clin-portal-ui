@@ -168,15 +168,24 @@ const PrescriptionSearch = (): React.ReactElement => {
     });
   }, [sequencingQueryConfig]);
 
-  /*   useEffect(() => {
+  useEffect(() => {
     setPrescriptionQueryConfig({
       ...prescriptionQueryConfig,
+      sort: DEFAULT_SORT_QUERY,
       searchAfter: undefined,
+      firstPageFlag: undefined,
+      operations: undefined,
     });
-
+    setPrescriptionPageIndex(DEFAULT_PAGE_INDEX);
+    setSequencingQueryConfig({
+      ...sequencingQueryConfig,
+      sort: DEFAULT_SORT_QUERY,
+      searchAfter: undefined,
+      firstPageFlag: undefined,
+      operations: undefined,
+    });
     setSequencingPageIndex(DEFAULT_PAGE_INDEX);
-    // eslint-disable-next-line
-  }, [JSON.stringify(activeQuery)]); */
+  }, [searchValue]);
 
   useEffect(() => {
     // download only when both prescriptionsToDownload and something to download
