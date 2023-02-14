@@ -101,7 +101,7 @@ const filterGroups: {
         ],
       },
       {
-        title: 'Prédictions',
+        title: intl.get('predictions'),
         facets: [
           'consequences__predictions__cadd_phred',
           'consequences__predictions__cadd_score',

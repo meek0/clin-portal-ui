@@ -39,7 +39,9 @@ const ParentCard = ({ extension, loading }: OwnProps) => (
                 />
                 <Divider />
                 <Descriptions column={1} size="small" className="label-20">
-                  <Descriptions.Item label="Statut">
+                  <Descriptions.Item
+                    label={intl.get('screen.prescription.entity.parent.affectedStatus')}
+                  >
                     {intl.get(getPatientAffectedStatus(extension))}
                   </Descriptions.Item>
                 </Descriptions>

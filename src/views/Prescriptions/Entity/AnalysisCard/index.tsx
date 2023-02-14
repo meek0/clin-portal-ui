@@ -47,7 +47,9 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
             >
               <Tag color="geekblue">{getAnalysisNameByCode(prescription.code)}</Tag>
             </Descriptions.Item>
-            <Descriptions.Item label="Panel en réflexe">
+            <Descriptions.Item
+              label={intl.get('screen.prescription.entity.analysisCard.reflexpanel')}
+            >
               {prescription.orderDetail ? prescription.orderDetail.text.split(':')[1] : '--'}
             </Descriptions.Item>
             <Descriptions.Item label={intl.get('screen.patientsearch.table.createdOn')}>

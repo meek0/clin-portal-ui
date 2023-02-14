@@ -48,7 +48,10 @@ const getFilesColumns = (): TableColumnType<any>[] => [
 ];
 
 const FilesCard = ({ files, loading }: OwnProps) => (
-  <CollapsePanel header={<Title level={4}>Fichiers de données</Title>} loading={loading}>
+  <CollapsePanel
+    header={<Title level={4}>{intl.get('screen.bioinfo.analysis.files.title')}</Title>}
+    loading={loading}
+  >
     {isEmpty(files) ? (
       <></>
     ) : (
