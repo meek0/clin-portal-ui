@@ -93,6 +93,7 @@ export const HcComplementDescription = ({
                 })
               }
             >
+              {' '}
               <Text>( {getCount(e)} )</Text>
             </Button>
             {!isLastItem(index, nOfSymbols) && ','}
