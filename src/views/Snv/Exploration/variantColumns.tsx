@@ -29,6 +29,7 @@ import ConsequencesCell from 'views/Snv/components/ConsequencesCell';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import UserAffectedIcon from 'components/icons/UserAffectedIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { formatGenotype } from 'utils/formatGenotype';
 
 import GqLine from '../components/GQLine';
 import { HcComplementDescription } from '../components/OccurrenceDrawer/HcDescription';
@@ -38,8 +39,6 @@ import AcmgVerdict from './components/AcmgVerdict';
 import { OtherActions } from './components/OtherActions';
 
 import style from './variantColumns.module.scss';
-
-const formatCalls = (calls: number[]) => (calls ? calls.join('/') : TABLE_EMPTY_PLACE_HOLDER);
 
 const formatRqdm = (rqdm: frequency_RQDMEntity) => {
   if (!rqdm?.total?.pc) {
@@ -447,8 +446,8 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
   } else if (key === 'donors.zygosity') {
     return donor ? donor?.zygosity : TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors_genotype') {
-    const motherCalls = formatCalls(donor?.mother_calls!);
-    const fatherCalls = formatCalls(donor?.father_calls!);
+    const motherCalls = formatGenotype(donor?.mother_calls!);
+    const fatherCalls = formatGenotype(donor?.father_calls!);
     return `${motherCalls} : ${fatherCalls}`;
   } else if (key === 'ch') {
     return (

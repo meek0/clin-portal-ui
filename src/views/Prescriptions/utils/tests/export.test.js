@@ -56,7 +56,7 @@ describe('convertToPlain', () => {
   });
 });
 
-describe('customMapping', () => {
+describe('customMapping SNV', () => {
   test('should map nothing', () => {
     expect(customMapping(null, null, null)).toEqual(null);
   });
@@ -139,7 +139,7 @@ describe('customMapping', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'consequences', row)).toEqual('f symbol aa ');
+    expect(customMapping('SNV', 'consequences', row)).toEqual('F symbol aa ');
   });
   test('should map donors.gq', () => {
     const row = {
@@ -219,7 +219,7 @@ describe('customMapping', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'ch', row, 'p1')).toEqual('s1( 2 )');
+    expect(customMapping('SNV', 'ch', row, 'p1')).toEqual('s1 ( 2 )');
   });
   test('should map pch', () => {
     const row = {
@@ -247,7 +247,7 @@ describe('customMapping', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'pch', row, 'p1')).toEqual('s2( 10 )');
+    expect(customMapping('SNV', 'pch', row, 'p1')).toEqual('s2 ( 10 )');
   });
   test('should map transmission', () => {
     const row = {
@@ -367,6 +367,18 @@ describe('customMapping', () => {
       },
     };
     expect(customMapping('SNV', 'filter', row, 'p1')).toEqual('foobar');
+  });
+});
+
+describe('customMapping CNV', () => {
+  test('should map nothing', () => {
+    expect(customMapping(null, null, null)).toEqual(null);
+  });
+  test('should map alls', () => {
+    const row = {
+      calls: [-1, 1],
+    };
+    expect(customMapping('CNV', 'calls', row)).toEqual('./1');
   });
 });
 

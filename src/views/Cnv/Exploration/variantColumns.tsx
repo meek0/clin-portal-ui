@@ -1,3 +1,4 @@
+import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Button, Space, Tooltip } from 'antd';
@@ -121,7 +122,7 @@ export const getVariantColumns = (
       key: 'calls',
       dataIndex: 'calls',
       defaultHidden: true,
-      render: (calls: number[]) => formatGenotype(calls),
+      render: (calls: number[], variant: VariantEntity) => renderCNVByKey('calls', variant),
     },
     {
       title: intl.get('screen.patientcnv.results.table.dragen_filter'),
@@ -186,4 +187,23 @@ export const getVariantColumns = (
     },
   ];
   return columns;
+};
+
+const renderToString = (element: any) => {
+  if (typeof element === 'string' || typeof element === 'number') {
+    return String(element);
+  } else if (element) {
+    return ReactDOMServer.renderToString(element);
+  }
+  return '';
+};
+
+export const renderCNVToString = (key: string, variant: VariantEntity) =>
+  renderToString(renderCNVByKey(key, variant));
+
+const renderCNVByKey = (key: string, variant: VariantEntity) => {
+  if (key === 'calls') {
+    return formatGenotype(variant?.calls);
+  }
+  return <></>;
 };

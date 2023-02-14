@@ -1,6 +1,7 @@
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { findDonorById } from 'graphql/variants/selector';
 import get from 'lodash/get';
+import { renderCNVToString } from 'views/Cnv/Exploration/variantColumns';
 import { renderToString as renderConsequencesToString } from 'views/Snv/components/ConsequencesCell/index';
 import { renderToString as renderAcmgVerdictToString } from 'views/Snv/Exploration/components/AcmgVerdict';
 import {
@@ -122,6 +123,10 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       ].includes(key)
     ) {
       return convertToPlain(renderDonorToString(key, findDonorById(row.donors, patientId)));
+    }
+  } else if (prefix === 'CNV') {
+    if (['calls'].includes(key)) {
+      return renderCNVToString(key, row);
     }
   }
   return null;

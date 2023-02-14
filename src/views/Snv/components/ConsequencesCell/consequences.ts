@@ -28,7 +28,9 @@ export const filterThanSortConsequencesByImpact = (
     .map((c) => ({ ...c }))
     .sort(
       (a, b) =>
-        b.node.impact_score! - a.node.impact_score! || +b.node.canonical! - +a.node.canonical!,
+        b.node.impact_score! - a.node.impact_score! ||
+        +b.node.canonical! - +a.node.canonical! ||
+        (a.node.symbol || keyNoSymbol).localeCompare(b.node.symbol || keyNoSymbol),
     );
 };
 type SymbolToConsequences = {
