@@ -75,23 +75,46 @@ export const buildVariantsDownloadSqon = (
   keys: Array<string>,
   key: string,
   filteredSqon: ISyntheticSqon,
+  patientId?: string,
 ): ISyntheticSqon => {
   if (keys?.[0] === ALL_KEYS) {
-    return filteredSqon;
+    return addPatientIdContent(filteredSqon, patientId);
   } else {
+    return addPatientIdContent(
+      {
+        op: 'and',
+        content: [
+          {
+            content: {
+              field: key,
+              value: keys || [],
+            },
+            op: 'in',
+          },
+        ],
+      },
+      patientId,
+    );
+  }
+};
+
+const addPatientIdContent = (sqon: ISyntheticSqon, patientId?: string): ISyntheticSqon => {
+  if (patientId && sqon?.content) {
     return {
-      op: 'and',
+      ...sqon,
       content: [
+        ...sqon.content,
         {
           content: {
-            field: key,
-            value: keys || [],
+            field: 'donors.patient_id',
+            value: [patientId],
           },
           op: 'in',
         },
       ],
     };
   }
+  return sqon;
 };
 
 export const convertToPlain = (html: string) => html.replace(/<[^>]+>/g, '');

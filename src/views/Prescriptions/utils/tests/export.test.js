@@ -432,6 +432,34 @@ describe('buildVariantsDownloadSqon', () => {
       op: 'and',
     });
   });
+  test('should add patient_id to new sqon', () => {
+    expect(buildVariantsDownloadSqon(['1', '2', '3'], 'key', {}, 'patientId')).toEqual({
+      content: [
+        { content: { field: 'key', value: ['1', '2', '3'] }, op: 'in' },
+        { content: { field: 'donors.patient_id', value: ['patientId'] }, op: 'in' },
+      ],
+      op: 'and',
+    });
+  });
+  test('should add patient_id to existing sqon', () => {
+    expect(
+      buildVariantsDownloadSqon(
+        [ALL_KEYS],
+        'key',
+        {
+          content: [{ content: { field: 'filter1', value: ['value1', 'value2'] }, op: 'in' }],
+          op: 'and',
+        },
+        'patientId',
+      ),
+    ).toEqual({
+      content: [
+        { content: { field: 'filter1', value: ['value1', 'value2'] }, op: 'in' },
+        { content: { field: 'donors.patient_id', value: ['patientId'] }, op: 'in' },
+      ],
+      op: 'and',
+    });
+  });
 });
 
 describe('extractSelectionFromResults', () => {
