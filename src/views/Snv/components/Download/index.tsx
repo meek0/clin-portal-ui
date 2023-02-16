@@ -51,7 +51,7 @@ const Download = ({
       ...queryVariables,
       first: variantToDownloadCount,
       searchAfter: undefined,
-      sqon: buildVariantsDownloadSqon(downloadKeys, VARIANT_KEY, queryVariables.sqon),
+      sqon: buildVariantsDownloadSqon(downloadKeys, VARIANT_KEY, queryVariables.sqon, patientId),
     },
     queryConfig.operations,
     patientId ? VARIANT_QUERY_TSV_WITH_DONORS : VARIANT_QUERY_TSV,
