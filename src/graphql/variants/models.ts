@@ -182,12 +182,12 @@ export type GeneEntity = {
   cosmic: ArrangerResultsTree<CosmicEntity>;
   biotype: string;
   spliceai: {
-    ds: string;
-    type: string[];
+    ds: string | undefined;
+    type: string[] | undefined;
   };
   gnomad: {
-    pli: number;
-    loeuf: number;
+    pli: number | undefined;
+    loeuf: number | undefined;
   };
 };
 
