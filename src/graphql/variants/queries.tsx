@@ -446,6 +446,10 @@ export const TAB_SUMMARY_QUERY = gql`
                       ds
                       type
                     }
+                    gnomad {
+                      pli
+                      loeuf
+                    }
                   }
                 }
               }

@@ -6,7 +6,7 @@ import ExpandableCell from '@ferlab/ui/core/components/tables/ExpandableCell';
 import ExpandableTable from '@ferlab/ui/core/components/tables/ExpandableTable';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
-import { Divider, Space, Tooltip, Typography } from 'antd';
+import { Divider, Space, Tag, Tooltip, Typography } from 'antd';
 import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
 import { ConsequenceEntity, GeneEntity, Impact, VariantEntity } from 'graphql/variants/models';
 import capitalize from 'lodash/capitalize';
@@ -39,6 +39,10 @@ type TableGroup = {
   spliceai: {
     ds: string | undefined;
     type: string[] | undefined;
+  };
+  gnomad: {
+    pli: number | undefined;
+    loeuf: number | undefined;
   };
 };
 
@@ -92,6 +96,8 @@ const groupConsequencesBySymbol = (
       const ensembleGeneId = consequence.node.ensembl_gene_id || '';
       const spliceaiDS = gene?.node?.spliceai?.ds;
       const spliceAIType = gene?.node?.spliceai?.type;
+      const pli = gene?.node?.gnomad?.pli;
+      const loeuf = gene?.node?.gnomad?.loeuf;
       const oldConsequences = acc[symbol]?.consequences || [];
 
       return {
@@ -105,6 +111,10 @@ const groupConsequencesBySymbol = (
           spliceai: {
             ds: spliceaiDS,
             type: spliceAIType,
+          },
+          gnomad: {
+            pli,
+            loeuf,
           },
         },
       };
@@ -377,51 +387,92 @@ const Consequences = ({ data }: OwnProps) => {
             const spliceAI = Number(tableData.spliceai.ds) >= 0 ? tableData.spliceai.ds : 'ND';
             const spliceAIType = tableData.spliceai.type ? tableData.spliceai.type : null;
             const spliceAiLink = `${data.variantData?.chromosome}-${data.variantData?.start}-${data.variantData?.reference}-${data.variantData?.alternate}`;
+            const pli = tableData.gnomad.pli;
+            const loeuf = tableData.gnomad.loeuf;
+            const ensembleGeneId = tableData.ensembleGeneId;
             return (
               <Space
                 key={index}
                 direction="vertical"
                 className={styles.consequenceTableWrapper}
-                size={12}
+                size={8}
               >
-                <Space size={12}>
+                <Space size={8}>
                   <Space size={4}>
-                    <span>
+                    <Text strong>
                       <ExternalLink
                         href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${symbol}`}
                       >
                         {symbol}
                       </ExternalLink>
-                    </span>
+                    </Text>
                   </Space>
                   {omim && (
                     <Space size={4}>
                       <Divider type="vertical" />
-                      <span>Omim</span>
-                      <span>
+                      <Text strong>Omim :</Text>
+                      <Text strong>
                         <ExternalLink href={`https://omim.org/entry/${omim}`}>{omim}</ExternalLink>
-                      </span>
+                      </Text>
                     </Space>
                   )}
 
                   {biotype && (
                     <Space size={4}>
                       <Divider type="vertical" />
-                      <span className="bold value">{biotype}</span>
+                      <Text strong>{biotype}</Text>
                     </Space>
                   )}
                   <Space size={4}>
                     <Divider type="vertical" />
-                    <span>spliceAI Score </span>
-                    <span>
-                      <ExternalLink
-                        href={`https://spliceailookup.broadinstitute.org/#variant=${spliceAiLink}&hg=38&distance=50&mask=0&precomputed=0`}
-                      >
-                        {spliceAI}
-                      </ExternalLink>
-                    </span>
-                    {spliceAIType && <span>({spliceAIType.join(', ')})</span>}
+                    <Text strong>spliceAI Score :</Text>
+                    <Space size={8}>
+                      <Text strong>
+                        <ExternalLink
+                          href={`https://spliceailookup.broadinstitute.org/#variant=${spliceAiLink}&hg=38&distance=50&mask=0&precomputed=0`}
+                        >
+                          {spliceAI}
+                        </ExternalLink>
+                      </Text>
+                      {spliceAIType && (
+                        <Space size={4}>
+                          {spliceAIType.map((t, index) => (
+                            <Tag key={index}>{t}</Tag>
+                          ))}
+                        </Space>
+                      )}
+                    </Space>
                   </Space>
+                  {pli && (
+                    <Space size={4}>
+                      <Divider type="vertical" />
+                      <Text strong>pLI :</Text>
+                      {
+                        <Text strong>
+                          <ExternalLink
+                            href={`https://gnomad.broadinstitute.org/gene/${ensembleGeneId}?dataset=gnomad_r2_1`}
+                          >
+                            {pli < 0.001 ? pli.toExponential(2) : pli}
+                          </ExternalLink>
+                        </Text>
+                      }
+                    </Space>
+                  )}
+                  {loeuf && (
+                    <Space size={4}>
+                      <Divider type="vertical" />
+                      <Text strong>LOEUF :</Text>
+                      {
+                        <Text strong>
+                          <ExternalLink
+                            href={`https://gnomad.broadinstitute.org/gene/${ensembleGeneId}?dataset=gnomad_r2_1`}
+                          >
+                            {loeuf < 0.001 ? loeuf.toExponential(2) : loeuf}
+                          </ExternalLink>
+                        </Text>
+                      }
+                    </Space>
+                  )}
                 </Space>
                 <ExpandableTable
                   bordered={true}

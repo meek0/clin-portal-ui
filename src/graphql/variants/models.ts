@@ -185,6 +185,10 @@ export type GeneEntity = {
     ds: string;
     type: string[];
   };
+  gnomad: {
+    pli: number;
+    loeuf: number;
+  };
 };
 
 export type ConsequenceEntity = {
