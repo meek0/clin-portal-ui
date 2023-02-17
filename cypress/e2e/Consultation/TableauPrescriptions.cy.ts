@@ -47,9 +47,9 @@ afterEach(() => {
 
 describe('Tableau des prescriptions', () => {
   describe('Vérifier les informations affichées', () => {
-    const randomPresc = Math.floor(Math.random() * 3);
 
-    it('De la prescription #'+(randomPresc+1)+' (aléatoire)', () => {
+    it('D\'une prescription aléatoire', () => {
+      const randomPresc = Math.floor(Math.random() * 3);
       cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId).should('exist');
       cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.prescriptions[randomPresc].requests[0].patientId).should('exist');
       cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('Approuvée').should('exist');
@@ -65,9 +65,9 @@ describe('Tableau des prescriptions', () => {
   });
 
   describe('Valider les liens disponibles', () => {
-    const randomPresc = Math.floor(Math.random() * 3);
 
-    it('Lien Prescription de la prescription #'+(randomPresc+1)+' (aléatoire)', () => {
+    it('Lien Prescription d\'une prescription aléatoire', () => {
+      const randomPresc = Math.floor(Math.random() * 3);
       cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
       cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').find('a[href*="prescription"]').click({force: true});
       cy.wait('@getPOSTgraphql', {timeout: 20*1000});
@@ -75,7 +75,8 @@ describe('Tableau des prescriptions', () => {
       cy.contains('Prescription ID : '+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId).should('exist', {timeout: 20*1000});
     });
 
-    it('Lien Variants de la prescription #'+(randomPresc+1)+' (aléatoire)', () => {
+    it('Lien Variants d\'une prescription aléatoire', () => {
+      const randomPresc = Math.floor(Math.random() * 3);
       cy.intercept('POST', '**/graphql').as('getPOSTgraphql9');
       cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').find('a[href*="snv"]').click({force: true});
       cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
