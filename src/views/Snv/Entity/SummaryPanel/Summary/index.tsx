@@ -37,7 +37,7 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
                 <Text className={styles.infoTitle}>
                   {intl.get('screen.variantDetails.summaryTab.summaryTable.chromosome')}
                 </Text>
-                <Text className={styles.infoValue}>
+                <Text className={styles.infoValue} data-cy="Summary_Chromosome">
                   {variant ? formatNumber(variant.chromosome) : TABLE_EMPTY_PLACE_HOLDER}
                 </Text>
               </Row>
@@ -45,7 +45,7 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
                 <Text className={styles.infoTitle}>
                   {intl.get('screen.variantDetails.summaryTab.summaryTable.start')}
                 </Text>
-                <Text className={styles.infoValue}>
+                <Text className={styles.infoValue} data-cy="Summary_Start">
                   {variant ? formatNumber(variant?.start) : TABLE_EMPTY_PLACE_HOLDER}
                 </Text>
               </Row>
@@ -53,13 +53,17 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
                 <Text className={styles.infoTitle}>
                   {intl.get('screen.variantDetails.summaryTab.summaryTable.alleleAlt')}
                 </Text>
-                <Text className={styles.infoValue}>{variant?.alternate}</Text>
+                <Text className={styles.infoValue} data-cy="Summary_AlleleAlt">
+                  {variant?.alternate}
+                </Text>
               </Row>
               <Row className={styles.row}>
                 <Text className={styles.infoTitle}>
                   {intl.get('screen.variantDetails.summaryTab.summaryTable.alleleRef')}
                 </Text>
-                <Text className={styles.infoValue}>{variant?.reference}</Text>
+                <Text className={styles.infoValue} data-cy="Summary_AlleleRef">
+                  {variant?.reference}
+                </Text>
               </Row>
             </Card>
           </Col>
@@ -68,7 +72,7 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
               <Text className={styles.contentTitle}>
                 {intl.get('screen.variantDetails.summaryTab.summaryTable.type')}
               </Text>
-              <Text className={styles.contentValue}>
+              <Text className={styles.contentValue} data-cy="Summary_Type">
                 {variant?.variant_class
                   ? intl
                       .get(variant.variant_class)
@@ -80,7 +84,7 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
               <Text className={styles.contentTitle}>
                 {intl.get('screen.variantDetails.summaryTab.summaryTable.cytoband')}
               </Text>
-              <Text className={styles.contentValue}>
+              <Text className={styles.contentValue} data-cy="Summary_Cytoband">
                 {genes?.[0]?.node?.location || TABLE_EMPTY_PLACE_HOLDER}
               </Text>
             </Row>
@@ -88,14 +92,16 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
               <Text className={styles.contentTitle}>
                 {intl.get('screen.variantDetails.summaryTab.summaryTable.genomeRef')}
               </Text>
-              <Text className={styles.contentValue}>{variant?.assembly_version}</Text>
+              <Text className={styles.contentValue} data-cy="Summary_GenomeRef">
+                {variant?.assembly_version}
+              </Text>
             </Row>
           </Col>
           <Divider className={styles.divider} type="vertical" />
           <Col className={styles.resumeContent}>
             <Row className={styles.row}>
               <Text className={styles.contentTitle}>ClinVar</Text>
-              <Text className={styles.contentValue}>
+              <Text className={styles.contentValue} data-cy="Summary_Clinvar">
                 {variant?.clinvar?.clin_sig && variant?.clinvar.clinvar_id ? (
                   <ExternalLink
                     href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${variant?.clinvar.clinvar_id}`}
@@ -109,7 +115,7 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
             </Row>
             <Row className={styles.row}>
               <Text className={styles.contentTitle}>dbSNP</Text>
-              <Text className={styles.contentValue}>
+              <Text className={styles.contentValue} data-cy="Summary_dbSNP">
                 {variant?.rsnumber ? (
                   <ExternalLink href={`https://www.ncbi.nlm.nih.gov/snp/${variant?.rsnumber}`}>
                     {variant?.rsnumber}
@@ -131,7 +137,7 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
                   <InfoCircleOutlined />
                 </Tooltip>
               </Text>
-              <Text className={styles.contentValue}>
+              <Text className={styles.contentValue} data-cy="Summary_FreqRQDMTotalPc">
                 {variant?.frequency_RQDM ? (
                   <>{`${variant?.frequency_RQDM?.total.pc} /${variant?.frequency_RQDM?.total.pn}`}</>
                 ) : (
@@ -143,7 +149,7 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
               <Text className={styles.contentTitle}>
                 {intl.get('screen.variantDetails.summaryTab.patientTable.frequency')}
               </Text>
-              <Text className={styles.contentValue}>
+              <Text className={styles.contentValue} data-cy="Summary_FreqRQDMTotalAf">
                 {variant?.frequency_RQDM
                   ? variant?.frequency_RQDM.total?.af.toExponential(2)
                   : TABLE_EMPTY_PLACE_HOLDER}
@@ -151,7 +157,7 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
             </Row>
             <Row className={styles.row}>
               <Text className={styles.contentTitle}>{intl.get('annotationUpdate')}</Text>
-              <Text className={styles.contentValue}>
+              <Text className={styles.contentValue} data-cy="Summary_LastAnnotation">
                 {variant?.last_annotation_update
                   ? formatTimestampToISODate(variant?.last_annotation_update)
                   : TABLE_EMPTY_PLACE_HOLDER}

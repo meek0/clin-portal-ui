@@ -18,11 +18,11 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier et numéro de patient:').should('exist', {timeout: 20*1000});
     cy.contains('Rechercher un variant').should('exist', {timeout: 20*1000});
     cy.contains('Rechercher par locus, dbSNP, ClinVar:').should('exist', {timeout: 20*1000});
-    cy.get('footer[id="footer"]').find('a[href="'+Cypress.env('zeppelin_URL')+'"]').should('exist', {timeout: 20*1000});
-    cy.get('footer[id="footer"]').find('a[href="'+Cypress.env('fhir_URL')+'"]').should('exist', {timeout: 20*1000});
+    cy.get('[data-cy="ZeppelinLink"]').should('have.attr', 'href', Cypress.env('zeppelin_URL'));
+    cy.get('[data-cy="FhirLink"]').should('have.attr', 'href', Cypress.env('fhir_URL'));
 
     // Page Prescriptions - Onglet Prescriptions
-    cy.get('body').find('a[href="/prescription/search"]').click();
+    cy.get('[data-cy="HeaderLinkPrescriptions"]').click();
     cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier et numéro de patient:').should('exist', {timeout: 20*1000});
 
     // Page Prescriptions - Onglet Requêtes
@@ -30,13 +30,13 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier et numéro de patient:').should('exist', {timeout: 20*1000});
     
     // Page Archives
-    cy.get('body').find('a[href="/archive/exploration"]').click();
+    cy.get('[data-cy="HeaderLinkArchives"]').click();
     cy.contains('Archives').should('exist', {timeout: 20*1000});
     cy.contains('Rechercher').should('exist', {timeout: 20*1000});
     cy.contains('Entrez une valeur dans la barre de recherche').should('exist', {timeout: 20*1000});
     
     // Page Variants
-    cy.get('body').find('a[href="/snv/exploration"]').click();
+    cy.get('[data-cy="HeaderLinkVariants"]').click();
     cy.contains('Banque de variants du RQDM').should('exist', {timeout: 20*1000});
     cy.contains('Patient').should('exist', {timeout: 20*1000});
     cy.contains('Variant').should('exist', {timeout: 20*1000});
@@ -149,24 +149,24 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Utiliser les filtres pour créer une requête').should('exist', {timeout: 20*1000});
 
     // Téléverser une liste de gènes
-    cy.get('body').find('span[class*="SidebarMenu_sidebarMenuItemTitle"]').contains('Gène').click({force: true});
-    cy.get('body').find('button[class*="UploadIds_fuiUploadIdsButton"]').click({force: true});
+    cy.get('[data-key="category_genomic"]').click({force: true});
+    cy.get('button[class*="UploadIdsButton"]').click({force: true});
     cy.contains('Téléverser une liste de gènes').should('exist', {timeout: 20*1000});
     cy.contains('Copier-coller une liste d\'identifiants ou téléverser un fichier').should('exist', {timeout: 20*1000});
     cy.contains('Téléverser un fichier').should('exist', {timeout: 20*1000});
     cy.contains('Annuler').should('exist', {timeout: 20*1000});
-    cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
 
     // Enregistrer le filtre
-    cy.get('body').find('button[class*="Header_iconBtnAction"]').click({force: true});
+    cy.get('button[class*="Header_iconBtnAction"]').click({force: true});
     cy.contains('Sauvegarder ce filtre').should('exist', {timeout: 20*1000});
     cy.contains('Nom du filtre').should('exist', {timeout: 20*1000});
     cy.contains('Annuler').should('exist', {timeout: 20*1000});
     cy.contains('Sauvegarder').should('exist', {timeout: 20*1000});
-    cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
 
     // Tiroir d'occurrence
-    cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td[class*="ant-table-cell-fix-left"]').eq(1).find('svg[class="anticon"]').first().click({force: true});
+    cy.get('[data-cy="drawerCb_chr10:g.1096268T>C"]').click({force: true});
     cy.contains('Occurrence').should('exist', {timeout: 20*1000});
     cy.contains('Variant').should('exist', {timeout: 20*1000});
     cy.contains('Patient').should('exist', {timeout: 20*1000});
@@ -188,7 +188,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Filtre').should('exist', {timeout: 20*1000});
 
     // Métriques de séquençage parental
-    cy.get('body').find('div[class*="ant-drawer-content"]').find('button[class*="ant-btn-sm"]').first().click({force: true});
+    cy.get('[data-cy="OpenSeqMetricModal"]').click({force: true});
     cy.contains('Métriques de séquençage parental').should('exist', {timeout: 20*1000});
     cy.contains('Mère').should('exist', {timeout: 20*1000});
     cy.contains('Père').should('exist', {timeout: 20*1000});
@@ -198,19 +198,19 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Ratio allélique ALT / (ALT+REF)').should('exist', {timeout: 20*1000});
     cy.contains('Qualité du génotype').should('exist', {timeout: 20*1000});
     cy.contains('Filtre').should('exist', {timeout: 20*1000});
-    cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
     
-    cy.get('body').find('button[class="ant-drawer-close"]').invoke('click');
+    cy.get('button[class="ant-drawer-close"]').invoke('click');
 
     // IGV
-    cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td[class*="ant-table-cell-fix-left"]').eq(1).find('svg[class="anticon"]').last().click({force: true});
+    cy.get('[data-cy="igvModalCb_chr10:g.1096268T>C"]').click({force: true});
     cy.contains('Alignement et variant').should('exist', {timeout: 20*1000});
     cy.contains('proband').should('exist', {timeout: 20*1000});
     cy.contains('mother').should('exist', {timeout: 20*1000});
     cy.contains('father').should('exist', {timeout: 20*1000});
     cy.contains('Refseq Genes').should('exist', {timeout: 20*1000});
     cy.contains('ERROR').should('not.exist');
-    cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
   });
  
   it('CNVs d\'un patient', () => {
@@ -232,7 +232,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Utiliser les filtres pour créer une requête').should('exist', {timeout: 20*1000});
 
     // Liste des gènes chevauchants
-    cy.get('body').find('div[class="ant-table-wrapper"]').find('tr[data-row-key="4c90806f5c0439083cf84982becd12e2993ed4b3"]').contains('CLSTN1').click({force: true});
+    cy.get('[data-cy="openGenesModal_LOSS:chr1:9823628-9823687"]').click({force: true});
     cy.contains('Liste des gènes chevauchants le CNV').should('exist', {timeout: 20*1000});
     cy.contains('Gène').should('exist', {timeout: 20*1000});
     cy.contains('Panel').should('exist', {timeout: 20*1000});
@@ -242,15 +242,11 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('# Exons').should('exist', {timeout: 20*1000});
     cy.contains('% Gène').should('exist', {timeout: 20*1000});
     cy.contains('% CNV').should('exist', {timeout: 20*1000});
-    cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
   });
  
   it('Variant', () => {
-    cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
-    cy.visit('/variant/entity/10-1096268-T-C/summary');
-    cy.wait('@getPOSTgraphql', {timeout: 5000});
-    cy.wait('@getPOSTgraphql', {timeout: 5000});
-    cy.wait('@getPOSTgraphql', {timeout: 5000});
+    cy.visitVariantEntityPage('10-1096268-T-C', 3);
 
     cy.contains('chr10:g.1096268T>C').should('exist', {timeout: 20*1000});
     cy.contains('GERMLINE').should('exist', {timeout: 20*1000});
@@ -304,7 +300,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Héritages').should('exist', {timeout: 20*1000});
 
     // Onglet Patient
-    cy.get('body').find('div[id*="rc-tabs-0-tab-patients"]').click({force: true});
+    cy.get('div[id*="rc-tabs-0-tab-patients"]').click({force: true});
     cy.contains('chr10:g.1096268T>C').should('exist', {timeout: 20*1000});
     cy.contains('GERMLINE').should('exist', {timeout: 20*1000});
     cy.contains('HIGH').should('exist', {timeout: 20*1000});

@@ -1,15 +1,11 @@
 /// <reference types="Cypress" />
-/* eslint-disable no-mixed-spaces-and-tabs */
 import '../../support/commands';
 
 const epCHUSJ_ldmCHUSJ = JSON.parse(Cypress.env('presc_EP_CHUSJ_LDM_CHUSJ'));
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-
-  cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
-  cy.visitVariantEntityPage('1-45508847-C-T');
-  cy.wait('@getPOSTgraphql', {timeout: 5000});
+  cy.visitVariantEntityPage('1-45508847-C-T', 2);
 });
 
 afterEach(() => {
@@ -19,18 +15,18 @@ afterEach(() => {
 describe('Page d\'un variant (onglet Résumé)', () => {
   describe('Vérifier les informations affichées', () => {
     it('De la section Résumé', () => {
-      cy.get('div[class*="Container_container"]').find('span[class*="Summary_infoValue"]').eq(0).contains('1').should('exist');
-      cy.get('div[class*="Container_container"]').find('span[class*="Summary_infoValue"]').eq(1).contains('45 508 847').should('exist');
-      cy.get('div[class*="Container_container"]').find('span[class*="Summary_infoValue"]').eq(2).contains('T').should('exist');
-      cy.get('div[class*="Container_container"]').find('span[class*="Summary_infoValue"]').eq(3).contains('C').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(0).contains('SNV').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(0).contains('1p34.1').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(0).contains('GRCh38').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(1).contains('Pathogenic').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(1).contains('rs370596113').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(2).contains(/^1 \/\d{3}$/).should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(2).contains(/^3.\d{2}e-3$/).should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="Summary_resumeContent"]').eq(2).contains(epCHUSJ_ldmCHUSJ.annotationDate).should('exist');
+      cy.get('[data-cy="Summary_Chromosome"]').contains('1').should('exist');
+      cy.get('[data-cy="Summary_Start"]').contains('45 508 847').should('exist');
+      cy.get('[data-cy="Summary_AlleleAlt"]').contains('T').should('exist');
+      cy.get('[data-cy="Summary_AlleleRef"]').contains('CC').should('exist');
+      cy.get('[data-cy="Summary_Type"]').contains('SNV').should('exist');
+      cy.get('[data-cy="Summary_Cytoband"]').contains('1p34.1').should('exist');
+      cy.get('[data-cy="Summary_GenomeRef"]').contains('GRCh38').should('exist');
+      cy.get('[data-cy="Summary_Clinvar"]').contains('Pathogenic').should('exist');
+      cy.get('[data-cy="Summary_dbSNP"]').contains('rs370596113').should('exist');
+      cy.get('[data-cy="Summary_FreqRQDMTotalPc"]').contains(/^1 \/\d{3}$/).should('exist');
+      cy.get('[data-cy="Summary_FreqRQDMTotalAf"]').contains(/^3.\d{2}e-3$/).should('exist');
+      cy.get('[data-cy="Summary_LastAnnotation"]').contains(epCHUSJ_ldmCHUSJ.annotationDate).should('exist');
     });
     
     it('De la section Conséquences géniques', () => {

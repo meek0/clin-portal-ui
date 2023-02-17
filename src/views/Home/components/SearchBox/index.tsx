@@ -48,6 +48,7 @@ const SearchBox = ({
                 suffix={<SearchOutlined />}
                 size="large"
                 placeholder={searchPlaceholder}
+                data-cy="SearchBox"
               ></Input>
             </AutoComplete>
           )}

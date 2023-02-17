@@ -41,7 +41,11 @@ const VariantSearchBox = () => {
         },
         options: suggestions.map((suggestion) => ({
           label: (
-            <Link className={styles.variantSearchBoxLink} to={formatUrl(suggestion.locus!)}>
+            <Link
+              className={styles.variantSearchBoxLink}
+              to={formatUrl(suggestion.locus!)}
+              data-cy={suggestion.locus!}
+            >
               <OptionItem
                 type={SuggestionType.VARIANTS}
                 suggestion={suggestion}

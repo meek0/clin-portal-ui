@@ -116,6 +116,7 @@ export const getVariantColumns = (
               e.preventDefault();
               openGenesModal(variant);
             }}
+            data-cy={`openGenesModal_${variant.name.split(':').slice(1).join(':')}`}
           >
             {variant.genes.hits.edges
               .slice(0, 3)
