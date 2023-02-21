@@ -1,5 +1,17 @@
 import { defineConfig } from 'cypress';
 
+let date = new Date();
+const joinWithPadding = (l: number[]) => l.reduce((xs, x) => xs + `${x}`.padStart(2, '0'), '');
+const strDate = joinWithPadding([
+  date.getFullYear(),
+  date.getMonth() + 1,
+  date.getDate()
+]);
+const strTime = joinWithPadding([
+  date.getHours(),
+  date.getMinutes()
+]);
+
 export default defineConfig({
   projectId: 'e6jd58',
   chromeWebSecurity: false,
@@ -21,5 +33,10 @@ export default defineConfig({
   retries: {
     "runMode": 2,
     "openMode": 0
+  },
+  reporter: 'junit',
+  reporterOptions: {
+     "mochaFile": 'cypress/results/'+strDate+'_'+strTime+'-[hash].xml',
+     rootSuiteTitle: 'Tests Cypress'
   }
 });
