@@ -57,10 +57,10 @@ describe('Tableau des CNVs d\'un patient', () => {
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(9)
         .contains('Gènes').should('exist');
-/* CLIN-1621
+
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(10)
-        .contains('IGV').should('exist');*/
+        .contains('Actions').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .contains('GT').should('not.exist');
