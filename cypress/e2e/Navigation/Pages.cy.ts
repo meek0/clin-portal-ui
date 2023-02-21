@@ -166,7 +166,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
 
     // Tiroir d'occurrence
-    cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td[class*="ant-table-cell-fix-right-first"]').find('svg[class="anticon"]').first().click({force: true});
+    cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td[class*="ant-table-cell-fix-left"]').eq(1).find('svg[class="anticon"]').first().click({force: true});
     cy.contains('Occurrence').should('exist', {timeout: 20*1000});
     cy.contains('Variant').should('exist', {timeout: 20*1000});
     cy.contains('Patient').should('exist', {timeout: 20*1000});
@@ -203,7 +203,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.get('body').find('button[class="ant-drawer-close"]').invoke('click');
 
     // IGV
-    cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td[class*="ant-table-cell-fix-right-first"]').find('svg[class="anticon"]').last().click({force: true});
+    cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td[class*="ant-table-cell-fix-left"]').eq(1).find('svg[class="anticon"]').last().click({force: true});
     cy.contains('Alignement et variant').should('exist', {timeout: 20*1000});
     cy.contains('proband').should('exist', {timeout: 20*1000});
     cy.contains('mother').should('exist', {timeout: 20*1000});
