@@ -32,11 +32,14 @@ export const getAchivesTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
     key: 'format',
     dataIndex: 'format',
     title: intl.get('screen.archives.table.column.format'),
+    sorter: (a, b) => (a.format || '').localeCompare(b.format || ''),
   },
   {
     key: 'patientId',
     dataIndex: 'patientId',
     title: intl.get('screen.archives.table.column.patient'),
+    sorter: (a, b) => (a.patientId || '').localeCompare(b.patientId || ''),
+    defaultSortOrder: 'ascend',
   },
   {
     key: 'request',
@@ -44,6 +47,7 @@ export const getAchivesTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
     render: (record: DocsWithTaskInfo) => (
       <Link to={`/prescription/entity/${extractTaskId(record.basedOnSrRef)}`}>{record.srRef}</Link>
     ),
+    sorter: (a, b) => (a.srRef || '').localeCompare(b.srRef || ''),
   },
   {
     key: 'sampleldm',
@@ -58,6 +62,7 @@ export const getAchivesTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
         {extractTaskId(doc.taskId)}
       </Link>
     ),
+    sorter: (a, b) => (extractTaskId(a.taskId) || '').localeCompare(extractTaskId(b.taskId) || ''),
   },
   {
     key: 'date',
