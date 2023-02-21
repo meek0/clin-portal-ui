@@ -57,58 +57,58 @@ describe('Tableau des CNVs d\'un patient', () => {
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(9)
         .contains('Gènes').should('exist');
-/* CLIN-1621
+
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(10)
-        .contains('IGV').should('exist');*/
+        .contains('Actions').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .contains('GT').should('not.exist');
       cy.get('div[class="ant-popover-inner"]')
-        .find('div[class="ant-space-item"]').eq(10)
+        .find('div[class="ant-space-item"]').eq(9)
         .contains('GT').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .contains('Filtre').should('not.exist');
       cy.get('div[class="ant-popover-inner"]')
-        .find('div[class="ant-space-item"]').eq(11)
+        .find('div[class="ant-space-item"]').eq(10)
         .contains('Filtre').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .contains('Qual.').should('not.exist');
       cy.get('div[class="ant-popover-inner"]')
-        .find('div[class="ant-space-item"]').eq(12)
+        .find('div[class="ant-space-item"]').eq(11)
         .contains('Qual.').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .contains('SM').should('not.exist');
       cy.get('div[class="ant-popover-inner"]')
-        .find('div[class="ant-space-item"]').eq(13)
+        .find('div[class="ant-space-item"]').eq(12)
         .contains('SM').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .contains('BC').should('not.exist');
       cy.get('div[class="ant-popover-inner"]')
-        .find('div[class="ant-space-item"]').eq(14)
+        .find('div[class="ant-space-item"]').eq(13)
         .contains('BC').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .contains('PE').should('not.exist');
       cy.get('div[class="ant-popover-inner"]')
-        .find('div[class="ant-space-item"]').eq(15)
+        .find('div[class="ant-space-item"]').eq(14)
         .contains('PE').should('exist');
     });
 
     it('Masquer une colonne affichée', () => {
       cy.get('thead[class="ant-table-thead"]')
-        .contains('Variant').should('exist');
+        .contains('Chr.').should('exist');
 
       cy.get('div[class="ant-popover-inner"]')
-        .find('div[class="ant-space-item"]').contains('Variant')
+        .find('div[class="ant-space-item"]').contains('Chr.')
         .find('[type="checkbox"]').uncheck({force: true});
 
       cy.get('thead[class="ant-table-thead"]')
-        .contains('Variant').should('not.exist');
+        .contains('Chr.').should('not.exist');
     });
 
     it('Afficher une colonne masquée', () => {
@@ -125,8 +125,8 @@ describe('Tableau des CNVs d\'un patient', () => {
 
     it.skip('Déplacer une colonne', () => {
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class="ant-table-cell"]').eq(1)
-        .contains('Chr.').should('exist');
+        .find('th[class="ant-table-cell"]').eq(3)
+        .contains('Début').should('exist');
 
       // Le drag and drop ne fonctionne pas
       cy.get('div[class="ant-popover-inner"]')
@@ -138,9 +138,8 @@ describe('Tableau des CNVs d\'un patient', () => {
         .trigger('mouseup', {which: 1, eventConstructor: 'MouseEvent', force: true});
 
       cy.get('thead[class="ant-table-thead"]')
-        .find('th[class="ant-table-cell"]').eq(0)
-        .contains('Chr.').should('exist');
-
+        .find('th[class="ant-table-cell"]').eq(2)
+        .contains('Début').should('exist');
     });
   });
 });

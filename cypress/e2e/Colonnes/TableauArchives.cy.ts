@@ -51,11 +51,11 @@ describe('Tableau des archives', () => {
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(5)
         .contains('Échantillon (LDM)').should('exist');
-/* CLIN-1617
+
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(6)
 //        .should('have.class', 'ant-table-column-has-sorters') CLIN-1616
-        .contains('Analyse bioinfo').should('exist');*/
+        .contains('Analyse bioinfo').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(7)
@@ -78,10 +78,10 @@ describe('Tableau des archives', () => {
       cy.get('div[class="ant-popover-inner"]')
         .find('div[class="ant-space-item"]').eq(12)
         .contains('Run').should('exist');
-/* CLIN-1617
+
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(8)
-        .contains('Actions').should('exist');*/
+        .contains('Actions').should('exist');
     });
 
     it('Masquer une colonne affichée', () => {
