@@ -100,7 +100,7 @@ export const getVariantColumns = (
               size={'small'}
             />
           </Tooltip>
-          <OtherActions patientId={'test'} record={record} />
+          <OtherActions patientId={patientId} record={record} />
         </Space>
       ),
       align: 'center',
