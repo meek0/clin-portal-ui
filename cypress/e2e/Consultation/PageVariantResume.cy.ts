@@ -1,4 +1,5 @@
 /// <reference types="Cypress" />
+/* eslint-disable no-mixed-spaces-and-tabs */
 import '../../support/commands';
 
 const epCHUSJ_ldmCHUSJ = JSON.parse(Cypress.env('presc_EP_CHUSJ_LDM_CHUSJ'));
@@ -46,7 +47,7 @@ describe('Page d\'un variant (onglet Résumé)', () => {
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('Omim').should('exist');
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('176763').should('exist');
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('protein_coding').should('exist');
-        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('spliceAI Score').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('SpliceAI').should('exist');
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('ND').should('exist');
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('pLI').should('exist');
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderPRDX1).contains('7.70e-10').should('exist');
@@ -67,7 +68,7 @@ describe('Page d\'un variant (onglet Résumé)', () => {
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('Omim').should('exist');
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('609831').should('exist');
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('protein_coding').should('exist');
-        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('spliceAI Score').should('exist');
+        cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('SpliceAI').should('exist');
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('0.01').should('exist');
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('AL').should('exist');
         cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(orderMMACHC).contains('pLI').should('exist');
@@ -248,7 +249,7 @@ describe('Page d\'un variant (onglet Résumé)', () => {
       cy.get('body').contains(/^(\*176763|\*609831)$/).should('exist');
     });
     
-    it('Lien spliceAI de la section Conséquences géniques', () => {
+    it('Lien SpliceAI de la section Conséquences géniques', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('a[target="_blank"]').eq(2).invoke('removeAttr', 'target').click({force: true});
       cy.get('body').contains('1-45508847-C-T').should('exist');
     });
@@ -281,7 +282,7 @@ describe('Page d\'un variant (onglet Résumé)', () => {
     
     it('Lien RefSeq de la section Conséquences géniques', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('a[target="_blank"]').eq(5).invoke('removeAttr', 'target').click({force: true});
-      cy.get('body').contains(/^(NM_181697.3|NM_015506.3)$/).should('exist');
+      cy.get('body').contains(/(NM_181697.3|NM_015506.3)/).should('exist');
     });
     
     it('Lien \'5 autres transcrits\' de la section Conséquences géniques', () => {

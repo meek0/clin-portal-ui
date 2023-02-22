@@ -63,6 +63,11 @@ Cypress.Commands.add('login', (user: string, password: string) => {
 });
 
 Cypress.Commands.add('logout', () => {
+    cy.intercept('**/user').as('getUser');
+    cy.visit('/');
+    cy.wait('@getUser', {timeout: 20*1000});
+    cy.wait(5*1000);
+
     cy.get('div').then(($div) => {
         if ($div.hasClass('App')) {
             cy.get('span[class="ant-page-header-heading-extra"]')
