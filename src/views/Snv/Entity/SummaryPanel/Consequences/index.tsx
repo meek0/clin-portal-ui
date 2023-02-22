@@ -425,7 +425,7 @@ const Consequences = ({ data }: OwnProps) => {
                   )}
                   <Space size={4}>
                     <Divider type="vertical" />
-                    <Text strong>spliceAI :</Text>
+                    <Text strong>SpliceAI :</Text>
                     <Space size={8}>
                       <Text strong>
                         <ExternalLink
