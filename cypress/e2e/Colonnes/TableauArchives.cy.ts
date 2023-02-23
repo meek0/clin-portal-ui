@@ -35,17 +35,17 @@ describe('Tableau des archives', () => {
     
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(2)
-//        .should('have.class', 'ant-table-column-has-sorters') CLIN-1616
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Format').should('exist');
   
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(3)
-//        .should('have.class', 'ant-table-column-has-sorters') CLIN-1616
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Patient').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(4)
-//        .should('have.class', 'ant-table-column-has-sorters') CLIN-1616
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Requête').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
@@ -54,7 +54,7 @@ describe('Tableau des archives', () => {
 
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(6)
-//        .should('have.class', 'ant-table-column-has-sorters') CLIN-1616
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Analyse bioinfo').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
