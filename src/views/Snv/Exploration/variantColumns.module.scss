@@ -1,12 +1,16 @@
 @import 'src/style/themes/clin/colors';
 
 .variantTableCellElipsis {
-  max-width: 200px;
-  width: 200px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  overflow-wrap: unset;
-  white-space: nowrap;
+  div {
+    max-width: 160px;
+    width: 140px;
+    div {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      overflow-wrap: unset;
+      white-space: nowrap;
+    }
+  }
 }
 
 .variantTableCell {
@@ -40,7 +44,7 @@
 .fixedVariantTableCellElipsis {
   max-width: 200px;
   width: 200px;
-  div{
+  div {
     overflow: hidden;
     text-overflow: ellipsis;
     overflow-wrap: unset;
