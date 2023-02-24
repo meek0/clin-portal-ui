@@ -183,7 +183,7 @@ export const getVariantColumns = (
       title: intl.get('screen.patientsnv.results.table.clinvar'),
       dataIndex: 'clinvar',
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
-      width: 110,
+      width: 160,
       render: (clinVar: ClinVar) => {
         const clinVarSigFormatted: string[] = [];
         clinVar?.clin_sig &&
@@ -191,11 +191,15 @@ export const getVariantColumns = (
             clinVarSigFormatted.push(removeUnderscoreAndCapitalize(c));
           });
         return clinVar?.clin_sig && clinVar.clinvar_id ? (
-          <ExternalLink
-            href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
-          >
-            {clinVarSigFormatted.join(', ')}
-          </ExternalLink>
+          <Tooltip placement="topLeft" title={clinVarSigFormatted.join(', ')}>
+            <div>
+              <ExternalLink
+                href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
+              >
+                {clinVarSigFormatted.join(', ')}
+              </ExternalLink>
+            </div>
+          </Tooltip>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
         );
@@ -206,7 +210,7 @@ export const getVariantColumns = (
       title: intl.get('screen.patientsnv.results.table.acmgVerdict'),
       tooltip: intl.get('screen.patientsnv.results.table.acmgVerdict.tooltip'),
       dataIndex: 'locus',
-      className: cx(style.variantTableCell, style.variantTableCellElipsis),
+      className: cx(style.variantTableCell),
       width: 125,
       render: (locus: string, entity: VariantEntity) => (
         <AcmgVerdict varsome={entity.varsome} locus={locus} />
