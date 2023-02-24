@@ -1,4 +1,5 @@
 import React from 'react';
+import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
 import { Space, Tag } from 'antd';
 import { extractServiceRequestId } from 'api/fhir/helper';
@@ -70,7 +71,7 @@ export default (
           </Space>
         )}
         {specimen && `|`}
-        {specimen && `Échantillon : ${specimen}`}
+        {specimen && intl.get('tag.sample') + ` : ${specimen}`}
       </Space>
     </Tag>,
   ];

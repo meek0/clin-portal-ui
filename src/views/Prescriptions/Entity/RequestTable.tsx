@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal';
 import Empty from '@ferlab/ui/core/components/Empty';
 import { Table, TableColumnType } from 'antd';
 import { extractServiceRequestId } from 'api/fhir/helper';
@@ -21,26 +22,26 @@ const getRequestColumns = (patientId: string): TableColumnType<Record<string, an
   {
     key: 'id',
     dataIndex: 'id',
-    title: 'ID requête',
+    title: intl.get('screen.prescription.entity.request.id'),
     render: (id) => extractServiceRequestId(id),
   },
   {
     key: 'status',
     dataIndex: 'status',
-    title: 'Statut',
+    title: intl.get('screen.prescription.entity.request.status'),
     render: (value: string) =>
       value ? <StatusTag dictionary={getPrescriptionStatusDictionnary()} status={value} /> : null,
   },
   {
     key: 'created',
     dataIndex: 'authoredOn',
-    title: 'Créée le',
+    title: intl.get('screen.prescription.entity.request.createdOn'),
     render: (authoredOn) => formatDate(authoredOn),
   },
   {
     key: 'requester',
     dataIndex: 'requester',
-    title: 'Requérant',
+    title: intl.get('screen.prescription.entity.request.requester'),
     render: (requester) =>
       requester
         ? `${requester.practitioner?.name.family.toLocaleUpperCase()} 
@@ -49,7 +50,7 @@ const getRequestColumns = (patientId: string): TableColumnType<Record<string, an
   },
   {
     key: 'specimen_id',
-    title: 'ID échantillon',
+    title: intl.get('screen.prescription.entity.request.sampleid'),
     render: (data: PatientRequest) => {
       // specimen with parent is the sample
       const specimen = data.specimen?.find((specimen) => 'parent' in specimen.resource);
@@ -58,7 +59,7 @@ const getRequestColumns = (patientId: string): TableColumnType<Record<string, an
   },
   {
     key: 'links',
-    title: 'Liens',
+    title: intl.get('screen.prescription.entity.request.links'),
     render: (data: PatientRequest) => <Links patientId={patientId} prescriptionId={data.id} />,
   },
 ];
