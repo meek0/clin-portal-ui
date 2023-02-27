@@ -250,7 +250,9 @@ describe('Page d\'un variant (onglet Résumé)', () => {
     });
     
     it('Lien SpliceAI de la section Conséquences géniques', () => {
+      cy.intercept('GET', '**/pangolin/**').as('getGETpangolin');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(0).find('div[class*="SummaryPanel_consequenceTableWrapper"]').eq(0).find('a[target="_blank"]').eq(2).invoke('removeAttr', 'target').click({force: true});
+      cy.wait('@getGETpangolin', {timeout: 5000});
       cy.get('body').contains('1-45508847-C-T').should('exist');
     });
     
