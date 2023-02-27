@@ -33,31 +33,34 @@ const fetchRptToken = async (): Promise<IRptPayload> => {
   };
 };
 
-const isTokenUnexpired = (iat: number, expires_in: number) => {
+const isTokenExpired = (iat: number, expires_in: number) => {
   const currentTime = Math.floor(Date.now() / 1000);
   const expirationTime = iat + expires_in;
-  return currentTime < expirationTime;
+  return currentTime >= expirationTime;
 };
 
 export class RptManager {
   private static storedRpt?: IRptPayload;
+  private static currentRequestNewRpt?: Promise<IRptPayload>;
 
   private static async requestNewRpt() {
-    return fetchRptToken();
+    if (!this.currentRequestNewRpt) {
+      this.currentRequestNewRpt = fetchRptToken();
+    }
+    return this.currentRequestNewRpt;
   }
 
-  private static async readRptFromStorage() {
-    if (this.storedRpt == null) {
+  private static async readRptFromStorageOrFetchNew() {
+    if (!this.storedRpt || isTokenExpired(this.storedRpt.decoded.iat, this.storedRpt.expires_in)) {
       this.storedRpt = await this.requestNewRpt();
     }
     return this.storedRpt;
   }
 
   public static async readRpt(): Promise<IRptPayload> {
-    const rpt = await this.readRptFromStorage();
-    if (isTokenUnexpired(rpt.decoded.iat, rpt.expires_in)) {
-      return rpt;
-    }
-    return this.requestNewRpt();
+    const rpt = await this.readRptFromStorageOrFetchNew().finally(
+      () => (this.currentRequestNewRpt = undefined),
+    );
+    return rpt;
   }
 }
