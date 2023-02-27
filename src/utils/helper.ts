@@ -21,7 +21,7 @@ export const toKebabCase = (str: string) => {
 export const formatTimestampToISODate = (timestamp: number) =>
   new Date(timestamp).toISOString().split('T')[0];
 
-export const downloadText = (text: string, filename: string, contentType = ' text/plain') => {
+export const downloadText = (text: string, filename: string, contentType = 'text/plain') => {
   if (text && text.length > 0) {
     const byteArray = new TextEncoder().encode(text);
     const blob = new Blob([byteArray], { type: contentType });
