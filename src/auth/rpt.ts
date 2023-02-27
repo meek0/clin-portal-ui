@@ -58,8 +58,9 @@ export class RptManager {
   }
 
   public static async readRpt(): Promise<IRptPayload> {
-    const rpt = await this.readRptFromStorageOrFetchNew();
-    this.currentRequestNewRpt = undefined;
+    const rpt = await this.readRptFromStorageOrFetchNew().finally(
+      () => (this.currentRequestNewRpt = undefined),
+    );
     return rpt;
   }
 }
