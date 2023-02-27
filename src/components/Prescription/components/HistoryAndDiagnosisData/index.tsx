@@ -230,7 +230,7 @@ const HistoryAndDiagnosticData = ({ parentKey, form, initialData }: OwnProps) =>
         rules={defaultFormItemsRules}
         className="noMarginBtm"
       >
-        <Input.TextArea rows={3} placeholder="Indications" />
+        <Input.TextArea rows={3} placeholder="Indications" data-cy="InputHypothesis" />
       </Form.Item>
     </div>
   );

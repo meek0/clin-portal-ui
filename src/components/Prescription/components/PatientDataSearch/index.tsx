@@ -207,6 +207,7 @@ const PatientDataSearch = ({
               inputProps={{
                 placeholder: '000000',
                 onSearch: (value, search) => (search as Function)(value.replace(/\s/g, '')),
+                'data-cy': 'InputMRN',
               }}
               checkboxFormItemProps={{
                 name: getName(PATIENT_DATA_FI_KEY.NO_FILE),

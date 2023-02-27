@@ -19,6 +19,7 @@ const ActionButton = ({ icon, title, description, onClick }: OwnProps) => (
     className={styles.homeActionCard}
     contentClassName={styles.homeActionContent}
     onClick={onClick}
+    data-cy="ActionButton"
     content={
       <Space className={styles.homeActionButton} size={0} direction="vertical">
         <span className={styles.homeActionIcon}>{icon}</span>
