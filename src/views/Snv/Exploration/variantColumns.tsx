@@ -114,7 +114,7 @@ export const getVariantColumns = (
       title: intl.get('screen.patientsnv.results.table.variant'),
       key: 'hgvsg',
       dataIndex: 'hgvsg',
-      className: cx(style.fixedVariantTableCellElipsis, style.fixedVariantTableCellElipsis),
+      className: style.fixedVariantTableCellElipsis,
       fixed: 'left',
       sorter: {
         multiple: 1,
