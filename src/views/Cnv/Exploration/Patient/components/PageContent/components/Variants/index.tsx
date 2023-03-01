@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
+import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
+import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 import { IQueryResults } from 'graphql/models';
 import GenesModal from 'views/Cnv/Exploration/components/GenesModal';
 import IGVModal from 'views/Cnv/Exploration/components/IGVModal';
 import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
-import { DEFAULT_PAGE_SIZE } from 'views/Cnv/utils/constant';
+import { DEFAULT_PAGE_INDEX, SCROLL_WRAPPER_ID } from 'views/Cnv/utils/constant';
 import { ALL_KEYS, VARIANT_KEY } from 'views/Prescriptions/utils/export';
 
 import { useRpt } from 'hooks/useRpt';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
-import { formatQuerySortList } from 'utils/helper';
-import { IQueryConfig, TDownload, TQueryConfigCb } from 'utils/searchPageTypes';
+import { formatQuerySortList, scrollToTop } from 'utils/helper';
+import { TDownload } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
 import style from './index.module.scss';
@@ -23,9 +25,18 @@ type OwnProps = {
   setQueryConfig: TQueryConfigCb;
   queryConfig: IQueryConfig;
   setDownloadKeys: TDownload;
+  pageIndex: number;
+  setPageIndex: (value: number) => void;
 };
 
-const VariantsTable = ({ results, setQueryConfig, queryConfig, setDownloadKeys }: OwnProps) => {
+const VariantsTable = ({
+  results,
+  setQueryConfig,
+  queryConfig,
+  pageIndex,
+  setPageIndex,
+  setDownloadKeys,
+}: OwnProps) => {
   const dispatch = useDispatch();
   const { user } = useUser();
   const { rpt } = useRpt();
@@ -67,20 +78,22 @@ const VariantsTable = ({ results, setQueryConfig, queryConfig, setDownloadKeys }
         loading={results.loading}
         dictionary={getProTableDictionary()}
         showSorterTooltip={false}
-        onChange={({ current, pageSize }, _, sorter) =>
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        onChange={({ current }, _, sorter) => {
+          setPageIndex(DEFAULT_PAGE_INDEX);
           setQueryConfig({
-            pageIndex: current!,
-            size: pageSize!,
+            pageIndex: DEFAULT_PAGE_INDEX,
+            size: queryConfig.size!,
             // @ts-ignore
             sort: formatQuerySortList(sorter),
-          })
-        }
+          });
+        }}
         bordered
         enableRowSelection
         headerConfig={{
           enableTableExport: true,
           itemCount: {
-            pageIndex: queryConfig.pageIndex,
+            pageIndex: pageIndex,
             pageSize: queryConfig.size,
             total: results.total || 0,
           },
@@ -110,11 +123,29 @@ const VariantsTable = ({ results, setQueryConfig, queryConfig, setDownloadKeys }
         }}
         size="small"
         pagination={{
-          current: queryConfig.pageIndex,
-          pageSize: queryConfig.size,
-          defaultPageSize: DEFAULT_PAGE_SIZE,
-          total: results.total ?? 0,
-          hideOnSinglePage: true,
+          current: pageIndex,
+          queryConfig,
+          setQueryConfig,
+          onChange: (page: number) => {
+            scrollToTop(SCROLL_WRAPPER_ID);
+            setPageIndex(page);
+          },
+          onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
+            dispatch(
+              updateConfig({
+                data_exploration: {
+                  tables: {
+                    patientCnv: {
+                      ...user?.config.data_exploration?.tables?.patientCnv,
+                      viewPerQuery,
+                    },
+                  },
+                },
+              }),
+            );
+          },
+          searchAfter: results.searchAfter,
+          defaultViewPerQuery: queryConfig.size,
         }}
       />
     </>
