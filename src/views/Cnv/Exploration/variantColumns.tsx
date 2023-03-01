@@ -31,6 +31,7 @@ export const getVariantColumns = (
           </Tooltip>
         );
       },
+      width: 100,
     },
     {
       title: intl.get('screen.patientcnv.results.table.chromosome'),

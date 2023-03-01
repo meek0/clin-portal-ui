@@ -42,8 +42,9 @@
 }
 
 .fixedVariantTableCellElipsis {
-  max-width: 200px;
-  width: 200px;
+  min-width: 100px;
+  max-width: 100px;
+  width: 100px;
   div {
     overflow: hidden;
     text-overflow: ellipsis;
