@@ -113,6 +113,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
         downloadKeys={downloadKeys}
         setDownloadKeys={setDownloadKeys}
         queryVariables={queryVariables}
+        queryConfig={variantQueryConfig}
         variants={variantResults}
       />
     </>

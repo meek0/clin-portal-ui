@@ -15,16 +15,23 @@ import {
 
 import GenericModal from 'components/utils/GenericModal';
 import { globalActions } from 'store/global';
-import { TDownload } from 'utils/searchPageTypes';
+import { IQueryConfig, TDownload } from 'utils/searchPageTypes';
 
 type OwnProps = {
   downloadKeys: Array<string>;
   setDownloadKeys: TDownload;
   queryVariables: any;
+  queryConfig: IQueryConfig;
   variants: IQueryResults<VariantEntity[]>;
 };
 
-const Download = ({ downloadKeys, setDownloadKeys, queryVariables, variants }: OwnProps) => {
+const Download = ({
+  downloadKeys,
+  setDownloadKeys,
+  queryVariables,
+  queryConfig,
+  variants,
+}: OwnProps) => {
   const [showModalLimit, setShowModalLimit] = useState(false);
   const dispatch = useDispatch();
 
@@ -34,12 +41,15 @@ const Download = ({ downloadKeys, setDownloadKeys, queryVariables, variants }: O
     MAX_VARIANTS_DOWNLOAD,
   );
 
-  const variantsToDownload = useVariantsTSV({
-    ...queryVariables,
-    first: variantToDownloadCount,
-    searchAfter: undefined,
-    sqon: buildVariantsDownloadSqon(downloadKeys, VARIANT_KEY, queryVariables.sqon),
-  });
+  const variantsToDownload = useVariantsTSV(
+    {
+      ...queryVariables,
+      first: variantToDownloadCount,
+      searchAfter: undefined,
+      sqon: buildVariantsDownloadSqon(downloadKeys, VARIANT_KEY, queryVariables.sqon),
+    },
+    queryConfig.operations,
+  );
 
   useEffect(() => {
     if (downloadKeys.length > 0 && !variantsToDownload.loading) {

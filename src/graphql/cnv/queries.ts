@@ -64,11 +64,12 @@ export const VARIANT_QUERY = gql`
 `;
 
 export const VARIANT_QUERY_TSV = gql`
-  query Cnv($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort]) {
+  query Cnv($sqon: JSON, $first: Int, $offset: Int, $sort: [Sort], $searchAfter: JSON) {
     cnv {
-      hits(filters: $sqon, first: $first, offset: $offset, sort: $sort) {
+      hits(filters: $sqon, first: $first, offset: $offset, sort: $sort, searchAfter: $searchAfter) {
         total
         edges {
+          searchAfter
           node {
             id
             hash
