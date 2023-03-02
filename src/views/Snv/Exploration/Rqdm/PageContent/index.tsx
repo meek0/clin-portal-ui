@@ -8,6 +8,7 @@ import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Tabs } from 'antd';
 import { ExtendedMappingResults } from 'graphql/models';
 import { useVariants } from 'graphql/variants/actions';
+import { VARIANT_QUERY_NO_DONORS } from 'graphql/variants/queries';
 import Download from 'views/Snv/components/Download';
 import {
   DEFAULT_OFFSET,
@@ -48,7 +49,11 @@ const PageContent = ({ variantMapping }: OwnProps) => {
     }),
   };
 
-  const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
+  const variantResults = useVariants(
+    queryVariables,
+    variantQueryConfig.operations,
+    VARIANT_QUERY_NO_DONORS,
+  );
 
   useEffect(() => {
     if (

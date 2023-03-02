@@ -24,9 +24,3 @@ export const useVariants = (
     searchAfter: computeSearchAfter(result?.cnv?.hits?.edges || [], operations),
   };
 };
-
-export const useVariantsTSV = (
-  variables?: IQueryVariable,
-  operations?: IQueryOperationsConfig,
-  query?: DocumentNode,
-): IQueryResults<VariantEntity[]> => useVariants(variables, operations, query);
