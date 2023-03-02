@@ -22,6 +22,7 @@ export const getVariantColumns = (
       key: 'name',
       dataIndex: 'name',
       fixed: 'left',
+      sorter: { multiple: 1 },
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
       render: (name: string) => {
         const value = name.split(':').slice(1).join(':');
@@ -52,20 +53,23 @@ export const getVariantColumns = (
       title: intl.get('screen.patientcnv.results.table.end'),
       key: 'end',
       dataIndex: 'end',
+      sorter: { multiple: 1 },
       render: (end: number) => (end ? formatNumber(end) : TABLE_EMPTY_PLACE_HOLDER),
     },
     {
       title: intl.get('screen.patientcnv.results.table.event'),
       key: 'type',
       dataIndex: 'type',
+      sorter: { multiple: 1 },
       render: (type: string) => type,
     },
     {
       title: intl.get('screen.patientcnv.results.table.length'),
       tooltip: intl.get('screen.patientcnv.results.table.length.tooltip'),
-      key: 'length',
+      key: 'reflen',
       dataIndex: 'reflen',
       render: (length: number) => formatDnaLength(length),
+      sorter: { multiple: 1 },
     },
     {
       title: intl.get('screen.patientcnv.results.table.copy_number'),
@@ -157,6 +161,7 @@ export const getVariantColumns = (
       key: 'bc',
       dataIndex: 'bc',
       defaultHidden: true,
+      sorter: { multiple: 1 },
       render: (bc: string) => bc,
     },
     {

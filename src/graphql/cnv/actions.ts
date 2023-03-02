@@ -1,14 +1,16 @@
 import { DocumentNode } from '@apollo/client';
-import { hydrateResults, IQueryResults } from 'graphql/models';
-import { QueryVariable } from 'graphql/queries';
+import { IQueryOperationsConfig, IQueryVariable } from '@ferlab/ui/core/graphql/types';
+import { computeSearchAfter, hydrateResults } from '@ferlab/ui/core/graphql/utils';
+import { IQueryResults } from 'graphql/models';
 
 import useLazyResultQuery from 'hooks/graphql/useLazyResultQuery';
 
 import { IVariantResultTree, VariantEntity } from './models';
-import { VARIANT_QUERY, VARIANT_QUERY_TSV } from './queries';
+import { VARIANT_QUERY } from './queries';
 
 export const useVariants = (
-  variables?: QueryVariable,
+  variables?: IQueryVariable,
+  operations?: IQueryOperationsConfig,
   query: DocumentNode = VARIANT_QUERY,
 ): IQueryResults<VariantEntity[]> => {
   const { error, loading, result } = useLazyResultQuery<IVariantResultTree>(query, {
@@ -17,10 +19,14 @@ export const useVariants = (
   return {
     error,
     loading,
-    data: hydrateResults(result?.cnv?.hits?.edges || []),
+    data: hydrateResults(result?.cnv?.hits?.edges || [], operations?.previous),
     total: result?.cnv?.hits?.total || 0,
+    searchAfter: computeSearchAfter(result?.cnv?.hits?.edges || [], operations),
   };
 };
 
-export const useVariantsTSV = (variables?: QueryVariable): IQueryResults<VariantEntity[]> =>
-  useVariants(variables, VARIANT_QUERY_TSV);
+export const useVariantsTSV = (
+  variables?: IQueryVariable,
+  operations?: IQueryOperationsConfig,
+  query?: DocumentNode,
+): IQueryResults<VariantEntity[]> => useVariants(variables, operations, query);

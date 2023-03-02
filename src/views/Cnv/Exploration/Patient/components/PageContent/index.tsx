@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
+import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Card } from 'antd';
 import { useVariants } from 'graphql/cnv/actions';
 import { ExtendedMappingResults } from 'graphql/models';
@@ -10,8 +12,11 @@ import Download from 'views/Cnv/Exploration/components/Download';
 import VariantContentLayout from 'views/Cnv/Exploration/components/VariantContentLayout';
 import {
   CNV_VARIANT_PATIENT_QB_ID,
+  DEFAULT_OFFSET,
   DEFAULT_PAGE_INDEX,
+  DEFAULT_PAGE_SIZE,
   DEFAULT_QUERY_CONFIG,
+  DEFAULT_SORT_QUERY,
 } from 'views/Cnv/utils/constant';
 import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
 
@@ -27,7 +32,12 @@ type OwnProps = {
 
 const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(CNV_VARIANT_PATIENT_QB_ID);
-  const [variantQueryConfig, setVariantQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
+
+  const [variantQueryConfig, setVariantQueryConfig] = useState({
+    ...DEFAULT_QUERY_CONFIG,
+    size: DEFAULT_PAGE_SIZE,
+  });
+  const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
   const [downloadKeys, setDownloadKeys] = useState<string[]>([]);
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) => {
@@ -41,18 +51,40 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
 
   const queryVariables = {
     first: variantQueryConfig.size,
-    offset: variantQueryConfig.size * (variantQueryConfig.pageIndex - 1),
+    offset: DEFAULT_OFFSET,
+    searchAfter: variantQueryConfig.searchAfter,
     sqon: getVariantResolvedSqon(activeQuery),
-    sort: variantQueryConfig.sort,
+    sort: tieBreaker({
+      sort: variantQueryConfig.sort,
+      defaultSort: DEFAULT_SORT_QUERY,
+      field: 'start',
+      order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
+    }),
   };
 
-  const variantResults = useVariants(queryVariables);
+  const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
+
+  useEffect(() => {
+    if (
+      variantQueryConfig.firstPageFlag !== undefined ||
+      variantQueryConfig.searchAfter === undefined
+    ) {
+      return;
+    }
+
+    setVariantQueryConfig({
+      ...variantQueryConfig,
+      firstPageFlag: variantQueryConfig.searchAfter,
+    });
+  }, [variantQueryConfig]);
 
   useEffect(() => {
     setVariantQueryConfig({
       ...variantQueryConfig,
-      pageIndex: DEFAULT_PAGE_INDEX,
+      searchAfter: undefined,
     });
+
+    setPageIndex(DEFAULT_PAGE_INDEX);
     // eslint-disable-next-line
   }, [JSON.stringify(activeQuery)]);
 
@@ -71,6 +103,8 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
             results={variantResults}
             setQueryConfig={setVariantQueryConfig}
             queryConfig={variantQueryConfig}
+            pageIndex={pageIndex}
+            setPageIndex={setPageIndex}
             setDownloadKeys={setDownloadKeys}
           />
         </Card>
@@ -79,6 +113,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
         downloadKeys={downloadKeys}
         setDownloadKeys={setDownloadKeys}
         queryVariables={queryVariables}
+        queryConfig={variantQueryConfig}
         variants={variantResults}
       />
     </>
