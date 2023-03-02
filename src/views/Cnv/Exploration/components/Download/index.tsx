@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
-import { useVariantsTSV } from 'graphql/cnv/actions';
+import { useVariants } from 'graphql/cnv/actions';
 import { VariantEntity } from 'graphql/cnv/models';
 import { IQueryResults } from 'graphql/models';
 import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
@@ -41,7 +41,7 @@ const Download = ({
     MAX_VARIANTS_DOWNLOAD,
   );
 
-  const variantsToDownload = useVariantsTSV(
+  const variantsToDownload = useVariants(
     {
       ...queryVariables,
       first: variantToDownloadCount,

@@ -1,5 +1,104 @@
 import { gql } from '@apollo/client';
 
+const VARIANT_QUERY_BASE_FIELDS = `
+  id
+  hgvsg
+  hash
+  locus
+  variant_class
+  clinvar {
+    clinvar_id
+    clin_sig
+  }
+  panels
+  variant_type
+  max_impact_score
+  rsnumber
+  chromosome
+  start
+  end
+  consequences {
+    hits {
+      edges {
+        node {
+          symbol
+          #canonical
+          vep_impact
+          consequences
+          impact_score
+          hgvsc
+          aa_change
+        }
+      }
+    }
+  }
+
+  varsome {
+    acmg {
+      verdict {
+        benign_subscore
+        clinical_score
+        pathogenic_subscore
+        verdict
+      }
+      classifications {
+        hits {
+          edges {
+            node {
+              met_criteria
+              name
+            }
+          }
+        }
+      }
+    }
+    variant_id
+  }
+
+  frequency_RQDM {
+    total {
+      pc
+      pn
+      pf
+    }
+  }
+
+  external_frequencies {
+    gnomad_exomes_2_1_1 {
+      af
+    }
+    gnomad_genomes_2_1_1 {
+      af
+    }
+  }
+
+  genes {
+    hits {
+      edges {
+        node {
+          symbol
+          biotype
+          omim_gene_id
+          ensembl_gene_id
+          gnomad {
+            loeuf
+            pli
+          }
+          omim {
+            hits {
+              edges {
+                node {
+                  inheritance_code
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const VARIANT_QUERY = gql`
   query VariantInformation(
     $sqon: JSON
@@ -14,61 +113,8 @@ export const VARIANT_QUERY = gql`
         edges {
           searchAfter
           node {
-            id
-            hgvsg
-            hash
-            locus
-            variant_class
-            clinvar {
-              clinvar_id
-              clin_sig
-            }
-            panels
-            variant_type
-            max_impact_score
-            rsnumber
-            chromosome
-            start
-            end
-            consequences {
-              hits {
-                edges {
-                  node {
-                    symbol
-                    #canonical
-                    vep_impact
-                    consequences
-                    impact_score
-                    hgvsc
-                    aa_change
-                  }
-                }
-              }
-            }
-
-            varsome {
-              acmg {
-                verdict {
-                  benign_subscore
-                  clinical_score
-                  pathogenic_subscore
-                  verdict
-                }
-                classifications {
-                  hits {
-                    edges {
-                      node {
-                        met_criteria
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-              variant_id
-            }
-
-            donors {
+           ${VARIANT_QUERY_BASE_FIELDS}
+           donors {
               hits {
                 total
                 edges {
@@ -136,49 +182,6 @@ export const VARIANT_QUERY = gql`
                 }
               }
             }
-
-            frequency_RQDM {
-              total {
-                pc
-                pn
-                pf
-              }
-            }
-
-            external_frequencies {
-              gnomad_exomes_2_1_1 {
-                af
-              }
-              gnomad_genomes_2_1_1 {
-                af
-              }
-            }
-
-            genes {
-              hits {
-                edges {
-                  node {
-                    symbol
-                    biotype
-                    omim_gene_id
-                    ensembl_gene_id
-                    gnomad {
-                      loeuf
-                      pli
-                    }
-                    omim {
-                      hits {
-                        edges {
-                          node {
-                            inheritance_code
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
           }
         }
       }
@@ -186,7 +189,7 @@ export const VARIANT_QUERY = gql`
   }
 `;
 
-export const VARIANT_QUERY_TSV = gql`
+export const VARIANT_QUERY_NO_DONORS = gql`
   query VariantInformation(
     $sqon: JSON
     $first: Int
@@ -200,203 +203,7 @@ export const VARIANT_QUERY_TSV = gql`
         edges {
           searchAfter
           node {
-            locus
-            hgvsg
-            hash
-            variant_class
-            rsnumber
-            consequences {
-              hits {
-                edges {
-                  node {
-                    symbol
-                    consequences
-                    vep_impact
-                    aa_change
-                  }
-                }
-              }
-            }
-            clinvar {
-              clinvar_id
-              clin_sig
-            }
-            external_frequencies {
-              gnomad_genomes_2_1_1 {
-                af
-              }
-            }
-            frequency_RQDM {
-              total {
-                pc
-                pn
-                pf
-              }
-            }
-            varsome {
-              acmg {
-                verdict {
-                  verdict
-                }
-                classifications {
-                  hits {
-                    edges {
-                      node {
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            genes {
-              hits {
-                edges {
-                  node {
-                    symbol
-                    omim_gene_id
-                    omim {
-                      hits {
-                        edges {
-                          node {
-                            inheritance_code
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const VARIANT_QUERY_TSV_WITH_DONORS = gql`
-  query VariantInformation(
-    $sqon: JSON
-    $first: Int
-    $offset: Int
-    $sort: [Sort]
-    $searchAfter: JSON
-  ) {
-    Variants {
-      hits(filters: $sqon, first: $first, offset: $offset, sort: $sort, searchAfter: $searchAfter) {
-        total
-        edges {
-          searchAfter
-          node {
-            locus
-            hgvsg
-            hash
-            variant_class
-            rsnumber
-            consequences {
-              hits {
-                edges {
-                  node {
-                    symbol
-                    consequences
-                    vep_impact
-                    aa_change
-                  }
-                }
-              }
-            }
-            clinvar {
-              clinvar_id
-              clin_sig
-            }
-            external_frequencies {
-              gnomad_genomes_2_1_1 {
-                af
-              }
-            }
-            frequency_RQDM {
-              total {
-                pc
-                pn
-                pf
-              }
-            }
-            varsome {
-              acmg {
-                verdict {
-                  verdict
-                }
-                classifications {
-                  hits {
-                    edges {
-                      node {
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            genes {
-              hits {
-                edges {
-                  node {
-                    symbol
-                    omim_gene_id
-                    omim {
-                      hits {
-                        edges {
-                          node {
-                            inheritance_code
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            donors {
-              hits {
-                edges {
-                  node {
-                    patient_id
-                    gq
-                    qd
-                    zygosity
-                    mother_calls
-                    father_calls
-                    transmission
-                    parental_origin
-                    ad_alt
-                    ad_total
-                    ad_ratio
-                    filters
-                    hc_complement {
-                      hits {
-                        edges {
-                          node {
-                            symbol
-                            locus
-                          }
-                        }
-                      }
-                    }
-                    possibly_hc_complement {
-                      hits {
-                        edges {
-                          node {
-                            symbol
-                            count
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            ${VARIANT_QUERY_BASE_FIELDS}
           }
         }
       }

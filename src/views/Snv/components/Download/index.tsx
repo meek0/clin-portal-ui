@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { IQueryResults } from 'graphql/models';
-import { useVariantsTSV } from 'graphql/variants/actions';
+import { useVariants } from 'graphql/variants/actions';
 import { VariantEntity } from 'graphql/variants/models';
-import { VARIANT_QUERY_TSV, VARIANT_QUERY_TSV_WITH_DONORS } from 'graphql/variants/queries';
+import { VARIANT_QUERY, VARIANT_QUERY_NO_DONORS } from 'graphql/variants/queries';
 import {
   buildVariantsDownloadCount,
   buildVariantsDownloadSqon,
@@ -46,7 +46,7 @@ const Download = ({
     maxAllowed,
   );
 
-  const variantsToDownload = useVariantsTSV(
+  const variantsToDownload = useVariants(
     {
       ...queryVariables,
       first: variantToDownloadCount,
@@ -54,7 +54,7 @@ const Download = ({
       sqon: buildVariantsDownloadSqon(downloadKeys, VARIANT_KEY, queryVariables.sqon, patientId),
     },
     queryConfig.operations,
-    patientId ? VARIANT_QUERY_TSV_WITH_DONORS : VARIANT_QUERY_TSV,
+    patientId ? VARIANT_QUERY : VARIANT_QUERY_NO_DONORS,
   );
 
   useEffect(() => {
