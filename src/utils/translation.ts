@@ -55,6 +55,9 @@ export const getProTableDictionary = (): IProTableDictionary => ({
   },
   columnSelector: {
     reset: intl.get('protable.reset'),
+    tooltips: {
+      columns: intl.get('protable.columns'),
+    },
   },
   numberFormat: formatNumber,
   pagination: {
