@@ -35,14 +35,17 @@ describe('Tableau des CNVs d\'un patient', () => {
   
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(4)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Fin').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(5)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Événement').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(6)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Longueur').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
@@ -52,6 +55,7 @@ describe('Tableau des CNVs d\'un patient', () => {
 
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(8)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('# Gènes').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
