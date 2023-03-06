@@ -41,6 +41,7 @@ describe('Tableau des archives', () => {
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(3)
         .should('have.class', 'ant-table-column-has-sorters')
+        .should('have.attr', 'aria-sort', 'ascending')
         .contains('Patient').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
