@@ -331,6 +331,7 @@
   "querybuilder.filters.actions.less": "Voir moins",
   "querybuilder.filters.actions.more": "de plus",
   "querybuilder.filters.actions.none": "Aucun",
+  "querybuilder.filters.actions.dictionary": "Dictionaire",
   "querybuilder.filters.checkbox.placeholder": "Rechercher...",
   "querybuilder.filters.messages.empty": "Aucune valeur trouvée",
   "querybuilder.filters.operators.allOf": "Tout",
