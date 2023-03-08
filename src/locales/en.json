@@ -330,6 +330,7 @@
   "querybuilder.filters.actions.less": "Less",
   "querybuilder.filters.actions.more": "More",
   "querybuilder.filters.actions.none": "None",
+  "querybuilder.filters.actions.dictionary": "Dictionary",
   "querybuilder.filters.checkbox.placeholder": "Search...",
   "querybuilder.filters.messages.empty": "No values found",
   "querybuilder.filters.operators.allOf": "All of",

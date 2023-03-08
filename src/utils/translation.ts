@@ -15,6 +15,7 @@ export const getFiltersDictionary = (): FiltersDict => ({
     less: intl.get('querybuilder.filters.actions.less'),
     more: intl.get('querybuilder.filters.actions.more'),
     none: intl.get('querybuilder.filters.actions.none'),
+    dictionary: intl.get('querybuilder.filters.actions.dictionary'),
   },
   // @ts-ignore
   checkBox: {

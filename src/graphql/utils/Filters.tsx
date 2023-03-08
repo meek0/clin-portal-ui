@@ -15,6 +15,7 @@ import { ExtendedMapping, ExtendedMappingResults } from 'graphql/models';
 
 import { getFiltersDictionary } from 'utils/translation';
 
+import { dictionaries } from './dictionaries';
 import { transformNameIfNeeded } from './nameTransformer';
 
 export interface RangeAggs {
@@ -175,6 +176,7 @@ export const getFilterGroup = (
     config: {
       nameMapping: [],
       withFooter: filterFooter,
+      extraFilterDictionary: extendedMapping?.field ? dictionaries[extendedMapping?.field] : null,
     },
   };
 };
