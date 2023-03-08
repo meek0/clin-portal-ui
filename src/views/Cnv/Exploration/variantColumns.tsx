@@ -32,7 +32,7 @@ export const getVariantColumns = (
           </Tooltip>
         );
       },
-      width: 100,
+      width: 200,
     },
     {
       title: intl.get('screen.patientcnv.results.table.chromosome'),
@@ -41,6 +41,7 @@ export const getVariantColumns = (
       dataIndex: 'sort_chromosome',
       sorter: { multiple: 1 },
       render: (sort_chromosome: number, variant: VariantEntity) => variant.chromosome,
+      width: 60,
     },
     {
       title: intl.get('screen.patientcnv.results.table.start'),
@@ -48,6 +49,7 @@ export const getVariantColumns = (
       dataIndex: 'start',
       sorter: { multiple: 1 },
       render: (start: number) => (start ? formatNumber(start) : TABLE_EMPTY_PLACE_HOLDER),
+      width: 110,
     },
     {
       title: intl.get('screen.patientcnv.results.table.end'),
@@ -55,6 +57,7 @@ export const getVariantColumns = (
       dataIndex: 'end',
       sorter: { multiple: 1 },
       render: (end: number) => (end ? formatNumber(end) : TABLE_EMPTY_PLACE_HOLDER),
+      width: 110,
     },
     {
       title: intl.get('screen.patientcnv.results.table.event'),
@@ -62,6 +65,7 @@ export const getVariantColumns = (
       dataIndex: 'type',
       sorter: { multiple: 1 },
       render: (type: string) => type,
+      width: 100,
     },
     {
       title: intl.get('screen.patientcnv.results.table.length'),
@@ -70,6 +74,7 @@ export const getVariantColumns = (
       dataIndex: 'reflen',
       render: (length: number) => formatDnaLength(length),
       sorter: { multiple: 1 },
+      width: 100,
     },
     {
       title: intl.get('screen.patientcnv.results.table.copy_number'),
@@ -78,12 +83,14 @@ export const getVariantColumns = (
       dataIndex: 'cn',
       sorter: { multiple: 1 },
       render: (cn: number) => cn,
+      width: 60,
     },
     {
       title: intl.get('screen.patientcnv.results.table.number_genes'),
       tooltip: intl.get('screen.patientcnv.results.table.number_genes.tooltip'),
       key: 'number_genes',
       dataIndex: 'number_genes',
+      width: 60,
       render: (number_genes: number, variant: VariantEntity) =>
         variant.genes.hits.edges.some((gene) => gene.node.symbol) ? (
           <a
@@ -103,6 +110,7 @@ export const getVariantColumns = (
       tooltip: intl.get('screen.patientcnv.results.table.genes.tooltip'),
       key: 'genes',
       dataIndex: 'number_genes',
+      width: 160,
       render: (number_genes: number, variant: VariantEntity) =>
         variant.genes.hits.edges.some((gene) => gene.node.symbol) ? (
           <a
@@ -128,6 +136,7 @@ export const getVariantColumns = (
       dataIndex: 'calls',
       defaultHidden: true,
       render: (calls: number[], variant: VariantEntity) => renderCNVByKey('calls', variant),
+      width: 40,
     },
     {
       title: intl.get('screen.patientcnv.results.table.dragen_filter'),
@@ -136,6 +145,7 @@ export const getVariantColumns = (
       dataIndex: 'filters',
       defaultHidden: true,
       render: (filters: string[]) => filters.join(', '),
+      width: 70,
     },
     {
       title: intl.get('screen.patientcnv.results.table.quality'),
@@ -145,6 +155,7 @@ export const getVariantColumns = (
       sorter: { multiple: 1 },
       defaultHidden: true,
       render: (qual: number) => qual,
+      width: 65,
     },
     {
       title: intl.get('screen.patientcnv.results.table.segment_mean'),
@@ -154,6 +165,7 @@ export const getVariantColumns = (
       sorter: { multiple: 1 },
       defaultHidden: true,
       render: (sm: string) => sm,
+      width: 75,
     },
     {
       title: intl.get('screen.patientcnv.results.table.bins_count'),
@@ -163,6 +175,7 @@ export const getVariantColumns = (
       defaultHidden: true,
       sorter: { multiple: 1 },
       render: (bc: string) => bc,
+      width: 50,
     },
     {
       title: intl.get('screen.patientcnv.results.table.paired_end'),
@@ -171,6 +184,7 @@ export const getVariantColumns = (
       dataIndex: 'pe',
       defaultHidden: true,
       render: (pe: string[]) => pe.join(', '),
+      width: 50,
     },
     {
       className: style.userAffectedBtnCell,
@@ -190,6 +204,7 @@ export const getVariantColumns = (
         </Space>
       ),
       align: 'center',
+      width: 70,
     },
   ];
   return columns;
