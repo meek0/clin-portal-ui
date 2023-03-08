@@ -100,6 +100,7 @@ const PrescriptionForm = () => {
                   <Space className={styles.footerRightSide}>
                     <Button
                       type="primary"
+                      data-cy="NextButton"
                       onClick={() => currentFormRefs?.sumbit && currentFormRefs.sumbit()}
                       loading={isCreatingPrescription}
                     >

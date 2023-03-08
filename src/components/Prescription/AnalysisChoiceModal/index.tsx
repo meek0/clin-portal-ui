@@ -30,6 +30,7 @@ const AnalysisChoiceModal = () => {
   return (
     <Modal
       title={intl.get('prescription.analysis.choici.modal.title')}
+      data-cy="AnalysisModal"
       visible={analysisChoiceModalVisible}
       onCancel={() => {
         dispatch(prescriptionFormActions.cancel());
@@ -86,7 +87,7 @@ const AnalysisChoiceModal = () => {
           rules={defaultFormItemsRules}
           className="noMarginBtm"
         >
-          <Select placeholder="Sélectionner">
+          <Select placeholder="Sélectionner" data-cy="SelectAnalysis">
             <Select.Option value={OtherAnalysisType.GLOBAL_DEVELOPMENTAL_DELAY}>
               {getAnalysisNameByCode(OtherAnalysisType.GLOBAL_DEVELOPMENTAL_DELAY, false)}
             </Select.Option>
@@ -94,7 +95,10 @@ const AnalysisChoiceModal = () => {
               {getAnalysisNameByCode(OtherAnalysisType.NUCLEAR_MITOCHONDRIOPATHY, false)}
             </Select.Option>
             <Select.OptGroup label="Maladies musculaires">
-              <Select.Option value={MuscularAnalysisType.MUSCULAR_DISEASE_GLOBAL}>
+              <Select.Option
+                value={MuscularAnalysisType.MUSCULAR_DISEASE_GLOBAL}
+                data-cy={`SelectOption${MuscularAnalysisType.MUSCULAR_DISEASE_GLOBAL}`}
+              >
                 {getAnalysisNameByCode(MuscularAnalysisType.MUSCULAR_DISEASE_GLOBAL, false)}
               </Select.Option>
               <Select.Option value={MuscularAnalysisType.MUSCULAR_DISEASE_DYSTROPHIES}>

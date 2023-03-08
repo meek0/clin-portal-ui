@@ -51,7 +51,7 @@ const Home = () => {
                 </LimitTo>
                 {isEnabled && (
                   <LimitTo roles={[Roles.Prescriber]}>
-                    <Col lg={12} className={styles.contentCol}>
+                    <Col lg={12} className={styles.contentCol} data-cy="CreateNewPrescription">
                       <ActionButton
                         icon={<MedicineBoxFilled />}
                         title="Créer une nouvelle prescription"

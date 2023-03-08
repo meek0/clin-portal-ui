@@ -157,7 +157,12 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
                                 }
                               }}
                             >
-                              <Radio value={true}>Observé</Radio>
+                              <Radio
+                                value={true}
+                                data-cy={`Observed${hpoNode[CLINICAL_SIGNS_ITEM_KEY.TERM_VALUE]}`}
+                              >
+                                Observé
+                              </Radio>
                               <Radio value={false}>Non observé</Radio>
                               {isDefaultHpoTerm && <Radio value={CLINICAL_SIGN_NA}>NA</Radio>}
                             </Radio.Group>
@@ -200,9 +205,14 @@ const ClinicalSignsSelect = ({ form, parentKey, initialData }: OwnProps) => {
                                   dropdownMatchSelectWidth={false}
                                   placeholder="Âge d'apparition"
                                   className={styles.ageSelectInput}
+                                  data-cy="SelectAge"
                                 >
                                   {formConfig?.clinical_signs.onset_age.map((age) => (
-                                    <Select.Option key={age.value} value={age.value}>
+                                    <Select.Option
+                                      key={age.value}
+                                      value={age.value}
+                                      data-cy={`SelectOption${age.value}`}
+                                    >
                                       {age.name}
                                     </Select.Option>
                                   ))}

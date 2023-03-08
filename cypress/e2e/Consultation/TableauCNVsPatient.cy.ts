@@ -167,10 +167,11 @@ describe('Tableau des CNVs d\'un patient', () => {
       cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
       cy.intercept('POST', '**/graphql').as('getPOSTgraphql2');
       cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
+      cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
       cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
       cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
       cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
-      cy.get('tr[class*="ant-table-row"]').eq(0).contains('9 823 627').should('exist');
+      cy.get('tr[class*="ant-table-row"]').eq(0).contains('207 526 712').should('exist');
     });
   
     it('La pagination', () => {
@@ -181,15 +182,28 @@ describe('Tableau des CNVs d\'un patient', () => {
       cy.get('body').find('span[class*="ant-select-selection-item"]').click({force: true});
       cy.get('body').find('div[class*="ant-select-item-option-content"]').contains('20').click({force: true});
       cy.get('div[class*="ProTableHeader"]').contains('Résultats 1 - 20 de 196').should('exist');
+      cy.get('body').find('button[type="button"]').contains('Précédent').parent('button').should('be.disabled');
+      cy.get('body').find('button[type="button"]').contains('Début').parent('button').should('be.disabled');
 
-      cy.get('body').find('[class*="ant-pagination-item-2"]').click({force: true});
+      cy.get('body').find('button[type="button"]').contains('Suivant').click({force: true});
       cy.get('div[class*="ProTableHeader"]').contains('Résultats 21 - 40 de 196').should('exist');
+      cy.get('body').find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
+      cy.get('body').find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
 
-      cy.get('body').find('[class*="anticon-right"]').click({force: true});
+      cy.get('body').find('button[type="button"]').contains('Suivant').click({force: true});
       cy.get('div[class*="ProTableHeader"]').contains('Résultats 41 - 60 de 196').should('exist');
+      cy.get('body').find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
+      cy.get('body').find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
 
-      cy.get('body').find('[class*="anticon-left"]').click({force: true});
+      cy.get('body').find('button[type="button"]').contains('Précédent').click({force: true});
       cy.get('div[class*="ProTableHeader"]').contains('Résultats 21 - 40 de 196').should('exist');
+      cy.get('body').find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
+      cy.get('body').find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
+
+      cy.get('body').find('button[type="button"]').contains('Début').click({force: true});
+      cy.get('div[class*="ProTableHeader"]').contains('Résultats 1 - 20 de 196').should('exist');
+      cy.get('body').find('button[type="button"]').contains('Précédent').parent('button').should('be.disabled');
+      cy.get('body').find('button[type="button"]').contains('Début').parent('button').should('be.disabled');
     });
   });
 });
