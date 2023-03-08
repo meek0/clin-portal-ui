@@ -11,6 +11,7 @@ import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
 import { DEFAULT_PAGE_INDEX, SCROLL_WRAPPER_ID } from 'views/Cnv/utils/constant';
 import { ALL_KEYS, VARIANT_KEY } from 'views/Prescriptions/utils/export';
 
+import FixedSizeTable from 'components/Layout/FixedSizeTable';
 import { useRpt } from 'hooks/useRpt';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
@@ -54,6 +55,9 @@ const VariantsTable = ({
     setSelectedVariant(record);
     toggleModal(true);
   };
+
+  const initialColumnState = user.config.data_exploration?.tables?.patientCnv?.columns;
+
   return (
     <>
       {selectedVariant && (
@@ -69,84 +73,90 @@ const VariantsTable = ({
         isOpen={genesModalOpened}
         toggleModal={toggleGenesModal}
       />
-      <ProTable<ITableVariantEntity>
-        tableId="variant_table"
-        wrapperClassName={style.variantTableWrapper}
-        columns={getVariantColumns(openGenesModal, openIgvModal)}
-        initialColumnState={user.config.data_exploration?.tables?.patientCnv?.columns}
-        dataSource={results.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
-        loading={results.loading}
-        dictionary={getProTableDictionary()}
-        showSorterTooltip={false}
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        onChange={({ current }, _, sorter) => {
-          setPageIndex(DEFAULT_PAGE_INDEX);
-          setQueryConfig({
-            pageIndex: DEFAULT_PAGE_INDEX,
-            size: queryConfig.size!,
-            // @ts-ignore
-            sort: formatQuerySortList(sorter),
-          });
-        }}
-        bordered
-        enableRowSelection
-        headerConfig={{
-          enableTableExport: true,
-          itemCount: {
-            pageIndex: pageIndex,
-            pageSize: queryConfig.size,
-            total: results.total || 0,
-          },
-          enableColumnSort: true,
-          onSelectedRowsChange: setSelectedKeys,
-          onSelectAllResultsChange: () => {
-            setSelectedKeys([ALL_KEYS]);
-          },
-          onTableExportClick: () => {
-            if (selectedKeys.length === 0) {
-              setDownloadKeys([ALL_KEYS]);
-            } else {
-              setDownloadKeys(selectedKeys);
-            }
-          },
-          onColumnSortChange: (columns) => {
-            dispatch(
-              updateConfig({
-                data_exploration: {
-                  tables: {
-                    patientCnv: { columns },
-                  },
-                },
-              }),
-            );
-          },
-        }}
-        size="small"
-        pagination={{
-          current: pageIndex,
-          queryConfig,
-          setQueryConfig,
-          onChange: (page: number) => {
-            scrollToTop(SCROLL_WRAPPER_ID);
-            setPageIndex(page);
-          },
-          onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
-            dispatch(
-              updateConfig({
-                data_exploration: {
-                  tables: {
-                    patientCnv: {
-                      ...user?.config.data_exploration?.tables?.patientCnv,
-                      viewPerQuery,
+      <FixedSizeTable
+        numberOfColumn={initialColumnState || []}
+        fixedProTable={(dimension) => (
+          <ProTable<ITableVariantEntity>
+            tableId="variant_table"
+            wrapperClassName={style.variantTableWrapper}
+            columns={getVariantColumns(openGenesModal, openIgvModal)}
+            initialColumnState={initialColumnState}
+            dataSource={results.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
+            loading={results.loading}
+            dictionary={getProTableDictionary()}
+            showSorterTooltip={false}
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            onChange={({ current }, _, sorter) => {
+              setPageIndex(DEFAULT_PAGE_INDEX);
+              setQueryConfig({
+                pageIndex: DEFAULT_PAGE_INDEX,
+                size: queryConfig.size!,
+                // @ts-ignore
+                sort: formatQuerySortList(sorter),
+              });
+            }}
+            bordered
+            enableRowSelection
+            headerConfig={{
+              enableTableExport: true,
+              itemCount: {
+                pageIndex: pageIndex,
+                pageSize: queryConfig.size,
+                total: results.total || 0,
+              },
+              enableColumnSort: true,
+              onSelectedRowsChange: setSelectedKeys,
+              onSelectAllResultsChange: () => {
+                setSelectedKeys([ALL_KEYS]);
+              },
+              onTableExportClick: () => {
+                if (selectedKeys.length === 0) {
+                  setDownloadKeys([ALL_KEYS]);
+                } else {
+                  setDownloadKeys(selectedKeys);
+                }
+              },
+              onColumnSortChange: (columns) => {
+                dispatch(
+                  updateConfig({
+                    data_exploration: {
+                      tables: {
+                        patientCnv: { columns },
+                      },
                     },
-                  },
-                },
-              }),
-            );
-          },
-          searchAfter: results.searchAfter,
-          defaultViewPerQuery: queryConfig.size,
-        }}
+                  }),
+                );
+              },
+            }}
+            size="small"
+            scroll={{ x: dimension.x, y: dimension.y }}
+            pagination={{
+              current: pageIndex,
+              queryConfig,
+              setQueryConfig,
+              onChange: (page: number) => {
+                scrollToTop(SCROLL_WRAPPER_ID);
+                setPageIndex(page);
+              },
+              onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
+                dispatch(
+                  updateConfig({
+                    data_exploration: {
+                      tables: {
+                        patientCnv: {
+                          ...user?.config.data_exploration?.tables?.patientCnv,
+                          viewPerQuery,
+                        },
+                      },
+                    },
+                  }),
+                );
+              },
+              searchAfter: results.searchAfter,
+              defaultViewPerQuery: queryConfig.size,
+            }}
+          />
+        )}
       />
     </>
   );
