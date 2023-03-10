@@ -102,6 +102,11 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
           title: intl.get('screen.patientcnv.modal.genes.table.overlap_type'),
           tooltip: intl.get('screen.patientcnv.modal.genes.table.overlap_type.tooltip'),
           key: 'overlap_type',
+          sorter: {
+            compare: (a: ITableGeneEntity, b: ITableGeneEntity) =>
+              a.overlap_gene_ratio - b.overlap_gene_ratio,
+            multiple: 1,
+          },
           render: (record: GeneEntity) => {
             const type = getGeneOverlapType(record.overlap_gene_ratio, record.overlap_cnv_ratio);
 
