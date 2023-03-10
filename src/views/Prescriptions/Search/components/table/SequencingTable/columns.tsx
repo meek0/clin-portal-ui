@@ -120,5 +120,6 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     title: intl.get('screen.patientsearch.table.mrn'),
     tooltip: intl.get('screen.patientsearch.table.mrn.tooltip'),
     defaultHidden: true,
+    sorter: { multiple: 1 },
   },
 ];

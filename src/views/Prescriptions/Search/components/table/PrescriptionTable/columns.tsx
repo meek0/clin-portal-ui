@@ -97,6 +97,7 @@ export const prescriptionsColumns = (): ProColumnType<ITableAnalysisResult>[] =>
     dataIndex: 'patient_mrn',
     title: intl.get('screen.patientsearch.table.mrn'),
     tooltip: intl.get('screen.patientsearch.table.mrn.tooltip'),
+    sorter: { multiple: 1 },
     defaultHidden: true,
   },
   {

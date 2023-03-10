@@ -91,19 +91,17 @@ export const getVariantColumns = (
       key: 'number_genes',
       dataIndex: 'number_genes',
       width: 60,
-      render: (number_genes: number, variant: VariantEntity) =>
-        variant.genes.hits.edges.some((gene) => gene.node.symbol) ? (
-          <a
-            onClick={(e) => {
-              e.preventDefault();
-              openGenesModal(variant);
-            }}
-          >
-            {number_genes}
-          </a>
-        ) : (
-          0
-        ),
+      sorter: { multiple: 1 },
+      render: (number_genes: number, variant: VariantEntity) => (
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            openGenesModal(variant);
+          }}
+        >
+          {number_genes}
+        </a>
+      ),
     },
     {
       title: intl.get('screen.patientcnv.results.table.genes'),
