@@ -177,6 +177,7 @@ export const getFilterGroup = (
       nameMapping: [],
       withFooter: filterFooter,
       extraFilterDictionary: extendedMapping?.field ? dictionaries[extendedMapping?.field] : null,
+      facetTranslate: (value: string) => translateWhenNeeded(extendedMapping?.field!, value),
     },
   };
 };

@@ -35,6 +35,7 @@ const CustomFilterSelector = ({
   searchInputVisible,
   extendedMappingResults,
   filterMapper,
+  ...rest
 }: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(queryBuilderId);
 
@@ -66,6 +67,7 @@ const CustomFilterSelector = ({
         onChange={onChange}
         searchInputVisible={searchInputVisible}
         selectedFilters={selectedFilters}
+        {...rest}
       />
     </Spin>
   );

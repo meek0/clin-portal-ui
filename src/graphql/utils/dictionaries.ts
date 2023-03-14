@@ -1,5 +1,19 @@
 import { ArrangerValues } from '@ferlab/ui/core/data/arranger/formatting';
 
+const panelsDictionaries = [
+  'MMG',
+  'DYSM',
+  'RHAB',
+  'MYAC',
+  'MYOC',
+  'HYPM',
+  'MITN',
+  'RGDI',
+  'RGDI+',
+  'POLYM',
+  ArrangerValues.missing,
+];
+
 export const dictionaries: Record<string, string[]> = {
   // Variants
   type: ['GAIN', 'LOSS', ArrangerValues.missing],
@@ -147,18 +161,8 @@ export const dictionaries: Record<string, string[]> = {
     ArrangerValues.missing,
   ],
   gene_external_reference: ['OMIM', 'HPO', 'Orphanet', ArrangerValues.missing],
-  panels: [
-    'MMG',
-    'DYSM',
-    'RHAB',
-    'MYAC',
-    'MYOC',
-    'HYPM',
-    'MITN',
-    'RGDI',
-    'RGDI+',
-    ArrangerValues.missing,
-  ],
+  'genes.panels': panelsDictionaries,
+  panels: panelsDictionaries,
   // Pathogenicity
   'clinvar.clin_sig': [
     'Benign',
@@ -187,7 +191,6 @@ export const dictionaries: Record<string, string[]> = {
     ArrangerValues.missing,
   ],
   'varsome.acmg.classifications.name': [
-    'PVS1',
     'PVS1',
     'PS1',
     'PS2',
@@ -218,11 +221,11 @@ export const dictionaries: Record<string, string[]> = {
     'BP7',
     ArrangerValues.missing,
   ],
-  'consequences.vep_impact': ['HIGH', 'MODERATE', 'LOW', 'MODIFIER'],
-  'consequences.predictions.fathmm_pred': ['D', 'T'],
-  'consequences.predictions.lrt_pred': ['D', 'N', 'U'],
-  'consequences.predictions.polyphen2_hvar_pred': ['B', 'D', 'P'],
-  'consequences.predictions.sift_pred': ['D', 'T'],
+  'consequences.vep_impact': ['HIGH', 'MODERATE', 'LOW', 'MODIFIER', ArrangerValues.missing],
+  'consequences.predictions.fathmm_pred': ['D', 'T', ArrangerValues.missing],
+  'consequences.predictions.lrt_pred': ['D', 'N', 'U', ArrangerValues.missing],
+  'consequences.predictions.polyphen2_hvar_pred': ['B', 'D', 'P', ArrangerValues.missing],
+  'consequences.predictions.sift_pred': ['D', 'T', ArrangerValues.missing],
   // Occurrence
   'donors.zygosity': ['HOM', 'HEM', 'HET'],
   'donors.mother_zygosity': ['HOM', 'HEM', 'HET', 'WT', 'UNK'],
@@ -236,7 +239,7 @@ export const dictionaries: Record<string, string[]> = {
     'Possible Father',
     'Possible Mother',
     'Ambiguous',
-    'Unknown',
+    'unknown',
     ArrangerValues.missing,
   ],
   'donors.transmission': [
@@ -248,6 +251,7 @@ export const dictionaries: Record<string, string[]> = {
     'x_linked_dominant',
     'x_linked_recessive',
     'non_carrier_proband',
+    'unknown_parents_genotype',
     'unknown_proband_genotype',
     ArrangerValues.missing,
   ],
