@@ -149,9 +149,6 @@ export const getVariantColumns = (
       title: intl.get('screen.patientsnv.results.table.dbsnp'),
       dataIndex: 'rsnumber',
       className: style.dbSnpTableCell,
-      sorter: {
-        multiple: 1,
-      },
       width: 109,
       render: (rsNumber: string) =>
         rsNumber ? (
@@ -254,13 +251,6 @@ export const getVariantColumns = (
         title: intl.get('screen.patientsnv.results.table.gq'),
         tooltip: intl.get('gq.tooltip'),
         width: 59,
-        sorter: {
-          compare: (a, b) =>
-            a.donors && b.donors
-              ? a.donors?.hits.edges[0].node.gq - b.donors?.hits.edges[0].node.gq
-              : 0,
-          multiple: 1,
-        },
         render: (record: VariantEntity) =>
           renderDonorByKey('donors.gq', findDonorById(record.donors, patientId)),
       },
@@ -269,13 +259,6 @@ export const getVariantColumns = (
         title: intl.get('screen.patientsnv.results.table.zygosity'),
         dataIndex: 'donors',
         width: 100,
-        sorter: {
-          compare: (a, b) =>
-            (a.donors?.hits.edges[0].node.zygosity || '').localeCompare(
-              b.donors?.hits.edges[0].node.zygosity || '',
-            ),
-          multiple: 1,
-        },
         render: (record: ArrangerResultsTree<DonorsEntity>) =>
           renderDonorByKey('donors.zygosity', findDonorById(record, patientId)),
       },
@@ -314,13 +297,6 @@ export const getVariantColumns = (
         title: intl.get('screen.patientsnv.results.table.transmission'),
         defaultHidden: true,
         width: 200,
-        sorter: {
-          compare: (a, b) =>
-            (a.donors?.hits.edges[0].node.transmission || '').localeCompare(
-              b.donors?.hits.edges[0].node.transmission || '',
-            ),
-          multiple: 1,
-        },
         render: (record: VariantEntity) =>
           renderDonorByKey('transmission', findDonorById(record.donors, patientId)),
       },
@@ -330,13 +306,6 @@ export const getVariantColumns = (
         tooltip: intl.get('qd.tooltip'),
         defaultHidden: true,
         width: 180,
-        sorter: {
-          compare: (a, b) =>
-            a.donors && b.donors
-              ? a.donors?.hits.edges[0].node.qd - b.donors?.hits.edges[0].node.qd
-              : 0,
-          multiple: 1,
-        },
         render: (record: VariantEntity) =>
           renderDonorByKey('qd', findDonorById(record.donors, patientId)),
       },
@@ -346,13 +315,6 @@ export const getVariantColumns = (
         tooltip: intl.get('parental.origin'),
         defaultHidden: true,
         width: 180,
-        sorter: {
-          compare: (a, b) =>
-            (a.donors?.hits.edges[0].node.parental_origin || '').localeCompare(
-              b.donors?.hits.edges[0].node.parental_origin || '',
-            ),
-          multiple: 1,
-        },
         render: (record: VariantEntity) =>
           renderDonorByKey('po', findDonorById(record.donors, patientId)),
       },
@@ -362,13 +324,6 @@ export const getVariantColumns = (
         tooltip: intl.get('filters.group.donors.ad_alt'),
         defaultHidden: true,
         width: 120,
-        sorter: {
-          compare: (a, b) =>
-            a.donors && b.donors
-              ? a.donors?.hits.edges[0].node.ad_alt - b.donors?.hits.edges[0].node.ad_alt
-              : 0,
-          multiple: 1,
-        },
         render: (record: VariantEntity) =>
           renderDonorByKey('alt', findDonorById(record.donors, patientId)),
       },
@@ -378,13 +333,6 @@ export const getVariantColumns = (
         tooltip: intl.get('total.depth'),
         defaultHidden: true,
         width: 120,
-        sorter: {
-          compare: (a, b) =>
-            a.donors && b.donors
-              ? a.donors?.hits.edges[0].node.ad_total - b.donors?.hits.edges[0].node.ad_total
-              : 0,
-          multiple: 1,
-        },
         render: (record: VariantEntity) =>
           renderDonorByKey('alttotal', findDonorById(record.donors, patientId)),
       },
@@ -394,13 +342,6 @@ export const getVariantColumns = (
         tooltip: intl.get('screen.patientsnv.results.table.altratio.tooltip'),
         defaultHidden: true,
         width: 120,
-        sorter: {
-          compare: (a, b) =>
-            a.donors && b.donors
-              ? a.donors?.hits.edges[0].node.ad_ratio - b.donors?.hits.edges[0].node.ad_ratio
-              : 0,
-          multiple: 1,
-        },
         render: (record: VariantEntity) =>
           renderDonorByKey('altratio', findDonorById(record.donors, patientId)),
       },
