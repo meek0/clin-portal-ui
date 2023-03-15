@@ -24,10 +24,12 @@ describe('Tableau des prescriptions', () => {
 
       cy.get('thead[class="ant-table-thead"]').eq(0)
         .find('th[class*="ant-table-cell"]').eq(1)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Prescription').should('exist');
     
       cy.get('thead[class="ant-table-thead"]').eq(0)
         .find('th[class*="ant-table-cell"]').eq(2)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Patient').should('exist');
   
       cy.get('thead[class="ant-table-thead"]').eq(0)
