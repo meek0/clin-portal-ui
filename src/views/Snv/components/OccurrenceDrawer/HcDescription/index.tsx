@@ -1,5 +1,6 @@
 import intl from 'react-intl-universal';
 import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { RangeOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
 import { Button, Space, Tooltip, Typography } from 'antd';
 import { extractHits } from 'graphql/utils/query';
@@ -87,6 +88,18 @@ export const HcComplementDescription = ({
                               index: INDEX_VARIANTS,
                             },
                       ),
+                      generateValueFilter({
+                        field: 'external_frequencies.gnomad_genomes_3_0.af',
+                        value: ['0.01'],
+                        operator: RangeOperators['<='],
+                        index: INDEX_VARIANTS,
+                      }),
+                      generateValueFilter({
+                        field: 'donors.gq',
+                        value: ['20'],
+                        operator: RangeOperators['>='],
+                        index: INDEX_VARIANTS,
+                      }),
                     ],
                   }),
                   setAsActive: true,
