@@ -128,7 +128,12 @@ const Archives = () => {
       }}
     >
       <ScrollContentWithFooter container>
-        <Space direction="vertical" className={styles.archiveWrapper} size={24}>
+        <Space
+          direction="vertical"
+          className={styles.archiveWrapper}
+          size={24}
+          data-cy="ArchivesSpace"
+        >
           <Input.Search
             className={styles.archiveSearchBar}
             placeholder={intl.get('screen.archives.search.bar.placeholder')}
@@ -138,6 +143,7 @@ const Archives = () => {
             size="large"
             loading={isLoading}
             value={searchValue}
+            data-cy="ArchivesSearch"
             onChange={(e) => {
               if (!e.target.value) {
                 setDocs([]);

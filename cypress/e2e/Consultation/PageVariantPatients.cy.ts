@@ -7,7 +7,7 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
 
   cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
-  cy.visitVariantEntityPage('10-113679881-CTT-C');
+  cy.visitVariantEntityPage('10-113679881-CTT-C', 2);
   cy.wait('@getPOSTgraphql', {timeout: 5000});
 
   cy.get('body').find('div[id*="rc-tabs-0-tab-patients"]').click({force: true});

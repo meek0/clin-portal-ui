@@ -90,6 +90,7 @@ export const getVariantColumns = (
               onClick={() => drawerCb && drawerCb(record)}
               icon={<UserAffectedIcon width={'100%'} height={'16px'} />}
               size={'small'}
+              data-cy={`drawerCb_${record.hgvsg}`}
             />
           </Tooltip>
           <Tooltip title={intl.get('open.in.igv')}>
@@ -98,6 +99,7 @@ export const getVariantColumns = (
               icon={<LineStyleIcon width={'100%'} height={'16px'} />}
               type={'link'}
               size={'small'}
+              data-cy={`igvModalCb_${record.hgvsg}`}
             />
           </Tooltip>
           <OtherActions patientId={patientId} record={record} />

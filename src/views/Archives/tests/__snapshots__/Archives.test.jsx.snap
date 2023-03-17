@@ -125,6 +125,7 @@ exports[`Archives should be as the snapshot 1`] = `
                       >
                         <div
                           className="ant-space ant-space-vertical"
+                          data-cy="ArchivesSpace"
                           style={Object {}}
                         >
                           <div
@@ -149,6 +150,7 @@ exports[`Archives should be as the snapshot 1`] = `
                                 >
                                   <input
                                     className="ant-input ant-input-lg"
+                                    data-cy="ArchivesSearch"
                                     hidden={null}
                                     onBlur={[Function]}
                                     onChange={[Function]}

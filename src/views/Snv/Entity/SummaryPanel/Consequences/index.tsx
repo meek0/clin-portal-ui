@@ -399,7 +399,7 @@ const Consequences = ({ data }: OwnProps) => {
               >
                 <Space size={8}>
                   <Space size={4}>
-                    <Text strong>
+                    <Text strong data-cy={`${symbol}_Symbol`}>
                       <ExternalLink
                         href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${symbol}`}
                       >
