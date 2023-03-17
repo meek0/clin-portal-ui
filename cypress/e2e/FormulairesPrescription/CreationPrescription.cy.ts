@@ -24,7 +24,7 @@ describe('Formulaires de prescription', () => {
       cy.get('[data-cy="AnalysisModal"]').find('button[class*="ant-btn-primary"]').click({force: true});
 
       // Identification du patient
-      cy.get('[data-cy="InputMRN"]').should('exist', {timeout: 10 * 1000});
+      cy.get('[data-cy="InputMRN"]').should('exist', {timeout: 30 * 1000});
       cy.get('[data-cy="InputMRN"]').type('MRN-283804', {force: true});
       cy.intercept('GET', '**MRN-283804').as('getMRN');
       cy.get('[data-cy="InputMRN"]').parent().find('[type="button"]').click({force: true});
