@@ -26,14 +26,17 @@ describe('Tableau des requêtes', () => {
 
       cy.get('thead[class="ant-table-thead"]').eq(1)
         .find('th[class*="ant-table-cell"]').eq(1)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Requête').should('exist');
 
       cy.get('thead[class="ant-table-thead"]').eq(1)
         .find('th[class*="ant-table-cell"]').eq(2)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Échantillon').should('exist');
 
       cy.get('thead[class="ant-table-thead"]').eq(1)
         .find('th[class*="ant-table-cell"]').eq(3)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Patient').should('exist');
 
       cy.get('thead[class="ant-table-thead"]').eq(1)
