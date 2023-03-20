@@ -53,9 +53,27 @@
           background-color: @gray-4 !important;
         }
       }
+      .@{table-prefix-cls}-filter-trigger {
+        color: @gray-6;
+        &:hover {
+          background-color: @gray-4;
+          color: @gray-8;
+        }
+        &.active{
+          color: @blue-8;
+        }
+      }
     }
   }
-
+  .@{table-prefix-cls}-column-sorters{
+    .@{table-prefix-cls}-column-sorter{
+      color: @gray-6;
+      &:hover {
+        color: @gray-6 !important;
+      }
+    }
+  }
+  
   &:not(.@{table-prefix-cls}-bordered) {
     .@{table-prefix-cls}-tbody {
       > tr {
