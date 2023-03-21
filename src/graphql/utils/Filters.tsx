@@ -10,6 +10,7 @@ import {
 } from '@ferlab/ui/core/data/arranger/formatting';
 import { getFilterType } from '@ferlab/ui/core/data/filters/utils';
 import { getSelectedFilters } from '@ferlab/ui/core/data/sqon/utils';
+import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Aggregations } from 'graphql/models';
 import { ExtendedMapping, ExtendedMappingResults } from 'graphql/models';
 
@@ -104,7 +105,7 @@ export const generateFilters = ({
 const translateWhenNeeded = (group: string, key: string) =>
   intl
     .get(`filters.options.${underscoreToDot(group)}.${keyEnhance(key)}`)
-    .defaultMessage(keyEnhance(key));
+    .defaultMessage(removeUnderscoreAndCapitalize(keyEnhance(key)));
 
 const keyEnhanceBooleanOnlyExcept = (field: string, fkey: string) =>
   ['chromosome'].includes(field) ? fkey : keyEnhanceBooleanOnly(fkey);
