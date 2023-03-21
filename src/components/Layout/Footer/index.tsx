@@ -18,12 +18,12 @@ const Footer = () => (
           <nav>
             <ul>
               <li>
-                <ExternalLink href={ZEPLIN_URL}>
+                <ExternalLink href={ZEPLIN_URL} data-cy="ZeppelinLink">
                   {intl.get('footer.navigation.zepplin')}
                 </ExternalLink>
               </li>
               <li>
-                <ExternalLink href={FHIR_CONSOLE_URL}>
+                <ExternalLink href={FHIR_CONSOLE_URL} data-cy="FhirLink">
                   {intl.get('footer.navigation.fhir')}
                 </ExternalLink>
               </li>

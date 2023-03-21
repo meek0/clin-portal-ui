@@ -81,6 +81,7 @@ const Header = () => {
               to={STATIC_ROUTES.PRESCRIPTION_SEARCH}
               icon={<MedicineBoxOutlined />}
               title={intl.get('layout.main.menu.prescriptions')}
+              data-cy="HeaderLinkPrescriptions"
             />
           </LimitTo>
           <LimitTo key="archives" roles={[Roles.Download]}>
@@ -90,6 +91,7 @@ const Header = () => {
               to={STATIC_ROUTES.ARCHIVE_EXPLORATION}
               icon={<FileTextOutlined />}
               title={intl.get('layout.main.menu.archives')}
+              data-cy="HeaderLinkArchives"
             />
           </LimitTo>
           <LimitTo key="variants" roles={[Roles.Variants]}>
@@ -99,6 +101,7 @@ const Header = () => {
               to={STATIC_ROUTES.SNV_EXPLORATION_RQDM}
               icon={<LineStyleIcon height="14" width="14" />}
               title={intl.get('layout.main.menu.variants')}
+              data-cy="HeaderLinkVariants"
             />
           </LimitTo>
         </nav>

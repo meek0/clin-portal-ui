@@ -25,10 +25,12 @@ describe('Tableau des variants d\'un patient', () => {
 
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(2)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Variant').should('exist');
       
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(3)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('Type').should('exist');
     
       cy.get('thead[class="ant-table-thead"]')
@@ -53,10 +55,12 @@ describe('Tableau des variants d\'un patient', () => {
 
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(9)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('gnomAD').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')
         .find('th[class*="ant-table-cell"]').eq(10)
+        .should('have.class', 'ant-table-column-has-sorters')
         .contains('RQDM').should('exist');
 
       cy.get('thead[class="ant-table-thead"]')

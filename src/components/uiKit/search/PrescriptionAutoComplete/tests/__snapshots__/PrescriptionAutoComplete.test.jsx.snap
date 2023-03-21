@@ -34,6 +34,7 @@ exports[`PrescriptionAutoComplete should be as the snapshot 1`] = `
           aria-owns="undefined_list"
           autoComplete="off"
           className="ant-input ant-input-lg"
+          data-cy="PrescriptionAutoComplete"
           hidden={null}
           onBlur={[Function]}
           onChange={[Function]}

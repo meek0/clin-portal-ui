@@ -149,7 +149,12 @@ const OccurrenceDrawer = ({
                         <span>{donor?.mother_calls.join('/')}</span>
                         <span>
                           (
-                          <Button size="small" onClick={() => setModalVisible(true)} type="link">
+                          <Button
+                            size="small"
+                            onClick={() => setModalVisible(true)}
+                            type="link"
+                            data-cy="OpenSeqMetricModal"
+                          >
                             {intl.get('screen.patientsnv.drawer.detail')}
                           </Button>
                           )

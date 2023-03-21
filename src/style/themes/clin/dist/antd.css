@@ -21956,11 +21956,11 @@ span.ant-radio + * {
   background: #f1f5f9;
 }
 .ant-table-tbody > tr.ant-table-row-selected > td {
-  background: #f8fafc;
+  background: #eaf3fa;
   border-color: rgba(0, 0, 0, 0.03);
 }
 .ant-table-tbody > tr.ant-table-row-selected:hover > td {
-  background: #f1f5f9;
+  background: #d6f1fb;
 }
 .ant-table-summary {
   position: relative;
@@ -22010,7 +22010,7 @@ div.ant-table-summary {
 }
 .ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-left:hover,
 .ant-table-thead th.ant-table-column-has-sorters.ant-table-cell-fix-right:hover {
-  background: #eaf3fa;
+  background: #e1e8ef;
 }
 .ant-table-thead th.ant-table-column-sort {
   background: #eaf3fa;
@@ -22019,7 +22019,7 @@ div.ant-table-summary {
   background-color: transparent !important;
 }
 td.ant-table-column-sort {
-  background: #eaf3fa;
+  background: #f1f5f9;
 }
 .ant-table-column-title {
   position: relative;
@@ -26151,7 +26151,26 @@ div.ant-typography-edit-content.ant-typography-rtl {
   overflow-wrap: normal;
 }
 .ant-table-thead th.ant-table-column-sort {
-  background: #eaf3fa !important;
+  background: #f1f5f9 !important;
+}
+.ant-table-thead th.ant-table-column-sort:hover {
+  background-color: #e1e8ef !important;
+}
+.ant-table-thead th .ant-table-filter-trigger {
+  color: #8b9db2;
+}
+.ant-table-thead th .ant-table-filter-trigger:hover {
+  background-color: #e1e8ef;
+  color: #364a63;
+}
+.ant-table-thead th .ant-table-filter-trigger.active {
+  color: #006aa3;
+}
+.ant-table .ant-table-column-sorters .ant-table-column-sorter {
+  color: #8b9db2;
+}
+.ant-table .ant-table-column-sorters .ant-table-column-sorter:hover {
+  color: #8b9db2 !important;
 }
 .ant-table:not(.ant-table-bordered) .ant-table-tbody > tr {
   border-bottom: 1px solid #e1e8ef;
@@ -26165,8 +26184,14 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .ant-table-tbody > tr:nth-child(even) {
   background-color: #f8fafc;
 }
-.ant-table-tbody > tr:nth-child(even) td:not(.ant-table-column-sort) {
+.ant-table-tbody > tr:nth-child(even):not(.ant-table-row-selected) td {
   background-color: #f8fafc;
+}
+.ant-table-tbody > tr:nth-child(even):not(.ant-table-row-selected) td.ant-table-column-sort {
+  background-color: #f1f5f9;
+}
+.ant-table-tbody > tr:nth-child(even):not(.ant-table-row-selected):hover td {
+  background-color: #f1f5f9;
 }
 .ant-table-filter-dropdown-btns {
   padding: 8px;

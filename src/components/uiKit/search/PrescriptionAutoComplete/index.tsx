@@ -60,6 +60,7 @@ const PrescriptionAutoComplete = (
           <Link
             className={styles.prescriptionOptionLink}
             to={formatUrl(prescription.prescription_id!)}
+            data-cy={prescription.prescription_id!}
           >
             <OptionItem data={prescription} />
           </Link>
@@ -67,7 +68,7 @@ const PrescriptionAutoComplete = (
         value: prescription.prescription_id,
       }))}
     >
-      <Input suffix={<SearchOutlined />} size="large" />
+      <Input suffix={<SearchOutlined />} size="large" data-cy="PrescriptionAutoComplete" />
     </AutoComplete>
   );
 };

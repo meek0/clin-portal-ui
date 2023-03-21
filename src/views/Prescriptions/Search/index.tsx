@@ -249,7 +249,7 @@ const PrescriptionSearch = (): React.ReactElement => {
         <Space direction="vertical" size="middle" className={styles.patientContentContainer}>
           <div className={styles.patientContentHeader}>
             <ProLabel title={intl.get('home.prescription.search.box.label')} colon />
-            <Input onChange={searchPrescription} allowClear />
+            <Input onChange={searchPrescription} data-cy="PrescriptionsSearch" allowClear />
           </div>
           <Tabs type="card">
             <Tabs.TabPane
