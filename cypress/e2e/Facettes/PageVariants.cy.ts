@@ -28,7 +28,7 @@ describe('Page des variants', () => {
 
         cy.get('div[class*="CheckboxFilter_checkboxFilterItem"]', {timeout: 5000}).contains('MYOC')
           .find('[type="checkbox"]').check({force: true});
-          cy.clickApplyFacet();
+        cy.clickApplyFacet();
 
         cy.get('body').contains('954 286').should('exist');
       });
@@ -38,7 +38,7 @@ describe('Page des variants', () => {
 
         cy.get('div[class*="CheckboxFilter_checkboxFilterItem"]', {timeout: 5000}).contains('Non atteint')
           .find('[type="checkbox"]').check({force: true});
-          cy.clickApplyFacet();
+        cy.clickApplyFacet();
 
         cy.get('body').contains('511 796').should('exist');
       });

@@ -41,11 +41,6 @@ Cypress.Commands.add('clickApplyFacet', () => {
   cy.wait('@getPOSTgraphql', {timeout: 20*1000});
   cy.wait('@getPOSTgraphql', {timeout: 20*1000});
   cy.wait('@getPOSTgraphql', {timeout: 20*1000});
-  cy.wait('@getPOSTgraphql', {timeout: 20*1000});
-  cy.wait('@getPOSTgraphql', {timeout: 20*1000});
-  cy.wait('@getPOSTgraphql', {timeout: 20*1000});
-  cy.wait('@getPOSTgraphql', {timeout: 20*1000});
-  cy.wait('@getPOSTgraphql', {timeout: 20*1000});
 });
 
 Cypress.Commands.add('closePopup', () => {
