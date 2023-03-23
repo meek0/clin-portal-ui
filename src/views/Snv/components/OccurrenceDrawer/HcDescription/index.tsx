@@ -96,7 +96,7 @@ export const HcComplementDescription = ({
                         index: INDEX_VARIANTS,
                       }),
                       generateValueFilter({
-                        field: 'external_frequencies.gnomad_genomes_3_0.af',
+                        field: 'external_frequencies.gnomad_genomes_3_1_1.af',
                         value: ['0.01'],
                         rangeFilterNoData: true,
                         operator: RangeOperators['<='],
