@@ -89,8 +89,16 @@ export const HcComplementDescription = ({
                             },
                       ),
                       generateValueFilter({
+                        field: 'donors.ad_alt',
+                        value: ['2'],
+
+                        operator: RangeOperators['>'],
+                        index: INDEX_VARIANTS,
+                      }),
+                      generateValueFilter({
                         field: 'external_frequencies.gnomad_genomes_3_0.af',
                         value: ['0.01'],
+                        rangeFilterNoData: true,
                         operator: RangeOperators['<='],
                         index: INDEX_VARIANTS,
                       }),
