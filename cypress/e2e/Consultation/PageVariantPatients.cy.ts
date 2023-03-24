@@ -2,6 +2,7 @@
 import '../../support/commands';
 
 const epCHUSJ_ldmCHUSJ = JSON.parse(Cypress.env('presc_EP_CHUSJ_LDM_CHUSJ'));
+const epCHUS_ldmCHUS = JSON.parse(Cypress.env('presc_EP_CHUS_LDM_CHUS'));
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
@@ -219,45 +220,49 @@ describe('Page d\'un variant (onglet Patients)', () => {
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('thead[class="ant-table-thead"]').find('span[class*="ant-dropdown-trigger"]').eq(0).click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('li[data-menu-id*="RGDI"]').find('[type="checkbox"]').check({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).contains('RGDI').should('exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).contains('RGDI').should('exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('not.exist');
       cy.get('div[class*="ProTableHeader"]').contains('15 Résultats').should('exist');
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('thead[class="ant-table-thead"]').find('span[class*="ant-dropdown-trigger"]').eq(0).click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-link"]').last().click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).contains('RGDI').should('not.exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('exist');
       cy.get('div[class*="ProTableHeader"]').contains('15 Résultats').should('not.exist');
 
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('thead[class="ant-table-thead"]').find('span[class*="ant-dropdown-trigger"]').eq(1).click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('li[data-menu-id*="unknown"]').find('[type="checkbox"]').check({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).contains('Indéterminé').should('exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).contains('Indéterminé').should('exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('not.exist');
       cy.get('div[class*="ProTableHeader"]').contains('1 Résultats').should('exist');
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('thead[class="ant-table-thead"]').find('span[class*="ant-dropdown-trigger"]').eq(1).click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-link"]').last().click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).contains('Indéterminé').should('not.exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('exist');
       cy.get('div[class*="ProTableHeader"]').contains('1 Résultats').should('not.exist');
 
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('thead[class="ant-table-thead"]').find('span[class*="ant-dropdown-trigger"]').eq(2).click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('li[data-menu-id*="not_affected"]').find('[type="checkbox"]').check({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).contains('Non atteint').should('exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).contains('Non atteint').should('exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('not.exist');
       cy.get('div[class*="ProTableHeader"]').contains('5 Résultats').should('exist');
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('thead[class="ant-table-thead"]').find('span[class*="ant-dropdown-trigger"]').eq(2).click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-link"]').last().click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).contains('Non atteint').should('not.exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('exist');
       cy.get('div[class*="ProTableHeader"]').contains('5 Résultats').should('not.exist');
 
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('thead[class="ant-table-thead"]').find('span[class*="ant-dropdown-trigger"]').eq(3).click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('li[data-menu-id*="PASS"]').find('[type="checkbox"]').check({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).contains('PASS').should('exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).contains('PASS').should('exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('exist');
       cy.get('div[class*="ProTableHeader"]').contains('de 74').should('exist');
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('thead[class="ant-table-thead"]').find('span[class*="ant-dropdown-trigger"]').eq(3).click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-link"]').last().click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
-      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).contains('PASS').should('exist');
+      cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('exist');
       cy.get('div[class*="ProTableHeader"]').contains('de 74').should('exist');
     });
   
