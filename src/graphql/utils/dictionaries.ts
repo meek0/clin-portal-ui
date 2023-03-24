@@ -11,6 +11,8 @@ const panelsDictionaries = [
   'RGDI',
   'RGDI+',
   'POLYM',
+  'TUPED',
+  'TUHEM',
   ArrangerValues.missing,
 ];
 
