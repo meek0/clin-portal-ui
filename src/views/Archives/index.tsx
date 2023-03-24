@@ -7,8 +7,7 @@ import ProTable from '@ferlab/ui/core/components/ProTable';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Input, Space, Spin } from 'antd';
 import { FhirApi } from 'api/fhir';
-import { extractPatientId, extractServiceRequestId } from 'api/fhir/helper';
-import { FhirDoc, FhirOwner, PatientTaskResults } from 'graphql/patients/models/Patient';
+import { FhirDoc, FhirOwner } from 'graphql/patients/models/Patient';
 import { isEmpty } from 'lodash';
 import { getAchivesTableColumns } from 'views/Archives/columns';
 
@@ -17,9 +16,9 @@ import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import useQueryParams from 'hooks/useQueryParams';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
-import { formatDate } from 'utils/date';
-import { formatFileSize } from 'utils/formatFileSize';
 import { getProTableDictionary } from 'utils/translation';
+
+import { extractDocsFromTask } from './helper';
 
 import styles from './index.module.scss';
 
@@ -39,6 +38,7 @@ export type DocsWithTaskInfo = FhirDoc & {
   title: string;
   format: string;
   url: string;
+  taskRunAlias: string;
   action: {
     format: string;
     metadata: FhirDoc;
@@ -47,39 +47,6 @@ export type DocsWithTaskInfo = FhirDoc & {
       index: string;
     };
   };
-};
-
-const extracDocsFromTask = (tasks: PatientTaskResults) => {
-  const docsList: DocsWithTaskInfo[] = [];
-  tasks.forEach((task) => {
-    docsList.push(
-      ...task.docs.map((doc) => ({
-        ...doc,
-        key: doc.id,
-        url: doc.content[0].attachment.url,
-        taskRunAlias: task.runAlias,
-        taskAuthoredOn: formatDate(task.authoredOn),
-        taskOwner: task.owner,
-        taskId: task.id,
-        patientId: extractPatientId(doc.patientReference),
-        hash: doc.content[0].attachment.hash,
-        srRef: extractServiceRequestId(task.focus.request.id),
-        basedOnSrRef: extractServiceRequestId(task.focus.request.basedOn.reference),
-        size: formatFileSize(Number(doc.content[0].attachment.size)) as string,
-        title: doc.content[0].attachment.title,
-        format: doc.content[0].format,
-        action: {
-          format: doc.content[0].format,
-          metadata: doc,
-          urls: {
-            file: doc.content[0].attachment.url,
-            index: doc.content.length > 1 ? doc.content[1].attachment.url : '',
-          },
-        },
-      })),
-    );
-  });
-  return docsList;
 };
 
 const Archives = () => {
@@ -99,7 +66,7 @@ const Archives = () => {
       FhirApi.searchPatientFiles(searchValue)
         .then(({ data }) => {
           if (data?.data.taskList) {
-            setDocs(extracDocsFromTask(data.data.taskList));
+            setDocs(extractDocsFromTask(data.data.taskList));
           } else {
             setDocs([]);
           }
