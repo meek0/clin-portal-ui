@@ -105,7 +105,7 @@ export const generateFilters = ({
 const translateWhenNeeded = (group: string, key: string) =>
   intl
     .get(`filters.options.${underscoreToDot(group)}.${keyEnhance(key)}`)
-    .defaultMessage(removeUnderscoreAndCapitalize(keyEnhance(key)));
+    .defaultMessage(removeUnderscoreAndCapitalize(keyEnhanceBooleanOnlyExcept(group, key)));
 
 const keyEnhanceBooleanOnlyExcept = (field: string, fkey: string) =>
   ['chromosome'].includes(field) ? fkey : keyEnhanceBooleanOnly(fkey);

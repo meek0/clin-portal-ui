@@ -15,6 +15,10 @@ const panelsDictionaries = [
 ];
 
 export const dictionaries: Record<string, string[]> = {
+  // Patients:
+  'donors.analysis_code': panelsDictionaries,
+  'donors.affected_status_code': ['affected', 'not_affected', 'unknown'],
+  'donors.gender': ['Female', 'Male', 'Other', 'unknown'],
   // Variants
   type: ['GAIN', 'LOSS', ArrangerValues.missing],
   variant_class: ['deletion', 'insertion', 'SNV', ArrangerValues.missing],
@@ -231,14 +235,14 @@ export const dictionaries: Record<string, string[]> = {
   'donors.mother_zygosity': ['HOM', 'HEM', 'HET', 'WT', 'UNK'],
   'donors.father_zygosity': ['HOM', 'HEM', 'HET', 'WT', 'UNK'],
   'donors.parental_origin': [
-    'None (de novo)',
-    'Possible de novo',
-    'Father and Mother',
-    'Mother',
-    'Father',
-    'Possible Father',
-    'Possible Mother',
-    'Ambiguous',
+    'denovo',
+    'possible_denovo',
+    'both',
+    'mother',
+    'father',
+    'possible_father',
+    'possible_mother',
+    'ambiguous',
     'unknown',
     ArrangerValues.missing,
   ],
