@@ -5,7 +5,7 @@ const epCHUSJ_ldmCHUSJ = JSON.parse(Cypress.env('presc_EP_CHUSJ_LDM_CHUSJ'));
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantEntityPage('1-45508847-C-T', 2);
+  cy.visitVariantEntityPage('1-45508847-C-T', 3);
 });
 
 afterEach(() => {
@@ -18,7 +18,7 @@ describe('Page d\'un variant (onglet Résumé)', () => {
       cy.get('[data-cy="Summary_Chromosome"]').contains('1').should('exist');
       cy.get('[data-cy="Summary_Start"]').contains('45 508 847').should('exist');
       cy.get('[data-cy="Summary_AlleleAlt"]').contains('T').should('exist');
-      cy.get('[data-cy="Summary_AlleleRef"]').contains('CC').should('exist');
+      cy.get('[data-cy="Summary_AlleleRef"]').contains('C').should('exist');
       cy.get('[data-cy="Summary_Type"]').contains('SNV').should('exist');
       cy.get('[data-cy="Summary_Cytoband"]').contains('1p34.1').should('exist');
       cy.get('[data-cy="Summary_GenomeRef"]').contains('GRCh38').should('exist');
