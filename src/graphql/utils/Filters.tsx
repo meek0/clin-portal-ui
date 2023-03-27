@@ -178,7 +178,10 @@ export const getFilterGroup = (
       nameMapping: [],
       withFooter: filterFooter,
       extraFilterDictionary: extendedMapping?.field ? dictionaries[extendedMapping?.field] : null,
-      facetTranslate: (value: string) => translateWhenNeeded(extendedMapping?.field!, value),
+      facetTranslate: (value: string) => {
+        const name = translateWhenNeeded(extendedMapping?.field!, value);
+        return transformNameIfNeeded(extendedMapping?.field?.replaceAll('.', '__')!, value, name);
+      },
     },
   };
 };
