@@ -145,6 +145,7 @@ const Archives = () => {
                         setcurrentPageSize(pageSize || DEFAULT_PAGE_SIZE);
                       }
                     }}
+                    showSorterTooltip={false}
                     headerConfig={{
                       itemCount: {
                         pageIndex: currentPage,
