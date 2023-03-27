@@ -43,7 +43,7 @@ export const OtherActions = ({ patientId, record }: OwnProps) => {
         label: (
           <a
             target="_blank"
-            href={`https://www.ncbi.nlm.nih.gov/CBBresearch/Lu/Demo/LitVar/#!?query=${record.rsnumber}`}
+            href={`https://www.ncbi.nlm.nih.gov/research/litvar2/docsum?text=${record.rsnumber}`}
             rel="noreferrer"
             style={{ textDecoration: 'none' }}
           >
