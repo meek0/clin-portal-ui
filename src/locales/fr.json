@@ -336,7 +336,7 @@
   "querybuilder.filters.messages.empty": "Aucune valeur trouvée",
   "querybuilder.filters.operators.allOf": "Tout",
   "querybuilder.filters.operators.anyOf": "N’importe quel",
-  "querybuilder.filters.operators.between": "Entre",
+  "querybuilder.filters.operators.between": "Entre (inclusif)",
   "querybuilder.filters.operators.greaterthan": "Plus grand que",
   "querybuilder.filters.operators.greaterthanorequal": "Plus grand ou égal",
   "querybuilder.filters.operators.lessthan": "Plus petit que",
