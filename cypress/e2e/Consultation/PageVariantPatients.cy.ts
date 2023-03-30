@@ -217,6 +217,9 @@ describe('Page d\'un variant (onglet Patients)', () => {
     });
   
     it('Les filtres', () => {
+      cy.get('span[class*="ant-select-selection-item"]').click({force: true});
+      cy.get('div[class*="ant-select-item-option-content"]').contains('100').click({force: true});
+
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('thead[class="ant-table-thead"]').find('span[class*="ant-dropdown-trigger"]').eq(0).click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('li[data-menu-id*="RGDI"]').find('[type="checkbox"]').check({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
@@ -258,12 +261,12 @@ describe('Page d\'un variant (onglet Patients)', () => {
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).contains('PASS').should('exist');
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('exist');
-      cy.get('div[class*="ProTableHeader"]').contains('de 74').should('exist');
+      cy.get('div[class*="ProTableHeader"]').contains('74 Résultats').should('exist');
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('thead[class="ant-table-thead"]').find('span[class*="ant-dropdown-trigger"]').eq(3).click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-link"]').last().click({force: true});
       cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
       cy.get('div[class*="ant-tabs-tabpane-active"]').find('div[class="ant-space-item"]').eq(1).find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('exist');
-      cy.get('div[class*="ProTableHeader"]').contains('de 74').should('exist');
+      cy.get('div[class*="ProTableHeader"]').contains('74 Résultats').should('exist');
     });
   
     it('La pagination [CLIN-1662]', () => {

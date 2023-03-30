@@ -7,7 +7,7 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
 
   cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
-  cy.visit('/snv/exploration/patient/'+epCHUSJ_ldmCHUSJ.patientProbId+'/'+epCHUSJ_ldmCHUSJ.prescriptionId+'?sharedFilterId=0286826d-f20f-4a43-a17c-d196460bf834');
+  cy.visit('/snv/exploration/patient/'+epCHUSJ_ldmCHUSJ.patientProbId+'/'+epCHUSJ_ldmCHUSJ.prescriptionId+'?sharedFilterId='+Cypress.env('shared_filter_id'));
   cy.wait('@getPOSTgraphql', {timeout: 5000});
   cy.wait('@getPOSTgraphql', {timeout: 5000});
   cy.wait('@getPOSTgraphql', {timeout: 5000});

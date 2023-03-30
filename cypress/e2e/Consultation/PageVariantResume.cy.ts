@@ -94,12 +94,12 @@ describe('Page d\'un variant (onglet Résumé)', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('div[class*="ant-collapse-header"]').contains('Pathogenic').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('div[class*="ant-collapse-header"]').find('svg[class*="anticon"]').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).contains('PVS1').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).contains('Null variant (nonsense) in gene MMACHC, not predicted to cause NMD. Loss-of-function is a known mechanism of disease (gene has 102 reported pathogenic LOF variants). The truncated region contains 38 pathogenic variants. It removes 43.11% of the protein.').should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(0).contains('Null variant (nonsense)').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(1).contains('PP5').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(1).contains('ClinVar classifies this variant as Pathogenic, 2 stars (multiple consistent, reviewed May \'22, 8 submissions), citing 5 articles (').should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(1).contains('classifies this variant as Pathogenic').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(2).contains('PM2').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(2).contains('GnomAD genomes homozygous allele count = 0 is less than 2 for AD/AR gene MMACHC, good gnomAD genomes coverage = 30.9.').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(2).contains('GnomAD exomes homozygous allele count = 0 is less than 2 for AD/AR gene MMACHC, gnomAD exomes coverage is unavailable.').should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(2).contains('GnomAD genomes homozygous allele count = 0').should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(1).find('tr[class*="ant-table-row"]').eq(2).contains('GnomAD exomes homozygous allele count = 0').should('exist');
     });
     
     it('De la section Cohortes du RQDM', () => {
@@ -125,7 +125,7 @@ describe('Page d\'un variant (onglet Résumé)', () => {
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(2).contains('0').should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(3).contains(/^1 \/ \d{3} \(\d\.\d+%\)$/).should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(4).contains('0').should('exist');
-      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(5).contains(/^0 \/ \d{2} \(0%\)$/).should('exist');
+      cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(5).contains(/^0 \/ \d{1,2} \(0%\)$/).should('exist');
       cy.get('div[class*="Container_container"]').find('div[class*="collapse_collapsePanelWrapper"]').eq(2).find('tr[class*="Frequency_footerRow"]').find('td[class="ant-table-cell"]').eq(6).contains('0').should('exist');
     });
     

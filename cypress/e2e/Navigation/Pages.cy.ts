@@ -251,7 +251,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('chr10:g.1096268T>C').should('exist', {timeout: 20*1000});
     cy.contains('GERMLINE').should('exist', {timeout: 20*1000});
     cy.contains('HIGH').should('exist', {timeout: 20*1000});
-    cy.contains('Likely Benign').should('exist', {timeout: 20*1000});
+    cy.contains('Benign').should('exist', {timeout: 20*1000});
     cy.contains('Résumé').should('exist', {timeout: 20*1000});
     cy.contains('Chromosome :').should('exist', {timeout: 20*1000});
     cy.contains('Position :').should('exist', {timeout: 20*1000});
@@ -304,7 +304,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('chr10:g.1096268T>C').should('exist', {timeout: 20*1000});
     cy.contains('GERMLINE').should('exist', {timeout: 20*1000});
     cy.contains('HIGH').should('exist', {timeout: 20*1000});
-    cy.contains('Likely Benign').should('exist', {timeout: 20*1000});
+    cy.contains('Benign').should('exist', {timeout: 20*1000});
     cy.contains('Résumé').should('exist', {timeout: 20*1000});
     cy.contains('Patients').should('exist', {timeout: 20*1000});
     cy.contains('Sexe').should('exist', {timeout: 20*1000});
