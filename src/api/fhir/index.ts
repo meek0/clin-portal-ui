@@ -80,6 +80,9 @@ const fetchServiceRequestCodes = () =>
   sendRequestWithRpt<ServiceRequestCode>({
     method: 'GET',
     url: `${FHIR_API_URL}/CodeSystem/analysis-request-code`,
+    headers: {
+      'Cache-Control': 'no-cache',
+    },
   });
 
 const getFileURL = async (fileUrl: string) =>
