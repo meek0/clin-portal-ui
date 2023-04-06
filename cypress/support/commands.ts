@@ -101,6 +101,32 @@ Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, method
   };
 });
 
+Cypress.Commands.add('validateDictionnary', (facetTitle: string, facetRank: number, dictionnary: string[]) => {
+  cy.get('span[class*="FilterContainer_title"]', {timeout: 5000}).contains(facetTitle).click({force: true});
+  cy.get('div[class="FilterContainer_filterContainer__O6v-O"]').eq(facetRank)
+    .then(($facet) => {
+      if ($facet.has('Dictionnaire')) {
+        cy.get('div[class="FilterContainer_filterContainer__O6v-O"]').eq(facetRank)
+          .find('button[role="switch"]', {timeout: 5000}).eq(0).click({force: true});
+      };
+    });
+
+  // Toutes les valeurs du dictionnaire sont présentes dans la facette
+  for (let i = 0; i < dictionnary.length; i++) {
+    cy.get('div[class="FilterContainer_filterContainer__O6v-O"]').eq(facetRank)
+      .find('div[class*="CheckboxFilter_checkboxFilterItem"]').contains(dictionnary[i])
+      .should('exist');
+    }
+
+  // Aucune nouvelle valeur n'est présente dans la facette
+  cy.get('div[class="FilterContainer_filterContainer__O6v-O"]').eq(facetRank)
+    .find('div[class*="CheckboxFilter_checkboxFilterItem"]').eq(dictionnary.length - 1)
+    .should('exist');
+  cy.get('div[class="FilterContainer_filterContainer__O6v-O"]').eq(facetRank)
+    .find('div[class*="CheckboxFilter_checkboxFilterItem"]').eq(dictionnary.length)
+    .should('not.exist');
+});
+
 Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {
   cy.intercept(methodHTTP, routeMatcher).as('getRouteMatcher');
 
