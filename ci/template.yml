@@ -25,8 +25,8 @@ jobs:
   # serial_groups: [version]
   plan:
   - get: git-portal-ui
-  - task: prepare-image
     trigger: true
+  - task: prepare-image
     config:
       platform: linux
       image_resource:
