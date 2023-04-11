@@ -82,6 +82,7 @@ jobs:
     - get: feature-branches
       trigger: true
     - get: git-portal-ui
+      trigger: true
   - load_var: branches
     file: feature-branches/branches.json
   # Run a step multiple times with different combinations of variable values.
