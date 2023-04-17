@@ -21,7 +21,11 @@ const OmimConditionCell = ({ conditions }: OwnProps) => (
         return (
           <StackLayout key={index}>
             <Text>{geneOmimName}</Text>&nbsp;(MIM:
-            <ExternalLink key={index} href={`https://www.omim.org/entry/${omimId}`}>
+            <ExternalLink
+              key={index}
+              href={`https://www.omim.org/entry/${omimId}`}
+              data-cy={`ClinicalCard_GenePhenotype_OmimCondition_${omimId}_ExternalLink`}
+            >
               {omimId}
             </ExternalLink>
             )

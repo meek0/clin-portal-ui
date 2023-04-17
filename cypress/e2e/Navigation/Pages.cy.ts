@@ -49,9 +49,7 @@ describe('Affichage de toutes les pages et modals', () => {
   });
  
   it('Prescription', () => {
-    cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
-    cy.visit('/prescription/entity/'+epCHUSJ_ldmCHUSJ.prescriptionId);
-    cy.wait('@getPOSTgraphql', {timeout: 5000});
+    cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
 
     cy.contains('Prescription ID : '+epCHUSJ_ldmCHUSJ.prescriptionId).should('exist', {timeout: 20*1000});
     cy.contains('Voir les variants').should('exist', {timeout: 20*1000});
@@ -92,9 +90,7 @@ describe('Affichage de toutes les pages et modals', () => {
   });
  
   it('Analyse bioinformatique', () => {
-    cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
-    cy.visit('/bioinformatics-analysis/'+epCHUSJ_ldmCHUSJ.bioAnalysisId);
-    cy.wait('@getPOSTgraphql', {timeout: 5000});
+    cy.visitBioinformaticsAnalysisPage(epCHUSJ_ldmCHUSJ.bioAnalysisId);
 
     cy.contains('Analyse bioinformatique : '+epCHUSJ_ldmCHUSJ.bioAnalysisId).should('exist', {timeout: 20*1000});
     cy.contains('ID').should('exist', {timeout: 20*1000});

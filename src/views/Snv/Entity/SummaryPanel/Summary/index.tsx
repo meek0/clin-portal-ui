@@ -105,6 +105,7 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
                 {variant?.clinvar?.clin_sig && variant?.clinvar.clinvar_id ? (
                   <ExternalLink
                     href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${variant?.clinvar.clinvar_id}`}
+                    data-cy="Summary_Clinvar_ExternalLink"
                   >
                     {clinVarSigFormatted.join(', ')}
                   </ExternalLink>
@@ -117,7 +118,10 @@ const SummaryCard = ({ loading, variant, genes }: OwnProps) => {
               <Text className={styles.contentTitle}>dbSNP</Text>
               <Text className={styles.contentValue} data-cy="Summary_dbSNP">
                 {variant?.rsnumber ? (
-                  <ExternalLink href={`https://www.ncbi.nlm.nih.gov/snp/${variant?.rsnumber}`}>
+                  <ExternalLink
+                    href={`https://www.ncbi.nlm.nih.gov/snp/${variant?.rsnumber}`}
+                    data-cy="Summary_dbSNP_ExternalLink"
+                  >
                     {variant?.rsnumber}
                   </ExternalLink>
                 ) : (

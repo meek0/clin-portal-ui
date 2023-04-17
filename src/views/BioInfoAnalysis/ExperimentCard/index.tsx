@@ -11,7 +11,7 @@ interface OwnProps {
 }
 
 const ExperimentCard = ({ experiment, loading }: OwnProps) => (
-  <Card title={intl.get('screen.bioinfo.analysis.experiment.title')}>
+  <Card title={intl.get('screen.bioinfo.analysis.experiment.title')} data-cy="ExperimentCard_Card">
     <ParagraphLoader loading={loading} paragraph={{ rows: 8 }}>
       {experiment && (
         <Descriptions column={1} size="small" className="label-35">

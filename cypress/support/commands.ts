@@ -143,6 +143,13 @@ Cypress.Commands.add('visitArchivesPatientPage', (patientId: string) => {
   cy.resetColumns(0);
 });
 
+Cypress.Commands.add('visitBioinformaticsAnalysisPage', (bioAnalysisId: string) => {
+  cy.visitAndIntercept('/bioinformatics-analysis/' + bioAnalysisId,
+                       'POST',
+                       '**/$graphql',
+                       1);
+});
+
 Cypress.Commands.add('visitCNVsPatientPage', (patientId: string, prescriptionId: string, nbGraphqlCalls: number) => {
   cy.visitAndIntercept('/cnv/exploration/patient/' + patientId + '/' + prescriptionId,
                        'POST',
@@ -154,8 +161,8 @@ Cypress.Commands.add('visitCNVsPatientPage', (patientId: string, prescriptionId:
 Cypress.Commands.add('visitPrescriptionEntityPage', (prescriptionId: string) => {
   cy.visitAndIntercept('/prescription/entity/' + prescriptionId,
                        'POST',
-                       '**/graphql',
-                       3);
+                       '**/$graphql',
+                       1);
 });
 
 Cypress.Commands.add('visitPrescriptionsPage', () => {

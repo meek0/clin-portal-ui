@@ -44,7 +44,7 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
                 prescription?.subject?.resource?.id!,
               )}/${prescriptionId}`}
             >
-              <Button type="primary" icon={<LineStyleIcon height="14" width="14" />}>
+              <Button type="primary" icon={<LineStyleIcon height="14" width="14" />} data-cy="SeeVariantsButton">
                 {intl.get('screen.prescription.entity.see.variant')}
               </Button>
             </Link>

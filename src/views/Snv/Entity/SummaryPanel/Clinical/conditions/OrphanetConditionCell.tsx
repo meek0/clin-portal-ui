@@ -20,6 +20,7 @@ const OrphanetConditionCell = ({ conditions }: OwnProps) => (
                 'https://www.orpha.net/consor/cgi-bin/Disease_Search.php' +
                 `?lng=EN&data_id=${disorderId}`
               }
+              data-cy={`ClinicalCard_GenePhenotype_Condition_${disorderId}_ExternalLink`}
             >
               {panel}
             </ExternalLink>

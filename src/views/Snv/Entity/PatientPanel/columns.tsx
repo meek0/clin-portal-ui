@@ -47,7 +47,10 @@ export const getPatientPanelColumns = (
     key: 'service_request_id',
     title: intl.get('screen.variantDetails.patientsTab.request'),
     render: (record: DonorsEntity) => (
-      <Link to={`/prescription/entity/${record.analysis_service_request_id}`}>
+      <Link
+        to={`/prescription/entity/${record.analysis_service_request_id}`}
+        data-cy={`PrescriptionLink_${record.service_request_id}`}
+      >
         {record.service_request_id}
       </Link>
     ),
@@ -126,7 +129,14 @@ export const getPatientPanelColumns = (
     title: intl.get('screen.variantDetails.patientsTab.adAlt'),
     tooltip: intl.get('screen.variantDetails.patientsTab.adAlt.tooltip'),
     sorter: (a, b) => a.ad_alt - b.ad_alt,
-    render: (ad_alt) => (ad_alt ? formatNumber(ad_alt) : TABLE_EMPTY_PLACE_HOLDER),
+    render: (ad_alt) => {
+      const displayValue = ad_alt ? formatNumber(ad_alt) : TABLE_EMPTY_PLACE_HOLDER;
+      return (
+        <span data-cy='ad_alt'>
+          {displayValue}
+        </span>
+      );
+    },
   },
   {
     key: 'ad_total',
@@ -134,7 +144,14 @@ export const getPatientPanelColumns = (
     title: intl.get('screen.variantDetails.patientsTab.adTotal'),
     tooltip: intl.get('screen.variantDetails.patientsTab.adTotal.tooltip'),
     sorter: (a, b) => a.ad_total - b.ad_total,
-    render: (ad_total) => (ad_total ? formatNumber(ad_total) : TABLE_EMPTY_PLACE_HOLDER),
+    render: (ad_total) => {
+      const displayValue = ad_total ? formatNumber(ad_total) : TABLE_EMPTY_PLACE_HOLDER;
+      return (
+        <span data-cy='ad_total'>
+          {displayValue}
+        </span>
+      );
+    },
   },
   {
     key: 'ad_ratio',

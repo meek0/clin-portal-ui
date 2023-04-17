@@ -44,6 +44,7 @@ const ClinicalCard = ({ locus }: OwnProps) => {
                   className={styles.externalLink}
                   href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvarId}`}
                   hasIcon={true}
+                  data-cy={`ClinicalCard_ClinVar_${clinvarId}_ExternalLink`}
                 >
                   {clinvarId}
                 </ExternalLink>
@@ -53,6 +54,7 @@ const ClinicalCard = ({ locus }: OwnProps) => {
             </Space>
           }
           loading={loading}
+          datacy="ClinicalCard_ClinVar"
         >
           {clinVarHasRows ? (
             <Table
@@ -61,6 +63,7 @@ const ClinicalCard = ({ locus }: OwnProps) => {
               columns={columnsClinVar}
               bordered
               size="small"
+              rowKey={(record) => `ClinicalCard_ClinVar_${record.key}`}
             />
           ) : (
             <NoData />
@@ -73,6 +76,7 @@ const ClinicalCard = ({ locus }: OwnProps) => {
             </Title>
           }
           loading={loading}
+          datacy="ClinicalCard_GenePhenotype"
         >
           {genesHasRows ? (
             <Table
@@ -81,6 +85,7 @@ const ClinicalCard = ({ locus }: OwnProps) => {
               dataSource={genesRows}
               columns={columnsPhenotypes}
               size="small"
+              rowKey={(record) => `ClinicalCard_GenePhenotype_${record.source}_${record.gene}`}
             />
           ) : (
             <NoData />

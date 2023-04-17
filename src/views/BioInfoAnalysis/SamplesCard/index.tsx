@@ -41,6 +41,7 @@ const SamplesCard = ({ samples, loading }: OwnProps) => (
   <CollapsePanel
     header={<Title level={4}>{intl.get('screen.bioinfo.analysis.samples.title')}</Title>}
     loading={loading}
+    datacy="SamplesCard"
   >
     {isEmpty(samples) ? (
       <></>
@@ -57,6 +58,7 @@ const SamplesCard = ({ samples, loading }: OwnProps) => (
         pagination={{
           hideOnSinglePage: true,
         }}
+        data-cy="SamplesCard_Table"
       />
     )}
   </CollapsePanel>

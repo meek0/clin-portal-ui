@@ -55,7 +55,10 @@ const columns = [
                 return (
                   <Fragment key={indexOfCutText}>
                     {pubmedId ? (
-                      <ExternalLink href={`https://pubmed.ncbi.nlm.nih.gov/${pubmedId}/`}>
+                      <ExternalLink
+                        href={`https://pubmed.ncbi.nlm.nih.gov/${pubmedId}/`}
+                        data-cy={`ACMGCriteria_Pubmed_${pubmedId}_ExternalLink`}
+                      >
                         PUBMED: {pubmedId}
                       </ExternalLink>
                     ) : (
@@ -106,6 +109,7 @@ const ACMGCriteria = ({ data }: Props) => {
                 className={styles.externalLink}
                 href={`https://varsome.com/variant/${varsome.variant_id}`}
                 hasIcon={true}
+                data-cy="ACMGCriteria_Varsome_ExternalLink"
               >
                 {verdict.verdict}
               </ExternalLink>
@@ -114,6 +118,7 @@ const ACMGCriteria = ({ data }: Props) => {
         </Space>
       }
       loading={data.loading}
+      datacy="ACMGCriteria"
     >
       {formattedData.length > 0 ? (
         <Table
@@ -122,6 +127,7 @@ const ACMGCriteria = ({ data }: Props) => {
           columns={columns}
           pagination={false}
           size="small"
+          rowKey={(record) => `ACMGCriteria_${record.key}`}
         />
       ) : (
         <NoData />

@@ -13,6 +13,7 @@ declare namespace Cypress {
     validateDictionnary(facetTitle: string, facetRank: number, dictionnary: string[]): cy & CyEventEmitter;
     visitAndIntercept(url: string, methodHTTP: string, routeMatcher: string, nbCalls: number): cy & CyEventEmitter;
     visitArchivesPatientPage(patientId: string): cy & CyEventEmitter;
+    visitBioinformaticsAnalysisPage(bioAnalysisId: string): cy & CyEventEmitter;
     visitCNVsPatientPage(patientId: string, prescriptionId: string, nbGraphqlCalls: number): cy & CyEventEmitter;
     visitPrescriptionEntityPage(prescriptionId: string): cy & CyEventEmitter;
     visitPrescriptionsPage(): cy & CyEventEmitter;
