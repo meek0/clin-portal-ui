@@ -135,7 +135,7 @@ const PatientPanel = ({ locus, className = '' }: OwnProps) => {
         <GridCard
           content={
             <Row gutter={[12, 24]}>
-              <Col sm={12} md={12} lg={8}>
+              <Col sm={12} md={12} lg={8} data-cy="PieChart_Gender">
                 <PieChart
                   title={intl.get('filters.group.donors.gender')}
                   data={sexData}
@@ -143,14 +143,14 @@ const PatientPanel = ({ locus, className = '' }: OwnProps) => {
                   {...graphSetting}
                 />
               </Col>
-              <Col sm={12} md={12} lg={8}>
+              <Col sm={12} md={12} lg={8} data-cy="PieChart_Code">
                 <PieChart
                   title={intl.get('filters.group.donors.analysis_code')}
                   data={analyseData}
                   {...graphSetting}
                 />
               </Col>
-              <Col sm={12} md={12} lg={8}>
+              <Col sm={12} md={12} lg={8} data-cy="PieChart_Filter">
                 <PieChart
                   title={intl.get('filters.group.donors.filters')}
                   data={dragenData}
@@ -163,6 +163,7 @@ const PatientPanel = ({ locus, className = '' }: OwnProps) => {
           loading={loading}
         />
         <GridCard
+          data-cy="VariantPatient_GridCard"
           content={
             <ProTable<TTableDonorEntity>
               tableId="patient_panel_table"

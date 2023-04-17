@@ -108,6 +108,7 @@ Cypress.Commands.add('validateDictionnary', (facetTitle: string, facetRank: numb
       if ($facet.has('Dictionnaire')) {
         cy.get('div[class="FilterContainer_filterContainer__O6v-O"]').eq(facetRank)
           .find('button[role="switch"]', {timeout: 5000}).eq(0).click({force: true});
+        cy.wait(1000);
       };
     });
 
@@ -117,14 +118,11 @@ Cypress.Commands.add('validateDictionnary', (facetTitle: string, facetRank: numb
       .find('div[class*="CheckboxFilter_checkboxFilterItem"]').contains(dictionnary[i])
       .should('exist');
     }
-
+    
   // Aucune nouvelle valeur n'est présente dans la facette
   cy.get('div[class="FilterContainer_filterContainer__O6v-O"]').eq(facetRank)
-    .find('div[class*="CheckboxFilter_checkboxFilterItem"]').eq(dictionnary.length - 1)
-    .should('exist');
-  cy.get('div[class="FilterContainer_filterContainer__O6v-O"]').eq(facetRank)
-    .find('div[class*="CheckboxFilter_checkboxFilterItem"]').eq(dictionnary.length)
-    .should('not.exist');
+    .find('div[class*="CheckboxFilter_checkboxFilterItem"]')
+    .its('length').should('eq', dictionnary.length);
 });
 
 Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {
@@ -145,6 +143,13 @@ Cypress.Commands.add('visitArchivesPatientPage', (patientId: string) => {
   cy.resetColumns(0);
 });
 
+Cypress.Commands.add('visitBioinformaticsAnalysisPage', (bioAnalysisId: string) => {
+  cy.visitAndIntercept('/bioinformatics-analysis/' + bioAnalysisId,
+                       'POST',
+                       '**/$graphql',
+                       1);
+});
+
 Cypress.Commands.add('visitCNVsPatientPage', (patientId: string, prescriptionId: string, nbGraphqlCalls: number) => {
   cy.visitAndIntercept('/cnv/exploration/patient/' + patientId + '/' + prescriptionId,
                        'POST',
@@ -156,8 +161,8 @@ Cypress.Commands.add('visitCNVsPatientPage', (patientId: string, prescriptionId:
 Cypress.Commands.add('visitPrescriptionEntityPage', (prescriptionId: string) => {
   cy.visitAndIntercept('/prescription/entity/' + prescriptionId,
                        'POST',
-                       '**/graphql',
-                       3);
+                       '**/$graphql',
+                       1);
 });
 
 Cypress.Commands.add('visitPrescriptionsPage', () => {

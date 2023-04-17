@@ -121,7 +121,14 @@ const externalFreqColumns = [
     render: (cohort: { cohortName: string; link?: string }) => {
       const cohortName = cohort.cohortName;
       if (['TopMed', 'gnomAD Genome (v3)'].includes(cohortName)) {
-        return <ExternalLink href={cohort.link!}>{cohortName}</ExternalLink>;
+        return (
+          <ExternalLink
+            href={cohort.link!}
+            data-cy={`FrequencyCard_Cohort_${cohortName}_ExternalLink`}
+          >
+            {cohortName}
+          </ExternalLink>
+        );
       }
       return cohortName;
     },
@@ -222,6 +229,7 @@ const FrequencyCard = ({ locus }: OwnProps) => {
         <CollapsePanel
           header={<Title level={4}>{intl.get('screen.variantDetails.summaryTab.rqdmTitle')}</Title>}
           loading={loading}
+          datacy="FrequencyCard_RQDM"
         >
           {isEmpty(frequencies_by_analysis) ? (
             <NoData />
@@ -236,7 +244,10 @@ const FrequencyCard = ({ locus }: OwnProps) => {
                 const { total, affected, non_affected } = data.frequency_RQDM;
                 return (
                   <>
-                    <Table.Summary.Row className={styles.footerRow}>
+                    <Table.Summary.Row
+                      className={styles.footerRow}
+                      data-cy="FrequencyCard_RQDM_Row_Summary"
+                    >
                       <Table.Summary.Cell index={0}>
                         <Text strong> TOTAL</Text>
                       </Table.Summary.Cell>
@@ -278,6 +289,7 @@ const FrequencyCard = ({ locus }: OwnProps) => {
             <Title level={4}>{intl.get('screen.variantDetails.summaryTab.cohortTitle')}</Title>
           }
           loading={loading}
+          datacy="FrequencyCard_Cohort"
         >
           {!hasEmptyCohorts ? (
             <Table
@@ -286,6 +298,7 @@ const FrequencyCard = ({ locus }: OwnProps) => {
               dataSource={externalCohortsRows}
               columns={externalFreqColumns}
               pagination={false}
+              rowKey={(record) => `FrequencyCard_Cohort_${record.cohort.cohortName}`}
             />
           ) : (
             <NoData />

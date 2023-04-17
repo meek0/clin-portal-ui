@@ -67,7 +67,12 @@ export const columnsPhenotypes = [
         return (
           <>
             <Text>{geneName}</Text>&nbsp;(MIM:
-            <ExternalLink href={`https://www.omim.org/entry/${omimId}`}>{omimId}</ExternalLink>)
+            <ExternalLink
+              href={`https://www.omim.org/entry/${omimId}`}
+              data-cy={`ClinicalCard_GenePhenotype_Omim_${omimId}_ExternalLink`}
+            >
+              {omimId}
+            </ExternalLink>)
           </>
         );
       }

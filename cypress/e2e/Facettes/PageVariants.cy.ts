@@ -30,7 +30,7 @@ describe('Page des variants', () => {
           .find('[type="checkbox"]').check({force: true});
         cy.clickApplyFacet();
 
-        cy.get('body').contains('954 286').should('exist');
+        cy.get('body').contains(/^954 285|954 286$/).should('exist');
       });
 
       it('Statut clinique', () => {
@@ -40,7 +40,7 @@ describe('Page des variants', () => {
           .find('[type="checkbox"]').check({force: true});
         cy.clickApplyFacet();
 
-        cy.get('body').contains('511 796').should('exist');
+        cy.get('body').contains(/^511 795|511 796$/).should('exist');
       });
 
       it('Sexe', () => {

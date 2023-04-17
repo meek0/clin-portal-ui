@@ -27,7 +27,11 @@ const HpoConditionCell = ({ conditions }: OwnProps) => (
       return (
         <StackLayout key={id}>
           <Text>{condition}</Text>&nbsp;(
-          <ExternalLink key={id} href={`https://hpo.jax.org/app/browse/term/${termId}`}>
+          <ExternalLink
+            key={id}
+            href={`https://hpo.jax.org/app/browse/term/${termId}`}
+            data-cy={`ClinicalCard_GenePhenotype_HpoCondition_${termId}_ExternalLink`}
+          >
             {termId}
           </ExternalLink>
           )

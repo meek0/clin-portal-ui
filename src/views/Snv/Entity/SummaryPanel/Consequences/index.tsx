@@ -345,6 +345,7 @@ const columns = [
               <ExternalLink
                 href={`https://www.ncbi.nlm.nih.gov/nuccore/${item}?report=graph`}
                 className={styles.transcriptLink}
+                data-cy={`Consequences_RefSeq_${item}_ExternalLink`}
               >
                 {item}
               </ExternalLink>
@@ -376,6 +377,7 @@ const Consequences = ({ data }: OwnProps) => {
         <Title level={4}>{intl.get('screen.variantDetails.summaryTab.consequencesTitle')}</Title>
       }
       loading={data.loading}
+      datacy="Consequences"
     >
       <Space className={styles.consequenceCards} direction="vertical" size={48}>
         {hasTables ? (
@@ -396,12 +398,14 @@ const Consequences = ({ data }: OwnProps) => {
                 direction="vertical"
                 className={styles.consequenceTableWrapper}
                 size={8}
+                data-cy={`Consequences_${symbol}_Space`}
               >
                 <Space size={8}>
                   <Space size={4}>
-                    <Text strong data-cy={`${symbol}_Symbol`}>
+                    <Text strong>
                       <ExternalLink
                         href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${symbol}`}
+                        data-cy={`Consequences_${symbol}_Gene_ExternalLink`}
                       >
                         {symbol}
                       </ExternalLink>
@@ -412,7 +416,12 @@ const Consequences = ({ data }: OwnProps) => {
                       <Divider type="vertical" />
                       <Text strong>Omim :</Text>
                       <Text strong>
-                        <ExternalLink href={`https://omim.org/entry/${omim}`}>{omim}</ExternalLink>
+                        <ExternalLink
+                          href={`https://omim.org/entry/${omim}`}
+                          data-cy={`Consequences_${symbol}_Omim_ExternalLink`}
+                        >
+                          {omim}
+                        </ExternalLink>
                       </Text>
                     </Space>
                   )}
@@ -430,6 +439,7 @@ const Consequences = ({ data }: OwnProps) => {
                       <Text strong>
                         <ExternalLink
                           href={`https://spliceailookup.broadinstitute.org/#variant=${spliceAiLink}&hg=38&distance=50&mask=0&precomputed=0`}
+                          data-cy={`Consequences_${symbol}_SpliceAi_ExternalLink`}
                         >
                           {spliceAI}
                         </ExternalLink>
@@ -451,6 +461,7 @@ const Consequences = ({ data }: OwnProps) => {
                         <Text strong>
                           <ExternalLink
                             href={`https://gnomad.broadinstitute.org/gene/${ensembleGeneId}?dataset=gnomad_r2_1`}
+                            data-cy={`Consequences_${symbol}_Pli_ExternalLink`}
                           >
                             {pli < 0.001 ? pli.toExponential(2) : pli}
                           </ExternalLink>
@@ -466,6 +477,7 @@ const Consequences = ({ data }: OwnProps) => {
                         <Text strong>
                           <ExternalLink
                             href={`https://gnomad.broadinstitute.org/gene/${ensembleGeneId}?dataset=gnomad_r2_1`}
+                            data-cy={`Consequences_${symbol}_Loeuf_ExternalLink`}
                           >
                             {loeuf < 0.001 ? loeuf.toExponential(2) : loeuf}
                           </ExternalLink>
@@ -489,6 +501,7 @@ const Consequences = ({ data }: OwnProps) => {
                   columns={columns}
                   pagination={false}
                   size="small"
+                  rowKey={(record) => `Consequences_${symbol}_${record.key}`}
                 />
               </Space>
             );
