@@ -7,10 +7,6 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Page des variants', () => {
   describe('Filtrer avec les facettes', () => {
 

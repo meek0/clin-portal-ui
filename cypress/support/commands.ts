@@ -53,24 +53,18 @@ Cypress.Commands.add('closePopup', () => {
 });
 
 Cypress.Commands.add('login', (user: string, password: string) => {
-  cy.exec('npm cache clear --force');
-  cy.wait(1000);
+  cy.session([user], () => {
+    cy.visit('/');
+    cy.get('input[type="email"]').should('exist', {timeout: 60*1000});
 
-  cy.visit('/');
-  cy.get('input[type="email"]').should('exist', {timeout: 20*1000});
-
-  cy.get('input[type="email"]').type(user);
-  cy.get('input[type="password"]').type(password, {log: false});
-
-  cy.intercept('**/user').as('getUser');
-  cy.get('button[type="submit"]').click();
-  cy.wait('@getUser', {timeout: 20*1000});
+    cy.get('input[type="email"]').type(user);
+    cy.get('input[type="password"]').type(password, {log: false});
+    cy.get('button[type="submit"]').click();
+  });
 });
 
 Cypress.Commands.add('logout', () => {
-    cy.intercept('**/user').as('getUser');
     cy.visit('/');
-    cy.wait('@getUser', {timeout: 20*1000});
     cy.wait(5*1000);
 
     cy.get('div').then(($div) => {

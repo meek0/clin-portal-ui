@@ -8,10 +8,6 @@ beforeEach(() => {
   cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Page d\'une prescription', () => {
   describe('Vérifier les informations affichées', () => {
     it('De la section Analyse', () => {

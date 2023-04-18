@@ -13,10 +13,6 @@ beforeEach(() => {
   cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Tableau des gènes chevauchant un CNV', () => {
   it('Vérifier les informations affichées', () => {
     cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});

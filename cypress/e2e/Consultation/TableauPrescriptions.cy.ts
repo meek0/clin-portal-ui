@@ -41,10 +41,6 @@ beforeEach(() => {
   cy.get('body').contains('Prescriptions (3)').should('exist');
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Tableau des prescriptions', () => {
   describe('Vérifier les informations affichées', () => {
 

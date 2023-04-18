@@ -7,12 +7,9 @@ const epCUSM_ldmCUSM = JSON.parse(Cypress.env('presc_EP_CUSM_LDM_CUSM'));
 const epCHUS_ldmCHUS = JSON.parse(Cypress.env('presc_EP_CHUS_LDM_CHUS'));
 
 describe('Accès des utilisateurs', () => {
-  afterEach(() => {
-    cy.logout();
-  });
-
   it('Docteur et généticien (CHUSJ, CUSM, CHUS)', () => {
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visit('/');
 
     // Le bouton Panels est visible
     cy.contains('Panels').should('exist');
@@ -77,6 +74,7 @@ describe('Accès des utilisateurs', () => {
 
   it('Généticien (CHUSJ, CUSM, CHUS)', () => {
     cy.login(Cypress.env('username_G_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visit('/');
 
     // Le bouton Panels est visible
     cy.contains('Panels').should('exist');
@@ -141,6 +139,7 @@ describe('Accès des utilisateurs', () => {
 
   it('Docteur et généticien (CHUSJ)', () => {
     cy.login(Cypress.env('username_DG_CHUSJ'), Cypress.env('password'));
+    cy.visit('/');
 
     // Le bouton Panels est visible
     cy.contains('Panels').should('exist');
@@ -207,6 +206,7 @@ describe('Accès des utilisateurs', () => {
 
   it('Généticien (CHUSJ)', () => {
     cy.login(Cypress.env('username_G_CHUSJ'), Cypress.env('password'));
+    cy.visit('/');
 
     // Le bouton Panels est visible
     cy.contains('Panels').should('exist');
@@ -273,6 +273,7 @@ describe('Accès des utilisateurs', () => {
 
   it('Généticien (CUSM)', () => {
     cy.login(Cypress.env('username_G_CUSM'), Cypress.env('password'));
+    cy.visit('/');
 
     // Le bouton Panels est visible
     cy.contains('Panels').should('exist');
@@ -340,6 +341,7 @@ describe('Accès des utilisateurs', () => {
 
   it('Docteur et généticien (CHUS)', () => {
     cy.login(Cypress.env('username_DG_CHUS'), Cypress.env('password'));
+    cy.visit('/');
 
     // Le bouton Panels est visible
     cy.contains('Panels').should('exist');
@@ -407,6 +409,7 @@ describe('Accès des utilisateurs', () => {
 
   it('Généticien (CHUS)', () => {
     cy.login(Cypress.env('username_G_CHUS'), Cypress.env('password'));
+    cy.visit('/');
 
     // Le bouton Panels est visible
     cy.contains('Panels').should('exist');
@@ -474,6 +477,7 @@ describe('Accès des utilisateurs', () => {
 
   it('Docteur (CUSM)', () => {
     cy.login(Cypress.env('username_D_CUSM'), Cypress.env('password'));
+    cy.visit('/');
 
     // Le bouton Panels est visible
     cy.contains('Panels').should('exist');
@@ -498,12 +502,7 @@ describe('Accès des utilisateurs', () => {
     cy.visit('/prescription/entity/' + epCHUSJ_ldmCHUSJ.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
     // Accéder aux variants d'un patient du CHUSJ est impossible
-    cy.visit(
-      '/snv/exploration/patient/' +
-        epCHUSJ_ldmCHUSJ.patientProbId +
-        '/' +
-        epCHUSJ_ldmCHUSJ.prescriptionId,
-    );
+    cy.visit('/snv/exploration/patient/' + epCHUSJ_ldmCHUSJ.patientProbId + '/' + epCHUSJ_ldmCHUSJ.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
@@ -512,12 +511,7 @@ describe('Accès des utilisateurs', () => {
     cy.contains('Variants').should('not.exist');
     cy.contains('Fichiers').should('not.exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ) est impossible
-    cy.visit(
-      '/snv/exploration/patient/' +
-        epCUSM_ldmCHUSJ.patientProbId +
-        '/' +
-        epCUSM_ldmCHUSJ.prescriptionId,
-    );
+    cy.visit('/snv/exploration/patient/' + epCUSM_ldmCHUSJ.patientProbId + '/' + epCUSM_ldmCHUSJ.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
@@ -526,24 +520,14 @@ describe('Accès des utilisateurs', () => {
     cy.contains('Variants').should('not.exist');
     cy.contains('Fichiers').should('not.exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM) est impossible
-    cy.visit(
-      '/snv/exploration/patient/' +
-        epCUSM_ldmCUSM.patientProbId +
-        '/' +
-        epCUSM_ldmCUSM.prescriptionId,
-    );
+    cy.visit('/snv/exploration/patient/' + epCUSM_ldmCUSM.patientProbId + '/' + epCUSM_ldmCUSM.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
 
     // Accéder à la page Prescription d'un patient du CHUS est impossible
     cy.visit('/prescription/entity/' + epCHUS_ldmCHUS.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
     // Accéder aux variants d'un patient du CHUS est impossible
-    cy.visit(
-      '/snv/exploration/patient/' +
-        epCHUS_ldmCHUS.patientProbId +
-        '/' +
-        epCHUS_ldmCHUS.prescriptionId,
-    );
+    cy.visit('/snv/exploration/patient/' + epCHUS_ldmCHUS.patientProbId + '/' + epCHUS_ldmCHUS.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
 
     // Les liens de la footer ne sont pas visibles
@@ -553,6 +537,7 @@ describe('Accès des utilisateurs', () => {
 
   it('Résident (CHUSJ)', () => {
     cy.login(Cypress.env('username_R_CHUSJ'), Cypress.env('password'));
+    cy.visit('/');
 
     // Le bouton Panels est visible
     cy.contains('Panels').should('exist');
@@ -579,48 +564,28 @@ describe('Accès des utilisateurs', () => {
     cy.contains('Variants').should('not.exist');
     cy.contains('Fichiers').should('not.exist');
     // Accéder aux variants d'un patient du CHUSJ est impossible
-    cy.visit(
-      '/snv/exploration/patient/' +
-        epCHUSJ_ldmCHUSJ.patientProbId +
-        '/' +
-        epCHUSJ_ldmCHUSJ.prescriptionId,
-    );
+    cy.visit('/snv/exploration/patient/' + epCHUSJ_ldmCHUSJ.patientProbId + '/' + epCHUSJ_ldmCHUSJ.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ) est impossible
     cy.visit('/prescription/entity/' + epCUSM_ldmCHUSJ.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ) est impossible
-    cy.visit(
-      '/snv/exploration/patient/' +
-        epCUSM_ldmCHUSJ.patientProbId +
-        '/' +
-        epCUSM_ldmCHUSJ.prescriptionId,
-    );
+    cy.visit('/snv/exploration/patient/' + epCUSM_ldmCHUSJ.patientProbId + '/' + epCUSM_ldmCHUSJ.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ) est impossible
     cy.visit('/prescription/entity/' + epCUSM_ldmCUSM.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ) est impossible
-    cy.visit(
-      '/snv/exploration/patient/' +
-        epCUSM_ldmCUSM.patientProbId +
-        '/' +
-        epCUSM_ldmCUSM.prescriptionId,
-    );
+    cy.visit('/snv/exploration/patient/' + epCUSM_ldmCUSM.patientProbId + '/' + epCUSM_ldmCUSM.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
 
     // Accéder à la page Prescription d'un patient du CHUS est impossible
     cy.visit('/prescription/entity/' + epCHUS_ldmCHUS.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
     // Accéder aux variants d'un patient du CHUS est impossible
-    cy.visit(
-      '/snv/exploration/patient/' +
-        epCHUS_ldmCHUS.patientProbId +
-        '/' +
-        epCHUS_ldmCHUS.prescriptionId,
-    );
+    cy.visit('/snv/exploration/patient/' + epCHUS_ldmCHUS.patientProbId + '/' + epCHUS_ldmCHUS.prescriptionId);
     cy.contains('403').should('exist', { timeout: 20 * 1000 });
 
     // Les liens de la footer ne sont pas visibles

@@ -46,10 +46,6 @@ beforeEach(() => {
   cy.wait('@getUser7', {timeout: 20*1000});
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Tableau des CNVs d\'un patient', () => {
   it('Vérifier les informations affichées', () => {
     cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains('GAIN:chr1:196774873-196832007').should('exist');

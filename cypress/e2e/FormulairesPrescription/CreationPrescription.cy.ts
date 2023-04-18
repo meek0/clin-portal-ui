@@ -8,10 +8,6 @@ beforeEach(() => {
   cy.get('[data-cy="CreateNewPrescription"]').should('exist', {timeout: 20*1000});
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Formulaires de prescription', () => {
   describe('Création', () => {
     it('MMG - Solo', () => {

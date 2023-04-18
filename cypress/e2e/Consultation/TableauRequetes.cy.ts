@@ -42,10 +42,6 @@ beforeEach(() => {
   cy.get('body').contains('Requêtes (9)').should('exist');
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Tableau des requêtes', () => {
   describe('Vérifier les informations affichées', () => {
 

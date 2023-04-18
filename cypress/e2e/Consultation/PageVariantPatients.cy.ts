@@ -10,10 +10,6 @@ beforeEach(() => {
   cy.get('div[id*="rc-tabs-0-tab-patients"]').click({force: true});
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Page d\'un variant (onglet Patients)', () => {
   describe('Vérifier les informations affichées', () => {
     it('Des graphiques', () => {
