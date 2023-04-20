@@ -8,10 +8,6 @@ beforeEach(() => {
   cy.get('[data-cy="CreateNewPrescription"]').should('exist', {timeout: 20*1000});
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Formulaires de prescription', () => {
   describe('Création', () => {
     it('MMG - Solo', () => {
@@ -45,7 +41,7 @@ describe('Formulaires de prescription', () => {
       cy.get('[data-cy="NextButton"]').click({force: true});
 
       // Soumission
-      cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
+      cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
       cy.get('[data-cy="NextButton"]').click({force: true});
       cy.wait('@getPOSTgraphql', {timeout: 10 * 1000});
       cy.wait('@getPOSTgraphql', {timeout: 10 * 1000});

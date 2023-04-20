@@ -28,7 +28,8 @@ export default defineConfig({
     },
     baseUrl: 'https://portail.qa.cqgc.hsj.rtss.qc.ca/',
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
-    slowTestThreshold: 60000
+    slowTestThreshold: 60000,
+    experimentalSessionAndOrigin: true
   },
   retries: {
     "runMode": 2,

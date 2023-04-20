@@ -8,10 +8,6 @@ beforeEach(() => {
   cy.visitBioinformaticsAnalysisPage(epCHUSJ_ldmCHUSJ.bioAnalysisId);
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Page d\'une analyse bioinformatique', () => {
   describe('Vérifier les informations affichées', () => {
     it('De la section Analyse', () => {

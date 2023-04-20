@@ -9,11 +9,8 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   });
 
-  afterEach(() => {
-    cy.logout();
-  });
-
   it('Accueil', () => {
+    cy.visit('/');
     cy.contains('Rechercher une prescription').should('exist', {timeout: 20*1000});
     cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier et numéro de patient:').should('exist', {timeout: 20*1000});
     cy.contains('Rechercher un variant').should('exist', {timeout: 20*1000});

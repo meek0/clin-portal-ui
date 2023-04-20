@@ -53,24 +53,18 @@ Cypress.Commands.add('closePopup', () => {
 });
 
 Cypress.Commands.add('login', (user: string, password: string) => {
-  cy.exec('npm cache clear --force');
-  cy.wait(1000);
+  cy.session([user], () => {
+    cy.visit('/');
+    cy.get('input[type="email"]').should('exist', {timeout: 60*1000});
 
-  cy.visit('/');
-  cy.get('input[type="email"]').should('exist', {timeout: 20*1000});
-
-  cy.get('input[type="email"]').type(user);
-  cy.get('input[type="password"]').type(password, {log: false});
-
-  cy.intercept('**/user').as('getUser');
-  cy.get('button[type="submit"]').click();
-  cy.wait('@getUser', {timeout: 20*1000});
+    cy.get('input[type="email"]').type(user);
+    cy.get('input[type="password"]').type(password, {log: false});
+    cy.get('button[type="submit"]').click();
+  });
 });
 
 Cypress.Commands.add('logout', () => {
-    cy.intercept('**/user').as('getUser');
     cy.visit('/');
-    cy.wait('@getUser', {timeout: 20*1000});
     cy.wait(5*1000);
 
     cy.get('div').then(($div) => {
@@ -138,7 +132,7 @@ Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, rout
 Cypress.Commands.add('visitArchivesPatientPage', (patientId: string) => {
   cy.visitAndIntercept('/archive/exploration?search=' + patientId,
                        'POST',
-                       '**/$graphql',
+                       '**/$graphql*',
                        1);
   cy.resetColumns(0);
 });
@@ -146,7 +140,7 @@ Cypress.Commands.add('visitArchivesPatientPage', (patientId: string) => {
 Cypress.Commands.add('visitBioinformaticsAnalysisPage', (bioAnalysisId: string) => {
   cy.visitAndIntercept('/bioinformatics-analysis/' + bioAnalysisId,
                        'POST',
-                       '**/$graphql',
+                       '**/$graphql*',
                        1);
 });
 
@@ -161,7 +155,7 @@ Cypress.Commands.add('visitCNVsPatientPage', (patientId: string, prescriptionId:
 Cypress.Commands.add('visitPrescriptionEntityPage', (prescriptionId: string) => {
   cy.visitAndIntercept('/prescription/entity/' + prescriptionId,
                        'POST',
-                       '**/$graphql',
+                       '**/$graphql*',
                        1);
 });
 

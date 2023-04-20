@@ -10,10 +10,6 @@ beforeEach(() => {
   cy.get('div[id*="rc-tabs-0-tab-patients"]').click({force: true});
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Page d\'un variant (onglet Patients)', () => {
   describe('Vérifier les informations affichées', () => {
     it('Des graphiques', () => {
@@ -162,7 +158,7 @@ describe('Page d\'un variant (onglet Patients)', () => {
       cy.get('span[class*="ant-select-selection-item"]').click({force: true});
       cy.get('div[class*="ant-select-item-option-content"]').contains('100').click({force: true});
 
-      cy.clickAndIntercept('[data-cy="PrescriptionLink_'+epCHUSJ_ldmCHUSJ.requestProbId+'"]','POST', '**/$graphql', 1);
+      cy.clickAndIntercept('[data-cy="PrescriptionLink_'+epCHUSJ_ldmCHUSJ.requestProbId+'"]','POST', '**/$graphql*', 1);
       cy.contains('Prescription ID : '+epCHUSJ_ldmCHUSJ.prescriptionId).should('exist', {timeout: 20*1000});
     });
   });

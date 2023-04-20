@@ -41,10 +41,6 @@ beforeEach(() => {
   cy.get('body').contains('Prescriptions (3)').should('exist');
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Tableau des prescriptions', () => {
   describe('Vérifier les informations affichées', () => {
 
@@ -68,7 +64,7 @@ describe('Tableau des prescriptions', () => {
 
     it('Lien Prescription d\'une prescription aléatoire', () => {
       const randomPresc = Math.floor(Math.random() * 3);
-      cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
+      cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
       cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').find('a[href*="prescription"]').click({force: true});
       cy.wait('@getPOSTgraphql', {timeout: 20*1000});
 

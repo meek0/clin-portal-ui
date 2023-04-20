@@ -8,10 +8,6 @@ beforeEach(() => {
   cy.visitVariantEntityPage('1-45508847-C-T', 3);
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Page d\'un variant (onglet Résumé)', () => {
   describe('Vérifier les informations affichées', () => {
     it('De la section Résumé', () => {

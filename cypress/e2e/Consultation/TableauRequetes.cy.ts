@@ -42,10 +42,6 @@ beforeEach(() => {
   cy.get('body').contains('Requêtes (9)').should('exist');
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Tableau des requêtes', () => {
   describe('Vérifier les informations affichées', () => {
 
@@ -74,7 +70,7 @@ describe('Tableau des requêtes', () => {
     it('Lien Requête d\'une requête aléatoire d\'une prescription aléatoire', () => {
       const randomPresc = Math.floor(Math.random() * 3);
       const randomReq = Math.floor(Math.random() * 3);
-      cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
+      cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
       cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].requests[randomReq].requestId+'"]').find('a[href*="prescription"]').eq(0).click({force: true});
       cy.wait('@getPOSTgraphql', {timeout: 20*1000});
 
@@ -84,7 +80,7 @@ describe('Tableau des requêtes', () => {
     it('Lien Prescription d\'une requête aléatoire d\'une prescription aléatoire', () => {
       const randomPresc = Math.floor(Math.random() * 3);
       const randomReq = Math.floor(Math.random() * 3);
-      cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
+      cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
       cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].requests[randomReq].requestId+'"]').find('a[href*="prescription"]').eq(1).click({force: true});
       cy.wait('@getPOSTgraphql', {timeout: 20*1000});
 
@@ -94,7 +90,7 @@ describe('Tableau des requêtes', () => {
     it('Lien Fichiers d\'une requête aléatoire d\'une prescription aléatoire', () => {
       const randomPresc = Math.floor(Math.random() * 3);
       const randomReq = Math.floor(Math.random() * 3);
-      cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
+      cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
       cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].requests[randomReq].requestId+'"]').find('a[href*="archive"]').click({force: true});
       cy.wait('@getPOSTgraphql', {timeout: 20*1000});
       cy.contains(prescs_CUSM_RGDI.prescriptions[randomPresc].requests[randomReq].patientId).should('exist', {timeout: 20*1000});
@@ -103,7 +99,7 @@ describe('Tableau des requêtes', () => {
     it('Lien Variants d\'une requête aléatoire d\'une prescription aléatoire', () => {
       const randomPresc = Math.floor(Math.random() * 3);
       const randomReq = Math.floor(Math.random() * 3);
-      cy.intercept('POST', '**/$graphql').as('getPOSTgraphql');
+      cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
       cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].requests[randomReq].requestId+'"]').find('a[href*="snv"]').click({force: true});
       cy.wait('@getPOSTgraphql', {timeout: 20*1000});
       cy.wait('@getPOSTgraphql', {timeout: 20*1000});

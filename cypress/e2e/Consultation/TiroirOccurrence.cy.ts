@@ -15,10 +15,6 @@ beforeEach(() => {
   cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="9ea37b2966662962908b94b1898dc0a9ac4e9645"]').find('td[class*="ant-table-cell-fix-left"]').eq(1).find('svg[class="anticon"]').first().click({force: true});
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Tiroir d\'une occurrence', () => {
   it('Vérifier les informations affichées', () => {
     cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(0).find('tr[class="ant-descriptions-row"]').eq(0).contains('chr10:g.113623545C>T').should('exist');

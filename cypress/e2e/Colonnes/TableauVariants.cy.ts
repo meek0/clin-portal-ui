@@ -5,10 +5,6 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
 });
 
-afterEach(() => {
-  cy.logout();
-});
-
 describe('Tableau des variants', () => {
   describe('Personnaliser les colonnes', () => {
 

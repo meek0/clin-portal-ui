@@ -5,6 +5,7 @@ describe('Affichage de la page Logout', () => {
 
   beforeEach(() => {
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visit('/');
   });
 
   it('Vérifier le texte affiché', () => {
