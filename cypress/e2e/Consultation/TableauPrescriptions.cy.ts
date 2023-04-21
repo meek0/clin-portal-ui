@@ -41,44 +41,39 @@ beforeEach(() => {
   cy.get('body').contains('Prescriptions (3)').should('exist');
 });
 
-describe('Tableau des prescriptions', () => {
-  describe('Vérifier les informations affichées', () => {
+describe('Page des prescriptions et requêtes - Consultation du tableau des prescriptions', () => {
 
-    it('D\'une prescription aléatoire', () => {
-      const randomPresc = Math.floor(Math.random() * 3);
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId).should('exist');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.prescriptions[randomPresc].requests[0].patientId).should('exist');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('Approuvée').should('exist');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.stampDate).should('exist');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.stampDate).should('exist');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('RGDI').should('exist');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('LDM-CUSM').should('exist');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('CUSM').should('exist');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('Non').should('exist');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.prescriptions[randomPresc].requests[0].mrn).should('exist');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('Variants').should('exist');
-    });
+  it('Vérifier les informations affichées Prescription aléatoire', () => {
+    const randomPresc = Math.floor(Math.random() * 3);
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId).should('exist');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.prescriptions[randomPresc].requests[0].patientId).should('exist');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('Approuvée').should('exist');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.stampDate).should('exist');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.stampDate).should('exist');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('RGDI').should('exist');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('LDM-CUSM').should('exist');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('CUSM').should('exist');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('Non').should('exist');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains(prescs_CUSM_RGDI.prescriptions[randomPresc].requests[0].mrn).should('exist');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').contains('Variants').should('exist');
   });
 
-  describe('Valider les liens disponibles', () => {
+  it('Valider les liens disponibles Lien Prescription d\'une prescription aléatoire', () => {
+    const randomPresc = Math.floor(Math.random() * 3);
+    cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').find('a[href*="prescription"]').click({force: true});
+    cy.wait('@getPOSTgraphql', {timeout: 20*1000});
 
-    it('Lien Prescription d\'une prescription aléatoire', () => {
-      const randomPresc = Math.floor(Math.random() * 3);
-      cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').find('a[href*="prescription"]').click({force: true});
-      cy.wait('@getPOSTgraphql', {timeout: 20*1000});
+    cy.contains('Prescription ID : '+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId).should('exist', {timeout: 20*1000});
+  });
 
-      cy.contains('Prescription ID : '+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId).should('exist', {timeout: 20*1000});
-    });
-
-    it('Lien Variants d\'une prescription aléatoire', () => {
-      const randomPresc = Math.floor(Math.random() * 3);
-      cy.intercept('POST', '**/graphql').as('getPOSTgraphql9');
-      cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').find('a[href*="snv"]').click({force: true});
-      cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
-      cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
-      cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
-      cy.contains('Patient ID : '+prescs_CUSM_RGDI.prescriptions[randomPresc].requests[0].patientId).should('exist', {timeout: 20*1000});
-    });
+  it('Valider les liens disponibles Lien Variants d\'une prescription aléatoire', () => {
+    const randomPresc = Math.floor(Math.random() * 3);
+    cy.intercept('POST', '**/graphql').as('getPOSTgraphql9');
+    cy.get('tr[data-row-key="'+prescs_CUSM_RGDI.prescriptions[randomPresc].prescriptionId+'"]').find('a[href*="snv"]').click({force: true});
+    cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
+    cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
+    cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
+    cy.contains('Patient ID : '+prescs_CUSM_RGDI.prescriptions[randomPresc].requests[0].patientId).should('exist', {timeout: 20*1000});
   });
 });
