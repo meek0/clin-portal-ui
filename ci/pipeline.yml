@@ -17,8 +17,18 @@ resource_types:
   type: docker-image
   source:
     repository: teliaoss/github-pr-resource
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: latest
 
 resources:
+- name: slack-alert
+  type: slack-notification
+  source:
+    url: ((slack.webhook-url))
+
 - name: feature-branches
   type: git-branches
   check_every: 30s
@@ -30,8 +40,9 @@ resources:
     # group under the `groups` key.
     #
     # e.g. feature/some-feature ==> {"groups": {"feature": "some-feature"}}
-    branch_regex: 'feature/(?P<feature>.*)'
-    # branch_regex: release/(?P<version_minor>\d+\.\d+)\.x
+    # branch_regex: 'feature/(?P<feature>.*)'
+    branch_regex: '(feat|fix|refactor|perf)(?:\/)(?P<feature>[a-z]{2,8}-[0-9]+[a-z0-9\-]*)$'
+                   
 
 - name: git-portal-ui
   type: git
@@ -53,7 +64,6 @@ resources:
     repository: Ferlab-Ste-Justine/clin-portal-ui
     access_token: ((git.access-token))
     states: ["OPEN"]
-    paths: ["feature-pull-request"]
 
 - name: closed-pull-request
   type: pull-request
@@ -64,7 +74,6 @@ resources:
     repository: Ferlab-Ste-Justine/clin-portal-ui
     access_token: ((git.access-token))
     states: ["CLOSED", "MERGED"]
-    paths: ["feature-pull-request"]
 
 - name: ferlease
   type: docker-image
@@ -95,6 +104,23 @@ jobs:
     vars: {branch: ((.:branch.name)), feature-name: ((.:branch.groups.feature))}
 
 - name: release-open-pr
+  on_success:
+    put: slack-alert
+    params:
+      channel: '#clin-ferlease'
+      attachments_file: output/attachments.json
+  on_failure:
+    put: slack-alert
+    params:
+      channel: '#clin-ferlease'
+      attachments: |
+          [
+            {
+              "title": "The branch may contain special characters or uppercase letters",
+              "text": " The release failed to deploy, please check the branch name or conflicts",
+              "color": "danger"
+            }
+          ] 
   plan:
   - get: open-pull-request
     trigger: true
@@ -124,7 +150,11 @@ jobs:
             branchName=$(cat .git/resource/head_name)
             releaseName=$(echo $branchName | cut -d "/" -f2)
           popd
-          ls 
+          if ! [[ sed-4.2.2.${branchName} =~ ([a-z]{2,8}-[0-9]+[a-z0-9\-]) ]]
+          then
+            echo "Le nom de branche contient des Caractères spéciaux ou des lettres majiscules !"
+            exit 1
+          fi
           cat > ./output/config.yml <<EOL
             service: portal-ui
             release: $releaseName
@@ -142,6 +172,15 @@ jobs:
             push_retries: 60
             push_retry_interval: "5s"
           EOL
+          cat > ./output/attachments.json <<EOL
+          [
+            {
+              "title": "New Portal UI Release : portal-ui-release-$releaseName",
+              "text": " You can find the new release for portal UI at https://portal-ui-$releaseName.qa.cqgc.hsj.rtss.qc.ca",
+              "color": "good"
+            }
+          ]
+          EOL
   - task: ferlease
     config:
       platform: linux
@@ -152,6 +191,8 @@ jobs:
       inputs:
       - name: output
       - name: ferlease
+      outputs:
+        - name: output
       params:
         SSH_KEY: ((git.ssh-key))
         KNOWN_HOST: ((git.known-host))
