@@ -239,6 +239,11 @@ jobs:
             branchName=$(cat .git/resource/head_name)
             releaseName=$(echo $branchName | cut -d "/" -f2)
           popd
+          if ! [[ sed-4.2.2.${branchName} =~ ([a-z]{2,8}-[0-9]+[a-z0-9\-]) ]]
+          then
+            echo "Le nom de branche contient des Caractères spéciaux ou des lettres majiscules !"
+            exit 1
+          fi
           ls 
           cat > ./output/config.yml <<EOL
             service: portal-ui
