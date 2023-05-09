@@ -225,7 +225,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_genomic', 'RQDM', 4, dictionnary);
   });
 
-  it('Pathogénicité - ClinVar', () => {
+  it('Pathogénicité - [CLIN-1883]', () => {
     const dictionnary = ['Benign',
                           'Likely Benign',
                           'Uncertain Significance',
@@ -392,5 +392,19 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                           'No Data'];
 
     cy.validateDictionnary('category_occurrence', 'Transmission', 4, dictionnary);
+  });
+
+  it('Variant - Hét. composé [CLIN-1883]', () => {
+    const dictionnary = ['False',
+                         'True'];
+
+    cy.validateDictionnary('category_occurrence', 'Hét. composé', 5, dictionnary);
+  });
+
+  it('Variant - Hét. composé potentiel [CLIN-1883]', () => {
+    const dictionnary = ['False',
+                         'True'];
+
+    cy.validateDictionnary('category_occurrence', 'Hét. composé potentiel', 6, dictionnary);
   });
 });

@@ -165,6 +165,13 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('category_variant', 'Transmission', 6, dictionnary);
   });
 
+  it('Variant - Hét. composé [CLIN-1883]', () => {
+    const dictionnary = ['False',
+                         'True'];
+
+    cy.validateDictionnary('category_variant', 'Hét. composé', 7, dictionnary);
+  });
+
   it('Gène - Type de gène', () => {
     const dictionnary = ['IG C Gene',
                           'IG D Gene',
@@ -266,7 +273,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('category_genomic', 'RQDM', 4, dictionnary);
   });
 
-  it('Pathogénicité - ClinVar', () => {
+  it('Pathogénicité - ClinVar [CLIN-1883]', () => {
     const dictionnary = ['Benign',
                           'Likely Benign',
                           'Uncertain Significance',
