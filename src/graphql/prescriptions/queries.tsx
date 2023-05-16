@@ -29,7 +29,7 @@ export const PRESCRIPTIONS_QUERY = gql`
         ${analysisFields.map(
           (f) =>
             f +
-            ' {\n          buckets {\n            key\n            doc_count\n          }\n        }',
+            ' {\n          buckets {\n            key\n     key_as_string\n       doc_count\n          }\n        }',
         )}
       }
     }

@@ -3,11 +3,7 @@ import FilterContainer from '@ferlab/ui/core/components/filters/FilterContainer'
 import FilterSelector from '@ferlab/ui/core/components/filters/FilterSelector';
 import { IFilter, IFilterGroup } from '@ferlab/ui/core/components/filters/types';
 import { updateActiveQueryFilters } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
-import {
-  keyEnhance,
-  keyEnhanceBooleanOnly,
-  underscoreToDot,
-} from '@ferlab/ui/core/data/arranger/formatting';
+import { keyEnhance, underscoreToDot } from '@ferlab/ui/core/data/arranger/formatting';
 import { getFilterType } from '@ferlab/ui/core/data/filters/utils';
 import { getSelectedFilters } from '@ferlab/ui/core/data/sqon/utils';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
@@ -108,22 +104,23 @@ const translateWhenNeeded = (group: string, key: string) =>
     .defaultMessage(removeUnderscoreAndCapitalize(keyEnhanceBooleanOnlyExcept(group, key)));
 
 const keyEnhanceBooleanOnlyExcept = (field: string, fkey: string) =>
-  ['chromosome'].includes(field) ? fkey : keyEnhanceBooleanOnly(fkey);
+  ['chromosome'].includes(field) ? fkey : keyEnhance(fkey);
 
 export const getFilters = (aggregations: Aggregations | null, key: string): IFilter[] => {
   if (!aggregations || !key) return [];
   if (isTermAgg(aggregations[key])) {
     return aggregations[key!].buckets
       .map((f: any) => {
-        const translatedKey = translateWhenNeeded(key, f.key);
-        const name = translatedKey ? translatedKey : f.key;
+        const enhanceKey = f.key_as_string ?? f.key;
+        const translatedKey = translateWhenNeeded(key, enhanceKey);
+        const name = translatedKey ? translatedKey : enhanceKey;
         return {
           data: {
             count: f.doc_count,
-            key: keyEnhanceBooleanOnlyExcept(key, f.key),
+            key: enhanceKey,
           },
           id: f.key,
-          name: transformNameIfNeeded(key, f.key, name),
+          name: transformNameIfNeeded(key, enhanceKey, name),
         };
       })
       .filter((f: any) => !(f.name === ''));

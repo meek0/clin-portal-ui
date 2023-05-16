@@ -57,14 +57,15 @@ export const generateAggregations = (extendedMappingFields: ExtendedMapping[]) =
   const aggs = extendedMappingFields.map((f) => {
     if (['keyword', 'id'].includes(f.type)) {
       return (
-        dotToUnderscore(f.field) + ' {\n     buckets {\n      key\n        doc_count\n    }\n  }'
+        dotToUnderscore(f.field) +
+        ' {\n     buckets {\n      key\n    key_as_string\n    doc_count\n    }\n  }'
       );
     } else if (['long', 'float', 'double', 'integer', 'date'].includes(f.type)) {
       return dotToUnderscore(f.field) + '{\n    stats {\n  max\n   min\n    }\n    }';
     } else if (['boolean'].includes(f.type)) {
       return (
         dotToUnderscore(f.field) +
-        ' {\n      buckets {\n       key\n       doc_count\n     }\n    }'
+        ' {\n      buckets {\n       key\n    key_as_string\n   doc_count\n     }\n    }'
       );
     } else {
       return '';
