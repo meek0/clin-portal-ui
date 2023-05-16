@@ -225,7 +225,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_genomic', 'RQDM', 4, dictionnary);
   });
 
-  it('Pathogénicité - [CLIN-1883]', () => {
+  it('Pathogénicité - ClinVar [CLIN-1883]', () => {
     const dictionnary = ['Benign',
                           'Likely Benign',
                           'Uncertain Significance',

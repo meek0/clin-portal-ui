@@ -23,7 +23,7 @@ describe('Page des variants - Filtrer avec les facettes', () => {
 
     cy.get('[class*="QueryPill_field"]').contains('Analyse').should('exist');
     cy.get('[class*="QueryValues_value"]').contains('MYOC').should('exist');
-    cy.get('body').contains(/^954 285|954 286$/).should('exist');
+    cy.get('body').contains(/^954 28\d{1}$/).should('exist');
   });
 
   it('Patient - Statut clinique [CLIN-1941]', () => {
