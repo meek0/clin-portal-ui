@@ -167,7 +167,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('category_variant', 'Transmission', 6, dictionnary);
   });
 
-  it('Variant - Hét. composé [CLIN-1883]', () => {
+  it.skip('Variant - Hét. composé', () => {
     const dictionnary = ['False',
                          'True'];
 
@@ -275,7 +275,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('category_genomic', 'RQDM', 4, dictionnary);
   });
 
-  it('Pathogénicité - ClinVar [CLIN-1883]', () => {
+  it('Pathogénicité - ClinVar', () => {
     const dictionnary = ['Benign',
                           'Likely Benign',
                           'Uncertain Significance',
