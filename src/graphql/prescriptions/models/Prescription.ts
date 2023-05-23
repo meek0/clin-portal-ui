@@ -33,6 +33,7 @@ export interface AnalysisResult extends ArrangerNodeData {
   status: string;
   timestamp: string;
   sequencing_requests: ArrangerResultsTree<AnalysisSequencingRequest>;
+  assignments: string[];
 }
 
 export interface AnalysisSequencingRequest {

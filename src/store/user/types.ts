@@ -6,5 +6,6 @@ export type TUserState = {
   user: {
     config: TUserConfig;
     practitionerRoles: PractitionerRole[];
+    practitionerRolesBundle: PractitionerRole[];
   };
 };

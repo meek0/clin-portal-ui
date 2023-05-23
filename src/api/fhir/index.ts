@@ -40,6 +40,13 @@ const searchPractitionerRole = () =>
     },
   });
 
+const searchPractitionerRoles = () =>
+  sendRequestWithRpt<Bundle<any>>({
+    method: 'GET',
+    // eslint-disable-next-line max-len
+    url: `${FHIR_API_URL}/PractitionerRole?role=15941008&_include=PractitionerRole:organization&_include=PractitionerRole:practitioner&_pretty=true&_size=1000`,
+  });
+
 const searchPatientFiles = (searchValue: string) =>
   sendRequestWithRpt<{ data: { taskList: PatientTaskResults } }>({
     method: 'POST',
@@ -76,6 +83,16 @@ const fetchServiceRequestEntity = (id: string) =>
     },
   });
 
+const prescriptionAssignment = (analysis_id: string, assignements: string[]) =>
+  sendRequestWithRpt<{ data: any }>({
+    method: 'POST',
+    url: 'https://forms.qa.cqgc.hsj.rtss.qc.ca/assignment',
+    data: {
+      analysis_id: analysis_id,
+      assignments: assignements,
+    },
+  });
+
 const fetchTaskMetadata = (taskId: string) =>
   sendRequestWithRpt<Bundle<any>>({
     method: 'GET',
@@ -108,11 +125,13 @@ const getFileURL = async (fileUrl: string) =>
 export const FhirApi = {
   searchPatient,
   searchPractitionerRole,
+  searchPractitionerRoles,
   searchPatientFiles,
   searchPrescriptionFiles,
   downloadFileMetadata,
   fetchTaskMetadata,
   fetchServiceRequestCodes,
   fetchServiceRequestEntity,
+  prescriptionAssignment,
   getFileURL,
 };

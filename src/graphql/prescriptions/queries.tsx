@@ -10,6 +10,7 @@ export const PRESCRIPTIONS_QUERY = gql`
           searchAfter
           node {
             id
+            assignments
             patient_id
             patient_mrn
             prescription_id

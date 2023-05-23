@@ -1,0 +1,27 @@
+@import 'src/style/themes/clin/colors';
+
+.unAssagnAvatar {
+  background-color: $gray-2;
+  border: 1px dashed $gray-6;
+  color: $gray-6;
+  &:hover {
+    &:not(.disabledAssignmentsPopOver) {
+      border: 1px dashed $gray-8;
+      color: $gray-8;
+    }
+  }
+}
+
+.assignmentsPopOver {
+  width: 450px;
+  padding: 0;
+  :global(.ant-popover-arrow) {
+    display: none;
+  }
+}
+
+.assignementAvatar {
+  :not(:first-child) {
+    margin-left: -8px;
+  }
+}

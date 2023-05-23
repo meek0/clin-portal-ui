@@ -19,6 +19,11 @@ const fetchPractitionerRole = createAsyncThunk<PractitionerRole[]>(
   },
 );
 
+const fetchPractitionerRoles = createAsyncThunk<any[]>('user/practitionerRolesBundle', async () => {
+  const { data } = await FhirApi.searchPractitionerRoles();
+  return data ? (data.entry ?? []).map((entry) => entry.resource!) : [];
+});
+
 const fetchConfig = createAsyncThunk<TUserConfig>('user/fetchConfig', async () => {
   const fetch = await UsersApi.fetch();
   if (fetch.response.status === 404) {
@@ -66,4 +71,4 @@ const updateConfig = createAsyncThunk<TUserConfig, TUserConfig, { state: RootSta
   },
 );
 
-export { fetchPractitionerRole, fetchConfig, updateConfig, cleanupConfig };
+export { fetchPractitionerRole, fetchPractitionerRoles, fetchConfig, updateConfig, cleanupConfig };

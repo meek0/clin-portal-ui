@@ -178,12 +178,22 @@ export interface Note {
 export interface PractitionerRole {
   resourceType: ResourceType;
   id: string;
-  meta: Meta;
   active: boolean;
   practitioner: Reference;
   organization: Reference;
   telecom: Telecom[];
   code: CodeableConcept[];
+}
+
+export interface Practitioner {
+  id: string;
+  name: [
+    {
+      family: string;
+      given: string[];
+    },
+  ];
+  resourceType: string;
 }
 
 export interface Investigation {

@@ -46,11 +46,11 @@ const PrescriptionsTable = ({
   const { user } = useUser();
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const initialColumns = user.config.data_exploration?.tables?.prescriptions?.columns;
-
+  const practitionerRoles = user.practitionerRolesBundle;
   return (
     <ProTable<ITableAnalysisResult>
       tableId="prescription_table"
-      columns={prescriptionsColumns()}
+      columns={prescriptionsColumns(practitionerRoles)}
       initialColumnState={initialColumns}
       dataSource={results?.data.map((i) => ({ ...i, key: i.id }))}
       className={styles.prescriptionTableWrapper}
@@ -58,7 +58,7 @@ const PrescriptionsTable = ({
       dictionary={getProTableDictionary()}
       showSorterTooltip={false}
       bordered
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
       onChange={({ current }, _, sorter) => {
         setPageIndex(DEFAULT_PAGE_INDEX);
         setQueryConfig({
