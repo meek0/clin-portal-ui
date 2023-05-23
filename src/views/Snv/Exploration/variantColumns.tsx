@@ -146,38 +146,6 @@ export const getVariantColumns = (
       width: 100,
     },
     {
-      title: intl.get('screen.patientsnv.results.table.gene'),
-      key: 'gene',
-      width: 125,
-      render: (variant: VariantEntity) => {
-        const genes = variant.genes?.hits.edges;
-
-        if (genes?.length && genes[0].node.symbol) {
-          return (
-            <Space size={4} direction="horizontal" className={style.addGene}>
-              {genes[0].node.symbol}
-              <div
-                className={style.addGeneButton}
-                onClick={() => {
-                  updateActiveQueryField({
-                    queryBuilderId,
-                    field: 'consequences.symbol_id_1',
-                    value: [genes[0].node.symbol],
-                    index: INDEXES.VARIANT,
-                    merge_strategy: MERGE_VALUES_STRATEGIES.OVERRIDE_VALUES,
-                  });
-                }}
-              >
-                <PlusOutlined />
-              </div>
-            </Space>
-          );
-        } else {
-          return TABLE_EMPTY_PLACE_HOLDER;
-        }
-      },
-    },
-    {
       key: 'variant_class',
       title: intl.get('screen.patientsnv.results.table.type'),
       dataIndex: 'variant_class',
@@ -204,6 +172,43 @@ export const getVariantColumns = (
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
         ),
+    },
+    {
+      title: intl.get('screen.patientsnv.results.table.gene'),
+      key: 'gene',
+      width: 125,
+      render: (variant: VariantEntity) => {
+        const genes = variant.genes?.hits.edges;
+
+        if (genes?.length && genes[0].node.symbol) {
+          return (
+            <Space size={4} direction="horizontal" className={style.addGene}>
+              <ExternalLink
+                hasIcon={false}
+                href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${genes[0].node.symbol}`}
+              >
+                {genes[0].node.symbol}
+              </ExternalLink>
+              <div
+                className={style.addGeneButton}
+                onClick={() => {
+                  updateActiveQueryField({
+                    queryBuilderId,
+                    field: 'consequences.symbol',
+                    value: [genes[0].node.symbol],
+                    index: INDEXES.VARIANT,
+                    merge_strategy: MERGE_VALUES_STRATEGIES.OVERRIDE_VALUES,
+                  });
+                }}
+              >
+                <PlusOutlined />
+              </div>
+            </Space>
+          );
+        } else {
+          return TABLE_EMPTY_PLACE_HOLDER;
+        }
+      },
     },
     {
       key: 'consequences',
@@ -285,7 +290,7 @@ export const getVariantColumns = (
 
         return (
           <Space direction="horizontal">
-            <GnomadCell underOnePercent={af < 1} />
+            <GnomadCell underOnePercent={af < 0.01} />
             <span>{af.toExponential(2)}</span>
           </Space>
         );
@@ -436,7 +441,23 @@ const renderToString = (element: any) => {
   return '';
 };
 
-export const renderOmimToString = (variant: any) => renderToString(renderOmim(variant));
+export const renderOmimToString = (variant: any) => {
+  const pickedConsequenceSymbol = variant.consequences?.hits.edges.find(
+    ({ node }: any) => !!node.picked,
+  )?.node.symbol;
+
+  return renderToString(renderOmim(variant, pickedConsequenceSymbol));
+};
+
+export const renderGeneToString = (variant: any) => {
+  const genes = variant.genes?.hits.edges;
+
+  if (genes?.length && genes[0].node.symbol) {
+    return genes[0].node.symbol;
+  }
+
+  return TABLE_EMPTY_PLACE_HOLDER;
+};
 
 export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
   renderToString(renderDonorByKey(key, donor));
@@ -493,7 +514,7 @@ const renderOmim = (
   variant: {
     genes: { hits: { edges: Gene[] } };
   },
-  pickedConsequenceSymbol?: string | undefined,
+  pickedConsequenceSymbol: string | undefined,
 ) => {
   const genesWithOmim = variant.genes.hits.edges.filter(
     (gene) => gene.node.omim?.hits?.edges?.length,

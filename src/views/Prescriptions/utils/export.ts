@@ -7,6 +7,7 @@ import { renderToString as renderAcmgVerdictToString } from 'views/Snv/Explorati
 import {
   getAcmgRuleContent,
   renderDonorToString,
+  renderGeneToString,
   renderOmimToString,
 } from 'views/Snv/Exploration/variantColumns';
 
@@ -123,6 +124,8 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
   if (prefix === 'SNV') {
     if (key === 'acmgVerdict') {
       return convertToPlain(renderAcmgVerdictToString(row));
+    } else if (key === 'gene') {
+      return convertToPlain(renderGeneToString(row));
     } else if (key === 'omim') {
       return convertToPlain(renderOmimToString(row));
     } else if (key === 'acmgcriteria') {
