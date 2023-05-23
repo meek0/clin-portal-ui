@@ -42,44 +42,44 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
 
   it('Variant - Conséquences', () => {
     const dictionnary = ['Transcript Ablation',
-                          'Splice Acceptor Variant',
-                          'Splice Donor Variant',
+                          'Splice Acceptor',
+                          'Splice Donor',
                           'Stop Gained',
-                          'Frameshift Variant',
+                          'Frameshift',
                           'Stop Lost',
                           'Start Lost',
                           'Transcript Amplification',
                           'Inframe Insertion',
                           'Inframe Deletion',
-                          'Missense Variant',
-                          'Protein Altering Variant',
-                          'Splice Region Variant',
-                          'Splice Donor 5th Base Variant',
-                          'Splice Donor Region Variant',
-                          'Splice Polypyrimidine Tract Variant',
-                          'Incomplete Terminal Codon Variant',
-                          'Start Retained Variant',
-                          'Stop Retained Variant',
-                          'Synonymous Variant',
-                          'Coding Sequence Variant',
-                          'Mature MiRNA Variant',
-                          '5 Prime UTR Variant',
-                          '3 Prime UTR Variant',
-                          'Non Coding Transcript Exon Variant',
-                          'Intron Variant',
-                          'NMD Transcript Variant',
-                          'Non Coding Transcript Variant',
-                          'Upstream Gene Variant',
-                          'Downstream Gene Variant',
+                          'Missense',
+                          'Protein Altering',
+                          'Splice Region',
+                          'Splice Donor 5th Base',
+                          'Splice Donor Region',
+                          'Splice Polypyrimidine Tract',
+                          'Incomplete Terminal Codon',
+                          'Start Retained',
+                          'Stop Retained',
+                          'Synonymous',
+                          'Coding Sequence',
+                          'Mature MiRNA',
+                          '5 Prime UTR',
+                          '3 Prime UTR',
+                          'Non Coding Transcript Exon',
+                          'Intron',
+                          'NMD Transcript',
+                          'Non Coding Transcript',
+                          'Upstream Gene',
+                          'Downstream Gene',
                           'TFBS Ablation',
                           'TFBS Amplification',
-                          'TF Binding Site Variant',
+                          'TF Binding Site',
                           'Regulatory Region Ablation',
                           'Regulatory Region Amplification',
                           'Feature Elongation',
-                          'Regulatory Region Variant',
+                          'Regulatory Region',
                           'Feature Truncation',
-                          'Intergenic Variant',
+                          'Intergenic',
                           'No Data'];
 
     cy.validateDictionnary('category_variant', 'Conséquences', 1, dictionnary);
@@ -378,7 +378,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_occurrence', 'Origine parentale', 3, dictionnary);
   });
 
-  it('Occurrence - Transmission', () => {
+  it('Occurrence - Transmission [CLIN-1969]', () => {
     const dictionnary = ['Autosomal Dominant De Novo',
                           'Autosomal Dominant',
                           'Autosomal Recessive',
@@ -388,9 +388,25 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                           'X Linked Recessive',
                           'Non Carrier Proband',
                           'Unknown Parents Genotype',
+                          'Unknown Father Genotype',
+                          'Unknown Mother Genotype',
                           'Unknown Proband Genotype',
                           'No Data'];
 
     cy.validateDictionnary('category_occurrence', 'Transmission', 4, dictionnary);
+  });
+
+  it.skip('Variant - Hét. composé', () => {
+    const dictionnary = ['False',
+                         'True'];
+
+    cy.validateDictionnary('category_occurrence', 'Hét. composé', 5, dictionnary);
+  });
+
+  it.skip('Variant - Hét. composé potentiel', () => {
+    const dictionnary = ['False',
+                         'True'];
+
+    cy.validateDictionnary('category_occurrence', 'Hét. composé potentiel', 6, dictionnary);
   });
 });

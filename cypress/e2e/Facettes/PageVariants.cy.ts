@@ -21,10 +21,12 @@ describe('Page des variants - Filtrer avec les facettes', () => {
       .find('[type="checkbox"]').check({force: true});
     cy.clickApplyFacet();
 
-    cy.get('body').contains(/^954 285|954 286$/).should('exist');
+    cy.get('[class*="QueryPill_field"]').contains('Analyse').should('exist');
+    cy.get('[class*="QueryValues_value"]').contains('MYOC').should('exist');
+    cy.get('body').contains(/^954 28\d{1}$/).should('exist');
   });
 
-  it('Patient - Statut clinique', () => {
+  it('Patient - Statut clinique [CLIN-1941]', () => {
     cy.get('li[data-key="patient"]').click({force: true});
     cy.get('span[class*="FilterContainer_title"]', {timeout: 5000}).contains('Statut clinique').click({force: true});
 
@@ -32,6 +34,8 @@ describe('Page des variants - Filtrer avec les facettes', () => {
       .find('[type="checkbox"]').check({force: true});
     cy.clickApplyFacet();
 
+    cy.get('[class*="QueryPill_field"]').contains('Statut clinique').should('exist');
+    cy.get('[class*="QueryValues_value"]').contains('Non atteint').should('exist');
     cy.get('body').contains(/^511 795|511 796$/).should('exist');
   });
 
@@ -43,6 +47,8 @@ describe('Page des variants - Filtrer avec les facettes', () => {
       .find('[type="checkbox"]').check({force: true});
     cy.clickApplyFacet();
 
+    cy.get('[class*="QueryPill_field"]').contains('Sexe').should('exist');
+    cy.get('[class*="QueryValues_value"]').contains('Unknown').should('exist');
     cy.get('body').contains('225 836').should('exist');
   });
 });

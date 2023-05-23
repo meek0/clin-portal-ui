@@ -5,10 +5,14 @@ import '@testing-library/cypress/add-commands';
 
 Cypress.Commands.add('checkValueFacet', (facetRank: number, value: string|RegExp) => {
   cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(facetRank)
+    .find('[aria-expanded="true"]').should('exist');
+  cy.wait(1000);
+  cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(facetRank)
     .find('button').then(($button) => {
       if ($button.hasClass('ant-btn-link')) {
-          cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(facetRank)
-            .find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+        cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(facetRank)
+          .find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+        cy.wait(1000);
       };
   });
 
