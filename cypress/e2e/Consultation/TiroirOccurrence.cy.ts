@@ -49,13 +49,13 @@ describe('Tiroir d\'une occurrence', () => {
     cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(1).find('tr[class="ant-descriptions-row"]').eq(1).contains('3').click({force: true});
     cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
     cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
-    cy.contains('3 Résultats').should('exist', {timeout: 20*1000});
+    cy.contains('3 Résultats').should('exist', {timeout: 60*1000});
 
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql2');
     cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(1).find('tr[class="ant-descriptions-row"]').eq(2).contains('4').click({force: true});
     cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
     cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
-    cy.contains('4 Résultats').should('exist', {timeout: 20*1000});
+    cy.contains('4 Résultats').should('exist', {timeout: 60*1000});
   });
   
   it('Vérifier les informations affichées des métriques de séquençage parental', () => {

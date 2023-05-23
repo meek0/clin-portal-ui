@@ -14,16 +14,18 @@ describe('Page d\'un variant (onglet Patients) - Vérifier les informations affi
   it('Graphiques', () => {
     cy.get('[data-cy="PieChart_Gender"]').find('path[opacity="1"]').eq(1).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
     cy.get('[data-cy="PieChart_Gender"]').find('div[style*="pointer-events"]').invoke('text').then((invokeText) => {
-      let orderFeminin  = 1;
-      let orderMasculin = 2;
+      let orderIndetermine = 0;
+      let orderFeminin     = 1;
+      let orderMasculin    = 2;
 
       if(invokeText.includes("Masculin")) {
-        orderFeminin  = 2;
-        orderMasculin = 1;
+        orderFeminin     = 0;
+        orderMasculin    = 1;
+        orderIndetermine = 2;
       };
         
       cy.get('[data-cy="PieChart_Gender"]').contains('Sexe').should('exist');
-      cy.get('[data-cy="PieChart_Gender"]').find('path[opacity="1"]').eq(0).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
+      cy.get('[data-cy="PieChart_Gender"]').find('path[opacity="1"]').eq(orderIndetermine).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
       cy.get('[data-cy="PieChart_Gender"]').find('div[style*="pointer-events"]').contains('Indéterminé').should('exist');
       cy.get('[data-cy="PieChart_Gender"]').find('div[style*="pointer-events"]').contains(/^1$/).should('exist');
       cy.get('[data-cy="PieChart_Gender"]').find('path[opacity="1"]').eq(orderMasculin).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
