@@ -1,4 +1,11 @@
 import { ArrangerResultsTree } from 'graphql/models';
+import {
+  CosmicEntity,
+  DddEntity,
+  HpoEntity,
+  OmimEntity,
+  OrphanetEntity,
+} from 'graphql/variants/models';
 
 export interface IVariantResultTree {
   cnv: ArrangerResultsTree<VariantEntity>;
@@ -48,4 +55,9 @@ export type GeneEntity = {
   overlap_gene_ratio: number;
   symbol: string;
   panels: string[];
+  orphanet: ArrangerResultsTree<OrphanetEntity>;
+  omim: ArrangerResultsTree<OmimEntity>;
+  hpo: ArrangerResultsTree<HpoEntity>;
+  ddd: ArrangerResultsTree<DddEntity>;
+  cosmic: ArrangerResultsTree<CosmicEntity>;
 };

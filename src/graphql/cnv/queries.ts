@@ -52,6 +52,56 @@ export const VARIANT_QUERY = gql`
                     overlap_gene_ratio
                     symbol
                     panels
+                    omim {
+                      hits {
+                        edges {
+                          node {
+                            omim_id
+                            name
+                            inheritance
+                          }
+                        }
+                      }
+                    }
+                    orphanet {
+                      hits {
+                        edges {
+                          node {
+                            panel
+                            inheritance
+                            disorder_id
+                          }
+                        }
+                      }
+                    }
+                    cosmic {
+                      hits {
+                        edges {
+                          node {
+                            tumour_types_germline
+                          }
+                        }
+                      }
+                    }
+                    hpo {
+                      hits {
+                        edges {
+                          node {
+                            hpo_term_label
+                            hpo_term_id
+                          }
+                        }
+                      }
+                    }
+                    ddd {
+                      hits {
+                        edges {
+                          node {
+                            disease_name
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
