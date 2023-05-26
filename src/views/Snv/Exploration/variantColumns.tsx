@@ -152,13 +152,15 @@ export const getVariantColumns = (
       sorter: {
         multiple: 1,
       },
-      width: 96,
+      width: 65,
       render: (variant: string) =>
         variant ? (
           <Tooltip
-            title={intl.get(`type.${variant}.abrv.tooltip`).defaultMessage(capitalize(variant))}
+            title={intl
+              .get(`type.abrv.${variant.toLowerCase()}.tooltip`)
+              .defaultMessage(capitalize(variant))}
           >
-            {intl.get(`type.${variant}.abrv`).defaultMessage(capitalize(variant))}
+            {intl.get(`type.abrv.${variant.toLowerCase()}`).defaultMessage(capitalize(variant))}
           </Tooltip>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
@@ -182,7 +184,7 @@ export const getVariantColumns = (
     {
       title: intl.get('screen.patientsnv.results.table.gene'),
       key: 'gene',
-      width: 125,
+      width: 100,
       render: (variant: VariantEntity) => {
         const genes = variant.genes?.hits.edges;
 
@@ -220,7 +222,7 @@ export const getVariantColumns = (
       key: 'consequences',
       title: intl.get('screen.patientsnv.results.table.consequence'),
       dataIndex: 'consequences',
-      width: 284,
+      width: 225,
       render: (consequences: VariantEntity['consequences']) => {
         const pickedConsequence = consequences?.hits?.edges.find(({ node }) => !!node.picked);
         return <ConsequencesCell consequences={pickedConsequence ? [pickedConsequence] : []} />;
@@ -230,7 +232,7 @@ export const getVariantColumns = (
       key: 'omim',
       title: intl.get('screen.patientsnv.results.table.omim'),
       tooltip: intl.get('screen.patientsnv.results.table.omim.tooltip'),
-      width: 175,
+      width: 125,
       render: (variant: {
         genes: { hits: { edges: Gene[] } };
         consequences: VariantEntity['consequences'];
