@@ -41,8 +41,7 @@ resources:
     #
     # e.g. feature/some-feature ==> {"groups": {"feature": "some-feature"}}
     # branch_regex: 'feature/(?P<feature>.*)'
-    branch_regex: '(feat|fix|refactor|perf)(?:\/)(?P<feature>[a-z]{2,8}-[0-9]+[a-z0-9\-]*)$'
-                   
+    branch_regex: '(feat|fix|refactor|perf)(?:\/)(?P<feature>[a-z]{2,8}-[0-9]+[a-z0-9\-]*)$'           
 
 - name: git-portal-ui
   type: git
@@ -149,6 +148,7 @@ jobs:
           pushd open-pull-request
             branchName=$(cat .git/resource/head_name)
             releaseName=$(echo $branchName | cut -d "/" -f2)
+            releaseTicket=$(cat release-ticket)
           popd
           if ! [[ "$branchName" =~ ^(feat|fix|refactor|perf)(\/)([a-z]{2,8}-[0-9]+[a-z0-9\-]*)$ ]]
           then
@@ -175,7 +175,7 @@ jobs:
           cat > ./output/attachments.json <<EOL
           [
             {
-              "title": "New Portal UI Release : portal-ui-release-$releaseName",
+              "title": "New Portal UI Release : Ticket: $releaseName:$releaseTicket",
               "text": " You can find the new release for portal UI at https://portal-ui-$releaseName.qa.cqgc.hsj.rtss.qc.ca",
               "color": "good"
             }
