@@ -154,9 +154,15 @@ export const getVariantColumns = (
       },
       width: 96,
       render: (variant: string) =>
-        variant
-          ? intl.get(`${variant}.abrv`).defaultMessage(capitalize(variant))
-          : TABLE_EMPTY_PLACE_HOLDER,
+        variant ? (
+          <Tooltip
+            title={intl.get(`type.${variant}.abrv.tooltip`).defaultMessage(capitalize(variant))}
+          >
+            {intl.get(`type.${variant}.abrv`).defaultMessage(capitalize(variant))}
+          </Tooltip>
+        ) : (
+          TABLE_EMPTY_PLACE_HOLDER
+        ),
     },
     {
       key: 'rsnumber',
@@ -244,17 +250,23 @@ export const getVariantColumns = (
       width: 160,
       render: (clinVar: ClinVar) => {
         const clinVarSigFormatted: string[] = [];
+        const clinVarSigKey: string[] = [];
+
         clinVar?.clin_sig &&
           clinVar.clin_sig.map((c) => {
             clinVarSigFormatted.push(removeUnderscoreAndCapitalize(c));
+            clinVarSigKey.push(c.toLowerCase());
           });
+
         return clinVar?.clin_sig && clinVar.clinvar_id ? (
           <Tooltip placement="topLeft" title={clinVarSigFormatted.join(', ')}>
             <div>
               <ExternalLink
                 href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
               >
-                {clinVarSigFormatted.join(', ')}
+                {clinVarSigKey
+                  .map((clinvarKey) => intl.get(`clinvar.abrv.${clinvarKey}`))
+                  .join(', ')}
               </ExternalLink>
             </div>
           </Tooltip>
@@ -531,18 +543,18 @@ const renderOmim = (
   const pickedOmim = pickedConsequenceGeneWithOmim[0];
   const omimLink = `https://www.omim.org/entry/${pickedOmim.node.omim_gene_id}`;
 
-  //if (!transmission) {
-  //  return (
-  //    <Tooltip title={intl.get(`inheritant.code.NRT`)}>
-  //      <ExternalLink href={omimLink}>NRT</ExternalLink>
-  //    </Tooltip>
-  //  );
-  //}
-
   const omims = pickedOmim.node.omim?.hits?.edges || [];
   const inheritance = omims
     .reduce<string[]>((prev, curr) => [...prev, ...(curr.node.inheritance_code || [])], [])
     .filter((item, pos, self) => self.indexOf(item) == pos);
+
+  if (!inheritance.length) {
+    return (
+      <Tooltip title={intl.get(`inheritant.code.NRT`)}>
+        <ExternalLink href={omimLink}>NRT</ExternalLink>
+      </Tooltip>
+    );
+  }
 
   return (
     <StackLayout horizontal>
