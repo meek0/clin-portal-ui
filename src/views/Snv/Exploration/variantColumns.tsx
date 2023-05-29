@@ -44,6 +44,24 @@ import { OtherActions } from './components/OtherActions';
 
 import style from './variantColumns.module.scss';
 
+const ClinvarColorMap: Record<any, string> = {
+  conflicting_interpretations_of_pathogenicity: 'warning',
+  benign: 'green',
+  likely_benign: 'green',
+  uncertain_significance: 'warning',
+  pathogenic: 'red',
+  not_provided: 'grey',
+  drug_response: 'grey',
+  risk_factor: 'grey',
+  likely_pathogenic: 'red',
+  association: 'grey',
+  other: 'grey',
+  affects: 'grey',
+  protective: 'grey',
+  confers_sensitivity: 'grey',
+  uncertain_risk_allele: 'grey',
+};
+
 const formatRqdm = (rqdm: frequency_RQDMEntity, variant: VariantEntity) => {
   if (!rqdm?.total?.pc) {
     return TABLE_EMPTY_PLACE_HOLDER;
@@ -219,7 +237,7 @@ export const getVariantColumns = (
       },
     },
     {
-      key: 'consequences',
+      key: 'consequence',
       title: intl.get('screen.patientsnv.results.table.consequence'),
       dataIndex: 'consequences',
       width: 225,
@@ -248,7 +266,7 @@ export const getVariantColumns = (
       key: 'clinvar',
       title: intl.get('screen.patientsnv.results.table.clinvar'),
       dataIndex: 'clinvar',
-      className: cx(style.variantTableCell, style.variantTableCellElipsis),
+      className: style.variantTableCell,
       width: 160,
       render: (clinVar: ClinVar) => {
         const clinVarSigFormatted: string[] = [];
@@ -260,21 +278,19 @@ export const getVariantColumns = (
             clinVarSigKey.push(c.toLowerCase());
           });
 
-        return clinVar?.clin_sig && clinVar.clinvar_id ? (
-          <Tooltip placement="topLeft" title={clinVarSigFormatted.join(', ')}>
-            <div>
-              <ExternalLink
-                href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
-              >
-                {clinVarSigKey
-                  .map((clinvarKey) => intl.get(`clinvar.abrv.${clinvarKey}`))
-                  .join(', ')}
-              </ExternalLink>
-            </div>
-          </Tooltip>
-        ) : (
-          TABLE_EMPTY_PLACE_HOLDER
-        );
+        return clinVar?.clin_sig && clinVar.clinvar_id
+          ? clinVarSigKey.map((clinvarKey) => (
+              <Tooltip key={clinvarKey} placement="topLeft" title={clinVarSigFormatted.join(', ')}>
+                <Tag color={ClinvarColorMap[clinvarKey]}>
+                  <ExternalLink
+                    href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
+                  >
+                    {intl.get(`clinvar.abrv.${clinvarKey}`)}
+                  </ExternalLink>
+                </Tag>
+              </Tooltip>
+            ))
+          : TABLE_EMPTY_PLACE_HOLDER;
       },
     },
     {
@@ -342,11 +358,18 @@ export const getVariantColumns = (
         title: intl.get('screen.patientsnv.results.table.zygosity'),
         dataIndex: 'donors',
         width: 100,
-        render: (record: ArrangerResultsTree<DonorsEntity>) => (
-          <Tag color="blue">
-            {renderDonorByKey('donors.zygosity', findDonorById(record, patientId))}
-          </Tag>
-        ),
+        render: (record: ArrangerResultsTree<DonorsEntity>) => {
+          const zyg = renderDonorByKey(
+            'donors.zygosity',
+            findDonorById(record, patientId),
+          ) as string;
+
+          return (
+            <Tooltip title={intl.get(`donors.zyg.abrv.${zyg}`)}>
+              <Tag color="blue">{capitalize(zyg)}</Tag>
+            </Tooltip>
+          );
+        },
       },
       {
         ...getAcmgCriteriaCol(),

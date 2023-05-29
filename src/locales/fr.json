@@ -171,7 +171,7 @@
   "global.search.variants.placeholder": "Ex : 10-100063679-T-C, rs341",
   "global.search.variants.title": "Recherche par variant",
   "global.search.variants.tooltip": "Recherche par locus, dbSNP ID et ClinVar ID",
-  "gq.tooltip": "Qualité du génotype: seules les occurrences rencontrant le critère QG ≥ 20 sont considérées pour le calcul des fréquences",
+  "gq.tooltip": "Qualité du génotype : seules les occurrences rencontrant le critère QG ≥ 20 sont considérées pour le calcul des fréquences",
   "header.navigation.patient": "Patients",
   "home.prescription.search.box.label": "Rechercher par numéro de prescription, requête, échantillon, dossier et numéro de patient",
   "home.prescription.search.box.title": "Rechercher une prescription",
@@ -822,5 +822,8 @@
   "clinvar.abrv.affects": "Affects",
   "clinvar.abrv.protective": "Protective",
   "clinvar.abrv.confers_sensitivity": "Confers Sens.",
-  "clinvar.abrv.uncertain_risk_allele": "Unc. Risk. Al."
+  "clinvar.abrv.uncertain_risk_allele": "Unc. Risk. Al.",
+  "donors.zyg.abrv.HOM": "Homozygote",
+  "donors.zyg.abrv.HEM": "Hemizygote",
+  "donors.zyg.abrv.HET": "Hétérozygote"
 }

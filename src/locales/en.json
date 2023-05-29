@@ -819,5 +819,8 @@
   "clinvar.abrv.affects": "Affects",
   "clinvar.abrv.protective": "Protective",
   "clinvar.abrv.confers_sensitivity": "Confers Sens.",
-  "clinvar.abrv.uncertain_risk_allele": "Unc. Risk. Al."
+  "clinvar.abrv.uncertain_risk_allele": "Unc. Risk. Al.",
+  "donors.zyg.abrv.HOM": "Homozygote",
+  "donors.zyg.abrv.HEM": "Hemizygote",
+  "donors.zyg.abrv.HET": "Heterozygote"
 }
