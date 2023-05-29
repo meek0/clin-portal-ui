@@ -56,7 +56,14 @@ const filterGroups: {
     groups: [
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.genepanel'),
-        facets: ['genes__panels'],
+        facets: [
+          'genes__panels',
+          'genes__hpo__hpo_term_label',
+          'genes__orphanet__panel',
+          'genes__omim__name',
+          'genes__ddd__disease_name',
+          'genes__cosmic__tumour_types_germline',
+        ],
       },
     ],
     defaultOpenFacets: ['genes__panels'],
