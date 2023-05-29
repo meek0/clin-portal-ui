@@ -20,6 +20,7 @@ import {
 } from './models';
 
 const FHIR_API_URL = EnvironmentVariables.configFor('FHIR_API');
+const FORM_API_URL = EnvironmentVariables.configFor('FORM_API_URL');
 
 const searchPatient = (ramq: string) =>
   sendRequestWithRpt<Bundle<Patient>>({
@@ -44,7 +45,7 @@ const searchPractitionerRoles = () =>
   sendRequestWithRpt<Bundle<any>>({
     method: 'GET',
     // eslint-disable-next-line max-len
-    url: `${FHIR_API_URL}/PractitionerRole?role=15941008&_include=PractitionerRole:organization&_include=PractitionerRole:practitioner&_pretty=true&_size=1000`,
+    url: `${FHIR_API_URL}/PractitionerRole?role=15941008&_include=PractitionerRole:organization&_include=PractitionerRole:practitioner&&_count=1000`,
   });
 
 const searchPatientFiles = (searchValue: string) =>
@@ -86,7 +87,7 @@ const fetchServiceRequestEntity = (id: string) =>
 const prescriptionAssignment = (analysis_id: string, assignements: string[]) =>
   sendRequestWithRpt<{ data: any }>({
     method: 'POST',
-    url: 'https://forms.qa.cqgc.hsj.rtss.qc.ca/assignment',
+    url: `${FORM_API_URL}/assignment`,
     data: {
       analysis_id: analysis_id,
       assignments: assignements,

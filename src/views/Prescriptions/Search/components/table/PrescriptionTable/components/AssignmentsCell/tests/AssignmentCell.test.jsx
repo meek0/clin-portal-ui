@@ -1,4 +1,6 @@
-import { getPractitionerInfoList, putUserFirst } from '../index';
+import { getPractitionerInfoList } from 'views/Prescriptions/utils/export';
+
+import { putUserFirst } from '../index';
 
 describe('exportAsTSV', () => {
   test('should return good information', () => {

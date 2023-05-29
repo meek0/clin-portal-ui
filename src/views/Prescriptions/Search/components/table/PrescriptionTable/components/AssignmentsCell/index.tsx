@@ -1,47 +1,28 @@
 import { useState } from 'react';
+import intl from 'react-intl-universal';
 import { UserOutlined } from '@ant-design/icons';
 import AssignmentSelect from '@ferlab/ui/core/components/Assignments/AssignmentsSelect';
 import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types';
 import Gravatar from '@ferlab/ui/core/components/Gravatar';
 import { Avatar, Popover, Space, Tooltip } from 'antd';
 import { FhirApi } from 'api/fhir';
-import { Practitioner, PractitionerRole } from 'api/fhir/models';
+import { PractitionerRole } from 'api/fhir/models';
 import { AnalysisResult } from 'graphql/prescriptions/models/Prescription';
-import { filter, find, orderBy } from 'lodash';
+import { orderBy } from 'lodash';
+import {
+  getEmailfromPractionnerRole,
+  getPractitionerInfoList,
+} from 'views/Prescriptions/utils/export';
 
 import { Roles, validate } from 'components/Roles/Rules';
 import { useRpt } from 'hooks/useRpt';
+import { getAssignmentDictionary } from 'utils/translation';
 
 import styles from './index.module.scss';
 
 export type TAssignmentsCell = {
   results: AnalysisResult;
   practitionerRolesBundle?: any[];
-};
-
-const getEmailfromPractionnerRole = (practitionerRole: PractitionerRole) =>
-  practitionerRole?.telecom.find((t) => t.system === 'email');
-
-export const getPractitionerInfoList = (practitionerRolesBundle?: any[]): TPractitionnerInfo[] => {
-  const practitionerRoles: PractitionerRole[] = filter(
-    practitionerRolesBundle,
-    (p) => p.resourceType === 'PractitionerRole',
-  );
-  return practitionerRoles.reduce((acc: TPractitionnerInfo[], curr: PractitionerRole) => {
-    const practitioner: Practitioner = find(
-      practitionerRolesBundle,
-      (p) => p.id === curr.practitioner.reference.split('/')[1],
-    );
-    const email = getEmailfromPractionnerRole(curr);
-    const obj: TPractitionnerInfo = {
-      practitionerRoles_Id: curr.id,
-      name: practitioner.name,
-      email: email?.value,
-      ldm: curr.organization.reference.split('/')[1],
-    };
-
-    return [...acc, obj];
-  }, []);
 };
 
 export const putUserFirst = (
@@ -86,6 +67,7 @@ export const AssignmentsCell = ({
 
   const content = (
     <AssignmentSelect
+      dictionary={getAssignmentDictionary()}
       options={practitionerInfoList}
       handleSelect={handleSelect}
       assignedPractionnerRoles={selectedAssignment}
@@ -100,12 +82,13 @@ export const AssignmentsCell = ({
         trigger="click"
         content={content}
         visible={canAssign ? undefined : false}
+        destroyTooltipOnHide
       >
         <div>
           <Avatar.Group
             size={24}
             maxCount={selectedAssignment.length <= 2 ? 2 : 1}
-            maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+            maxStyle={{ color: '#006AA3', backgroundColor: '#D6F1FB' }}
             className={styles.assignementAvatar}
           >
             {selectedAssignment.map((a, index) => {
@@ -129,9 +112,12 @@ export const AssignmentsCell = ({
         trigger="click"
         content={content}
         visible={canAssign ? undefined : false}
+        destroyTooltipOnHide
       >
         <Tooltip
-          title={canAssign ? 'Assigner cette prescription' : 'Aucune assignation'}
+          title={
+            canAssign ? intl.get('assignment.tooltip') : intl.get('assignment.tooltip.disable')
+          }
           placement="top"
         >
           <Avatar

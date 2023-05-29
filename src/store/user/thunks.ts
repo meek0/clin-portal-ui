@@ -15,7 +15,7 @@ const fetchPractitionerRole = createAsyncThunk<PractitionerRole[]>(
   async () => {
     const { data } = await FhirApi.searchPractitionerRole();
 
-    return data ? (data.entry ?? []).map((entry) => entry.resource!) : [];
+    return data && data.entry ? (data.entry ?? []).map((entry) => entry.resource!) : [];
   },
 );
 

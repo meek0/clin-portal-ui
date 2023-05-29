@@ -12,7 +12,6 @@ import { formatDate } from 'utils/date';
 import EnvironmentVariables from 'utils/EnvVariables';
 
 import AssignmentsCell from './components/AssignmentsCell';
-
 export const prescriptionsColumns = (
   practitionerRolesBundle?: any,
 ): ProColumnType<ITableAnalysisResult>[] => {
