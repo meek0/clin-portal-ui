@@ -11,6 +11,7 @@ import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
 import EnvironmentVariables from 'utils/EnvVariables';
 
+import { AssignmentsFilterDropdown } from './components/AssignmentFilter';
 import AssignmentsCell from './components/AssignmentsCell';
 export const prescriptionsColumns = (
   practitionerRolesBundle?: any,
@@ -114,6 +115,23 @@ export const prescriptionsColumns = (
       ),
       title: 'assignement',
       iconTitle: <UserOutlined />,
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+        <AssignmentsFilterDropdown
+          confirm={confirm}
+          selectedKeys={selectedKeys}
+          setSelectedKeys={setSelectedKeys}
+          clearFilters={clearFilters}
+          practitionerRolesBundle={practitionerRolesBundle}
+        />
+      ),
+
+      onFilter: (value, record) =>
+        value === 'noAssign'
+          ? record['assignments'].length === 0
+          : record['assignments']
+              .toString()
+              .toLowerCase()
+              .includes((value as string).toLowerCase()),
     });
 
   return columns;

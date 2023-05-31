@@ -11,6 +11,8 @@
   "assignment.dropdown.actions.clear": "Aucune assignation",
   "assignment.dropdown.select.searchPlaceholder": "Rechercher",
   "assignment.tooltip": "Assigner cette prescription",
+  "assignment.filter.actions.reset": "Réinitialiser",
+  "assignment.filter.actions.ok": "OK",
   "assignment.tooltip.disable": "Aucune assignation",
   "annotationUpdate": "Date d’annotation",
   "birthdate": "Date de naissance",

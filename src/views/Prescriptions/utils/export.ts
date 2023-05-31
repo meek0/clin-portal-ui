@@ -2,7 +2,7 @@ import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { Practitioner, PractitionerRole } from 'api/fhir/models';
 import { findDonorById } from 'graphql/variants/selector';
-import { filter, find } from 'lodash';
+import { filter, find, orderBy } from 'lodash';
 import get from 'lodash/get';
 import { renderCNVToString } from 'views/Cnv/Exploration/variantColumns';
 import { renderToString as renderConsequencesToString } from 'views/Snv/components/ConsequencesCell/index';
@@ -245,7 +245,7 @@ export const getPractitionerInfoList = (practitionerRolesBundle?: any[]): TPract
     practitionerRolesBundle,
     (p) => p.resourceType === 'PractitionerRole',
   );
-  return practitionerRoles.reduce((acc: TPractitionnerInfo[], curr: PractitionerRole) => {
+  const infoList = practitionerRoles.reduce((acc: TPractitionnerInfo[], curr: PractitionerRole) => {
     const practitioner: Practitioner = find(
       practitionerRolesBundle,
       (p) => p.id === curr.practitioner.reference.split('/')[1],
@@ -260,4 +260,19 @@ export const getPractitionerInfoList = (practitionerRolesBundle?: any[]): TPract
 
     return [...acc, obj];
   }, []);
+
+  return orderBy(infoList, (p) => p.name[0].family);
+};
+
+export const putUserFirst = (
+  practitionerInfoList: TPractitionnerInfo[],
+  userPractitionerId: PractitionerRole,
+) => {
+  const newList = practitionerInfoList.filter(
+    (p) => p.practitionerRoles_Id !== userPractitionerId.id,
+  );
+  const userInfo = practitionerInfoList.find(
+    (p) => p.practitionerRoles_Id === userPractitionerId.id,
+  );
+  return userInfo ? [userInfo, ...newList] : practitionerInfoList;
 };
