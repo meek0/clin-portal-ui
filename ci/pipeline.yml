@@ -112,14 +112,7 @@ jobs:
     put: slack-alert
     params:
       channel: '#clin-ferlease'
-      attachments: |
-          [
-            {
-              "title": "The branch may contain special characters or uppercase letters",
-              "text": " The release failed to deploy, please check the branch name or conflicts",
-              "color": "danger"
-            }
-          ] 
+      attachments_file: output/attachments-fail.json
   plan:
   - get: open-pull-request
     trigger: true
@@ -150,6 +143,24 @@ jobs:
             releaseName=$(echo $branchName | cut -d "/" -f2)
             releaseTicket=$(cat release-ticket)
           popd
+          cat > ./output/attachments.json <<EOL
+          [
+            {
+              "title": "New Portal UI Release : Ticket: $releaseName:$releaseTicket",
+              "text": " You can find the new release for portal UI at https://portal-ui-$releaseName.qa.cqgc.hsj.rtss.qc.ca",
+              "color": "good"
+            }
+          ]
+          EOL
+          cat > ./output/attachments-fail.json <<EOL
+          [
+            {
+              "title": "The branch $branchName may contain special characters or uppercase letters",
+              "text": " The release failed to deploy, please check the branch name or conflicts",
+              "color": "danger"
+            }
+          ]
+          EOL
           if ! [[ "$branchName" =~ ^(feat|fix|refactor|perf)(\/)([a-z]{2,8}-[0-9]+[a-z0-9\-]*)$ ]]
           then
             echo "Le nom de branche contient des Caractères spéciaux ou des lettres majiscules !"
@@ -171,15 +182,6 @@ jobs:
             commit_message: "{{ if eq .Operation \"release\" }}Adding{{ else }}Removing{{ end }} release {{.Release}} of service {{.Service}}"
             push_retries: 60
             push_retry_interval: "5s"
-          EOL
-          cat > ./output/attachments.json <<EOL
-          [
-            {
-              "title": "New Portal UI Release : Ticket: $releaseName:$releaseTicket",
-              "text": " You can find the new release for portal UI at https://portal-ui-$releaseName.qa.cqgc.hsj.rtss.qc.ca",
-              "color": "good"
-            }
-          ]
           EOL
   - task: ferlease
     config:
@@ -239,12 +241,6 @@ jobs:
             branchName=$(cat .git/resource/head_name)
             releaseName=$(echo $branchName | cut -d "/" -f2)
           popd
-          if ! [[ "$branchName" =~ ^(feat|fix|refactor|perf)(\/)([a-z]{2,8}-[0-9]+[a-z0-9\-]*)$ ]]
-          then
-            echo "Le nom de branche contient des Caractères spéciaux ou des lettres majiscules !"
-            exit 1
-          fi
-          ls 
           cat > ./output/config.yml <<EOL
             service: portal-ui
             release: $releaseName
