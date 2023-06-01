@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { UserOutlined } from '@ant-design/icons';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { extractOrganizationId } from 'api/fhir/helper';
+import { PractitionerBundleType } from 'api/fhir/models';
 import { AnalysisResult, ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import StatusTag from 'views/Prescriptions/components/StatusTag';
 import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
@@ -14,7 +15,7 @@ import EnvironmentVariables from 'utils/EnvVariables';
 import { AssignmentsFilterDropdown } from './components/AssignmentFilter';
 import AssignmentsCell from './components/AssignmentsCell';
 export const prescriptionsColumns = (
-  practitionerRolesBundle?: any,
+  practitionerRolesBundle?: PractitionerBundleType,
 ): ProColumnType<ITableAnalysisResult>[] => {
   const columns: ProColumnType[] = [
     {
@@ -115,15 +116,16 @@ export const prescriptionsColumns = (
       ),
       title: 'assignement',
       iconTitle: <UserOutlined />,
-      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-        <AssignmentsFilterDropdown
-          confirm={confirm}
-          selectedKeys={selectedKeys}
-          setSelectedKeys={setSelectedKeys}
-          clearFilters={clearFilters}
-          practitionerRolesBundle={practitionerRolesBundle}
-        />
-      ),
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) =>
+        practitionerRolesBundle && (
+          <AssignmentsFilterDropdown
+            confirm={confirm}
+            selectedKeys={selectedKeys}
+            setSelectedKeys={setSelectedKeys}
+            clearFilters={clearFilters}
+            practitionerRolesBundle={practitionerRolesBundle}
+          />
+        ),
 
       onFilter: (value, record) =>
         value === 'noAssign'

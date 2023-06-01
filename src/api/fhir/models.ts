@@ -196,6 +196,8 @@ export interface Practitioner {
   resourceType: string;
 }
 
+export type PractitionerBundleType = (Practitioner | PractitionerRole)[];
+
 export interface Investigation {
   item: {
     reference: string;
@@ -330,11 +332,8 @@ export interface ServiceRequestEntity {
   };
   extensions: ServiceRequestEntityExtension[];
   performer: {
-    resource: {
-      alias: string;
-      name: string;
-    };
-  };
+    reference: string;
+  }[];
   subject: {
     reference: string;
     resource: PatientServiceRequestFragment;

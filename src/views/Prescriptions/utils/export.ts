@@ -1,6 +1,6 @@
 import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
-import { Practitioner, PractitionerRole } from 'api/fhir/models';
+import { Practitioner, PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
 import { findDonorById } from 'graphql/variants/selector';
 import { filter, find, orderBy } from 'lodash';
 import get from 'lodash/get';
@@ -240,16 +240,20 @@ export const makeFilenameDatePart = (date = new Date()) => {
 export const getEmailfromPractionnerRole = (practitionerRole: PractitionerRole) =>
   practitionerRole?.telecom.find((t) => t.system === 'email');
 
-export const getPractitionerInfoList = (practitionerRolesBundle?: any[]): TPractitionnerInfo[] => {
+export const getPractitionerInfoList = (
+  practitionerRolesBundle?: PractitionerBundleType,
+): TPractitionnerInfo[] => {
   const practitionerRoles: PractitionerRole[] = filter(
     practitionerRolesBundle,
     (p) => p.resourceType === 'PractitionerRole',
-  );
+  ) as PractitionerRole[];
   const infoList = practitionerRoles.reduce((acc: TPractitionnerInfo[], curr: PractitionerRole) => {
-    const practitioner: Practitioner = find(
-      practitionerRolesBundle,
-      (p) => p.id === curr.practitioner.reference.split('/')[1],
-    );
+    const practitioner: Practitioner = find(practitionerRolesBundle, (p) => {
+      if (p.resourceType === 'Practitioner') {
+        return p.id === curr.practitioner.reference.split('/')[1];
+      }
+      p.id === curr.practitioner.reference.split('/')[1];
+    }) as Practitioner;
     const email = getEmailfromPractionnerRole(curr);
     const obj: TPractitionnerInfo = {
       practitionerRoles_Id: curr.id,

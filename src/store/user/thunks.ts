@@ -1,7 +1,7 @@
 import { TColumnStates } from '@ferlab/ui/core/components/ProTable/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { FhirApi } from 'api/fhir';
-import { PractitionerRole } from 'api/fhir/models';
+import { PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
 import { UsersApi } from 'api/user';
 import { TUserConfig } from 'api/user/models';
 import keycloak from 'auth/keycloak';
@@ -19,10 +19,13 @@ const fetchPractitionerRole = createAsyncThunk<PractitionerRole[]>(
   },
 );
 
-const fetchPractitionerRoles = createAsyncThunk<any[]>('user/practitionerRolesBundle', async () => {
-  const { data } = await FhirApi.searchPractitionerRoles();
-  return data ? (data.entry ?? []).map((entry) => entry.resource!) : [];
-});
+const fetchPractitionerRoles = createAsyncThunk<PractitionerBundleType>(
+  'user/practitionerRolesBundle',
+  async () => {
+    const { data } = await FhirApi.searchPractitionerRoles();
+    return data ? (data.entry ?? []).map((entry) => entry.resource!) : [];
+  },
+);
 
 const fetchConfig = createAsyncThunk<TUserConfig>('user/fetchConfig', async () => {
   const fetch = await UsersApi.fetch();

@@ -14,6 +14,7 @@ import { downloadFile } from 'utils/helper';
 import {
   Bundle,
   Patient,
+  Practitioner,
   PractitionerRole,
   ServiceRequestCode,
   ServiceRequestEntity,
@@ -42,7 +43,7 @@ const searchPractitionerRole = () =>
   });
 
 const searchPractitionerRoles = () =>
-  sendRequestWithRpt<Bundle<any>>({
+  sendRequestWithRpt<Bundle<PractitionerRole | Practitioner>>({
     method: 'GET',
     // eslint-disable-next-line max-len
     url: `${FHIR_API_URL}/PractitionerRole?role=15941008&_include=PractitionerRole:organization&_include=PractitionerRole:practitioner&&_count=1000`,
@@ -85,7 +86,7 @@ const fetchServiceRequestEntity = (id: string) =>
   });
 
 const prescriptionAssignment = (analysis_id: string, assignements: string[]) =>
-  sendRequestWithRpt<{ data: any }>({
+  sendRequestWithRpt<{ analysis_id: string; assignments: string[] }>({
     method: 'POST',
     url: `${FORM_API_URL}/assignment`,
     data: {

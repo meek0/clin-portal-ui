@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import intl from 'react-intl-universal';
+import { getPractitionnerName } from '@ferlab/ui/core/components/Assignments/AssignmentsFilter';
 import AssignmentSelect from '@ferlab/ui/core/components/Assignments/AssignmentsSelect';
+import { AssignmentsTag } from '@ferlab/ui/core/components/Assignments/AssignmentsTag';
 import { UnAssignAvatar } from '@ferlab/ui/core/components/Assignments/AssignmentsTag/UnsassignAvatar';
+import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types';
 import Gravatar from '@ferlab/ui/core/components/Gravatar';
-import { Avatar, Popover, Space, Tooltip } from 'antd';
+import { Avatar, Button, Popover, Space, Tooltip, Typography } from 'antd';
 import { FhirApi } from 'api/fhir';
-import { PractitionerRole } from 'api/fhir/models';
+import { PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
 import { AnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import { getPractitionerInfoList, putUserFirst } from 'views/Prescriptions/utils/export';
 
@@ -17,7 +20,88 @@ import styles from './index.module.scss';
 
 export type TAssignmentsCell = {
   results: AnalysisResult;
-  practitionerRolesBundle?: any[];
+  practitionerRolesBundle?: PractitionerBundleType;
+};
+
+export type TAssignmentsData = {
+  analysis_id: string;
+  assignments: string[];
+};
+
+const userPopOverContent = (userInfos: TPractitionnerInfo[]) =>
+  userInfos.map((ui) => (
+    <Space direction="vertical" size={0} key={ui.practitionerRoles_Id}>
+      <AssignmentsTag
+        background={false}
+        email={ui.email ? ui.email : ''}
+        name={getPractitionnerName(ui.name)}
+        organization={ui.ldm}
+      />
+      <Button
+        onClick={(event) => {
+          event.stopPropagation();
+          window.location.href = `mailto:${ui.email ? ui.email : ''}`;
+        }}
+        className={styles.emailLink}
+        type="link"
+        size="small"
+      >
+        <Typography.Text
+          className={styles.emailTextGroup}
+          copyable={{
+            tooltips: [
+              intl.get('assignment.popOver.copy.tooltip'),
+              intl.get('assignment.popOver.copy.tooltip.copied'),
+            ],
+          }}
+          type="secondary"
+        >
+          <span className={styles.emailText}>{ui.email ? ui.email : ''}</span>
+        </Typography.Text>
+      </Button>
+    </Space>
+  ));
+
+const renderAvatarGroup = (selectedInfoList: TPractitionnerInfo[]) => {
+  const assigmentCount = selectedInfoList.length;
+  return assigmentCount <= 2 ? (
+    <div className={styles.assigmentCell}>
+      {selectedInfoList.map((p, index) => (
+        <Popover
+          trigger="hover"
+          key={p.practitionerRoles_Id}
+          overlayClassName={styles.userPopOverContent}
+          content={userPopOverContent([selectedInfoList[index]])}
+        >
+          <Gravatar key={index} circle email={p.email ? p.email : ''} size={24} />
+        </Popover>
+      ))}
+    </div>
+  ) : (
+    <div className={styles.assigmentCell}>
+      <Popover
+        trigger="hover"
+        overlayClassName={styles.userPopOverContent}
+        content={userPopOverContent([selectedInfoList[0]])}
+      >
+        <Gravatar
+          key={selectedInfoList[0].practitionerRoles_Id}
+          circle
+          email={selectedInfoList?.[0].email ? selectedInfoList[0].email : ''}
+          size={24}
+        />
+      </Popover>
+      <Popover
+        trigger="hover"
+        overlayClassName={styles.userPopOverContent}
+        content={userPopOverContent(selectedInfoList)}
+      >
+        <Avatar className={styles.moreAssignment} size={24}>
+          {`+${assigmentCount - 1}`}
+        </Avatar>
+      </Popover>
+    </div>
+  );
 };
 
 export const AssignmentsCell = ({
@@ -27,9 +111,15 @@ export const AssignmentsCell = ({
   const [selectedAssignment, setSelectedAssignment] = useState<string[]>(results.assignments);
 
   const handleSelect = (practitionerRoles_ids: string[]) => {
-    if (practitionerRoles_ids) {
-      setSelectedAssignment(practitionerRoles_ids);
-      FhirApi.prescriptionAssignment(results.prescription_id, practitionerRoles_ids);
+    if (
+      [...(practitionerRoles_ids || [])]?.sort().toString() !==
+      [...(selectedAssignment || [])]?.sort().toString()
+    ) {
+      FhirApi.prescriptionAssignment(results.prescription_id, practitionerRoles_ids).then(
+        ({ data }) => {
+          setSelectedAssignment(data?.assignments ? data.assignments : []);
+        },
+      );
     }
   };
 
@@ -41,9 +131,14 @@ export const AssignmentsCell = ({
   );
   if (decodedRpt) {
     const userPractitionerId = decodedRpt.fhir_practitioner_id;
-    const userPractionnerRoles: PractitionerRole = practitionerRolesBundle?.find(
-      (p) => p.practitioner?.reference.split('/')[1] === userPractitionerId,
-    );
+    const userPractionnerRoles: PractitionerRole | undefined = practitionerRolesBundle?.find(
+      (p) => {
+        if (p.resourceType === 'PractitionerRole') {
+          const pr = p as unknown as PractitionerRole;
+          return pr.practitioner?.reference.split('/')[1] === userPractitionerId;
+        }
+      },
+    ) as PractitionerRole;
 
     if (userPractionnerRoles) {
       practitionerInfoList = putUserFirst(practitionerInfoList, userPractionnerRoles);
@@ -70,16 +165,9 @@ export const AssignmentsCell = ({
         destroyTooltipOnHide
       >
         <div>
-          <Avatar.Group
-            size={24}
-            maxCount={selectedAssignment.length <= 2 ? 2 : 1}
-            maxStyle={{ color: '#006AA3', backgroundColor: '#D6F1FB' }}
-            className={styles.assignementAvatar}
-          >
-            {selectedInfoList.map((p, index) => (
-              <Gravatar key={index} circle email={p.email ? p.email : ''} size={24} />
-            ))}
-          </Avatar.Group>
+          <Space direction="horizontal">
+            {selectedInfoList.length > 0 && renderAvatarGroup(selectedInfoList)}
+          </Space>
         </div>
       </Popover>
     </Space>
