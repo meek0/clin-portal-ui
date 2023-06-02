@@ -18,20 +18,20 @@ describe('Modal des gènes chevauchant un CNV - Consultation du tableau', () => 
     cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
     cy.get('tr[data-row-key="00b535001879d47abebd243f45e148428500448a"]').contains(/^2$/).click({force: true});
 
-    cy.get('div[role="dialog"]').find('tr[data-row-key="0"]').contains('OCLN').should('exist');
-    cy.get('div[role="dialog"]').find('tr[data-row-key="0"]').contains('RGDI').should('exist');
-    cy.get('div[role="dialog"]').find('tr[data-row-key="0"]').contains('65.6 kb').should('exist');
-    cy.get('div[role="dialog"]').find('tr[data-row-key="0"]').contains('6.6 kb').should('exist');
-    cy.get('div[role="dialog"]').find('tr[data-row-key="0"]').contains(/^2$/).should('exist');
-    cy.get('div[role="dialog"]').find('tr[data-row-key="0"]').contains('10.1 %').should('exist');
-    cy.get('div[role="dialog"]').find('tr[data-row-key="0"]').contains('24.2 %').should('exist');
+    cy.get('div[role="dialog"]').find('tr[data-row-key="1"]').contains('OCLN').should('exist');
+    cy.get('div[role="dialog"]').find('tr[data-row-key="1"]').contains('RGDI').should('exist');
+    cy.get('div[role="dialog"]').find('tr[data-row-key="1"]').contains('65.6 kb').should('exist');
+    cy.get('div[role="dialog"]').find('tr[data-row-key="1"]').contains('6.6 kb').should('exist');
+    cy.get('div[role="dialog"]').find('tr[data-row-key="1"]').contains(/^2$/).should('exist');
+    cy.get('div[role="dialog"]').find('tr[data-row-key="1"]').contains('10.1 %').should('exist');
+    cy.get('div[role="dialog"]').find('tr[data-row-key="1"]').contains('24.2 %').should('exist');
   });
  
   it('Valider les liens disponibles', () => {
     cy.get('thead[class="ant-table-thead"]').contains('Début').click({force: true});
     cy.get('tr[data-row-key="00b535001879d47abebd243f45e148428500448a"]').contains(/^2$/).click({force: true});
 
-    cy.get('div[role="dialog"]').find('tr[data-row-key="0"]').contains('OCLN').invoke('removeAttr', 'target').click({force: true});
+    cy.get('div[role="dialog"]').find('tr[data-row-key="1"]').contains('OCLN').invoke('removeAttr', 'target').click({force: true});
     cy.get('body').contains(/^OCLN$/).should('exist');
   });
 
