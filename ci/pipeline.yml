@@ -12,14 +12,14 @@ resource_types:
 - name: git
   type: docker-image
   source:
-    repository: index.docker.io/concourse/git-resource
+    repository: concourse/git-resource
     username: ((docker.username))
     password: ((docker.password))
 
 - name: git-branches
   type: registry-image
   source:
-    repository: index.docker.io/aoldershaw/git-branches-resource
+    repository: aoldershaw/git-branches-resource
     username: ((docker.username))
     password: ((docker.password))
 - name: pull-request
@@ -32,7 +32,7 @@ resource_types:
 - name: slack-notification
   type: docker-image
   source:
-    repository: index.docker.io/cfcommunity/slack-notification-resource
+    repository: cfcommunity/slack-notification-resource
     username: ((docker.username))
     password: ((docker.password))
     tag: latest
