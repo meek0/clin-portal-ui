@@ -1,5 +1,10 @@
 resource_types:
-
+- name: git
+  type: docker-image
+  source:
+    repository: concourse/git-resource
+    username: ((docker.username))
+    password: ((docker.password))
 resources:
 - name: git-portal-ui
   type: git
