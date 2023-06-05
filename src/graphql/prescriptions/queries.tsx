@@ -152,11 +152,8 @@ export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
           code
         }
       }
-      performer @first {
-        resource {
-          alias @first
-          name
-        }
+      performer {
+        reference
       }
       requester @flatten {
         requester: resource(type: PractitionerRole) {

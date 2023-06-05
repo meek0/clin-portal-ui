@@ -116,13 +116,12 @@ export const prescriptionsColumns = (
       ),
       title: 'assignement',
       iconTitle: <UserOutlined />,
-      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) =>
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) =>
         practitionerRolesBundle && (
           <AssignmentsFilterDropdown
             confirm={confirm}
             selectedKeys={selectedKeys}
             setSelectedKeys={setSelectedKeys}
-            clearFilters={clearFilters}
             practitionerRolesBundle={practitionerRolesBundle}
           />
         ),

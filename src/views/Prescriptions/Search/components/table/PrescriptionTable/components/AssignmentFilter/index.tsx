@@ -11,12 +11,10 @@ export type TAssignmentsFilter = {
   confirm: (param?: FilterConfirmProps) => void;
   selectedKeys: React.Key[];
   setSelectedKeys: (selectedKeys: React.Key[]) => void;
-  clearFilters: (() => void) | undefined;
 };
 
 export const AssignmentsFilterDropdown = ({
   practitionerRolesBundle,
-  clearFilters,
   confirm,
   selectedKeys,
   setSelectedKeys,
@@ -29,7 +27,7 @@ export const AssignmentsFilterDropdown = ({
     const userPractionnerRoles: PractitionerRole | undefined = practitionerRolesBundle?.find(
       (p) => {
         if (p.resourceType === 'PractitionerRole') {
-          const pr = p as unknown as PractitionerRole;
+          const pr = p as PractitionerRole;
           return pr.practitioner?.reference.split('/')[1] === userPractitionerId;
         }
       },
@@ -45,7 +43,6 @@ export const AssignmentsFilterDropdown = ({
         confirm={confirm}
         selectedKeys={selectedKeys}
         setSelectedKeys={setSelectedKeys}
-        clearFilters={clearFilters}
         dictionary={getAssignmentDictionary()}
       />
     </div>

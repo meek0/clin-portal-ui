@@ -134,7 +134,7 @@ export const AssignmentsCell = ({
     const userPractionnerRoles: PractitionerRole | undefined = practitionerRolesBundle?.find(
       (p) => {
         if (p.resourceType === 'PractitionerRole') {
-          const pr = p as unknown as PractitionerRole;
+          const pr = p as PractitionerRole;
           return pr.practitioner?.reference.split('/')[1] === userPractitionerId;
         }
       },

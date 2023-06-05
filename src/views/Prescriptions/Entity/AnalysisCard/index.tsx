@@ -1,14 +1,28 @@
+import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
-import { Card, Descriptions, Tag } from 'antd';
+import { getPractitionnerName } from '@ferlab/ui/core/components/Assignments/AssignmentsFilter';
+import AssignmentsSelect from '@ferlab/ui/core/components/Assignments/AssignmentsSelect';
+import AssignmentsTag from '@ferlab/ui/core/components/Assignments/AssignmentsTag';
+import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types';
+import { Card, Descriptions, Space, Tag } from 'antd';
+import { FhirApi } from 'api/fhir';
 import { extractOrganizationId, extractServiceRequestId } from 'api/fhir/helper';
-import { RequesterType, ServiceRequestEntity } from 'api/fhir/models';
+import { PractitionerRole, RequesterType, ServiceRequestEntity } from 'api/fhir/models';
+import { filter, find } from 'lodash';
 import StatusTag from 'views/Prescriptions/components/StatusTag';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
+import { getPractitionerInfoList, putUserFirst } from 'views/Prescriptions/utils/export';
 
+import { Roles, validate } from 'components/Roles/Rules';
 import ParagraphLoader from 'components/uiKit/ParagraphLoader';
+import { useRpt } from 'hooks/useRpt';
 import { useGlobals } from 'store/global';
+import { useUser } from 'store/user';
 import { formatDate } from 'utils/date';
+import { getAssignmentDictionary } from 'utils/translation';
+
+import styles from './index.module.scss';
 
 interface OwnProps {
   prescription?: ServiceRequestEntity;
@@ -23,8 +37,92 @@ const getPractionnerName = (requester: RequesterType) => {
   return `${practitionerName} ${practitionerIdentifier ? `- ${practitionerIdentifier}` : ''}`;
 };
 
+const renderTagList = (
+  selectedAssignment: string[],
+  practitionerInfoList: TPractitionnerInfo[],
+) => {
+  if (selectedAssignment.length > 0) {
+    const assignedPractionnerRoles = practitionerInfoList.filter((p) =>
+      selectedAssignment.includes(p.practitionerRoles_Id),
+    );
+    return assignedPractionnerRoles.map((info) => (
+      <div className={styles.assigmentItem} key={info.practitionerRoles_Id}>
+        <AssignmentsTag
+          email={info.email ? info.email : ''}
+          name={getPractitionnerName(info?.name)}
+          organization={info?.ldm}
+        />
+      </div>
+    ));
+  } else {
+    return <AssignmentsTag background={false} unAssign={true} />;
+  }
+};
+
 const AnalysisCard = ({ prescription, loading }: OwnProps) => {
   const { getAnalysisNameByCode } = useGlobals();
+
+  const [selectedAssignment, setSelectedAssignment] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!loading && prescription?.performer) {
+      const performerPactitionerRoles = filter(prescription?.performer, (r) =>
+        r.reference.includes('PractitionerRole'),
+      );
+      const performerPactitionerRolesID = performerPactitionerRoles.reduce(
+        (
+          acc: string[],
+          curr: {
+            reference: string;
+          },
+        ) => {
+          const practitionerRoles_Id = curr.reference.split('/')[1];
+          return [...acc, practitionerRoles_Id];
+        },
+        [],
+      );
+      setSelectedAssignment(performerPactitionerRolesID);
+    }
+  }, [loading, prescription?.performer]);
+
+  const { user } = useUser();
+  const practitionerRolesBundle = user.practitionerRolesBundle;
+
+  const { decodedRpt } = useRpt();
+  const canAssign = decodedRpt ? validate([Roles.Variants], decodedRpt, false) : false;
+  let practitionerInfoList = getPractitionerInfoList(practitionerRolesBundle);
+  if (decodedRpt) {
+    const userPractitionerId = decodedRpt.fhir_practitioner_id;
+    const userPractionnerRoles: PractitionerRole | undefined = practitionerRolesBundle?.find(
+      (p) => {
+        if (p.resourceType === 'PractitionerRole') {
+          const pr = p as PractitionerRole;
+          return pr.practitioner?.reference.split('/')[1] === userPractitionerId;
+        }
+      },
+    ) as PractitionerRole;
+
+    if (userPractionnerRoles) {
+      practitionerInfoList = putUserFirst(practitionerInfoList, userPractionnerRoles);
+    }
+  }
+
+  const handleSelect = (practitionerRoles_ids: string[]) => {
+    if (
+      [...(practitionerRoles_ids || [])]?.sort().toString() !==
+      [...(selectedAssignment || [])]?.sort().toString()
+    ) {
+      FhirApi.prescriptionAssignment(
+        prescription?.id ? extractServiceRequestId(prescription?.id) : '',
+        practitionerRoles_ids,
+      ).then(({ data }) => {
+        setSelectedAssignment(data?.assignments ? data.assignments : []);
+      });
+    }
+  };
+  const getOrganizationReference = find(prescription?.performer, (r) =>
+    r.reference.includes('Organization'),
+  );
 
   return (
     <Card title={intl.get(`screen.prescription.entity.analyse.card.title`)} data-cy="AnalysisCard">
@@ -36,6 +134,24 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
             >
               {extractServiceRequestId(prescription?.id)}
             </Descriptions.Item>
+            {
+              <Descriptions.Item label={intl.get('assignment.title')}>
+                {canAssign ? (
+                  <AssignmentsSelect
+                    dictionary={getAssignmentDictionary()}
+                    options={practitionerInfoList}
+                    handleSelect={handleSelect}
+                    assignedPractionnerRoles={selectedAssignment}
+                  />
+                ) : (
+                  <div className={styles.assigmentList}>
+                    <Space direction="vertical" size={4}>
+                      {renderTagList(selectedAssignment, practitionerInfoList)}
+                    </Space>
+                  </div>
+                )}
+              </Descriptions.Item>
+            }
             <Descriptions.Item label={intl.get('status')}>
               <StatusTag
                 dictionary={getPrescriptionStatusDictionnary()}
@@ -66,7 +182,9 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
                 : EMPTY_FIELD}
             </Descriptions.Item>
             <Descriptions.Item label={intl.get('screen.patientsearch.table.ldm')}>
-              {extractOrganizationId(prescription?.performer.resource.alias)}
+              {extractOrganizationId(
+                getOrganizationReference?.reference ? getOrganizationReference.reference : '--',
+              )}
             </Descriptions.Item>
           </Descriptions>
         )}
