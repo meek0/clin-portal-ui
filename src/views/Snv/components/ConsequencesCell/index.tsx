@@ -1,5 +1,4 @@
 import ReactDOMServer from 'react-dom/server';
-import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Consequence, Impact } from 'graphql/variants/models';
@@ -8,7 +7,6 @@ import HighBadgeIcon from 'components/icons/variantBadgeIcons/HighBadgeIcon';
 import LowBadgeIcon from 'components/icons/variantBadgeIcons/LowBadgeIcon';
 import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeIcon';
 import ModifierBadgeIcon from 'components/icons/variantBadgeIcons/ModifierBadgeIcon';
-import { toKebabCase } from 'utils/helper';
 
 import { generateConsequencesDataLines } from './consequences';
 
@@ -27,6 +25,8 @@ const impactToColorClassName = Object.freeze({
 
 const pickImpacBadge = (impact: Impact) => impactToColorClassName[impact];
 
+const removeVariantString = (value: string) => value.toLowerCase().replaceAll('variant', '');
+
 const ConsequencesCell = ({ consequences }: OwnProps) => {
   const lines = generateConsequencesDataLines(consequences);
   return (
@@ -40,19 +40,9 @@ const ConsequencesCell = ({ consequences }: OwnProps) => {
             <StackLayout center key={index}>
               {pickImpacBadge(node.vep_impact)}
               <span key={index} className={style.detail}>
-                {removeUnderscoreAndCapitalize(node.consequences[0])}
+                {removeUnderscoreAndCapitalize(removeVariantString(node.consequences[0]))}
               </span>
-              {node.symbol && (
-                <span key={toKebabCase(node.symbol)} className={style.symbol}>
-                  {' '}
-                  <ExternalLink
-                    href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${node.symbol}`}
-                  >
-                    {node.symbol}
-                  </ExternalLink>
-                </span>
-              )}{' '}
-              {node.aa_change && <span>{node.aa_change}</span>}{' '}
+              {node.aa_change && <span>{node.aa_change}</span>}
             </StackLayout>
           );
         }
@@ -63,9 +53,11 @@ const ConsequencesCell = ({ consequences }: OwnProps) => {
   );
 };
 
-export const renderToString = (row: any) =>
-  ReactDOMServer.renderToString(
-    <ConsequencesCell consequences={row.consequences?.hits?.edges || []} />,
+export const renderToString = (row: any) => {
+  const pickedConsequence = row.consequences?.hits?.edges.find(({ node }: any) => !!node.picked);
+  return ReactDOMServer.renderToString(
+    <ConsequencesCell consequences={pickedConsequence ? [pickedConsequence] : []} />,
   );
+};
 
 export default ConsequencesCell;

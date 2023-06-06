@@ -2,17 +2,19 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
+import { PlusOutlined } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
-import ExpandableCell from '@ferlab/ui/core/components/tables/ExpandableCell';
+import { updateActiveQueryField } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { MERGE_VALUES_STRATEGIES } from '@ferlab/ui/core/data/sqon/types';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
-import { Button, Space, Tag, Tooltip } from 'antd';
+import { Button, Space, Tag, Tooltip, Typography } from 'antd';
 import cx from 'classnames';
+import { INDEXES } from 'graphql/constants';
 import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
 import {
   ClinVar,
-  Consequence,
   DonorsEntity,
   ExternalFrequenciesEntity,
   frequency_RQDMEntity,
@@ -26,6 +28,7 @@ import { findDonorById } from 'graphql/variants/selector';
 import { capitalize } from 'lodash';
 import ConsequencesCell from 'views/Snv/components/ConsequencesCell';
 
+import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import UserAffectedIcon from 'components/icons/UserAffectedIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
@@ -36,15 +39,39 @@ import { HcComplementDescription } from '../components/OccurrenceDrawer/HcDescri
 import { TAB_ID } from '../Entity';
 
 import AcmgVerdict from './components/AcmgVerdict';
+import GnomadCell from './components/Gnomad/GnomadCell';
 import { OtherActions } from './components/OtherActions';
 
 import style from './variantColumns.module.scss';
 
-const formatRqdm = (rqdm: frequency_RQDMEntity) => {
+const ClinvarColorMap: Record<any, string> = {
+  conflicting_interpretations_of_pathogenicity: 'orange',
+  benign: 'green',
+  likely_benign: 'green',
+  uncertain_significance: 'orange',
+  pathogenic: 'red',
+  not_provided: 'default',
+  drug_response: 'default',
+  risk_factor: 'default',
+  likely_pathogenic: 'volcano',
+  association: 'default',
+  other: 'default',
+  affects: 'default',
+  protective: 'default',
+  confers_sensitivity: 'default',
+  uncertain_risk_allele: 'default',
+};
+
+const formatRqdm = (rqdm: frequency_RQDMEntity, variant: VariantEntity) => {
   if (!rqdm?.total?.pc) {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
-  return `${rqdm.total.pc} / ${rqdm.total.pn} (${(rqdm.total.pf * 100).toPrecision(3)}%)`;
+  return (
+    <Space size={4}>
+      <Link to={`/variant/entity/${variant.locus}/${TAB_ID.PATIENTS}`}>{rqdm.total.pc}</Link>
+      <Typography.Text>({(rqdm.total.pf * 100).toFixed(1)}%)</Typography.Text>
+    </Space>
+  );
 };
 
 const displayParentalOrigin = (parental_origin: string) =>
@@ -70,6 +97,7 @@ const getAcmgCriteriaCol = () => ({
 });
 
 export const getVariantColumns = (
+  queryBuilderId: string,
   patientId?: string,
   drawerCb?: (record: VariantEntity) => void,
   igvModalCb?: (record: VariantEntity) => void,
@@ -142,67 +170,107 @@ export const getVariantColumns = (
       sorter: {
         multiple: 1,
       },
-      width: 96,
+      width: 65,
       render: (variant: string) =>
-        variant ? intl.get(variant).defaultMessage(capitalize(variant)) : TABLE_EMPTY_PLACE_HOLDER,
+        variant ? (
+          <Tooltip
+            title={intl
+              .get(`type.abrv.${variant.toLowerCase()}.tooltip`)
+              .defaultMessage(capitalize(variant))}
+          >
+            {intl.get(`type.abrv.${variant.toLowerCase()}`).defaultMessage(capitalize(variant))}
+          </Tooltip>
+        ) : (
+          TABLE_EMPTY_PLACE_HOLDER
+        ),
     },
     {
       key: 'rsnumber',
       title: intl.get('screen.patientsnv.results.table.dbsnp'),
       dataIndex: 'rsnumber',
       className: style.dbSnpTableCell,
-      width: 109,
+      width: 60,
       render: (rsNumber: string) =>
         rsNumber ? (
           <ExternalLink href={`https://www.ncbi.nlm.nih.gov/snp/${rsNumber}`}>
-            {rsNumber}
+            <ExternalLinkIcon />
           </ExternalLink>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
         ),
     },
     {
-      key: 'consequences',
+      title: intl.get('screen.patientsnv.results.table.gene'),
+      key: 'gene',
+      dataIndex: 'consequences',
+      width: 100,
+      render: (consequences: VariantEntity['consequences']) => {
+        const pickedConsequence = consequences?.hits?.edges.find(({ node }) => !!node.picked);
+        const geneSymbol = pickedConsequence?.node.symbol;
+
+        if (geneSymbol) {
+          return (
+            <Space size={4} direction="horizontal" className={style.addGene}>
+              <ExternalLink
+                hasIcon={false}
+                href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${geneSymbol}`}
+              >
+                {geneSymbol}
+              </ExternalLink>
+              <div
+                className={style.addGeneButton}
+                onClick={() => {
+                  updateActiveQueryField({
+                    queryBuilderId,
+                    field: 'consequences.symbol',
+                    value: [geneSymbol],
+                    index: INDEXES.VARIANT,
+                    merge_strategy: MERGE_VALUES_STRATEGIES.OVERRIDE_VALUES,
+                  });
+                }}
+              >
+                <PlusOutlined />
+              </div>
+            </Space>
+          );
+        } else {
+          return TABLE_EMPTY_PLACE_HOLDER;
+        }
+      },
+    },
+    {
+      key: 'consequence',
       title: intl.get('screen.patientsnv.results.table.consequence'),
       dataIndex: 'consequences',
-      width: 284,
-      render: (consequences: { hits: { edges: Consequence[] } }) => (
-        <ConsequencesCell consequences={consequences?.hits?.edges || []} />
-      ),
+      width: 225,
+      render: (consequences: VariantEntity['consequences']) => {
+        const pickedConsequence = consequences?.hits?.edges.find(({ node }) => !!node.picked);
+        return <ConsequencesCell consequences={pickedConsequence ? [pickedConsequence] : []} />;
+      },
     },
     {
       key: 'omim',
       title: intl.get('screen.patientsnv.results.table.omim'),
       tooltip: intl.get('screen.patientsnv.results.table.omim.tooltip'),
-      width: 175,
-      render: (variant: { genes: { hits: { edges: Gene[] } } }) => renderOmim(variant),
+      width: 125,
+      render: (variant: {
+        genes: { hits: { edges: Gene[] } };
+        consequences: VariantEntity['consequences'];
+      }) => {
+        const pickedConsequenceSymbol = variant.consequences?.hits.edges.find(
+          ({ node }) => !!node.picked,
+        )?.node.symbol;
+
+        return renderOmim(variant, pickedConsequenceSymbol);
+      },
     },
     {
       key: 'clinvar',
       title: intl.get('screen.patientsnv.results.table.clinvar'),
       dataIndex: 'clinvar',
-      className: cx(style.variantTableCell, style.variantTableCellElipsis),
+      className: style.variantTableCell,
       width: 160,
-      render: (clinVar: ClinVar) => {
-        const clinVarSigFormatted: string[] = [];
-        clinVar?.clin_sig &&
-          clinVar.clin_sig.map((c) => {
-            clinVarSigFormatted.push(removeUnderscoreAndCapitalize(c));
-          });
-        return clinVar?.clin_sig && clinVar.clinvar_id ? (
-          <Tooltip placement="topLeft" title={clinVarSigFormatted.join(', ')}>
-            <div>
-              <ExternalLink
-                href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
-              >
-                {clinVarSigFormatted.join(', ')}
-              </ExternalLink>
-            </div>
-          </Tooltip>
-        ) : (
-          TABLE_EMPTY_PLACE_HOLDER
-        );
-      },
+      render: renderClinvar,
     },
     {
       key: 'acmgVerdict',
@@ -224,10 +292,18 @@ export const getVariantColumns = (
         multiple: 1,
       },
       width: 98,
-      render: (external_frequencies: ExternalFrequenciesEntity) =>
-        external_frequencies.gnomad_genomes_3_1_1?.af
-          ? external_frequencies.gnomad_genomes_3_1_1.af.toExponential(3)
-          : TABLE_EMPTY_PLACE_HOLDER,
+      render: (external_frequencies: ExternalFrequenciesEntity) => {
+        const af = external_frequencies.gnomad_genomes_3_1_1?.af;
+
+        if (!af) return TABLE_EMPTY_PLACE_HOLDER;
+
+        return (
+          <Space direction="horizontal">
+            <GnomadCell underOnePercent={af < 0.01} />
+            <span>{af.toExponential(2)}</span>
+          </Space>
+        );
+      },
     },
     {
       key: 'frequency_RQDM.total.pf',
@@ -238,7 +314,7 @@ export const getVariantColumns = (
         multiple: 1,
       },
       width: 100,
-      render: (record: VariantEntity) => formatRqdm(record.frequency_RQDM),
+      render: (record: VariantEntity) => formatRqdm(record.frequency_RQDM, record),
     },
   ];
 
@@ -259,10 +335,21 @@ export const getVariantColumns = (
       {
         key: 'donors.zygosity',
         title: intl.get('screen.patientsnv.results.table.zygosity'),
+        tooltip: intl.get('donor.zygosity.tooltip'),
         dataIndex: 'donors',
         width: 100,
-        render: (record: ArrangerResultsTree<DonorsEntity>) =>
-          renderDonorByKey('donors.zygosity', findDonorById(record, patientId)),
+        render: (record: ArrangerResultsTree<DonorsEntity>) => {
+          const zyg = renderDonorByKey(
+            'donors.zygosity',
+            findDonorById(record, patientId),
+          ) as string;
+
+          return (
+            <Tooltip title={intl.get(`donors.zyg.abrv.${zyg}`)}>
+              <Tag color="blue">{capitalize(zyg)}</Tag>
+            </Tooltip>
+          );
+        },
       },
       {
         ...getAcmgCriteriaCol(),
@@ -362,6 +449,31 @@ export const getVariantColumns = (
   return columns;
 };
 
+const renderClinvar = (clinVar: ClinVar) => {
+  const clinVarSigFormatted: string[] = [];
+  const clinVarSigKey: string[] = [];
+
+  clinVar?.clin_sig &&
+    clinVar.clin_sig.map((c) => {
+      clinVarSigFormatted.push(removeUnderscoreAndCapitalize(c));
+      clinVarSigKey.push(c.toLowerCase());
+    });
+
+  return clinVar?.clin_sig && clinVar.clinvar_id
+    ? clinVarSigKey.map((clinvarKey) => (
+        <Tooltip key={clinvarKey} placement="topLeft" title={clinVarSigFormatted.join(', ')}>
+          <Tag color={ClinvarColorMap[clinvarKey]}>
+            <ExternalLink
+              href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
+            >
+              {intl.get(`clinvar.abrv.${clinvarKey}`)}
+            </ExternalLink>
+          </Tag>
+        </Tooltip>
+      ))
+    : TABLE_EMPTY_PLACE_HOLDER;
+};
+
 const renderToString = (element: any) => {
   if (typeof element === 'string' || typeof element === 'number') {
     return String(element);
@@ -371,7 +483,26 @@ const renderToString = (element: any) => {
   return '';
 };
 
-export const renderOmimToString = (variant: any) => renderToString(renderOmim(variant));
+export const renderOmimToString = (variant: any) => {
+  const pickedConsequenceSymbol = variant.consequences?.hits.edges.find(
+    ({ node }: any) => !!node.picked,
+  )?.node.symbol;
+
+  return renderToString(renderOmim(variant, pickedConsequenceSymbol));
+};
+
+export const renderClinvarToString = (variant: any) =>
+  renderToString(renderClinvar(variant.clinvar));
+
+export const renderGeneToString = (variant: any) => {
+  const genes = variant.genes?.hits.edges;
+
+  if (genes?.length && genes[0].node.symbol) {
+    return genes[0].node.symbol;
+  }
+
+  return TABLE_EMPTY_PLACE_HOLDER;
+};
 
 export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
   renderToString(renderDonorByKey(key, donor));
@@ -424,50 +555,54 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
   return <></>;
 };
 
-const renderOmim = (variant: { genes: { hits: { edges: Gene[] } } }) => {
+const renderOmim = (
+  variant: {
+    genes: { hits: { edges: Gene[] } };
+  },
+  pickedConsequenceSymbol: string | undefined,
+) => {
   const genesWithOmim = variant.genes.hits.edges.filter(
     (gene) => gene.node.omim?.hits?.edges?.length,
   );
 
-  if (!genesWithOmim.length) {
+  const pickedConsequenceGeneWithOmim = genesWithOmim.filter(
+    ({ node }) => node.symbol === pickedConsequenceSymbol,
+  );
+
+  if (!genesWithOmim.length || !pickedConsequenceGeneWithOmim.length) {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
 
-  return (
-    <ExpandableCell<Gene>
-      dataSource={genesWithOmim}
-      nOfElementsWhenCollapsed={2}
-      dictionnary={{
-        'see.less': intl.get('see.less'),
-        'see.more': intl.get('see.more'),
-      }}
-      renderItem={(item, id): React.ReactNode => {
-        const omims = item.node.omim?.hits?.edges || [];
-        const inheritance = omims
-          .reduce<string[]>((prev, curr) => [...prev, ...(curr.node.inheritance_code || [])], [])
-          .filter((item, pos, self) => self.indexOf(item) == pos);
+  const pickedOmim = pickedConsequenceGeneWithOmim[0];
+  const omimLink = `https://www.omim.org/entry/${pickedOmim.node.omim_gene_id}`;
 
-        return (
-          <StackLayout horizontal key={id}>
-            <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
-              <ExternalLink href={`https://www.omim.org/entry/${item.node.omim_gene_id}`}>
-                {item.node.symbol}
-              </ExternalLink>
-              <Space size={4}>
-                {inheritance.length
-                  ? inheritance.map((code) => (
-                      <Tooltip key={code} title={intl.get(`inheritant.code.${code}`)}>
-                        {' '}
-                        <Tag color="processing">{code}</Tag>
-                      </Tooltip>
-                    ))
-                  : TABLE_EMPTY_PLACE_HOLDER}
-              </Space>
-            </Space>
-          </StackLayout>
-        );
-      }}
-    />
+  const omims = pickedOmim.node.omim?.hits?.edges || [];
+  const inheritance = omims
+    .reduce<string[]>((prev, curr) => [...prev, ...(curr.node.inheritance_code || [])], [])
+    .filter((item, pos, self) => self.indexOf(item) == pos);
+
+  if (!inheritance.length) {
+    return (
+      <Tooltip title={intl.get(`inheritant.code.NRT`)}>
+        <ExternalLink href={omimLink}>NRT</ExternalLink>
+      </Tooltip>
+    );
+  }
+
+  return (
+    <StackLayout horizontal>
+      <Space size={4} className={style.variantSnvOmimCellItem}>
+        {inheritance.length
+          ? inheritance.map((code) => (
+              <Tooltip key={code} title={intl.get(`inheritant.code.${code}`)}>
+                <Tag color="processing">
+                  <ExternalLink href={omimLink}>{code}</ExternalLink>
+                </Tag>
+              </Tooltip>
+            ))
+          : TABLE_EMPTY_PLACE_HOLDER}
+      </Space>
+    </StackLayout>
   );
 };
 

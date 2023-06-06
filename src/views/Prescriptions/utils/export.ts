@@ -6,7 +6,9 @@ import { renderToString as renderConsequencesToString } from 'views/Snv/componen
 import { renderToString as renderAcmgVerdictToString } from 'views/Snv/Exploration/components/AcmgVerdict';
 import {
   getAcmgRuleContent,
+  renderClinvarToString,
   renderDonorToString,
+  renderGeneToString,
   renderOmimToString,
 } from 'views/Snv/Exploration/variantColumns';
 
@@ -123,11 +125,15 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
   if (prefix === 'SNV') {
     if (key === 'acmgVerdict') {
       return convertToPlain(renderAcmgVerdictToString(row));
+    } else if (key === 'gene') {
+      return convertToPlain(renderGeneToString(row));
+    } else if (key === 'clinvar') {
+      return convertToPlain(renderClinvarToString(row));
     } else if (key === 'omim') {
       return convertToPlain(renderOmimToString(row));
     } else if (key === 'acmgcriteria') {
       return getAcmgRuleContent(row.varsome);
-    } else if (key === 'consequences') {
+    } else if (key === 'consequence') {
       return convertToPlain(renderConsequencesToString(row));
     } else if (
       [

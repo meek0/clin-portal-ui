@@ -139,7 +139,7 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'consequences', row)).toEqual('F symbol aa ');
+    expect(customMapping('SNV', 'consequences', row)).toEqual('Faa');
   });
   test('should map donors.gq', () => {
     const row = {
