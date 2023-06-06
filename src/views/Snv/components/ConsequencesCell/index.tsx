@@ -53,9 +53,11 @@ const ConsequencesCell = ({ consequences }: OwnProps) => {
   );
 };
 
-export const renderToString = (row: any) =>
-  ReactDOMServer.renderToString(
-    <ConsequencesCell consequences={row.consequences?.hits?.edges || []} />,
+export const renderToString = (row: any) => {
+  const pickedConsequence = row.consequences?.hits?.edges.find(({ node }: any) => !!node.picked);
+  return ReactDOMServer.renderToString(
+    <ConsequencesCell consequences={pickedConsequence ? [pickedConsequence] : []} />,
   );
+};
 
 export default ConsequencesCell;

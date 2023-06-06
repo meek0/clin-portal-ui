@@ -45,21 +45,21 @@ import { OtherActions } from './components/OtherActions';
 import style from './variantColumns.module.scss';
 
 const ClinvarColorMap: Record<any, string> = {
-  conflicting_interpretations_of_pathogenicity: 'warning',
+  conflicting_interpretations_of_pathogenicity: 'orange',
   benign: 'green',
   likely_benign: 'green',
-  uncertain_significance: 'warning',
-  pathogenic: 'red',
-  not_provided: 'grey',
-  drug_response: 'grey',
-  risk_factor: 'grey',
+  uncertain_significance: 'orange',
+  pathogenic: 'volcano',
+  not_provided: 'default',
+  drug_response: 'default',
+  risk_factor: 'default',
   likely_pathogenic: 'red',
-  association: 'grey',
-  other: 'grey',
-  affects: 'grey',
-  protective: 'grey',
-  confers_sensitivity: 'grey',
-  uncertain_risk_allele: 'grey',
+  association: 'default',
+  other: 'default',
+  affects: 'default',
+  protective: 'default',
+  confers_sensitivity: 'default',
+  uncertain_risk_allele: 'default',
 };
 
 const formatRqdm = (rqdm: frequency_RQDMEntity, variant: VariantEntity) => {
@@ -202,18 +202,20 @@ export const getVariantColumns = (
     {
       title: intl.get('screen.patientsnv.results.table.gene'),
       key: 'gene',
+      dataIndex: 'consequences',
       width: 100,
-      render: (variant: VariantEntity) => {
-        const genes = variant.genes?.hits.edges;
+      render: (consequences: VariantEntity['consequences']) => {
+        const pickedConsequence = consequences?.hits?.edges.find(({ node }) => !!node.picked);
+        const geneSymbol = pickedConsequence?.node.symbol;
 
-        if (genes?.length && genes[0].node.symbol) {
+        if (geneSymbol) {
           return (
             <Space size={4} direction="horizontal" className={style.addGene}>
               <ExternalLink
                 hasIcon={false}
-                href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${genes[0].node.symbol}`}
+                href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${geneSymbol}`}
               >
-                {genes[0].node.symbol}
+                {geneSymbol}
               </ExternalLink>
               <div
                 className={style.addGeneButton}
@@ -221,7 +223,7 @@ export const getVariantColumns = (
                   updateActiveQueryField({
                     queryBuilderId,
                     field: 'consequences.symbol',
-                    value: [genes[0].node.symbol],
+                    value: [geneSymbol],
                     index: INDEXES.VARIANT,
                     merge_strategy: MERGE_VALUES_STRATEGIES.OVERRIDE_VALUES,
                   });
@@ -268,30 +270,7 @@ export const getVariantColumns = (
       dataIndex: 'clinvar',
       className: style.variantTableCell,
       width: 160,
-      render: (clinVar: ClinVar) => {
-        const clinVarSigFormatted: string[] = [];
-        const clinVarSigKey: string[] = [];
-
-        clinVar?.clin_sig &&
-          clinVar.clin_sig.map((c) => {
-            clinVarSigFormatted.push(removeUnderscoreAndCapitalize(c));
-            clinVarSigKey.push(c.toLowerCase());
-          });
-
-        return clinVar?.clin_sig && clinVar.clinvar_id
-          ? clinVarSigKey.map((clinvarKey) => (
-              <Tooltip key={clinvarKey} placement="topLeft" title={clinVarSigFormatted.join(', ')}>
-                <Tag color={ClinvarColorMap[clinvarKey]}>
-                  <ExternalLink
-                    href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
-                  >
-                    {intl.get(`clinvar.abrv.${clinvarKey}`)}
-                  </ExternalLink>
-                </Tag>
-              </Tooltip>
-            ))
-          : TABLE_EMPTY_PLACE_HOLDER;
-      },
+      render: renderClinvar,
     },
     {
       key: 'acmgVerdict',
@@ -356,6 +335,7 @@ export const getVariantColumns = (
       {
         key: 'donors.zygosity',
         title: intl.get('screen.patientsnv.results.table.zygosity'),
+        tooltip: intl.get('donor.zygosity.tooltip'),
         dataIndex: 'donors',
         width: 100,
         render: (record: ArrangerResultsTree<DonorsEntity>) => {
@@ -469,6 +449,31 @@ export const getVariantColumns = (
   return columns;
 };
 
+const renderClinvar = (clinVar: ClinVar) => {
+  const clinVarSigFormatted: string[] = [];
+  const clinVarSigKey: string[] = [];
+
+  clinVar?.clin_sig &&
+    clinVar.clin_sig.map((c) => {
+      clinVarSigFormatted.push(removeUnderscoreAndCapitalize(c));
+      clinVarSigKey.push(c.toLowerCase());
+    });
+
+  return clinVar?.clin_sig && clinVar.clinvar_id
+    ? clinVarSigKey.map((clinvarKey) => (
+        <Tooltip key={clinvarKey} placement="topLeft" title={clinVarSigFormatted.join(', ')}>
+          <Tag color={ClinvarColorMap[clinvarKey]}>
+            <ExternalLink
+              href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
+            >
+              {intl.get(`clinvar.abrv.${clinvarKey}`)}
+            </ExternalLink>
+          </Tag>
+        </Tooltip>
+      ))
+    : TABLE_EMPTY_PLACE_HOLDER;
+};
+
 const renderToString = (element: any) => {
   if (typeof element === 'string' || typeof element === 'number') {
     return String(element);
@@ -485,6 +490,9 @@ export const renderOmimToString = (variant: any) => {
 
   return renderToString(renderOmim(variant, pickedConsequenceSymbol));
 };
+
+export const renderClinvarToString = (variant: any) =>
+  renderToString(renderClinvar(variant.clinvar));
 
 export const renderGeneToString = (variant: any) => {
   const genes = variant.genes?.hits.edges;
