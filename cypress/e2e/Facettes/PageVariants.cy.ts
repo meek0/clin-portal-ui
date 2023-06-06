@@ -13,7 +13,7 @@ describe('Page des variants - Filtrer avec les facettes', () => {
     cy.visitVariantsPage();
   });
 
-  it('Patient - Analyse', () => {
+  it('Patient - Analyse [CLIN-1994]', () => {
     cy.get('li[data-key="patient"]').click({force: true});
     cy.get('span[class*="FilterContainer_title"]', {timeout: 5000}).contains('Analyse').click({force: true});
 
@@ -39,7 +39,7 @@ describe('Page des variants - Filtrer avec les facettes', () => {
     cy.get('body').contains(/^511 795|511 796$/).should('exist');
   });
 
-  it('Patient - Sexe', () => {
+  it('Patient - Sexe [CLIN-1994]', () => {
     cy.get('li[data-key="patient"]').click({force: true});
     cy.get('span[class*="FilterContainer_title"]', {timeout: 5000}).contains('Sexe').click({force: true});
 

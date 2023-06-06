@@ -343,7 +343,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_occurrence', 'Zygosité', 0, dictionnary);
   });
 
-  it('Occurrence - Zygosité maternelle', () => {
+  it('Occurrence - Zygosité maternelle [CLIN-1994]', () => {
     const dictionnary = ['HOM',
                           'HEM',
                           'HET',
@@ -353,7 +353,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_occurrence', 'Zygosité maternelle', 1, dictionnary);
   });
 
-  it('Occurrence - Zygosité paternelle', () => {
+  it('Occurrence - Zygosité paternelle [CLIN-1994]', () => {
     const dictionnary = ['HOM',
                           'HEM',
                           'HET',
