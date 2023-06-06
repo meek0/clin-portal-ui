@@ -149,7 +149,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('category_variant', 'Zygosité', 5, dictionnary);
   });
 
-  it('Variant - Transmission [CLIN-1969]', () => {
+  it('Variant - Transmission', () => {
     const dictionnary = ['Autosomal Dominant De Novo',
                           'Autosomal Dominant',
                           'Autosomal Recessive',

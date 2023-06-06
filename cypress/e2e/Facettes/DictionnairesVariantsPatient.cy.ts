@@ -378,7 +378,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_occurrence', 'Origine parentale', 3, dictionnary);
   });
 
-  it('Occurrence - Transmission [CLIN-1969]', () => {
+  it('Occurrence - Transmission', () => {
     const dictionnary = ['Autosomal Dominant De Novo',
                           'Autosomal Dominant',
                           'Autosomal Recessive',
