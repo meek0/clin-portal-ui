@@ -28,40 +28,44 @@ describe('Page des variants - Colonnes du tableau', () => {
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(4)
-      .contains('Conséquences').should('exist');
+      .contains('Gène').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(5)
-      .contains('OMIM').should('exist');
+      .contains('Conséquence').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(6)
-      .contains('ClinVar').should('exist');
+      .contains('OMIM').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(7)
-      .contains('ACMG').should('exist');
+      .contains('ClinVar').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(8)
+      .contains('ACMG').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .find('th[class*="ant-table-cell"]').eq(9)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('gnomAD').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(9)
+      .find('th[class*="ant-table-cell"]').eq(10)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('RQDM').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('Critères ACMG').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(9)
+      .find('div[class="ant-space-item"]').eq(10)
       .contains('Critères ACMG').should('exist');
 /* CLICE-120
     cy.get('thead[class="ant-table-thead"]')
       .contains('CADD (Phred)').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(10)
+      .find('div[class="ant-space-item"]').eq(11)
       .contains('CADD (Phred)').should('exist');*/
   });
 
