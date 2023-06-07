@@ -82,6 +82,7 @@ export const getAssignmentDictionary = (): IAssignmentsDictionary => ({
     },
     textInfo: {
       searchPlaceholder: intl.get('assignment.dropdown.select.searchPlaceholder'),
+      notAssigned: intl.get('assignment.dropdown.select.notAssign'),
     },
   },
   filter: {

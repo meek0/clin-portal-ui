@@ -11,6 +11,7 @@
   "annotationUpdate": "Annotation date",
   "assignment.dropdown.actions.clear": "No assignment",
   "assignment.dropdown.select.searchPlaceholder": "Search",
+  "assignment.dropdown.select.notAssign":"Not assigned",
   "assignment.filter.actions.reset": "Reset",
   "assignment.filter.actions.ok": "OK",
   "assignment.title": "Assignment",

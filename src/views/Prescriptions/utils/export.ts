@@ -2,8 +2,8 @@ import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { Practitioner, PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
 import { findDonorById } from 'graphql/variants/selector';
-import { filter, find, orderBy } from 'lodash';
 import get from 'lodash/get';
+import orderBy from 'lodash/orderBy';
 import { renderCNVToString } from 'views/Cnv/Exploration/variantColumns';
 import { renderToString as renderConsequencesToString } from 'views/Snv/components/ConsequencesCell/index';
 import { renderToString as renderAcmgVerdictToString } from 'views/Snv/Exploration/components/AcmgVerdict';
@@ -243,27 +243,26 @@ export const getEmailfromPractionnerRole = (practitionerRole: PractitionerRole) 
 export const getPractitionerInfoList = (
   practitionerRolesBundle?: PractitionerBundleType,
 ): TPractitionnerInfo[] => {
-  const practitionerRoles: PractitionerRole[] = filter(
-    practitionerRolesBundle,
+  const practitionerRoles: PractitionerRole[] = practitionerRolesBundle?.filter(
     (p) => p.resourceType === 'PractitionerRole',
   ) as PractitionerRole[];
-  const infoList = practitionerRoles.reduce((acc: TPractitionnerInfo[], curr: PractitionerRole) => {
-    const practitioner: Practitioner = find(practitionerRolesBundle, (p) => {
+  const infoList = practitionerRoles?.map((pr: PractitionerRole) => {
+    const practitionerInfo: Practitioner = practitionerRolesBundle?.find((p) => {
+      const practitioner = pr as PractitionerRole;
       if (p.resourceType === 'Practitioner') {
-        return p.id === curr.practitioner.reference.split('/')[1];
+        return p.id === practitioner.practitioner.reference.split('/')[1];
       }
-      p.id === curr.practitioner.reference.split('/')[1];
+      p.id === practitioner.practitioner.reference.split('/')[1];
     }) as Practitioner;
-    const email = getEmailfromPractionnerRole(curr);
+    const email = getEmailfromPractionnerRole(pr);
     const obj: TPractitionnerInfo = {
-      practitionerRoles_Id: curr.id,
-      name: practitioner.name,
+      practitionerRoles_Id: pr.id,
+      name: practitionerInfo.name,
       email: email?.value,
-      ldm: curr.organization.reference.split('/')[1],
+      ldm: pr.organization.reference.split('/')[1],
     };
-
-    return [...acc, obj];
-  }, []);
+    return obj;
+  });
 
   return orderBy(infoList, (p) => p.name[0].family);
 };

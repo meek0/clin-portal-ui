@@ -10,6 +10,7 @@
   "allelic.ratio": "Ratio allélique",
   "assignment.dropdown.actions.clear": "Aucune assignation",
   "assignment.dropdown.select.searchPlaceholder": "Rechercher",
+  "assignment.dropdown.select.notAssign":"Non assignée",
   "assignment.title": "Assignation",
   "assignment.tooltip": "Assigner cette prescription",
   "assignment.filter.actions.reset": "Réinitialiser",

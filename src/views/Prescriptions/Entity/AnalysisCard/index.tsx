@@ -8,7 +8,6 @@ import { Card, Descriptions, Space, Tag } from 'antd';
 import { FhirApi } from 'api/fhir';
 import { extractOrganizationId, extractServiceRequestId } from 'api/fhir/helper';
 import { PractitionerRole, RequesterType, ServiceRequestEntity } from 'api/fhir/models';
-import { filter, find } from 'lodash';
 import StatusTag from 'views/Prescriptions/components/StatusTag';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
@@ -55,7 +54,9 @@ const renderTagList = (
       </div>
     ));
   } else {
-    return <AssignmentsTag background={false} unAssign={true} />;
+    return (
+      <AssignmentsTag dictionary={getAssignmentDictionary()} background={false} unAssign={true} />
+    );
   }
 };
 
@@ -66,20 +67,12 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
 
   useEffect(() => {
     if (!loading && prescription?.performer) {
-      const performerPactitionerRoles = filter(prescription?.performer, (r) =>
+      const performerPactitionerRoles = prescription?.performer.filter((r) =>
         r.reference.includes('PractitionerRole'),
       );
-      const performerPactitionerRolesID = performerPactitionerRoles.reduce(
-        (
-          acc: string[],
-          curr: {
-            reference: string;
-          },
-        ) => {
-          const practitionerRoles_Id = curr.reference.split('/')[1];
-          return [...acc, practitionerRoles_Id];
-        },
-        [],
+
+      const performerPactitionerRolesID = performerPactitionerRoles.map(
+        (p) => p.reference.split('/')[1],
       );
       setSelectedAssignment(performerPactitionerRolesID);
     }
@@ -120,7 +113,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
       });
     }
   };
-  const getOrganizationReference = find(prescription?.performer, (r) =>
+  const getOrganizationReference = prescription?.performer.find((r) =>
     r.reference.includes('Organization'),
   );
 

@@ -5,7 +5,7 @@ import AssignmentSelect from '@ferlab/ui/core/components/Assignments/Assignments
 import { AssignmentsTag } from '@ferlab/ui/core/components/Assignments/AssignmentsTag';
 import { UnAssignAvatar } from '@ferlab/ui/core/components/Assignments/AssignmentsTag/UnsassignAvatar';
 import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types';
-import Gravatar from '@ferlab/ui/core/components/Gravatar';
+import UserAvatar from '@ferlab/ui/core/components/UserAvatar';
 import { Avatar, Button, Popover, Space, Tooltip, Typography } from 'antd';
 import { FhirApi } from 'api/fhir';
 import { PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
@@ -73,7 +73,9 @@ const renderAvatarGroup = (selectedInfoList: TPractitionnerInfo[]) => {
           overlayClassName={styles.userPopOverContent}
           content={userPopOverContent([selectedInfoList[index]])}
         >
-          <Gravatar key={index} circle email={p.email ? p.email : ''} size={24} />
+          <div>
+            <UserAvatar size={24} userName={getPractitionnerName(p.name)} />
+          </div>
         </Popover>
       ))}
     </div>
@@ -84,17 +86,18 @@ const renderAvatarGroup = (selectedInfoList: TPractitionnerInfo[]) => {
         overlayClassName={styles.userPopOverContent}
         content={userPopOverContent([selectedInfoList[0]])}
       >
-        <Gravatar
-          key={selectedInfoList[0].practitionerRoles_Id}
-          circle
-          email={selectedInfoList?.[0].email ? selectedInfoList[0].email : ''}
-          size={24}
-        />
+        <div>
+          <UserAvatar
+            key={selectedInfoList[0].practitionerRoles_Id}
+            size={24}
+            userName={getPractitionnerName(selectedInfoList[0].name)}
+          />
+        </div>
       </Popover>
       <Popover
         trigger="hover"
         overlayClassName={styles.userPopOverContent}
-        content={userPopOverContent(selectedInfoList)}
+        content={userPopOverContent(selectedInfoList.slice(1))}
       >
         <Avatar className={styles.moreAssignment} size={24}>
           {`+${assigmentCount - 1}`}

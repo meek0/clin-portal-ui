@@ -9,7 +9,7 @@ import {
   MedicineBoxOutlined,
 } from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
-import Gravatar from '@ferlab/ui/core/components/Gravatar';
+import UserAvatar from '@ferlab/ui/core/components/UserAvatar';
 import { useKeycloak } from '@react-keycloak/web';
 import { Button, Dropdown, Menu, PageHeader, Space } from 'antd';
 import { PanelsApi } from 'api/panels';
@@ -127,11 +127,7 @@ const Header = () => {
             }
           >
             <a className={styles.userMenuTrigger} onClick={(e) => e.preventDefault()} href="">
-              <Gravatar
-                className={styles.userGravatar}
-                circle
-                email={tokenParsed.email || tokenParsed.identity_provider_identity}
-              />
+              <UserAvatar userName={tokenParsed.name} size={24} circle={false} />
               <span className={styles.userName}>{getUserFirstName()}</span>
               <DownOutlined />
             </a>
