@@ -41,12 +41,12 @@ describe('exportAsTSV', () => {
       varsome: {
         acmg: {
           verdict: {
-            verdict: 'foo',
+            verdict: 'Likely Pathogenic',
           },
         },
       },
     };
-    expect(exportAsTSV([row], ['acmgVerdict'], {}, 'SNV')).toEqual('acmgVerdict\nfoo\n');
+    expect(exportAsTSV([row], ['acmgVerdict'], {}, 'SNV')).toEqual('acmgVerdict\nLik. Patho.\n');
   });
 });
 
@@ -66,15 +66,27 @@ describe('customMapping SNV', () => {
       varsome: {
         acmg: {
           verdict: {
-            verdict: 'foo',
+            verdict: 'Likely Benign',
           },
         },
       },
     };
-    expect(customMapping('SNV', 'acmgVerdict', row)).toEqual('foo');
+    expect(customMapping('SNV', 'acmgVerdict', row)).toEqual('Lik. Benign');
   });
   test('should map omim', () => {
     const row = {
+      consequences: {
+        hits: {
+          edges: [
+            {
+              node: {
+                symbol: 'symbol',
+                picked: true,
+              },
+            },
+          ],
+        },
+      },
       genes: {
         hits: {
           edges: [
@@ -99,7 +111,7 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'omim', row)).toEqual('symbol IC');
+    expect(customMapping('SNV', 'omim', row)).toEqual('IC');
   });
   test('should map acmgcriteria', () => {
     const row = {
@@ -122,7 +134,7 @@ describe('customMapping SNV', () => {
     };
     expect(customMapping('SNV', 'acmgcriteria', row)).toEqual('name');
   });
-  test('should map consequences', () => {
+  test('should map consequence', () => {
     const row = {
       consequences: {
         hits: {
@@ -133,13 +145,14 @@ describe('customMapping SNV', () => {
                 consequences: 'foo',
                 vep_impact: 'impact',
                 aa_change: 'aa',
+                picked: true,
               },
             },
           ],
         },
       },
     };
-    expect(customMapping('SNV', 'consequences', row)).toEqual('Faa');
+    expect(customMapping('SNV', 'consequence', row)).toEqual('Faa');
   });
   test('should map donors.gq', () => {
     const row = {
