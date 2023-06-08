@@ -122,8 +122,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
 
     cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(5)
-      .find('div[class*="ToggleFilter_radio"]').contains('False')
-      .find('[type="radio"]').check({force: true});
+      .find('div[class*="CheckboxFilter_checkboxFilterItem"]').contains('False')
+      .find('[type="checkbox"]').check({force: true});
 
     cy.wait('@getPOSTgraphql', {timeout: 5000});
     cy.wait('@getPOSTgraphql', {timeout: 5000});

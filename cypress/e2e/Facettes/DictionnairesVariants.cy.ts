@@ -167,7 +167,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('category_variant', 'Transmission', 6, dictionnary);
   });
 
-  it.skip('Variant - Hét. composé', () => {
+  it('Variant - Hét. composé', () => {
     const dictionnary = ['False',
                          'True'];
 

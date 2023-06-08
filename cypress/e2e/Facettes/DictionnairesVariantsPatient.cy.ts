@@ -396,14 +396,14 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_occurrence', 'Transmission', 4, dictionnary);
   });
 
-  it.skip('Variant - Hét. composé', () => {
+  it('Variant - Hét. composé', () => {
     const dictionnary = ['False',
                          'True'];
 
     cy.validateDictionnary('category_occurrence', 'Hét. composé', 5, dictionnary);
   });
 
-  it.skip('Variant - Hét. composé potentiel', () => {
+  it('Variant - Hét. composé potentiel', () => {
     const dictionnary = ['False',
                          'True'];
 
