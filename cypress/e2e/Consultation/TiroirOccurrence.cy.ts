@@ -16,7 +16,7 @@ beforeEach(() => {
 });
 
 describe('Tiroir d\'une occurrence', () => {
-  it('Vérifier les informations affichées [CLIN-1994]', () => {
+  it('Vérifier les informations affichées', () => {
     cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(0).find('tr[class="ant-descriptions-row"]').eq(0).contains('chr10:g.113623545C>T').should('exist');
     cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(0).find('tr[class="ant-descriptions-row"]').eq(1).contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist');
 
@@ -44,7 +44,7 @@ describe('Tiroir d\'une occurrence', () => {
     cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(3).find('tr[class="ant-descriptions-row"]').eq(5).contains('PASS').should('exist');
   });
  
-  it('Valider les liens disponibles [CLIN-1994]', () => {
+  it('Valider les liens disponibles', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql1');
     cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(1).find('tr[class="ant-descriptions-row"]').eq(1).contains('3').click({force: true});
     cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
@@ -58,7 +58,7 @@ describe('Tiroir d\'une occurrence', () => {
     cy.contains('4 Résultats').should('exist', {timeout: 60*1000});
   });
   
-  it('Vérifier les informations affichées des métriques de séquençage parental [CLIN-1994]', () => {
+  it('Vérifier les informations affichées des métriques de séquençage parental', () => {
     cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(2).find('tr[class="ant-descriptions-row"]').eq(0).find('button[class*="ant-btn-sm"]').click({force: true});
 
     cy.get('div[class*="SequencingMetricModal_description"]').eq(0).find('tr[class="ant-descriptions-row"]').eq(0).contains('0.27').should('exist');

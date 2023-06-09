@@ -378,7 +378,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_occurrence', 'Origine parentale', 3, dictionnary);
   });
 
-  it('Occurrence - Transmission [CLIN-1969]', () => {
+  it('Occurrence - Transmission', () => {
     const dictionnary = ['Autosomal Dominant De Novo',
                           'Autosomal Dominant',
                           'Autosomal Recessive',
@@ -396,14 +396,14 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_occurrence', 'Transmission', 4, dictionnary);
   });
 
-  it.skip('Variant - Hét. composé', () => {
+  it('Variant - Hét. composé', () => {
     const dictionnary = ['False',
                          'True'];
 
     cy.validateDictionnary('category_occurrence', 'Hét. composé', 5, dictionnary);
   });
 
-  it.skip('Variant - Hét. composé potentiel', () => {
+  it('Variant - Hét. composé potentiel', () => {
     const dictionnary = ['False',
                          'True'];
 
