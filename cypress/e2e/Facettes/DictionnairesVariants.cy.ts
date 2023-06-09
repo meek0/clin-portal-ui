@@ -40,10 +40,10 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Patient - Sexe', () => {
-    const dictionnary = ['Female',
-                          'Male',
-                          'Other',
-                          'Unknown'];
+    const dictionnary = ['Féminin',
+                         'Masculin',
+                         'Autre',
+                         'Indéterminé'];
 
     cy.validateDictionnary('patient', 'Sexe', 2, dictionnary);
   });
