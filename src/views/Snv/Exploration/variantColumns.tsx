@@ -325,6 +325,45 @@ export const getVariantColumns = (
   if (patientId) {
     columns.push(
       {
+        key: 'donors.exomiser.gene_combined_score',
+        title: intl.get('screen.patientsnv.results.table.gene_combined_score'),
+        tooltip: intl.get('screen.patientsnv.results.table.gene_combined_score.tooltip'),
+        width: 59,
+        sorter: {
+          multiple: 1,
+        },
+        render: (record: VariantEntity) =>
+          renderDonorByKey(
+            'donors.exomiser.gene_combined_score',
+            findDonorById(record.donors, patientId),
+          ),
+      },
+      {
+        key: 'donors.exomiser.acmg_classification',
+        title: intl.get('screen.patientsnv.results.table.acmg_classification'),
+        tooltip: intl.get('screen.patientsnv.results.table.acmg_classification.tooltip'),
+        width: 100,
+        sorter: {
+          multiple: 1,
+        },
+        render: (record: VariantEntity) =>
+          renderDonorByKey(
+            'donors.exomiser.acmg_classification',
+            findDonorById(record.donors, patientId),
+          ),
+      },
+      {
+        key: 'donors.exomiser.acmg_evidence',
+        title: intl.get('screen.patientsnv.results.table.acmg_evidence'),
+        tooltip: intl.get('screen.patientsnv.results.table.acmg_evidence.tooltip'),
+        width: 150,
+        render: (record: VariantEntity) =>
+          renderDonorByKey(
+            'donors.exomiser.acmg_evidence',
+            findDonorById(record.donors, patientId),
+          ),
+      },
+      {
         key: 'donors.gq',
         title: intl.get('screen.patientsnv.results.table.gq'),
         tooltip: intl.get('gq.tooltip'),
@@ -511,6 +550,14 @@ export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
 const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
   if (key === 'donors.gq') {
     return <GqLine value={donor?.gq} />;
+  } else if (key === 'donors.exomiser.gene_combined_score') {
+    return donor?.exomiser?.gene_combined_score || TABLE_EMPTY_PLACE_HOLDER;
+  } else if (key === 'donors.exomiser.acmg_classification') {
+    return removeUnderscoreAndCapitalize(donor?.exomiser?.acmg_classification || '').defaultMessage(
+      TABLE_EMPTY_PLACE_HOLDER,
+    );
+  } else if (key === 'donors.exomiser.acmg_evidence') {
+    return (donor?.exomiser?.acmg_evidence || TABLE_EMPTY_PLACE_HOLDER)?.replaceAll(',', ', ');
   } else if (key === 'donors.zygosity') {
     return donor ? donor?.zygosity : TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors_genotype') {

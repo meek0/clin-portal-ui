@@ -99,6 +99,9 @@ const filterGroups: {
       {
         facets: [
           'clinvar__clin_sig',
+          'donors__exomiser__gene_combined_score',
+          'donors__exomiser__acmg_classification',
+          'donors__exomiser__acmg_evidence',
           'varsome__acmg__verdict__verdict',
           'varsome__acmg__classifications__name',
           'consequences__vep_impact',
