@@ -342,24 +342,13 @@ export const getVariantColumns = (
         key: 'donors.exomiser.acmg_classification',
         title: intl.get('screen.patientsnv.results.table.acmg_classification'),
         tooltip: intl.get('screen.patientsnv.results.table.acmg_classification.tooltip'),
-        width: 100,
+        width: 110,
         sorter: {
           multiple: 1,
         },
         render: (record: VariantEntity) =>
           renderDonorByKey(
             'donors.exomiser.acmg_classification',
-            findDonorById(record.donors, patientId),
-          ),
-      },
-      {
-        key: 'donors.exomiser.acmg_evidence',
-        title: intl.get('screen.patientsnv.results.table.acmg_evidence'),
-        tooltip: intl.get('screen.patientsnv.results.table.acmg_evidence.tooltip'),
-        width: 150,
-        render: (record: VariantEntity) =>
-          renderDonorByKey(
-            'donors.exomiser.acmg_evidence',
             findDonorById(record.donors, patientId),
           ),
       },
@@ -481,6 +470,18 @@ export const getVariantColumns = (
         width: 160,
         render: (record: VariantEntity) =>
           renderDonorByKey('filter', findDonorById(record.donors, patientId)),
+      },
+      {
+        key: 'donors.exomiser.acmg_evidence',
+        title: intl.get('screen.patientsnv.results.table.acmg_evidence'),
+        tooltip: intl.get('screen.patientsnv.results.table.acmg_evidence.tooltip'),
+        width: 150,
+        defaultHidden: true,
+        render: (record: VariantEntity) =>
+          renderDonorByKey(
+            'donors.exomiser.acmg_evidence',
+            findDonorById(record.donors, patientId),
+          ),
       },
     );
   }
