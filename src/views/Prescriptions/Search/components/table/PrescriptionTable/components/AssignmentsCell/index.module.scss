@@ -3,7 +3,7 @@
 .assigmentCell {
   display: flex;
   :not(:first-child) {
-    margin-left: -12px;
+    margin-left: -8px;
   }
 }
 
@@ -13,6 +13,9 @@
   :global(.ant-popover-arrow) {
     display: none;
   }
+  :global(.ant-popover-inner-content) {
+    padding: 8px 12px;
+  }
 }
 
 .assignementAvatar {
@@ -21,14 +24,38 @@
   }
 }
 
+.userAvatar {
+  font-size: 12px;
+  line-height: 20px;
+}
+.outlineAvatar {
+  outline: 1px solid white;
+}
+
 .userPopOverContent {
   width: fit-content;
   :global(.ant-popover-inner-content) {
     display: flex;
     flex-direction: column;
   }
+
+  :global(.ant-tag) {
+    :global(.ant-space-item):nth-child(2) {
+      span {
+        font-size: 14px;
+        line-height: 22px;
+      }
+    }
+  }
+
+  :global(.ant-typography-copy) {
+    font-size: 12px;
+  }
 }
 
+.userInfo {
+  background-color: red;
+}
 .moreAssignment {
   background-color: $blue-2;
   color: $blue-8;
@@ -43,20 +70,29 @@
   padding: 0;
   margin-left: 32px;
   height: 20px;
+
+  &:hover {
+    :global(.ant-typography-copy) {
+      display: inline-block !important;
+    }
+  }
+
+  :global(.ant-typography-copy) {
+    color: $gray-7;
+    display: none !important;
+    &:hover {
+      color: $blue-8;
+    }
+  }
   .emailTextGroup {
     text-decoration: none !important;
+    line-height: 20px;
+    display: flex;
     .emailText {
       text-decoration: none !important;
-
       font-size: 12px;
       &:hover {
         text-decoration: underline !important;
-        color: $blue-8;
-      }
-    }
-    :global(.ant-typography-copy) {
-      color: $gray-7;
-      &:hover {
         color: $blue-8;
       }
     }

@@ -6,6 +6,7 @@ import { AssignmentsTag } from '@ferlab/ui/core/components/Assignments/Assignmen
 import { UnAssignAvatar } from '@ferlab/ui/core/components/Assignments/AssignmentsTag/UnsassignAvatar';
 import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types';
 import UserAvatar from '@ferlab/ui/core/components/UserAvatar';
+import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { Avatar, Button, Popover, Space, Tooltip, Typography } from 'antd';
 import { FhirApi } from 'api/fhir';
 import { PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
@@ -28,9 +29,11 @@ export type TAssignmentsData = {
   assignments: string[];
 };
 
-const userPopOverContent = (userInfos: TPractitionnerInfo[]) =>
-  userInfos.map((ui) => (
-    <Space direction="vertical" size={0} key={ui.practitionerRoles_Id}>
+const userPopOverContent = (userInfos: TPractitionnerInfo[]) => {
+  const [isShown, setIsShown] = useState(false);
+
+  return userInfos.map((ui) => (
+    <StackLayout vertical={true} key={ui.practitionerRoles_Id}>
       <AssignmentsTag
         background={false}
         email={ui.email ? ui.email : ''}
@@ -47,21 +50,23 @@ const userPopOverContent = (userInfos: TPractitionnerInfo[]) =>
         size="small"
       >
         <Typography.Text
-          className={styles.emailTextGroup}
+          style={isShown ? { width: '100%', display: 'block' } : undefined}
+          ellipsis={isShown}
+          onMouseEnter={() => setIsShown(true)}
+          onMouseLeave={() => setIsShown(false)}
           copyable={{
             tooltips: [
               intl.get('assignment.popOver.copy.tooltip'),
               intl.get('assignment.popOver.copy.tooltip.copied'),
             ],
           }}
-          type="secondary"
         >
-          <span className={styles.emailText}>{ui.email ? ui.email : ''}</span>
+          {ui.email ? ui.email : ''}
         </Typography.Text>
       </Button>
-    </Space>
+    </StackLayout>
   ));
-
+};
 const renderAvatarGroup = (selectedInfoList: TPractitionnerInfo[]) => {
   const assigmentCount = selectedInfoList.length;
   return assigmentCount <= 2 ? (
@@ -72,9 +77,16 @@ const renderAvatarGroup = (selectedInfoList: TPractitionnerInfo[]) => {
           key={p.practitionerRoles_Id}
           overlayClassName={styles.userPopOverContent}
           content={userPopOverContent([selectedInfoList[index]])}
+          open
         >
           <div>
-            <UserAvatar size={24} userName={getPractitionnerName(p.name)} />
+            <UserAvatar
+              className={
+                index === 1 ? `${styles.outlineAvatar} ${styles.userAvatar}` : styles.userAvatar
+              }
+              size={24}
+              userName={getPractitionnerName(p.name)}
+            />
           </div>
         </Popover>
       ))}
@@ -88,6 +100,7 @@ const renderAvatarGroup = (selectedInfoList: TPractitionnerInfo[]) => {
       >
         <div>
           <UserAvatar
+            className={styles.userAvatar}
             key={selectedInfoList[0].practitionerRoles_Id}
             size={24}
             userName={getPractitionnerName(selectedInfoList[0].name)}
@@ -97,7 +110,11 @@ const renderAvatarGroup = (selectedInfoList: TPractitionnerInfo[]) => {
       <Popover
         trigger="hover"
         overlayClassName={styles.userPopOverContent}
-        content={userPopOverContent(selectedInfoList.slice(1))}
+        content={
+          <Space size={8} direction="vertical">
+            {userPopOverContent(selectedInfoList.slice(1))}
+          </Space>
+        }
       >
         <Avatar className={styles.moreAssignment} size={24}>
           {`+${assigmentCount - 1}`}
@@ -164,7 +181,7 @@ export const AssignmentsCell = ({
         placement="bottomLeft"
         trigger="click"
         content={content}
-        visible={canAssign ? undefined : false}
+        open={canAssign ? undefined : false}
         destroyTooltipOnHide
       >
         <div>
@@ -190,7 +207,7 @@ export const AssignmentsCell = ({
           }
           placement="top"
         >
-          <div>
+          <div className={styles.unAssignAvatar}>
             <UnAssignAvatar canAssign />
           </div>
         </Tooltip>

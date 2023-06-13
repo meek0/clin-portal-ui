@@ -138,7 +138,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
                   />
                 ) : (
                   <div className={styles.assigmentList}>
-                    <Space direction="vertical" size={4}>
+                    <Space size={4} wrap>
                       {renderTagList(selectedAssignment, practitionerInfoList)}
                     </Space>
                   </div>

@@ -127,7 +127,7 @@ const Header = () => {
             }
           >
             <a className={styles.userMenuTrigger} onClick={(e) => e.preventDefault()} href="">
-              <UserAvatar userName={tokenParsed.name} size={24} circle={false} />
+              <UserAvatar userName={tokenParsed.name} size={24} />
               <span className={styles.userName}>{getUserFirstName()}</span>
               <DownOutlined />
             </a>

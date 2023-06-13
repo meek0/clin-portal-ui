@@ -114,8 +114,9 @@ export const prescriptionsColumns = (
       render: (results: AnalysisResult) => (
         <AssignmentsCell results={results} practitionerRolesBundle={practitionerRolesBundle} />
       ),
-      title: 'assignement',
-      iconTitle: <UserOutlined />,
+      title: intl.get('assignment.title'),
+      iconTitle: <UserOutlined style={{ fontSize: '16px' }} />,
+      width: 50,
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) =>
         practitionerRolesBundle && (
           <AssignmentsFilterDropdown
