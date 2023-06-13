@@ -70,29 +70,25 @@
   padding: 0;
   margin-left: 32px;
   height: 20px;
-
-  &:hover {
-    :global(.ant-typography-copy) {
-      display: inline-block !important;
-    }
-  }
-
-  :global(.ant-typography-copy) {
-    color: $gray-7;
-    display: none !important;
-    &:hover {
-      color: $blue-8;
-    }
-  }
   .emailTextGroup {
     text-decoration: none !important;
     line-height: 20px;
-    display: flex;
     .emailText {
       text-decoration: none !important;
       font-size: 12px;
       &:hover {
         text-decoration: underline !important;
+        color: $blue-8;
+      }
+    }
+    &:hover {
+      :global(.ant-typography-copy) {
+        display: inline !important;
+      }
+    }
+    :global(.ant-typography-copy) {
+      color: $gray-7;
+      &:hover {
         color: $blue-8;
       }
     }

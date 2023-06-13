@@ -29,10 +29,8 @@ export type TAssignmentsData = {
   assignments: string[];
 };
 
-const userPopOverContent = (userInfos: TPractitionnerInfo[]) => {
-  const [isShown, setIsShown] = useState(false);
-
-  return userInfos.map((ui) => (
+const userPopOverContent = (userInfos: TPractitionnerInfo[]) =>
+  userInfos.map((ui) => (
     <StackLayout vertical={true} key={ui.practitionerRoles_Id}>
       <AssignmentsTag
         background={false}
@@ -50,23 +48,21 @@ const userPopOverContent = (userInfos: TPractitionnerInfo[]) => {
         size="small"
       >
         <Typography.Text
-          style={isShown ? { width: '100%', display: 'block' } : undefined}
-          ellipsis={isShown}
-          onMouseEnter={() => setIsShown(true)}
-          onMouseLeave={() => setIsShown(false)}
+          className={styles.emailTextGroup}
           copyable={{
             tooltips: [
               intl.get('assignment.popOver.copy.tooltip'),
               intl.get('assignment.popOver.copy.tooltip.copied'),
             ],
           }}
+          type="secondary"
         >
-          {ui.email ? ui.email : ''}
+          <span className={styles.emailText}>{ui.email ? ui.email : ''}</span>
         </Typography.Text>
       </Button>
     </StackLayout>
   ));
-};
+
 const renderAvatarGroup = (selectedInfoList: TPractitionnerInfo[]) => {
   const assigmentCount = selectedInfoList.length;
   return assigmentCount <= 2 ? (
@@ -77,7 +73,6 @@ const renderAvatarGroup = (selectedInfoList: TPractitionnerInfo[]) => {
           key={p.practitionerRoles_Id}
           overlayClassName={styles.userPopOverContent}
           content={userPopOverContent([selectedInfoList[index]])}
-          open
         >
           <div>
             <UserAvatar
