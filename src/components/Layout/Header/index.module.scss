@@ -59,7 +59,7 @@
   }
 
   .langBtn {
-    color: $gray-1
+    color: $gray-1;
   }
 
   .extras {
@@ -89,6 +89,8 @@
   z-index: 1001;
 }
 
-.userAvatar{
-  font-size: 12px;
+.userAvatar {
+  span {
+    font-size: 12px;
+  }
 }

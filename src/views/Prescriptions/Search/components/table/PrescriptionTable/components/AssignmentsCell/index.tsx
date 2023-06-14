@@ -54,6 +54,7 @@ const userPopOverContent = (userInfos: TPractitionnerInfo[]) =>
               intl.get('assignment.popOver.copy.tooltip'),
               intl.get('assignment.popOver.copy.tooltip.copied'),
             ],
+            text: ui.email ? ui.email : '',
           }}
           type="secondary"
         >
@@ -203,7 +204,7 @@ export const AssignmentsCell = ({
           placement="top"
         >
           <div className={styles.unAssignAvatar}>
-            <UnAssignAvatar canAssign />
+            <UnAssignAvatar canAssign={canAssign} />
           </div>
         </Tooltip>
       </Popover>
