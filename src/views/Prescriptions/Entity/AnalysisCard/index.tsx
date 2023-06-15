@@ -62,7 +62,7 @@ const renderTagList = (
 
 const AnalysisCard = ({ prescription, loading }: OwnProps) => {
   const { getAnalysisNameByCode } = useGlobals();
-
+  const [loadingSelect, setLoadingSelect] = useState<boolean>();
   const [selectedAssignment, setSelectedAssignment] = useState<string[]>([]);
 
   useEffect(() => {
@@ -105,12 +105,17 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
       [...(practitionerRoles_ids || [])]?.sort().toString() !==
       [...(selectedAssignment || [])]?.sort().toString()
     ) {
+      setLoadingSelect(true);
       FhirApi.prescriptionAssignment(
         prescription?.id ? extractServiceRequestId(prescription?.id) : '',
         practitionerRoles_ids,
-      ).then(({ data }) => {
-        setSelectedAssignment(data?.assignments ? data.assignments : []);
-      });
+      )
+        .then(({ data }) => {
+          setSelectedAssignment(data?.assignments ? data.assignments : []);
+        })
+        .finally(() => {
+          setLoadingSelect(false);
+        });
     }
   };
   const getOrganizationReference = prescription?.performer.find((r) =>
@@ -135,6 +140,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
                     options={practitionerInfoList}
                     handleSelect={handleSelect}
                     assignedPractionnerRoles={selectedAssignment}
+                    loading={loadingSelect}
                   />
                 ) : (
                   <div className={styles.assigmentList}>

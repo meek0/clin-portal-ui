@@ -125,17 +125,20 @@ export const AssignmentsCell = ({
   practitionerRolesBundle,
 }: TAssignmentsCell): React.ReactElement => {
   const [selectedAssignment, setSelectedAssignment] = useState<string[]>(results.assignments);
-
+  const [loadingSelect, setLoadingSelect] = useState<boolean>();
   const handleSelect = (practitionerRoles_ids: string[]) => {
     if (
       [...(practitionerRoles_ids || [])]?.sort().toString() !==
       [...(selectedAssignment || [])]?.sort().toString()
     ) {
-      FhirApi.prescriptionAssignment(results.prescription_id, practitionerRoles_ids).then(
-        ({ data }) => {
+      setLoadingSelect(true);
+      FhirApi.prescriptionAssignment(results.prescription_id, practitionerRoles_ids)
+        .then(({ data }) => {
           setSelectedAssignment(data?.assignments ? data.assignments : []);
-        },
-      );
+        })
+        .finally(() => {
+          setLoadingSelect(false);
+        });
     }
   };
 
@@ -161,6 +164,7 @@ export const AssignmentsCell = ({
       selectedInfoList = putUserFirst(selectedInfoList, userPractionnerRoles);
     }
   }
+
   const content = (
     <AssignmentSelect
       dictionary={getAssignmentDictionary()}
@@ -168,6 +172,7 @@ export const AssignmentsCell = ({
       handleSelect={handleSelect}
       assignedPractionnerRoles={selectedAssignment}
       visibleOptions={true}
+      loading={loadingSelect}
     />
   );
   return selectedAssignment.length > 0 ? (
@@ -194,7 +199,7 @@ export const AssignmentsCell = ({
         placement="bottomLeft"
         trigger="click"
         content={content}
-        visible={canAssign ? undefined : false}
+        open={canAssign ? undefined : false}
         destroyTooltipOnHide
       >
         <Tooltip
