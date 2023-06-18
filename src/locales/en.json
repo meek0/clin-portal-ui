@@ -846,5 +846,9 @@
       "affected": "Affected",
       "not_affected": "Not Affected"
     }
-  }
+  },
+  "prescription.tabs.title.details": "Details",
+  "prescription.tabs.title.variants": "Variants",
+  "prescription.tabs.title.files": "Files",
+  "prescription.variants.header.request": "Request"
 }

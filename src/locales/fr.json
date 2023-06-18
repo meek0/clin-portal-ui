@@ -843,11 +843,15 @@
   "donors.zyg.abrv.HEM": "Hemizygote",
   "donors.zyg.abrv.HET": "Hétérozygote",
   "donor.zygosity.tooltip": "Zygosité",
-  "donors" : {
+  "donors": {
     "status": {
       "unknown": "Indéterminé",
       "affected": "Atteint",
       "not_affected": "Non atteint"
     }
-  }
+  },
+  "prescription.tabs.title.details": "Détails",
+  "prescription.tabs.title.variants": "Variants",
+  "prescription.tabs.title.files": "Fichiers",
+  "prescription.variants.header.request": "Requête"
 }

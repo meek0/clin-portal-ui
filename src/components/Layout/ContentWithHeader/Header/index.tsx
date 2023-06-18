@@ -9,7 +9,7 @@ const { Title } = Typography;
 
 export type ContentHeaderProps = {
   icon?: React.ReactNode;
-  title: string;
+  title?: string;
   loading?: boolean;
   extra?: ReactNode[];
   actions?: ReactNode[];
@@ -34,7 +34,7 @@ const ContentHeader = ({
         )}
         {icon && <span className={styles.headerIcon}>{icon}</span>}
         <Space size={12}>
-          <Title level={3}>{title}</Title>
+          {title && <Title level={3}>{title}</Title>}
           <Skeleton
             title={{ width: 200 }}
             paragraph={false}
