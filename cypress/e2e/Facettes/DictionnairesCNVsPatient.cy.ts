@@ -28,7 +28,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                           'Rhabdomyolysis (RHAB)',
                           'No Data'];
 
-    cy.validateDictionnary('rqdm', 'RQDM', 0, dictionnary);
+    cy.validateDictionnary('rqdm', /^RQDM$/, 0, dictionnary);
   });
 
   it('Variant - Type de variant', () => {
@@ -36,7 +36,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                           'LOSS',
                           'No Data'];
 
-    cy.validateDictionnary('category_variant', 'Type de variant', 0, dictionnary);
+    cy.validateDictionnary('category_variant', /^Type de variant$/, 0, dictionnary);
   });
 
   it('Variant - Chromosome', () => {
@@ -66,7 +66,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                           'Y',
                           'No Data'];
 
-    cy.validateDictionnary('category_variant', 'Chromosome', 2, dictionnary);
+    cy.validateDictionnary('category_variant', /^Chromosome$/, 2, dictionnary);
   });
 
   it('Gène - Panel RQDM', () => {
@@ -84,7 +84,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                           'Rhabdomyolysis (RHAB)',
                           'No Data'];
 
-    cy.validateDictionnary('category_genomic', 'Panel RQDM', 0, dictionnary);
+    cy.validateDictionnary('category_genomic', /^Panel RQDM$/, 0, dictionnary);
   });
 
   it('Occurrence - Filtre (Dragen)', () => {
@@ -92,6 +92,6 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                           'CnvQual',
                           'No Data'];
 
-    cy.validateDictionnary('category_occurrence', 'Filtre (Dragen)', 0, dictionnary);
+    cy.validateDictionnary('category_occurrence', /^Filtre \(Dragen\)$/, 0, dictionnary);
   });
 });
