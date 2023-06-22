@@ -111,7 +111,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('category_variant', /^Référence externe$/, 2, dictionnary);
   });
 
-  it('Variant - Chromosome', () => {
+  it('Variant - Chromosome [CLIN-2031]', () => {
     const dictionnary = [/^1$/,
                          /^2$/,
                          '3',
