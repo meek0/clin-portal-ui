@@ -55,7 +55,7 @@
   "filters.group.consequences.predictions.fathmm_pred": "FATHMM",
   "filters.group.consequences.predictions.lrt_pred": "LRT",
   "filters.group.consequences.predictions.polyphen2_hvar_pred": "Polyphen 2 HVAR",
-  "filters.group.consequences.predictions.revel_rankscore": "REVEL",
+  "filters.group.consequences.predictions.revel_score": "REVEL",
   "filters.group.consequences.predictions.sift_pred": "SIFT",
   "filters.group.consequences.symbol": "Genes",
   "filters.group.consequences.symbol_id_1": "Genes",
