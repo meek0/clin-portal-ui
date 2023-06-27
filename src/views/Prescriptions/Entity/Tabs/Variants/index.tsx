@@ -16,6 +16,8 @@ import CnvPatient from './cnv';
 import SnvPatient from './snv';
 import { extractOptionValue, formatOptionValue, getRequestOptions, hasVariantInfo } from './utils';
 
+import styles from './index.module.scss';
+
 const PrescriptionVariants = () => {
   const queryParams = useQueryParams();
   const {
@@ -65,7 +67,9 @@ const PrescriptionVariants = () => {
           <CnvPatient />
         )
       ) : (
-        <Spin spinning />
+        <div className={styles.loadingContainer}>
+          <Spin spinning />
+        </div>
       )}
     </div>
   );
