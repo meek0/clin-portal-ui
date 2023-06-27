@@ -1,10 +1,9 @@
 import React from 'react';
-import intl from 'react-intl-universal';
-import { Space, Tag } from 'antd';
+import { Tag } from 'antd';
 import { PatientServiceRequestFragment, ServiceRequestEntity } from 'api/fhir/models';
-import { getPositionTag } from 'graphql/prescriptions/helper';
 
 import { useGlobals } from 'store/global';
+import SpecimenIcon from 'components/icons/SpecimenIcon';
 
 // specimen with parent is the sample
 const extractSampleValue = (resource?: PatientServiceRequestFragment): string | undefined =>
@@ -41,24 +40,24 @@ export default (
   prescription?: ServiceRequestEntity,
   basedOnPrescription?: ServiceRequestEntity,
 ): React.ReactNode[] => {
+  const tags: React.ReactNode[] = [];
   const { getAnalysisNameByCode } = useGlobals();
+
   const specimen = getSpecimen(patientId, prescription, basedOnPrescription);
-  const tags: React.ReactNode[] = [
-    <Tag color="blue" key="patient-prescription-id">
-      <Space align="center">
-        {`Patient ID : ${patientId}`}
-        {specimen && `|`}
-        {specimen && intl.get('tag.sample') + ` : ${specimen}`}
-      </Space>
-    </Tag>,
-  ];
+
+  if (specimen) {
+    tags.push(
+      <Tag icon={<SpecimenIcon height="12" width="12" />} key="patient-prescription-id">
+        {specimen}
+      </Tag>,
+    );
+  }
 
   if (prescription) {
     tags.push(
       <div key="analsysis-name">
         {<Tag color="geekblue">{getAnalysisNameByCode(prescription.code)}</Tag>}
       </div>,
-      getPositionTag(prescription.basedOn ? basedOnPrescription : prescription, patientId),
     );
   }
 
