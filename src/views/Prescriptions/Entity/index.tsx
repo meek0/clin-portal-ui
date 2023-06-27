@@ -15,7 +15,11 @@ import Forbidden from 'components/Results/Forbidden';
 import PrescriptionDetails from './Tabs/Details';
 import PrescriptionFiles from './Tabs/Files';
 import PrescriptionVariants from './Tabs/Variants';
-import PrescriptionEntityContext, { PrescriptionEntityContextType } from './context';
+import { getPatientAndRequestId } from './Tabs/Variants/utils';
+import PrescriptionEntityContext, {
+  PrescriptionEntityContextType,
+  PrescriptionEntityVariantInfo,
+} from './context';
 
 import styles from './index.module.scss';
 
@@ -32,27 +36,62 @@ enum PrescriptionEntityTabs {
 const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
   const { hash } = useLocation();
   const { push } = useHistory();
+  const [requestLoading, setRequestLoading] = useState(true);
   const { prescription, loading } = useServiceRequestEntity(prescriptionId);
-  const [basedOnPrescription, setBasedOnPrescription] = useState<ServiceRequestEntity>();
+
+  const [selectedRequest, setSelectedRequest] = useState<ServiceRequestEntity>();
+  const [selectedBasedOnRequest, setBasedOnRequest] = useState<ServiceRequestEntity>();
+  const [variantInfo, setVariantInfo] = useState<PrescriptionEntityVariantInfo>();
 
   useEffect(() => {
-    if (prescription?.basedOn) {
-      FhirApi.fetchServiceRequestEntity(prescription?.basedOn.reference).then(({ data }) =>
-        setBasedOnPrescription(data?.data.ServiceRequest),
-      );
-    }
-  }, [prescription]);
+    const subjectRequestId = prescription?.subject?.resource?.requests?.[0]?.id;
 
-  const memoedContextValue = useMemo<PrescriptionEntityContextType>(
-    () => ({
+    if (subjectRequestId) {
+      FhirApi.fetchServiceRequestEntity(subjectRequestId).then(({ data }) => {
+        setSelectedRequest(data?.data.ServiceRequest);
+        data?.data.ServiceRequest.basedOn ? null : setRequestLoading(false);
+      });
+    }
+  }, [prescription?.subject?.resource?.requests]);
+
+  useEffect(() => {
+    if (selectedRequest?.basedOn) {
+      FhirApi.fetchServiceRequestEntity(selectedRequest?.basedOn.reference).then(({ data }) => {
+        setBasedOnRequest(data?.data.ServiceRequest);
+        setRequestLoading(false);
+      });
+    }
+  }, [selectedRequest]);
+
+  const memoedContextValue = useMemo<PrescriptionEntityContextType>(() => {
+    const prescriptionId = prescription ? extractServiceRequestId(prescription.id) : undefined;
+    const patientId = selectedBasedOnRequest
+      ? extractPatientId(selectedBasedOnRequest?.subject.reference)
+      : undefined;
+    const { requestId } = getPatientAndRequestId(selectedBasedOnRequest?.subject.resource);
+
+    return {
+      loading: loading || requestLoading,
+      patientId,
       prescription,
-      basedOnPrescription,
-      loading,
-      patientId: prescription ? extractPatientId(prescription?.subject.reference) : undefined,
-      prescriptionId: prescription ? extractServiceRequestId(prescription.id) : undefined,
-    }),
-    [prescription, basedOnPrescription, loading],
-  );
+      prescriptionId,
+      selectedRequest,
+      selectedBasedOnRequest,
+      setVariantInfo,
+      variantInfo: variantInfo || {
+        patientId,
+        requestId,
+      },
+    };
+  }, [
+    prescription,
+    selectedRequest,
+    selectedBasedOnRequest,
+    loading,
+    requestLoading,
+    variantInfo,
+    setVariantInfo,
+  ]);
 
   if (!loading && !prescription) {
     return <Forbidden />;

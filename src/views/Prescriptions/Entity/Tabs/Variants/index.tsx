@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import intl from 'react-intl-universal';
-import { Select, Space, Typography } from 'antd';
-import { getFamilyCode } from 'graphql/prescriptions/helper';
+import { Select, Space, Spin, Typography } from 'antd';
 
 import ContentHeader from 'components/Layout/ContentWithHeader/Header';
 import PatientTags from 'components/Variant/PatientTags';
@@ -15,47 +14,59 @@ import VariantSectionNav, {
 } from './components/VariantSectionNav';
 import CnvPatient from './cnv';
 import SnvPatient from './snv';
+import { extractOptionValue, formatOptionValue, getRequestOptions, hasVariantInfo } from './utils';
 
 const PrescriptionVariants = () => {
   const queryParams = useQueryParams();
-  const { prescription, patientId, prescriptionId, basedOnPrescription } =
-    useContext(PrescriptionEntityContext);
+  const {
+    prescription,
+    selectedRequest,
+    selectedBasedOnRequest,
+    variantInfo,
+    setVariantInfo,
+    loading,
+  } = useContext(PrescriptionEntityContext);
 
-  const patientTags = patientId
-    ? PatientTags(patientId, prescriptionId, prescription, basedOnPrescription)
+  const patientTags = variantInfo.patientId
+    ? PatientTags(variantInfo.patientId, selectedRequest, selectedBasedOnRequest)
     : [];
 
   const variantSection = queryParams.get(VariantSectionKey) || VariantSection.SNV;
-
-  const familyCode = getFamilyCode(prescription, patientId!);
 
   return (
     <div>
       <ContentHeader
         title=""
         extra={[
-          <Space key="request">
-            <Typography.Text strong>
-              {intl.get('prescription.variants.header.request')} :
-            </Typography.Text>
-            <Select
-              size="small"
-              defaultValue={'1'}
-              options={[
-                {
-                  label: `${
-                    familyCode ? intl.get(familyCode) : intl.get('proband')
-                  } (${patientId})`,
-                  value: '1',
-                },
-              ]}
-            />
-          </Space>,
+          <>
+            {hasVariantInfo(variantInfo) && (
+              <Space key="request">
+                <Typography.Text strong>
+                  {intl.get('prescription.variants.header.request')} :
+                </Typography.Text>
+                <Select
+                  size="small"
+                  defaultValue={formatOptionValue(variantInfo.patientId!, variantInfo.requestId!)}
+                  options={getRequestOptions(prescription)}
+                  onChange={(value) => setVariantInfo(extractOptionValue(value))}
+                />
+              </Space>
+            )}
+          </>,
           <VariantSectionNav key="variant-section-nav" />,
           ...patientTags,
         ]}
+        loading={loading}
       />
-      {variantSection === VariantSection.SNV ? <SnvPatient /> : <CnvPatient />}
+      {hasVariantInfo(variantInfo) ? (
+        variantSection === VariantSection.SNV ? (
+          <SnvPatient />
+        ) : (
+          <CnvPatient />
+        )
+      ) : (
+        <Spin spinning />
+      )}
     </div>
   );
 };

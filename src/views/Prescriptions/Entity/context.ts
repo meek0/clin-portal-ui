@@ -3,18 +3,36 @@ import { ServiceRequestEntity } from 'api/fhir/models';
 
 export type PrescriptionEntityContextType = {
   patientId: string | undefined;
-  prescriptionId: string | undefined;
   prescription: ServiceRequestEntity | undefined;
-  basedOnPrescription: ServiceRequestEntity | undefined;
+  prescriptionId: string | undefined;
+
+  selectedRequest: ServiceRequestEntity | undefined;
+  selectedBasedOnRequest: ServiceRequestEntity | undefined;
   loading: boolean;
+  variantInfo: PrescriptionEntityVariantInfo<undefined>;
+  setVariantInfo(variantInfo: PrescriptionEntityVariantInfo): void;
+};
+
+export type PrescriptionEntityVariantInfo<T = string> = {
+  patientId: string | T;
+  requestId: string | T;
 };
 
 const PrescriptionEntityContext = React.createContext<PrescriptionEntityContextType>({
-  patientId: undefined,
-  prescriptionId: undefined,
-  prescription: undefined,
-  basedOnPrescription: undefined,
   loading: false,
+
+  patientId: undefined,
+  prescription: undefined,
+  prescriptionId: undefined,
+
+  selectedRequest: undefined,
+  selectedBasedOnRequest: undefined,
+
+  setVariantInfo: () => {},
+  variantInfo: {
+    patientId: undefined,
+    requestId: undefined,
+  },
 });
 
 export const usePrescriptionEntityContext = () => useContext(PrescriptionEntityContext);

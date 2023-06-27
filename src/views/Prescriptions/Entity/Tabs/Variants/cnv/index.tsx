@@ -1,6 +1,5 @@
 import SidebarMenu from '@ferlab/ui/core/components/SidebarMenu';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
-import { extractServiceRequestId } from 'api/fhir/helper';
 import { INDEXES } from 'graphql/constants';
 import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
@@ -16,10 +15,10 @@ import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
 import styles from './index.module.scss';
 
 const CnvPatient = () => {
-  const { prescription, patientId } = usePrescriptionEntityContext();
+  const { prescriptionId, variantInfo } = usePrescriptionEntityContext();
   const variantMappingResults = useGetExtendedMappings(INDEXES.CNV);
   const filterMapper = (filters: ISqonGroupFilter) =>
-    wrapSqonWithPatientIdAndRequestId(filters, patientId /** prescriptionid */);
+    wrapSqonWithPatientIdAndRequestId(filters, variantInfo.patientId /** prescriptionid */);
 
   return (
     <div className={styles.cnvVariant}>
@@ -30,8 +29,8 @@ const CnvPatient = () => {
       <ScrollContentWithFooter scrollId={SCROLL_WRAPPER_ID}>
         <PageContent
           variantMapping={variantMappingResults}
-          patientId={patientId}
-          prescriptionId={prescription ? extractServiceRequestId(prescription?.id) : undefined}
+          patientId={variantInfo.patientId}
+          prescriptionId={prescriptionId}
         />
       </ScrollContentWithFooter>
     </div>
