@@ -28,6 +28,7 @@ export const usePrescription = (
 ): GqlResults<AnalysisResult> => {
   const { loading, result } = useLazyResultQuery<any>(PRESCRIPTIONS_QUERY, {
     variables: variables,
+    fetchPolicy: 'network-only',
   });
   const prescriptions = result?.Analyses;
   return {
