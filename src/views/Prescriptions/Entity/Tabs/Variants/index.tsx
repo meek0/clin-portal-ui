@@ -48,6 +48,7 @@ const PrescriptionVariants = () => {
                 </Typography.Text>
                 <Select
                   size="small"
+                  value={formatOptionValue(variantInfo.patientId!, variantInfo.requestId!)}
                   defaultValue={formatOptionValue(variantInfo.patientId!, variantInfo.requestId!)}
                   options={getRequestOptions(prescription)}
                   onChange={(value) => setVariantInfo(extractOptionValue(value))}
