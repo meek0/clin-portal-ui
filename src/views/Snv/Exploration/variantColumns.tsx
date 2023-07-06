@@ -272,6 +272,41 @@ export const getVariantColumns = (
       width: 160,
       render: renderClinvar,
     },
+  ];
+
+  if (patientId) {
+    columns.push(
+      {
+        key: 'donors.exomiser.gene_combined_score',
+        title: intl.get('screen.patientsnv.results.table.gene_combined_score'),
+        tooltip: intl.get('screen.patientsnv.results.table.gene_combined_score.tooltip'),
+        width: 59,
+        sorter: {
+          multiple: 1,
+        },
+        render: (record: VariantEntity) =>
+          renderDonorByKey(
+            'donors.exomiser.gene_combined_score',
+            findDonorById(record.donors, patientId),
+          ),
+      },
+      {
+        key: 'donors.exomiser.acmg_classification',
+        title: intl.get('screen.patientsnv.results.table.acmg_classification'),
+        tooltip: intl.get('screen.patientsnv.results.table.acmg_classification.tooltip'),
+        width: 110,
+        sorter: {
+          multiple: 1,
+        },
+        render: (record: VariantEntity) =>
+          renderDonorByKey(
+            'donors.exomiser.acmg_classification',
+            findDonorById(record.donors, patientId),
+          ),
+      },
+    );
+  }
+  columns.push(
     {
       key: 'acmgVerdict',
       title: intl.get('screen.patientsnv.results.table.acmgVerdict'),
@@ -316,7 +351,7 @@ export const getVariantColumns = (
       width: 100,
       render: (record: VariantEntity) => formatRqdm(record.frequency_RQDM, record),
     },
-  ];
+  );
 
   if (!patientId) {
     columns.push(getAcmgCriteriaCol());
@@ -324,34 +359,6 @@ export const getVariantColumns = (
 
   if (patientId) {
     columns.push(
-      {
-        key: 'donors.exomiser.gene_combined_score',
-        title: intl.get('screen.patientsnv.results.table.gene_combined_score'),
-        tooltip: intl.get('screen.patientsnv.results.table.gene_combined_score.tooltip'),
-        width: 59,
-        sorter: {
-          multiple: 1,
-        },
-        render: (record: VariantEntity) =>
-          renderDonorByKey(
-            'donors.exomiser.gene_combined_score',
-            findDonorById(record.donors, patientId),
-          ),
-      },
-      {
-        key: 'donors.exomiser.acmg_classification',
-        title: intl.get('screen.patientsnv.results.table.acmg_classification'),
-        tooltip: intl.get('screen.patientsnv.results.table.acmg_classification.tooltip'),
-        width: 110,
-        sorter: {
-          multiple: 1,
-        },
-        render: (record: VariantEntity) =>
-          renderDonorByKey(
-            'donors.exomiser.acmg_classification',
-            findDonorById(record.donors, patientId),
-          ),
-      },
       {
         key: 'donors.gq',
         title: intl.get('screen.patientsnv.results.table.gq'),
