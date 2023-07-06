@@ -182,4 +182,3 @@ export const SEARCH_PRESCRIPTION_FILES_QUERY = (searchValue: string) => gql`
     }
   }
 `;
-

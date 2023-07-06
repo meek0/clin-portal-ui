@@ -1,38 +1,59 @@
 import { useContext, useEffect, useState } from 'react';
-import { extractServiceRequestId } from 'api/fhir/helper';
-
-import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
-
-import PrescriptionEntityContext from '../../context';
-import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import ProTable from '@ferlab/ui/core/components/ProTable';
-import { getProTableDictionary } from 'utils/translation';
-import { getFileTableColumns } from './columns';
+import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { FhirApi } from 'api/fhir';
 import { DocsWithTaskInfo } from 'views/Archives';
 import { extractDocsFromTask } from 'views/Archives/helper';
 
+import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
+import { getProTableDictionary } from 'utils/translation';
+
+import PrescriptionEntityContext from '../../context';
+import { getPatientAndRequestId } from '../Variants/utils';
+
+import { getFileTableColumns } from './columns';
+
 const PrescriptionFiles = () => {
   const [loading, setLoading] = useState(false);
-  const { prescriptionId } = useContext(PrescriptionEntityContext);
+  const { prescription } = useContext(PrescriptionEntityContext);
   const [docs, setDocs] = useState<DocsWithTaskInfo[]>([]);
 
-  useEffect(() => {
-    console.log("ALLO FETCHING")
+  const getAllRequestIds = () => {
+    const { requestId } = getPatientAndRequestId(prescription?.subject.resource);
+    const otherRequestIds = (prescription?.extensions || []).map((ext) => {
+      const extensionValueRef = ext?.extension?.[1];
+      const { requestId } = getPatientAndRequestId(extensionValueRef?.valueReference?.resource);
+      return requestId;
+    });
 
-    setLoading(true);
-    FhirApi.searchPrescriptionFiles("812562")
-      .then(({ data }) => {
-        if (data?.data.taskList) {
-          setDocs(extractDocsFromTask(data.data.taskList));
-        } else {
-          setDocs([]);
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+    return [requestId, ...otherRequestIds];
+  };
+
+  const allRequestIds = getAllRequestIds();
+
+  useEffect(() => {
+    const fetchAllFiles = async () => {
+      setLoading(true);
+      const results = await Promise.all(
+        allRequestIds.map<Promise<DocsWithTaskInfo[]>>((requestId) =>
+          FhirApi.searchPatientFiles(requestId).then(({ data }) => {
+            if (data?.data.taskList) {
+              return extractDocsFromTask(data.data.taskList);
+            } else {
+              return [];
+            }
+          }),
+        ),
+      );
+      setLoading(false);
+
+      setDocs(results.reduce((a, b) => [...a, ...b], []));
+    };
+
+    if (allRequestIds.length) {
+      fetchAllFiles();
+    }
+  }, [JSON.stringify(allRequestIds)]);
 
   return (
     <ScrollContentWithFooter container>
@@ -41,14 +62,13 @@ const PrescriptionFiles = () => {
           <ProTable
             tableId="prescription-entity-files"
             columns={getFileTableColumns()}
-            dataSource={[] as any}
+            dataSource={docs}
             headerConfig={{
               enableColumnSort: true,
             }}
             loading={loading}
             showSorterTooltip={false}
             dictionary={getProTableDictionary()}
-            onChange={({ current, pageSize }, filters, sorter, extra) => {}}
             size="small"
             bordered
           />
