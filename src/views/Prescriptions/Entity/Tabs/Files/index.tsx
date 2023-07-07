@@ -13,6 +13,9 @@ import { getPatientAndRequestId } from '../Variants/utils';
 
 import { getFileTableColumns } from './columns';
 
+import styles from './index.module.scss';
+import Footer from 'components/Layout/Footer';
+
 const PrescriptionFiles = () => {
   const [loading, setLoading] = useState(false);
   const { prescription } = useContext(PrescriptionEntityContext);
@@ -56,25 +59,28 @@ const PrescriptionFiles = () => {
   }, [JSON.stringify(allRequestIds)]);
 
   return (
-    <ScrollContentWithFooter container>
-      <GridCard
-        content={
-          <ProTable
-            tableId="prescription-entity-files"
-            columns={getFileTableColumns()}
-            dataSource={docs}
-            headerConfig={{
-              enableColumnSort: true,
-            }}
-            loading={loading}
-            showSorterTooltip={false}
-            dictionary={getProTableDictionary()}
-            size="small"
-            bordered
-          />
-        }
-      />
-    </ScrollContentWithFooter>
+    <div className={styles.prescriptionEntityFileWrapper}>
+      <div className={styles.content}>
+        <GridCard
+          content={
+            <ProTable
+              tableId="prescription-entity-files"
+              columns={getFileTableColumns()}
+              dataSource={docs}
+              headerConfig={{
+                enableColumnSort: true,
+              }}
+              loading={loading}
+              showSorterTooltip={false}
+              dictionary={getProTableDictionary()}
+              size="small"
+              bordered
+            />
+          }
+        />
+      </div>
+      <Footer />
+    </div>
   );
 };
 
