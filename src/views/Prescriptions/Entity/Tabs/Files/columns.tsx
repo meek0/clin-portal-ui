@@ -5,11 +5,10 @@ import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Space } from 'antd';
 import { extractTaskId } from 'api/fhir/helper';
 import { isEmpty } from 'lodash';
+import { DocsWithTaskInfo } from 'views/Archives';
+import DownloadFileButton from 'views/Archives/components/DownloadFileButton';
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
-
-import DownloadFileButton from 'views/Archives/components/DownloadFileButton';
-import { DocsWithTaskInfo } from 'views/Archives';
 
 export const getFileTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
   {

@@ -5,7 +5,7 @@ import { FhirApi } from 'api/fhir';
 import { DocsWithTaskInfo } from 'views/Archives';
 import { extractDocsFromTask } from 'views/Archives/helper';
 
-import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
+import Footer from 'components/Layout/Footer';
 import { getProTableDictionary } from 'utils/translation';
 
 import PrescriptionEntityContext from '../../context';
@@ -14,7 +14,6 @@ import { getPatientAndRequestId } from '../Variants/utils';
 import { getFileTableColumns } from './columns';
 
 import styles from './index.module.scss';
-import Footer from 'components/Layout/Footer';
 
 const PrescriptionFiles = () => {
   const [loading, setLoading] = useState(false);
