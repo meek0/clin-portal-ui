@@ -40,10 +40,6 @@ export const getFileTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
     sorter: (a, b) => (a.srRef || '').localeCompare(b.srRef || ''),
   },
   {
-    key: 'position',
-    title: intl.get('screen.prescription.entity.file.table.column.position'),
-  },
-  {
     key: 'sampleldm',
     dataIndex: ['sample', 'value'],
     title: intl.get('screen.prescription.entity.file.table.column.sampleldm'),
