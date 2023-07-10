@@ -1,3 +1,4 @@
+import { getPractitionnerName } from '@ferlab/ui/core/components/Assignments/AssignmentsFilter';
 import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { Practitioner, PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
@@ -264,18 +265,25 @@ export const getPractitionerInfoList = (
     return obj;
   });
 
-  return orderBy(infoList, (p) => p.name[0].family);
+  return orderBy(infoList, (p: TPractitionnerInfo) => p.name[0].family);
 };
 
 export const putUserFirst = (
   practitionerInfoList: TPractitionnerInfo[],
   userPractitionerId: PractitionerRole,
 ) => {
-  const newList = practitionerInfoList.filter(
-    (p) => p.practitionerRoles_Id !== userPractitionerId.id,
-  );
   const userInfo = practitionerInfoList.find(
     (p) => p.practitionerRoles_Id === userPractitionerId.id,
   );
-  return userInfo ? [userInfo, ...newList] : practitionerInfoList;
+  const newList = practitionerInfoList.filter((p) =>
+    userInfo
+      ? getPractitionnerName(p.name) !== getPractitionnerName(userInfo.name)
+      : practitionerInfoList,
+  );
+
+  const allOtherUser = practitionerInfoList.filter((p) =>
+    userInfo ? getPractitionnerName(p.name) === getPractitionnerName(userInfo.name) : null,
+  );
+
+  return userInfo ? [...allOtherUser, ...newList] : practitionerInfoList;
 };
