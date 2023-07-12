@@ -790,7 +790,7 @@
   "upload.gene.ids.modal.tooltip.info.identifiers": "Symbole du gène, Alias, Ensembl ID",
   "upload.gene.ids.modal.tooltip.info.separatedBy": "virgule, espace blanc, retour de ligne",
   "upload.gene.ids.modal.tooltip.info.fileFormats": ".txt, .csv, .tsv",
-  "upload.gene.ids.modal.tooltip.info.limit": "1500 éléments par téléversement atteinte",
+  "upload.gene.ids.modal.tooltip.info.limit": "1500 éléments autorisés par téléversement",
   "variant.acmg.verdict.label": "Verdict",
   "varsome": "Varsome",
   "x.weeks": "{weeks, plural, =1 {# semaine} other {# semaines}}",
