@@ -15,19 +15,24 @@ export const getFileTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
     key: 'title',
     dataIndex: 'title',
     title: intl.get('screen.prescription.entity.file.table.column.filename'),
-    sorter: (a, b) => (a.format || '').localeCompare(b.format || ''),
   },
   {
     key: 'format',
     dataIndex: 'format',
     title: intl.get('screen.prescription.entity.file.table.column.format'),
-    sorter: (a, b) => (a.format || '').localeCompare(b.format || ''),
+    sorter: {
+      compare: (a, b) => (a.format || '').localeCompare(b.format || ''),
+      multiple: 1,
+    },
   },
   {
     key: 'patientId',
     dataIndex: 'patientId',
     title: intl.get('screen.prescription.entity.file.table.column.patient'),
-    sorter: (a, b) => (a.patientId || '').localeCompare(b.patientId || ''),
+    sorter: {
+      compare: (a, b) => (a.patientId || '').localeCompare(b.patientId || ''),
+      multiple: 1,
+    },
     defaultSortOrder: 'ascend',
   },
   {
@@ -36,12 +41,19 @@ export const getFileTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
     render: (record: DocsWithTaskInfo) => (
       <Link to={`/prescription/entity/${extractTaskId(record.basedOnSrRef)}`}>{record.srRef}</Link>
     ),
-    sorter: (a, b) => (a.srRef || '').localeCompare(b.srRef || ''),
+    sorter: {
+      compare: (a, b) => parseInt(a.srRef) - parseInt(b.srRef),
+      multiple: 1,
+    },
   },
   {
     key: 'sampleldm',
     dataIndex: ['sample', 'value'],
     title: intl.get('screen.prescription.entity.file.table.column.sampleldm'),
+    sorter: {
+      compare: (a, b) => a.sample.value.localeCompare(b.sample.value),
+      multiple: 1,
+    },
   },
   {
     key: 'analysis',
@@ -51,13 +63,21 @@ export const getFileTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
         {extractTaskId(doc.taskId)}
       </Link>
     ),
-    sorter: (a, b) => (extractTaskId(a.taskId) || '').localeCompare(extractTaskId(b.taskId) || ''),
+    sorter: {
+      compare: (a, b) =>
+        (extractTaskId(a.taskId) || '').localeCompare(extractTaskId(b.taskId) || ''),
+      multiple: 1,
+    },
   },
   {
     key: 'date',
     dataIndex: 'taskAuthoredOn',
     title: intl.get('screen.prescription.entity.file.table.column.date'),
-    sorter: (a, b) => new Date(a.taskAuthoredOn).getTime() - new Date(b.taskAuthoredOn).getTime(),
+    sorter: {
+      compare: (a, b) =>
+        new Date(a.taskAuthoredOn).getTime() - new Date(b.taskAuthoredOn).getTime(),
+      multiple: 1,
+    },
   },
   {
     key: 'downloadActions',
@@ -77,7 +97,10 @@ export const getFileTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
     dataIndex: 'size',
     title: intl.get('screen.prescription.entity.file.table.column.size'),
     defaultHidden: true,
-    sorter: (a, b) => parseInt(a.size) - parseInt(b.size),
+    sorter: {
+      compare: (a, b) => a.originalSize - b.originalSize,
+      multiple: 1,
+    },
   },
   {
     key: 'hash',
@@ -91,11 +114,19 @@ export const getFileTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
     dataIndex: 'taskRunAlias',
     title: intl.get('screen.prescription.entity.file.table.column.run'),
     defaultHidden: true,
+    sorter: {
+      compare: (a, b) => (a.taskRunAlias || '').localeCompare(b.taskRunAlias || ''),
+      multiple: 1,
+    },
   },
   {
     key: 'type',
     dataIndex: 'type',
     title: intl.get('screen.prescription.entity.file.table.column.type'),
     defaultHidden: true,
+    sorter: {
+      compare: (a, b) => (a.type || '').localeCompare(b.type || ''),
+      multiple: 1,
+    },
   },
 ];
