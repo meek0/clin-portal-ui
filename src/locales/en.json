@@ -192,7 +192,7 @@
   "layout.main.menu.archives": "Archives",
   "layout.main.menu.home": "Home",
   "layout.main.menu.prescriptions": "Prescriptions",
-  "layout.main.menu.variants": "Variants",
+  "layout.main.menu.variants": "Exploration",
   "layout.main.menu.panels": "Panels",
   "layout.main.menu.panels.tooltip": "Download the RQDM panels as Excel",
   "links.file": "File",
@@ -846,5 +846,22 @@
       "affected": "Affected",
       "not_affected": "Not Affected"
     }
-  }
+  },
+  "prescription.tabs.title.details": "Details",
+  "prescription.tabs.title.variants": "Variants",
+  "prescription.tabs.title.files": "Files",
+  "prescription.variants.header.request": "Request",
+  "screen.prescription.entity.file.table.column.analysis": "Bioinfo Analysis",
+  "screen.prescription.entity.file.table.column.date": "Date",
+  "screen.prescription.entity.file.table.column.actions": "Actions",
+  "screen.prescription.entity.file.table.column.filename": "File Name",
+  "screen.prescription.entity.file.table.column.format": "Format",
+  "screen.prescription.entity.file.table.column.hash": "Hash",
+  "screen.prescription.entity.file.table.column.patient": "Patient",
+  "screen.prescription.entity.file.table.column.request": "Request",
+  "screen.prescription.entity.file.table.column.run": "Run",
+  "screen.prescription.entity.file.table.column.sampleldm": "Sample (LDM)",
+  "screen.prescription.entity.file.table.column.size": "Size",
+  "screen.prescription.entity.file.table.column.type": "Type",
+  "screen.prescription.entity.file.table.column.position": "Position"
 }
