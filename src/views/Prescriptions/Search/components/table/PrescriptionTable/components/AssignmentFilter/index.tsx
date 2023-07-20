@@ -1,6 +1,10 @@
+import { Key } from 'react';
 import AssignmentsFilter from '@ferlab/ui/core/components/Assignments/AssignmentsFilter';
+import { IFilter } from '@ferlab/ui/core/components/filters/types';
+import { updateQueryByTableFilter } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { FilterConfirmProps } from 'antd/lib/table/interface';
 import { PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
+import { PRESCRIPTION_QB_ID } from 'views/Prescriptions/Search/utils/contstant';
 import { getPractitionerInfoList, putUserFirst } from 'views/Prescriptions/utils/export';
 
 import { useRpt } from 'hooks/useRpt';
@@ -12,6 +16,28 @@ export type TAssignmentsFilter = {
   selectedKeys: React.Key[];
   setSelectedKeys: (selectedKeys: React.Key[]) => void;
 };
+
+const getSqonFiltersList = (selectedKeys: Key[]): IFilter[] =>
+  selectedKeys.map((v: React.Key) => {
+    if (v === 'noAssign') {
+      return {
+        data: {
+          key: '__missing__',
+          count: 0,
+        },
+        id: '__missing__',
+        name: '__missing__',
+      };
+    }
+    return {
+      data: {
+        key: v as string,
+        count: 0,
+      },
+      id: v as string,
+      name: v as string,
+    };
+  });
 
 export const AssignmentsFilterDropdown = ({
   practitionerRolesBundle,
@@ -40,7 +66,14 @@ export const AssignmentsFilterDropdown = ({
     <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
       <AssignmentsFilter
         options={practitionerInfoList}
-        confirm={confirm}
+        confirm={() => {
+          updateQueryByTableFilter({
+            queryBuilderId: PRESCRIPTION_QB_ID,
+            field: 'assignments',
+            selectedFilters: getSqonFiltersList(selectedKeys),
+          });
+          confirm();
+        }}
         selectedKeys={selectedKeys}
         setSelectedKeys={setSelectedKeys}
         dictionary={getAssignmentDictionary()}

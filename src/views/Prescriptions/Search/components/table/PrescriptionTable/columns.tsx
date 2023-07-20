@@ -126,14 +126,6 @@ export const prescriptionsColumns = (
             practitionerRolesBundle={practitionerRolesBundle}
           />
         ),
-
-      onFilter: (value, record) =>
-        value === 'noAssign'
-          ? record['assignments'].length === 0
-          : record['assignments']
-              .toString()
-              .toLowerCase()
-              .includes((value as string).toLowerCase()),
     });
 
   return columns;

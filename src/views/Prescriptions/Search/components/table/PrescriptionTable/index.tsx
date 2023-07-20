@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
+import { updateQueryByTableFilter } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { GqlResults } from 'graphql/models';
 import { AnalysisResult, ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import {
   DEFAULT_PAGE_INDEX,
+  PRESCRIPTION_QB_ID,
   PRESCRIPTION_SCROLL_ID,
 } from 'views/Prescriptions/Search/utils/contstant';
 import { ALL_KEYS } from 'views/Prescriptions/utils/export';
@@ -47,6 +49,14 @@ const PrescriptionsTable = ({
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const initialColumns = user.config.data_exploration?.tables?.prescriptions?.columns;
   const practitionerRoles = user.practitionerRolesBundle;
+  //Reset assignements filter on resfresh
+  useEffect(() => {
+    updateQueryByTableFilter({
+      queryBuilderId: PRESCRIPTION_QB_ID,
+      field: 'assignments',
+      selectedFilters: [],
+    });
+  }, []);
   return (
     <ProTable<ITableAnalysisResult>
       tableId="prescription_table"
