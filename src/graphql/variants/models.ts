@@ -11,6 +11,11 @@ export enum Impact {
   Modifier = 'MODIFIER',
 }
 
+export enum VariantType {
+  Germline = 'germline',
+  SomaticTumorOnly = 'somatic_tumor_only',
+}
+
 export type ExternalFrequenciesEntity = {
   topmed_bravo: BoundType;
   thousand_genomes: BoundType;
@@ -129,7 +134,7 @@ export type VariantEntity = {
   panels: string[];
   variant_class: string;
   rsnumber: string;
-  variant_type: string;
+  variant_type: VariantType[];
   frequency_RQDM: frequency_RQDMEntity;
   consequences?: ArrangerResultsTree<ConsequenceEntity>;
   varsome?: Varsome;

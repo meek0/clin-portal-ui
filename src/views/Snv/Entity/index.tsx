@@ -2,6 +2,7 @@ import intl from 'react-intl-universal';
 import { useHistory, useParams } from 'react-router-dom';
 import { BarChartOutlined, TeamOutlined } from '@ant-design/icons';
 import { Tabs, Tag } from 'antd';
+import { VariantType } from 'graphql/variants/models';
 import { useTabSummaryData } from 'graphql/variants/tabActions';
 import { GraphqlBackend } from 'providers/';
 import ApolloProvider from 'providers/ApolloProvider';
@@ -55,6 +56,30 @@ const VariantEntityPage = () => {
   const { locus, tabid } = useParams<PathParams>();
   const { loading, data, error } = useTabSummaryData(locus);
 
+  const isVariantType = (type: VariantType) => {
+    const types = data?.variant_type;
+    return Array.isArray(types) && types.some((e) => e === type);
+  };
+
+  const buildTag = (name: string, color: string) => (
+    <Tag key="type" color={color}>
+      {name}
+    </Tag>
+  );
+
+  const buildExtra = () => {
+    const extra = [];
+    if (isVariantType(VariantType.Germline)) {
+      extra.push(buildTag(intl.get('screen.variantdetails.header.germline'), 'purple'));
+    }
+    if (isVariantType(VariantType.SomaticTumorOnly)) {
+      extra.push(buildTag(intl.get('screen.variantdetails.header.somatic_tumor_only'), 'gold'));
+    }
+    extra.push(<div key="score">{getVepImpactTag(data?.max_impact_score)}</div>);
+    extra.push(<VerdictLabel key="verdict" verdict={data?.varsome?.acmg?.verdict} />);
+    return extra;
+  };
+
   if (error) {
     return <ServerError />;
   }
@@ -70,13 +95,7 @@ const VariantEntityPage = () => {
         icon: <LineStyleIcon />,
         title: data?.hgvsg,
         loading,
-        extra: [
-          <Tag key="type" color="purple">
-            {data?.variant_type.toLocaleUpperCase()}
-          </Tag>,
-          <div key="score">{getVepImpactTag(data?.max_impact_score)}</div>,
-          <VerdictLabel key="verdict" verdict={data?.varsome?.acmg?.verdict} />,
-        ],
+        extra: buildExtra(),
       }}
     >
       <Tabs
