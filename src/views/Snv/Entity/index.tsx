@@ -70,10 +70,10 @@ const VariantEntityPage = () => {
   const buildExtra = () => {
     const extra = [];
     if (isVariantType(VariantType.Germline)) {
-      extra.push(buildTag('GERMLINE', 'purple'));
+      extra.push(buildTag(intl.get('screen.variantdetails.header.germline'), 'purple'));
     }
     if (isVariantType(VariantType.SomaticTumorOnly)) {
-      extra.push(buildTag('SOMATIC', 'gold'));
+      extra.push(buildTag(intl.get('screen.variantdetails.header.somatic_tumor_only'), 'gold'));
     }
     extra.push(<div key="score">{getVepImpactTag(data?.max_impact_score)}</div>);
     extra.push(<VerdictLabel key="verdict" verdict={data?.varsome?.acmg?.verdict} />);

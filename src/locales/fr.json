@@ -686,6 +686,8 @@
   "screen.variantDetails.frequenciesTab.nbAllelesAlt": "# Allèles ALT",
   "screen.variantDetails.frequenciesTab.nbAllelesAltRef": "# Allèles (ALT + REF)",
   "screen.variantDetails.frequenciesTab.nbHomozygotes": "# Homozygotes",
+  "screen.variantdetails.header.germline": "GERMLINE",
+  "screen.variantdetails.header.somatic_tumor_only": "SOMATIC",
   "screen.variantDetails.panel.emptyTable": "Aucune donnée disponible",
   "screen.variantDetails.patientsTab.adAlt": "ALT",
   "screen.variantDetails.patientsTab.adAlt.tooltip": "Profondeur allélique ALT",
