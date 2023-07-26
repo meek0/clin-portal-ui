@@ -82,6 +82,7 @@
   "filters.group.donors.filters": "Filter (Dragen)",
   "filters.group.donors.gender": "Sex",
   "filters.group.donors.gq": "Genotype Quality",
+  "filters.group.donors.sq": "Somatic Quality",
   "filters.group.donors.is_hc": "Compound Het.",
   "filters.group.donors.is_possibly_hc": "Potential Compound Het.",
   "filters.group.donors.parental_origin": "Parental Origin",

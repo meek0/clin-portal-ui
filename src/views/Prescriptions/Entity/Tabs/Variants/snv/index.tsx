@@ -24,7 +24,7 @@ const SnvPatient = () => {
     <div className={styles.snvVariant}>
       <SidebarMenu
         className={styles.sideMenu}
-        menuItems={getMenuItems(variantMappingResults, filterMapper)}
+        menuItems={getMenuItems(variantMappingResults, filterMapper, variantInfo.variantType)}
       />
       <ScrollContentWithFooter scrollId={SCROLL_WRAPPER_ID}>
         <PageContent

@@ -38,7 +38,8 @@ export enum FilterTypes {
   Gene,
   Pathogenicity,
   Frequency,
-  Occurrence,
+  Occurrence_germline,
+  Occurrence_somatic_tumor_only,
   Patient,
 }
 

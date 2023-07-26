@@ -83,6 +83,7 @@
   "filters.group.donors.filters": "Filtre (Dragen)",
   "filters.group.donors.gender": "Sexe",
   "filters.group.donors.gq": "Qualité du génotype",
+  "filters.group.donors.sq": "Qualité somatique",
   "filters.group.donors.is_hc": "Hét. composé",
   "filters.group.donors.is_possibly_hc": "Hét. composé potentiel",
   "filters.group.donors.parental_origin": "Origine parentale",

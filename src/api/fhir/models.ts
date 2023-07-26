@@ -297,7 +297,7 @@ export interface ServiceRequestEntity {
   id: string;
   authoredOn: string;
   status: string;
-  code: string;
+  code: string[];
   note: {
     text: string;
   };
