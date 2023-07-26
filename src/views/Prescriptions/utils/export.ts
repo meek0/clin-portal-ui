@@ -16,6 +16,7 @@ import {
   renderOmimToString,
 } from 'views/Snv/Exploration/variantColumns';
 
+import { TABLE_EMPTY_PLACE_HOLDER, TSV_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { downloadText } from 'utils/helper';
 
 export const ALL_KEYS = '*';
@@ -33,7 +34,7 @@ const valueToStr = (value: any): string => {
     }
     return String(value);
   }
-  return '';
+  return TSV_EMPTY_PLACE_HOLDER;
 };
 
 function getLeafNodes(obj: any): string {
@@ -123,7 +124,12 @@ const addPatientIdContent = (sqon: ISyntheticSqon, patientId?: string): ISynthet
   return sqon;
 };
 
-export const convertToPlain = (html: string) => html.replace(/<[^>]+>/g, '');
+export const convertToPlain = (html: string) => {
+  if (html === TABLE_EMPTY_PLACE_HOLDER) {
+    return TSV_EMPTY_PLACE_HOLDER;
+  }
+  return html.replace(/<[^>]+>/g, '');
+};
 
 export const customMapping = (prefix: string, key: string, row: any, patientId: string = '') => {
   if (prefix === 'SNV') {
@@ -136,7 +142,7 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
     } else if (key === 'omim') {
       return convertToPlain(renderOmimToString(row));
     } else if (key === 'acmgcriteria') {
-      return getAcmgRuleContent(row.varsome);
+      return convertToPlain(getAcmgRuleContent(row.varsome));
     } else if (key === 'consequence') {
       return convertToPlain(renderConsequencesToString(row));
     } else if (

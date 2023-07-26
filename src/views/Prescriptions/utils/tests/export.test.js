@@ -177,7 +177,7 @@ describe('customMapping SNV', () => {
     expect(customMapping('SNV', 'donors.exomiser.acmg_classification', row, 'p1')).toEqual(
       'Foo Bar',
     );
-    expect(customMapping('SNV', 'donors.exomiser.acmg_evidence', row, 'p1')).toEqual('-');
+    expect(customMapping('SNV', 'donors.exomiser.acmg_evidence', row, 'p1')).toEqual('--');
   });
   test('should map donors.gq', () => {
     const row = {
