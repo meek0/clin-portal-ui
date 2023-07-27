@@ -69,13 +69,13 @@ const PrescriptionsTable = ({
       showSorterTooltip={false}
       bordered
       // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-      onChange={({ current }, _, sorter) => {
+      onChange={({ current }, _, sorter, action) => {
         setPageIndex(DEFAULT_PAGE_INDEX);
         setQueryConfig({
           pageIndex: DEFAULT_PAGE_INDEX,
           size: queryConfig.size!,
           // @ts-ignore
-          sort: formatQuerySortList(sorter),
+          sort: action.action === 'sort' ? formatQuerySortList(sorter) : queryConfig.sort,
         });
         scrollToTop(PRESCRIPTION_SCROLL_ID);
       }}
