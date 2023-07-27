@@ -52,7 +52,7 @@ export const HcComplementDescription = ({
   const nodes = extractHits<Complements>(hcComplements?.hits);
   const nOfSymbols = nodes?.length ?? 0;
   if (!nodes || nOfSymbols === 0) {
-    return <Text>{defaultText}</Text>;
+    return <>{defaultText}</>;
   }
 
   return (
