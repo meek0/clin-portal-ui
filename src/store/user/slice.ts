@@ -2,13 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { TUserState } from 'store/user/types';
 
-import { fetchConfig, fetchPractitionerRole, updateConfig } from './thunks';
+import { fetchConfig, fetchPractitionerRole, fetchPractitionerRoles, updateConfig } from './thunks';
 
 export const UserState: TUserState = {
   isLoading: false,
   user: {
     config: {},
     practitionerRoles: [],
+    practitionerRolesBundle: [],
   },
 };
 
@@ -29,6 +30,20 @@ const userSlice = createSlice({
       };
     });
     builder.addCase(fetchPractitionerRole.rejected, (state) => {
+      state.isLoading = false;
+    });
+    // fetchPractitionerRolesBundle
+    builder.addCase(fetchPractitionerRoles.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchPractitionerRoles.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.user = {
+        ...state.user,
+        practitionerRolesBundle: action.payload,
+      };
+    });
+    builder.addCase(fetchPractitionerRoles.rejected, (state) => {
       state.isLoading = false;
     });
     // fetchConfig

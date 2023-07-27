@@ -1,4 +1,4 @@
-import { PractitionerRole } from 'api/fhir/models';
+import { PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
 import { TUserConfig } from 'api/user/models';
 
 export type TUserState = {
@@ -6,5 +6,6 @@ export type TUserState = {
   user: {
     config: TUserConfig;
     practitionerRoles: PractitionerRole[];
+    practitionerRolesBundle: PractitionerBundleType;
   };
 };

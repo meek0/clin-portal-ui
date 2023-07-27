@@ -14,12 +14,14 @@ import { downloadFile } from 'utils/helper';
 import {
   Bundle,
   Patient,
+  Practitioner,
   PractitionerRole,
   ServiceRequestCode,
   ServiceRequestEntity,
 } from './models';
 
 const FHIR_API_URL = EnvironmentVariables.configFor('FHIR_API');
+const FORM_API_URL = EnvironmentVariables.configFor('FORM_API_URL');
 
 const searchPatient = (ramq: string) =>
   sendRequestWithRpt<Bundle<Patient>>({
@@ -38,6 +40,13 @@ const searchPractitionerRole = () =>
       practitioner: getFhirPractitionerId(),
       _include: 'PractitionerRole:practitioner',
     },
+  });
+
+const searchPractitionerRoles = () =>
+  sendRequestWithRpt<Bundle<PractitionerRole | Practitioner>>({
+    method: 'GET',
+    // eslint-disable-next-line max-len
+    url: `${FHIR_API_URL}/PractitionerRole?role=15941008&_include=PractitionerRole:organization&_include=PractitionerRole:practitioner&&_count=1000`,
   });
 
 const searchPatientFiles = (searchValue: string) =>
@@ -76,6 +85,16 @@ const fetchServiceRequestEntity = (id: string) =>
     },
   });
 
+const prescriptionAssignment = (analysis_id: string, assignements: string[]) =>
+  sendRequestWithRpt<{ analysis_id: string; assignments: string[] }>({
+    method: 'POST',
+    url: `${FORM_API_URL}/assignment`,
+    data: {
+      analysis_id: analysis_id,
+      assignments: assignements,
+    },
+  });
+
 const fetchTaskMetadata = (taskId: string) =>
   sendRequestWithRpt<Bundle<any>>({
     method: 'GET',
@@ -108,11 +127,13 @@ const getFileURL = async (fileUrl: string) =>
 export const FhirApi = {
   searchPatient,
   searchPractitionerRole,
+  searchPractitionerRoles,
   searchPatientFiles,
   searchPrescriptionFiles,
   downloadFileMetadata,
   fetchTaskMetadata,
   fetchServiceRequestCodes,
   fetchServiceRequestEntity,
+  prescriptionAssignment,
   getFileURL,
 };

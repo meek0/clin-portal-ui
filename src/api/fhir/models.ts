@@ -178,13 +178,25 @@ export interface Note {
 export interface PractitionerRole {
   resourceType: ResourceType;
   id: string;
-  meta: Meta;
   active: boolean;
   practitioner: Reference;
   organization: Reference;
   telecom: Telecom[];
   code: CodeableConcept[];
 }
+
+export interface Practitioner {
+  id: string;
+  name: [
+    {
+      family: string;
+      given: string[];
+    },
+  ];
+  resourceType: string;
+}
+
+export type PractitionerBundleType = (Practitioner | PractitionerRole)[];
 
 export interface Investigation {
   item: {
@@ -320,11 +332,8 @@ export interface ServiceRequestEntity {
   };
   extensions: ServiceRequestEntityExtension[];
   performer: {
-    resource: {
-      alias: string;
-      name: string;
-    };
-  };
+    reference: string;
+  }[];
   subject: {
     reference: string;
     resource: PatientServiceRequestFragment;

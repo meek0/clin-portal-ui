@@ -1,4 +1,5 @@
 import intl from 'react-intl-universal';
+import { IAssignmentsDictionary } from '@ferlab/ui/core/components/Assignments/types';
 import { IDictionary as FiltersDict } from '@ferlab/ui/core/components/filters/types';
 import { IProTableDictionary } from '@ferlab/ui/core/components/ProTable/types';
 import { IDictionary as QueryBuilderDict } from '@ferlab/ui/core/components/QueryBuilder/types';
@@ -71,6 +72,27 @@ export const getProTableDictionary = (): IProTableDictionary => ({
     previous: intl.get('previous'),
     next: intl.get('next'),
     view: '',
+  },
+});
+
+export const getAssignmentDictionary = (): IAssignmentsDictionary => ({
+  select: {
+    actions: {
+      clear: intl.get('assignment.dropdown.actions.clear'),
+    },
+    textInfo: {
+      searchPlaceholder: intl.get('assignment.dropdown.select.searchPlaceholder'),
+      notAssigned: intl.get('assignment.dropdown.select.notAssign'),
+    },
+  },
+  filter: {
+    actions: {
+      reset: intl.get('assignment.filter.actions.reset'),
+      filter: intl.get('assignment.filter.actions.ok'),
+    },
+    textInfo: {
+      searchPlaceholder: intl.get('assignment.dropdown.select.searchPlaceholder'),
+    },
   },
 });
 

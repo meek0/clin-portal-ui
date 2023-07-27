@@ -28,7 +28,7 @@ import useQueryParams from 'hooks/useQueryParams';
 import { useLang } from 'store/global';
 import { fetchFhirServiceRequestCodes } from 'store/global/thunks';
 import { fetchSavedFilters, fetchSharedSavedFilter } from 'store/savedFilter/thunks';
-import { fetchConfig, fetchPractitionerRole } from 'store/user/thunks';
+import { fetchConfig, fetchPractitionerRole, fetchPractitionerRoles } from 'store/user/thunks';
 import { LANG, SHARED_FILTER_ID_QUERY_PARAM_KEY } from 'utils/constants';
 import { DYNAMIC_ROUTES, STATIC_ROUTES } from 'utils/routes';
 
@@ -60,6 +60,7 @@ const App = () => {
     if (keycloakIsReady && keycloak.authenticated) {
       dispatch(fetchSavedFilters());
       dispatch(fetchPractitionerRole());
+      dispatch(fetchPractitionerRoles());
       dispatch(fetchFhirServiceRequestCodes());
       dispatch(fetchConfig());
 

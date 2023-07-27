@@ -9,7 +9,10 @@ import {
 
 import { IBaseQueryResults } from 'hooks/graphql/type';
 
-const useLazyResultQuery = <TData = any, TVariables = OperationVariables>(
+const useLazyResultQuery = <
+  TData = any,
+  TVariables extends OperationVariables = OperationVariables,
+>(
   query: DocumentNode | TypedDocumentNode<TData, TVariables>,
   options?: QueryHookOptions<TData, TVariables>,
 ): IBaseQueryResults<TData> => {
@@ -25,7 +28,10 @@ const useLazyResultQuery = <TData = any, TVariables = OperationVariables>(
  *
  * see example here: /views/screens/variant/Entity/index.tsx
  */
-export const useLazyResultQueryOnLoadOnly = <TData = any, TVariables = OperationVariables>(
+export const useLazyResultQueryOnLoadOnly = <
+  TData = any,
+  TVariables extends OperationVariables = OperationVariables,
+>(
   query: DocumentNode | TypedDocumentNode<TData, TVariables>,
   options?: QueryHookOptions<TData, TVariables>,
 ) => {

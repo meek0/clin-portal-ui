@@ -10,6 +10,7 @@ export const PRESCRIPTIONS_QUERY = gql`
           searchAfter
           node {
             id
+            assignments
             patient_id
             patient_mrn
             prescription_id
@@ -151,11 +152,8 @@ export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
           code
         }
       }
-      performer @first {
-        resource {
-          alias @first
-          name
-        }
+      performer {
+        reference
       }
       requester @flatten {
         requester: resource(type: PractitionerRole) {
