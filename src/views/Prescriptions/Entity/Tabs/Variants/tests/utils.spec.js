@@ -1,4 +1,9 @@
-import { formatServiceRequestTag, getVariantType } from '../utils';
+import {
+  formatServiceRequestTag,
+  getVariantTypeFromCNVVariantEntity,
+  getVariantTypeFromServiceRequest,
+  getVariantTypeFromSNVVariantEntity,
+} from '../utils';
 
 describe('formatServiceRequestTag', () => {
   test('should return empty if not codes', () => {
@@ -14,14 +19,49 @@ describe('formatServiceRequestTag', () => {
 
 describe('getVariantType', () => {
   test('should return germline by default', () => {
-    expect(getVariantType(null)).toEqual('germline');
-    expect(getVariantType({})).toEqual('germline');
-    expect(getVariantType({ code: ['FOO'] })).toEqual('germline');
+    expect(getVariantTypeFromServiceRequest(null)).toEqual('germline');
+    expect(getVariantTypeFromServiceRequest({})).toEqual('germline');
+    expect(getVariantTypeFromServiceRequest({ code: ['FOO'] })).toEqual('germline');
   });
   test('should return somatic_tumor_only', () => {
-    const serviceRequest = {
-      code: ['EXTUM'],
-    };
-    expect(getVariantType(serviceRequest)).toEqual('somatic_tumor_only');
+    expect(getVariantTypeFromServiceRequest({ code: ['EXTUM'] })).toEqual('somatic_tumor_only');
+  });
+});
+
+describe('getVariantTypeFromSNVVariantEntity', () => {
+  test('should return germline by default', () => {
+    expect(getVariantTypeFromSNVVariantEntity(null)).toEqual('germline');
+    expect(getVariantTypeFromSNVVariantEntity({})).toEqual('germline');
+    expect(
+      getVariantTypeFromSNVVariantEntity({
+        donors: { hits: { edges: [{ node: { bioinfo_analysis_code: 'FOO' } }] } },
+      }),
+    ).toEqual('germline');
+  });
+  test('should return somatic_tumor_only', () => {
+    expect(
+      getVariantTypeFromSNVVariantEntity({
+        donors: { hits: { edges: [{ node: { bioinfo_analysis_code: 'TEBA' } }] } },
+      }),
+    ).toEqual('somatic_tumor_only');
+  });
+});
+
+describe('getVariantTypeFromCNVVariantEntity', () => {
+  test('should return germline by default', () => {
+    expect(getVariantTypeFromCNVVariantEntity(null)).toEqual('germline');
+    expect(getVariantTypeFromCNVVariantEntity({})).toEqual('germline');
+    expect(
+      getVariantTypeFromCNVVariantEntity({
+        bioinfo_analysis_code: 'FOO',
+      }),
+    ).toEqual('germline');
+  });
+  test('should return somatic_tumor_only', () => {
+    expect(
+      getVariantTypeFromCNVVariantEntity({
+        bioinfo_analysis_code: 'TEBA',
+      }),
+    ).toEqual('somatic_tumor_only');
   });
 });

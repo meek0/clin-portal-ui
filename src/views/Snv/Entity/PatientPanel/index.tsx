@@ -43,6 +43,8 @@ const makeRows = (donors: ArrangerEdge<DonorsEntity>[]): TTableDonorEntity[] =>
     last_update: formatTimestampToISODate(donor.node.last_update as number),
     qd: donor.node.qd,
     gq: donor.node.gq,
+    sq: donor.node.sq,
+    bioinfo_analysis_code: donor.node.bioinfo_analysis_code,
     filters: donor.node.filters,
     ad_alt: donor.node.ad_alt,
     ad_total: donor.node.ad_total,

@@ -15,7 +15,7 @@ import Forbidden from 'components/Results/Forbidden';
 import PrescriptionDetails from './Tabs/Details';
 import PrescriptionFiles from './Tabs/Files';
 import PrescriptionVariants from './Tabs/Variants';
-import { getPatientAndRequestId, getVariantType } from './Tabs/Variants/utils';
+import { getPatientAndRequestId, getVariantTypeFromServiceRequest } from './Tabs/Variants/utils';
 import PrescriptionEntityContext, {
   PrescriptionEntityContextType,
   PrescriptionEntityVariantInfo,
@@ -69,7 +69,7 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
       ? extractPatientId(selectedBasedOnRequest?.subject.reference)
       : undefined;
     const { requestId } = getPatientAndRequestId(selectedBasedOnRequest?.subject.resource);
-    const variantType = getVariantType(selectedBasedOnRequest);
+    const variantType = getVariantTypeFromServiceRequest(selectedBasedOnRequest);
 
     return {
       loading: loading || requestLoading,

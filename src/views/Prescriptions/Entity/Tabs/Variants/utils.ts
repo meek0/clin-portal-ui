@@ -2,7 +2,9 @@ import intl from 'react-intl-universal';
 import { DefaultOptionType } from 'antd/lib/select';
 import { extractPatientId, extractServiceRequestId } from 'api/fhir/helper';
 import { PatientServiceRequestFragment, ServiceRequestEntity } from 'api/fhir/models';
+import { VariantEntity as CNVVariantEntity } from 'graphql/cnv/models';
 import { getFamilyCode } from 'graphql/prescriptions/helper';
+import { VariantEntity as SNVVariantEntity } from 'graphql/variants/models';
 import { PrescriptionEntityVariantInfo, VariantType } from 'views/Prescriptions/Entity/context';
 
 export const formatServiceRequestTag = (analysisCode?: string, sequencingCode?: string) => {
@@ -13,8 +15,20 @@ export const formatServiceRequestTag = (analysisCode?: string, sequencingCode?: 
   return tag;
 };
 
-export const getVariantType = (serviceRequest?: ServiceRequestEntity): VariantType =>
+export const getVariantTypeFromServiceRequest = (
+  serviceRequest?: ServiceRequestEntity,
+): VariantType =>
   serviceRequest?.code?.[0] === 'EXTUM' ? VariantType.SOMATIC_TUMOR_ONLY : VariantType.GERMLINE;
+
+export const getVariantTypeFromSNVVariantEntity = (variantEntity?: SNVVariantEntity): VariantType =>
+  variantEntity?.donors?.hits?.edges?.[0].node.bioinfo_analysis_code === 'TEBA'
+    ? VariantType.SOMATIC_TUMOR_ONLY
+    : VariantType.GERMLINE;
+
+export const getVariantTypeFromCNVVariantEntity = (variantEntity?: CNVVariantEntity): VariantType =>
+  variantEntity?.bioinfo_analysis_code === 'TEBA'
+    ? VariantType.SOMATIC_TUMOR_ONLY
+    : VariantType.GERMLINE;
 
 export const getRequestOptions = (
   serviceRequest: ServiceRequestEntity | undefined,

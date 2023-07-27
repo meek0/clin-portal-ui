@@ -4,6 +4,7 @@ import ProTable from '@ferlab/ui/core/components/ProTable';
 import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { IQueryResults } from 'graphql/models';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
+import { VariantType } from 'views/Prescriptions/Entity/context';
 import { ALL_KEYS, VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
 import { DEFAULT_PAGE_INDEX, SCROLL_WRAPPER_ID } from 'views/Snv/utils/constant';
@@ -55,7 +56,7 @@ const VariantsTab = ({
           tableId="varirant_table"
           className={style.variantSearchTable}
           wrapperClassName={style.variantTabWrapper}
-          columns={getVariantColumns(queryBuilderId)}
+          columns={getVariantColumns(queryBuilderId, VariantType.GERMLINE)}
           initialColumnState={initialColumnState}
           dataSource={results.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
           loading={results.loading}
