@@ -97,9 +97,11 @@ const filterGroups: {
   [FilterTypes.Pathogenicity]: {
     groups: [
       {
+        facets: ['clinvar__clin_sig', 'consequences__vep_impact'],
+      },
+      {
+        title: intl.get('exomiser'),
         facets: [
-          'clinvar__clin_sig',
-          'consequences__vep_impact',
           'donors__exomiser__gene_combined_score',
           'donors__exomiser__acmg_classification',
           'donors__exomiser__acmg_evidence',

@@ -577,10 +577,6 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
     return <GqLine value={donor?.gq} />;
   } else if (key === 'donors.exomiser.gene_combined_score') {
     return donor?.exomiser?.gene_combined_score || TABLE_EMPTY_PLACE_HOLDER;
-  } else if (key === 'donors.exomiser.acmg_classification') {
-    return removeUnderscoreAndCapitalize(donor?.exomiser?.acmg_classification || '').defaultMessage(
-      TABLE_EMPTY_PLACE_HOLDER,
-    );
   } else if (key === 'donors.exomiser.acmg_evidence') {
     return (donor?.exomiser?.acmg_evidence || TABLE_EMPTY_PLACE_HOLDER)?.replaceAll(',', ', ');
   } else if (key === 'donors.zygosity') {
