@@ -204,7 +204,6 @@ const filterGroups: {
           'donors__ad_alt',
           'donors__ad_total',
           'donors__ad_ratio',
-          'donors__gq',
           'donors__sq',
         ],
       },
