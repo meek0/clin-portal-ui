@@ -7,6 +7,9 @@ import { getFamilyCode } from 'graphql/prescriptions/helper';
 import { VariantEntity as SNVVariantEntity } from 'graphql/variants/models';
 import { PrescriptionEntityVariantInfo, VariantType } from 'views/Prescriptions/Entity/context';
 
+const SERVICE_REQUEST_CODE_EXTUM = 'EXTUM';
+const VARIANT_TYPE_BIOINFO_CODE_TEBA = 'TEBA';
+
 export const formatServiceRequestTag = (analysisCode?: string, sequencingCode?: string) => {
   let tag = analysisCode || '';
   if (sequencingCode) {
@@ -18,15 +21,18 @@ export const formatServiceRequestTag = (analysisCode?: string, sequencingCode?: 
 export const getVariantTypeFromServiceRequest = (
   serviceRequest?: ServiceRequestEntity,
 ): VariantType =>
-  serviceRequest?.code?.[0] === 'EXTUM' ? VariantType.SOMATIC_TUMOR_ONLY : VariantType.GERMLINE;
+  serviceRequest?.code?.[0] === SERVICE_REQUEST_CODE_EXTUM
+    ? VariantType.SOMATIC_TUMOR_ONLY
+    : VariantType.GERMLINE;
 
 export const getVariantTypeFromSNVVariantEntity = (variantEntity?: SNVVariantEntity): VariantType =>
-  variantEntity?.donors?.hits?.edges?.[0].node.bioinfo_analysis_code === 'TEBA'
+  variantEntity?.donors?.hits?.edges?.[0].node.bioinfo_analysis_code ===
+  VARIANT_TYPE_BIOINFO_CODE_TEBA
     ? VariantType.SOMATIC_TUMOR_ONLY
     : VariantType.GERMLINE;
 
 export const getVariantTypeFromCNVVariantEntity = (variantEntity?: CNVVariantEntity): VariantType =>
-  variantEntity?.bioinfo_analysis_code === 'TEBA'
+  variantEntity?.bioinfo_analysis_code === VARIANT_TYPE_BIOINFO_CODE_TEBA
     ? VariantType.SOMATIC_TUMOR_ONLY
     : VariantType.GERMLINE;
 
