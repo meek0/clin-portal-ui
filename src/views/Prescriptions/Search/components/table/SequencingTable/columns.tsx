@@ -20,7 +20,7 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
   },
   {
     key: 'sample',
-    render: (results: SequencingResult) => results.sample,
+    render: (results: SequencingResult) => results?.sample || TABLE_EMPTY_PLACE_HOLDER,
     title: intl.get('screen.sequencingsearch.table.sample'),
     tooltip: intl.get('screen.sequencingsearch.table.sample.tooltip'),
     sorter: { multiple: 1 },
@@ -93,7 +93,7 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     dataIndex: ['requester'],
     title: intl.get('screen.patientsearch.table.requester'),
     tooltip: intl.get('screen.patientsearch.table.requester.tooltip'),
-    render: (requester: string) => requester ?? TABLE_EMPTY_PLACE_HOLDER,
+    render: (requester: string) => requester || TABLE_EMPTY_PLACE_HOLDER,
     sorter: { multiple: 1 },
     defaultHidden: true,
   },

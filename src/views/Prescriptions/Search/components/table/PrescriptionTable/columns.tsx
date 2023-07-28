@@ -86,7 +86,7 @@ export const prescriptionsColumns = (
       dataIndex: ['requester'],
       title: intl.get('screen.patientsearch.table.requester'),
       tooltip: intl.get('screen.patientsearch.table.requester.tooltip'),
-      render: (requester: string) => requester ?? TABLE_EMPTY_PLACE_HOLDER,
+      render: (requester: string) => requester || TABLE_EMPTY_PLACE_HOLDER,
       sorter: { multiple: 1 },
       defaultHidden: true,
     },

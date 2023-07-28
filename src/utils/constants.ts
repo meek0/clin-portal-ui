@@ -27,6 +27,7 @@ export const enum MIME_TYPES {
 export const FILTER_ID_QUERY_PARAM_KEY = 'filterId';
 export const SHARED_FILTER_ID_QUERY_PARAM_KEY = 'sharedFilterId';
 export const TABLE_EMPTY_PLACE_HOLDER = '-';
+export const TSV_EMPTY_PLACE_HOLDER = '--';
 export const MAIN_SCROLL_WRAPPER_ID = 'main-scroll-wrapper';
 
 export const SERVICE_REQUEST_CODE_MAP_KEY = 'fhir_service_request_codes';
