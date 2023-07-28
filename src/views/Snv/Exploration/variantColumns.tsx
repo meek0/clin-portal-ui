@@ -62,6 +62,14 @@ const ClinvarColorMap: Record<any, string> = {
   uncertain_risk_allele: 'default',
 };
 
+const ACMGExoColorMap: Record<any, string> = {
+  BENIGN: 'polar',
+  LIKELY_BENIGN: 'green',
+  UNCERTAIN_SIGNIFICANCE: 'orange',
+  PATHOGENIC: 'red',
+  LIKELY_PATHOGENIC: 'volcano',
+};
+
 const formatRqdm = (rqdm: frequency_RQDMEntity, variant: VariantEntity) => {
   if (!rqdm?.total?.pc) {
     return TABLE_EMPTY_PLACE_HOLDER;
@@ -302,10 +310,7 @@ export const getVariantColumns = (
           multiple: 1,
         },
         render: (record: VariantEntity) =>
-          renderDonorByKey(
-            'donors.exomiser.acmg_classification',
-            findDonorById(record.donors, patientId),
-          ),
+          renderAcmgExo(findDonorById(record.donors, patientId)?.exomiser?.acmg_classification),
       },
     );
   }
@@ -523,6 +528,15 @@ const renderClinvar = (clinVar: ClinVar) => {
       ))
     : TABLE_EMPTY_PLACE_HOLDER;
 };
+
+const renderAcmgExo = (acmg?: string) =>
+  acmg ? (
+    <Tooltip key={acmg} placement="topLeft" title={intl.get(`acmg.exomiser.${acmg}`)}>
+      <Tag color={ACMGExoColorMap[acmg]}>{intl.get(`acmg.exomiser.abrv.${acmg}`)}</Tag>
+    </Tooltip>
+  ) : (
+    TABLE_EMPTY_PLACE_HOLDER
+  );
 
 const renderToString = (element: any) => {
   if (typeof element === 'string' || typeof element === 'number') {
