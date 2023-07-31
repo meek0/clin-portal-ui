@@ -531,8 +531,10 @@ const renderClinvar = (clinVar: ClinVar) => {
 
 const renderAcmgExo = (acmg?: string) =>
   acmg ? (
-    <Tooltip key={acmg} placement="topLeft" title={intl.get(`acmg.exomiser.${acmg}`)}>
-      <Tag color={ACMGExoColorMap[acmg]}>{intl.get(`acmg.exomiser.abrv.${acmg}`)}</Tag>
+    <Tooltip key={acmg} placement="topLeft" title={intl.get(`acmg.exomiser.${acmg.toLowerCase()}`)}>
+      <Tag color={ACMGExoColorMap[acmg]}>
+        {intl.get(`acmg.exomiser.abrv.${acmg.toLowerCase()}`)}
+      </Tag>
     </Tooltip>
   ) : (
     TABLE_EMPTY_PLACE_HOLDER
@@ -579,6 +581,10 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
     return donor?.exomiser?.gene_combined_score || TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors.exomiser.acmg_evidence') {
     return (donor?.exomiser?.acmg_evidence || TABLE_EMPTY_PLACE_HOLDER)?.replaceAll(',', ', ');
+  } else if (key === 'donors.exomiser.acmg_classification') {
+    return removeUnderscoreAndCapitalize(
+      donor?.exomiser?.acmg_classification.toLowerCase() || '',
+    ).defaultMessage(TABLE_EMPTY_PLACE_HOLDER);
   } else if (key === 'donors.zygosity') {
     return donor ? donor?.zygosity : TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors_genotype') {
