@@ -98,6 +98,33 @@ export const getAcmgRuleContent = (varsome: Varsome) =>
         .reduce((prev, curr) => `${prev}, ${curr}`)
     : TABLE_EMPTY_PLACE_HOLDER;
 
+const getDonorQd = (patientId: string) => ({
+  key: 'qd',
+  title: intl.get('qd'),
+  tooltip: intl.get('qd.tooltip'),
+  defaultHidden: true,
+  width: 180,
+  render: (record: VariantEntity) =>
+    renderDonorByKey('qd', findDonorById(record.donors, patientId)),
+});
+
+const getDonorZygosity = (patientId: string) => ({
+  key: 'donors.zygosity',
+  title: intl.get('screen.patientsnv.results.table.zygosity'),
+  tooltip: intl.get('donor.zygosity.tooltip'),
+  dataIndex: 'donors',
+  width: 100,
+  render: (record: ArrangerResultsTree<DonorsEntity>) => {
+    const zyg = renderDonorByKey('donors.zygosity', findDonorById(record, patientId)) as string;
+
+    return (
+      <Tooltip title={intl.get(`donors.zyg.abrv.${zyg}`)}>
+        <Tag color="blue">{capitalize(zyg)}</Tag>
+      </Tooltip>
+    );
+  },
+});
+
 const getAcmgCriteriaCol = () => ({
   key: 'acmgcriteria',
   title: intl.get('acmg.criteria'),
@@ -385,40 +412,19 @@ export const getVariantColumns = (
             renderDonorByKey('donors.gq', findDonorById(record.donors, patientId)),
         },
         {
-          key: 'donors.zygosity',
-          title: intl.get('screen.patientsnv.results.table.zygosity'),
-          tooltip: intl.get('donor.zygosity.tooltip'),
+          ...getDonorZygosity(patientId),
+        },
+        {
+          ...getAcmgCriteriaCol(),
+        },
+        {
+          key: 'donors_genotype',
+          title: intl.get('screen.patientsnv.results.table.genotype'),
           dataIndex: 'donors',
-          width: 100,
-          render: (record: ArrangerResultsTree<DonorsEntity>) => {
-            const zyg = renderDonorByKey(
-              'donors.zygosity',
-              findDonorById(record, patientId),
-            ) as string;
-
-            return (
-              <Tooltip title={intl.get(`donors.zyg.abrv.${zyg}`)}>
-                <Tag color="blue">{capitalize(zyg)}</Tag>
-              </Tooltip>
-            );
-          },
-        },
-        {
-          key: 'po',
-          title: intl.get('po'),
-          tooltip: intl.get('parental.origin'),
           defaultHidden: true,
-          width: 180,
-          render: (record: VariantEntity) =>
-            renderDonorByKey('po', findDonorById(record.donors, patientId)),
-        },
-        {
-          key: 'transmission',
-          title: intl.get('screen.patientsnv.results.table.transmission'),
-          defaultHidden: true,
-          width: 200,
-          render: (record: VariantEntity) =>
-            renderDonorByKey('transmission', findDonorById(record.donors, patientId)),
+          width: 150,
+          render: (record: ArrangerResultsTree<DonorsEntity>) =>
+            renderDonorByKey('donors_genotype', findDonorById(record, patientId)),
         },
         {
           key: 'ch',
@@ -438,17 +444,29 @@ export const getVariantColumns = (
           render: (record: VariantEntity) =>
             renderDonorByKey('pch', findDonorById(record.donors, patientId)),
         },
+        {
+          key: 'transmission',
+          title: intl.get('screen.patientsnv.results.table.transmission'),
+          defaultHidden: true,
+          width: 200,
+          render: (record: VariantEntity) =>
+            renderDonorByKey('transmission', findDonorById(record.donors, patientId)),
+        },
+        {
+          ...getDonorQd(patientId),
+        },
+        {
+          key: 'po',
+          title: intl.get('po'),
+          tooltip: intl.get('parental.origin'),
+          defaultHidden: true,
+          width: 180,
+          render: (record: VariantEntity) =>
+            renderDonorByKey('po', findDonorById(record.donors, patientId)),
+        },
       );
     } else if (variantType === VariantType.SOMATIC_TUMOR_ONLY) {
       columns.push(
-        {
-          key: 'donors.sq',
-          title: intl.get('screen.patientsnv.results.table.sq'),
-          tooltip: intl.get('sq.tooltip'),
-          width: 59,
-          render: (record: VariantEntity) =>
-            renderDonorByKey('donors.sq', findDonorById(record.donors, patientId)),
-        },
         {
           key: 'donors.bioinfo_analysis_code',
           title: intl.get('screen.patientsnv.results.table.bioinfo_analysis_code'),
@@ -460,31 +478,27 @@ export const getVariantColumns = (
               findDonorById(record.donors, patientId),
             ),
         },
+        {
+          key: 'donors.sq',
+          title: intl.get('screen.patientsnv.results.table.sq'),
+          tooltip: intl.get('sq.tooltip'),
+          width: 59,
+          render: (record: VariantEntity) =>
+            renderDonorByKey('donors.sq', findDonorById(record.donors, patientId)),
+        },
+        {
+          ...getDonorZygosity(patientId),
+        },
+        {
+          ...getAcmgCriteriaCol(),
+        },
+        {
+          ...getDonorQd(patientId),
+        },
       );
     }
 
     columns.push(
-      {
-        ...getAcmgCriteriaCol(),
-      },
-      {
-        key: 'donors_genotype',
-        title: intl.get('screen.patientsnv.results.table.genotype'),
-        dataIndex: 'donors',
-        defaultHidden: true,
-        width: 150,
-        render: (record: ArrangerResultsTree<DonorsEntity>) =>
-          renderDonorByKey('donors_genotype', findDonorById(record, patientId)),
-      },
-      {
-        key: 'qd',
-        title: intl.get('qd'),
-        tooltip: intl.get('qd.tooltip'),
-        defaultHidden: true,
-        width: 180,
-        render: (record: VariantEntity) =>
-          renderDonorByKey('qd', findDonorById(record.donors, patientId)),
-      },
       {
         key: 'alt',
         title: intl.get('screen.patientsnv.results.table.altprof'),

@@ -7,6 +7,7 @@ import { Rpt } from 'auth/types';
 import cx from 'classnames';
 import { DonorsEntity } from 'graphql/variants/models';
 import capitalize from 'lodash/capitalize';
+import { VariantType } from 'views/Prescriptions/Entity/context';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import FemaleAffectedIcon from 'components/icons/FemaleAffectedIcon';
@@ -34,6 +35,7 @@ interface OwnProps {
   toggleModal: any;
   modalOpened: boolean;
   variantId: string;
+  variantType: VariantType;
 }
 
 const getParentTitle = (who: 'mother' | 'father', id: string, affected: boolean) => {
@@ -80,6 +82,7 @@ const OccurrenceDrawer = ({
   rpt,
   toggleModal,
   variantId,
+  variantType,
 }: OwnProps) => {
   const [modalOpened, setModalVisible] = useState(false);
   return (
@@ -112,22 +115,26 @@ const OccurrenceDrawer = ({
             <Descriptions.Item label={capitalize(intl.get('zygosity'))}>
               {donor?.zygosity ?? TABLE_EMPTY_PLACE_HOLDER}
             </Descriptions.Item>
-            <Descriptions.Item
-              label={capitalize(intl.get('compound.heterozygous.abbrev', { num: 0 }))}
-            >
-              <HcComplementDescription
-                hcComplements={donor?.hc_complement}
-                defaultText={TABLE_EMPTY_PLACE_HOLDER}
-              />
-            </Descriptions.Item>
-            <Descriptions.Item
-              label={capitalize(intl.get('potential.compound.heterozygous.abbrev', { num: 0 }))}
-            >
-              <HcComplementDescription
-                hcComplements={donor?.possibly_hc_complement}
-                defaultText={TABLE_EMPTY_PLACE_HOLDER}
-              />
-            </Descriptions.Item>
+            {variantType === VariantType.GERMLINE && (
+              <>
+                <Descriptions.Item
+                  label={capitalize(intl.get('compound.heterozygous.abbrev', { num: 0 }))}
+                >
+                  <HcComplementDescription
+                    hcComplements={donor?.hc_complement}
+                    defaultText={TABLE_EMPTY_PLACE_HOLDER}
+                  />
+                </Descriptions.Item>
+                <Descriptions.Item
+                  label={capitalize(intl.get('potential.compound.heterozygous.abbrev', { num: 0 }))}
+                >
+                  <HcComplementDescription
+                    hcComplements={donor?.possibly_hc_complement}
+                    defaultText={TABLE_EMPTY_PLACE_HOLDER}
+                  />
+                </Descriptions.Item>
+              </>
+            )}
           </Descriptions>
           {(donor?.father_id || donor?.mother_id) && (
             <Descriptions
@@ -221,9 +228,11 @@ const OccurrenceDrawer = ({
             <Descriptions.Item label={intl.get('screen.patientsnv.drawer.allratio')}>
               {donor?.ad_ratio ? donor?.ad_ratio.toFixed(2) : TABLE_EMPTY_PLACE_HOLDER}
             </Descriptions.Item>
-            <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
-              {<GqLine value={donor?.gq} />}
-            </Descriptions.Item>
+            {variantType === VariantType.GERMLINE && (
+              <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
+                {<GqLine value={donor?.gq} />}
+              </Descriptions.Item>
+            )}
             <Descriptions.Item label={intl.get('screen.patientsnv.drawer.filter')}>
               {donor?.filters}
             </Descriptions.Item>

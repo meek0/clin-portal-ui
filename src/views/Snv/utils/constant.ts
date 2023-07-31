@@ -34,10 +34,12 @@ export const DEFAULT_QUERY_CONFIG: IQueryConfig = {
 
 export enum FilterTypes {
   Rqdm,
-  Variant,
+  Variant_germline,
+  Variant_somatic_tumor_only,
   Gene,
   Pathogenicity,
-  Frequency,
+  Frequency_germline,
+  Frequency_somatic_tumor_only,
   Occurrence_germline,
   Occurrence_somatic_tumor_only,
   Patient,

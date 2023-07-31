@@ -133,6 +133,7 @@
   "filters.group.status": "Status",
   "filters.group.type": "Type",
   "filters.group.variant_class": "Variant Type",
+  "filters.group.donors.bioinfo_analysis_code": "Bioinformatic Analysis",
   "filters.group.variant_external_reference": "External Reference",
   "filters.group.varsome.acmg.classifications.name": "ACMG Rules",
   "filters.group.varsome.acmg.verdict.verdict": "ACMG Verdict",

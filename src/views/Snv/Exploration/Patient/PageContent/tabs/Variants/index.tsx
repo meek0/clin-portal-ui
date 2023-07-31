@@ -189,6 +189,7 @@ const VariantsTab = ({
           toggleModal={toggleModal}
           modalOpened={modalOpened}
           variantId={selectedVariant?.hgvsg}
+          variantType={variantType}
         />
       )}
     </>
