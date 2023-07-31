@@ -421,6 +421,17 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'PloidyConflict',
                          'Base Quality',
                          'Lod Fstar',
+                         'Mapping Quality',
+                         'Weak Evidence',
+                         'No Reliable Supporting Read',
+                         'Systematic Noise',
+                         'Filtered Reads',
+                         'Fragment Length',
+                         'Too Few Supporting Reads',
+                         'Low Frac Info Reads',
+                         'Read Position',
+                         'Multiallelic',
+                         'Long Indel',
                          'No Data'];
 
     cy.validateDictionnary('category_occurrence', /^Filtre \(Dragen\)$/, 7, dictionnary);

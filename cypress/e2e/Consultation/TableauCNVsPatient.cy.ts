@@ -29,7 +29,7 @@ beforeEach(() => {
 
   cy.intercept('**/user').as('getUser5');
   cy.get('div[class="ant-popover-inner"]')
-    .find('div[class="ant-space-item"]').contains('SM')
+    .find('div[class="ant-space-item"]').contains('MS')
     .find('[type="checkbox"]').check({force: true});
   cy.wait('@getUser5', {timeout: 20*1000});
 
@@ -140,18 +140,18 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.get('thead[class="ant-table-thead"]').contains('Qual.').click({force: true});
 
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql9');
-    cy.get('thead[class="ant-table-thead"]').contains('SM').click({force: true});
+    cy.get('thead[class="ant-table-thead"]').contains('MS').click({force: true});
     cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
     cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
     cy.wait('@getPOSTgraphql9', {timeout: 20*1000});
     cy.get('tr[class*="ant-table-row"]').eq(0).contains('0.00831442').should('exist');
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql10');
-    cy.get('thead[class="ant-table-thead"]').contains('SM').click({force: true});
+    cy.get('thead[class="ant-table-thead"]').contains('MS').click({force: true});
     cy.wait('@getPOSTgraphql10', {timeout: 20*1000});
     cy.wait('@getPOSTgraphql10', {timeout: 20*1000});
     cy.wait('@getPOSTgraphql10', {timeout: 20*1000});
     cy.get('tr[class*="ant-table-row"]').eq(0).contains('2.7587').should('exist');
-    cy.get('thead[class="ant-table-thead"]').contains('SM').click({force: true});
+    cy.get('thead[class="ant-table-thead"]').contains('MS').click({force: true});
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

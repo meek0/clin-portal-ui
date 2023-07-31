@@ -89,8 +89,10 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
 
   it('Occurrence - Filtre (Dragen)', () => {
     const dictionnary = ['PASS',
-                          'CnvQual',
-                          'No Data'];
+                         'CnvQual',
+                         'CnvCopyRatio',
+                         'LoDFail',
+                         'No Data'];
 
     cy.validateDictionnary('category_occurrence', /^Filtre \(Dragen\)$/, 0, dictionnary);
   });
