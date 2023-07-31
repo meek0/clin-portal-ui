@@ -247,20 +247,18 @@ export const getMenuItems = (
   filterMapper: TCustomFilterMapper,
   variantType: VariantType = VariantType.GERMLINE,
 ): ISidebarMenuItem[] => {
-  const filterVariantType =
+  const [filterVariantType, filterFrequencyType, filterOccType] =
     variantType === VariantType.GERMLINE
-      ? FilterTypes.Variant_germline
-      : FilterTypes.Variant_somatic_tumor_only;
-
-  const filterFrequencyType =
-    variantType === VariantType.GERMLINE
-      ? FilterTypes.Frequency_germline
-      : FilterTypes.Frequency_somatic_tumor_only;
-
-  const filterOccType =
-    variantType === VariantType.GERMLINE
-      ? FilterTypes.Occurrence_germline
-      : FilterTypes.Occurrence_somatic_tumor_only;
+      ? [
+          FilterTypes.Variant_germline,
+          FilterTypes.Frequency_germline,
+          FilterTypes.Occurrence_germline,
+        ]
+      : [
+          FilterTypes.Variant_somatic_tumor_only,
+          FilterTypes.Frequency_somatic_tumor_only,
+          FilterTypes.Occurrence_somatic_tumor_only,
+        ];
 
   return [
     {
