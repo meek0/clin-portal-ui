@@ -43,6 +43,7 @@
   "view.litvar": "View LitVAR",
   "duplication": "Duplication",
   "ensemblID": "Ensembl ID",
+  "exomiser": "Exomiser",
   "family": "family",
   "father": "father",
   "female": "Female",
@@ -170,6 +171,11 @@
   "filters.options.donors.parental_origin.both": "Father and Mother",
   "filters.options.donors.parental_origin.possible_denovo": "Possible de novo",
   "filters.options.donors.parental_origin.denovo": "None (de novo)",
+  "filters.options.donors.exomiser.acmg_classification.PATHOGENIC": "Pathogenic",
+  "filters.options.donors.exomiser.acmg_classification.LIKELY_PATHOGENIC": "Likely Pathogenic",
+  "filters.options.donors.exomiser.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+  "filters.options.donors.exomiser.acmg_classification.LIKELY_BENIGN": "Likely Benign",
+  "filters.options.donors.exomiser.acmg_classification.BENIGN": "Benign",
   "first.name": "First name",
   "folder": "MRN",
   "footer.navigation.fhir": "Fhir",
@@ -619,8 +625,8 @@
   "screen.patientsnv.results.table.gene_combined_score.tooltip": "Exomiser score based on variant properties and patient phenotypes",
   "screen.patientsnv.results.table.acmg_classification": "Exo. ACMG",
   "screen.patientsnv.results.table.acmg_classification.tooltip": "Exomiser ACMG",
-  "screen.patientsnv.results.table.acmg_evidence": "Exo. Evid.",
-  "screen.patientsnv.results.table.acmg_evidence.tooltip": "Exomiser ACMG evidences",
+  "screen.patientsnv.results.table.acmg_evidence": "Exo. Rules",
+  "screen.patientsnv.results.table.acmg_evidence.tooltip": "Exomiser ACMG Rules",
   "screen.patientsnv.results.table.genotype": "Genotypes (M : F)",
   "screen.patientsnv.results.table.gq": "GQ",
   "screen.patientsnv.results.table.noVerdict": "No verdict",
@@ -839,6 +845,22 @@
   "acmg.verdict.abrv.pathogenic": "Pathogenic",
   "acmg.verdict.abrv.no_verdict": "No Ver.",
   "acmg.verdict.abrv.no_data": "No Data",
+  "acmg": {
+    "exomiser": {
+      "likely_benign": "Likely Benign",
+      "likely_pathogenic": "Likely Pathogenic",
+      "uncertain_significance":"Uncertain Significance",
+      "benign": "Benign",
+      "pathogenic": "Pathogenic",
+      "abrv": {
+        "likely_benign": "LB",
+        "likely_pathogenic": "LP",
+        "uncertain_significance": "VUS",
+        "benign": "B",
+        "pathogenic": "P"
+      }
+    }
+  },
   "clinvar.abrv.conflicting_interpretations_of_pathogenicity": "Conflict. Int.",
   "clinvar.abrv.benign": "Benign",
   "clinvar.abrv.likely_benign": "Lik. Benign",

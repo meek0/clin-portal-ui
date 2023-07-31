@@ -44,6 +44,7 @@
   "view.litvar": "Consulter LitVAR",
   "duplication": "Duplication",
   "ensemblID": "Ensembl ID",
+  "exomiser": "Exomiser",
   "family": "famille",
   "father": "père",
   "female": "Femme",
@@ -171,6 +172,11 @@
   "filters.options.donors.parental_origin.both": "Father and Mother",
   "filters.options.donors.parental_origin.possible_denovo": "Possible de novo",
   "filters.options.donors.parental_origin.denovo": "None (de novo)",
+  "filters.options.donors.exomiser.acmg_classification.PATHOGENIC": "Pathogenic",
+  "filters.options.donors.exomiser.acmg_classification.LIKELY_PATHOGENIC": "Likely Pathogenic",
+  "filters.options.donors.exomiser.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+  "filters.options.donors.exomiser.acmg_classification.LIKELY_BENIGN": "Likely Benign",
+  "filters.options.donors.exomiser.acmg_classification.BENIGN": "Benign",
   "first.name": "Prénom",
   "folder": "Dossier",
   "footer.navigation.fhir": "Fhir",
@@ -842,6 +848,22 @@
   "acmg.verdict.abrv.pathogenic": "Pathogenic",
   "acmg.verdict.abrv.no_verdict": "No Ver.",
   "acmg.verdict.abrv.no_data": "No Data",
+  "acmg": {
+    "exomiser": {
+      "likely_benign": "Likely Benign",
+      "likely_pathogenic": "Likely Pathogenic",
+      "uncertain_significance":"Uncertain Significance",
+      "benign": "Benign",
+      "pathogenic": "Pathogenic",
+      "abrv": {
+        "likely_benign": "LB",
+        "likely_pathogenic": "LP",
+        "uncertain_significance": "VUS",
+        "benign": "B",
+        "pathogenic": "P"
+      }
+    }
+  },
   "clinvar.abrv.conflicting_interpretations_of_pathogenicity": "Conflict. Int.",
   "clinvar.abrv.benign": "Benign",
   "clinvar.abrv.likely_benign": "Lik. Benign",

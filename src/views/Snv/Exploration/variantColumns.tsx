@@ -62,6 +62,14 @@ const ClinvarColorMap: Record<any, string> = {
   uncertain_risk_allele: 'default',
 };
 
+const ACMGExoColorMap: Record<any, string> = {
+  BENIGN: 'polar',
+  LIKELY_BENIGN: 'green',
+  UNCERTAIN_SIGNIFICANCE: 'orange',
+  PATHOGENIC: 'red',
+  LIKELY_PATHOGENIC: 'volcano',
+};
+
 const formatRqdm = (rqdm: frequency_RQDMEntity, variant: VariantEntity) => {
   if (!rqdm?.total?.pc) {
     return TABLE_EMPTY_PLACE_HOLDER;
@@ -302,10 +310,7 @@ export const getVariantColumns = (
           multiple: 1,
         },
         render: (record: VariantEntity) =>
-          renderDonorByKey(
-            'donors.exomiser.acmg_classification',
-            findDonorById(record.donors, patientId),
-          ),
+          renderAcmgExo(findDonorById(record.donors, patientId)?.exomiser?.acmg_classification),
       },
     );
   }
@@ -524,6 +529,17 @@ const renderClinvar = (clinVar: ClinVar) => {
     : TABLE_EMPTY_PLACE_HOLDER;
 };
 
+const renderAcmgExo = (acmg?: string) =>
+  acmg ? (
+    <Tooltip key={acmg} placement="topLeft" title={intl.get(`acmg.exomiser.${acmg.toLowerCase()}`)}>
+      <Tag color={ACMGExoColorMap[acmg]}>
+        {intl.get(`acmg.exomiser.abrv.${acmg.toLowerCase()}`)}
+      </Tag>
+    </Tooltip>
+  ) : (
+    TABLE_EMPTY_PLACE_HOLDER
+  );
+
 const renderToString = (element: any) => {
   if (typeof element === 'string' || typeof element === 'number') {
     return String(element);
@@ -563,12 +579,12 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
     return <GqLine value={donor?.gq} />;
   } else if (key === 'donors.exomiser.gene_combined_score') {
     return donor?.exomiser?.gene_combined_score || TABLE_EMPTY_PLACE_HOLDER;
-  } else if (key === 'donors.exomiser.acmg_classification') {
-    return removeUnderscoreAndCapitalize(donor?.exomiser?.acmg_classification || '').defaultMessage(
-      TABLE_EMPTY_PLACE_HOLDER,
-    );
   } else if (key === 'donors.exomiser.acmg_evidence') {
     return (donor?.exomiser?.acmg_evidence || TABLE_EMPTY_PLACE_HOLDER)?.replaceAll(',', ', ');
+  } else if (key === 'donors.exomiser.acmg_classification') {
+    return removeUnderscoreAndCapitalize(
+      donor?.exomiser?.acmg_classification.toLowerCase() || '',
+    ).defaultMessage(TABLE_EMPTY_PLACE_HOLDER);
   } else if (key === 'donors.zygosity') {
     return donor ? donor?.zygosity : TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors_genotype') {

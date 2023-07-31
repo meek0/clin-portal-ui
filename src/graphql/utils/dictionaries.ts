@@ -191,6 +191,14 @@ export const dictionaries: Record<string, string[]> = {
     'low_penetrance',
     ArrangerValues.missing,
   ],
+  'donors.exomiser.acmg_classification': [
+    'PATHOGENIC',
+    'LIKELY_PATHOGENIC',
+    'UNCERTAIN_SIGNIFICANCE',
+    'LIKELY_BENIGN',
+    'BENIGN',
+    ArrangerValues.missing,
+  ],
   'varsome.acmg.verdict.verdict': [
     'Pathogenic',
     'Likely Pathogenic',
