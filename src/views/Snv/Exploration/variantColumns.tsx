@@ -63,7 +63,7 @@ const ClinvarColorMap: Record<any, string> = {
 };
 
 const ACMGExoColorMap: Record<any, string> = {
-  BENIGN: 'gree',
+  BENIGN: 'green',
   LIKELY_BENIGN: 'lime',
   UNCERTAIN_SIGNIFICANCE: 'orange',
   PATHOGENIC: 'red',
