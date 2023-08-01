@@ -9,20 +9,37 @@ export const wrapSqonWithDonorIdAndSrId = (
   if (patientId || prescriptionId) {
     const subContent: any[] = [];
 
+    const prescriptionFilter = {
+      content: { field: 'donors.service_request_id', value: [prescriptionId] },
+      op: TermOperators.in,
+    };
+
+    const patientFilter = {
+      content: { field: 'donors.patient_id', value: [patientId] },
+      op: TermOperators.in,
+    };
+
     if (patientId) {
-      subContent.push({
-        content: { field: 'donors.patient_id', value: [patientId] },
-        op: TermOperators.in,
-      });
+      subContent.push(patientFilter);
     }
 
     if (prescriptionId) {
-      subContent.push({
-        content: { field: 'donors.service_request_id', value: [prescriptionId] },
-        op: TermOperators.in,
-      });
+      subContent.push(prescriptionFilter);
     }
 
+    if (resolvedSqon.op === 'or') {
+      resolvedSqon.content.forEach((sqon: any) => {
+        if (prescriptionId) {
+          sqon.content?.push(prescriptionFilter);
+        }
+        if (patientId) {
+          sqon.content?.push(patientFilter);
+        }
+
+        sqon.pivot = 'donors';
+      });
+      return resolvedSqon;
+    }
     return {
       content: [
         {
