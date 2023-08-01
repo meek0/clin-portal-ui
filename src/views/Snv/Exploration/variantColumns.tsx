@@ -47,7 +47,7 @@ import style from './variantColumns.module.scss';
 const ClinvarColorMap: Record<any, string> = {
   conflicting_interpretations_of_pathogenicity: 'orange',
   benign: 'green',
-  likely_benign: 'green',
+  likely_benign: 'lime',
   uncertain_significance: 'orange',
   pathogenic: 'red',
   not_provided: 'default',
@@ -63,8 +63,8 @@ const ClinvarColorMap: Record<any, string> = {
 };
 
 const ACMGExoColorMap: Record<any, string> = {
-  BENIGN: 'polar',
-  LIKELY_BENIGN: 'green',
+  BENIGN: 'gree',
+  LIKELY_BENIGN: 'lime',
   UNCERTAIN_SIGNIFICANCE: 'orange',
   PATHOGENIC: 'red',
   LIKELY_PATHOGENIC: 'volcano',
@@ -557,9 +557,14 @@ export const renderOmimToString = (variant: any) => {
   return renderToString(renderOmim(variant, pickedConsequenceSymbol));
 };
 
-export const renderClinvarToString = (variant: any) =>
-  renderToString(renderClinvar(variant.clinvar));
-
+export const renderClinvarToString = (variant: any) => {
+  const clinvarList = renderClinvar(variant.clinvar);
+  const clinvarStringList = [];
+  for (let i = 0; i < clinvarList.length; i++) {
+    clinvarStringList.push(renderToString(clinvarList[i]));
+  }
+  return clinvarStringList.join(',');
+};
 export const renderGeneToString = (variant: any) => {
   const genes = variant.genes?.hits.edges;
 
