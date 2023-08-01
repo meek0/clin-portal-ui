@@ -33,6 +33,7 @@ import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import UserAffectedIcon from 'components/icons/UserAffectedIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { formatFilters } from 'utils/formatFilters';
 import { formatGenotype } from 'utils/formatGenotype';
 
 import GqLine from '../components/GQLine';
@@ -686,7 +687,7 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
   } else if (key === 'altratio') {
     return (donor?.ad_ratio ?? 0).toFixed(2) ?? TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'filter') {
-    return donor?.filters ?? TABLE_EMPTY_PLACE_HOLDER;
+    return formatFilters(donor?.filters);
   }
   return <></>;
 };

@@ -16,6 +16,7 @@ import MaleAffectedIcon from 'components/icons/MaleAffectedIcon';
 import MaleNotAffectedIcon from 'components/icons/MaleNotAffectedIcon';
 import { ReportNames } from 'store/reports/types';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { formatFilters } from 'utils/formatFilters';
 
 import GqLine from '../GQLine';
 import ReportButton from '../Report/DownloadButton';
@@ -234,7 +235,7 @@ const OccurrenceDrawer = ({
               </Descriptions.Item>
             )}
             <Descriptions.Item label={intl.get('screen.patientsnv.drawer.filter')}>
-              {donor?.filters}
+              {formatFilters(donor?.filters)}
             </Descriptions.Item>
           </Descriptions>
           <Divider style={{ margin: 0 }} />

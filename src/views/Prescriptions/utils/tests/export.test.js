@@ -404,7 +404,7 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'filter', row, 'p1')).toEqual('foobar');
+    expect(customMapping('SNV', 'filter', row, 'p1')).toEqual('Foo, Bar');
   });
 });
 

@@ -224,10 +224,6 @@ const filterGroups: {
         facets: ['donors__zygosity'],
       },
       {
-        title: intl.get('screen.patientsnv.category_parental_analysis'),
-        facets: ['donors__transmission', 'donors__is_hc', 'donors__is_possibly_hc'],
-      },
-      {
         title: intl.get('screen.patientsnv.category_metric'),
         facets: [
           'donors__filters',
