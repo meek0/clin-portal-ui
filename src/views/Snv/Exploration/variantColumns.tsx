@@ -45,21 +45,24 @@ import { OtherActions } from './components/OtherActions';
 import style from './variantColumns.module.scss';
 
 const ClinvarColorMap: Record<any, string> = {
-  conflicting_interpretations_of_pathogenicity: 'orange',
-  benign: 'green',
-  likely_benign: 'lime',
-  uncertain_significance: 'orange',
-  pathogenic: 'red',
-  not_provided: 'default',
-  drug_response: 'default',
-  risk_factor: 'default',
-  likely_pathogenic: 'volcano',
-  association: 'default',
-  other: 'default',
   affects: 'default',
-  protective: 'default',
+  association: 'default',
+  association_not_found: 'default',
+  benign: 'green',
   confers_sensitivity: 'default',
+  conflicting_interpretations_of_pathogenicity: 'orange',
+  drug_response: 'default',
+  likely_benign: 'lime',
+  likely_pathogenic: 'volcano',
+  likely_risk_allele: 'default',
+  low_penetrance: 'default',
+  not_provided: 'default',
+  other: 'default',
+  pathogenic: 'red',
+  protective: 'default',
+  risk_factor: 'default',
   uncertain_risk_allele: 'default',
+  uncertain_significance: 'orange',
 };
 
 const ACMGExoColorMap: Record<any, string> = {
@@ -505,18 +508,20 @@ export const getVariantColumns = (
 };
 
 const renderClinvar = (clinVar: ClinVar) => {
-  const clinVarSigFormatted: string[] = [];
   const clinVarSigKey: string[] = [];
 
   clinVar?.clin_sig &&
     clinVar.clin_sig.map((c) => {
-      clinVarSigFormatted.push(removeUnderscoreAndCapitalize(c));
       clinVarSigKey.push(c.toLowerCase());
     });
 
   return clinVar?.clin_sig && clinVar.clinvar_id
     ? clinVarSigKey.map((clinvarKey) => (
-        <Tooltip key={clinvarKey} placement="topLeft" title={clinVarSigFormatted.join(', ')}>
+        <Tooltip
+          key={clinvarKey}
+          placement="topLeft"
+          title={removeUnderscoreAndCapitalize(clinvarKey)}
+        >
           <Tag color={ClinvarColorMap[clinvarKey]}>
             <ExternalLink
               href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
