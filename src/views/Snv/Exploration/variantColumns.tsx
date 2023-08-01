@@ -80,7 +80,7 @@ const formatRqdm = (rqdm: frequency_RQDMEntity, variant: VariantEntity) => {
   return (
     <Space size={4}>
       <Link to={`/variant/entity/${variant.locus}/${TAB_ID.PATIENTS}`}>{rqdm.total.pc}</Link>
-      <Typography.Text>({(rqdm.total.pf * 100).toFixed(1)}%)</Typography.Text>
+      <Typography.Text>({rqdm.total.pf.toExponential(2)})</Typography.Text>
     </Space>
   );
 };
@@ -359,7 +359,7 @@ export const getVariantColumns = (
       sorter: {
         multiple: 1,
       },
-      width: 100,
+      width: 110,
       render: (record: VariantEntity) => formatRqdm(record.frequency_RQDM, record),
     },
   );
