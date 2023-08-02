@@ -86,7 +86,7 @@ export const getVariantColumns = (
       key: 'sm',
       dataIndex: 'sm',
       sorter: { multiple: 1 },
-      defaultHidden: true,
+      defaultHidden: variantType === VariantType.GERMLINE,
       render: (sm: string) => sm,
       width: 75,
     },
