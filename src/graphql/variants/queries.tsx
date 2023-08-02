@@ -138,6 +138,8 @@ export const VARIANT_QUERY = gql`
                     affected_status_code
                     qd
                     gq
+                    sq
+                    bioinfo_analysis_code
                     filters
                     mother_id
                     mother_zygosity
@@ -592,6 +594,8 @@ export const TAB_PATIENT_QUERY = gql`
                     affected_status_code
                     qd
                     gq
+                    sq
+                    bioinfo_analysis_code
                     service_request_id
                     analysis_service_request_id
                   }

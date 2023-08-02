@@ -23,6 +23,8 @@ import { getAssignmentDictionary } from 'utils/translation';
 
 import styles from './index.module.scss';
 
+import { formatServiceRequestTag } from '../Tabs/Variants/utils';
+
 interface OwnProps {
   prescription?: ServiceRequestEntity;
   loading: boolean;
@@ -122,6 +124,9 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
     r.reference.includes('Organization'),
   );
 
+  const analysisCode = prescription?.code?.[0] || '';
+  const sequencingCode = prescription?.code?.[1] || '';
+
   return (
     <Card title={intl.get(`screen.prescription.entity.analyse.card.title`)} data-cy="AnalysisCard">
       <ParagraphLoader loading={loading} paragraph={{ rows: 5 }}>
@@ -160,7 +165,9 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
             <Descriptions.Item
               label={intl.get('screen.prescription.entity.analysisCard.askedAnalysis')}
             >
-              <Tag color="geekblue">{getAnalysisNameByCode(prescription.code)}</Tag>
+              <Tag color="geekblue">
+                {formatServiceRequestTag(getAnalysisNameByCode(analysisCode), sequencingCode)}
+              </Tag>
             </Descriptions.Item>
             <Descriptions.Item
               label={intl.get('screen.prescription.entity.analysisCard.reflexpanel')}

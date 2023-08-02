@@ -91,9 +91,14 @@ Cypress.Commands.add('logout', () => {
 
 Cypress.Commands.add('resetColumns', (eq: number) => {
   cy.get('svg[data-icon="setting"]').eq(eq).click({force: true});
-  cy.get('button[class*="ProTablePopoverColumnResetBtn"]').eq(eq).click({force: true});
-
-  cy.get('button[class*="ProTablePopoverColumnResetBtn"]').should('be.disabled', {timeout: 20*1000});
+  cy.wait(1000);
+  cy.get('button[class*="ProTablePopoverColumnResetBtn"]').eq(eq)
+  .then(($button) => {
+    cy.wrap($button).click({force: true});
+    cy.wait(1000);
+  });
+  
+  cy.get('button[class*="ProTablePopoverColumnResetBtn"]').eq(eq).should('be.disabled', {timeout: 20*1000});
 });
 
 Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {

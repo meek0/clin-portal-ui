@@ -28,7 +28,7 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Variant]: {
+  [FilterTypes.Variant_germline]: {
     customSearches: () => [
       <VariantGeneSearch
         key="variants"
@@ -116,7 +116,7 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Frequency]: {
+  [FilterTypes.Frequency_germline]: {
     groups: [
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
@@ -165,7 +165,7 @@ export const getMenuItems = (
       variantMappingResults,
       INDEXES.VARIANT,
       VARIANT_RQDM_QB_ID,
-      filterGroups[FilterTypes.Variant],
+      filterGroups[FilterTypes.Variant_germline],
       filterMapper,
     ),
   },
@@ -189,7 +189,7 @@ export const getMenuItems = (
       variantMappingResults,
       INDEXES.VARIANT,
       VARIANT_RQDM_QB_ID,
-      filterGroups[FilterTypes.Frequency],
+      filterGroups[FilterTypes.Frequency_germline],
       filterMapper,
     ),
   },

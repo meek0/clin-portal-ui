@@ -4,6 +4,7 @@ import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Button, Space, Tooltip } from 'antd';
 import cx from 'classnames';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
+import { VariantType } from 'views/Prescriptions/Entity/context';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
@@ -13,10 +14,13 @@ import { formatDnaLength, formatNumber } from 'utils/formatNumber';
 import style from './variantColumns.module.scss';
 
 export const getVariantColumns = (
+  variantType: VariantType,
   openGenesModal: (record: VariantEntity) => void,
   igvModalCb?: (record: VariantEntity) => void,
 ): ProColumnType<ITableVariantEntity>[] => {
-  const columns: ProColumnType<ITableVariantEntity>[] = [
+  const columns: ProColumnType<ITableVariantEntity>[] = [];
+
+  columns.push(
     {
       title: intl.get('screen.patientcnv.results.table.variant'),
       key: 'name',
@@ -77,6 +81,19 @@ export const getVariantColumns = (
       width: 100,
     },
     {
+      title: intl.get('screen.patientcnv.results.table.segment_mean'),
+      tooltip: intl.get('screen.patientcnv.results.table.segment_mean.tooltip'),
+      key: 'sm',
+      dataIndex: 'sm',
+      sorter: { multiple: 1 },
+      defaultHidden: variantType === VariantType.GERMLINE,
+      render: (sm: string) => sm,
+      width: 75,
+    },
+  );
+
+  if (variantType === VariantType.GERMLINE) {
+    columns.push({
       title: intl.get('screen.patientcnv.results.table.copy_number'),
       tooltip: intl.get('screen.patientcnv.results.table.copy_number.tooltip'),
       key: 'cn',
@@ -84,7 +101,10 @@ export const getVariantColumns = (
       sorter: { multiple: 1 },
       render: (cn: number) => cn,
       width: 60,
-    },
+    });
+  }
+
+  columns.push(
     {
       title: intl.get('screen.patientcnv.results.table.number_genes'),
       tooltip: intl.get('screen.patientcnv.results.table.number_genes.tooltip'),
@@ -157,16 +177,6 @@ export const getVariantColumns = (
       width: 65,
     },
     {
-      title: intl.get('screen.patientcnv.results.table.segment_mean'),
-      tooltip: intl.get('screen.patientcnv.results.table.segment_mean.tooltip'),
-      key: 'sm',
-      dataIndex: 'sm',
-      sorter: { multiple: 1 },
-      defaultHidden: true,
-      render: (sm: string) => sm,
-      width: 75,
-    },
-    {
       title: intl.get('screen.patientcnv.results.table.bins_count'),
       tooltip: intl.get('screen.patientcnv.results.table.bins_count.tooltip'),
       key: 'bc',
@@ -205,7 +215,7 @@ export const getVariantColumns = (
       align: 'center',
       width: 70,
     },
-  ];
+  );
   return columns;
 };
 

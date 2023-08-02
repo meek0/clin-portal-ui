@@ -3,6 +3,7 @@ import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { SuggestionType } from 'api/arranger/models';
 import { INDEXES } from 'graphql/constants';
 import { ExtendedMappingResults } from 'graphql/models';
+import { VariantType } from 'views/Prescriptions/Entity/context';
 import {
   FilterTypes,
   GeneSearchFieldsMapping,
@@ -35,7 +36,7 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Variant]: {
+  [FilterTypes.Variant_germline]: {
     customSearches: () => [
       <VariantGeneSearch
         key="variants"
@@ -49,6 +50,29 @@ const filterGroups: {
       {
         facets: [
           'variant_class',
+          'consequences__consequences',
+          'variant_external_reference',
+          'chromosome',
+          'start',
+        ],
+      },
+    ],
+  },
+  [FilterTypes.Variant_somatic_tumor_only]: {
+    customSearches: () => [
+      <VariantGeneSearch
+        key="variants"
+        index={INDEXES.VARIANT}
+        fields={GeneSearchFieldsMapping}
+        type={SuggestionType.VARIANTS}
+        queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
+      />,
+    ],
+    groups: [
+      {
+        facets: [
+          'variant_class',
+          'donors__bioinfo_analysis_code',
           'consequences__consequences',
           'variant_external_reference',
           'chromosome',
@@ -127,7 +151,7 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Frequency]: {
+  [FilterTypes.Frequency_germline]: {
     groups: [
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
@@ -150,7 +174,22 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Occurrence]: {
+  [FilterTypes.Frequency_somatic_tumor_only]: {
+    groups: [
+      {
+        title: intl.get('screen.patientsnv.filter.grouptitle.publiccohorts'),
+        facets: [
+          'external_frequencies__gnomad_genomes_2_1_1__af',
+          'external_frequencies__gnomad_genomes_3_0__af',
+          'external_frequencies__gnomad_genomes_3_1_1__af',
+          'external_frequencies__gnomad_exomes_2_1_1__af',
+          'external_frequencies__topmed_bravo__af',
+          'external_frequencies__thousand_genomes__af',
+        ],
+      },
+    ],
+  },
+  [FilterTypes.Occurrence_germline]: {
     groups: [
       {
         facets: ['donors__zygosity'],
@@ -179,82 +218,116 @@ const filterGroups: {
       },
     ],
   },
+  [FilterTypes.Occurrence_somatic_tumor_only]: {
+    groups: [
+      {
+        facets: ['donors__zygosity'],
+      },
+      {
+        title: intl.get('screen.patientsnv.category_metric'),
+        facets: [
+          'donors__filters',
+          'donors__qd',
+          'donors__ad_alt',
+          'donors__ad_total',
+          'donors__ad_ratio',
+          'donors__sq',
+        ],
+      },
+    ],
+  },
 };
 
 export const getMenuItems = (
   variantMappingResults: ExtendedMappingResults,
   filterMapper: TCustomFilterMapper,
-): ISidebarMenuItem[] => [
-  {
-    key: 'rqdm',
-    title: intl.get('screen.patientsnv.category_rqdm'),
-    icon: <RqdmIcon className={styles.sideMenuIcon} />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.VARIANT,
-      SNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Rqdm],
-      filterMapper,
-    ),
-  },
-  {
-    key: 'category_variant',
-    title: intl.get('screen.patientsnv.category_variant'),
-    icon: <LineStyleIcon className={styles.sideMenuIcon} />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.VARIANT,
-      SNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Variant],
-      filterMapper,
-    ),
-  },
-  {
-    key: 'category_genomic',
-    title: intl.get('screen.patientsnv.category_genomic'),
-    icon: <GeneIcon className={styles.sideMenuIcon} />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.VARIANT,
-      SNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Gene],
-      filterMapper,
-    ),
-  },
-  {
-    key: 'category_cohort',
-    title: intl.get('screen.patientsnv.category_cohort'),
-    icon: <FrequencyIcon className={styles.sideMenuIcon} />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.VARIANT,
-      SNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Frequency],
-      filterMapper,
-    ),
-  },
-  {
-    key: 'category_pathogenicity',
-    title: intl.get('screen.patientsnv.category_pathogenicity'),
-    icon: <DiseaseIcon className={styles.sideMenuIcon} />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.VARIANT,
-      SNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Pathogenicity],
-      filterMapper,
-    ),
-  },
-  {
-    key: 'category_occurrence',
-    title: intl.get('screen.patientsnv.category_occurrence'),
-    icon: <OccurenceIcon className={styles.sideMenuIcon} />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.VARIANT,
-      SNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Occurrence],
-      filterMapper,
-    ),
-  },
-];
+  variantType: VariantType = VariantType.GERMLINE,
+): ISidebarMenuItem[] => {
+  const [filterVariantType, filterFrequencyType, filterOccType] =
+    variantType === VariantType.GERMLINE
+      ? [
+          FilterTypes.Variant_germline,
+          FilterTypes.Frequency_germline,
+          FilterTypes.Occurrence_germline,
+        ]
+      : [
+          FilterTypes.Variant_somatic_tumor_only,
+          FilterTypes.Frequency_somatic_tumor_only,
+          FilterTypes.Occurrence_somatic_tumor_only,
+        ];
+
+  return [
+    {
+      key: 'rqdm',
+      title: intl.get('screen.patientsnv.category_rqdm'),
+      icon: <RqdmIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.VARIANT,
+        SNV_VARIANT_PATIENT_QB_ID,
+        filterGroups[FilterTypes.Rqdm],
+        filterMapper,
+      ),
+    },
+    {
+      key: 'category_variant',
+      title: intl.get('screen.patientsnv.category_variant'),
+      icon: <LineStyleIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.VARIANT,
+        SNV_VARIANT_PATIENT_QB_ID,
+        filterGroups[filterVariantType],
+        filterMapper,
+      ),
+    },
+    {
+      key: 'category_genomic',
+      title: intl.get('screen.patientsnv.category_genomic'),
+      icon: <GeneIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.VARIANT,
+        SNV_VARIANT_PATIENT_QB_ID,
+        filterGroups[FilterTypes.Gene],
+        filterMapper,
+      ),
+    },
+    {
+      key: 'category_cohort',
+      title: intl.get('screen.patientsnv.category_cohort'),
+      icon: <FrequencyIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.VARIANT,
+        SNV_VARIANT_PATIENT_QB_ID,
+        filterGroups[filterFrequencyType],
+        filterMapper,
+      ),
+    },
+    {
+      key: 'category_pathogenicity',
+      title: intl.get('screen.patientsnv.category_pathogenicity'),
+      icon: <DiseaseIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.VARIANT,
+        SNV_VARIANT_PATIENT_QB_ID,
+        filterGroups[FilterTypes.Pathogenicity],
+        filterMapper,
+      ),
+    },
+    {
+      key: 'category_occurrence',
+      title: intl.get('screen.patientsnv.category_occurrence'),
+      icon: <OccurenceIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.VARIANT,
+        SNV_VARIANT_PATIENT_QB_ID,
+        filterGroups[filterOccType],
+        filterMapper,
+      ),
+    },
+  ];
+};

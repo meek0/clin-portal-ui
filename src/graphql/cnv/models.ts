@@ -21,6 +21,8 @@ export type ITableGeneEntity = GeneEntity & {
 
 export type VariantEntity = {
   id: string;
+  variant_type: string;
+  bioinfo_analysis_code: string;
   patient_id: string;
   name: string;
   aliquot_id: string;

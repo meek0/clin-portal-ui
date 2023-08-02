@@ -19,6 +19,8 @@ export const VARIANT_QUERY = gql`
           searchAfter
           node {
             id
+            variant_type
+            bioinfo_analysis_code
             hash
             aliquot_id
             patient_id

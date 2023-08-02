@@ -2,9 +2,39 @@ import intl from 'react-intl-universal';
 import { DefaultOptionType } from 'antd/lib/select';
 import { extractPatientId, extractServiceRequestId } from 'api/fhir/helper';
 import { PatientServiceRequestFragment, ServiceRequestEntity } from 'api/fhir/models';
+import { VariantEntity as CNVVariantEntity } from 'graphql/cnv/models';
 import { getFamilyCode } from 'graphql/prescriptions/helper';
+import { VariantEntity as SNVVariantEntity } from 'graphql/variants/models';
+import { PrescriptionEntityVariantInfo, VariantType } from 'views/Prescriptions/Entity/context';
 
-import { PrescriptionEntityVariantInfo } from '../../context';
+const SERVICE_REQUEST_CODE_EXTUM = 'EXTUM';
+const VARIANT_TYPE_BIOINFO_CODE_TEBA = 'TEBA';
+
+export const formatServiceRequestTag = (analysisCode?: string, sequencingCode?: string) => {
+  let tag = analysisCode || '';
+  if (sequencingCode) {
+    tag += ' | ' + sequencingCode;
+  }
+  return tag;
+};
+
+export const getVariantTypeFromServiceRequest = (
+  serviceRequest?: ServiceRequestEntity,
+): VariantType =>
+  serviceRequest?.code?.[0] === SERVICE_REQUEST_CODE_EXTUM
+    ? VariantType.SOMATIC_TUMOR_ONLY
+    : VariantType.GERMLINE;
+
+export const getVariantTypeFromSNVVariantEntity = (variantEntity?: SNVVariantEntity): VariantType =>
+  variantEntity?.donors?.hits?.edges?.[0].node.bioinfo_analysis_code ===
+  VARIANT_TYPE_BIOINFO_CODE_TEBA
+    ? VariantType.SOMATIC_TUMOR_ONLY
+    : VariantType.GERMLINE;
+
+export const getVariantTypeFromCNVVariantEntity = (variantEntity?: CNVVariantEntity): VariantType =>
+  variantEntity?.bioinfo_analysis_code === VARIANT_TYPE_BIOINFO_CODE_TEBA
+    ? VariantType.SOMATIC_TUMOR_ONLY
+    : VariantType.GERMLINE;
 
 export const getRequestOptions = (
   serviceRequest: ServiceRequestEntity | undefined,
@@ -38,6 +68,7 @@ export const getPatientAndRequestId = (
 ): PrescriptionEntityVariantInfo => ({
   patientId: resource ? extractPatientId(resource.id) : '',
   requestId: resource ? extractServiceRequestId(resource.requests?.[0].id) : '',
+  variantType: VariantType.GERMLINE,
 });
 
 export const formatOptionValue = (patientId: string, requestId: string) =>
@@ -46,7 +77,8 @@ export const formatOptionValue = (patientId: string, requestId: string) =>
 export const extractOptionValue = (value: string): PrescriptionEntityVariantInfo => ({
   patientId: value.split(',')[0],
   requestId: value.split(',')[1],
+  variantType: VariantType.GERMLINE,
 });
 
 export const hasVariantInfo = (value: PrescriptionEntityVariantInfo<undefined>): boolean =>
-  !!value.patientId && !!value.requestId;
+  !!value.patientId && !!value.requestId && !!value.variantType;

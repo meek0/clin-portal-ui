@@ -5,6 +5,7 @@ import { useVariants } from 'graphql/cnv/actions';
 import { VariantEntity } from 'graphql/cnv/models';
 import { IQueryResults } from 'graphql/models';
 import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
+import { getVariantTypeFromCNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 import {
   buildVariantsDownloadCount,
   buildVariantsDownloadSqon,
@@ -66,11 +67,13 @@ const Download = ({
           setShowModalLimit(true);
         }
       } else if (variantsToDownload.data.length > 0) {
+        const variantType = getVariantTypeFromCNVVariantEntity(variantsToDownload.data?.[0]);
         downloadAsTSV(
           variantsToDownload.data,
           downloadKeys,
           VARIANT_KEY,
           getVariantColumns(
+            variantType,
             () => {},
             () => {},
           ).filter((h) => h.key !== 'actions'), // remove action column

@@ -85,6 +85,8 @@ export type DonorsEntity = {
   affected_status_code: string;
   qd: number;
   gq: number;
+  sq: number;
+  bioinfo_analysis_code: string;
   filters?: string[];
   zygosity?: string;
   transmission?: string;

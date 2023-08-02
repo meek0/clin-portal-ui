@@ -45,6 +45,12 @@ describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
       .contains('Longueur').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
+      .contains('MS').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(6)
+      .contains('MS').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(7)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('CN').should('exist');
@@ -67,26 +73,20 @@ describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
     cy.get('thead[class="ant-table-thead"]')
       .contains('GT').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(9)
+      .find('div[class="ant-space-item"]').eq(10)
       .contains('GT').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('Filtre').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(10)
+      .find('div[class="ant-space-item"]').eq(11)
       .contains('Filtre').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('Qual.').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(11)
-      .contains('Qual.').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('SM').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(12)
-      .contains('SM').should('exist');
+      .contains('Qual.').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('BC').should('not.exist');

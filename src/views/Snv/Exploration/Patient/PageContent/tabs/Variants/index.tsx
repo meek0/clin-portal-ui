@@ -6,6 +6,7 @@ import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { IQueryResults } from 'graphql/models';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
+import { getVariantTypeFromSNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 import { ALL_KEYS, VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import IGVModal from 'views/Snv/components//IGVModal';
 import OccurrenceDrawer from 'views/Snv/components/OccurrenceDrawer';
@@ -69,7 +70,16 @@ const VariantsTab = ({
 
   const donor = findDonorById(selectedVariant?.donors, patientId);
   const initialColumnState = user.config.data_exploration?.tables?.patientSnv?.columns;
-  const columns = getVariantColumns(queryBuilderId, patientId, openDrawer, openIgvModal);
+
+  const variantType = getVariantTypeFromSNVVariantEntity(results.data?.[0]);
+
+  const columns = getVariantColumns(
+    queryBuilderId,
+    variantType,
+    patientId,
+    openDrawer,
+    openIgvModal,
+  );
 
   return (
     <>
@@ -179,6 +189,7 @@ const VariantsTab = ({
           toggleModal={toggleModal}
           modalOpened={modalOpened}
           variantId={selectedVariant?.hgvsg}
+          variantType={variantType}
         />
       )}
     </>

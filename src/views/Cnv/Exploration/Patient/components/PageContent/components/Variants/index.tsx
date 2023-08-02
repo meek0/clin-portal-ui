@@ -9,6 +9,7 @@ import GenesModal from 'views/Cnv/Exploration/components/GenesModal';
 import IGVModal from 'views/Cnv/Exploration/components/IGVModal';
 import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
 import { DEFAULT_PAGE_INDEX, SCROLL_WRAPPER_ID } from 'views/Cnv/utils/constant';
+import { getVariantTypeFromCNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 import { ALL_KEYS, VARIANT_KEY } from 'views/Prescriptions/utils/export';
 
 import FixedSizeTable from 'components/Layout/FixedSizeTable';
@@ -58,6 +59,8 @@ const VariantsTable = ({
 
   const initialColumnState = user.config.data_exploration?.tables?.patientCnv?.columns;
 
+  const variantType = getVariantTypeFromCNVVariantEntity(results.data?.[0]);
+
   return (
     <>
       {selectedVariant && (
@@ -79,7 +82,7 @@ const VariantsTable = ({
           <ProTable<ITableVariantEntity>
             tableId="variant_table"
             wrapperClassName={style.variantTableWrapper}
-            columns={getVariantColumns(openGenesModal, openIgvModal)}
+            columns={getVariantColumns(variantType, openGenesModal, openIgvModal)}
             initialColumnState={initialColumnState}
             dataSource={results.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
             loading={results.loading}

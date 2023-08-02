@@ -151,6 +151,8 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
         'donors.exomiser.acmg_classification',
         'donors.exomiser.acmg_evidence',
         'donors.gq',
+        'donors.sq',
+        'donors.bioinfo_analysis_code',
         'donors.zygosity',
         'donors_genotype',
         'ch',

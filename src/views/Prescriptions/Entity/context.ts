@@ -1,6 +1,11 @@
 import React, { useContext } from 'react';
 import { ServiceRequestEntity } from 'api/fhir/models';
 
+export enum VariantType {
+  GERMLINE = 'germline', // by default
+  SOMATIC_TUMOR_ONLY = 'somatic_tumor_only',
+}
+
 export type PrescriptionEntityContextType = {
   patientId: string | undefined;
   prescription: ServiceRequestEntity | undefined;
@@ -16,6 +21,7 @@ export type PrescriptionEntityContextType = {
 export type PrescriptionEntityVariantInfo<T = string> = {
   patientId: string | T;
   requestId: string | T;
+  variantType: VariantType;
 };
 
 const PrescriptionEntityContext = React.createContext<PrescriptionEntityContextType>({
@@ -32,6 +38,7 @@ const PrescriptionEntityContext = React.createContext<PrescriptionEntityContextT
   variantInfo: {
     patientId: undefined,
     requestId: undefined,
+    variantType: VariantType.GERMLINE,
   },
 });
 

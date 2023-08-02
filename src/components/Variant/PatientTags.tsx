@@ -1,9 +1,10 @@
 import React from 'react';
 import { Tag } from 'antd';
 import { PatientServiceRequestFragment, ServiceRequestEntity } from 'api/fhir/models';
+import { formatServiceRequestTag } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 
-import { useGlobals } from 'store/global';
 import SpecimenIcon from 'components/icons/SpecimenIcon';
+import { useGlobals } from 'store/global';
 
 // specimen with parent is the sample
 const extractSampleValue = (resource?: PatientServiceRequestFragment): string | undefined =>
@@ -54,9 +55,15 @@ export default (
   }
 
   if (prescription) {
+    const analysisCode = prescription.code?.[0];
+    const sequencingCode = prescription.code?.[1];
     tags.push(
       <div key="analsysis-name">
-        {<Tag color="geekblue">{getAnalysisNameByCode(prescription.code)}</Tag>}
+        {
+          <Tag color="geekblue">
+            {formatServiceRequestTag(getAnalysisNameByCode(analysisCode), sequencingCode)}
+          </Tag>
+        }
       </div>,
     );
   }

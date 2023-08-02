@@ -5,6 +5,7 @@ import { IQueryResults } from 'graphql/models';
 import { useVariants } from 'graphql/variants/actions';
 import { VariantEntity } from 'graphql/variants/models';
 import { VARIANT_QUERY, VARIANT_QUERY_NO_DONORS } from 'graphql/variants/queries';
+import { getVariantTypeFromSNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 import {
   buildVariantsDownloadCount,
   buildVariantsDownloadSqon,
@@ -74,11 +75,14 @@ const Download = ({
           setShowModalLimit(true);
         }
       } else if (variantsToDownload.data.length > 0) {
+        const variantType = getVariantTypeFromSNVVariantEntity(variantsToDownload.data?.[0]);
         downloadAsTSV(
           variantsToDownload.data,
           downloadKeys,
           VARIANT_KEY,
-          getVariantColumns(queryBuilderId, patientId).filter((h) => h.key !== 'actions'), // remove action column,
+          getVariantColumns(queryBuilderId, variantType, patientId).filter(
+            (h) => h.key !== 'actions',
+          ), // remove action column,
           'SNV',
           {},
           patientId,
