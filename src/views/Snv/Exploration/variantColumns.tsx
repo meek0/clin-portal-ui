@@ -14,6 +14,7 @@ import cx from 'classnames';
 import { INDEXES } from 'graphql/constants';
 import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
 import {
+  BioinfoAnalysisCode,
   ClinVar,
   DonorsEntity,
   ExternalFrequenciesEntity,
@@ -633,11 +634,11 @@ export const renderGeneToString = (variant: any) => {
 export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
   renderToString(renderDonorByKey(key, donor));
 
-const getBioinfoTagColor = (code: string) => {
+const getBioinfoTagColor = (code: BioinfoAnalysisCode) => {
   switch (code) {
-    case 'TEBA':
+    case BioinfoAnalysisCode.TEBA:
       return 'processing';
-    case 'TNBA':
+    case BioinfoAnalysisCode.TNBA:
       return 'error';
     default:
       return 'default';

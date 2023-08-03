@@ -16,6 +16,12 @@ export enum VariantType {
   SomaticTumorOnly = 'somatic_tumor_only',
 }
 
+export enum BioinfoAnalysisCode {
+  GEBA = 'GEBA',
+  TEBA = 'TEBA',
+  TNBA = 'TNBA',
+}
+
 export type ExternalFrequenciesEntity = {
   topmed_bravo: BoundType;
   thousand_genomes: BoundType;
@@ -86,7 +92,7 @@ export type DonorsEntity = {
   qd: number;
   gq: number;
   sq: number;
-  bioinfo_analysis_code: string;
+  bioinfo_analysis_code: BioinfoAnalysisCode;
   filters?: string[];
   zygosity?: string;
   transmission?: string;
