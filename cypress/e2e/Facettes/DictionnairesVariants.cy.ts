@@ -13,20 +13,21 @@ describe('Page des variants - Dictionnaire', () => {
     cy.visitVariantsPage();
   });
 
-  it('Patient - Analyse [CLIN-2088]', () => {
+  it('Patient - Analyse', () => {
     const dictionnary = ['Malignant Hyperthermia (HYPM)',
-                          'Congenital Myopathies (MYOC)',
-                          'Global Developmental Delay / Intellectual Deficiency (Trio) (RGDI)',
-                          'Hematological malignancies predisposition (TUHEM)',
-                          'Congenital Myasthenia (MYAC)',
-                          'Global Muscular diseases (Global Panel) (MMG)',
-                          'Muscular Dystrophies (DYSM)',
-                          'Nuclear Mitochondriopathies (MITN)',
-                          'Pediatric cancer predisposition (TUPED)',
-                          'Polymalformation (POLYM)',
-                          'RGDI+ (RGDI+)',
-                          'Rhabdomyolysis (RHAB)',
-                          'No Data'];
+                         'Congenital Myopathies (MYOC)',
+                         'Global Developmental Delay / Intellectual Deficiency (Trio) (RGDI)',
+                         'Hematological malignancies predisposition (TUHEM)',
+                         'Congenital Myasthenia (MYAC)',
+                         'Global Muscular diseases (Global Panel) (MMG)',
+                         'Muscular Dystrophies (DYSM)',
+                         'Nuclear Mitochondriopathies (MITN)',
+                         'Pediatric cancer predisposition (TUPED)',
+                         'Polymalformation (POLYM)',
+                         'RGDI+ (RGDI+)',
+                         'Rhabdomyolysis (RHAB)',
+                         'Tumoral Exome (EXTUM)',
+                         'No Data'];
 
     cy.validateDictionnary('patient', /^Analyse$/, 0, dictionnary);
   });
@@ -48,11 +49,14 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('patient', /^Sexe$/, 2, dictionnary);
   });
 
-  it('Variant - Type de variant [CLIN-2088]', () => {
+  it('Variant - Type de variant', () => {
     const dictionnary = ['Insertion',
-                          'Délétion',
-                          'SNV',
-                          'No Data'];
+                         'Délétion',
+                         'SNV',
+                         'Indel',
+                         'Substitution',
+                         'Séquence Altération',
+                         'No Data'];
 
     cy.validateDictionnary('category_variant', /^Type de variant$/, 0, dictionnary);
   });
@@ -259,20 +263,21 @@ describe('Page des variants - Dictionnaire', () => {
 
   it('Gène - RQDM', () => {
     const dictionnary = ['Malignant Hyperthermia (HYPM)',
-                          'Congenital Myopathies (MYOC)',
-                          'Global Developmental Delay / Intellectual Deficiency (Trio) (RGDI)',
-                          'Hematological malignancies predisposition (TUHEM)',
-                          'Congenital Myasthenia (MYAC)',
-                          'Global Muscular diseases (Global Panel) (MMG)',
-                          'Muscular Dystrophies (DYSM)',
-                          'Nuclear Mitochondriopathies (MITN)',
-                          'Pediatric cancer predisposition (TUPED)',
-                          'Polymalformation (POLYM)',
-                          'RGDI+ (RGDI+)',
-                          'Rhabdomyolysis (RHAB)',
-                          'Solid Tumor (somatic) (SSOLID)',
-                          'Leukemia (somatic) (SHEMA)',
-                          'No Data'];
+                         'Congenital Myopathies (MYOC)',
+                         'Global Developmental Delay / Intellectual Deficiency (Trio) (RGDI)',
+                         'Hematological malignancies predisposition (TUHEM)',
+                         'Congenital Myasthenia (MYAC)',
+                         'Global Muscular diseases (Global Panel) (MMG)',
+                         'Muscular Dystrophies (DYSM)',
+                         'Nuclear Mitochondriopathies (MITN)',
+                         'Pediatric cancer predisposition (TUPED)',
+                         'Polymalformation (POLYM)',
+                         'RGDI+ (RGDI+)',
+                         'Rhabdomyolysis (RHAB)',
+                         'Solid Tumor (somatic) (SSOLID)',
+                         'Leukemia (somatic) (SHEMA)',
+                         'Tumoral Exome (EXTUM)',
+                         'No Data'];
 
     cy.validateDictionnary('category_genomic', /^RQDM$/, 4, dictionnary);
   });

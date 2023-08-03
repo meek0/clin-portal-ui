@@ -13,6 +13,7 @@ const panelsDictionaries = [
   'POLYM',
   'TUPED',
   'TUHEM',
+  'EXTUM',
   ArrangerValues.missing,
 ];
 
@@ -23,7 +24,15 @@ export const dictionaries: Record<string, string[]> = {
   'donors.gender': ['Female', 'Male', 'Other', 'unknown'],
   // Variants
   type: ['GAIN', 'LOSS', ArrangerValues.missing],
-  variant_class: ['deletion', 'insertion', 'SNV', ArrangerValues.missing],
+  variant_class: [
+    'insertion',
+    'deletion',
+    'SNV',
+    'indel',
+    'substitution',
+    'sequence_alteration',
+    ArrangerValues.missing,
+  ],
   'consequences.consequences': [
     'transcript_ablation',
     'splice_acceptor_variant',
