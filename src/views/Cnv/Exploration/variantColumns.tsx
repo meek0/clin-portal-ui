@@ -8,6 +8,7 @@ import { VariantType } from 'views/Prescriptions/Entity/context';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { formatFilters } from 'utils/formatFilters';
 import { formatGenotype } from 'utils/formatGenotype';
 import { formatDnaLength, formatNumber } from 'utils/formatNumber';
 
@@ -163,7 +164,7 @@ export const getVariantColumns = (
       key: 'filter',
       dataIndex: 'filters',
       defaultHidden: true,
-      render: (filters: string[]) => filters.join(', '),
+      render: (filters: string[]) => formatFilters(filters),
       width: 70,
     },
     {
