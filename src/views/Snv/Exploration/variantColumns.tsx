@@ -225,6 +225,20 @@ export const getVariantColumns = (
           TABLE_EMPTY_PLACE_HOLDER
         ),
     },
+  ];
+
+  if (patientId && variantType === VariantType.SOMATIC_TUMOR_ONLY) {
+    columns.push({
+      key: 'donors.bioinfo_analysis_code',
+      title: intl.get('screen.patientsnv.results.table.bioinfo_analysis_code'),
+      tooltip: intl.get('bioinfo_analysis_code.tooltip'),
+      width: 59,
+      render: (record: VariantEntity) =>
+        renderDonorByKey('donors.bioinfo_analysis_code', findDonorById(record.donors, patientId)),
+    });
+  }
+
+  columns.push(
     {
       key: 'rsnumber',
       title: intl.get('screen.patientsnv.results.table.dbsnp'),
@@ -316,7 +330,7 @@ export const getVariantColumns = (
       width: 160,
       render: renderClinvar,
     },
-  ];
+  );
 
   if (patientId) {
     columns.push(
@@ -469,17 +483,6 @@ export const getVariantColumns = (
     } else if (variantType === VariantType.SOMATIC_TUMOR_ONLY) {
       columns.push(
         {
-          key: 'donors.bioinfo_analysis_code',
-          title: intl.get('screen.patientsnv.results.table.bioinfo_analysis_code'),
-          tooltip: intl.get('bioinfo_analysis_code.tooltip'),
-          width: 59,
-          render: (record: VariantEntity) =>
-            renderDonorByKey(
-              'donors.bioinfo_analysis_code',
-              findDonorById(record.donors, patientId),
-            ),
-        },
-        {
           key: 'donors.sq',
           title: intl.get('screen.patientsnv.results.table.sq'),
           tooltip: intl.get('sq.tooltip'),
@@ -630,6 +633,17 @@ export const renderGeneToString = (variant: any) => {
 export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
   renderToString(renderDonorByKey(key, donor));
 
+const getBioinfoTagColor = (code: string) => {
+  switch (code) {
+    case 'TEBA':
+      return 'processing';
+    case 'TNBA':
+      return 'error';
+    default:
+      return 'default';
+  }
+};
+
 // eslint-disable-next-line complexity
 const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
   if (key === 'donors.gq') {
@@ -637,8 +651,19 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
   } else if (key === 'donors.sq') {
     return donor ? donor?.sq : TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors.bioinfo_analysis_code') {
-    return removeUnderscoreAndCapitalize(donor?.bioinfo_analysis_code || '').defaultMessage(
-      TABLE_EMPTY_PLACE_HOLDER,
+    const code = donor?.bioinfo_analysis_code;
+    return code ? (
+      <Tooltip
+        title={intl
+          .get(`type.abrv.bioinfo_analysis_code.${code}.tooltip`)
+          .defaultMessage(capitalize(code))}
+      >
+        <Tag color={getBioinfoTagColor(code)}>
+          {intl.get(`type.abrv.bioinfo_analysis_code.${code}`).defaultMessage(capitalize(code))}
+        </Tag>
+      </Tooltip>
+    ) : (
+      TABLE_EMPTY_PLACE_HOLDER
     );
   } else if (key === 'donors.exomiser.gene_combined_score') {
     return donor?.exomiser?.gene_combined_score || TABLE_EMPTY_PLACE_HOLDER;
