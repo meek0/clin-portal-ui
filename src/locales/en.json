@@ -852,7 +852,7 @@
   "type.abrv.substitution.tooltip": "Substitution",
   "type.abrv.sequence_alteration": "SeqAlt",
   "type.abrv.sequence_alteration.tooltip": "Sequence Alteration",
-  "type.abrv.bioinfo_analysis_code.TEBA": "TS",
+  "type.abrv.bioinfo_analysis_code.TEBA": "TO",
   "type.abrv.bioinfo_analysis_code.TEBA.tooltip": "Tumor Only",
   "type.abrv.bioinfo_analysis_code.TNBA": "TN",
   "type.abrv.bioinfo_analysis_code.TNBA.tooltip": "Tumor-Normal",

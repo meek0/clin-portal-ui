@@ -637,9 +637,9 @@ export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
 const getBioinfoTagColor = (code: BioinfoAnalysisCode) => {
   switch (code) {
     case BioinfoAnalysisCode.TEBA:
-      return 'processing';
+      return 'blue';
     case BioinfoAnalysisCode.TNBA:
-      return 'error';
+      return 'red';
     default:
       return 'default';
   }
