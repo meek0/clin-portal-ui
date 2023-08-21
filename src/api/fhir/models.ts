@@ -422,6 +422,7 @@ export type ParaclinicEntity = {
 };
 
 export type CodeListEntity = {
+  id?: string;
   concept: {
     code: string;
     display: string;

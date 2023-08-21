@@ -82,7 +82,13 @@ const ClinicalInformation = ({ prescription, loading }: OwnProps) => {
           <div>
             {(phenotype.length > 0 || generalObservation) && (
               <Card.Grid className={styles.cardGrid} hoverable={false}>
-                {<ClinicalSign phenotypeIds={phenotype} generalObervationId={generalObservation} />}
+                {
+                  <ClinicalSign
+                    phenotypeIds={phenotype}
+                    generalObervationId={generalObservation}
+                    prescriptionCode={prescription.code[0]}
+                  />
+                }
               </Card.Grid>
             )}
             {(paraclinique.length > 0 || complexParaclinique.length > 0) && (
