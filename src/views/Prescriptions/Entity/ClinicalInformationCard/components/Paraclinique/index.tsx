@@ -11,6 +11,7 @@ import {
   useParaclinicValueSetEntity,
 } from 'graphql/prescriptions/actions';
 import { find, map, some } from 'lodash';
+import { valueSetID } from 'views/Prescriptions/Entity/constants';
 
 import { useLang } from 'store/global';
 
@@ -109,8 +110,8 @@ export const Paraclinique = ({ ids, complexIds }: OwnProps) => {
   const [currentHPOOptions, setCurrentHPOOptions] = useState<IHpoNode>();
   const [hpoList, setHpoList] = useState<IHpoNode[]>([]);
   const { paracliqueValueSet } = useParaclinicValueSetEntity([
-    'bmus-abnormalities',
-    'emg-abnormalities',
+    valueSetID.bmusAbnormalities,
+    valueSetID.emgAbnormalities,
   ]);
   const lang = useLang();
   const handleHpoSearchTermChanged = (term: string) => {

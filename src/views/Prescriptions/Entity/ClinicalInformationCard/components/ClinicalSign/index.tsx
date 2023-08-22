@@ -11,7 +11,7 @@ import {
   useValueSetAgeOnset,
 } from 'graphql/prescriptions/actions';
 import { filter, find, map, some } from 'lodash';
-import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
+import { EMPTY_FIELD, valueSetID } from 'views/Prescriptions/Entity/constants';
 
 import { useLang } from 'store/global';
 
@@ -25,6 +25,7 @@ type IDOwnProps = {
   id: string;
 };
 
+const panelReflex = ['MMG', 'DYSM', 'HYPM', 'MYOC', 'MYAC'];
 const Observation = ({ id }: IDOwnProps) => {
   const { generalObervationValue } = useGeneralObservationEntity(id);
   return <>{generalObervationValue?.valueString}</>;
@@ -51,15 +52,9 @@ const handleHpoSearchTerm = (
       })
     : null;
 };
-const getAnayleCode = (prescriptionCode: string) => {
-  if (
-    prescriptionCode === 'MMG' ||
-    prescriptionCode === 'DYSM' ||
-    prescriptionCode === 'HYPM' ||
-    prescriptionCode === 'MYOC' ||
-    prescriptionCode === 'MYAC'
-  ) {
-    return 'mmg-default-hpo';
+const getAnalysisCode = (prescriptionCode: string) => {
+  if (panelReflex.includes(prescriptionCode)) {
+    return valueSetID.mmgDefaultHpo;
   } else {
     return `${prescriptionCode.toLowerCase()}-default-hpo`;
   }
@@ -76,7 +71,7 @@ export const ClinicalSign = ({
   const [ageList, setAgeList] = useState<IHpoNode[]>([]);
   const { phenotypeValue } = useObservationPhenotypeEntity(phenotypeIds);
   const { ageAtOnsetValueSet } = useValueSetAgeOnset();
-  const { valueSet } = useValueSet(getAnayleCode(prescriptionCode));
+  const { valueSet } = useValueSet(getAnalysisCode(prescriptionCode));
   const lang = useLang();
   const getHpoValue = (element: PhenotypeRequestEntity) => {
     handleHpoSearchTerm(element.valueCodeableConcept?.coding?.code, setCurrentHPOOptions);

@@ -6,6 +6,7 @@ import { ExtendedMappingResults, GqlResults } from 'graphql/models';
 import { AnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import { INDEX_EXTENDED_MAPPING } from 'graphql/queries';
 import { useLazyResultQuery, useLazyResultQueryOnLoadOnly } from 'graphql/utils/query';
+import { valueSetID } from 'views/Prescriptions/Entity/constants';
 
 import {
   ANALYSE_CODESYSTEME,
@@ -54,7 +55,7 @@ export const useCodeSystem = (id: string) => {
 export const useValueSetAgeOnset = () => {
   const { data } = useLazyResultQueryOnLoadOnly<any>(ANALYSE_VALUESET('age-at-onset'), {
     variables: {
-      id: 'age-at-onset',
+      id: valueSetID.ageAtOnset,
     },
   });
   return {
