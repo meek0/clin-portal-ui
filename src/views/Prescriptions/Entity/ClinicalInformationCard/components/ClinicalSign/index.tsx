@@ -11,7 +11,7 @@ import {
   useValueSetAgeOnset,
 } from 'graphql/prescriptions/actions';
 import { filter, find, map, some } from 'lodash';
-import { EMPTY_FIELD, valueSetID } from 'views/Prescriptions/Entity/constants';
+import { EMPTY_FIELD, panelReflexCode, valueSetID } from 'views/Prescriptions/Entity/constants';
 
 import { useLang } from 'store/global';
 
@@ -25,7 +25,6 @@ type IDOwnProps = {
   id: string;
 };
 
-const panelReflex = ['MMG', 'DYSM', 'HYPM', 'MYOC', 'MYAC'];
 const Observation = ({ id }: IDOwnProps) => {
   const { generalObervationValue } = useGeneralObservationEntity(id);
   return <>{generalObervationValue?.valueString}</>;
@@ -53,7 +52,7 @@ const handleHpoSearchTerm = (
     : null;
 };
 const getAnalysisCode = (prescriptionCode: string) => {
-  if (panelReflex.includes(prescriptionCode)) {
+  if (panelReflexCode.includes(prescriptionCode)) {
     return valueSetID.mmgDefaultHpo;
   } else {
     return `${prescriptionCode.toLowerCase()}-default-hpo`;

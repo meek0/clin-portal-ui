@@ -163,7 +163,7 @@ export const useParaclinicValueSetEntity = (ids: string[] | null) => {
     },
   });
   return {
-    paracliqueValueSet: data?.ValueSet,
+    paraclinicValueSet: data?.ValueSet,
   };
 };
 

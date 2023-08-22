@@ -45,17 +45,17 @@ const displayComplexParaclinique = (
   value: ParaclinicEntity,
   codeInfo: CodeListEntity,
   lang: string,
-  paracliqueValueSet: CodeListEntity[],
+  paraclinicValueSet: CodeListEntity[],
 ) => {
   const codeSystemInfo = find(codeInfo?.concept, (c) => c.code === value?.code);
   const label = find(codeSystemInfo?.designation, (o) => o.language === lang);
   const valueList: string[] = [];
-  if (paracliqueValueSet) {
+  if (paraclinicValueSet) {
     value.valueCodeableConcept.coding.forEach((v) => {
-      const paracliqueValue = paracliqueValueSet.find((p: CodeListEntity) =>
+      const paraclinicValue = paraclinicValueSet.find((p: CodeListEntity) =>
         p.id?.includes(value.code.toLowerCase()),
       );
-      const hpoValueset = find(paracliqueValue?.concept, (p) => p.code === v.code);
+      const hpoValueset = find(paraclinicValue?.concept, (p) => p.code === v.code);
       const traduction = find(hpoValueset?.designation, (o) => o.language === lang);
       hpoValueset ? valueList.push(traduction ? traduction.value : hpoValueset.display) : null;
     });
@@ -109,7 +109,7 @@ export const Paraclinique = ({ ids, complexIds }: OwnProps) => {
   const [allParacliniqueValue, setAllParacliniqueValue] = useState<any>();
   const [currentHPOOptions, setCurrentHPOOptions] = useState<IHpoNode>();
   const [hpoList, setHpoList] = useState<IHpoNode[]>([]);
-  const { paracliqueValueSet } = useParaclinicValueSetEntity([
+  const { paraclinicValueSet: paraclinicValueSet } = useParaclinicValueSetEntity([
     valueSetID.bmusAbnormalities,
     valueSetID.emgAbnormalities,
   ]);
@@ -165,7 +165,7 @@ export const Paraclinique = ({ ids, complexIds }: OwnProps) => {
     <Descriptions column={1} size="small" className="label-20">
       {allParacliniqueValue?.map((p: ParaclinicEntity) => {
         if ((p?.code === 'BMUS' || p?.code === 'EMG') && p.interpretation.coding.code === 'A') {
-          return displayComplexParaclinique(p, codeInfo, lang, paracliqueValueSet);
+          return displayComplexParaclinique(p, codeInfo, lang, paraclinicValueSet);
         }
         return displayParaclinique(p, codeInfo, lang);
       })}

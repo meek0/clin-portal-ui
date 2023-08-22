@@ -8,3 +8,5 @@ export enum valueSetID {
   ageAtOnset = 'age-at-onset',
   mmgDefaultHpo = 'mmg-default-hpo',
 }
+
+export const panelReflexCode = ['MMG', 'DYSM', 'HYPM', 'MYOC', 'MYAC'];
