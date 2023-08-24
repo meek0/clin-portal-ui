@@ -8,8 +8,10 @@ import {
   useCodeSystem,
   useObservationComplexParacliniqueEntity,
   useObservationParacliniqueEntity,
+  useParaclinicValueSetEntity,
 } from 'graphql/prescriptions/actions';
 import { find, map, some } from 'lodash';
+import { valueSetID } from 'views/Prescriptions/Entity/constants';
 
 import { useLang } from 'store/global';
 
@@ -43,15 +45,21 @@ const displayComplexParaclinique = (
   value: ParaclinicEntity,
   codeInfo: CodeListEntity,
   lang: string,
-  hpoList: IHpoNode[],
+  paraclinicValueSet: CodeListEntity[],
 ) => {
   const codeSystemInfo = find(codeInfo?.concept, (c) => c.code === value?.code);
   const label = find(codeSystemInfo?.designation, (o) => o.language === lang);
   const valueList: string[] = [];
-  value.valueCodeableConcept.coding.forEach((v) => {
-    const hpo = find(hpoList, (o) => o.hpo_id === v.code);
-    hpo ? valueList.push(hpo.name) : null;
-  });
+  if (paraclinicValueSet) {
+    value.valueCodeableConcept.coding.forEach((v) => {
+      const paraclinicValue = paraclinicValueSet.find((p: CodeListEntity) =>
+        p.id?.includes(value.code.toLowerCase()),
+      );
+      const hpoValueset = find(paraclinicValue?.concept, (p) => p.code === v.code);
+      const traduction = find(hpoValueset?.designation, (o) => o.language === lang);
+      hpoValueset ? valueList.push(traduction ? traduction.value : hpoValueset.display) : null;
+    });
+  }
   return (
     <Descriptions.Item
       key={value?.id.split('/')[1]}
@@ -101,7 +109,10 @@ export const Paraclinique = ({ ids, complexIds }: OwnProps) => {
   const [allParacliniqueValue, setAllParacliniqueValue] = useState<any>();
   const [currentHPOOptions, setCurrentHPOOptions] = useState<IHpoNode>();
   const [hpoList, setHpoList] = useState<IHpoNode[]>([]);
-
+  const { paraclinicValueSet: paraclinicValueSet } = useParaclinicValueSetEntity([
+    valueSetID.bmusAbnormalities,
+    valueSetID.emgAbnormalities,
+  ]);
   const lang = useLang();
   const handleHpoSearchTermChanged = (term: string) => {
     HpoApi.searchHpos(term.toLowerCase().trim()).then(({ data, error }) => {
@@ -154,7 +165,7 @@ export const Paraclinique = ({ ids, complexIds }: OwnProps) => {
     <Descriptions column={1} size="small" className="label-20">
       {allParacliniqueValue?.map((p: ParaclinicEntity) => {
         if ((p?.code === 'BMUS' || p?.code === 'EMG') && p.interpretation.coding.code === 'A') {
-          return displayComplexParaclinique(p, codeInfo, lang, hpoList);
+          return displayComplexParaclinique(p, codeInfo, lang, paraclinicValueSet);
         }
         return displayParaclinique(p, codeInfo, lang);
       })}

@@ -6,10 +6,12 @@ import { ExtendedMappingResults, GqlResults } from 'graphql/models';
 import { AnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import { INDEX_EXTENDED_MAPPING } from 'graphql/queries';
 import { useLazyResultQuery, useLazyResultQueryOnLoadOnly } from 'graphql/utils/query';
+import { valueSetID } from 'views/Prescriptions/Entity/constants';
 
 import {
   ANALYSE_CODESYSTEME,
   ANALYSE_COMPLEX_PARACLINIQUE_OBSERVATION,
+  ANALYSE_COMPLEX_PARACLINIQUE_VALUESET,
   ANALYSE_CON_OBSERVATION,
   ANALYSE_ETH_OBSERVATION,
   ANALYSE_FMH,
@@ -50,6 +52,17 @@ export const useCodeSystem = (id: string) => {
     codeInfo: data?.CodeSystem,
   };
 };
+export const useValueSetAgeOnset = () => {
+  const { data } = useLazyResultQueryOnLoadOnly<any>(ANALYSE_VALUESET('age-at-onset'), {
+    variables: {
+      id: valueSetID.ageAtOnset,
+    },
+  });
+  return {
+    ageAtOnsetValueSet: data?.ValueSet,
+  };
+};
+
 export const useValueSet = (id: string) => {
   const { data } = useLazyResultQueryOnLoadOnly<any>(ANALYSE_VALUESET(id), {
     variables: {
@@ -141,6 +154,16 @@ export const useObservationComplexParacliniqueEntity = (ids: string[] | null) =>
   );
   return {
     complexParacliniqueValue: data?.Observation,
+  };
+};
+export const useParaclinicValueSetEntity = (ids: string[] | null) => {
+  const { data } = useLazyResultQueryOnLoadOnly<any>(ANALYSE_COMPLEX_PARACLINIQUE_VALUESET(ids), {
+    variables: {
+      ids: ids,
+    },
+  });
+  return {
+    paraclinicValueSet: data?.ValueSet,
   };
 };
 

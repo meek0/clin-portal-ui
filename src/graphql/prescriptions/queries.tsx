@@ -518,6 +518,36 @@ export const ANALYSE_COMPLEX_PARACLINIQUE_OBSERVATION = (ids: string[] | null) =
     }
 `;
 
+export const ANALYSE_COMPLEX_PARACLINIQUE_VALUESET = (ids: string[] | null) => gql`
+    query getComplexParaclinicValueSet {
+        ${
+          ids
+            ? ids.map(
+                (id) => `
+            ValueSet(id: "${id}")
+            {
+              id
+              compose @flatten {
+                include @flatten {
+                  concept {
+                    code
+                    display
+                    designation{
+                      language
+                      value
+                    }
+                  }
+                }
+              }
+            }
+    
+        `,
+              )
+            : null
+        }
+    }
+`;
+
 export const ANALYSE_FMH = (ids: string[]) => gql`
     query getParacliniqueObservation {
         ${ids.map(
