@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
-import { updateActiveQueryField } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
-import { MERGE_VALUES_STRATEGIES } from '@ferlab/ui/core/data/sqon/types';
+import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Button, Space, Tag, Tooltip, Typography } from 'antd';
@@ -279,12 +279,18 @@ export const getVariantColumns = (
               <div
                 className={style.addGeneButton}
                 onClick={() => {
-                  updateActiveQueryField({
+                  addQuery({
                     queryBuilderId,
-                    field: 'consequences.symbol',
-                    value: [geneSymbol],
-                    index: INDEXES.VARIANT,
-                    merge_strategy: MERGE_VALUES_STRATEGIES.OVERRIDE_VALUES,
+                    query: generateQuery({
+                      newFilters: [
+                        generateValueFilter({
+                          field: 'consequences.symbol',
+                          value: [geneSymbol],
+                          index: INDEXES.VARIANT,
+                        }),
+                      ],
+                    }),
+                    setAsActive: true,
                   });
                 }}
               >

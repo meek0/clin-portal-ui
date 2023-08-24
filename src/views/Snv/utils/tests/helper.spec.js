@@ -231,7 +231,6 @@ describe('wrapSqonWithDonorIdAndSrId', () => {
         },
       ],
       op: 'and',
-      pivot: 'donors',
     };
     expect(wrapSqonWithDonorIdAndSrId(initialSqon, 'foo', null)).toEqual(expected);
   });
@@ -360,7 +359,6 @@ describe('wrapSqonWithDonorIdAndSrId', () => {
         },
       ],
       op: 'and',
-      pivot: 'donors',
     };
     expect(wrapSqonWithDonorIdAndSrId(initialSqon, 'foo', null)).toEqual(expected);
   });
@@ -513,7 +511,6 @@ describe('wrapSqonWithDonorIdAndSrId', () => {
         },
       ],
       op: 'or',
-      pivot: 'donors',
     };
 
     expect(wrapSqonWithDonorIdAndSrId(initialSqon, 'foo', null)).toEqual(expected);
