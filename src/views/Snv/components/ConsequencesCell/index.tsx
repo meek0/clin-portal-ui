@@ -36,6 +36,7 @@ const ConsequencesCell = ({ consequences }: OwnProps) => {
         const node = consequence.node;
         if (node.consequences) {
           const value = removeUnderscoreAndCapitalize(removeVariantString(node.consequences[0]));
+          const aaChange = node.aa_change || '';
           return (
             <div
               style={{
@@ -49,10 +50,10 @@ const ConsequencesCell = ({ consequences }: OwnProps) => {
               {pickImpacBadge(node.vep_impact)}
               <Tooltip
                 placement={'topLeft'}
-                title={`${value} ${node.aa_change}`}
+                title={`${value} ${aaChange}`}
                 className={style.detail}
               >
-                {`${value} ${node.aa_change}`}
+                {`${value} ${aaChange}`}
               </Tooltip>
             </div>
           );
