@@ -73,6 +73,9 @@ export const getProTableDictionary = (): IProTableDictionary => ({
     next: intl.get('next'),
     view: intl.get('view'),
   },
+  table: {
+    emptyText: intl.get('no.results.found'),
+  },
 });
 
 export const getAssignmentDictionary = (): IAssignmentsDictionary => ({
