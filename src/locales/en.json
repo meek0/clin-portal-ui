@@ -913,6 +913,7 @@
     }
   },
   "prescription.tabs.title.details": "Details",
+  "prescription.tabs.title.qc": "QC",
   "prescription.tabs.title.variants": "Variants",
   "prescription.tabs.title.files": "Files",
   "prescription.variants.header.request": "Request",
