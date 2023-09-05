@@ -36,7 +36,14 @@ rptApiInstance.interceptors.request.use(async (config) => {
 
 rptApiInstance.interceptors.response.use(
   (response) => response,
-  () => clinLogout(), // outside the range of 2xx
+  (error) => {
+    const status = error?.response?.status;
+    if (status === 401 || status === 403) {
+      clinLogout();
+    } else {
+      Promise.reject(error);
+    }
+  },
 );
 
 export const sendRequestWithRpt = async <T>(config: AxiosRequestConfig) =>

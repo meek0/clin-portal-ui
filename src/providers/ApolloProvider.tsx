@@ -36,8 +36,10 @@ const authLink = setContext(async (_, { headers }) => {
 
 const errorLink = onError(({ networkError }) => {
   if (networkError) {
-    // inside the range of 4xx and 5xx
-    clinLogout();
+    const message = networkError.message || '';
+    if (message.includes('401') || message.includes('403')) {
+      clinLogout();
+    }
   }
 });
 
