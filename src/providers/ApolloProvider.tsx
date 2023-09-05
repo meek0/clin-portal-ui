@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
+import { clinLogout, RptManager } from 'auth/rpt';
 import { GraphqlBackend, GraphqlProvider } from 'providers';
 
 import { useRpt } from 'hooks/useRpt';
@@ -22,13 +24,22 @@ const arrangerLink = createHttpLink({
   uri: ARRANGER_API_PROJECT_URL,
 });
 
-const getAuthLink = (token: string) =>
-  setContext((_, { headers }) => ({
+const authLink = setContext(async (_, { headers }) => {
+  const rpt = await RptManager.readRpt();
+  return {
     headers: {
       ...headers,
-      authorization: appendBearerIfToken(token),
+      authorization: appendBearerIfToken(rpt.access_token),
     },
-  }));
+  };
+});
+
+const errorLink = onError(({ networkError }) => {
+  if (networkError) {
+    // inside the range of 4xx and 5xx
+    clinLogout();
+  }
+});
 
 const backendUrl = (backend: GraphqlBackend) =>
   backend === GraphqlBackend.FHIR ? fhirLink : arrangerLink;
@@ -36,19 +47,17 @@ const backendUrl = (backend: GraphqlBackend) =>
 const mClients = new Map();
 
 const Provider = ({ children, backend = GraphqlBackend.FHIR }: GraphqlProvider): ReactElement => {
-  const { loading, rpt } = useRpt();
+  const { loading } = useRpt();
   if (loading) {
     return <></>;
   }
-
-  const header = getAuthLink(rpt);
 
   const hasClientAlready = mClients.has(backend);
   const client = hasClientAlready
     ? mClients.get(backend)
     : new ApolloClient({
         cache: new InMemoryCache({ addTypename: backend !== GraphqlBackend.FHIR }),
-        link: header.concat(backendUrl(backend)),
+        link: authLink.concat(errorLink).concat(backendUrl(backend)),
       });
 
   if (!hasClientAlready) {

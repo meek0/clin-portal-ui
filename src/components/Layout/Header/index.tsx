@@ -14,6 +14,7 @@ import { useKeycloak } from '@react-keycloak/web';
 import { Button, Dropdown, Menu, PageHeader, Space } from 'antd';
 import { PanelsApi } from 'api/panels';
 import { getUserFirstName } from 'auth/keycloak';
+import { clinLogout } from 'auth/rpt';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import HeaderButton from 'components/Layout/Header/HeaderButton';
@@ -121,7 +122,7 @@ const Header = () => {
             trigger={['click']}
             overlay={
               <Menu
-                onClick={async ({ key }) => (key === 'logout' ? await keycloak.logout() : null)}
+                onClick={async ({ key }) => (key === 'logout' ? clinLogout() : null)}
                 items={[{ label: intl.get('logout'), key: 'logout' }]}
               />
             }
