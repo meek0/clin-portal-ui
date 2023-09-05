@@ -1,5 +1,5 @@
 import keycloak from 'auth/keycloak';
-import { clinLogout, RptManager } from 'auth/rpt';
+import { RptManager } from 'auth/rpt';
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const apiInstance = axios.create();
@@ -33,18 +33,6 @@ rptApiInstance.interceptors.request.use(async (config) => {
 
   return config;
 });
-
-rptApiInstance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    const status = error?.response?.status;
-    if (status === 401 || status === 403) {
-      clinLogout();
-    } else {
-      Promise.reject(error);
-    }
-  },
-);
 
 export const sendRequestWithRpt = async <T>(config: AxiosRequestConfig) =>
   makeRequest<T>(rptApiInstance, config);

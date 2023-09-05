@@ -1,8 +1,6 @@
 import { ReactElement } from 'react';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { onError } from '@apollo/client/link/error';
-import { clinLogout, RptManager } from 'auth/rpt';
 import { GraphqlBackend, GraphqlProvider } from 'providers';
 
 import { useRpt } from 'hooks/useRpt';
@@ -34,15 +32,6 @@ const authLink = setContext(async (_, { headers }) => {
   };
 });
 
-const errorLink = onError(({ networkError }) => {
-  if (networkError) {
-    const message = networkError.message || '';
-    if (message.includes('401') || message.includes('403')) {
-      clinLogout();
-    }
-  }
-});
-
 const backendUrl = (backend: GraphqlBackend) =>
   backend === GraphqlBackend.FHIR ? fhirLink : arrangerLink;
 
@@ -59,7 +48,7 @@ const Provider = ({ children, backend = GraphqlBackend.FHIR }: GraphqlProvider):
     ? mClients.get(backend)
     : new ApolloClient({
         cache: new InMemoryCache({ addTypename: backend !== GraphqlBackend.FHIR }),
-        link: authLink.concat(errorLink).concat(backendUrl(backend)),
+        link: authLink.concat(backendUrl(backend)),
       });
 
   if (!hasClientAlready) {

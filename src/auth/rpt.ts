@@ -24,7 +24,7 @@ const fetchRptToken = async (): Promise<IRptPayload> => {
   });
 
   if (error) {
-    clinLogout();
+    await logout();
   }
 
   return {
@@ -37,10 +37,6 @@ const isTokenExpired = (iat: number, expires_in: number) => {
   const currentTime = Math.floor(Date.now() / 1000);
   const expirationTime = iat + expires_in;
   return currentTime >= expirationTime;
-};
-
-export const clinLogout = async () => {
-  await logout();
 };
 
 export class RptManager {
