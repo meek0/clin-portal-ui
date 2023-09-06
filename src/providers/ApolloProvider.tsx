@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { RptManager } from 'auth/rpt';
 import { GraphqlBackend, GraphqlProvider } from 'providers';
 
 import { useRpt } from 'hooks/useRpt';
