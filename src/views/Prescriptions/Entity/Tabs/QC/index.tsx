@@ -181,7 +181,7 @@ const PrescriptionQC = () => {
             tabBarExtraContent={
               reportFile && Object.keys(reportFile).length !== 0 ? (
                 <Button
-                  disabled={loadingCard ? true : false}
+                  disabled={!!loadingCard}
                   onClick={downloadFile}
                   size="small"
                   icon={<DownloadOutlined width={'16'} height={'16'} />}
