@@ -98,9 +98,7 @@ const PrescriptionQC = () => {
 
   useEffect(() => {
     if (docs) {
-      const file = docs.find(
-        (f) => f.key.includes('.QC_report.json') && f.format === 'JSON' && f.type === 'QCRUN',
-      );
+      const file = docs.find((f) => f.format === 'JSON' && f.type === 'QCRUN');
       if (file) {
         FhirApi.getFileURL(file?.url).then(({ data }) => {
           fetch(data?.url ? data.url : '', {
@@ -125,7 +123,7 @@ const PrescriptionQC = () => {
   }, [docs]);
 
   const downloadFile = async () => {
-    const file = docs.find((f) => f.key.includes('.QC_report.json'));
+    const file = docs.find((f) => f.format === 'JSON' && f.type === 'QCRUN');
     FhirApi.getFileURL(file?.url ? file.url : '')
       .then(({ data }) => {
         window.open(data?.url, '_blank');
