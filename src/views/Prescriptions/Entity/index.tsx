@@ -14,6 +14,7 @@ import Forbidden from 'components/Results/Forbidden';
 
 import PrescriptionDetails from './Tabs/Details';
 import PrescriptionFiles from './Tabs/Files';
+import PrescriptionQC from './Tabs/QC';
 import PrescriptionVariants from './Tabs/Variants';
 import { getPatientAndRequestId, getVariantTypeFromServiceRequest } from './Tabs/Variants/utils';
 import PrescriptionEntityContext, {
@@ -29,6 +30,7 @@ interface OwnProps {
 
 enum PrescriptionEntityTabs {
   DETAILS = '#details',
+  QC = '#qc',
   VARIANTS = '#variants',
   FILES = '#files',
 }
@@ -120,6 +122,9 @@ const PrescriptionEntity = ({ prescriptionId }: OwnProps) => {
           tab={intl.get('prescription.tabs.title.details')}
         >
           <PrescriptionDetails />
+        </Tabs.TabPane>
+        <Tabs.TabPane key={PrescriptionEntityTabs.QC} tab={intl.get('prescription.tabs.title.qc')}>
+          <PrescriptionQC />
         </Tabs.TabPane>
         <Tabs.TabPane
           key={PrescriptionEntityTabs.VARIANTS}

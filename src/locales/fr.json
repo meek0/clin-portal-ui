@@ -916,6 +916,7 @@
     }
   },
   "prescription.tabs.title.details": "Détails",
+  "prescription.tabs.title.qc": "CQ",
   "prescription.tabs.title.variants": "Variants",
   "prescription.tabs.title.files": "Fichiers",
   "prescription.variants.header.request": "Requête",

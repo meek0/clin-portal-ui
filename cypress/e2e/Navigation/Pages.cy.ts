@@ -50,6 +50,7 @@ describe('Affichage de toutes les pages et modals', () => {
 
     cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist', {timeout: 20*1000});
     cy.contains('Détails').should('exist', {timeout: 20*1000});
+    cy.contains('CQ').should('exist', {timeout: 20*1000});
     cy.contains('Variants').should('exist', {timeout: 20*1000});
     cy.contains('Fichiers').should('exist', {timeout: 20*1000});
     cy.contains('Analyse').should('exist', {timeout: 20*1000});
@@ -123,10 +124,26 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Hash').should('exist', {timeout: 20*1000});
   });
  
+  it('Rapports CQ d\'un patient', () => {
+    cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+
+    cy.contains('Détails').should('exist', {timeout: 20*1000});
+    cy.contains('CQ').should('exist', {timeout: 20*1000});
+    cy.contains('Variants').should('exist', {timeout: 20*1000});
+    cy.contains('Fichiers').should('exist', {timeout: 20*1000});
+    cy.contains('Requête :').should('exist', {timeout: 20*1000});
+    cy.contains('Cas-index ('+epCHUSJ_ldmCHUSJ.requestProbId+')').should('exist', {timeout: 20*1000});
+    cy.contains('Dragen Capture Coverage Metrics').should('exist', {timeout: 20*1000});
+    cy.contains('Dragen Mapping Metrics').should('exist', {timeout: 20*1000});
+    cy.contains('Picard Collect Hs Metrics').should('exist', {timeout: 20*1000});
+    cy.contains('Télécharger le rapport').should('exist', {timeout: 20*1000});
+  });
+ 
   it('Variants d\'un patient', () => {
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 
     cy.contains('Détails').should('exist', {timeout: 20*1000});
+    cy.contains('CQ').should('exist', {timeout: 20*1000});
     cy.contains('Variants').should('exist', {timeout: 20*1000});
     cy.contains('Fichiers').should('exist', {timeout: 20*1000});
     cy.contains('Requête :').should('exist', {timeout: 20*1000});
@@ -212,6 +229,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 
     cy.contains('Détails').should('exist', {timeout: 20*1000});
+    cy.contains('CQ').should('exist', {timeout: 20*1000});
     cy.contains('Variants').should('exist', {timeout: 20*1000});
     cy.contains('Fichiers').should('exist', {timeout: 20*1000});
     cy.contains('Requête :').should('exist', {timeout: 20*1000});
