@@ -3,6 +3,7 @@ import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { DownloadOutlined } from '@ant-design/icons';
 import Empty from '@ferlab/ui/core/components/Empty';
+import ScrollContent from '@ferlab/ui/core/layout/ScrollContent';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Button, Card, Descriptions, Select, Space, Typography } from 'antd';
 import { FhirApi } from 'api/fhir';
@@ -40,7 +41,7 @@ const tabList = [
     key: QCTabs.DRAGEN_MAPPING_METRICS,
   },
   {
-    tab: removeUnderscoreAndCapitalize(QCTabs.PICARD_COLLECTHSMETRICS.toLowerCase()),
+    tab: removeUnderscoreAndCapitalize('PICARD_COLLECT_HS_METRICS'.toLowerCase()),
     key: QCTabs.PICARD_COLLECTHSMETRICS,
   },
 ];
@@ -52,13 +53,15 @@ const getTabsContent = (activeTabs: string, reportFile: any) => {
     info = isArray(info) ? info[0] : info;
     const keys = Object.keys(info);
     return (
-      <Descriptions bordered column={1} size="small" className="label-35">
-        {keys.map((k, index) => (
-          <Descriptions.Item label={k} key={index}>
-            {info[k]}
-          </Descriptions.Item>
-        ))}
-      </Descriptions>
+      <ScrollContent className={styles.scrollWrapper}>
+        <Descriptions bordered column={1} size="small" className="label-35">
+          {keys.map((k, index) => (
+            <Descriptions.Item label={k} key={index}>
+              {info[k]}
+            </Descriptions.Item>
+          ))}
+        </Descriptions>
+      </ScrollContent>
     );
   }
   return <Empty description={intl.get('no.results.found')} />;
@@ -194,8 +197,8 @@ const PrescriptionQC = () => {
             {!loadingCard ? getTabsContent(activeTabs, reportFile) : null}
           </Card>
         </div>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };

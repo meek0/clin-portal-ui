@@ -1,9 +1,6 @@
 @import 'src/style/themes/clin/layout';
 
 .prescriptionEntityQCWrapper {
-  height: calc(100vh - #{$main-header-height} - #{$page-header-height});
-  overflow: scroll;
-
   .content {
     padding: 24px;
   }
@@ -29,5 +26,10 @@
   :global(.ant-card-head) {
     padding: 16px 24px 0 24px;
     height: 54px;
+  }
+
+  // -padding - cardHeader
+  :global(.ant-card-body) {
+    height: calc(100vh - #{$main-header-height} - #{$page-header-height} - #{$main-footer-height} - #{$page-header-height} - 48px - 55px);
   }
 }
