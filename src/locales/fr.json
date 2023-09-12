@@ -106,6 +106,7 @@
   "filters.group.external_frequencies.gnomad_genomes_3_1_1.af": "gnomAD Genome 3.1.1",
   "filters.group.external_frequencies.thousand_genomes.af": "1000 Genome",
   "filters.group.external_frequencies.topmed_bravo.af": "TopMed Bravo",
+  
   "filters.group.filters": "Filtre",
   "filters.group.frequency_RQDM.affected.af": "Fréq. all. patients atteints",
   "filters.group.frequency_RQDM.non_affected.af": "Fréq. all. patients non atteints",
@@ -148,6 +149,7 @@
   "filters.options.consequences.predictions.polyphen2_hvar_pred.P": "Possibily Damaging",
   "filters.options.consequences.predictions.sift_pred.D": "Deleterious",
   "filters.options.consequences.predictions.sift_pred.T": "Tolerated",
+  "filters.options.gene_external_reference.gnomAD": "gnomAD",
   "filters.options.sequencing_requests.status.active": "Approuvée",
   "filters.options.sequencing_requests.status.completed": "Complétée",
   "filters.options.sequencing_requests.status.draft": "Brouillon",

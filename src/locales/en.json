@@ -147,6 +147,7 @@
   "filters.options.consequences.predictions.polyphen2_hvar_pred.P": "Possibily Damaging",
   "filters.options.consequences.predictions.sift_pred.D": "Deleterious",
   "filters.options.consequences.predictions.sift_pred.T": "Tolerated",
+  "filters.options.gene_external_reference.gnomAD": "gnomAD",
   "filters.options.sequencing_requests.status.active": "Approved",
   "filters.options.sequencing_requests.status.completed": "Completed",
   "filters.options.sequencing_requests.status.draft": "Draft",
