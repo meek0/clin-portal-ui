@@ -37,6 +37,7 @@ interface OwnProps {
   modalOpened: boolean;
   variantId: string;
   variantType: VariantType;
+  locus: string;
 }
 
 const getParentTitle = (who: 'mother' | 'father', id: string, affected: boolean) => {
@@ -84,6 +85,7 @@ const OccurrenceDrawer = ({
   toggleModal,
   variantId,
   variantType,
+  locus,
 }: OwnProps) => {
   const [modalOpened, setModalVisible] = useState(false);
   return (
@@ -124,6 +126,7 @@ const OccurrenceDrawer = ({
                   <HcComplementDescription
                     hcComplements={donor?.hc_complement}
                     defaultText={TABLE_EMPTY_PLACE_HOLDER}
+                    locus={locus}
                   />
                 </Descriptions.Item>
                 <Descriptions.Item

@@ -19,6 +19,7 @@ type Props = {
   defaultText: string;
   wrap?: boolean;
   size?: number;
+  locus?: string;
 };
 
 type Complements = HcComplement | PossiblyHcComplement;
@@ -46,6 +47,7 @@ const getLocus = (e: HcComplement) => e.locus || [];
 export const HcComplementDescription = ({
   defaultText,
   hcComplements,
+  locus,
   wrap = true,
   size = 8,
 }: Props) => {
@@ -107,7 +109,9 @@ export const HcComplementDescription = ({
                         newFilters: [
                           generateValueFilter({
                             field: 'locus',
-                            value: [...getLocus(e as HcComplement)],
+                            value: locus
+                              ? [...getLocus(e as HcComplement), locus]
+                              : [...getLocus(e as HcComplement)],
                             index: INDEX_VARIANTS,
                           }),
                         ],
