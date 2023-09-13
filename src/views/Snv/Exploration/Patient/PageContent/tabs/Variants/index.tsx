@@ -190,6 +190,7 @@ const VariantsTab = ({
           modalOpened={modalOpened}
           variantId={selectedVariant?.hgvsg}
           variantType={variantType}
+          locus={selectedVariant.locus}
         />
       )}
     </>

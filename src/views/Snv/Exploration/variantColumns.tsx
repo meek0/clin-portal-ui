@@ -454,8 +454,18 @@ export const getVariantColumns = (
           tooltip: intl.get('ch.tooltip'),
           defaultHidden: true,
           width: 200,
-          render: (record: VariantEntity) =>
-            renderDonorByKey('ch', findDonorById(record.donors, patientId)),
+          render: (record: VariantEntity) => {
+            const donor = findDonorById(record.donors, patientId);
+            return (
+              <HcComplementDescription
+                hcComplements={donor?.hc_complement}
+                defaultText={TABLE_EMPTY_PLACE_HOLDER}
+                wrap={false}
+                size={0}
+                locus={record.locus}
+              />
+            );
+          },
         },
         {
           key: 'pch',
