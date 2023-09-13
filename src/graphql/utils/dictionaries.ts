@@ -75,7 +75,7 @@ export const dictionaries: Record<string, string[]> = {
     'intergenic_variant',
     ArrangerValues.missing,
   ],
-  variant_external_reference: ['DBSNP', 'Clinvar', 'Pubmed', ArrangerValues.missing],
+  variant_external_reference: ['DBSNP', 'Clinvar', 'PubMed', 'Cosmic', ArrangerValues.missing],
   chromosome: [
     '1',
     '2',
@@ -175,7 +175,16 @@ export const dictionaries: Record<string, string[]> = {
     'bidirectional_promoter_lncRNA',
     ArrangerValues.missing,
   ],
-  gene_external_reference: ['OMIM', 'HPO', 'Orphanet', ArrangerValues.missing],
+  gene_external_reference: [
+    'OMIM',
+    'HPO',
+    'Orphanet',
+    'SpliceAI',
+    'Cosmic',
+    'gnomAD',
+    'DDD',
+    ArrangerValues.missing,
+  ],
   'genes.panels': panelsDictionaries,
   panels: panelsDictionaries,
   // Pathogenicity

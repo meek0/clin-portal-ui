@@ -93,9 +93,10 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
 
   it('Variant - Référence externe', () => {
     const dictionnary = ['DBSNP',
-                          'Clinvar',
-                          'Pubmed',
-                          'No Data'];
+                         'Clinvar',
+                         'PubMed',
+                         'Cosmic',
+                         'No Data'];
 
     cy.validateDictionnary('category_variant', /^Référence externe$/, 2, dictionnary);
   });
@@ -206,9 +207,13 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
 
   it('Gène - Référence externe', () => {
     const dictionnary = ['OMIM',
-                          'HPO',
-                          'Orphanet',
-                          'No Data'];
+                         'HPO',
+                         'Orphanet',
+                         'SpliceAI',
+                         'Cosmic',
+                         'gnomAD',
+                         'DDD',
+                         'No Data'];
 
     cy.validateDictionnary('category_genomic', /^Référence externe$/, 1, dictionnary);
   });
