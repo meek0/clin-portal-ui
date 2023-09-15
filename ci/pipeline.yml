@@ -156,12 +156,13 @@ jobs:
           pushd open-pull-request
             branchName=$(cat .git/resource/head_name)
             releaseName=$(echo $branchName | cut -d "/" -f2)
-            releaseTicket=$(cat release-ticket)
+            prTitle=$(jq -r '.[] | select(.name == "title") | .value' .git/resource/metadata.json)
+            pullRequestTitleWithoutPrefix=$(echo "$prTitle" | sed 's/^Feat\///')
           popd
           cat > ./output/attachments.json <<EOL
           [
             {
-              "title": "New Portal UI Release : Ticket: $releaseName:$releaseTicket",
+              "title": "New Portal UI Release : Ticket: $pullRequestTitleWithoutPrefix",
               "text": " You can find the new release for portal UI at https://portal-ui-$releaseName.qa.cqgc.hsj.rtss.qc.ca",
               "color": "good"
             }
