@@ -201,7 +201,6 @@ const PatientPanel = ({ locus, className = '' }: OwnProps) => {
                 pageSize: currentPageSize,
                 defaultPageSize: DEFAULT_PAGE_SIZE,
                 total: dataSource.nbRows ?? 0,
-                hideOnSinglePage: true,
                 className: styles.patientPagination,
               }}
             />
