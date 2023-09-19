@@ -263,22 +263,22 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
     cy.validateTableResultsCount('82 Résultats');
   });
 
-  it('Pagination [CLIN-1662]', () => {
+  it('Pagination', () => {
     cy.get('span[class*="ant-select-selection-item"]').click({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('100').click({force: true});
-    cy.validateTableResultsCount('74 Résultats');
+    cy.validateTableResultsCount('82 Résultats');
 
     cy.get('span[class*="ant-select-selection-item"]').click({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('20').click({force: true});
-    cy.validateTableResultsCount('Résultats 1 - 20 de 74');
+    cy.validateTableResultsCount('Résultats 1 - 20 de 82');
 
     cy.get('[class*="ant-pagination-item-2"]').click({force: true});
-    cy.validateTableResultsCount('Résultats 21 - 40 de 74');
+    cy.validateTableResultsCount('Résultats 21 - 40 de 82');
 
     cy.get('[class*="anticon-right"]').click({force: true});
-    cy.validateTableResultsCount('Résultats 41 - 60 de 74');
+    cy.validateTableResultsCount('Résultats 41 - 60 de 82');
 
     cy.get('[class*="anticon-left"]').click({force: true});
-    cy.validateTableResultsCount('Résultats 21 - 40 de 74');
+    cy.validateTableResultsCount('Résultats 21 - 40 de 82');
   });
 });
