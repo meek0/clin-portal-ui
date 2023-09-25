@@ -66,7 +66,10 @@ export const getPatientPanelColumns = (
       ),
     filters: createAnalysisItems(donorsHits?.edges || [], getAnalysisNameByCode),
     onFilter: (value, record: DonorsEntity) => value === record.analysis_code,
-    sorter: (a, b) => (a.analysis_code || '').localeCompare(b.analysis_code || ''),
+    sorter: {
+      compare: (a, b) => (a.analysis_code || '').localeCompare(b.analysis_code || ''),
+      multiple: 1,
+    },
   },
   {
     key: 'patient_id',
@@ -120,7 +123,10 @@ export const getPatientPanelColumns = (
     dataIndex: 'qd',
     title: intl.get('screen.variantDetails.patientsTab.qd'),
     tooltip: intl.get('screen.variantDetails.patientsTab.qd.tooltip'),
-    sorter: (a, b) => a.qd - b.qd,
+    sorter: {
+      compare: (a, b) => a.qd - b.qd,
+      multiple: 1,
+    },
     render: (qd) => (qd ? qd : TABLE_EMPTY_PLACE_HOLDER),
   },
   {
@@ -128,7 +134,10 @@ export const getPatientPanelColumns = (
     dataIndex: 'ad_alt',
     title: intl.get('screen.variantDetails.patientsTab.adAlt'),
     tooltip: intl.get('screen.variantDetails.patientsTab.adAlt.tooltip'),
-    sorter: (a, b) => a.ad_alt - b.ad_alt,
+    sorter: {
+      compare: (a, b) => a.ad_alt - b.ad_alt,
+      multiple: 1,
+    },
     render: (ad_alt) => {
       const displayValue = ad_alt ? formatNumber(ad_alt) : TABLE_EMPTY_PLACE_HOLDER;
       return <span data-cy="ad_alt">{displayValue}</span>;
@@ -139,7 +148,10 @@ export const getPatientPanelColumns = (
     dataIndex: 'ad_total',
     title: intl.get('screen.variantDetails.patientsTab.adTotal'),
     tooltip: intl.get('screen.variantDetails.patientsTab.adTotal.tooltip'),
-    sorter: (a, b) => a.ad_total - b.ad_total,
+    sorter: {
+      compare: (a, b) => a.ad_total - b.ad_total,
+      multiple: 1,
+    },
     render: (ad_total) => {
       const displayValue = ad_total ? formatNumber(ad_total) : TABLE_EMPTY_PLACE_HOLDER;
       return <span data-cy="ad_total">{displayValue}</span>;
@@ -151,14 +163,20 @@ export const getPatientPanelColumns = (
     title: intl.get('screen.variantDetails.patientsTab.adFreq'),
     tooltip: intl.get('screen.variantDetails.patientsTab.adFreq.tooltip'),
     render: (ratio: number) => ratio.toFixed(2),
-    sorter: (a, b) => a.ad_ratio - b.ad_ratio,
+    sorter: {
+      compare: (a, b) => a.ad_ratio - b.ad_ratio,
+      multiple: 1,
+    },
   },
   {
     key: 'gq',
     dataIndex: 'gq',
     title: intl.get('screen.variantDetails.patientsTab.genotypeQuality'),
     tooltip: intl.get('screen.variantDetails.patientsTab.genotypeQuality.tooltip'),
-    sorter: (a, b) => a.gq - b.gq,
+    sorter: {
+      compare: (a, b) => a.gq - b.gq,
+      multiple: 1,
+    },
     render: (gq) => (gq ? formatNumber(gq) : TABLE_EMPTY_PLACE_HOLDER),
   },
 ];
