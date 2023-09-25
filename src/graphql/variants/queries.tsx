@@ -6,6 +6,12 @@ const VARIANT_QUERY_BASE_FIELDS = `
   hash
   locus
   variant_class
+  cmc{
+    sample_mutated
+    sample_ratio
+    mutation_url
+    tier
+  }
   clinvar {
     clinvar_id
     clin_sig

@@ -142,6 +142,12 @@ export type VariantEntity = {
   panels: string[];
   variant_class: string;
   rsnumber: string;
+  cmc: {
+    sample_mutated: number;
+    sample_ratio: number;
+    mutation_url: string;
+    tier: string;
+  };
   variant_type: VariantType[];
   frequency_RQDM: frequency_RQDMEntity;
   consequences?: ArrangerResultsTree<ConsequenceEntity>;

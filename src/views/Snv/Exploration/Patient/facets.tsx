@@ -149,6 +149,10 @@ const filterGroups: {
           'consequences__predictions__revel_score',
         ],
       },
+      {
+        title: intl.get('oncology'),
+        facets: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier'],
+      },
     ],
   },
   [FilterTypes.Frequency_germline]: {

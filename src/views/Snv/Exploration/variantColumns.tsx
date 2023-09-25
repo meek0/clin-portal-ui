@@ -76,6 +76,13 @@ const ACMGExoColorMap: Record<any, string> = {
   LIKELY_PATHOGENIC: 'volcano',
 };
 
+const CmcTierColorMap: Record<any, string> = {
+  1: 'red',
+  2: 'volcano',
+  3: 'orange',
+  Other: 'default',
+};
+
 const formatRqdm = (rqdm: frequency_RQDMEntity, variant: VariantEntity) => {
   if (!rqdm?.total?.pc) {
     return TABLE_EMPTY_PLACE_HOLDER;
@@ -143,6 +150,7 @@ export const getVariantColumns = (
   patientId?: string,
   drawerCb?: (record: VariantEntity) => void,
   igvModalCb?: (record: VariantEntity) => void,
+  onlyExportTSV: boolean = false,
 ): ProColumnType<ITableVariantEntity>[] => {
   let columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -418,8 +426,12 @@ export const getVariantColumns = (
     });
   }
 
-  if (!patientId) {
-    columns.push(getAcmgCriteriaCol());
+  if (onlyExportTSV) {
+    columns.push({
+      key: 'frequency_RQDM.total.pc',
+      title: intl.get('screen.patientsnv.results.table.rqdm'),
+      defaultHidden: true,
+    });
   }
 
   if (patientId) {
@@ -571,6 +583,53 @@ export const getVariantColumns = (
     );
   }
 
+  columns.push({
+    key: 'cmc.sample_mutated',
+    title: intl.get('screen.patientsnv.results.table.cmc'),
+    tooltip: intl.get('screen.patientsnv.results.table.cmc.tooltip'),
+    width: 150,
+    sorter: {
+      multiple: 1,
+    },
+    render: (record: VariantEntity) =>
+      record.cmc ? (
+        <Space size={4}>
+          <a href={record.cmc.mutation_url} target="_blank" rel="noreferrer">
+            {record.cmc.sample_mutated}
+          </a>
+          <Typography.Text>({record.cmc.sample_ratio.toExponential(2)})</Typography.Text>
+        </Space>
+      ) : (
+        TABLE_EMPTY_PLACE_HOLDER
+      ),
+  });
+  if (onlyExportTSV) {
+    columns.push({
+      key: 'cmc.sample_ratio',
+      title: intl.get('screen.patientsnv.results.table.cmc'),
+      defaultHidden: true,
+    });
+  }
+
+  if (!patientId) {
+    columns.push(getAcmgCriteriaCol());
+  }
+
+  columns.push({
+    key: 'cmc.tier',
+    title: intl.get('screen.patientsnv.results.table.cmc_tier'),
+    tooltip: intl.get('screen.patientsnv.results.table.cmc_tier.tooltip'),
+    width: 150,
+    defaultHidden: true,
+    render: (record: VariantEntity) =>
+      record.cmc?.tier ? (
+        <Tag color={CmcTierColorMap[record.cmc.tier]}>
+          {intl.get(`filters.options.cmc.tier.${record.cmc.tier}`)}
+        </Tag>
+      ) : (
+        TABLE_EMPTY_PLACE_HOLDER
+      ),
+  });
   return columns;
 };
 
