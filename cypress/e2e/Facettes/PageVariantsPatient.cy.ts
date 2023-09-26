@@ -105,6 +105,10 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetFilter('category_pathogenicity', 'SIFT', 13, 'Deleterious', /^2 107$/);
   });
 
+  it('Pathogénicité - CMC tier', () => {
+    cy.validateFacetFilter('category_pathogenicity', 'CMC tier', 18, 'Tier 3', /^267$/);
+  });
+
   it('Occurrence - Zygosité', () => {
     cy.validateFacetFilter('category_occurrence', 'Zygosité', 0, 'HET', /^107 569$/);
   });

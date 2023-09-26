@@ -9,6 +9,7 @@ describe('Page des variants - Consultation du tableau', () => {
   beforeEach(() => {
     cy.visitVariantsPage('?sharedFilterId=ed4de9bb-016e-4869-ac9d-40b11ac3102a');
     cy.showColumn('Critères ACMG', 0);
+    cy.showColumn('CMC tier', 0);
   });
 
   it('Vérifier les informations affichées', () => {
@@ -30,8 +31,12 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 9, '9.01e-4');
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 9, 'GnomadCell_gnomadIndicator');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 10, /^6$/);
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 10, /(4.69e-2|4.55e-2)/);
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 11, 'BP6, BS1, BS2, PP3');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 10, /(4.69e-2|4.55e-2|4.41e-2)/);
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 11, /^3$/);
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 11, '(6.93e-5)');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 12, 'BP6, BS1, BS2, PP3');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 13, 'Other');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 13, 'ant-tag-default');
   });
  
   it('Valider les liens disponibles Lien Variant', () => {
@@ -74,6 +79,11 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(10).find('a[href]').click({force: true});
     cy.validateTableResultsCount('6 Résultats');
   });
+ 
+  it('Valider les liens disponibles Lien CMC', () => {
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(11).find('a[href]').invoke('removeAttr', 'target').click({force: true});
+    cy.get('body').contains(/^GRIA3$/).should('exist');
+  });
 });
 
 describe('Page des variants - Consultation du tableau', () => {
@@ -114,6 +124,18 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.sortTableAndIntercept('RQDM', 3);
     cy.validateTableFirstRow('1.00e+0', 10);
     cy.sortTableAndWait('RQDM');
+
+    cy.sortTableAndIntercept('CMC', 3);
+    cy.validateTableFirstRow('-', 11);
+    cy.sortTableAndIntercept('CMC', 3);
+    cy.validateTableFirstRow('419', 11);
+    cy.sortTableAndWait('CMC');
+
+    cy.sortTableAndIntercept('CMC tier', 3);
+    cy.validateTableFirstRow('-', 13);
+    cy.sortTableAndIntercept('CMC tier', 3);
+    cy.validateTableFirstRow('Other', 13);
+    cy.sortTableAndWait('CMC tier');
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

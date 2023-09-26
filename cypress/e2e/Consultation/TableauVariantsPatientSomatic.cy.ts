@@ -14,6 +14,7 @@ beforeEach(() => {
   cy.showColumn('ALT/(ALT+REF)', 0);
   cy.showColumn('Filtre', 0);
   cy.showColumn('Crit. Exo.', 0);
+  cy.showColumn('CMC tier', 0);
 });
 
 describe('Page des variants d\'un patient (somatic) - Consultation du tableau', () => {
@@ -37,16 +38,20 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.validateTableDataRowKeyAttr('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 12, 'id', 'image0_1044_26488');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 13, '9.91e-1');
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 13, 'GnomadCell_gnomadIndicatorDefault');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 14, '64.73');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 15, 'Het');
-    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 15, 'ant-tag-blue');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 16, 'BA1, BP4, BP6, PM4');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 17, '-');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 18, '321');
+    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 14, /^1$/);
+    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 14, '(2.31e-5)');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 15, '64.73');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 16, 'Het');
+    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 16, 'ant-tag-blue');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 17, 'BA1, BP4, BP6, PM4');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 18, '-');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 19, '321');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 20, '1.00');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 21, 'PASS');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 22, '-');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 20, '321');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 21, '1.00');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 22, 'PASS');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 23, '-');
+    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 24, 'Other');
+    cy.validateTableDataRowKeyClass('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 24, 'ant-tag-default');
   });
  
   it('Valider les liens disponibles Lien UCSC', () => {
@@ -96,6 +101,11 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(12).find('a[href]').invoke('removeAttr', 'target').click({force: true});
     cy.url().should('include', '10-1096268-T-C');
   });
+ 
+  it('Valider les liens disponibles Lien CMC', () => {
+    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"]').find('td').eq(14).find('a[href]').invoke('removeAttr', 'target').click({force: true});
+    cy.get('body').contains(/^ABLIM1$/).should('exist');
+  });
   
   it('Valider les fonctionnalités du tableau - Tris [CLIN-2149]', () => {
     cy.sortTableAndIntercept('Variant', 3);
@@ -133,6 +143,18 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.sortTableAndIntercept('gnomAD', 3);
     cy.validateTableFirstRow('1.00e+0', 13);
     cy.sortTableAndWait('gnomAD');
+
+    cy.sortTableAndIntercept('CMC', 3);
+    cy.validateTableFirstRow('-', 14);
+    cy.sortTableAndIntercept('CMC', 3);
+    cy.validateTableFirstRow('419', 14);
+    cy.sortTableAndWait('CMC');
+
+    cy.sortTableAndIntercept('CMC tier', 3);
+    cy.validateTableFirstRow('-', 24);
+    cy.sortTableAndIntercept('CMC tier', 3);
+    cy.validateTableFirstRow('Other', 24);
+    cy.sortTableAndWait('CMC tier');
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
