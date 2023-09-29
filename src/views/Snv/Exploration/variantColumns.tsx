@@ -532,8 +532,15 @@ export const getVariantColumns = (
         },
       );
     } else if (variantType === VariantType.SOMATIC_TUMOR_ONLY) {
+      columns.push({ ...getCmcSampleMutatedCol(variantType, patientId) });
+      if (onlyExportTSV) {
+        columns.push({
+          key: 'cmc.sample_ratio',
+          title: intl.get('screen.patientsnv.results.table.cmc'),
+          defaultHidden: true,
+        });
+      }
       columns.push(
-        { ...getCmcSampleMutatedCol(variantType, patientId) },
         {
           key: 'donors.sq',
           title: intl.get('screen.patientsnv.results.table.sq'),
@@ -608,6 +615,13 @@ export const getVariantColumns = (
 
   if (variantType !== VariantType.SOMATIC_TUMOR_ONLY) {
     columns.push({ ...getCmcSampleMutatedCol(variantType, patientId) });
+    if (onlyExportTSV) {
+      columns.push({
+        key: 'cmc.sample_ratio',
+        title: intl.get('screen.patientsnv.results.table.cmc'),
+        defaultHidden: true,
+      });
+    }
   }
 
   if (!patientId) {
