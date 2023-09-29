@@ -238,6 +238,12 @@ export const getQueryBuilderDictionary = (
           not_affected: intl.get('donors.status.not_affected'),
           unknown: intl.get('unknown'),
         },
+        'cmc.tier': {
+          1: intl.get('filters.options.cmc.tier.1'),
+          2: intl.get('filters.options.cmc.tier.2'),
+          3: intl.get('filters.options.cmc.tier.3'),
+          Other: intl.get('filters.options.cmc.tier.Other'),
+        },
       },
     },
     actions: {

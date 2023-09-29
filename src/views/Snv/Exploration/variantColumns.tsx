@@ -144,6 +144,28 @@ const getAcmgCriteriaCol = () => ({
   render: (varsome: Varsome) => getAcmgRuleContent(varsome),
 });
 
+const getCmcSampleMutatedCol = (variantType: VariantType, patientId?: string) => ({
+  key: 'cmc.sample_mutated',
+  title: intl.get('screen.patientsnv.results.table.cmc'),
+  tooltip: intl.get('screen.patientsnv.results.table.cmc.tooltip'),
+  width: 150,
+  defaultHidden: patientId && variantType !== VariantType.SOMATIC_TUMOR_ONLY ? true : false,
+  sorter: {
+    multiple: 1,
+  },
+  render: (record: VariantEntity) =>
+    record.cmc ? (
+      <Space size={4}>
+        <a href={record.cmc.mutation_url} target="_blank" rel="noreferrer">
+          {record.cmc.sample_mutated}
+        </a>
+        <Typography.Text>({record.cmc.sample_ratio.toExponential(2)})</Typography.Text>
+      </Space>
+    ) : (
+      TABLE_EMPTY_PLACE_HOLDER
+    ),
+});
+
 export const getVariantColumns = (
   queryBuilderId: string,
   variantType: VariantType,
@@ -511,6 +533,7 @@ export const getVariantColumns = (
       );
     } else if (variantType === VariantType.SOMATIC_TUMOR_ONLY) {
       columns.push(
+        { ...getCmcSampleMutatedCol(variantType, patientId) },
         {
           key: 'donors.sq',
           title: intl.get('screen.patientsnv.results.table.sq'),
@@ -583,32 +606,8 @@ export const getVariantColumns = (
     );
   }
 
-  columns.push({
-    key: 'cmc.sample_mutated',
-    title: intl.get('screen.patientsnv.results.table.cmc'),
-    tooltip: intl.get('screen.patientsnv.results.table.cmc.tooltip'),
-    width: 150,
-    sorter: {
-      multiple: 1,
-    },
-    render: (record: VariantEntity) =>
-      record.cmc ? (
-        <Space size={4}>
-          <a href={record.cmc.mutation_url} target="_blank" rel="noreferrer">
-            {record.cmc.sample_mutated}
-          </a>
-          <Typography.Text>({record.cmc.sample_ratio.toExponential(2)})</Typography.Text>
-        </Space>
-      ) : (
-        TABLE_EMPTY_PLACE_HOLDER
-      ),
-  });
-  if (onlyExportTSV) {
-    columns.push({
-      key: 'cmc.sample_ratio',
-      title: intl.get('screen.patientsnv.results.table.cmc'),
-      defaultHidden: true,
-    });
+  if (variantType !== VariantType.SOMATIC_TUMOR_ONLY) {
+    columns.push({ ...getCmcSampleMutatedCol(variantType, patientId) });
   }
 
   if (!patientId) {
@@ -621,6 +620,9 @@ export const getVariantColumns = (
     tooltip: intl.get('screen.patientsnv.results.table.cmc_tier.tooltip'),
     width: 150,
     defaultHidden: true,
+    sorter: {
+      multiple: 1,
+    },
     render: (record: VariantEntity) =>
       record.cmc?.tier ? (
         <Tag color={CmcTierColorMap[record.cmc.tier]}>
