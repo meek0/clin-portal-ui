@@ -28,7 +28,8 @@ export const transformNameIfNeeded = (field: string, fkey: string, name: string)
   if (
     ['Male', 'Female', 'unknown', 'Other'].includes(fkey) &&
     !field.includes('parental_origin') &&
-    !field.includes('donors__affected_status_code')
+    !field.includes('donors__affected_status_code') &&
+    !field.includes('cmc__tier')
   ) {
     return intl.get(`sex.${fkey.toLowerCase()}`);
   }

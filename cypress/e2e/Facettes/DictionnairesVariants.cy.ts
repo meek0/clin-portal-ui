@@ -399,4 +399,14 @@ describe('Page des variants - Dictionnaire', () => {
 
     cy.validateDictionnary('category_pathogenicity', /^SIFT$/, 10, dictionnary);
   });
+
+  it('Pathogénicité - CMC tier', () => {
+    const dictionnary = ['Tier 1',
+                         'Tier 2',
+                         'Tier 3',
+                         'Other',
+                         'No Data'];
+
+    cy.validateDictionnary('category_pathogenicity', /^CMC tier$/, 15, dictionnary);
+  });
 });

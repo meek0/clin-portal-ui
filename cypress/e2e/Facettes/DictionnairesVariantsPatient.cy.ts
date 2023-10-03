@@ -363,6 +363,16 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_pathogenicity', /^SIFT$/, 13, dictionnary);
   });
 
+  it('Pathogénicité - CMC tier', () => {
+    const dictionnary = ['Tier 1',
+                         'Tier 2',
+                         'Tier 3',
+                         'Other',
+                         'No Data'];
+
+    cy.validateDictionnary('category_pathogenicity', /^CMC tier$/, 18, dictionnary);
+  });
+
   it('Occurrence - Zygosité', () => {
     const dictionnary = ['HOM',
                           'HEM',

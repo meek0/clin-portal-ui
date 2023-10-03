@@ -19,6 +19,8 @@ beforeEach(() => {
   cy.showColumn('ALT/(ALT+REF)', 0);
   cy.showColumn('Filtre', 0);
   cy.showColumn('Crit. Exo.', 0);
+  cy.showColumn('CMC', 0);
+  cy.showColumn('CMC tier', 0);
 });
 
 describe('Page des variants d\'un patient - Consultation du tableau', () => {
@@ -61,6 +63,10 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 25, '1.00');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 26, 'PASS');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 27, 'PP4, BP6_Strong');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 28, /^3$/);
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 28, '(6.93e-5)');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 29, 'Other');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 29, 'ant-tag-default');
   });
  
   it('Valider les liens disponibles Lien UCSC', () => {
@@ -115,6 +121,11 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(13).find('a[href]').click({force: true});
     cy.validateTableResultsCount('6 Résultats');
   });
+ 
+  it('Valider les liens disponibles Lien CMC', () => {
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(28).find('a[href]').invoke('removeAttr', 'target').click({force: true});
+    cy.get('body').contains(/^GRIA3$/).should('exist');
+  });
   
   it('Valider les fonctionnalités du tableau - Tris [CLIN-2149]', () => {
     cy.get('[id="query-builder-header-tools"]').find('[data-icon="plus"]').click({force: true});
@@ -161,6 +172,18 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.sortTableAndIntercept('RQDM', 3);
     cy.validateTableFirstRow('1.00e+0', 13);
     cy.sortTableAndWait('RQDM');
+
+    cy.sortTableAndIntercept('CMC', 3);
+    cy.validateTableFirstRow('-', 28);
+    cy.sortTableAndIntercept('CMC', 3);
+    cy.validateTableFirstRow('419', 28);
+    cy.sortTableAndWait('CMC');
+
+    cy.sortTableAndIntercept('CMC tier', 3);
+    cy.validateTableFirstRow('-', 29);
+    cy.sortTableAndIntercept('CMC tier', 3);
+    cy.validateTableFirstRow('Other', 29);
+    cy.sortTableAndWait('CMC tier');
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

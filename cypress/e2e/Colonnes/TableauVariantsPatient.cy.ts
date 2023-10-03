@@ -167,6 +167,18 @@ describe('Page des variants d\'un patient - Colonnes du tableau', () => {
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(25)
       .contains('Crit. Exo.').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .contains('CMC').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(26)
+      .contains('CMC').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .contains('CMC tier').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(27)
+      .contains('CMC tier').should('exist');
   });
 
   it('Masquer une colonne affichée', () => {
