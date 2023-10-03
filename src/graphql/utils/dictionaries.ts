@@ -262,6 +262,7 @@ export const dictionaries: Record<string, string[]> = {
   'consequences.predictions.polyphen2_hvar_pred': ['B', 'D', 'P', ArrangerValues.missing],
   'consequences.predictions.sift_pred': ['D', 'T', ArrangerValues.missing],
   'cmc.tier': ['1', '2', '3', 'Other', ArrangerValues.missing],
+  hotspot: ['0', '1', ArrangerValues.missing],
   // Occurrence
   'donors.zygosity': ['HOM', 'HEM', 'HET'],
   'donors.mother_zygosity': ['HOM', 'HEM', 'HET', 'WT', 'UNK'],
