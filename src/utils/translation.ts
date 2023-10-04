@@ -238,6 +238,23 @@ export const getQueryBuilderDictionary = (
           not_affected: intl.get('donors.status.not_affected'),
           unknown: intl.get('unknown'),
         },
+        'donors.bioinfo_analysis_code': {
+          TEBA: intl.get('filters.options.donors.bioinfo_analysis_code.TEBA'),
+          TNBA: intl.get('filters.options.donors.bioinfo_analysis_code.TNBA'),
+        },
+        'donors.exomiser.acmg_classification': {
+          PATHOGENIC: intl.get('filters.options.donors.exomiser.acmg_classification.PATHOGENIC'),
+          LIKELY_PATHOGENIC: intl.get(
+            'filters.options.donors.exomiser.acmg_classification.LIKELY_PATHOGENIC',
+          ),
+          UNCERTAIN_SIGNIFICANCE: intl.get(
+            'filters.options.donors.exomiser.acmg_classification.UNCERTAIN_SIGNIFICANCE',
+          ),
+          LIKELY_BENIGN: intl.get(
+            'filters.options.donors.exomiser.acmg_classification.LIKELY_BENIGN',
+          ),
+          BENIGN: intl.get('filters.options.donors.exomiser.acmg_classification.BENIGN'),
+        },
         'cmc.tier': {
           1: intl.get('filters.options.cmc.tier.1'),
           2: intl.get('filters.options.cmc.tier.2'),
