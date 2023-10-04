@@ -751,12 +751,10 @@ export const renderGeneToString = (variant: any) => {
 
 export const renderHotspotToString = (variant: any) => {
   const hotspot = variant.hotspot;
-  if (hotspot === true) {
-    return 'true';
-  } else if (hotspot === false) {
-    return 'false';
+  if (hotspot === null) {
+    return TABLE_EMPTY_PLACE_HOLDER;
   }
-  return TABLE_EMPTY_PLACE_HOLDER;
+  return hotspot.toString();
 };
 
 export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
