@@ -28,7 +28,7 @@ describe('wrapSqonWithDonorIdAndSrId', () => {
     const expected = {
       content: [
         {
-          content: { field: 'donors.service_request_id', value: ['bar'] },
+          content: { field: 'donors.analysis_service_request_id', value: ['bar'] },
           op: 'in',
         },
       ],
@@ -46,7 +46,7 @@ describe('wrapSqonWithDonorIdAndSrId', () => {
     const expected = {
       content: [
         { content: { field: 'donors.patient_id', value: ['foo'] }, op: 'in' },
-        { content: { field: 'donors.service_request_id', value: ['bar'] }, op: 'in' },
+        { content: { field: 'donors.analysis_service_request_id', value: ['bar'] }, op: 'in' },
       ],
       op: 'and',
       pivot: 'donors',

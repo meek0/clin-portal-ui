@@ -35,7 +35,7 @@ type OwnProps = {
   prescriptionId?: string;
 };
 
-const PageContent = ({ variantMapping, patientId }: OwnProps) => {
+const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(SNV_VARIANT_PATIENT_QB_ID);
   const [variantQueryConfig, setVariantQueryConfig] = useState({
     ...DEFAULT_QUERY_CONFIG,
@@ -48,7 +48,7 @@ const PageContent = ({ variantMapping, patientId }: OwnProps) => {
     wrapSqonWithDonorIdAndSrId(
       cloneDeep(resolveSyntheticSqon(queryList, query, variantMapping)),
       patientId,
-      /** prescriptionId Need to fix bug in ETL */
+      prescriptionId,
     );
 
   const queryVariables = {
