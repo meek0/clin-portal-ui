@@ -768,7 +768,7 @@
   "screen.variantDetails.summaryTab.consequencesTitle": "Conséquences géniques",
   "screen.variantDetails.summaryTab.frequencyCardTitle": "Fréquences",
   "screen.variantDetails.summaryTab.patientTable.frequency": "Fréquence allélique",
-  "screen.variantDetails.summaryTab.patientTable.patient.tootltip": "Seules les occurrences rencontrant les critères Filtre = PASS et QG ≥ 20 sont considérées pour le calcul des fréquences",
+  "screen.variantDetails.summaryTab.patientTable.patient.tootltip": "Nombre d’exomes germinaux comportant ce variant. Seules les occurrences rencontrant les critères Filtre = PASS et QG ≥ 20 sont considérées pour le calcul des fréquences.",
   "screen.variantDetails.summaryTab.rqdmTitle": "Cohortes du RQDM",
   "screen.variantDetails.summaryTab.summaryTable.alleleAlt": "Allèle ALT :",
   "screen.variantDetails.summaryTab.summaryTable.alleleRef": "Allèle REF :",

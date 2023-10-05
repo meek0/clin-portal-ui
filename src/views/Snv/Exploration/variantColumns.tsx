@@ -451,10 +451,7 @@ export const getVariantColumns = (
         );
       },
     },
-  );
-
-  if (variantType === VariantType.GERMLINE) {
-    columns.push({
+    {
       key: 'frequency_RQDM.total.pf',
       title: intl.get('screen.patientsnv.results.table.rqdm'),
       tooltip: intl.get('screen.variantDetails.summaryTab.patientTable.patient.tootltip'),
@@ -464,8 +461,8 @@ export const getVariantColumns = (
       },
       width: 110,
       render: (record: VariantEntity) => formatRqdm(record.frequency_RQDM, record),
-    });
-  }
+    },
+  );
 
   if (onlyExportTSV) {
     columns.push({

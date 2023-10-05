@@ -764,7 +764,7 @@
   "screen.variantDetails.summaryTab.consequencesTitle": "Gene consequences",
   "screen.variantDetails.summaryTab.frequencyCardTitle": "Frequencies",
   "screen.variantDetails.summaryTab.patientTable.frequency": "Allele frequency",
-  "screen.variantDetails.summaryTab.patientTable.patient.tootltip": "Only occurrences with Filter = PASS and GQ ≥ 20 are taken into account for frequency calculation",
+  "screen.variantDetails.summaryTab.patientTable.patient.tootltip": "Number of germline exomes containing the variant. Only occurrences with Filter = PASS and GQ ≥ 20 are taken into account for frequency calculation.",
   "screen.variantDetails.summaryTab.rqdmTitle": "RQDM cohorts",
   "screen.variantDetails.summaryTab.summaryTable.alleleAlt": "Allele Alt.:",
   "screen.variantDetails.summaryTab.summaryTable.alleleRef": "Allele Ref.:",
