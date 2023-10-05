@@ -13,10 +13,9 @@ const panelsDictionaries = [
   'POLYM',
   'TUPED',
   'TUHEM',
-  'EXTUM',
-  ArrangerValues.missing,
   'SSOLID',
   'SHEMA',
+  ArrangerValues.missing,
 ];
 
 export const dictionaries: Record<string, string[]> = {
