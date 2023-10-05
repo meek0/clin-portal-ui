@@ -409,4 +409,12 @@ describe('Page des variants - Dictionnaire', () => {
 
     cy.validateDictionnary('category_pathogenicity', /^CMC tier$/, 15, dictionnary);
   });
+
+  it('Pathogénicité - Hotspot', () => {
+    const dictionnary = ['True',
+                         'False',
+                         'No Data'];
+
+    cy.validateDictionnary('category_pathogenicity', /^Hotspot$/, 16, dictionnary);
+  });
 });
