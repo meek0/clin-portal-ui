@@ -76,6 +76,13 @@ const Index = ({ downloadFile }: any) => {
         value: [variantInfo.requestId],
       },
     },
+    {
+      op: 'in',
+      content: {
+        field: 'patient_id',
+        value: [variantInfo.patientId],
+      },
+    },
     geneSearch && {
       op: 'in',
       content: {
