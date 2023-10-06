@@ -25,7 +25,7 @@ const CnvExplorationPatient = () => {
   const [basedOnPrescription, setBasedOnPrescription] = useState<ServiceRequestEntity>();
   const variantMappingResults = useGetExtendedMappings(INDEXES.CNV);
   const filterMapper = (filters: ISqonGroupFilter) =>
-    wrapSqonWithPatientIdAndRequestId(filters, patientid);
+    wrapSqonWithPatientIdAndRequestId(filters, patientid, prescriptionid);
 
   useEffect(() => {
     setHeaderLoading(true);

@@ -18,7 +18,7 @@ const CnvPatient = () => {
   const { prescriptionId, variantInfo } = usePrescriptionEntityContext();
   const variantMappingResults = useGetExtendedMappings(INDEXES.CNV);
   const filterMapper = (filters: ISqonGroupFilter) =>
-    wrapSqonWithPatientIdAndRequestId(filters, variantInfo.patientId /** prescriptionid */);
+    wrapSqonWithPatientIdAndRequestId(filters, variantInfo.patientId, prescriptionId);
 
   return (
     <div className={styles.cnvVariant}>
