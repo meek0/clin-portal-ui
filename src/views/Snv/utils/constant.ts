@@ -2,6 +2,8 @@ import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { IQueryConfig, ISort } from '@ferlab/ui/core/graphql/types';
 import { SuggestionType } from 'api/arranger/models';
 
+import { WeightedAverage } from 'store/global/types';
+
 export const SNV_VARIANT_PATIENT_QB_ID = 'patient-variant-repo';
 export const VARIANT_RQDM_QB_ID = 'rqdm-variant-repo';
 
@@ -23,13 +25,14 @@ export const DEFAULT_SORT_QUERY = [
   { field: 'hgvsg', order: SortDirection.Asc },
 ] as ISort[];
 
-export const DEFAULT_QUERY_CONFIG: IQueryConfig = {
+export const DEFAULT_QUERY_CONFIG: IQueryConfig & { weightedAverages?: WeightedAverage[] } = {
   pageIndex: DEFAULT_OFFSET,
   size: DEFAULT_PAGE_SIZE,
   sort: DEFAULT_SORT_QUERY,
   searchAfter: undefined,
   firstPageFlag: undefined,
   operations: undefined,
+  weightedAverages: [],
 };
 
 export enum FilterTypes {
