@@ -13,7 +13,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
   });
 
-  it('Panel RQDM - RQDM [CLIN-2127]', () => {
+  it('Panel RQDM - RQDM', () => {
     const dictionnary = ['Malignant Hyperthermia (HYPM)',
                          'Congenital Myopathies (MYOC)',
                          'Global Developmental Delay / Intellectual Deficiency (Trio) (RGDI)',
@@ -71,7 +71,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_variant', /^Chromosome$/, 2, dictionnary);
   });
 
-  it('Gène - Panel RQDM [CLIN-2127]', () => {
+  it('Gène - Panel RQDM', () => {
     const dictionnary = ['Malignant Hyperthermia (HYPM)',
                          'Congenital Myopathies (MYOC)',
                          'Global Developmental Delay / Intellectual Deficiency (Trio) (RGDI)',

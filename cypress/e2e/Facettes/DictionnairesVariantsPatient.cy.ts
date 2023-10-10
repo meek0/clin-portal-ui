@@ -28,7 +28,6 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Rhabdomyolysis (RHAB)',
                          'Solid Tumor (somatic) (SSOLID)',
                          'Leukemia (somatic) (SHEMA)',
-                         'Tumoral Exome (EXTUM)',
                          'No Data'];
 
     cy.validateDictionnary('rqdm', /^RQDM$/, 0, dictionnary);
@@ -233,7 +232,6 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Rhabdomyolysis (RHAB)',
                          'Solid Tumor (somatic) (SSOLID)',
                          'Leukemia (somatic) (SHEMA)',
-                         'Tumoral Exome (EXTUM)',
                          'No Data'];
 
     cy.validateDictionnary('category_genomic', /^RQDM$/, 4, dictionnary);

@@ -24,7 +24,6 @@ describe('Page des variants - Dictionnaire', () => {
                          'Nuclear Mitochondriopathies (MITN)',
                          'Pediatric cancer predisposition (TUPED)',
                          'Polymalformation (POLYM)',
-                         'RGDI+ (RGDI+)',
                          'Rhabdomyolysis (RHAB)',
                          'Tumoral Exome (EXTUM)',
                          'No Data'];
@@ -281,7 +280,6 @@ describe('Page des variants - Dictionnaire', () => {
                          'Rhabdomyolysis (RHAB)',
                          'Solid Tumor (somatic) (SSOLID)',
                          'Leukemia (somatic) (SHEMA)',
-                         'Tumoral Exome (EXTUM)',
                          'No Data'];
 
     cy.validateDictionnary('category_genomic', /^RQDM$/, 4, dictionnary);
