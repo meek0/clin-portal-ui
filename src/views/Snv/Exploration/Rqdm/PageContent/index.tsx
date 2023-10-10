@@ -137,7 +137,14 @@ const PageContent = ({ variantMapping }: OwnProps) => {
         query={VARIANT_QUERY}
         setDownloadKeys={setDownloadKeys}
         data={selectedRows}
-        columns={getVariantColumns(VARIANT_RQDM_QB_ID, VariantType.GERMLINE)}
+        columns={getVariantColumns(
+          VARIANT_RQDM_QB_ID,
+          VariantType.GERMLINE,
+          undefined,
+          undefined,
+          undefined,
+          true,
+        )}
         total={variantResults.total}
         setTriggered={setDownloadTriggered}
         triggered={downloadTriggered}
