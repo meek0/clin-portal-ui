@@ -218,6 +218,14 @@ const filterGroups: {
   [FilterTypes.Frequency_somatic_tumor_only]: {
     groups: [
       {
+        title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
+        facets: [
+          'frequency_RQDM__total__af',
+          'frequency_RQDM__affected__af',
+          'frequency_RQDM__non_affected__af',
+        ],
+      },
+      {
         title: intl.get('screen.patientsnv.filter.grouptitle.publiccohorts'),
         facets: [
           'external_frequencies__gnomad_genomes_2_1_1__af',
