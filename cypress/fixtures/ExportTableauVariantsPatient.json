@@ -10,6 +10,7 @@
               "donors.exomiser.acmg_classification",
               "acmgVerdict",
               "external_frequencies.gnomad_genomes_3_1_1.af",
+              "frequency_RQDM.total.pc",
               "frequency_RQDM.total.pf",
               "donors.gq",
               "donors.zygosity",
@@ -26,6 +27,7 @@
               "filter",
               "donors.exomiser.acmg_evidence",
               "cmc.sample_mutated",
+              "cmc.sample_ratio",
               "cmc.tier"],
   "content": ["chrX:g.123403094G>A",
               "SNV",
@@ -38,6 +40,7 @@
               "Uncertain Significance",
               "Benign",
               "0.000900893",
+              "6",
               "0.04",
               "170",
               "HEM",
@@ -52,5 +55,6 @@
               "PASS",
               "PP4, BP6_Strong",
               "3",
+              "0.00006934171597633136",
               "Other"]
 }
