@@ -451,17 +451,6 @@ export const getVariantColumns = (
         );
       },
     },
-    {
-      key: 'frequency_RQDM.total.pf',
-      title: intl.get('screen.patientsnv.results.table.rqdm'),
-      tooltip: intl.get('screen.variantDetails.summaryTab.patientTable.patient.tootltip'),
-      className: style.rqdmCell,
-      sorter: {
-        multiple: 1,
-      },
-      width: 110,
-      render: (record: VariantEntity) => formatRqdm(record.frequency_RQDM, record),
-    },
   );
 
   if (onlyExportTSV) {
@@ -471,6 +460,17 @@ export const getVariantColumns = (
       defaultHidden: true,
     });
   }
+  columns.push({
+    key: 'frequency_RQDM.total.pf',
+    title: intl.get('screen.patientsnv.results.table.rqdm'),
+    tooltip: intl.get('screen.variantDetails.summaryTab.patientTable.patient.tootltip'),
+    className: style.rqdmCell,
+    sorter: {
+      multiple: 1,
+    },
+    width: 110,
+    render: (record: VariantEntity) => formatRqdm(record.frequency_RQDM, record),
+  });
 
   if (patientId) {
     if (variantType === VariantType.GERMLINE) {
