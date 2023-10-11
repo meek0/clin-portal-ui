@@ -50,6 +50,9 @@ const filterGroups: {
           'donors__transmission',
           'donors__is_hc',
         ],
+        intervalDecimal: {
+          start: 0,
+        },
       },
     ],
   },

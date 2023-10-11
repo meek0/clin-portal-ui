@@ -284,3 +284,157 @@ export const getQueryBuilderDictionary = (
     },
   };
 };
+
+export const getFacetsDictionarySNV = () => ({
+  chromosome: intl.get('filters.group.chromosome'),
+  clinvar: {
+    clin_sig: intl.get('filters.group.clinvar.clin_sig'),
+  },
+  consequences: {
+    biotype: intl.get('filters.group.consequences.biotype'),
+    consequences: intl.get('filters.group.consequences.consequences'),
+    predictions: {
+      cadd_phred: intl.get('filters.group.consequences.predictions.cadd_phred'),
+      cadd_score: intl.get('filters.group.consequences.predictions.cadd_score'),
+      dann_score: intl.get('filters.group.consequences.predictions.dann_score'),
+      fathmm_pred: intl.get('filters.group.consequences.predictions.fathmm_pred'),
+      lrt_pred: intl.get('filters.group.consequences.predictions.lrt_pred'),
+      polyphen2_hvar_pred: intl.get('filters.group.consequences.predictions.polyphen2_hvar_pred'),
+      revel_score: intl.get('filters.group.consequences.predictions.revel_score'),
+      sift_pred: intl.get('filters.group.consequences.predictions.sift_pred'),
+    },
+    vep_impact: intl.get('filters.group.consequences.vep_impact'),
+  },
+  cmc: {
+    sample_mutated: intl.get('filters.group.cmc.sample_mutated'),
+    sample_ratio: intl.get('filters.group.cmc.sample_ratio'),
+    tier: intl.get('filters.group.cmc.tier'),
+  },
+  donors: {
+    ad_alt: intl.get('filters.group.donors.ad_alt'),
+    ad_ratio: intl.get('filters.group.donors.ad_ratio'),
+    ad_total: intl.get('filters.group.donors.ad_total'),
+    sq: intl.get('filters.group.donors.sq'),
+    affected_status_code: intl.get('filters.group.donors.affected_status_code'),
+    analysis_code: intl.get('filters.group.donors.analysis_code'),
+    bioinfo_analysis_code: intl.get('filters.group.donors.bioinfo_analysis_code'),
+    exomiser: {
+      acmg_classification: intl.get('filters.group.donors.exomiser.acmg_classification'),
+      acmg_evidence: intl.get('filters.group.donors.exomiser.acmg_evidence'),
+      gene_combined_score: intl.get('filters.group.donors.exomiser.gene_combined_score'),
+    },
+    father_zygosity: intl.get('filters.group.donors.father_zygosity'),
+    filters: intl.get('filters.group.donors.filters'),
+    gender: intl.get('filters.group.donors.gender'),
+    gq: intl.get('filters.group.donors.gq'),
+    is_hc: intl.get('filters.group.donors.is_hc'),
+    is_possibly_hc: intl.get('filters.group.donors.is_possibly_hc'),
+    mother_zygosity: intl.get('filters.group.donors.mother_zygosity'),
+    qd: intl.get('filters.group.donors.qd'),
+    parental_origin: intl.get('filters.group.donors.parental_origin'),
+    transmission: intl.get('filters.group.donors.transmission'),
+    zygosity: intl.get('filters.group.donors.zygosity'),
+  },
+  external_frequencies: {
+    gnomad_genomes_2_1_1: {
+      af: intl.get('filters.group.external_frequencies.gnomad_genomes_2_1_1.af'),
+    },
+    gnomad_genomes_3_0: {
+      af: intl.get('filters.group.external_frequencies.gnomad_genomes_3_0.af'),
+    },
+    gnomad_genomes_3_1_1: {
+      af: intl.get('filters.group.external_frequencies.gnomad_genomes_3_1_1.af'),
+    },
+    gnomad_exomes_2_1_1: {
+      af: intl.get('filters.group.external_frequencies.gnomad_exomes_2_1_1.af'),
+    },
+    topmed_bravo: {
+      af: intl.get('filters.group.external_frequencies.topmed_bravo.af'),
+    },
+    thousand_genomes: {
+      af: intl.get('filters.group.external_frequencies.thousand_genomes.af'),
+    },
+  },
+  frequency_RQDM: {
+    total: {
+      af: intl.get('filters.group.frequency_RQDM.total.af'),
+    },
+    affected: {
+      af: intl.get('filters.group.frequency_RQDM.affected.af'),
+    },
+    non_affected: {
+      af: intl.get('filters.group.frequency_RQDM.non_affected.af'),
+    },
+  },
+  genes: {
+    cosmic: {
+      tumour_types_germline: intl.get('filters.group.genes.cosmic.tumour_types_germline'),
+    },
+    ddd: {
+      disease_name: intl.get('filters.group.genes.ddd.disease_name'),
+    },
+    gnomad: {
+      pli: intl.get('filters.group.genes.gnomad.pli'),
+      loeuf: intl.get('filters.group.genes.gnomad.loeuf'),
+    },
+    hpo: {
+      hpo_term_label: intl.get('filters.group.genes.hpo.hpo_term_label'),
+    },
+    omim: {
+      name: intl.get('filters.group.genes.omim.name'),
+    },
+    orphanet: {
+      panel: intl.get('filters.group.genes.orphanet.panel'),
+    },
+    panels: intl.get('filters.group.genes.panels'),
+    spliceai: {
+      ds: intl.get('filters.group.genes.spliceai.ds'),
+    },
+  },
+  gene_external_reference: intl.get('filters.group.gene_external_reference'),
+  hotspot: intl.get('filters.group.hotspot'),
+  panels: intl.get('filters.group.panels'),
+  start: intl.get('filters.group.start'),
+  variant_class: intl.get('filters.group.variant_class'),
+  variant_external_reference: intl.get('filters.group.variant_external_reference'),
+  varsome: {
+    acmg: {
+      classifications: {
+        name: intl.get('filters.group.varsome.acmg.classifications.name'),
+      },
+      verdict: {
+        verdict: intl.get('filters.group.varsome.acmg.verdict.verdict'),
+      },
+    },
+  },
+  /* tooltips: {
+  }, */
+});
+
+export const getFacetsDictionaryCNV = () => ({
+  chromosome: intl.get('filters.group.chromosome'),
+  end: intl.get('cnv.filters.group.end'),
+  genes: {
+    cosmic: {
+      tumour_types_germline: intl.get('filters.group.genes.cosmic.tumour_types_germline'),
+    },
+    ddd: {
+      disease_name: intl.get('filters.group.genes.ddd.disease_name'),
+    },
+    omim: {
+      name: intl.get('filters.group.genes.omim.name'),
+    },
+    orphanet: {
+      panel: intl.get('filters.group.genes.orphanet.panel'),
+    },
+    hpo: {
+      hpo_term_label: intl.get('filters.group.genes.hpo.hpo_term_label'),
+    },
+    panels: intl.get('filters.group.genes.panels'),
+  },
+  filters: intl.get('cnv.filters.group.filters'),
+  qual: intl.get('cnv.filters.group.qual'),
+  reflen: intl.get('cnv.filters.group.reflen'),
+  start: intl.get('cnv.filters.group.start'),
+  type: intl.get('cnv.filters.group.type'),
+});
