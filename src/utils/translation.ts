@@ -407,8 +407,6 @@ export const getFacetsDictionarySNV = () => ({
       },
     },
   },
-  /* tooltips: {
-  }, */
 });
 
 export const getFacetsDictionaryCNV = () => ({
