@@ -148,9 +148,14 @@ const PageContent = ({ variantMapping, patientId }: OwnProps) => {
             data={selectedRows}
             columns={
               variantType
-                ? getVariantColumns(SNV_VARIANT_PATIENT_QB_ID, variantType, patientId).filter(
-                    (h) => h.key !== 'actions',
-                  )
+                ? getVariantColumns(
+                    SNV_VARIANT_PATIENT_QB_ID,
+                    variantType,
+                    patientId,
+                    undefined,
+                    undefined,
+                    true,
+                  ).filter((h) => h.key !== 'actions')
                 : []
             }
             queryKey={'Variants'}
