@@ -13,13 +13,28 @@ const panelsDictionaries = [
   'POLYM',
   'TUPED',
   'TUHEM',
-  'EXTUM',
+  'SSOLID',
+  'SHEMA',
   ArrangerValues.missing,
 ];
 
 export const dictionaries: Record<string, string[]> = {
   // Patients:
-  'donors.analysis_code': panelsDictionaries,
+  'donors.analysis_code': [
+    'MMG',
+    'DYSM',
+    'RHAB',
+    'MYAC',
+    'MYOC',
+    'HYPM',
+    'MITN',
+    'RGDI',
+    'POLYM',
+    'TUPED',
+    'TUHEM',
+    'EXTUM',
+    ArrangerValues.missing,
+  ],
   'donors.affected_status_code': ['affected', 'not_affected', 'unknown'],
   'donors.gender': ['Female', 'Male', 'Other', 'unknown'],
   // Variants

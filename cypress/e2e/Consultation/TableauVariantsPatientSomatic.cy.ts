@@ -158,22 +158,20 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
-    cy.sortTableAndIntercept('RQDM', 3);
+    cy.sortTableAndIntercept('RQDM', 1);
     cy.validateTableFirstRow('-', 14);
-    cy.sortTableAndIntercept('RQDM', 3);
+    cy.sortTableAndIntercept('RQDM', 1);
     cy.validateTableFirstRow('1.00e+0', 14);
   });
 
+  it('Valider les fonctionnalités du tableau - Tri CMC', () => {
     cy.sortTableAndIntercept('CMC', 1);
     cy.validateTableFirstRow('-', 15);
-    cy.sortTableAndIntercept('CMC', 3);
+    cy.sortTableAndIntercept('CMC', 1);
     cy.validateTableFirstRow('419', 15);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Hotspot', () => {
-    cy.clickAndIntercept('thead[class="ant-table-thead"] [data-icon="fire"]', 'POST', '**/graphql', 1);
-    cy.wait(1000);
-    cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(15).find('[class*="hotspotOutlined"]').should('exist');
     cy.clickAndIntercept('thead[class="ant-table-thead"] [data-icon="fire"]', 'POST', '**/graphql', 1);
     cy.wait(1000);
     cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(16).find('[class*="hotspotOutlined"]').should('exist');
@@ -185,7 +183,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   it('Valider les fonctionnalités du tableau - Tri CMC tier', () => {
     cy.sortTableAndIntercept('CMC tier', 1);
     cy.validateTableFirstRow('-', 26);
-    cy.sortTableAndIntercept('CMC tier', 3);
+    cy.sortTableAndIntercept('CMC tier', 1);
     cy.validateTableFirstRow('Other', 26);
   });
 
