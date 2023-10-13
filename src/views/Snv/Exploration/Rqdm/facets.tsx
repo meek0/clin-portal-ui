@@ -133,10 +133,10 @@ const filterGroups: {
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.publiccohorts'),
         facets: [
+          'external_frequencies__gnomad_exomes_2_1_1__af',
           'external_frequencies__gnomad_genomes_2_1_1__af',
           'external_frequencies__gnomad_genomes_3_0__af',
           'external_frequencies__gnomad_genomes_3_1_1__af',
-          'external_frequencies__gnomad_exomes_2_1_1__af',
           'external_frequencies__gnomad_genomes_3_1_1__ac',
           'external_frequencies__topmed_bravo__af',
           'external_frequencies__thousand_genomes__af',
