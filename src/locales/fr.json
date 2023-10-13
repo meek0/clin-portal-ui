@@ -107,6 +107,7 @@
   "filters.group.external_frequencies.gnomad_genomes_2_1_1.af": "gnomAD Genome 2.1.1",
   "filters.group.external_frequencies.gnomad_genomes_3_0.af": "gnomAD Genome 3.0",
   "filters.group.external_frequencies.gnomad_genomes_3_1_1.af": "gnomAD Genome 3.1.1",
+  "filters.group.external_frequencies.gnomad_genomes_3_1_1.ac": "gnomAD Genome 3.1.1 ALT",
   "filters.group.external_frequencies.thousand_genomes.af": "1000 Genome",
   "filters.group.external_frequencies.topmed_bravo.af": "TopMed Bravo",
   
@@ -784,6 +785,8 @@
   "screen.variantsearch.rqdm.title": "Banque de variants du RQDM",
   "screen.variantsearch.table.gnomAd": "gnomAD ",
   "screen.variantsearch.table.gnomAd.tooltip": "gnomAD Genome 3.1.1",
+  "screen.variantsearch.table.gnomAdAlt": "gnomAD ALT",
+  "screen.variantsearch.table.gnomAdAlt.tooltip": "gnomAD Genome 3.1.1 (Compte)",
   "screen.variantsearch.table.hotspot": "Hotspot ",
   "screen.variantsearch.table.hotspot.tooltip": "Cancer Hotspot",
   "screen.variantsearch.title": "Variants",

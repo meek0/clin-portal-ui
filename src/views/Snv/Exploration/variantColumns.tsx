@@ -454,6 +454,20 @@ export const getVariantColumns = (
         );
       },
     },
+    {
+      key: 'external_frequencies.gnomad_genomes_3_1_1.ac',
+      title: intl.get('screen.variantsearch.table.gnomAdAlt'),
+      tooltip: `${intl.get('screen.variantsearch.table.gnomAdAlt.tooltip')}`,
+      dataIndex: 'external_frequencies',
+      sorter: {
+        multiple: 1,
+      },
+      width: 120,
+      render: (external_frequencies: ExternalFrequenciesEntity) => {
+        const ac = external_frequencies.gnomad_genomes_3_1_1?.ac;
+        return ac ? ac : TABLE_EMPTY_PLACE_HOLDER;
+      },
+    },
   );
 
   if (onlyExportTSV) {
