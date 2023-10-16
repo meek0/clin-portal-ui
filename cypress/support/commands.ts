@@ -121,6 +121,8 @@ Cypress.Commands.add('resetColumns', (eq: number) => {
   .then(($button) => {
     cy.wrap($button).click({force: true});
     cy.wait(1000);
+    cy.wrap($button).click({force: true});
+    cy.wait(1000);
   });
   
   cy.get('button[class*="ProTablePopoverColumnResetBtn"]').eq(eq).should('be.disabled', {timeout: 20*1000});
@@ -128,7 +130,7 @@ Cypress.Commands.add('resetColumns', (eq: number) => {
   cy.get('div[class*="Header_ProTableHeader"]').click({force: true, multiple: true});
 });
 
-Cypress.Commands.add('showColumn', (column: string, eq: number) => {
+Cypress.Commands.add('showColumn', (column: string|RegExp, eq: number) => {
   cy.intercept('PUT', '**/user').as('getPOSTuser');
 
   cy.get('div[class="ant-popover-inner"]').eq(eq)
@@ -137,7 +139,7 @@ Cypress.Commands.add('showColumn', (column: string, eq: number) => {
   cy.wait('@getPOSTuser', {timeout: 20*1000});
 });
 
-Cypress.Commands.add('sortTableAndIntercept', (column: string, nbCalls: number, eq: number = 0) => {
+Cypress.Commands.add('sortTableAndIntercept', (column: string|RegExp, nbCalls: number, eq: number = 0) => {
   cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
 
   cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).click({force: true});
