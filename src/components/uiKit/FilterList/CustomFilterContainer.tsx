@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import FilterContainer from '@ferlab/ui/core/components/filters/FilterContainer';
-import { IFilter, IFilterGroup } from '@ferlab/ui/core/components/filters/types';
+import { IFilter, IFilterGroup, VisualType } from '@ferlab/ui/core/components/filters/types';
 import { updateActiveQueryFilters } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { underscoreToDot } from '@ferlab/ui/core/data/arranger/formatting';
 import { getFilterGroup } from '@ferlab/ui/core/data/filters/utils';
 import { getSelectedFilters } from '@ferlab/ui/core/data/sqon/utils';
 import { ExtendedMapping, ExtendedMappingResults, GqlResults } from 'graphql/models';
-import { getFilters } from 'graphql/utils/Filters';
+import { getExtraFilterDictionnairy, getFilters } from 'graphql/utils/Filters';
 import isUndefined from 'lodash/isUndefined';
 
+import EnvironmentVariables from 'utils/EnvVariables';
 import {
   getFacetsDictionaryCNV,
   getFacetsDictionarySNV,
@@ -72,6 +73,14 @@ const CustomFilterContainer = ({
     dictionary: index === 'cnv' ? getFacetsDictionaryCNV() : getFacetsDictionarySNV(),
     intervalDecimal,
   });
+  filterGroup.config.extraFilterDictionary = getExtraFilterDictionnairy(found, aggregations);
+  if (
+    EnvironmentVariables.configFor('FORCE_FILTER_BOOLEAN_TO_DICTIONARY') === 'true' &&
+    found?.type === 'boolean'
+  ) {
+    filterGroup.type = VisualType.Checkbox;
+  }
+
   const filters = results?.aggregations ? getFilters(results?.aggregations, filterKey) : [];
   const selectedFilters = results?.data
     ? getSelectedFilters({
