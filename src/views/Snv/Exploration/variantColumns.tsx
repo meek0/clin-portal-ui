@@ -36,6 +36,7 @@ import UserAffectedIcon from 'components/icons/UserAffectedIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatFilters } from 'utils/formatFilters';
 import { formatGenotype } from 'utils/formatGenotype';
+import { formatNumber } from 'utils/formatNumber';
 
 import GqLine from '../components/GQLine';
 import { HcComplementDescription } from '../components/OccurrenceDrawer/HcDescription';
@@ -459,13 +460,14 @@ export const getVariantColumns = (
       title: intl.get('screen.variantsearch.table.gnomAdAlt'),
       tooltip: `${intl.get('screen.variantsearch.table.gnomAdAlt.tooltip')}`,
       dataIndex: 'external_frequencies',
+      defaultHidden: patientId && variantType !== VariantType.GERMLINE ? true : false,
       sorter: {
         multiple: 1,
       },
       width: 120,
       render: (external_frequencies: ExternalFrequenciesEntity) => {
         const ac = external_frequencies.gnomad_genomes_3_1_1?.ac;
-        return ac ? ac : TABLE_EMPTY_PLACE_HOLDER;
+        return ac ? formatNumber(ac) : TABLE_EMPTY_PLACE_HOLDER;
       },
     },
   );
