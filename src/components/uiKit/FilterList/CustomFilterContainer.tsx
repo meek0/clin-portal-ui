@@ -6,7 +6,7 @@ import { underscoreToDot } from '@ferlab/ui/core/data/arranger/formatting';
 import { getFilterGroup } from '@ferlab/ui/core/data/filters/utils';
 import { getSelectedFilters } from '@ferlab/ui/core/data/sqon/utils';
 import { ExtendedMapping, ExtendedMappingResults, GqlResults } from 'graphql/models';
-import { getExtraFilterDictionnairy, getFilters } from 'graphql/utils/Filters';
+import { getDictionnairyInfo, getFilters } from 'graphql/utils/Filters';
 import isUndefined from 'lodash/isUndefined';
 
 import EnvironmentVariables from 'utils/EnvVariables';
@@ -73,7 +73,7 @@ const CustomFilterContainer = ({
     dictionary: index === 'cnv' ? getFacetsDictionaryCNV() : getFacetsDictionarySNV(),
     intervalDecimal,
   });
-  filterGroup.config.extraFilterDictionary = getExtraFilterDictionnairy(found, aggregations);
+  getDictionnairyInfo(found, aggregations, filterGroup);
   if (
     EnvironmentVariables.configFor('FORCE_FILTER_BOOLEAN_TO_DICTIONARY') === 'true' &&
     found?.type === 'boolean'

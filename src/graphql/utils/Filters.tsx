@@ -220,7 +220,7 @@ export const getFilterGroup = (
   };
 };
 
-export const getExtraFilterDictionnairy = (
+const getExtraFilterDictionnairy = (
   extendedMapping: ExtendedMapping | undefined,
   aggregation: any,
 ) => {
@@ -241,4 +241,27 @@ export const getExtraFilterDictionnairy = (
   }
 
   return extraFilterDictionary;
+};
+
+const facetTranslate = (extendedMapping: ExtendedMapping | undefined) => {
+  const translateType = extendedMapping?.type || '';
+
+  return (value: string) => {
+    const name = translateWhenNeeded(extendedMapping?.field!, value, translateType);
+    return transformNameIfNeeded(extendedMapping?.field?.replaceAll('.', '__')!, value, name);
+  };
+};
+
+export const getDictionnairyInfo = (
+  extendedMapping: ExtendedMapping | undefined,
+  aggregation: any,
+  filterGroup: IFilterGroup,
+) => {
+  const newFilterGroup = filterGroup;
+  filterGroup.config.extraFilterDictionary = getExtraFilterDictionnairy(
+    extendedMapping,
+    aggregation,
+  );
+  filterGroup.config.facetTranslate = facetTranslate(extendedMapping);
+  return newFilterGroup;
 };
