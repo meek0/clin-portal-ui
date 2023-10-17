@@ -108,13 +108,13 @@ export const getAcmgRuleContent = (varsome: Varsome) =>
     : TABLE_EMPTY_PLACE_HOLDER;
 
 const getDonorQd = (patientId: string) => ({
-  key: 'qd',
+  key: 'donors.qd',
   title: intl.get('qd'),
   tooltip: intl.get('qd.tooltip'),
   defaultHidden: true,
   width: 180,
   render: (record: VariantEntity) =>
-    renderDonorByKey('qd', findDonorById(record.donors, patientId)),
+    renderDonorByKey('donors.qd', findDonorById(record.donors, patientId)),
 });
 
 const getDonorZygosity = (patientId: string) => ({
@@ -123,6 +123,9 @@ const getDonorZygosity = (patientId: string) => ({
   tooltip: intl.get('donor.zygosity.tooltip'),
   dataIndex: 'donors',
   width: 100,
+  sorter: {
+    multiple: 1,
+  },
   render: (record: ArrangerResultsTree<DonorsEntity>) => {
     const zyg = renderDonorByKey('donors.zygosity', findDonorById(record, patientId)) as string;
 
@@ -480,6 +483,9 @@ export const getVariantColumns = (
           title: intl.get('screen.patientsnv.results.table.gq'),
           tooltip: intl.get('gq.tooltip'),
           width: 59,
+          sorter: {
+            multiple: 1,
+          },
           render: (record: VariantEntity) =>
             renderDonorByKey('donors.gq', findDonorById(record.donors, patientId)),
         },
@@ -527,24 +533,33 @@ export const getVariantColumns = (
             renderDonorByKey('pch', findDonorById(record.donors, patientId)),
         },
         {
-          key: 'transmission',
+          key: 'donors.transmission',
           title: intl.get('screen.patientsnv.results.table.transmission'),
           defaultHidden: true,
           width: 200,
+          sorter: {
+            multiple: 1,
+          },
           render: (record: VariantEntity) =>
-            renderDonorByKey('transmission', findDonorById(record.donors, patientId)),
+            renderDonorByKey('donors.transmission', findDonorById(record.donors, patientId)),
         },
         {
           ...getDonorQd(patientId),
+          sorter: {
+            multiple: 1,
+          },
         },
         {
-          key: 'po',
+          key: 'donors.parental_origin',
           title: intl.get('po'),
           tooltip: intl.get('parental.origin'),
           defaultHidden: true,
           width: 180,
+          sorter: {
+            multiple: 1,
+          },
           render: (record: VariantEntity) =>
-            renderDonorByKey('po', findDonorById(record.donors, patientId)),
+            renderDonorByKey('donors.parental_origin', findDonorById(record.donors, patientId)),
         },
       );
     } else if (variantType === VariantType.SOMATIC_TUMOR_ONLY) {
@@ -565,57 +580,78 @@ export const getVariantColumns = (
           title: intl.get('screen.patientsnv.results.table.sq'),
           tooltip: intl.get('sq.tooltip'),
           width: 59,
+          sorter: {
+            multiple: 1,
+          },
           render: (record: VariantEntity) =>
             renderDonorByKey('donors.sq', findDonorById(record.donors, patientId)),
         },
         {
           ...getDonorZygosity(patientId),
+          sorter: {
+            multiple: 1,
+          },
         },
         {
           ...getAcmgCriteriaCol(),
         },
         {
           ...getDonorQd(patientId),
+          sorter: {
+            multiple: 1,
+          },
         },
       );
     }
 
     columns.push(
       {
-        key: 'alt',
+        key: 'donors.ad_alt',
         title: intl.get('screen.patientsnv.results.table.altprof'),
         tooltip: intl.get('filters.group.donors.ad_alt'),
         defaultHidden: true,
         width: 120,
+        sorter: {
+          multiple: 1,
+        },
         render: (record: VariantEntity) =>
-          renderDonorByKey('alt', findDonorById(record.donors, patientId)),
+          renderDonorByKey('donors.ad_alt', findDonorById(record.donors, patientId)),
       },
       {
-        key: 'alttotal',
+        key: 'donors.ad_total',
         title: intl.get('screen.patientsnv.results.table.alttotal'),
         tooltip: intl.get('total.depth'),
         defaultHidden: true,
         width: 120,
+        sorter: {
+          multiple: 1,
+        },
         render: (record: VariantEntity) =>
-          renderDonorByKey('alttotal', findDonorById(record.donors, patientId)),
+          renderDonorByKey('donors.ad_total', findDonorById(record.donors, patientId)),
       },
       {
-        key: 'altratio',
+        key: 'donors.ad_ratio',
         title: intl.get('screen.patientsnv.results.table.altratio'),
         tooltip: intl.get('screen.patientsnv.results.table.altratio.tooltip'),
         defaultHidden: true,
         width: 120,
+        sorter: {
+          multiple: 1,
+        },
         render: (record: VariantEntity) =>
-          renderDonorByKey('altratio', findDonorById(record.donors, patientId)),
+          renderDonorByKey('donors.ad_ratio', findDonorById(record.donors, patientId)),
       },
       {
-        key: 'filter',
+        key: 'donors.filters',
         title: intl.get('screen.patientsnv.results.table.filter'),
         tooltip: intl.get('screen.variantDetails.patientsTab.filter.tooltip'),
         defaultHidden: true,
         width: 160,
+        sorter: {
+          multiple: 1,
+        },
         render: (record: VariantEntity) =>
-          renderDonorByKey('filter', findDonorById(record.donors, patientId)),
+          renderDonorByKey('donors.filters', findDonorById(record.donors, patientId)),
       },
       {
         key: 'donors.exomiser.acmg_evidence',
@@ -821,21 +857,21 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
         size={0}
       />
     );
-  } else if (key === 'transmission') {
+  } else if (key === 'donors.transmission') {
     return removeUnderscoreAndCapitalize(donor?.transmission! || '').defaultMessage(
       TABLE_EMPTY_PLACE_HOLDER,
     );
-  } else if (key === 'qd') {
+  } else if (key === 'donors.qd') {
     return donor?.qd ? donor.qd : TABLE_EMPTY_PLACE_HOLDER;
-  } else if (key === 'po') {
+  } else if (key === 'donors.parental_origin') {
     return donor ? displayParentalOrigin(donor?.parental_origin!) : TABLE_EMPTY_PLACE_HOLDER;
-  } else if (key === 'alt') {
+  } else if (key === 'donors.ad_alt') {
     return donor?.ad_alt ?? TABLE_EMPTY_PLACE_HOLDER;
-  } else if (key === 'alttotal') {
+  } else if (key === 'donors.ad_total') {
     return donor?.ad_total ?? TABLE_EMPTY_PLACE_HOLDER;
-  } else if (key === 'altratio') {
+  } else if (key === 'donors.ad_ratio') {
     return (donor?.ad_ratio ?? 0).toFixed(2) ?? TABLE_EMPTY_PLACE_HOLDER;
-  } else if (key === 'filter') {
+  } else if (key === 'donors.filters') {
     return formatFilters(donor?.filters);
   }
   return <></>;
