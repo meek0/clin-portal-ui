@@ -780,7 +780,7 @@
   "screen.variantdetails.tab.summary": "Summary",
   "screen.variantsearch.rqdm.title": "RQDM Variant Database",
   "screen.variantsearch.table.gnomAd": "gnomAD ",
-  "screen.variantsearch.table.gnomAd.tooltip": "gnomAD Genome 3.1.1",
+  "screen.variantsearch.table.gnomAd.tooltip": "gnomAD Genome 3.1.1 (Frequency)",
   "screen.variantsearch.table.gnomAdAlt": "gnomAD ALT",
   "screen.variantsearch.table.gnomAdAlt.tooltip": "gnomAD Genome 3.1.1 (Count)",
   "screen.variantsearch.table.hotspot": "Hotspot ",
