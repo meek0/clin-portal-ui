@@ -11,8 +11,8 @@ declare namespace Cypress {
     logout(): cy & CyEventEmitter;
     removeFilesFromFolder(folder: string): cy & CyEventEmitter;
     resetColumns(eq: number): cy & CyEventEmitter;
-    showColumn(column: string, eq: number): cy & CyEventEmitter;
-    sortTableAndIntercept(column: string, nbCalls: number, eq: number = 0): cy & CyEventEmitter;
+    showColumn(column: string|RegExp, eq: number): cy & CyEventEmitter;
+    sortTableAndIntercept(column: string|RegExp, nbCalls: number, eq: number = 0): cy & CyEventEmitter;
     sortTableAndWait(column: string, eq: number = 0): cy & CyEventEmitter;
     typeAndIntercept(selector: string, text: string, methodHTTP: string, routeMatcher: string, nbCalls: number): cy & CyEventEmitter;
     validateClearAllButton(shouldExist: boolean): cy & CyEventEmitter;

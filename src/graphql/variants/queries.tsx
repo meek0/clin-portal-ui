@@ -80,6 +80,7 @@ const VARIANT_QUERY_BASE_FIELDS = `
     }
     gnomad_genomes_3_1_1 {
       af
+      ac
     }
   }
 

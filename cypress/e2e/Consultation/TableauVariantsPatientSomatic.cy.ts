@@ -7,9 +7,10 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
 
+  cy.showColumn('gnomAD ALT', 0);
   cy.showColumn('Critères ACMG', 0);
   cy.showColumn('QP', 0);
-  cy.showColumn('ALT', 0);
+  cy.showColumn(/^ALT$/, 0);
   cy.showColumn('ALT+REF', 0);
   cy.showColumn('ALT/(ALT+REF)', 0);
   cy.showColumn('Filtre', 0);
@@ -38,23 +39,24 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.validateTableDataRowKeyAttr('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 12, 'id', 'image0_1044_26488');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 13, '9.91e-1');
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 13, 'GnomadCell_gnomadIndicatorDefault');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 14, /^128$/);
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 14, '(9.41e-1)');
-    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 15, /^1$/);
-    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 15, '(2.31e-5)');
-    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 16, 'hotspotOutlined');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 17, '64.73');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 18, 'Het');
-    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 18, 'ant-tag-blue');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 19, 'BA1, BP4, BP6, PM4');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 20, '-');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 21, '321');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 14, '150 926');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 15, /^128$/);
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 15, '(9.41e-1)');
+    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 16, /^1$/);
+    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 16, '(2.31e-5)');
+    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 17, 'hotspotOutlined');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 18, '64.73');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 19, 'Het');
+    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 19, 'ant-tag-blue');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 20, 'BA1, BP4, BP6, PM4');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 21, '-');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 22, '321');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 23, '1.00');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 24, 'PASS');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 25, '-');
-    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 26, 'Other');
-    cy.validateTableDataRowKeyClass('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 26, 'ant-tag-default');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 23, '321');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 24, '1.00');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 25, 'PASS');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 26, '-');
+    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 27, 'Other');
+    cy.validateTableDataRowKeyClass('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 27, 'ant-tag-default');
   });
  
   it('Valider les liens disponibles Lien UCSC', () => {
@@ -106,12 +108,12 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
  
   it('Valider les liens disponibles Lien RQDM', () => {
-    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(14).find('a[href]').click({force: true});
+    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(15).find('a[href]').click({force: true});
     cy.validateTableResultsCount(/^130$/);
   });
  
   it('Valider les liens disponibles Lien CMC', () => {
-    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"]').find('td').eq(15).find('a[href]').invoke('removeAttr', 'target').click({force: true});
+    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"]').find('td').eq(16).find('a[href]').invoke('removeAttr', 'target').click({force: true});
     cy.get('body').contains(/^ABLIM1$/).should('exist');
   });
   
@@ -151,40 +153,47 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD', () => {
-    cy.sortTableAndIntercept('gnomAD', 1);
+    cy.sortTableAndIntercept(/^gnomAD $/, 1);
     cy.validateTableFirstRow('-', 13);
-    cy.sortTableAndIntercept('gnomAD', 1);
+    cy.sortTableAndIntercept(/^gnomAD $/, 1);
     cy.validateTableFirstRow('1.00e+0', 13);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri gnomAD ALT', () => {
+    cy.sortTableAndIntercept('gnomAD ALT', 1);
+    cy.validateTableFirstRow('-', 14);
+    cy.sortTableAndIntercept('gnomAD ALT', 1);
+    cy.validateTableFirstRow('152 312', 14);
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
     cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('-', 14);
+    cy.validateTableFirstRow('-', 15);
     cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('1.00e+0', 14);
+    cy.validateTableFirstRow('1.00e+0', 15);
   });
 
   it('Valider les fonctionnalités du tableau - Tri CMC', () => {
     cy.sortTableAndIntercept('CMC', 1);
-    cy.validateTableFirstRow('-', 15);
+    cy.validateTableFirstRow('-', 16);
     cy.sortTableAndIntercept('CMC', 1);
-    cy.validateTableFirstRow('419', 15);
+    cy.validateTableFirstRow('419', 16);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Hotspot', () => {
     cy.clickAndIntercept('thead[class="ant-table-thead"] [data-icon="fire"]', 'POST', '**/graphql', 1);
     cy.wait(1000);
-    cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(16).find('[class*="hotspotOutlined"]').should('exist');
+    cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(17).find('[class*="hotspotOutlined"]').should('exist');
     cy.clickAndIntercept('thead[class="ant-table-thead"] [data-icon="fire"]', 'POST', '**/graphql', 1);
     cy.wait(1000);
-    cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(16).find('[class*="hotspotFilled"]').should('exist');
+    cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(17).find('[class*="hotspotFilled"]').should('exist');
   });
 
   it('Valider les fonctionnalités du tableau - Tri CMC tier', () => {
     cy.sortTableAndIntercept('CMC tier', 1);
-    cy.validateTableFirstRow('-', 26);
+    cy.validateTableFirstRow('-', 27);
     cy.sortTableAndIntercept('CMC tier', 1);
-    cy.validateTableFirstRow('Other', 26);
+    cy.validateTableFirstRow('Other', 27);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
