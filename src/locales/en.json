@@ -74,6 +74,7 @@
   "filters.group.cmc.sample_mutated": "CMC",
   "filters.group.cmc.sample_ratio": "CMC (Ratio)",
   "filters.group.cmc.tier": "CMC Tier",
+  "filters.group.hotspot": "Hotspot",
   "filters.group.donors.ad_alt": "ALT Allele Depth",
   "filters.group.donors.ad_ratio": "Allelic Ratio ALT / (ALT+REF)",
   "filters.group.donors.ad_total": "Total Depth ALT + REF",

@@ -55,6 +55,9 @@ const filterGroups: {
           'chromosome',
           'start',
         ],
+        intervalDecimal: {
+          start: 0,
+        },
       },
     ],
   },
@@ -78,6 +81,9 @@ const filterGroups: {
           'chromosome',
           'start',
         ],
+        intervalDecimal: {
+          start: 0,
+        },
       },
     ],
   },

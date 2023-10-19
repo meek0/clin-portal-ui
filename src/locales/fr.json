@@ -75,6 +75,7 @@
   "filters.group.cmc.sample_mutated": "CMC",
   "filters.group.cmc.sample_ratio": "CMC (ratio)",
   "filters.group.cmc.tier": "CMC tier",
+  "filters.group.hotspot": "Hotspot",
   "filters.group.donors.ad_alt": "Profondeur allélique ALT",
   "filters.group.donors.ad_ratio": "Ratio allélique ALT / (ALT+REF)",
   "filters.group.donors.ad_total": "Profondeur totale ALT + REF",

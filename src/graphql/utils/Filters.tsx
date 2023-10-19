@@ -219,3 +219,49 @@ export const getFilterGroup = (
     },
   };
 };
+
+const getExtraFilterDictionnairy = (
+  extendedMapping: ExtendedMapping | undefined,
+  aggregation: any,
+) => {
+  let extraFilterDictionary = extendedMapping?.field ? dictionaries[extendedMapping?.field] : null;
+  if (extendedMapping) {
+    if (!exceptions.includes(extendedMapping?.field)) {
+      if (aggregation && aggregation.buckets) {
+        const { buckets } = aggregation;
+        const existingKey = buckets.map((bucket: any) => bucket.key_as_string);
+        if (existingKey.length < 2) {
+          // add opposite values
+          extraFilterDictionary = existingKey.map((key: any) => String(!++key));
+        }
+      } else {
+        extraFilterDictionary = ['true', 'false'];
+      }
+    }
+  }
+
+  return extraFilterDictionary;
+};
+
+const facetTranslate = (extendedMapping: ExtendedMapping | undefined) => {
+  const translateType = extendedMapping?.type || '';
+
+  return (value: string) => {
+    const name = translateWhenNeeded(extendedMapping?.field!, value, translateType);
+    return transformNameIfNeeded(extendedMapping?.field?.replaceAll('.', '__')!, value, name);
+  };
+};
+
+export const getDictionnairyInfo = (
+  extendedMapping: ExtendedMapping | undefined,
+  aggregation: any,
+  filterGroup: IFilterGroup,
+) => {
+  const newFilterGroup = filterGroup;
+  filterGroup.config.extraFilterDictionary = getExtraFilterDictionnairy(
+    extendedMapping,
+    aggregation,
+  );
+  filterGroup.config.facetTranslate = facetTranslate(extendedMapping);
+  return newFilterGroup;
+};

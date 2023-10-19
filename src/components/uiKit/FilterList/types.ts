@@ -5,6 +5,7 @@ import { ExtendedMappingResults } from 'graphql/models';
 export interface FilterGroup {
   title?: string;
   facets: React.ReactNode[];
+  intervalDecimal?: { [key: string]: number };
 }
 
 export interface FilterInfo {
