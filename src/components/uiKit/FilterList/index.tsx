@@ -85,6 +85,7 @@ const FilterList = ({
                   filterOpen={filtersOpen}
                   defaultOpen={filterInfo.defaultOpenFacets?.includes(facet) ? true : undefined}
                   filterMapper={filterMapper}
+                  headerTooltip={group.tooltips?.includes(facet)}
                   intervalDecimal={
                     group.intervalDecimal?.[facet] || group.intervalDecimal?.[facet] === 0
                       ? group.intervalDecimal[facet]

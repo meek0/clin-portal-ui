@@ -344,6 +344,7 @@ export const getFacetsDictionarySNV = () => ({
     },
     gnomad_genomes_3_1_1: {
       af: intl.get('filters.group.external_frequencies.gnomad_genomes_3_1_1.af'),
+      ac: intl.get('filters.group.external_frequencies.gnomad_genomes_3_1_1.ac'),
     },
     gnomad_exomes_2_1_1: {
       af: intl.get('filters.group.external_frequencies.gnomad_exomes_2_1_1.af'),
@@ -406,6 +407,57 @@ export const getFacetsDictionarySNV = () => ({
         verdict: intl.get('filters.group.varsome.acmg.verdict.verdict'),
       },
     },
+  },
+  tooltips: {
+    consequences: {
+      predictions: {
+        cadd_phred: intl.get('filters.group.consequences.predictions.cadd_phred.tooltip'),
+        cadd_score: intl.get('filters.group.consequences.predictions.cadd_score.tooltip'),
+        dann_score: intl.get('filters.group.consequences.predictions.dann_score.tooltip'),
+      },
+    },
+    cmc: {
+      sample_mutated: intl.get('filters.group.cmc.sample_mutated.tooltip'),
+      sample_ratio: intl.get('filters.group.cmc.sample_ratio.tooltip'),
+      tier: intl.get('filters.group.cmc.tier.tooltip'),
+    },
+    donors: {
+      ad_alt: intl.get('filters.group.donors.ad_alt.tooltip'),
+      exomiser: {
+        gene_combined_score: intl.get('filters.group.donors.exomiser.gene_combined_score.tooltip'),
+      },
+      qd: intl.get('filters.group.donors.qd.tooltip'),
+      transmission: intl.get('filters.group.donors.transmission.tooltip'),
+    },
+    external_frequencies: {
+      gnomad_genomes_2_1_1: {
+        af: intl.get('filters.group.external_frequencies.gnomad_genomes_2_1_1.af.tooltip'),
+      },
+      gnomad_genomes_3_0: {
+        af: intl.get('filters.group.external_frequencies.gnomad_genomes_3_0.af.tooltip'),
+      },
+      gnomad_genomes_3_1_1: {
+        af: intl.get('filters.group.external_frequencies.gnomad_genomes_3_1_1.af.tooltip'),
+      },
+      topmed_bravo: {
+        af: intl.get('filters.group.external_frequencies.topmed_bravo.af.tooltip'),
+      },
+      thousand_genomes: {
+        af: intl.get('filters.group.external_frequencies.thousand_genomes.af.tooltip'),
+      },
+    },
+    frequency_RQDM: {
+      total: {
+        af: intl.get('filters.group.frequency_RQDM.total.af.tooltip'),
+      },
+      affected: {
+        af: intl.get('filters.group.frequency_RQDM.affected.af.tooltip'),
+      },
+      non_affected: {
+        af: intl.get('filters.group.frequency_RQDM.non_affected.af.tooltip'),
+      },
+    },
+    hotspot: intl.get('filters.group.hotspot.tooltip'),
   },
 });
 

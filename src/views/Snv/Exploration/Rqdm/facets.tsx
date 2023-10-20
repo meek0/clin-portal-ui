@@ -53,6 +53,7 @@ const filterGroups: {
         intervalDecimal: {
           start: 0,
         },
+        tooltips: ['donors__transmission'],
       },
     ],
   },
@@ -116,10 +117,16 @@ const filterGroups: {
           'genes__spliceai__ds',
           'consequences__predictions__revel_score',
         ],
+        tooltips: [
+          'consequences__predictions__cadd_phred',
+          'consequences__predictions__cadd_score',
+          'consequences__predictions__dann_score',
+        ],
       },
       {
         title: intl.get('oncology'),
         facets: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier', 'hotspot'],
+        tooltips: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier', 'hotspot'],
       },
     ],
   },
@@ -128,6 +135,11 @@ const filterGroups: {
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
         facets: [
+          'frequency_RQDM__total__af',
+          'frequency_RQDM__affected__af',
+          'frequency_RQDM__non_affected__af',
+        ],
+        tooltips: [
           'frequency_RQDM__total__af',
           'frequency_RQDM__affected__af',
           'frequency_RQDM__non_affected__af',
@@ -141,6 +153,13 @@ const filterGroups: {
           'external_frequencies__gnomad_genomes_3_0__af',
           'external_frequencies__gnomad_genomes_3_1_1__af',
           'external_frequencies__gnomad_genomes_3_1_1__ac',
+          'external_frequencies__topmed_bravo__af',
+          'external_frequencies__thousand_genomes__af',
+        ],
+        tooltips: [
+          'external_frequencies__gnomad_genomes_2_1_1__af',
+          'external_frequencies__gnomad_genomes_3_0__af',
+          'external_frequencies__gnomad_genomes_3_1_1__af',
           'external_frequencies__topmed_bravo__af',
           'external_frequencies__thousand_genomes__af',
         ],
