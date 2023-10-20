@@ -314,7 +314,7 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'transmission', row, 'p1')).toEqual('Foo');
+    expect(customMapping('SNV', 'donors.transmission', row, 'p1')).toEqual('Foo');
   });
   test('should map qd', () => {
     const row = {
@@ -331,9 +331,9 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'qd', row, 'p1')).toEqual('42');
+    expect(customMapping('SNV', 'donors.qd', row, 'p1')).toEqual('42');
   });
-  test('should map po', () => {
+  test('should map parental_origin', () => {
     const row = {
       donors: {
         hits: {
@@ -348,9 +348,9 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'po', row, 'p1')).toEqual('Mother');
+    expect(customMapping('SNV', 'donors.parental_origin', row, 'p1')).toEqual('Mother');
   });
-  test('should map alt', () => {
+  test('should map ad_alt', () => {
     const row = {
       donors: {
         hits: {
@@ -365,9 +365,9 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'alt', row, 'p1')).toEqual('42');
+    expect(customMapping('SNV', 'donors.ad_alt', row, 'p1')).toEqual('42');
   });
-  test('should map alttotal', () => {
+  test('should map ad_total', () => {
     const row = {
       donors: {
         hits: {
@@ -382,9 +382,9 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'alttotal', row, 'p1')).toEqual('42');
+    expect(customMapping('SNV', 'donors.ad_total', row, 'p1')).toEqual('42');
   });
-  test('should map altratio', () => {
+  test('should map ad_ratio', () => {
     const row = {
       donors: {
         hits: {
@@ -399,9 +399,9 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'altratio', row, 'p1')).toEqual('42.00');
+    expect(customMapping('SNV', 'donors.ad_ratio', row, 'p1')).toEqual('42.00');
   });
-  test('should map filter', () => {
+  test('should map filters', () => {
     const row = {
       donors: {
         hits: {
@@ -416,7 +416,7 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'filter', row, 'p1')).toEqual('Foo, Bar');
+    expect(customMapping('SNV', 'donors.filters', row, 'p1')).toEqual('Foo, Bar');
   });
 });
 

@@ -171,6 +171,7 @@ export const VARIANT_QUERY = gql`
                     is_hc
                     is_possibly_hc
                     service_request_id
+                    analysis_service_request_id
                     hc_complement {
                       hits {
                         edges {
