@@ -1,4 +1,4 @@
-name: Check Pull Request Quality
+name: 'Quality'
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   tests:
-    name: Run Tests
+    name: all tests
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout Source Code
