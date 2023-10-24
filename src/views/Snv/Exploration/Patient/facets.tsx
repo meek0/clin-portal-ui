@@ -299,11 +299,19 @@ const filterGroups: {
           'donors__is_hc',
           'donors__is_possibly_hc',
         ],
+        tooltips: ['donors__transmission'],
       },
       {
         title: intl.get('screen.patientsnv.category_metric'),
         facets: [
           'donors__filters',
+          'donors__qd',
+          'donors__ad_alt',
+          'donors__ad_total',
+          'donors__ad_ratio',
+          'donors__gq',
+        ],
+        tooltips: [
           'donors__qd',
           'donors__ad_alt',
           'donors__ad_total',
@@ -328,7 +336,7 @@ const filterGroups: {
           'donors__ad_ratio',
           'donors__sq',
         ],
-        tooltips: ['donors__qd', 'donors__ad_alt'],
+        tooltips: ['donors__qd', 'donors__ad_alt', 'donors__ad_total', 'donors__ad_ratio'],
       },
     ],
   },

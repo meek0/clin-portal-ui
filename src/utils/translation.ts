@@ -423,9 +423,12 @@ export const getFacetsDictionarySNV = () => ({
     },
     donors: {
       ad_alt: intl.get('filters.group.donors.ad_alt.tooltip'),
+      ad_ratio: intl.get('filters.group.donors.ad_ratio.tooltip'),
+      ad_total: intl.get('filters.group.donors.ad_total.tooltip'),
       exomiser: {
         gene_combined_score: intl.get('filters.group.donors.exomiser.gene_combined_score.tooltip'),
       },
+      gq: intl.get('filters.group.donors.gq.tooltip'),
       qd: intl.get('filters.group.donors.qd.tooltip'),
       transmission: intl.get('filters.group.donors.transmission.tooltip'),
     },
