@@ -44,6 +44,7 @@ import { TAB_ID } from '../Entity';
 
 import AcmgVerdict from './components/AcmgVerdict';
 import GnomadCell from './components/Gnomad/GnomadCell';
+import ManeCell from './components/ManeCell';
 import { OtherActions } from './components/OtherActions';
 
 import style from './variantColumns.module.scss';
@@ -364,6 +365,20 @@ export const getVariantColumns = (
       render: (consequences: VariantEntity['consequences']) => {
         const pickedConsequence = consequences?.hits?.edges.find(({ node }) => !!node.picked);
         return <ConsequencesCell consequences={pickedConsequence ? [pickedConsequence] : []} />;
+      },
+    },
+    {
+      key: 'mane',
+      title: intl.get('screen.patientsnv.results.table.mane'),
+      dataIndex: 'consequences',
+      width: 80,
+      render: (consequences: VariantEntity['consequences']) => {
+        const pickedConsequence = consequences?.hits?.edges.find(({ node }) => !!node.picked);
+        return pickedConsequence ? (
+          <ManeCell consequence={pickedConsequence} />
+        ) : (
+          TABLE_EMPTY_PLACE_HOLDER
+        );
       },
     },
     {

@@ -645,6 +645,7 @@
   "screen.patientsnv.results.table.ch": "HC",
   "screen.patientsnv.results.table.clinvar": "ClinVar",
   "screen.patientsnv.results.table.consequence": "Conséquence",
+  "screen.patientsnv.results.table.mane": "MANE",
   "screen.patientsnv.results.table.dbsnp": "dbSNP",
   "screen.patientsnv.results.table.filter": "Filtre",
   "screen.patientsnv.results.table.gene_combined_score": "Exo.",
