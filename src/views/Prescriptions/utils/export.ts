@@ -14,6 +14,7 @@ import {
   renderDonorToString,
   renderGeneToString,
   renderHotspotToString,
+  renderManeToString,
   renderOmimToString,
 } from 'views/Snv/Exploration/variantColumns';
 
@@ -148,6 +149,8 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderConsequencesToString(row));
     } else if (key === 'hotspot') {
       return convertToPlain(renderHotspotToString(row));
+    } else if (key === 'MANE') {
+      return convertToPlain(renderManeToString(row));
     } else if (
       [
         'donors.exomiser.gene_combined_score',

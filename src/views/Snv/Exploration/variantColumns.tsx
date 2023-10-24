@@ -368,7 +368,7 @@ export const getVariantColumns = (
       },
     },
     {
-      key: 'mane',
+      key: 'MANE',
       title: intl.get('screen.patientsnv.results.table.mane'),
       dataIndex: 'consequences',
       width: 80,
@@ -819,6 +819,27 @@ export const renderHotspotToString = (variant: any) => {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
   return hotspot.toString();
+};
+
+export const renderManeToString = (variant: any) => {
+  const pickedConsequence = variant.consequences?.hits.edges.find(
+    ({ node }: any) => !!node.picked,
+  )?.node;
+  const { mane_select, canonical, mane_plus } = pickedConsequence;
+  const value = [];
+  if (canonical) {
+    value.push(intl.get('screen.variantDetails.summaryTab.canonical'));
+  }
+  if (mane_select) {
+    value.push(intl.get('screen.variantDetails.summaryTab.maneSelect'));
+  }
+  if (mane_plus) {
+    value.push(intl.get('screen.variantDetails.summaryTab.manePlus'));
+  }
+  if (pickedConsequence === null) {
+    return TABLE_EMPTY_PLACE_HOLDER;
+  }
+  return value.join(',');
 };
 
 export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
