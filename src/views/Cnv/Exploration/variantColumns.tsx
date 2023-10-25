@@ -23,10 +23,54 @@ export const getVariantColumns = (
 
   columns.push(
     {
+      className: style.userAffectedBtnCell,
+      key: 'actions',
+      title: intl.get('screen.patientsnv.results.table.actions'),
+      fixed: 'left',
+      render: (record: VariantEntity) => (
+        <Space align={'center'}>
+          <Tooltip title={intl.get('open.in.igv')}>
+            <Button
+              onClick={() => igvModalCb && igvModalCb(record)}
+              icon={<LineStyleIcon width={'100%'} height={'16px'} />}
+              type={'link'}
+              size={'small'}
+            />
+          </Tooltip>
+        </Space>
+      ),
+      align: 'center',
+      width: 70,
+    },
+    {
+      title: intl.get('screen.patientcnv.results.table.genes'),
+      tooltip: intl.get('screen.patientcnv.results.table.genes.tooltip'),
+      key: 'genes',
+      dataIndex: 'number_genes',
+      width: 160,
+      render: (number_genes: number, variant: VariantEntity) =>
+        variant.genes.hits.edges.some((gene) => gene.node.symbol) ? (
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              openGenesModal(variant);
+            }}
+            data-cy={`openGenesModal_${variant.name.split(':').slice(1).join(':')}`}
+          >
+            {variant.genes.hits.edges
+              .slice(0, 3)
+              .map((gene) => gene.node.symbol)
+              .join(', ')}
+            {variant.genes.hits.edges.length > 3 ? '...' : ''}
+          </a>
+        ) : (
+          <>{TABLE_EMPTY_PLACE_HOLDER}</>
+        ),
+    },
+    {
       title: intl.get('screen.patientcnv.results.table.variant'),
       key: 'name',
       dataIndex: 'name',
-      fixed: 'left',
       sorter: { multiple: 1 },
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
       render: (name: string) => {
@@ -125,31 +169,6 @@ export const getVariantColumns = (
       ),
     },
     {
-      title: intl.get('screen.patientcnv.results.table.genes'),
-      tooltip: intl.get('screen.patientcnv.results.table.genes.tooltip'),
-      key: 'genes',
-      dataIndex: 'number_genes',
-      width: 160,
-      render: (number_genes: number, variant: VariantEntity) =>
-        variant.genes.hits.edges.some((gene) => gene.node.symbol) ? (
-          <a
-            onClick={(e) => {
-              e.preventDefault();
-              openGenesModal(variant);
-            }}
-            data-cy={`openGenesModal_${variant.name.split(':').slice(1).join(':')}`}
-          >
-            {variant.genes.hits.edges
-              .slice(0, 3)
-              .map((gene) => gene.node.symbol)
-              .join(', ')}
-            {variant.genes.hits.edges.length > 3 ? '...' : ''}
-          </a>
-        ) : (
-          <>{TABLE_EMPTY_PLACE_HOLDER}</>
-        ),
-    },
-    {
       title: intl.get('screen.patientcnv.results.table.genotype'),
       tooltip: intl.get('screen.patientcnv.results.table.genotype.tooltip'),
       key: 'calls',
@@ -195,26 +214,6 @@ export const getVariantColumns = (
       defaultHidden: true,
       render: (pe: string[]) => pe.join(', '),
       width: 50,
-    },
-    {
-      className: style.userAffectedBtnCell,
-      key: 'actions',
-      title: intl.get('screen.patientsnv.results.table.actions'),
-      fixed: 'right',
-      render: (record: VariantEntity) => (
-        <Space align={'center'}>
-          <Tooltip title={intl.get('open.in.igv')}>
-            <Button
-              onClick={() => igvModalCb && igvModalCb(record)}
-              icon={<LineStyleIcon width={'100%'} height={'16px'} />}
-              type={'link'}
-              size={'small'}
-            />
-          </Tooltip>
-        </Space>
-      ),
-      align: 'center',
-      width: 70,
     },
   );
   return columns;
