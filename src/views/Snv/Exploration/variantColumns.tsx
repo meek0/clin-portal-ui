@@ -230,7 +230,6 @@ export const getVariantColumns = (
         </Space>
       ),
       align: 'center',
-      width: 102,
     });
   }
 
