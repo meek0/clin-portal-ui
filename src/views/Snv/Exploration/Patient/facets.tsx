@@ -136,6 +136,7 @@ const filterGroups: {
           'donors__exomiser__acmg_classification',
           'donors__exomiser__acmg_evidence',
         ],
+        tooltips: ['donors__exomiser__gene_combined_score'],
       },
       {
         title: intl.get('varsome'),
@@ -154,10 +155,16 @@ const filterGroups: {
           'genes__spliceai__ds',
           'consequences__predictions__revel_score',
         ],
+        tooltips: [
+          'consequences__predictions__cadd_phred',
+          'consequences__predictions__cadd_score',
+          'consequences__predictions__dann_score',
+        ],
       },
       {
         title: intl.get('oncology'),
         facets: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier'],
+        tooltips: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier', 'hotspot'],
       },
     ],
   },
@@ -173,6 +180,7 @@ const filterGroups: {
           'donors__exomiser__acmg_classification',
           'donors__exomiser__acmg_evidence',
         ],
+        tooltips: ['donors__exomiser__gene_combined_score'],
       },
       {
         title: intl.get('varsome'),
@@ -191,10 +199,16 @@ const filterGroups: {
           'genes__spliceai__ds',
           'consequences__predictions__revel_score',
         ],
+        tooltips: [
+          'consequences__predictions__cadd_phred',
+          'consequences__predictions__cadd_score',
+          'consequences__predictions__dann_score',
+        ],
       },
       {
         title: intl.get('oncology'),
         facets: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier', 'hotspot'],
+        tooltips: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier', 'hotspot'],
       },
     ],
   },
@@ -203,6 +217,11 @@ const filterGroups: {
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
         facets: [
+          'frequency_RQDM__total__af',
+          'frequency_RQDM__affected__af',
+          'frequency_RQDM__non_affected__af',
+        ],
+        tooltips: [
           'frequency_RQDM__total__af',
           'frequency_RQDM__affected__af',
           'frequency_RQDM__non_affected__af',
@@ -219,6 +238,13 @@ const filterGroups: {
           'external_frequencies__topmed_bravo__af',
           'external_frequencies__thousand_genomes__af',
         ],
+        tooltips: [
+          'external_frequencies__gnomad_genomes_2_1_1__af',
+          'external_frequencies__gnomad_genomes_3_0__af',
+          'external_frequencies__gnomad_genomes_3_1_1__af',
+          'external_frequencies__topmed_bravo__af',
+          'external_frequencies__thousand_genomes__af',
+        ],
       },
     ],
   },
@@ -227,6 +253,11 @@ const filterGroups: {
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
         facets: [
+          'frequency_RQDM__total__af',
+          'frequency_RQDM__affected__af',
+          'frequency_RQDM__non_affected__af',
+        ],
+        tooltips: [
           'frequency_RQDM__total__af',
           'frequency_RQDM__affected__af',
           'frequency_RQDM__non_affected__af',
@@ -240,6 +271,13 @@ const filterGroups: {
           'external_frequencies__gnomad_genomes_3_0__af',
           'external_frequencies__gnomad_genomes_3_1_1__af',
           'external_frequencies__gnomad_genomes_3_1_1__ac',
+          'external_frequencies__topmed_bravo__af',
+          'external_frequencies__thousand_genomes__af',
+        ],
+        tooltips: [
+          'external_frequencies__gnomad_genomes_2_1_1__af',
+          'external_frequencies__gnomad_genomes_3_0__af',
+          'external_frequencies__gnomad_genomes_3_1_1__af',
           'external_frequencies__topmed_bravo__af',
           'external_frequencies__thousand_genomes__af',
         ],
@@ -261,11 +299,19 @@ const filterGroups: {
           'donors__is_hc',
           'donors__is_possibly_hc',
         ],
+        tooltips: ['donors__transmission'],
       },
       {
         title: intl.get('screen.patientsnv.category_metric'),
         facets: [
           'donors__filters',
+          'donors__qd',
+          'donors__ad_alt',
+          'donors__ad_total',
+          'donors__ad_ratio',
+          'donors__gq',
+        ],
+        tooltips: [
           'donors__qd',
           'donors__ad_alt',
           'donors__ad_total',
@@ -290,6 +336,7 @@ const filterGroups: {
           'donors__ad_ratio',
           'donors__sq',
         ],
+        tooltips: ['donors__qd', 'donors__ad_alt', 'donors__ad_total', 'donors__ad_ratio'],
       },
     ],
   },

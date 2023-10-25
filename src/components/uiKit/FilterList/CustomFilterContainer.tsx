@@ -27,6 +27,7 @@ type OwnProps = {
   extendedMappingResults: ExtendedMappingResults;
   filterOpen?: boolean;
   defaultOpen?: boolean;
+  headerTooltip?: boolean;
   filterMapper?: TCustomFilterMapper;
   intervalDecimal?: number;
 };
@@ -39,6 +40,7 @@ const CustomFilterContainer = ({
   filterOpen,
   defaultOpen,
   extendedMappingResults,
+  headerTooltip,
   filterMapper,
   intervalDecimal,
 }: OwnProps) => {
@@ -70,6 +72,7 @@ const CustomFilterContainer = ({
     aggregation: aggregations,
     rangeTypes: [],
     filterFooter: true,
+    headerTooltip,
     dictionary: index === 'cnv' ? getFacetsDictionaryCNV() : getFacetsDictionarySNV(),
     intervalDecimal,
   });
