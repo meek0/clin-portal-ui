@@ -36,6 +36,9 @@ const VARIANT_QUERY_BASE_FIELDS = `
           hgvsc
           aa_change
           picked
+          canonical
+          mane_select
+          mane_plus
         }
       }
     }

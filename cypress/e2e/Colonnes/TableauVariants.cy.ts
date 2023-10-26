@@ -40,59 +40,64 @@ describe('Page des variants - Colonnes du tableau', () => {
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(6)
       .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('OMIM').should('exist');
+      .contains('MANE').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(7)
       .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('ClinVar').should('exist');
+      .contains('OMIM').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(8)
       .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('ACMG').should('exist');
+      .contains('ClinVar').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(9)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains(/^gnomAD $/).should('exist');
+      .should('not.have.class', 'ant-table-column-has-sorters')
+      .contains('ACMG').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(10)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('gnomAD ALT').should('exist');
+      .contains(/^gnomAD $/).should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(11)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('RQDM').should('exist');
+      .contains('gnomAD ALT').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(12)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains(/^CMC$/).should('exist');
+      .contains('RQDM').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(13)
+      .should('have.class', 'ant-table-column-has-sorters')
+      .contains(/^CMC$/).should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .find('th[class*="ant-table-cell"]').eq(14)
       .should('have.class', 'ant-table-column-has-sorters')
       .find('[data-icon="fire"]').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('Critères ACMG').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(13)
+      .find('div[class="ant-space-item"]').eq(14)
       .contains('Critères ACMG').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('CMC tier').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(14)
+      .find('div[class="ant-space-item"]').eq(15)
       .contains('CMC tier').should('exist');
 /* CLICE-120
     cy.get('thead[class="ant-table-thead"]')
       .contains('CADD (Phred)').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(15)
+      .find('div[class="ant-space-item"]').eq(16)
       .contains('CADD (Phred)').should('exist');*/
   });
 

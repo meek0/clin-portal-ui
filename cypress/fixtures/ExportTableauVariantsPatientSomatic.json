@@ -5,6 +5,7 @@
               "rsnumber",
               "gene",
               "consequence",
+              "MANE",
               "omim",
               "clinvar",
               "donors.exomiser.gene_combined_score",
