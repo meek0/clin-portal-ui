@@ -58,7 +58,15 @@ const VariantsTab = ({
           tableId="varirant_table"
           className={style.variantSearchTable}
           wrapperClassName={style.variantTabWrapper}
-          columns={getVariantColumns(queryBuilderId, VariantType.GERMLINE)}
+          columns={getVariantColumns(
+            queryBuilderId,
+            VariantType.GERMLINE,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            results.data.length === 0 ? true : false,
+          )}
           initialColumnState={initialColumnState}
           dataSource={results.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
           loading={results.loading}
