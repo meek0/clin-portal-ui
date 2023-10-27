@@ -87,7 +87,12 @@ const VariantsTable = ({
           <ProTable<ITableVariantEntity>
             tableId="variant_table"
             wrapperClassName={style.variantTableWrapper}
-            columns={getVariantColumns(variantType, openGenesModal, openIgvModal)}
+            columns={getVariantColumns(
+              variantType,
+              openGenesModal,
+              openIgvModal,
+              results.data.length === 0 ? true : false,
+            )}
             initialColumnState={initialColumnState}
             dataSource={results.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
             loading={results.loading}
