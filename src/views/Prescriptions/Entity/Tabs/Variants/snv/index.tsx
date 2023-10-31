@@ -18,7 +18,7 @@ const SnvPatient = () => {
   const { prescriptionId, variantInfo } = usePrescriptionEntityContext();
   const variantMappingResults = useGetExtendedMappings(INDEXES.VARIANT);
   const filterMapper = (filters: ISqonGroupFilter) =>
-    wrapSqonWithDonorIdAndSrId(filters, variantInfo.patientId /** prescriptionid */);
+    wrapSqonWithDonorIdAndSrId(filters, variantInfo.patientId, prescriptionId);
 
   return (
     <div className={styles.snvVariant}>

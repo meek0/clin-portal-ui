@@ -78,7 +78,7 @@ export const wrapSqonWithDonorIdAndSrId = (
 
   const prescriptionFilter = prescriptionId
     ? {
-        content: { field: 'donors.service_request_id', value: [prescriptionId] },
+        content: { field: 'donors.analysis_service_request_id', value: [prescriptionId] },
         op: TermOperators.in,
       }
     : null;
