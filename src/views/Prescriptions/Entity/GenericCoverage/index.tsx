@@ -213,7 +213,11 @@ const Index = ({ downloadFile }: any) => {
           fixedProTable={(dimension) => (
             <ProTable<ITableGeneCoverage>
               tableId="general-coverage-genes"
-              columns={getGeneCoverageTableColumns(openIgvModal, history)}
+              columns={getGeneCoverageTableColumns(
+                openIgvModal,
+                history,
+                data.length === 0 ? true : false,
+              )}
               initialColumnState={initialColumnState}
               scroll={dimension}
               dataSource={data}
