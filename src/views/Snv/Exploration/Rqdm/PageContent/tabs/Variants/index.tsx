@@ -4,7 +4,7 @@ import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { IQueryResults } from 'graphql/models';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
 import { VariantType } from 'views/Prescriptions/Entity/context';
-import { ALL_KEYS, VARIANT_KEY } from 'views/Prescriptions/utils/export';
+import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
 import { DEFAULT_PAGE_INDEX, SCROLL_WRAPPER_ID } from 'views/Snv/utils/constant';
 
@@ -12,7 +12,6 @@ import FixedSizeTable from 'components/Layout/FixedSizeTable';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
 import { formatQuerySortList } from 'utils/helper';
-import { TDownload } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
 import style from './index.module.scss';
@@ -23,7 +22,6 @@ type OwnProps = {
   queryConfig: IQueryConfig;
   pageIndex: number;
   setPageIndex: (value: number) => void;
-  setDownloadKeys: TDownload;
   queryBuilderId: string;
   setDownloadTriggered: any;
   setSelectedRows: any;
@@ -42,7 +40,6 @@ const VariantsTab = ({
   queryConfig,
   pageIndex,
   setPageIndex,
-  setDownloadKeys,
   setDownloadTriggered,
   setSelectedRows,
 }: OwnProps) => {
@@ -97,7 +94,6 @@ const VariantsTab = ({
             },
             onSelectAllResultsChange: () => {
               setSelectedRows([]);
-              setDownloadKeys([ALL_KEYS]);
             },
             onTableExportClick: () => {
               setDownloadTriggered(true);

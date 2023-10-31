@@ -42,7 +42,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     size: DEFAULT_PAGE_SIZE,
   });
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
-  const [downloadKeys, setDownloadKeys] = useState<string[]>([]);
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
     wrapSqonWithDonorIdAndSrId(
@@ -129,19 +128,16 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
             patientId={patientId!}
             pageIndex={pageIndex}
             setPageIndex={setPageIndex}
-            setDownloadKeys={setDownloadKeys}
             setVariantType={setVariantType}
             setDownloadTriggered={setDownloadTriggered}
             setSelectedRows={setSelectedRows}
           />
           <DownloadTSVWrapper
-            downloadKeys={downloadKeys}
             queryVariables={queryVariables}
             triggered={downloadTriggered}
             setTriggered={setDownloadTriggered}
             total={variantResults.total}
             prefix={'SNV'}
-            setDownloadKeys={setDownloadKeys}
             operations={variantQueryConfig.operations}
             query={VARIANT_QUERY}
             maxAllowed={MAX_VARIANTS_WITH_DONORS_DOWNLOAD}
