@@ -18,6 +18,7 @@ export const getVariantColumns = (
   variantType: VariantType,
   openGenesModal: (record: VariantEntity) => void,
   igvModalCb?: (record: VariantEntity) => void,
+  noData: boolean = false,
 ): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -26,7 +27,7 @@ export const getVariantColumns = (
       className: style.userAffectedBtnCell,
       key: 'actions',
       title: intl.get('screen.patientsnv.results.table.actions'),
-      fixed: 'left',
+      fixed: noData ? undefined : 'left',
       render: (record: VariantEntity) => (
         <Space align={'center'}>
           <Tooltip title={intl.get('open.in.igv')}>

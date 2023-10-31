@@ -85,8 +85,9 @@ const VariantsTab = ({
     patientId,
     openDrawer,
     openIgvModal,
+    undefined,
+    results.data.length === 0 ? true : false,
   );
-
   return (
     <>
       {donor && selectedVariant && (

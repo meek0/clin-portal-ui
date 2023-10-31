@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
@@ -197,6 +198,7 @@ export const getVariantColumns = (
   drawerCb?: (record: VariantEntity) => void,
   igvModalCb?: (record: VariantEntity) => void,
   onlyExportTSV: boolean = false,
+  noData: boolean = false,
 ): ProColumnType<ITableVariantEntity>[] => {
   let columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -205,7 +207,7 @@ export const getVariantColumns = (
       className: style.userAffectedBtnCell,
       key: 'actions',
       title: intl.get('screen.patientsnv.results.table.actions'),
-      fixed: 'left',
+      fixed: noData ? undefined : 'left',
       render: (record: VariantEntity) => (
         <Space align={'center'}>
           <Tooltip title={intl.get('occurrence.patient')}>
@@ -230,7 +232,6 @@ export const getVariantColumns = (
         </Space>
       ),
       align: 'center',
-      width: 102,
     });
   }
 
@@ -241,7 +242,7 @@ export const getVariantColumns = (
       key: 'hgvsg',
       dataIndex: 'hgvsg',
       className: style.fixedVariantTableCellElipsis,
-      fixed: 'left',
+      fixed: noData ? undefined : 'left',
       sorter: {
         multiple: 1,
       },

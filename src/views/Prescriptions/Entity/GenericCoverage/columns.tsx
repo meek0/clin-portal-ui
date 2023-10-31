@@ -52,12 +52,13 @@ const handleRedirection = (
 export const getGeneCoverageTableColumns = (
   igvModalCb: (record: ITableGeneCoverage) => void,
   history: any,
+  noData: boolean = false,
 ): ProColumnType<ITableGeneCoverage>[] => [
   {
     className: style.userAffectedBtnCell,
     key: 'actions',
     title: intl.get('screen.patientsnv.results.table.actions'),
-    fixed: 'left',
+    fixed: noData ? undefined : 'left',
     render: (record: ITableGeneCoverage) => (
       <Space align={'center'}>
         <Tooltip title={intl.get('open.in.igv')}>
