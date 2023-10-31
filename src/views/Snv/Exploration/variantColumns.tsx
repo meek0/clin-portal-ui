@@ -401,8 +401,7 @@ export const getVariantColumns = (
       key: 'clinvar',
       title: intl.get('screen.patientsnv.results.table.clinvar'),
       dataIndex: 'clinvar',
-      className: style.variantTableCell,
-      width: 160,
+      width: 110,
       render: renderClinvar,
     },
   );
