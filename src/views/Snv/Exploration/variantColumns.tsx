@@ -804,10 +804,10 @@ export const renderClinvarToString = (variant: any) => {
   return clinvarStringList.join(',');
 };
 export const renderGeneToString = (variant: any) => {
-  const pickedConsequence = variant.consequences?.hits.edges.find(
+  const pickedConsequence = variant.consequences?.hits?.edges?.find(
     ({ node }: any) => !!node.picked,
   )?.node;
-  if (pickedConsequence && pickedConsequence.symbol) {
+  if (pickedConsequence?.symbol) {
     return pickedConsequence.symbol;
   }
 
