@@ -460,8 +460,7 @@ export const getVariantColumns = (
       render: (external_frequencies: ExternalFrequenciesEntity) => {
         const af = external_frequencies.gnomad_genomes_3_1_1?.af;
 
-        if (!af) return TABLE_EMPTY_PLACE_HOLDER;
-
+        if (!af && af !== 0) return TABLE_EMPTY_PLACE_HOLDER;
         return (
           <Space direction="horizontal">
             <GnomadCell underOnePercent={af < 0.01} />
@@ -482,7 +481,7 @@ export const getVariantColumns = (
       width: 120,
       render: (external_frequencies: ExternalFrequenciesEntity) => {
         const ac = external_frequencies.gnomad_genomes_3_1_1?.ac;
-        return ac ? formatNumber(ac) : TABLE_EMPTY_PLACE_HOLDER;
+        return !ac && ac !== 0 ? TABLE_EMPTY_PLACE_HOLDER : formatNumber(ac);
       },
     },
   );
@@ -820,6 +819,17 @@ export const renderHotspotToString = (variant: any) => {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
   return hotspot.toString();
+};
+
+export const renderGnomADAFToString = (variant: any) => {
+  const af = variant.external_frequencies.gnomad_genomes_3_1_1?.af;
+  if (!af && af !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return af.toExponential(2).toString();
+};
+export const renderGnomADACToString = (variant: any) => {
+  const ac = variant.external_frequencies.gnomad_genomes_3_1_1?.af;
+  if (!ac && ac !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return formatNumber(ac).toString();
 };
 
 export const renderManeToString = (variant: any) => {

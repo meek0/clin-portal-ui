@@ -13,6 +13,8 @@ import {
   renderClinvarToString,
   renderDonorToString,
   renderGeneToString,
+  renderGnomADACToString,
+  renderGnomADAFToString,
   renderHotspotToString,
   renderManeToString,
   renderOmimToString,
@@ -149,6 +151,10 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderConsequencesToString(row));
     } else if (key === 'hotspot') {
       return convertToPlain(renderHotspotToString(row));
+    } else if (key === 'external_frequencies.gnomad_genomes_3_1_1.af') {
+      return convertToPlain(renderGnomADAFToString(row));
+    } else if (key === 'external_frequencies.gnomad_genomes_3_1_1.ac') {
+      return convertToPlain(renderGnomADACToString(row));
     } else if (key === 'MANE') {
       return convertToPlain(renderManeToString(row));
     } else if (
