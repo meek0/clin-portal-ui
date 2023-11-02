@@ -52,6 +52,7 @@
 }
 
 .userAffectedBtnCell {
+  min-width: 60px;
   .affectedIcon {
     display: flex;
     margin: auto;
@@ -81,13 +82,16 @@
     content: '';
     display: block;
   }
-
 }
 
-.hotspotFilled{
+.hotspotFilled {
   color: $red-7;
 }
 
-.hotspotOutlined{
-  color:  $gray-6;
+.hotspotOutlined {
+  color: $gray-6;
+}
+
+.fixedVariantTableCellNoData{
+  left: 0 !important;
 }

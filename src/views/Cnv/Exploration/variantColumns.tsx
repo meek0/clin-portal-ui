@@ -24,10 +24,12 @@ export const getVariantColumns = (
 
   columns.push(
     {
-      className: style.userAffectedBtnCell,
+      className: noData
+        ? `${style.fixedVariantTableCellNoData} ${style.userAffectedBtnCell}`
+        : style.userAffectedBtnCell,
       key: 'actions',
       title: intl.get('screen.patientsnv.results.table.actions'),
-      fixed: noData ? undefined : 'left',
+      fixed: 'left',
       render: (record: VariantEntity) => (
         <Space align={'center'}>
           <Tooltip title={intl.get('open.in.igv')}>

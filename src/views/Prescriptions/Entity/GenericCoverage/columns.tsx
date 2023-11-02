@@ -55,10 +55,12 @@ export const getGeneCoverageTableColumns = (
   noData: boolean = false,
 ): ProColumnType<ITableGeneCoverage>[] => [
   {
-    className: style.userAffectedBtnCell,
+    className: noData
+      ? `${style.fixedVariantTableCellNoData} ${style.userAffectedBtnCell}`
+      : style.userAffectedBtnCell,
     key: 'actions',
     title: intl.get('screen.patientsnv.results.table.actions'),
-    fixed: noData ? undefined : 'left',
+    fixed: 'left',
     render: (record: ITableGeneCoverage) => (
       <Space align={'center'}>
         <Tooltip title={intl.get('open.in.igv')}>
