@@ -18,6 +18,8 @@ import {
   renderHotspotToString,
   renderManeToString,
   renderOmimToString,
+  renderRQDMPCToString,
+  renderRQDMToString,
 } from 'views/Snv/Exploration/variantColumns';
 
 import { TABLE_EMPTY_PLACE_HOLDER, TSV_EMPTY_PLACE_HOLDER } from 'utils/constants';
@@ -155,6 +157,10 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderGnomADAFToString(row));
     } else if (key === 'external_frequencies.gnomad_genomes_3_1_1.ac') {
       return convertToPlain(renderGnomADACToString(row));
+    } else if (key === 'frequency_RQDM.total.pf') {
+      return convertToPlain(renderRQDMToString(row));
+    } else if (key === 'frequency_RQDM.total.pc') {
+      return convertToPlain(renderRQDMPCToString(row));
     } else if (key === 'MANE') {
       return convertToPlain(renderManeToString(row));
     } else if (

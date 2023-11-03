@@ -87,7 +87,7 @@ const CmcTierColorMap: Record<any, string> = {
 };
 
 const formatRqdm = (rqdm: frequency_RQDMEntity, variant: VariantEntity) => {
-  if (!rqdm?.total?.pc) {
+  if (!rqdm?.total?.pc && rqdm?.total?.pc !== 0) {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
   return (
@@ -832,6 +832,17 @@ export const renderGnomADACToString = (variant: any) => {
   return formatNumber(ac).toString();
 };
 
+export const renderRQDMToString = (variant: any) => {
+  const rqdm = variant?.frequency_RQDM?.total?.pf;
+  if (!rqdm && rqdm !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return rqdm.toExponential(2).toString();
+};
+export const renderRQDMPCToString = (variant: any) => {
+  const rqdm = variant?.frequency_RQDM?.total?.pc;
+  if (!rqdm && rqdm !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return rqdm.toString();
+};
+
 export const renderManeToString = (variant: any) => {
   const pickedConsequence = variant.consequences?.hits.edges.find(
     ({ node }: any) => !!node.picked,
@@ -925,7 +936,9 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
       TABLE_EMPTY_PLACE_HOLDER,
     );
   } else if (key === 'donors.qd') {
-    return donor?.qd ? donor.qd : TABLE_EMPTY_PLACE_HOLDER;
+    const qd = donor?.qd;
+    if (!qd && qd !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+    return qd;
   } else if (key === 'donors.parental_origin') {
     return donor ? displayParentalOrigin(donor?.parental_origin!) : TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors.ad_alt') {
