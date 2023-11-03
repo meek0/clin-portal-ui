@@ -12,7 +12,7 @@ beforeEach(() => {
   cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
   cy.get('[data-cy="RadioButton_CouvertureGenique"]').click({force: true});
 
-  cy.get('div[role="tabpanel"]').find('tr[data-row-key="6"]').find('[type="checkbox"]').check({force: true});
+  cy.get('div[role="tabpanel"]').find('tr[data-row-key]').eq(6).find('[type="checkbox"]').check({force: true});
   cy.get('div[id="content"] svg[data-icon="download"]').eq(1).click({force:true});
   cy.wait(2000);
 });
