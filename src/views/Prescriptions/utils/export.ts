@@ -1,6 +1,5 @@
 import { getPractitionnerName } from '@ferlab/ui/core/components/Assignments/AssignmentsFilter';
 import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types';
-import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { Practitioner, PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
 import { findDonorById } from 'graphql/variants/selector';
 import get from 'lodash/get';
@@ -59,72 +58,6 @@ function getLeafNodes(obj: any): string {
   }
   return String(Array.from(new Set(traverse([], obj))).join(JOIN_SEP));
 }
-
-export const buildVariantsDownloadCount = (
-  keys: Array<string>,
-  expectedTotal: number,
-  maxAllowed: number,
-): number => {
-  if (keys?.length > 0) {
-    if (keys[0] === ALL_KEYS) {
-      if (expectedTotal <= maxAllowed) {
-        return expectedTotal;
-      } else {
-        return 0;
-      }
-    } else if (keys.length <= maxAllowed) {
-      return keys.length;
-    }
-    return 0;
-  }
-  return 0;
-};
-
-export const buildVariantsDownloadSqon = (
-  keys: Array<string>,
-  key: string,
-  filteredSqon: ISyntheticSqon,
-  patientId?: string,
-): ISyntheticSqon => {
-  if (keys?.[0] === ALL_KEYS) {
-    return addPatientIdContent(filteredSqon, patientId);
-  } else {
-    return addPatientIdContent(
-      {
-        op: 'and',
-        content: [
-          {
-            content: {
-              field: key,
-              value: keys || [],
-            },
-            op: 'in',
-          },
-        ],
-      },
-      patientId,
-    );
-  }
-};
-
-const addPatientIdContent = (sqon: ISyntheticSqon, patientId?: string): ISyntheticSqon => {
-  if (patientId && sqon?.content) {
-    return {
-      ...sqon,
-      content: [
-        ...sqon.content,
-        {
-          content: {
-            field: 'donors.patient_id',
-            value: [patientId],
-          },
-          op: 'in',
-        },
-      ],
-    };
-  }
-  return sqon;
-};
 
 export const convertToPlain = (html: string) => {
   if (html === TABLE_EMPTY_PLACE_HOLDER) {

@@ -1,13 +1,9 @@
 import {
-  ALL_KEYS,
-  buildVariantsDownloadCount,
-  buildVariantsDownloadSqon,
   convertToPlain,
   customMapping,
   exportAsTSV,
   extractSelectionFromResults,
   makeFilenameDatePart,
-  MAX_VARIANTS_DOWNLOAD,
 } from '../export';
 
 describe('exportAsTSV', () => {
@@ -438,77 +434,6 @@ describe('makeFilenameDatePart', () => {
     // don't check hours since it will yield different result
     //  on different machine with different UTC
     expect(makeFilenameDatePart(date).slice(0, 9)).toEqual('20201201T');
-  });
-});
-
-describe('buildVariantsDownloadCount', () => {
-  test('should be robust', () => {
-    expect(buildVariantsDownloadCount(null, 0, MAX_VARIANTS_DOWNLOAD)).toEqual(0);
-  });
-  test('should return 0 if no keys to download', () => {
-    expect(buildVariantsDownloadCount([], 0, MAX_VARIANTS_DOWNLOAD)).toEqual(0);
-  });
-  test('should return 0 if download ALL but total is bigger than MAX', () => {
-    expect(
-      buildVariantsDownloadCount([ALL_KEYS], MAX_VARIANTS_DOWNLOAD + 1, MAX_VARIANTS_DOWNLOAD),
-    ).toEqual(0);
-  });
-  test('should return TOTAL if download ALL and total <= MAX', () => {
-    expect(buildVariantsDownloadCount([ALL_KEYS], 10, MAX_VARIANTS_DOWNLOAD)).toEqual(10);
-  });
-  test('should return X if bellow MAX', () => {
-    expect(buildVariantsDownloadCount(['1', '2', '3'], 10, MAX_VARIANTS_DOWNLOAD)).toEqual(3);
-  });
-  test('should return 0 if keys length bigger than MAX', () => {
-    var keys = [];
-    keys.length = MAX_VARIANTS_DOWNLOAD + 1;
-    expect(buildVariantsDownloadCount(keys, 10, MAX_VARIANTS_DOWNLOAD)).toEqual(0);
-  });
-});
-
-describe('buildVariantsDownloadSqon', () => {
-  test('should be return empty sqon if no keys', () => {
-    expect(buildVariantsDownloadSqon(null, 'key', {})).toEqual({
-      content: [{ content: { field: 'key', value: [] }, op: 'in' }],
-      op: 'and',
-    });
-  });
-  test('should return filtered sqon when ALL', () => {
-    expect(buildVariantsDownloadSqon([ALL_KEYS], 'key', {})).toEqual({});
-  });
-  test('should return sqon by keys if selection of rows', () => {
-    expect(buildVariantsDownloadSqon(['1', '2', '3'], 'key', {})).toEqual({
-      content: [{ content: { field: 'key', value: ['1', '2', '3'] }, op: 'in' }],
-      op: 'and',
-    });
-  });
-  test('should add patient_id to new sqon', () => {
-    expect(buildVariantsDownloadSqon(['1', '2', '3'], 'key', {}, 'patientId')).toEqual({
-      content: [
-        { content: { field: 'key', value: ['1', '2', '3'] }, op: 'in' },
-        { content: { field: 'donors.patient_id', value: ['patientId'] }, op: 'in' },
-      ],
-      op: 'and',
-    });
-  });
-  test('should add patient_id to existing sqon', () => {
-    expect(
-      buildVariantsDownloadSqon(
-        [ALL_KEYS],
-        'key',
-        {
-          content: [{ content: { field: 'filter1', value: ['value1', 'value2'] }, op: 'in' }],
-          op: 'and',
-        },
-        'patientId',
-      ),
-    ).toEqual({
-      content: [
-        { content: { field: 'filter1', value: ['value1', 'value2'] }, op: 'in' },
-        { content: { field: 'donors.patient_id', value: ['patientId'] }, op: 'in' },
-      ],
-      op: 'and',
-    });
   });
 });
 

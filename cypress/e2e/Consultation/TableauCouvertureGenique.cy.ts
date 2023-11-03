@@ -12,38 +12,38 @@ beforeEach(() => {
 
 describe('Page de la couverture génique d\'un patient - Consultation du tableau', () => {
   it('Vérifier les informations affichées', () => {
-    cy.validateTableDataRowKeyContent('6', 2, 'RPL41');
-    cy.validateTableDataRowKeyContent('6', 3, /^69$/);
-    cy.validateTableDataRowKeyContent('6', 4, '86.14');
-    cy.validateTableDataRowKeyContent('6', 5, '44.93%');
-    cy.validateTableDataRowKeyContent('6', 6, '44.93%');
-    cy.validateTableDataRowKeyContent('6', 7, '44.93%');
-    cy.validateTableDataRowKeyContent('6', 8, '44.93%');
-    cy.validateTableDataRowKeyContent('6', 9, '43.48%');
-    cy.validateTableDataRowKeyContent('6', 10, '14.49%');
-    cy.validateTableDataRowKeyContent('6', 11, '14.49%');
-    cy.validateTableDataRowKeyContent('6', 12, '< 1%');
-    cy.validateTableDataRowKeyContent('6', 13, '< 1%');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(2).contains('RPL41').should('exist');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(3).contains(/^69$/).should('exist');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(4).contains('86.14').should('exist');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(5).contains('44.93%').should('exist');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(6).contains('44.93%').should('exist');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(7).contains('44.93%').should('exist');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(8).contains('44.93%').should('exist');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(9).contains('43.48%').should('exist');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(10).contains('14.49%').should('exist');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(11).contains('14.49%').should('exist');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(12).contains('< 1%').should('exist');
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(13).contains('< 1%').should('exist');
 
     cy.get('[data-cy="AverageCoverage"]').contains('442.02').should('exist');
   });
  
   it('Valider les liens disponibles Lien SNV', () => {
-    cy.get('tr[data-row-key="6"]').find('td').eq(1).find('[id="snv"]').click({force: true});
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(1).find('[id="snv"]').click({force: true});
     cy.get('[class*="ant-radio-button-wrapper-checked"]').contains('SNV').should('exist');
     cy.get('[class*="QueryBar_selected"]').find('[class*="QueryPill_field"]').contains('Gène').should('exist');
     cy.get('[class*="QueryBar_selected"]').find('[class*="QueryValues_value"]').contains('RPL41').should('exist');
   });
  
   it('Valider les liens disponibles Lien CNV', () => {
-    cy.get('tr[data-row-key="6"]').find('td').eq(1).find('[id="cnv"]').click({force: true});
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(1).find('[id="cnv"]').click({force: true});
     cy.get('[class*="ant-radio-button-wrapper-checked"]').contains('CNV').should('exist');
     cy.get('[class*="QueryBar_selected"]').find('[class*="QueryPill_field"]').contains('Gène').should('exist');
     cy.get('[class*="QueryBar_selected"]').find('[class*="QueryValues_value"]').contains('RPL41').should('exist');
   });
 
   it('Valider les liens disponibles Lien Gène', () => {
-    cy.get('tr[data-row-key="6"]').find('td').eq(2).find('a[href]').invoke('removeAttr', 'target').click({force: true});
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(2).find('a[href]').invoke('removeAttr', 'target').click({force: true});
     cy.get('body').contains(/^RPL41$/).should('exist');
   });
   

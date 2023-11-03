@@ -43,7 +43,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     size: DEFAULT_PAGE_SIZE,
   });
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
-  const [downloadKeys, setDownloadKeys] = useState<string[]>([]);
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) => {
     const wrappedQuery = wrapSqonWithPatientIdAndRequestId(
@@ -125,7 +124,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
             queryConfig={variantQueryConfig}
             pageIndex={pageIndex}
             setPageIndex={setPageIndex}
-            setDownloadKeys={setDownloadKeys}
             setVariantType={setVariantType}
             setSelectedRows={setSelectedRows}
             setDownloadTriggered={setDownloadTriggered}
@@ -133,12 +131,10 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
         </Card>
       </VariantContentLayout>
       <DownloadTSVWrapper
-        downloadKeys={downloadKeys}
         queryVariables={queryVariables}
         prefix="CNV"
         columnKey={'hash'}
         maxAllowed={MAX_VARIANTS_DOWNLOAD}
-        setDownloadKeys={setDownloadKeys}
         columns={getVariantColumns(
           variantType,
           () => {},

@@ -13,7 +13,7 @@ import { useCoverage } from 'graphql/prescriptions/actions';
 import { GeneCoverage } from 'graphql/prescriptions/models/Prescription';
 import { COVERAGES_QUERY } from 'graphql/prescriptions/queries';
 import IGVModal from 'views/Cnv/Exploration/components/IGVModal';
-import { ALL_KEYS, VARIANT_KEY } from 'views/Prescriptions/utils/export';
+import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import { DEFAULT_PAGE_INDEX, DEFAULT_QUERY_CONFIG } from 'views/Snv/utils/constant';
 
 import DownloadTSVWrapper from 'components/Download';
@@ -57,8 +57,7 @@ const Index = ({ downloadFile }: any) => {
     sort: DEFAULT_COVERAGE_SORT,
   });
 
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-  const [selectedRows, setSelectedRows] = useState<ITableGeneCoverage[]>([]);
+  const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const history = useHistory();
 
   const { variantInfo } = usePrescriptionEntityContext();
@@ -227,7 +226,7 @@ const Index = ({ downloadFile }: any) => {
               )}
               initialColumnState={initialColumnState}
               scroll={dimension}
-              dataSource={data}
+              dataSource={data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
               enableRowSelection
               loading={loading}
               showSorterTooltip={false}
@@ -305,7 +304,6 @@ const Index = ({ downloadFile }: any) => {
                 },
                 onSelectAllResultsChange: () => {
                   setSelectedRows([]);
-                  setSelectedKeys([ALL_KEYS]);
                 },
                 itemCount: {
                   pageIndex: pageIndex,
@@ -329,7 +327,6 @@ const Index = ({ downloadFile }: any) => {
           maxAllowed={2000}
           prefix={'GC'}
           columnKey={'key'}
-          downloadKeys={selectedKeys}
           data={selectedRows}
           queryVariables={variables}
           columns={getGeneCoverageTableColumns(openIgvModal, history)}
@@ -338,7 +335,6 @@ const Index = ({ downloadFile }: any) => {
           total={total}
           queryKey={'Coverages'}
           operations={queryConfig.operations}
-          setDownloadKeys={setSelectedKeys}
           query={COVERAGES_QUERY.loc!.source.body.replaceAll(' $weightedAverages: JSON\\n', '')}
         />
       </Card>

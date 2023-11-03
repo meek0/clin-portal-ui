@@ -3,6 +3,7 @@ import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { IQueryOperationsConfig } from '@ferlab/ui/core/graphql/types';
 import { hydrateResults } from '@ferlab/ui/core/graphql/utils';
+import cloneDeep from 'lodash/cloneDeep';
 import { downloadAsTSV } from 'views/Prescriptions/utils/export';
 
 import GenericModal from 'components/utils/GenericModal';
@@ -12,7 +13,6 @@ import { sendRequestWithRpt } from '../api';
 import { ARRANGER_API_PROJECT_URL } from '../providers/ApolloProvider';
 
 type OwnProps = {
-  downloadKeys: string[];
   queryVariables: any; // can be anything because of new weighted average obj
   maxAllowed: number;
   columns?: any;
@@ -27,12 +27,10 @@ type OwnProps = {
   operations?: IQueryOperationsConfig;
   patientId?: string;
   queryKey: string;
-  setDownloadKeys: (value: string[]) => void;
 };
 
 const DownloadTSVWrapper = ({
   maxAllowed,
-  downloadKeys,
   columns,
   queryVariables,
   triggered,
@@ -46,60 +44,74 @@ const DownloadTSVWrapper = ({
   patientId,
   data,
   queryKey,
-  setDownloadKeys,
 }: OwnProps) => {
   const [showModalLimit, setShowModalLimit] = useState(false);
   const dispatch = useDispatch();
-  let dataToDownload = data;
+
+  const dataIntoTSV = (data: any) => {
+    downloadAsTSV(
+      data,
+      [],
+      columnKey,
+      columns.filter((col: any) => col.key !== 'actions'),
+      prefix,
+      mapping,
+      patientId ? patientId : undefined,
+    );
+  };
+
+  const fetchDataFromAPI = () => {
+    dispatch(
+      globalActions.displayNotification({
+        type: 'info',
+        message: intl.get('screen.patientsnv.results.table.download.info.title'),
+        description: intl.get('screen.patientsnv.results.table.download.info.message'),
+      }),
+    );
+
+    return sendRequestWithRpt<{ data: any }>({
+      method: 'POST',
+      url: ARRANGER_API_PROJECT_URL,
+      data: {
+        query: query.loc ? query.loc!.source.body : query,
+        variables: {
+          ...queryVariables,
+          searchAfter: undefined,
+          first: total,
+        },
+      },
+    })
+      .then((res: any) =>
+        hydrateResults(res.data.data[queryKey]?.hits?.edges || [], operations?.previous),
+      )
+      .catch(() => {
+        dispatch(
+          globalActions.displayNotification({
+            type: 'error',
+            message: intl.get('screen.patientsnv.results.table.download.error.title'),
+            description: intl.get('screen.patientsnv.results.table.download.error.message'),
+          }),
+        );
+      });
+  };
 
   const download = async () => {
-    if (!dataToDownload.length && downloadKeys.length === 0) downloadKeys.push('*');
-    if (downloadKeys.includes('*') && total > maxAllowed && !dataToDownload.length) {
-      setShowModalLimit(true);
-    } else {
-      dispatch(
-        globalActions.displayNotification({
-          type: 'info',
-          message: intl.get('screen.patientsnv.results.table.download.info.title'),
-          description: intl.get('screen.patientsnv.results.table.download.info.message'),
-        }),
-      );
-      if ((downloadKeys.includes('*') || !downloadKeys.length) && !dataToDownload.length) {
-        dataToDownload = await sendRequestWithRpt<{ data: any }>({
-          method: 'POST',
-          url: ARRANGER_API_PROJECT_URL,
-          data: {
-            query: query.loc ? query.loc!.source.body : query,
-            variables: {
-              ...queryVariables,
-              first: !dataToDownload.length ? total : queryVariables.first,
-            },
-          },
-        })
-          .then((res: any) =>
-            hydrateResults(res.data.data[queryKey]?.hits?.edges || [], operations?.previous),
-          )
-          .catch(() => {
-            dispatch(
-              globalActions.displayNotification({
-                type: 'error',
-                message: intl.get('screen.patientsnv.results.table.download.error.title'),
-                description: intl.get('screen.patientsnv.results.table.download.error.message'),
-              }),
-            );
-          });
-      }
+    const selectedData = cloneDeep(data || []);
+    const downloadAll = selectedData.length === 0;
 
-      downloadAsTSV(
-        dataToDownload && dataToDownload.length ? dataToDownload : data,
-        [],
-        columnKey,
-        columns.filter((col: any) => col.key !== 'actions'),
-        prefix,
-        mapping,
-        patientId ? patientId : undefined,
-      );
-      setDownloadKeys([]);
+    if (downloadAll) {
+      if (total > maxAllowed) {
+        setShowModalLimit(true);
+      } else {
+        const downloaded = await fetchDataFromAPI();
+        dataIntoTSV(downloaded);
+      }
+    } else if (selectedData.length > 0) {
+      if (selectedData.length > maxAllowed) {
+        setShowModalLimit(true);
+      } else {
+        dataIntoTSV(selectedData);
+      }
     }
     setTriggered(false);
   };

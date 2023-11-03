@@ -8,7 +8,7 @@ import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
 import { VariantType } from 'views/Prescriptions/Entity/context';
 import { getVariantTypeFromSNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
-import { ALL_KEYS, VARIANT_KEY } from 'views/Prescriptions/utils/export';
+import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import IGVModal from 'views/Snv/components//IGVModal';
 import OccurrenceDrawer from 'views/Snv/components/OccurrenceDrawer';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
@@ -19,7 +19,6 @@ import { useRpt } from 'hooks/useRpt';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
 import { formatQuerySortList } from 'utils/helper';
-import { TDownload } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
 import style from './index.module.scss';
@@ -31,11 +30,10 @@ type OwnProps = {
   patientId: string;
   pageIndex: number;
   setPageIndex: (value: number) => void;
-  setDownloadKeys: TDownload;
   queryBuilderId: string;
   setVariantType: (variantType: VariantType) => void;
   setDownloadTriggered: (value: boolean) => void;
-  setSelectedRows: (value: ITableVariantEntity[]) => void;
+  setSelectedRows: (value: any[]) => void;
 };
 
 export const scrollToTop = (scrollContentId: string) =>
@@ -52,7 +50,6 @@ const VariantsTab = ({
   patientId,
   pageIndex,
   setPageIndex,
-  setDownloadKeys,
   setVariantType,
   setDownloadTriggered,
   setSelectedRows,
@@ -137,7 +134,6 @@ const VariantsTab = ({
               },
               onSelectAllResultsChange: () => {
                 setSelectedRows([]);
-                setDownloadKeys([ALL_KEYS]);
               },
               onTableExportClick: () => {
                 setDownloadTriggered(true);

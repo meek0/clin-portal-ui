@@ -131,12 +131,14 @@ const PrescriptionSearch = (): React.ReactElement => {
   // query is always done, unfortunately but response size is limited if nothing to download
   const prescriptionsToDownload = usePrescription({
     ...prescriptionsQueryVariables,
+    searchAfter: undefined,
     first: downloadPrescriptionKeys.length > 0 ? prescriptions.total : 0,
   });
 
   // query is always done, unfortunately but response size is limited if nothing to download
   const sequencingsToDownload = useSequencingRequests({
     ...sequencingsQueryVariables,
+    searchAfter: undefined,
     first: downloadSequencingKeys.length > 0 ? sequencings.total : 0,
   });
 

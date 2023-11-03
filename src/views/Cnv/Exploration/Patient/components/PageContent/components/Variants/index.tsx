@@ -10,14 +10,13 @@ import IGVModal from 'views/Cnv/Exploration/components/IGVModal';
 import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
 import { DEFAULT_PAGE_INDEX, SCROLL_WRAPPER_ID } from 'views/Cnv/utils/constant';
 import { getVariantTypeFromCNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
-import { ALL_KEYS, VARIANT_KEY } from 'views/Prescriptions/utils/export';
+import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 
 import FixedSizeTable from 'components/Layout/FixedSizeTable';
 import { useRpt } from 'hooks/useRpt';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
 import { formatQuerySortList, scrollToTop } from 'utils/helper';
-import { TDownload } from 'utils/searchPageTypes';
 import { getProTableDictionary } from 'utils/translation';
 
 import style from './index.module.scss';
@@ -26,7 +25,6 @@ type OwnProps = {
   results: IQueryResults<VariantEntity[]>;
   setQueryConfig: TQueryConfigCb;
   queryConfig: IQueryConfig;
-  setDownloadKeys: TDownload;
   pageIndex: number;
   setPageIndex: (value: number) => void;
   setDownloadTriggered: any;
@@ -42,7 +40,6 @@ const VariantsTable = ({
   setPageIndex,
   setDownloadTriggered,
   setVariantType,
-  setDownloadKeys,
   setSelectedRows,
 }: OwnProps) => {
   const dispatch = useDispatch();
@@ -124,7 +121,6 @@ const VariantsTable = ({
               },
               onSelectAllResultsChange: () => {
                 setSelectedRows([]);
-                setDownloadKeys([ALL_KEYS]);
               },
               onTableExportClick: () => {
                 setDownloadTriggered(true);

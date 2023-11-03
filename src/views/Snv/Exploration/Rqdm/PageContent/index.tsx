@@ -38,7 +38,6 @@ const PageContent = ({ variantMapping }: OwnProps) => {
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
     resolveSyntheticSqon(queryList, query, variantMapping);
-  const [downloadKeys, setDownloadKeys] = useState<string[]>([]);
 
   const queryVariables = {
     first: variantQueryConfig.size,
@@ -120,7 +119,6 @@ const PageContent = ({ variantMapping }: OwnProps) => {
               queryConfig={variantQueryConfig}
               pageIndex={pageIndex}
               setPageIndex={setPageIndex}
-              setDownloadKeys={setDownloadKeys}
               setDownloadTriggered={setDownloadTriggered}
               setSelectedRows={setSelectedRows}
             />
@@ -130,12 +128,10 @@ const PageContent = ({ variantMapping }: OwnProps) => {
       <DownloadTSVWrapper
         maxAllowed={MAX_VARIANTS_DOWNLOAD}
         columnKey={VARIANT_KEY}
-        downloadKeys={downloadKeys}
         queryVariables={queryVariables}
         prefix={'SNV'}
         operations={variantQueryConfig.operations}
         query={VARIANT_QUERY}
-        setDownloadKeys={setDownloadKeys}
         data={selectedRows}
         columns={getVariantColumns(
           VARIANT_RQDM_QB_ID,
