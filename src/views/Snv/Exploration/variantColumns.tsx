@@ -827,9 +827,9 @@ export const renderGnomADAFToString = (variant: any) => {
   return af.toExponential(2).toString();
 };
 export const renderGnomADACToString = (variant: any) => {
-  const ac = variant.external_frequencies.gnomad_genomes_3_1_1?.af;
+  const ac = variant.external_frequencies.gnomad_genomes_3_1_1?.ac;
   if (!ac && ac !== 0) return TABLE_EMPTY_PLACE_HOLDER;
-  return formatNumber(ac).toString();
+  return ac.toString();
 };
 
 export const renderRQDMToString = (variant: any) => {
