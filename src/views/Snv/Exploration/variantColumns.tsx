@@ -125,7 +125,7 @@ const getDonorZygosity = (patientId: string) => ({
   title: intl.get('screen.patientsnv.results.table.zygosity'),
   tooltip: intl.get('donor.zygosity.tooltip'),
   dataIndex: 'donors',
-  width: 100,
+  width: 35,
   sorter: {
     multiple: 1,
   },
@@ -390,7 +390,7 @@ export const getVariantColumns = (
       key: 'omim',
       title: intl.get('screen.patientsnv.results.table.omim'),
       tooltip: intl.get('screen.patientsnv.results.table.omim.tooltip'),
-      width: 125,
+      width: 95,
       render: (variant: {
         genes: { hits: { edges: Gene[] } };
         consequences: VariantEntity['consequences'];
@@ -569,8 +569,9 @@ export const getVariantColumns = (
         {
           key: 'donors.transmission',
           title: intl.get('screen.patientsnv.results.table.transmission'),
+          tooltip: intl.get('screen.patientsnv.results.table.transmission.tooltip'),
           defaultHidden: true,
-          width: 200,
+          width: 80,
           sorter: {
             multiple: 1,
           },
@@ -936,8 +937,15 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
       />
     );
   } else if (key === 'donors.transmission') {
-    return removeUnderscoreAndCapitalize(donor?.transmission! || '').defaultMessage(
-      TABLE_EMPTY_PLACE_HOLDER,
+    const value = donor?.transmission ? removeUnderscoreAndCapitalize(donor.transmission) : '';
+    return donor?.transmission ? (
+      <Tooltip title={value}>
+        <Tag color="blue">
+          {intl.get(`transmission.abbrev.${donor.transmission}`).defaultMessage(value)}
+        </Tag>
+      </Tooltip>
+    ) : (
+      TABLE_EMPTY_PLACE_HOLDER
     );
   } else if (key === 'donors.qd') {
     const qd = donor?.qd;
