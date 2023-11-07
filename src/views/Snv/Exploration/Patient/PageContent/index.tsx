@@ -97,7 +97,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     resetSearchAfterQueryConfig(
       {
         ...DEFAULT_QUERY_CONFIG,
-        size: DEFAULT_QUERY_CONFIG.size || DEFAULT_PAGE_SIZE,
+        size: variantQueryConfig.size || DEFAULT_PAGE_SIZE,
       },
       setVariantQueryConfig,
     );
