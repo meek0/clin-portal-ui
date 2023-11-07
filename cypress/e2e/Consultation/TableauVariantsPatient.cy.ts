@@ -206,7 +206,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('-', 15);
+    cy.validateTableFirstRow('0.00e+0', 15);
     cy.sortTableAndIntercept('RQDM', 1);
     cy.validateTableFirstRow('1.00e+0', 15);
   });

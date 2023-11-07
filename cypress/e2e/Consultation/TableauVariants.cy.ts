@@ -147,7 +147,7 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('-', 12);
+    cy.validateTableFirstRow('0.00e+0', 12);
     cy.sortTableAndIntercept('RQDM', 1);
     cy.validateTableFirstRow('1.00e+0', 12);
   });

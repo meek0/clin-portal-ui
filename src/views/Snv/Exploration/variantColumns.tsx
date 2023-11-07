@@ -87,7 +87,7 @@ const CmcTierColorMap: Record<any, string> = {
 };
 
 const formatRqdm = (rqdm: frequency_RQDMEntity, variant: VariantEntity) => {
-  if (!rqdm?.total?.pc) {
+  if (!rqdm?.total?.pc && rqdm?.total?.pc !== 0) {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
   return (
@@ -464,8 +464,7 @@ export const getVariantColumns = (
       render: (external_frequencies: ExternalFrequenciesEntity) => {
         const af = external_frequencies.gnomad_genomes_3_1_1?.af;
 
-        if (!af) return TABLE_EMPTY_PLACE_HOLDER;
-
+        if (!af && af !== 0) return TABLE_EMPTY_PLACE_HOLDER;
         return (
           <Space direction="horizontal">
             <GnomadCell underOnePercent={af < 0.01} />
@@ -486,7 +485,7 @@ export const getVariantColumns = (
       width: 120,
       render: (external_frequencies: ExternalFrequenciesEntity) => {
         const ac = external_frequencies.gnomad_genomes_3_1_1?.ac;
-        return ac ? formatNumber(ac) : TABLE_EMPTY_PLACE_HOLDER;
+        return !ac && ac !== 0 ? TABLE_EMPTY_PLACE_HOLDER : formatNumber(ac);
       },
     },
   );
@@ -826,6 +825,28 @@ export const renderHotspotToString = (variant: any) => {
   return hotspot.toString();
 };
 
+export const renderGnomADAFToString = (variant: any) => {
+  const af = variant.external_frequencies.gnomad_genomes_3_1_1?.af;
+  if (!af && af !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return af.toExponential(2).toString();
+};
+export const renderGnomADACToString = (variant: any) => {
+  const ac = variant.external_frequencies.gnomad_genomes_3_1_1?.ac;
+  if (!ac && ac !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return ac.toString();
+};
+
+export const renderRQDMToString = (variant: any) => {
+  const rqdm = variant?.frequency_RQDM?.total?.pf;
+  if (!rqdm && rqdm !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return rqdm.toExponential(2).toString();
+};
+export const renderRQDMPCToString = (variant: any) => {
+  const rqdm = variant?.frequency_RQDM?.total?.pc;
+  if (!rqdm && rqdm !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return rqdm.toString();
+};
+
 export const renderManeToString = (variant: any) => {
   const pickedConsequence = variant.consequences?.hits.edges.find(
     ({ node }: any) => !!node.picked,
@@ -919,7 +940,9 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
       TABLE_EMPTY_PLACE_HOLDER,
     );
   } else if (key === 'donors.qd') {
-    return donor?.qd ? donor.qd : TABLE_EMPTY_PLACE_HOLDER;
+    const qd = donor?.qd;
+    if (!qd && qd !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+    return qd;
   } else if (key === 'donors.parental_origin') {
     return donor ? displayParentalOrigin(donor?.parental_origin!) : TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors.ad_alt') {
