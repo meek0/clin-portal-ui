@@ -125,7 +125,7 @@ const getDonorZygosity = (patientId: string) => ({
   title: intl.get('screen.patientsnv.results.table.zygosity'),
   tooltip: intl.get('donor.zygosity.tooltip'),
   dataIndex: 'donors',
-  width: 35,
+  width: 60,
   sorter: {
     multiple: 1,
   },

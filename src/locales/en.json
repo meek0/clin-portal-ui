@@ -684,7 +684,7 @@
   "screen.patientsnv.results.table.rqdm": "RQDM",
   "screen.patientsnv.results.table.rqdm.title.tooltip": "Only occurrences with Filter = PASS and GQ ≥ 20 are taken into account for frequency calculation",
   "screen.patientsnv.results.table.transmission": "Inh.",
-  "screen.patientsnv.results.table.transmission.tooltip": "Inheritrance.",
+  "screen.patientsnv.results.table.transmission.tooltip": "Inheritrance",
   "screen.patientsnv.results.table.type": "Type",
   "screen.patientsnv.results.table.gene": "Gene",
   "screen.patientsnv.results.table.variant": "Variant",
