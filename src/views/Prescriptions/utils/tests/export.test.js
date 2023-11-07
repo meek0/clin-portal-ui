@@ -31,19 +31,6 @@ describe('exportAsTSV', () => {
       exportAsTSV([{ colInData: 'bar' }], ['colInHeader'], { colInHeader: 'colInData' }),
     ).toEqual('colInHeader\nbar\n');
   });
-  test('should use custom mapping', () => {
-    const row = {
-      locus: 'locus',
-      varsome: {
-        acmg: {
-          verdict: {
-            verdict: 'Likely Pathogenic',
-          },
-        },
-      },
-    };
-    expect(exportAsTSV([row], ['acmgVerdict'], {}, 'SNV')).toEqual('acmgVerdict\nLik. Patho.\n');
-  });
 });
 
 describe('convertToPlain', () => {
@@ -55,19 +42,6 @@ describe('convertToPlain', () => {
 describe('customMapping SNV', () => {
   test('should map nothing', () => {
     expect(customMapping(null, null, null)).toEqual(null);
-  });
-  test('should map acmgVerdict', () => {
-    const row = {
-      locus: 'locus',
-      varsome: {
-        acmg: {
-          verdict: {
-            verdict: 'Likely Benign',
-          },
-        },
-      },
-    };
-    expect(customMapping('SNV', 'acmgVerdict', row)).toEqual('Lik. Benign');
   });
   test('should map hotspot null', () => {
     const row = {
@@ -120,27 +94,6 @@ describe('customMapping SNV', () => {
       },
     };
     expect(customMapping('SNV', 'omim', row)).toEqual('IC');
-  });
-  test('should map acmgcriteria', () => {
-    const row = {
-      varsome: {
-        acmg: {
-          classifications: {
-            hits: {
-              edges: [
-                {
-                  node: {
-                    met_criteria: 'crit',
-                    name: 'name',
-                  },
-                },
-              ],
-            },
-          },
-        },
-      },
-    };
-    expect(customMapping('SNV', 'acmgcriteria', row)).toEqual('name');
   });
   test('should map consequence', () => {
     const row = {

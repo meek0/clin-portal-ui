@@ -398,16 +398,6 @@ export const getFacetsDictionarySNV = () => ({
   start: intl.get('filters.group.start'),
   variant_class: intl.get('filters.group.variant_class'),
   variant_external_reference: intl.get('filters.group.variant_external_reference'),
-  varsome: {
-    acmg: {
-      classifications: {
-        name: intl.get('filters.group.varsome.acmg.classifications.name'),
-      },
-      verdict: {
-        verdict: intl.get('filters.group.varsome.acmg.verdict.verdict'),
-      },
-    },
-  },
   tooltips: {
     consequences: {
       predictions: {
