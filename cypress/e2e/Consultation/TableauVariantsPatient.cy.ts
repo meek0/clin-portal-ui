@@ -11,7 +11,7 @@ beforeEach(() => {
   cy.showColumn('Génotypes (M : P)', 0);
   cy.showColumn('HC', 0);
   cy.showColumn('HCP', 0);
-  cy.showColumn('Transmission', 0);
+  cy.showColumn('Trans.', 0);
   cy.showColumn('QP', 0);
   cy.showColumn('OP', 0);
   cy.showColumn(/^ALT$/, 0);
@@ -59,7 +59,8 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 19, '0/1 : 0');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 20, '-');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 21, '-');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 22, 'X Linked Recessive');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 22, 'XLR');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 22, 'ant-tag-blue');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 23, '0.97');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 24, 'Mother');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 25, '84');

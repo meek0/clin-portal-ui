@@ -131,10 +131,10 @@ describe('Page des variants d\'un patient - Colonnes du tableau', () => {
       .contains('HCP').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('Transmission').should('not.exist');
+      .contains('Trans.').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(20)
-      .contains('Transmission').should('exist');
+      .contains('Trans.').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('QP').should('not.exist');
