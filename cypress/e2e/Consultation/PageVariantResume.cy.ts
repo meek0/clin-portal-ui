@@ -75,18 +75,6 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-cy="Consequences_MMACHC_Space"]').find('tr[class*="ant-table-row"]').eq(1).should('not.exist');
   });
   
-  it('Panneau Critères ACMG', () => {
-    cy.get('[data-cy="ACMGCriteria_Varsome_ExternalLink"]').contains('Pathogenic').should('exist');
-    cy.get('[data-cy="ACMGCriteria_Varsome_ExternalLink"]').find('svg[class*="anticon"]').should('exist');
-    cy.get('[data-row-key="ACMGCriteria_PVS1"]').contains('PVS1').should('exist');
-    cy.get('[data-row-key="ACMGCriteria_PVS1"]').contains('Null variant (nonsense)').should('exist');
-    cy.get('[data-row-key="ACMGCriteria_PP5"]').contains('PP5').should('exist');
-    cy.get('[data-row-key="ACMGCriteria_PP5"]').contains('classifies this variant as Pathogenic').should('exist');
-    cy.get('[data-row-key="ACMGCriteria_PM2"]').contains('PM2').should('exist');
-    cy.get('[data-row-key="ACMGCriteria_PM2"]').contains('GnomAD genomes homozygous allele count = 0').should('exist');
-    cy.get('[data-row-key="ACMGCriteria_PM2"]').contains('GnomAD exomes homozygous allele count = 0').should('exist');
-  });
-  
   it('Panneau Cohortes du RQDM', () => {
     cy.get('[data-row-key="RGDI"]').find('td[class="ant-table-cell"]').eq(1).contains(/^0 \/ \d{2} \(0%\)$/).should('exist');
     cy.get('[data-row-key="RGDI"]').find('td[class="ant-table-cell"]').eq(2).contains('0').should('exist');
@@ -238,16 +226,6 @@ describe('Page d\'un variant (onglet Résumé) - Valider les liens disponibles',
     cy.get('[data-cy="Consequences_PRDX1_Space"]').find('tr[class*="ant-table-row"]').eq(1).should('not.exist');
   });
   
-  it('Lien Varsome de la section Critères ACMG', () => {
-    cy.get('[data-cy="ACMGCriteria_Varsome_ExternalLink"]').invoke('removeAttr', 'target').click({force: true});
-    cy.url().should('include', '10380010455088470004');
-  });
-  
-  it('Lien PubMed de la section Critères ACMG', () => {
-    cy.get('[data-cy="ACMGCriteria_Pubmed_23954310_ExternalLink"]').invoke('removeAttr', 'target').click({force: true});
-    cy.get('body').contains(/^23954310$/).should('exist');
-  });
-  
   it('Lien TopMed de la section Cohortes publiques', () => {
     cy.get('[data-cy="FrequencyCard_Cohort_TopMed_ExternalLink"]').should('have.attr', 'href', 'https://bravo.sph.umich.edu/freeze8/hg38/variant/snv/1-45508847-C-T');
   });
@@ -299,14 +277,6 @@ describe('Page d\'un variant (onglet Résumé) - Valider les panneaux masquables
     cy.get('[data-cy="Consequences_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
     cy.get('[data-cy="Consequences_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
     cy.get('[data-cy="Consequences_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-  });
-
-  it('Panneau Critères ACMG', () => {
-    cy.get('[data-cy="ACMGCriteria_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="ACMGCriteria_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
-    cy.get('[data-cy="ACMGCriteria_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="ACMGCriteria_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
-    cy.get('[data-cy="ACMGCriteria_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 
   it('Panneau Cohortes du RQDM', () => {

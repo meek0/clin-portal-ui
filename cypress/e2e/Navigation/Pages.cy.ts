@@ -303,8 +303,6 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Conservation').should('exist', {timeout: 20*1000});
     cy.contains('Ensembl ID').should('exist', {timeout: 20*1000});
     cy.contains('RefSeq ID').should('exist', {timeout: 20*1000});
-    cy.contains('Critères ACMG').should('exist', {timeout: 20*1000});
-    cy.contains('Explications').should('exist', {timeout: 20*1000});
     cy.contains('Fréquences').should('exist', {timeout: 20*1000});
     cy.contains('Cohortes du RQDM').should('exist', {timeout: 20*1000});
     cy.contains('Analyse').should('exist', {timeout: 20*1000});
