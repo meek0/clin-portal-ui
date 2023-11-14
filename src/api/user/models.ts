@@ -22,7 +22,8 @@ export type TUserConfig = {
   data_exploration?: {
     tables?: {
       archives?: TUserTableConfig;
-      patientSnv?: TUserTableConfig;
+      patientSnvSomatique?: TUserTableConfig;
+      patientSnvGermline?: TUserTableConfig;
       patientCnv?: TUserTableConfig;
       prescriptions?: TUserTableConfig;
       prescriptionEntityFiles?: TUserTableConfig;

@@ -72,9 +72,14 @@ const VariantsTab = ({
   };
 
   const donor = findDonorById(selectedVariant?.donors, patientId);
-  const initialColumnState = user.config.data_exploration?.tables?.patientSnv?.columns;
 
   const variantType = getVariantTypeFromSNVVariantEntity(results.data?.[0]);
+
+  const initialColumnState =
+    variantType === VariantType.GERMLINE
+      ? user.config.data_exploration?.tables?.patientSnvGermline?.columns
+      : user.config.data_exploration?.tables?.patientSnvSomatique?.columns;
+
   setVariantType(variantType);
   const columns = getVariantColumns(
     queryBuilderId,
@@ -140,13 +145,21 @@ const VariantsTab = ({
               },
               onColumnSortChange: (columns) => {
                 dispatch(
-                  updateConfig({
-                    data_exploration: {
-                      tables: {
-                        patientSnv: { columns },
-                      },
-                    },
-                  }),
+                  variantType === VariantType.GERMLINE
+                    ? updateConfig({
+                        data_exploration: {
+                          tables: {
+                            patientSnvGermline: { columns },
+                          },
+                        },
+                      })
+                    : updateConfig({
+                        data_exploration: {
+                          tables: {
+                            patientSnvSomatique: { columns },
+                          },
+                        },
+                      }),
                 );
               },
             }}
@@ -162,16 +175,27 @@ const VariantsTab = ({
               },
               onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
                 dispatch(
-                  updateConfig({
-                    data_exploration: {
-                      tables: {
-                        patientSnv: {
-                          ...user?.config.data_exploration?.tables?.patientSnv,
-                          viewPerQuery,
+                  variantType === VariantType.GERMLINE
+                    ? updateConfig({
+                        data_exploration: {
+                          tables: {
+                            patientSnvGermline: {
+                              ...user?.config.data_exploration?.tables?.patientSnvGermline,
+                              viewPerQuery,
+                            },
+                          },
                         },
-                      },
-                    },
-                  }),
+                      })
+                    : updateConfig({
+                        data_exploration: {
+                          tables: {
+                            patientSnvSomatique: {
+                              ...user?.config.data_exploration?.tables?.patientSnvSomatique,
+                              viewPerQuery,
+                            },
+                          },
+                        },
+                      }),
                 );
               },
               searchAfter: results.searchAfter,
