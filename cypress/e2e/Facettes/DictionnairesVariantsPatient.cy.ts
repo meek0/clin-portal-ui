@@ -282,57 +282,12 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('category_pathogenicity', /^ACMG de Exomiser$/, 3, dictionnary);
   });
 
-  it('Pathogénicité - Verdict ACMG', () => {
-    const dictionnary = ['Pathogenic',
-                          'Likely Pathogenic',
-                          'Uncertain Significance',
-                          'Likely Benign',
-                          'Benign',
-                          'No Data'];
-
-    cy.validateDictionnary('category_pathogenicity', /^Verdict ACMG$/, 5, dictionnary);
-  });
-
-  it('Pathogénicité - Critères ACMG', () => {
-    const dictionnary = ['PVS1',
-                          'PS1',
-                          'PS2',
-                          'PS3',
-                          'PS4',
-                          'PM1',
-                          'PM2',
-                          'PM3',
-                          'PM4',
-                          'PM5',
-                          'PM6',
-                          'PP1',
-                          'PP2',
-                          'PP3',
-                          'PP4',
-                          'PP5',
-                          'BA1',
-                          'BS1',
-                          'BS2',
-                          'BS3',
-                          'BS4',
-                          'BP1',
-                          'BP2',
-                          'BP3',
-                          'BP4',
-                          'BP5',
-                          'BP6',
-                          'BP7',
-                          'No Data'];
-
-    cy.validateDictionnary('category_pathogenicity', /^Critères ACMG$/, 6, dictionnary);
-  });
-
   it('Pathogénicité - FATHMM', () => {
     const dictionnary = ['Deleterious',
                           'Tolerated',
                           'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^FATHMM$/, 10, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^FATHMM$/, 8, dictionnary);
   });
 
   it('Pathogénicité - LRT', () => {
@@ -341,7 +296,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                           'Unknown',
                           'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^LRT$/, 11, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^LRT$/, 9, dictionnary);
   });
 
   it('Pathogénicité - Polyphen 2 HVAR', () => {
@@ -350,7 +305,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                           'Possibily Damaging',
                           'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^Polyphen 2 HVAR$/, 12, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^Polyphen 2 HVAR$/, 10, dictionnary);
   });
 
   it('Pathogénicité - SIFT', () => {
@@ -358,7 +313,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                           'Tolerated',
                           'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^SIFT$/, 13, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^SIFT$/, 11, dictionnary);
   });
 
   it('Pathogénicité - CMC tier', () => {
@@ -368,7 +323,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Other',
                          'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^CMC tier$/, 18, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^CMC tier$/, 16, dictionnary);
   });
 
   it('Occurrence - Zygosité', () => {

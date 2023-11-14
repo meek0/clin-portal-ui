@@ -151,7 +151,6 @@ export type VariantEntity = {
   variant_type: VariantType[];
   frequency_RQDM: frequency_RQDMEntity;
   consequences?: ArrangerResultsTree<ConsequenceEntity>;
-  varsome?: Varsome;
   hotspot: boolean;
   genes?: ArrangerResultsTree<GeneEntity>;
   donors?: ArrangerResultsTree<DonorsEntity>;
@@ -166,35 +165,6 @@ export type VariantEntity = {
   clinvar: ClinVar;
   rsnumbermber: string;
   last_annotation_update: number;
-};
-
-export type VarsomeClassifications = {
-  met_criteria: boolean;
-  name: string;
-  id: string;
-  user_explain: string[];
-};
-export type VarsomeVerdict = {
-  benign_subscore: string;
-  clinical_score: number;
-  pathogenic_subscore: string;
-  verdict: string;
-};
-
-type VarsomeAcmg = {
-  verdict: VarsomeVerdict;
-  classifications: ArrangerResultsTree<VarsomeClassifications>;
-};
-
-type Publication = {
-  id: string;
-};
-
-export type Varsome = {
-  acmg: VarsomeAcmg;
-  variant_id: string;
-  has_publication?: boolean;
-  publications: ArrangerResultsTree<Publication>;
 };
 
 export type GeneEntity = {

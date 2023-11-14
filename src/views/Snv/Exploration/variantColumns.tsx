@@ -11,9 +11,8 @@ import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/ut
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Button, Space, Tag, Tooltip, Typography } from 'antd';
-import cx from 'classnames';
 import { INDEXES } from 'graphql/constants';
-import { ArrangerEdge, ArrangerResultsTree } from 'graphql/models';
+import { ArrangerResultsTree } from 'graphql/models';
 import {
   BioinfoAnalysisCode,
   ClinVar,
@@ -23,8 +22,6 @@ import {
   Gene,
   ITableVariantEntity,
   VariantEntity,
-  Varsome,
-  VarsomeClassifications,
 } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
 import { capitalize } from 'lodash';
@@ -43,7 +40,6 @@ import GqLine from '../components/GQLine';
 import { HcComplementDescription } from '../components/OccurrenceDrawer/HcDescription';
 import { TAB_ID } from '../Entity';
 
-import AcmgVerdict from './components/AcmgVerdict';
 import GnomadCell from './components/Gnomad/GnomadCell';
 import ManeCell from './components/ManeCell';
 import { OtherActions } from './components/OtherActions';
@@ -103,13 +99,6 @@ const displayParentalOrigin = (parental_origin: string) =>
     ? intl.get(`filters.options.donors.parental_origin.${parental_origin}`)
     : removeUnderscoreAndCapitalize(parental_origin || '').defaultMessage(TABLE_EMPTY_PLACE_HOLDER);
 
-export const getAcmgRuleContent = (varsome: Varsome) =>
-  varsome && varsome.acmg.classifications.hits.edges.length >= 1
-    ? varsome.acmg.classifications.hits.edges
-        .map((e: ArrangerEdge<VarsomeClassifications>) => e.node.name)
-        .reduce((prev, curr) => `${prev}, ${curr}`)
-    : TABLE_EMPTY_PLACE_HOLDER;
-
 const getDonorQd = (patientId: string) => ({
   key: 'donors.qd',
   title: intl.get('qd'),
@@ -138,16 +127,6 @@ const getDonorZygosity = (patientId: string) => ({
       </Tooltip>
     );
   },
-});
-
-const getAcmgCriteriaCol = () => ({
-  key: 'acmgcriteria',
-  title: intl.get('acmg.criteria'),
-  dataIndex: 'varsome',
-  className: cx(style.variantTableCell, style.variantTableCellElipsis),
-  defaultHidden: true,
-  width: 120,
-  render: (varsome: Varsome) => getAcmgRuleContent(varsome),
 });
 
 const getCmcSampleMutatedCol = (variantType: VariantType, patientId?: string) => ({
@@ -442,17 +421,6 @@ export const getVariantColumns = (
   }
   columns.push(
     {
-      key: 'acmgVerdict',
-      title: intl.get('screen.patientsnv.results.table.acmgVerdict'),
-      tooltip: intl.get('screen.patientsnv.results.table.acmgVerdict.tooltip'),
-      dataIndex: 'locus',
-      className: cx(style.variantTableCell),
-      width: 125,
-      render: (locus: string, entity: VariantEntity) => (
-        <AcmgVerdict varsome={entity.varsome} locus={locus} />
-      ),
-    },
-    {
       key: 'external_frequencies.gnomad_genomes_3_1_1.af',
       title: intl.get('screen.variantsearch.table.gnomAd'),
       tooltip: `${intl.get('screen.variantsearch.table.gnomAd.tooltip')}`,
@@ -525,9 +493,6 @@ export const getVariantColumns = (
         },
         {
           ...getDonorZygosity(patientId),
-        },
-        {
-          ...getAcmgCriteriaCol(),
         },
         {
           key: 'donors_genotype',
@@ -628,9 +593,6 @@ export const getVariantColumns = (
           },
         },
         {
-          ...getAcmgCriteriaCol(),
-        },
-        {
           ...getDonorQd(patientId),
           sorter: {
             multiple: 1,
@@ -717,10 +679,6 @@ export const getVariantColumns = (
         ...getHotspotCol(),
       });
     }
-  }
-
-  if (!patientId) {
-    columns.push(getAcmgCriteriaCol());
   }
 
   columns.push({

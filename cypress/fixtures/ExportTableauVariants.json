@@ -7,7 +7,6 @@
               "MANE",
               "omim",
               "clinvar",
-              "acmgVerdict",
               "external_frequencies.gnomad_genomes_3_1_1.af",
               "external_frequencies.gnomad_genomes_3_1_1.ac",
               "frequency_RQDM.total.pc",
@@ -15,7 +14,6 @@
               "cmc.sample_mutated",
               "cmc.sample_ratio",
               "hotspot",
-              "acmgcriteria",
               "cmc.tier"],
   "content": ["chrX:g.123403094G>A",
               "SNV",
@@ -25,7 +23,6 @@
               "Ensembl Canonical,MANE Select",
               "XLR",
               "B,LB",
-              "Benign",
               "9.01e-4",
               "101",
               "6",
@@ -33,6 +30,5 @@
               "3",
               "0.00006934171597633136",
               "--",
-              "BP6, BS1, BS2, PP3",
               "Other"]
 }

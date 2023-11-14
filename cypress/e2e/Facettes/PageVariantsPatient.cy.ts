@@ -97,32 +97,24 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetFilter('category_pathogenicity', 'Critères ACMG de Exomiser', 4, 'BP4 Moderate,BP6', /^1$/);
   });
 
-  it('Pathogénicité - Verdict ACMG', () => {
-    cy.validateFacetFilter('category_pathogenicity', 'Verdict ACMG', 5, 'Uncertain Significance', /^(5|258)$/);
-  });
-
-  it('Pathogénicité - Critères ACMG', () => {
-    cy.validateFacetFilter('category_pathogenicity', /^Critères ACMG$/, 6, 'BP4', /^(13 002|12 963)$/);
-  });
-
   it('Pathogénicité - FATHMM', () => {
-    cy.validateFacetFilter('category_pathogenicity', 'FATHMM', 10, 'Tolerated', /^9 183$/);
+    cy.validateFacetFilter('category_pathogenicity', 'FATHMM', 8, 'Tolerated', /^9 183$/);
   });
 
   it('Pathogénicité - LRT', () => {
-    cy.validateFacetFilter('category_pathogenicity', 'LRT', 11, 'Neutral', /^6 653$/);
+    cy.validateFacetFilter('category_pathogenicity', 'LRT', 9, 'Neutral', /^6 653$/);
   });
 
   it('Pathogénicité - Polyphen 2 HVAR', () => {
-    cy.validateFacetFilter('category_pathogenicity', 'Polyphen 2 HVAR', 12, 'Possibily Damaging', /^749$/);
+    cy.validateFacetFilter('category_pathogenicity', 'Polyphen 2 HVAR', 10, 'Possibily Damaging', /^749$/);
   });
 
   it('Pathogénicité - SIFT', () => {
-    cy.validateFacetFilter('category_pathogenicity', 'SIFT', 13, 'Deleterious', /^2 107$/);
+    cy.validateFacetFilter('category_pathogenicity', 'SIFT', 11, 'Deleterious', /^2 107$/);
   });
 
   it('Pathogénicité - CMC tier', () => {
-    cy.validateFacetFilter('category_pathogenicity', 'CMC tier', 18, 'Tier 3', /^266$/);
+    cy.validateFacetFilter('category_pathogenicity', 'CMC tier', 16, 'Tier 3', /^266$/);
   });
 
   it('Occurrence - Expand all/Collapse all', () => {

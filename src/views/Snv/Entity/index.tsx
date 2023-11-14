@@ -13,7 +13,6 @@ import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import NotFound from 'components/Results/NotFound';
 import ServerError from 'components/Results/ServerError';
-import VerdictLabel from 'components/Variant/VerdictLabel';
 
 import ResumePanel from './SummaryPanel';
 
@@ -76,7 +75,6 @@ const VariantEntityPage = () => {
       extra.push(buildTag(intl.get('screen.variantdetails.header.somatic_tumor_only'), 'gold'));
     }
     extra.push(<div key="score">{getVepImpactTag(data?.max_impact_score)}</div>);
-    extra.push(<VerdictLabel key="verdict" verdict={data?.varsome?.acmg?.verdict} />);
     return extra;
   };
 

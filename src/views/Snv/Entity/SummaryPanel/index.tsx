@@ -4,7 +4,6 @@ import { ArrangerResultsTree } from 'graphql/models';
 import { GeneEntity, VariantEntity } from 'graphql/variants/models';
 import SummaryCard from 'views/Snv/Entity/SummaryPanel/Summary';
 
-import ACMGCriteria from './AcmgCriteria';
 import ClinicalCard from './Clinical';
 import Consequecenses from './Consequences';
 import FrequencyCard from './Frequency';
@@ -42,7 +41,6 @@ const ResumePanel = ({ data, locus, className = '' }: OwnProps) => {
       <Space direction="vertical" className={styles.resumePanel} size="middle">
         <SummaryCard loading={data.loading} variant={variantData} genes={genes} />
         <Consequecenses data={data} />
-        <ACMGCriteria data={data} />
         <FrequencyCard locus={locus} />
         <ClinicalCard locus={locus} />
       </Space>

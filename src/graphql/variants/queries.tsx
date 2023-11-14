@@ -44,28 +44,6 @@ const VARIANT_QUERY_BASE_FIELDS = `
     }
   }
 
-  varsome {
-    acmg {
-      verdict {
-        benign_subscore
-        clinical_score
-        pathogenic_subscore
-        verdict
-      }
-      classifications {
-        hits {
-          edges {
-            node {
-              met_criteria
-              name
-            }
-          }
-        }
-      }
-    }
-    variant_id
-  }
-
   frequency_RQDM {
     total {
       pc
@@ -452,43 +430,6 @@ export const TAB_SUMMARY_QUERY = gql`
                   }
                 }
               }
-            }
-            varsome {
-              acmg {
-                coding_impact
-                gene_symbol
-                transcript
-                transcript_reason
-
-                verdict {
-                  benign_subscore
-                  clinical_score
-                  pathogenic_subscore
-                  verdict
-                }
-                classifications {
-                  hits {
-                    edges {
-                      node {
-                        met_criteria
-                        name
-                        user_explain
-                      }
-                    }
-                  }
-                }
-              }
-              has_publication
-              publications {
-                hits {
-                  edges {
-                    node {
-                      pub_med_id
-                    }
-                  }
-                }
-              }
-              variant_id
             }
           }
         }

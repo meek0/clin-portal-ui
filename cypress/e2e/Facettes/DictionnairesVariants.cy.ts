@@ -309,51 +309,6 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('category_pathogenicity', /^ClinVar$/, 0, dictionnary);
   });
 
-  it('Pathogénicité - Verdict ACMG', () => {
-    const dictionnary = ['Pathogenic',
-                          'Likely Pathogenic',
-                          'Uncertain Significance',
-                          'Likely Benign',
-                          'Benign',
-                          'No Data'];
-
-    cy.validateDictionnary('category_pathogenicity', /^Verdict ACMG$/, 1, dictionnary);
-  });
-
-  it('Pathogénicité - Critères ACMG', () => {
-    const dictionnary = ['PVS1',
-                          'PS1',
-                          'PS2',
-                          'PS3',
-                          'PS4',
-                          'PM1',
-                          'PM2',
-                          'PM3',
-                          'PM4',
-                          'PM5',
-                          'PM6',
-                          'PP1',
-                          'PP2',
-                          'PP3',
-                          'PP4',
-                          'PP5',
-                          'BA1',
-                          'BS1',
-                          'BS2',
-                          'BS3',
-                          'BS4',
-                          'BP1',
-                          'BP2',
-                          'BP3',
-                          'BP4',
-                          'BP5',
-                          'BP6',
-                          'BP7',
-                          'No Data'];
-
-    cy.validateDictionnary('category_pathogenicity', /^Critères ACMG$/, 2, dictionnary);
-  });
-
   it('Pathogénicité - VEP', () => {
     const dictionnary = ['HIGH',
                           'MODERATE',
@@ -361,7 +316,7 @@ describe('Page des variants - Dictionnaire', () => {
                           'MODIFIER',
                           'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^VEP$/, 3, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^VEP$/, 1, dictionnary);
   });
 
   it('Pathogénicité - FATHMM', () => {
@@ -369,7 +324,7 @@ describe('Page des variants - Dictionnaire', () => {
                           'Tolerated',
                           'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^FATHMM$/, 7, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^FATHMM$/, 5, dictionnary);
   });
 
   it('Pathogénicité - LRT', () => {
@@ -378,7 +333,7 @@ describe('Page des variants - Dictionnaire', () => {
                           'Unknown',
                           'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^LRT$/, 8, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^LRT$/, 6, dictionnary);
   });
 
   it('Pathogénicité - Polyphen 2 HVAR', () => {
@@ -387,7 +342,7 @@ describe('Page des variants - Dictionnaire', () => {
                           'Possibily Damaging',
                           'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^Polyphen 2 HVAR$/, 9, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^Polyphen 2 HVAR$/, 7, dictionnary);
   });
 
   it('Pathogénicité - SIFT', () => {
@@ -395,7 +350,7 @@ describe('Page des variants - Dictionnaire', () => {
                           'Tolerated',
                           'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^SIFT$/, 10, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^SIFT$/, 8, dictionnary);
   });
 
   it('Pathogénicité - CMC tier', () => {
@@ -405,7 +360,7 @@ describe('Page des variants - Dictionnaire', () => {
                          'Other',
                          'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^CMC tier$/, 15, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^CMC tier$/, 13, dictionnary);
   });
 
   it('Pathogénicité - Hotspot', () => {
@@ -413,6 +368,6 @@ describe('Page des variants - Dictionnaire', () => {
                          'False',
                          'No Data'];
 
-    cy.validateDictionnary('category_pathogenicity', /^Hotspot$/, 16, dictionnary);
+    cy.validateDictionnary('category_pathogenicity', /^Hotspot$/, 14, dictionnary);
   });
 });

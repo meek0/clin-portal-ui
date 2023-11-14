@@ -97,12 +97,7 @@ const filterGroups: {
   [FilterTypes.Pathogenicity_germline]: {
     groups: [
       {
-        facets: [
-          'clinvar__clin_sig',
-          'varsome__acmg__verdict__verdict',
-          'varsome__acmg__classifications__name',
-          'consequences__vep_impact',
-        ],
+        facets: ['clinvar__clin_sig', 'consequences__vep_impact'],
       },
       {
         title: intl.get('predictions'),

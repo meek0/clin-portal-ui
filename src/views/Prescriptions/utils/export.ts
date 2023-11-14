@@ -6,9 +6,7 @@ import get from 'lodash/get';
 import orderBy from 'lodash/orderBy';
 import { renderCNVToString } from 'views/Cnv/Exploration/variantColumns';
 import { renderToString as renderConsequencesToString } from 'views/Snv/components/ConsequencesCell/index';
-import { renderToString as renderAcmgVerdictToString } from 'views/Snv/Exploration/components/AcmgVerdict';
 import {
-  getAcmgRuleContent,
   renderClinvarToString,
   renderDonorToString,
   renderGeneToString,
@@ -72,16 +70,12 @@ export const convertToPlain = (html: string) => {
 
 export const customMapping = (prefix: string, key: string, row: any, patientId: string = '') => {
   if (prefix === 'SNV') {
-    if (key === 'acmgVerdict') {
-      return convertToPlain(renderAcmgVerdictToString(row));
-    } else if (key === 'gene') {
+    if (key === 'gene') {
       return convertToPlain(renderGeneToString(row));
     } else if (key === 'clinvar') {
       return convertToPlain(renderClinvarToString(row));
     } else if (key === 'omim') {
       return convertToPlain(renderOmimToString(row));
-    } else if (key === 'acmgcriteria') {
-      return convertToPlain(getAcmgRuleContent(row.varsome));
     } else if (key === 'consequence') {
       return convertToPlain(renderConsequencesToString(row));
     } else if (key === 'hotspot') {
