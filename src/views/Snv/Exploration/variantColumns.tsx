@@ -296,21 +296,29 @@ export const getVariantColumns = (
     {
       title: intl.get('screen.patientsnv.results.table.gene'),
       key: 'gene',
-      dataIndex: 'consequences',
       width: 100,
       sorter: {
         multiple: 1,
       },
-      render: (consequences: VariantEntity['consequences']) => {
+      render: (variant: {
+        genes: { hits: { edges: Gene[] } };
+        consequences: VariantEntity['consequences'];
+      }) => {
+        const { genes, consequences } = variant;
         const pickedConsequence = consequences?.hits?.edges.find(({ node }) => !!node.picked);
         const geneSymbol = pickedConsequence?.node.symbol;
-
+        const geneInfo = genes.hits.edges.find(({ node }) => node.symbol === geneSymbol);
         if (geneSymbol) {
           return (
             <Space size={4} direction="horizontal" className={style.addGene}>
               <ExternalLink
                 hasIcon={false}
-                href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${geneSymbol}`}
+                href={
+                  geneInfo?.node?.omim_gene_id
+                    ? `https://www.omim.org/entry/${geneInfo.node.omim_gene_id}`
+                    : // eslint-disable-next-line max-len
+                      `https://www.omim.org/search?index=entry&start=1&limit=10&sort=score+desc%2C+prefix_sort+desc&search=${geneSymbol}`
+                }
               >
                 {geneSymbol}
               </ExternalLink>
