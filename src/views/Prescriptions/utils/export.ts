@@ -114,7 +114,7 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderDonorToString(key, findDonorById(row.donors, patientId)));
     }
   } else if (prefix === 'CNV') {
-    if (['calls'].includes(key)) {
+    if (['calls', 'genes'].includes(key)) {
       return renderCNVToString(key, row);
     }
   }

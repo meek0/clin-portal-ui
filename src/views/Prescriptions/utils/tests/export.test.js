@@ -379,6 +379,35 @@ describe('customMapping CNV', () => {
     };
     expect(customMapping('CNV', 'calls', row)).toEqual('./1');
   });
+
+  test('should map genes', () => {
+    const row = {
+      genes: {
+        hits: {
+          edges: [
+            {
+              node: {
+                symbol: 'symbol',
+                omim_gene_id: 'id',
+                omim: {
+                  hits: {
+                    edges: [
+                      {
+                        node: {
+                          inheritance_code: ['IC'],
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          ],
+        },
+      },
+    };
+    expect(customMapping('CNV', 'genes', row)).toEqual('symbol');
+  });
 });
 
 describe('makeFilenameDatePart', () => {

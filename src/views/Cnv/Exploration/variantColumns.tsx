@@ -237,6 +237,9 @@ export const renderCNVToString = (key: string, variant: VariantEntity) =>
 const renderCNVByKey = (key: string, variant: VariantEntity) => {
   if (key === 'calls') {
     return formatGenotype(variant?.calls);
+  } else if (key === 'genes') {
+    const genesSymbol = variant.genes?.hits?.edges?.map((gene) => gene.node.symbol).join(', ');
+    return genesSymbol;
   }
   return <></>;
 };
