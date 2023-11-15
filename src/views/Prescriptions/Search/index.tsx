@@ -6,7 +6,6 @@ import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
-import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Input, Space, Tabs } from 'antd';
@@ -35,6 +34,7 @@ import { commonPrescriptionFilterFields } from 'views/Prescriptions/utils/consta
 
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
+import { resolveSyntheticSqonWithReferences } from 'utils/query';
 
 import { downloadAsTSV } from '../utils/export';
 
@@ -87,7 +87,7 @@ const PrescriptionSearch = (): React.ReactElement => {
     offset: DEFAULT_OFFSET,
     searchAfter: sequencingQueryConfig.searchAfter,
     sqon: adjustSqon(
-      resolveSyntheticSqon(
+      resolveSyntheticSqonWithReferences(
         queryList,
         searchValue.length === 0
           ? sequencingActiveQuery
@@ -111,7 +111,7 @@ const PrescriptionSearch = (): React.ReactElement => {
     first: prescriptionQueryConfig.size,
     offset: DEFAULT_OFFSET,
     searchAfter: prescriptionQueryConfig.searchAfter,
-    sqon: resolveSyntheticSqon(
+    sqon: resolveSyntheticSqonWithReferences(
       queryList,
       searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
     ),
