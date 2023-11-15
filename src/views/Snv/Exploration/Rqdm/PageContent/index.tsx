@@ -37,7 +37,7 @@ const PageContent = ({ variantMapping }: OwnProps) => {
   const [variantQueryConfig, setVariantQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
-    resolveSyntheticSqonWithReferences(queryList, query);
+    resolveSyntheticSqonWithReferences(queryList, query, variantMapping);
 
   const queryVariables = {
     first: variantQueryConfig.size,
