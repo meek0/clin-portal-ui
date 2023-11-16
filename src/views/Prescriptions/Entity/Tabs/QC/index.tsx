@@ -53,6 +53,7 @@ const getTabsContent = (activeTabs: string, reportFile: any) => {
   if (reportFile && Object.keys(reportFile).length !== 0) {
     const sample: { [key: string]: any } = reportFile[0];
     let info = sample[activeTabs];
+    if (!info) return <Empty description={intl.get('pages.qc_report.no_data')} />;
     info = isArray(info) ? info[0] : info;
     const keys = Object.keys(info);
     return (

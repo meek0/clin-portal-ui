@@ -960,6 +960,9 @@
   "screen.prescription.entity.file.table.column.position": "Position",
   "view": "{value} / view",
   "pages": {
+    "qc_report": {
+      "no_data": "Aucune donnée"
+    },
     "coverage_genic": {
       "general": "General",
       "coverage_genic": "Gene coverage",

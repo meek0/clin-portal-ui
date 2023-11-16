@@ -37,7 +37,7 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "react-scripts test --coverage --coverageReporters=\"json-summary\"",
     "test:github": "react-scripts test --coverage --watchAll=false --no-watchman --coverageReporters=\"text-summary\"",
-    "coverage": "npm test -- --watchAll=false --coverage --coverageReporters=\"json-summary\"",
+    "coverage": "npm test -- --watchAll=false --coverage --coverageReporters=\"html\"",
     "coverage:changed": "npm test -- --coverage --watchAll=false --onlyChanged --coverageReporters=\"json-summary\"",
     "test:ci": "react-scripts test --ci --coverage",
     "theme:antd": "lessc --js ./src/style/themes/clin/antd-clin-theme.less ./src/style/themes/clin/dist/antd.css",
