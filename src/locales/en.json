@@ -961,7 +961,7 @@
   "view": "{value} / view",
   "pages": {
     "qc_report": {
-      "no_data": "Aucune donnée"
+      "no_data": "No Data"
     },
     "coverage_genic": {
       "general": "General",
