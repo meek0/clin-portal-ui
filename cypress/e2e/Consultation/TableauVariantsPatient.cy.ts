@@ -7,19 +7,19 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 
-  cy.showColumn('Génotypes (M : P)', 0);
+  cy.showColumn('M : P', 0);
   cy.showColumn('HC', 0);
   cy.showColumn('HCP', 0);
   cy.showColumn('Trans.', 0);
   cy.showColumn('QP', 0);
   cy.showColumn('OP', 0);
   cy.showColumn(/^ALT$/, 0);
-  cy.showColumn('ALT+REF', 0);
-  cy.showColumn('ALT/(ALT+REF)', 0);
+  cy.showColumn('A+R', 0);
+  cy.showColumn('A/(A+R)', 0);
   cy.showColumn('Filtre', 0);
   cy.showColumn('Crit. Exo.', 0);
   cy.showColumn(/^CMC$/, 0);
-  cy.showColumn('CMC tier', 0);
+  cy.showColumn('Tier', 0);
 });
 
 describe('Page des variants d\'un patient - Consultation du tableau', () => {
@@ -161,13 +161,13 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow('0.9641', 10);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri ACMG Exo.', () => {
+  it('Valider les fonctionnalités du tableau - Tri ACMG E.', () => {
     cy.get('[id="query-builder-header-tools"]').find('[data-icon="plus"]').click({force: true});
     cy.waitWhileSpin(2000);
 
-    cy.sortTableAndIntercept('ACMG Exo.', 1);
+    cy.sortTableAndIntercept('ACMG E.', 1);
     cy.validateTableFirstRow('-', 11);
-    cy.sortTableAndIntercept('ACMG Exo.', 1);
+    cy.sortTableAndIntercept('ACMG E.', 1);
     cy.validateTableFirstRow('VUS', 11);
   });
 
@@ -211,13 +211,13 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow('419', 28);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri CMC tier', () => {
+  it('Valider les fonctionnalités du tableau - Tri Tier', () => {
     cy.get('[id="query-builder-header-tools"]').find('[data-icon="plus"]').click({force: true});
     cy.waitWhileSpin(2000);
 
-    cy.sortTableAndIntercept('CMC tier', 1);
+    cy.sortTableAndIntercept('Tier', 1);
     cy.validateTableFirstRow('-', 29);
-    cy.sortTableAndIntercept('CMC tier', 1);
+    cy.sortTableAndIntercept('Tier', 1);
     cy.validateTableFirstRow('Other', 29);
   });
 

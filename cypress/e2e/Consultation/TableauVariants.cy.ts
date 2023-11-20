@@ -8,7 +8,7 @@ beforeEach(() => {
 describe('Page des variants - Consultation du tableau', () => {
   beforeEach(() => {
     cy.visitVariantsPage('?sharedFilterId=ed4de9bb-016e-4869-ac9d-40b11ac3102a');
-    cy.showColumn('CMC tier', 0);
+    cy.showColumn('Tier', 0);
   });
   
   it('Vérifier les informations affichées', () => {
@@ -84,7 +84,7 @@ describe('Page des variants - Consultation du tableau', () => {
 describe('Page des variants - Consultation du tableau', () => {
   beforeEach(() => {
     cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
-    cy.showColumn('CMC tier', 0);
+    cy.showColumn('Tier', 0);
   });
   
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {
@@ -161,12 +161,12 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(13).find('[class*="hotspotFilled"]').should('exist');
   });
 
-  it('Valider les fonctionnalités du tableau - Tri CMC tier', () => {
+  it('Valider les fonctionnalités du tableau - Tri Tier', () => {
     cy.waitWhileSpin(2000);
 
-    cy.sortTableAndIntercept('CMC tier', 1);
+    cy.sortTableAndIntercept('Tier', 1);
     cy.validateTableFirstRow('-', 14);
-    cy.sortTableAndIntercept('CMC tier', 1);
+    cy.sortTableAndIntercept('Tier', 1);
     cy.validateTableFirstRow('Other', 14);
   });
 

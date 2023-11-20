@@ -67,7 +67,7 @@ describe('Page des variants d\'un patient - Colonnes du tableau', () => {
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(11)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('ACMG Exo.').should('exist');
+      .contains('ACMG E.').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(12)
@@ -102,10 +102,10 @@ describe('Page des variants d\'un patient - Colonnes du tableau', () => {
       .contains('CADD (Phred)').should('exist');*/
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('Génotypes (M : P)').should('not.exist');
+      .contains('M : P').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(15)
-      .contains('Génotypes (M : P)').should('exist');
+      .contains('M : P').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('HC').should('not.exist');
@@ -144,16 +144,16 @@ describe('Page des variants d\'un patient - Colonnes du tableau', () => {
       .contains(/^ALT$/).should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('ALT+REF').should('not.exist');
+      .contains('A+R').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(22)
-      .contains('ALT+REF').should('exist');
+      .contains('A+R').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('ALT/(ALT+REF)').should('not.exist');
+      .contains('A/(A+R)').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(23)
-      .contains('ALT/(ALT+REF)').should('exist');
+      .contains('A/(A+R)').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('Filtre').should('not.exist');
@@ -174,10 +174,10 @@ describe('Page des variants d\'un patient - Colonnes du tableau', () => {
       .contains('CMC').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('CMC tier').should('not.exist');
+      .contains('Tier').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(27)
-      .contains('CMC tier').should('exist');
+      .contains('Tier').should('exist');
   });
 
   it('Masquer une colonne affichée', () => {
@@ -194,14 +194,14 @@ describe('Page des variants d\'un patient - Colonnes du tableau', () => {
 
   it('Afficher une colonne masquée', () => {
     cy.get('thead[class="ant-table-thead"]')
-      .contains('CMC tier').should('not.exist');
+      .contains('Tier').should('not.exist');
 
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').contains('CMC tier')
+      .find('div[class="ant-space-item"]').contains('Tier')
       .find('[type="checkbox"]').check({force: true});
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('CMC tier').should('exist');
+      .contains('Tier').should('exist');
   });
 
   it.skip('Déplacer une colonne', () => {

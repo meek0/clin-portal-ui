@@ -10,11 +10,11 @@ beforeEach(() => {
   cy.showColumn('gnomAD ALT', 0);
   cy.showColumn('QP', 0);
   cy.showColumn(/^ALT$/, 0);
-  cy.showColumn('ALT+REF', 0);
-  cy.showColumn('ALT/(ALT+REF)', 0);
+  cy.showColumn('A+R', 0);
+  cy.showColumn('A/(A+R)', 0);
   cy.showColumn('Filtre', 0);
   cy.showColumn('Crit. Exo.', 0);
-  cy.showColumn('CMC tier', 0);
+  cy.showColumn('Tier', 0);
 });
 
 describe('Page des variants d\'un patient (somatic) - Consultation du tableau', () => {
@@ -138,10 +138,10 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.validateTableFirstRow('-', 11);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri ACMG Exo.', () => {
-    cy.sortTableAndIntercept('ACMG Exo.', 1);
+  it('Valider les fonctionnalités du tableau - Tri ACMG E.', () => {
+    cy.sortTableAndIntercept('ACMG E.', 1);
     cy.validateTableFirstRow('-', 12);
-    cy.sortTableAndIntercept('ACMG Exo.', 1);
+    cy.sortTableAndIntercept('ACMG E.', 1);
     cy.validateTableFirstRow('-', 12);
   });
 
@@ -182,10 +182,10 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(17).find('[class*="hotspotFilled"]').should('exist');
   });
 
-  it('Valider les fonctionnalités du tableau - Tri CMC tier', () => {
-    cy.sortTableAndIntercept('CMC tier', 1);
+  it('Valider les fonctionnalités du tableau - Tri Tier', () => {
+    cy.sortTableAndIntercept('Tier', 1);
     cy.validateTableFirstRow('-', 26);
-    cy.sortTableAndIntercept('CMC tier', 1);
+    cy.sortTableAndIntercept('Tier', 1);
     cy.validateTableFirstRow('Other', 26);
   });
 
