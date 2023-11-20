@@ -7,6 +7,7 @@ import { GqlResults } from 'graphql/models';
 import { ITableSequencingResult, SequencingResult } from 'graphql/sequencing/models';
 import {
   DEFAULT_PAGE_INDEX,
+  DEFAULT_SORT_QUERY,
   SEQUENCING_SCROLL_ID,
 } from 'views/Prescriptions/Search/utils/contstant';
 import { ALL_KEYS } from 'views/Prescriptions/utils/export';
@@ -57,13 +58,13 @@ const SequencingsTable = ({
       showSorterTooltip={false}
       bordered
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      onChange={({ current }, _, sorter) => {
+      onChange={(_, sorter) => {
         setPageIndex(DEFAULT_PAGE_INDEX);
         setQueryConfig({
           pageIndex: DEFAULT_PAGE_INDEX,
           size: queryConfig.size!,
           // @ts-ignore
-          sort: formatQuerySortList(sorter),
+          sort: formatQuerySortList(sorter, DEFAULT_SORT_QUERY),
         });
         scrollToTop(SEQUENCING_SCROLL_ID);
       }}

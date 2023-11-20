@@ -1,4 +1,5 @@
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
+import { ISort } from '@ferlab/ui/core/graphql/types';
 import { SorterResult } from 'antd/lib/table/interface';
 import { isArray } from 'lodash';
 
@@ -63,10 +64,16 @@ export const scrollToTop = (scrollContentId: string) =>
 export const getOrderFromAntdValue = (order: string): SortDirection =>
   order === 'ascend' ? SortDirection.Asc : SortDirection.Desc;
 
-export const formatQuerySortList = (sorter: SorterResult<any> | SorterResult<any>[]) => {
+export const formatQuerySortList = (
+  sorter: SorterResult<any> | SorterResult<any>[],
+  defaultSorter: ISort[],
+) => {
   const sorters = (isArray(sorter) ? sorter : [sorter]).filter(
     (sorter) => !!sorter.column || !!sorter.order,
   );
+  if (sorters.length === 0) {
+    return defaultSorter;
+  }
 
   const r = sorters.map((sorter) => {
     let field = (sorter.field?.toString()! || sorter.columnKey?.toString()!)?.replaceAll('__', '.');

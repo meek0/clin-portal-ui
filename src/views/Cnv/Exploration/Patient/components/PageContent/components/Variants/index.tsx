@@ -8,7 +8,11 @@ import { IQueryResults } from 'graphql/models';
 import GenesModal from 'views/Cnv/Exploration/components/GenesModal';
 import IGVModal from 'views/Cnv/Exploration/components/IGVModal';
 import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
-import { DEFAULT_PAGE_INDEX, SCROLL_WRAPPER_ID } from 'views/Cnv/utils/constant';
+import {
+  DEFAULT_PAGE_INDEX,
+  DEFAULT_SORT_QUERY,
+  SCROLL_WRAPPER_ID,
+} from 'views/Cnv/utils/constant';
 import { getVariantTypeFromCNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 
@@ -102,7 +106,7 @@ const VariantsTable = ({
                 pageIndex: DEFAULT_PAGE_INDEX,
                 size: queryConfig.size!,
                 // @ts-ignore
-                sort: formatQuerySortList(sorter),
+                sort: formatQuerySortList(sorter, DEFAULT_SORT_QUERY),
               });
             }}
             bordered

@@ -6,7 +6,11 @@ import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
 import { VariantType } from 'views/Prescriptions/Entity/context';
 import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
-import { DEFAULT_PAGE_INDEX, SCROLL_WRAPPER_ID } from 'views/Snv/utils/constant';
+import {
+  DEFAULT_PAGE_INDEX,
+  DEFAULT_SORT_QUERY,
+  SCROLL_WRAPPER_ID,
+} from 'views/Snv/utils/constant';
 
 import FixedSizeTable from 'components/Layout/FixedSizeTable';
 import { useUser } from 'store/user';
@@ -76,7 +80,7 @@ const VariantsTab = ({
               pageIndex: DEFAULT_PAGE_INDEX,
               size: queryConfig.size!,
               // @ts-ignore
-              sort: formatQuerySortList(sorter),
+              sort: formatQuerySortList(sorter, DEFAULT_SORT_QUERY),
             });
           }}
           bordered

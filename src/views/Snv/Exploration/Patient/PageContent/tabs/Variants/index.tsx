@@ -12,7 +12,11 @@ import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import IGVModal from 'views/Snv/components//IGVModal';
 import OccurrenceDrawer from 'views/Snv/components/OccurrenceDrawer';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
-import { DEFAULT_PAGE_INDEX, SCROLL_WRAPPER_ID } from 'views/Snv/utils/constant';
+import {
+  DEFAULT_PAGE_INDEX,
+  DEFAULT_SORT_QUERY,
+  SCROLL_WRAPPER_ID,
+} from 'views/Snv/utils/constant';
 
 import FixedSizeTable from 'components/Layout/FixedSizeTable';
 import { useRpt } from 'hooks/useRpt';
@@ -110,13 +114,13 @@ const VariantsTab = ({
             dictionary={getProTableDictionary()}
             showSorterTooltip={false}
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            onChange={(_, __, sorter) => {
+            onChange={(_, sorter) => {
               setPageIndex(DEFAULT_PAGE_INDEX);
               setQueryConfig({
                 pageIndex: DEFAULT_PAGE_INDEX,
                 size: queryConfig.size!,
                 // @ts-ignore
-                sort: formatQuerySortList(sorter),
+                sort: formatQuerySortList(sorter, DEFAULT_SORT_QUERY),
               });
             }}
             bordered
