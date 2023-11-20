@@ -78,10 +78,10 @@ describe('Page des variants - Colonnes du tableau', () => {
       .find('[data-icon="fire"]').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('CMC tier').should('not.exist');
+      .contains('Tier').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(13)
-      .contains('CMC tier').should('exist');
+      .contains('Tier').should('exist');
 /* CLICE-120
     cy.get('thead[class="ant-table-thead"]')
       .contains('CADD (Phred)').should('not.exist');
@@ -104,14 +104,14 @@ describe('Page des variants - Colonnes du tableau', () => {
 
   it('Afficher une colonne masquée', () => {
     cy.get('thead[class="ant-table-thead"]')
-      .contains('CMC tier').should('not.exist');
+      .contains('Tier').should('not.exist');
 
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').contains('CMC tier')
+      .find('div[class="ant-space-item"]').contains('Tier')
       .find('[type="checkbox"]').check({force: true});
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('CMC tier').should('exist');
+      .contains('Tier').should('exist');
   });
 
   it.skip('Déplacer une colonne', () => {

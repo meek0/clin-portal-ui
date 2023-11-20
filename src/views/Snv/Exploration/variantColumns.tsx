@@ -352,6 +352,7 @@ export const getVariantColumns = (
     {
       key: 'consequence',
       title: intl.get('screen.patientsnv.results.table.consequence'),
+      tooltip: intl.get('screen.patientsnv.results.table.consequence.tooltip'),
       dataIndex: 'consequences',
       width: 225,
       render: (consequences: VariantEntity['consequences']) => {
@@ -418,7 +419,7 @@ export const getVariantColumns = (
         key: 'donors.exomiser.acmg_classification',
         title: intl.get('screen.patientsnv.results.table.acmg_classification'),
         tooltip: intl.get('screen.patientsnv.results.table.acmg_classification.tooltip'),
-        width: 110,
+        width: 90,
         sorter: {
           multiple: 1,
         },
@@ -505,9 +506,10 @@ export const getVariantColumns = (
         {
           key: 'donors_genotype',
           title: intl.get('screen.patientsnv.results.table.genotype'),
+          tooltip: intl.get('screen.patientsnv.results.table.genotype.tooltip'),
           dataIndex: 'donors',
           defaultHidden: true,
-          width: 150,
+          width: 80,
           render: (record: ArrangerResultsTree<DonorsEntity>) =>
             renderDonorByKey('donors_genotype', findDonorById(record, patientId)),
         },
@@ -625,9 +627,9 @@ export const getVariantColumns = (
       {
         key: 'donors.ad_total',
         title: intl.get('screen.patientsnv.results.table.alttotal'),
-        tooltip: intl.get('total.depth'),
+        tooltip: intl.get('screen.patientsnv.results.table.alttotal.tooltip'),
         defaultHidden: true,
-        width: 120,
+        width: 65,
         sorter: {
           multiple: 1,
         },
@@ -639,7 +641,7 @@ export const getVariantColumns = (
         title: intl.get('screen.patientsnv.results.table.altratio'),
         tooltip: intl.get('screen.patientsnv.results.table.altratio.tooltip'),
         defaultHidden: true,
-        width: 120,
+        width: 85,
         sorter: {
           multiple: 1,
         },
@@ -693,7 +695,7 @@ export const getVariantColumns = (
     key: 'cmc.tier',
     title: intl.get('screen.patientsnv.results.table.cmc_tier'),
     tooltip: intl.get('screen.patientsnv.results.table.cmc_tier.tooltip'),
-    width: 150,
+    width: 70,
     defaultHidden: true,
     sorter: {
       multiple: 1,
