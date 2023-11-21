@@ -297,7 +297,7 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'donors.parental_origin', row, 'p1')).toEqual('Mother');
+    expect(customMapping('SNV', 'donors.parental_origin', row, 'p1')).toEqual('M');
   });
   test('should map ad_alt', () => {
     const row = {

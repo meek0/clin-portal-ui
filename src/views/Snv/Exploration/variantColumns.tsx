@@ -95,9 +95,19 @@ const formatRqdm = (rqdm: frequency_RQDMEntity, variant: VariantEntity) => {
 };
 
 const displayParentalOrigin = (parental_origin: string) =>
-  intl.get(`filters.options.donors.parental_origin.${parental_origin}`)
-    ? intl.get(`filters.options.donors.parental_origin.${parental_origin}`)
-    : removeUnderscoreAndCapitalize(parental_origin || '').defaultMessage(TABLE_EMPTY_PLACE_HOLDER);
+  parental_origin ? (
+    <Tooltip
+      title={intl
+        .get(`filters.options.donors.parental_origin.${parental_origin}`)
+        .defaultMessage(removeUnderscoreAndCapitalize(parental_origin || ''))}
+    >
+      <Tag color="blue">
+        {intl.get(`filters.options.donors.parental_origin.${parental_origin}.abrv`)}
+      </Tag>
+    </Tooltip>
+  ) : (
+    TABLE_EMPTY_PLACE_HOLDER
+  );
 
 const getDonorQd = (patientId: string) => ({
   key: 'donors.qd',
@@ -187,6 +197,7 @@ export const getVariantColumns = (
         ? `${style.fixedVariantTableCellNoData} ${style.userAffectedBtnCell}`
         : style.userAffectedBtnCell,
       key: 'actions',
+      width: 110,
       title: intl.get('screen.patientsnv.results.table.actions'),
       fixed: 'left',
       render: (record: VariantEntity) => (
@@ -394,7 +405,7 @@ export const getVariantColumns = (
       key: 'clinvar',
       title: intl.get('screen.patientsnv.results.table.clinvar'),
       dataIndex: 'clinvar',
-      width: 110,
+      width: 92,
       render: renderClinvar,
     },
   );
@@ -564,7 +575,7 @@ export const getVariantColumns = (
           title: intl.get('po'),
           tooltip: intl.get('parental.origin'),
           defaultHidden: true,
-          width: 180,
+          width: 80,
           sorter: {
             multiple: 1,
           },
@@ -617,7 +628,7 @@ export const getVariantColumns = (
         title: intl.get('screen.patientsnv.results.table.altprof'),
         tooltip: intl.get('filters.group.donors.ad_alt'),
         defaultHidden: true,
-        width: 120,
+        width: 65,
         sorter: {
           multiple: 1,
         },
