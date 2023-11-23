@@ -117,10 +117,10 @@ describe('Page des variants d\'un patient (somatic) - Colonnes du tableau', () =
       .contains('QP').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains(/^ALT$/).should('not.exist');
+      .contains(/^A$/).should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(19)
-      .contains(/^ALT$/).should('exist');
+      .contains(/^A$/).should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('A+R').should('not.exist');
