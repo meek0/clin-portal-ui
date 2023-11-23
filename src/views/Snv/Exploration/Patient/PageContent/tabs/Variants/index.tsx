@@ -114,7 +114,7 @@ const VariantsTab = ({
             dictionary={getProTableDictionary()}
             showSorterTooltip={false}
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            onChange={(_, sorter) => {
+            onChange={(_, __, sorter) => {
               setPageIndex(DEFAULT_PAGE_INDEX);
               setQueryConfig({
                 pageIndex: DEFAULT_PAGE_INDEX,
