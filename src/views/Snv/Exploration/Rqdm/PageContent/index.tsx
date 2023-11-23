@@ -4,7 +4,6 @@ import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import { resetSearchAfterQueryConfig } from '@ferlab/ui/core/components/ProTable/utils';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
-import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Tabs } from 'antd';
 import { ExtendedMappingResults } from 'graphql/models';
@@ -24,6 +23,7 @@ import {
 } from 'views/Snv/utils/constant';
 
 import DownloadTSVWrapper from 'components/Download';
+import { resolveSyntheticSqonWithReferences } from 'utils/query';
 import { VARIANT_RQDM_QB_ID_FILTER_TAG } from 'utils/queryBuilder';
 
 import VariantsTab from './tabs/Variants';
@@ -37,7 +37,7 @@ const PageContent = ({ variantMapping }: OwnProps) => {
   const [variantQueryConfig, setVariantQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
-    resolveSyntheticSqon(queryList, query, variantMapping);
+    resolveSyntheticSqonWithReferences(queryList, query, variantMapping);
 
   const queryVariables = {
     first: variantQueryConfig.size,

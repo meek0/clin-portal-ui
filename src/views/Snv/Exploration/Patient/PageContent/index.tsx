@@ -3,7 +3,6 @@ import intl from 'react-intl-universal';
 import { resetSearchAfterQueryConfig, tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
-import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Tabs } from 'antd';
 import { ExtendedMappingResults } from 'graphql/models';
@@ -25,6 +24,7 @@ import {
 import { wrapSqonWithDonorIdAndSrId } from 'views/Snv/utils/helper';
 
 import DownloadTSVWrapper from 'components/Download';
+import { resolveSyntheticSqonWithReferences } from 'utils/query';
 import { SNV_EXPLORATION_PATIENT_FILTER_TAG } from 'utils/queryBuilder';
 
 import VariantsTab from './tabs/Variants';
@@ -45,7 +45,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
     wrapSqonWithDonorIdAndSrId(
-      cloneDeep(resolveSyntheticSqon(queryList, query, variantMapping)),
+      cloneDeep(resolveSyntheticSqonWithReferences(queryList, query, variantMapping)),
       patientId,
       prescriptionId,
     );

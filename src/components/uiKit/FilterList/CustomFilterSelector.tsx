@@ -3,12 +3,12 @@ import FilterSelector, {
   FilterSelectorProps,
 } from '@ferlab/ui/core/components/filters/FilterSelector';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
-import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
 import { Spin } from 'antd';
 import { ExtendedMappingResults } from 'graphql/models';
 import { AGGREGATION_QUERY } from 'graphql/queries';
 
 import useGetAggregations from 'hooks/graphql/useGetAggregations';
+import { resolveSyntheticSqonWithReferences } from 'utils/query';
 
 import { TCustomFilterMapper } from '.';
 
@@ -40,8 +40,8 @@ const CustomFilterSelector = ({
   const { queryList, activeQuery } = useQueryBuilderState(queryBuilderId);
 
   const resolvedSqon = filterMapper
-    ? filterMapper(resolveSyntheticSqon(queryList, activeQuery))
-    : resolveSyntheticSqon(queryList, activeQuery);
+    ? filterMapper(resolveSyntheticSqonWithReferences(queryList, activeQuery))
+    : resolveSyntheticSqonWithReferences(queryList, activeQuery);
   const results = useGetAggregations(
     {
       sqon: resolvedSqon,

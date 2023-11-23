@@ -3,7 +3,6 @@ import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import { resetSearchAfterQueryConfig } from '@ferlab/ui/core/components/ProTable/utils';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
-import { resolveSyntheticSqon } from '@ferlab/ui/core/data/sqon/utils';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Card } from 'antd';
 import { useVariants } from 'graphql/cnv/actions';
@@ -25,6 +24,7 @@ import { VariantType } from 'views/Prescriptions/Entity/context';
 import { MAX_VARIANTS_DOWNLOAD } from 'views/Prescriptions/utils/export';
 
 import DownloadTSVWrapper from 'components/Download';
+import { resolveSyntheticSqonWithReferences } from 'utils/query';
 import { CNV_EXPLORATION_PATIENT_FILTER_TAG } from 'utils/queryBuilder';
 
 import VariantsTable from './components/Variants';
@@ -46,7 +46,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) => {
     const wrappedQuery = wrapSqonWithPatientIdAndRequestId(
-      cloneDeep(resolveSyntheticSqon(queryList, query)),
+      cloneDeep(resolveSyntheticSqonWithReferences(queryList, query)),
       patientId,
       prescriptionId,
     );
