@@ -57,13 +57,11 @@ const SequencingsTable = ({
       dictionary={getProTableDictionary()}
       showSorterTooltip={false}
       bordered
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      onChange={(_, sorter) => {
+      onChange={(_, __, sorter) => {
         setPageIndex(DEFAULT_PAGE_INDEX);
         setQueryConfig({
           pageIndex: DEFAULT_PAGE_INDEX,
           size: queryConfig.size!,
-          // @ts-ignore
           sort: formatQuerySortList(sorter, DEFAULT_SORT_QUERY),
         });
         scrollToTop(SEQUENCING_SCROLL_ID);
