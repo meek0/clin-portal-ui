@@ -663,6 +663,7 @@
   "screen.patientsnv.results.table.loeuf.tooltip": "Loss-of-function observed/expected upper bound fraction (LOEUF) from gnomAD ",
   "screen.patientsnv.results.table.actions": "Actions",
   "screen.patientsnv.results.table.altprof": "A",
+  "screen.patientsnv.results.table.altprof.tooltip": "ALT Allele Depth (ALT)",
   "screen.patientsnv.results.table.altratio": "A/(A+R)",
   "screen.patientsnv.results.table.altratio.tooltip": "Allelic Ratio ALT/(ALT+REF)",
   "screen.patientsnv.results.table.alttotal": "A+R",

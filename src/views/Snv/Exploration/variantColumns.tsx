@@ -626,7 +626,7 @@ export const getVariantColumns = (
       {
         key: 'donors.ad_alt',
         title: intl.get('screen.patientsnv.results.table.altprof'),
-        tooltip: intl.get('filters.group.donors.ad_alt'),
+        tooltip: intl.get('screen.patientsnv.results.table.altprof.tooltip'),
         defaultHidden: true,
         width: 65,
         sorter: {
