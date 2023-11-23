@@ -13,7 +13,7 @@ beforeEach(() => {
   cy.showColumn('Trans.', 0);
   cy.showColumn('QP', 0);
   cy.showColumn('OP', 0);
-  cy.showColumn(/^ALT$/, 0);
+  cy.showColumn(/^A$/, 0);
   cy.showColumn('A+R', 0);
   cy.showColumn('A/(A+R)', 0);
   cy.showColumn('Filtre', 0);
@@ -57,7 +57,8 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 19, '-');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 20, 'XLR');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 21, '0.97');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 22, 'Mother');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 22, 'M');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 22, 'ant-tag-blue');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 23, '84');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 24, '84');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 25, '1.00');

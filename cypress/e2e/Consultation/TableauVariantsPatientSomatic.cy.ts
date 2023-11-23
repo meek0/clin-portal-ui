@@ -9,7 +9,7 @@ beforeEach(() => {
 
   cy.showColumn('gnomAD ALT', 0);
   cy.showColumn('QP', 0);
-  cy.showColumn(/^ALT$/, 0);
+  cy.showColumn(/^A$/, 0);
   cy.showColumn('A+R', 0);
   cy.showColumn('A/(A+R)', 0);
   cy.showColumn('Filtre', 0);
