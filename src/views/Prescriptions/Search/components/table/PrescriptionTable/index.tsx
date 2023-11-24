@@ -8,6 +8,7 @@ import { GqlResults } from 'graphql/models';
 import { AnalysisResult, ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import {
   DEFAULT_PAGE_INDEX,
+  DEFAULT_SORT_QUERY,
   PRESCRIPTION_QB_ID,
   PRESCRIPTION_SCROLL_ID,
 } from 'views/Prescriptions/Search/utils/contstant';
@@ -74,8 +75,10 @@ const PrescriptionsTable = ({
         setQueryConfig({
           pageIndex: DEFAULT_PAGE_INDEX,
           size: queryConfig.size!,
-          // @ts-ignore
-          sort: action.action === 'sort' ? formatQuerySortList(sorter) : queryConfig.sort,
+          sort:
+            action.action === 'sort'
+              ? formatQuerySortList(sorter, DEFAULT_SORT_QUERY)
+              : queryConfig.sort,
         });
         scrollToTop(PRESCRIPTION_SCROLL_ID);
       }}

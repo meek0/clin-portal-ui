@@ -316,7 +316,7 @@ const Index = ({ downloadFile }: any) => {
                 setQueryConfig({
                   pageIndex: DEFAULT_PAGE_INDEX,
                   size: queryConfig.size,
-                  sort: formatQuerySortList(sorter),
+                  sort: formatQuerySortList(sorter, DEFAULT_COVERAGE_SORT),
                 } as IQueryConfig);
               }}
               dictionary={getProTableDictionary()}
