@@ -880,7 +880,7 @@ export const renderManeToString = (variant: any) => {
   if (mane_plus) {
     value.push(intl.get('screen.variantDetails.summaryTab.manePlus'));
   }
-  if (pickedConsequence === null) {
+  if (!pickedConsequence) {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
   return value.join(',');
@@ -891,7 +891,7 @@ export const renderCaddScoreToString = (variant: any) => {
     ({ node }: any) => !!node.picked,
   ).node;
   const { predictions } = pickedConsequence;
-  if (pickedConsequence === null) {
+  if (!pickedConsequence) {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
   return predictions?.cadd_score
@@ -904,7 +904,7 @@ export const renderRevelScoreToString = (variant: any) => {
     ({ node }: any) => !!node.picked,
   ).node;
   const { predictions } = pickedConsequence;
-  if (pickedConsequence === null) {
+  if (!pickedConsequence) {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
   return predictions?.revel_score
