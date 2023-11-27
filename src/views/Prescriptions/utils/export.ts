@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { getPractitionnerName } from '@ferlab/ui/core/components/Assignments/AssignmentsFilter';
 import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types';
 import { Practitioner, PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
@@ -7,6 +8,7 @@ import orderBy from 'lodash/orderBy';
 import { renderCNVToString } from 'views/Cnv/Exploration/variantColumns';
 import { renderToString as renderConsequencesToString } from 'views/Snv/components/ConsequencesCell/index';
 import {
+  renderCaddScoreToString,
   renderClinvarToString,
   renderDonorToString,
   renderGeneToString,
@@ -15,6 +17,7 @@ import {
   renderHotspotToString,
   renderManeToString,
   renderOmimToString,
+  renderRevelScoreToString,
   renderRQDMPCToString,
   renderRQDMToString,
 } from 'views/Snv/Exploration/variantColumns';
@@ -78,6 +81,10 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderOmimToString(row));
     } else if (key === 'consequence') {
       return convertToPlain(renderConsequencesToString(row));
+    } else if (key === 'consequences.predictions.cadd_score') {
+      return convertToPlain(renderCaddScoreToString(row));
+    } else if (key === 'consequences.predictions.revel_score') {
+      return convertToPlain(renderRevelScoreToString(row));
     } else if (key === 'hotspot') {
       return convertToPlain(renderHotspotToString(row));
     } else if (key === 'external_frequencies.gnomad_genomes_3_1_1.af') {
