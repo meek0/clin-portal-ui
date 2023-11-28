@@ -890,10 +890,10 @@ export const renderCaddScoreToString = (variant: any) => {
   const pickedConsequence = variant.consequences?.hits.edges.find(
     ({ node }: any) => !!node.picked,
   ).node;
-  const { predictions } = pickedConsequence;
   if (!pickedConsequence) {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
+  const { predictions } = pickedConsequence;
   return predictions?.cadd_score
     ? predictions.cadd_score.toExponential(2).toString()
     : TABLE_EMPTY_PLACE_HOLDER;
@@ -903,10 +903,10 @@ export const renderRevelScoreToString = (variant: any) => {
   const pickedConsequence = variant.consequences?.hits.edges.find(
     ({ node }: any) => !!node.picked,
   ).node;
-  const { predictions } = pickedConsequence;
   if (!pickedConsequence) {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
+  const { predictions } = pickedConsequence;
   return predictions?.revel_score
     ? predictions.revel_score.toExponential(2).toString()
     : TABLE_EMPTY_PLACE_HOLDER;
