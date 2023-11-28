@@ -15,6 +15,8 @@ beforeEach(() => {
   cy.showColumn('Filtre', 0);
   cy.showColumn('Crit. Exo.', 0);
   cy.showColumn('Tier', 0);
+  cy.showColumn('CADD', 0);
+  cy.showColumn('REVEL', 0);
 });
 
 describe('Page des variants d\'un patient (somatic) - Consultation du tableau', () => {
@@ -56,6 +58,8 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 25, '-');
     cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 26, 'Other');
     cy.validateTableDataRowKeyClass('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 26, 'ant-tag-default');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 27, '4.00e+0');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 28, '-');
   });
  
   it('Valider les liens disponibles Lien UCSC', () => {

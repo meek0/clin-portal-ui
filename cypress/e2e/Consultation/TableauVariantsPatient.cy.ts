@@ -20,6 +20,8 @@ beforeEach(() => {
   cy.showColumn('Crit. Exo.', 0);
   cy.showColumn(/^CMC$/, 0);
   cy.showColumn('Tier', 0);
+  cy.showColumn('CADD', 0);
+  cy.showColumn('REVEL', 0);
 });
 
 describe('Page des variants d\'un patient - Consultation du tableau', () => {
@@ -68,6 +70,8 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 28, '(6.93e-5)');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 29, 'Other');
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 29, 'ant-tag-default');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 30, '2.56e+1');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 31, '-');
   });
  
   it('Valider les liens disponibles Lien UCSC', () => {

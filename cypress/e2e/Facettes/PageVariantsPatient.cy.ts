@@ -78,34 +78,39 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(3, 'gnomAD LOEUF');
   });
 
+  it('Gène - OMIM (Transmission)', () => {
+    cy.validateFacetFilter('Gène', 'OMIM (Transmission)', 'Smu', 'Smu', /^683$/);
+    cy.validateFacetRank(4, 'OMIM (Transmission)');
+  });
+
   it('Gène - RQDM', () => {
     cy.validateFacetFilter('Gène', 'RQDM', 'POLYM', 'POLYM', /^24 975$/);
-    cy.validateFacetRank(4, 'RQDM');
+    cy.validateFacetRank(5, 'RQDM');
   });
 
   it('Gène - HPO', () => {
     cy.validateFacetFilter('Gène', 'HPO', 'Autosomal recessive inheritance (HP:0000007)', 'Autosomal recessive inheritance (HP:0000007)', /^31 726$/);
-    cy.validateFacetRank(5, 'HPO');
+    cy.validateFacetRank(6, 'HPO');
   });
 
   it('Gène - ORPHANET', () => {
     cy.validateFacetFilter('Gène', 'ORPHANET', 'Autosomal recessive non-syndromic sensorineural deafness type DFNB', 'Autosomal recessive non-syndromic sensorineural deafness type DFNB', /^1 271$/);
-    cy.validateFacetRank(6, 'ORPHANET');
+    cy.validateFacetRank(7, 'ORPHANET');
   });
 
   it('Gène - OMIM', () => {
     cy.validateFacetFilter('Gène', 'OMIM', 'Celiac disease, susceptibility to', 'Celiac disease, susceptibility to', /^470$/);
-    cy.validateFacetRank(7, 'OMIM');
+    cy.validateFacetRank(8, 'OMIM');
   });
 
   it('Gène - DDD', () => {
     cy.validateFacetFilter('Gène', 'DDD', 'AUTOSOMAL RECESSIVE MENTAL RETARDATION', 'AUTOSOMAL RECESSIVE MENTAL RETARDATION', /^721$/);
-    cy.validateFacetRank(8, 'DDD');
+    cy.validateFacetRank(9, 'DDD');
   });
 
   it('Gène - COSMIC', () => {
     cy.validateFacetFilter('Gène', 'COSMIC', 'Leukaemia', 'leukaemia', /^183$/);
-    cy.validateFacetRank(9, 'COSMIC');
+    cy.validateFacetRank(10, 'COSMIC');
   });
 
   it('Fréquence - Fréq. all. tous les patients', () => {
