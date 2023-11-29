@@ -40,7 +40,7 @@ const VARIANT_QUERY_BASE_FIELDS = `
           mane_select
           mane_plus
           predictions {
-            cadd_score
+            cadd_phred
             revel_score
           }
         }

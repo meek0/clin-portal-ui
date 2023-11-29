@@ -722,20 +722,17 @@ export const getVariantColumns = (
         ),
     },
     {
-      key: 'consequences.predictions.cadd_score',
-      title: intl.get('screen.patientsnv.results.table.cadd_score'),
-      tooltip: intl.get('screen.patientsnv.results.table.cadd_score.tooltip'),
+      key: 'consequences.predictions.cadd_phred',
+      title: intl.get('screen.patientsnv.results.table.cadd_phred'),
+      tooltip: intl.get('screen.patientsnv.results.table.cadd_phred.tooltip'),
       width: 70,
       defaultHidden: true,
-      sorter: {
-        multiple: 1,
-      },
       render: (record: VariantEntity) => {
         const pickedConsequenceSymbol = record.consequences?.hits.edges.find(
           ({ node }: any) => !!node.picked,
         );
-        return pickedConsequenceSymbol?.node?.predictions?.cadd_score
-          ? pickedConsequenceSymbol.node.predictions.cadd_score.toExponential(2)
+        return pickedConsequenceSymbol?.node?.predictions?.cadd_phred
+          ? pickedConsequenceSymbol.node.predictions.cadd_phred.toExponential(2)
           : TABLE_EMPTY_PLACE_HOLDER;
       },
     },
@@ -745,9 +742,6 @@ export const getVariantColumns = (
       tooltip: intl.get('screen.patientsnv.results.table.revel_score.tooltip'),
       width: 70,
       defaultHidden: true,
-      sorter: {
-        multiple: 1,
-      },
       render: (record: VariantEntity) => {
         const pickedConsequenceSymbol = record.consequences?.hits.edges.find(
           ({ node }: any) => !!node.picked,
@@ -886,7 +880,7 @@ export const renderManeToString = (variant: any) => {
   return value.join(',');
 };
 
-export const renderCaddScoreToString = (variant: any) => {
+export const renderCaddPhredToString = (variant: any) => {
   const pickedConsequence = variant.consequences?.hits.edges.find(
     ({ node }: any) => !!node.picked,
   ).node;
@@ -894,8 +888,8 @@ export const renderCaddScoreToString = (variant: any) => {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
   const { predictions } = pickedConsequence;
-  return predictions?.cadd_score
-    ? predictions.cadd_score.toExponential(2).toString()
+  return predictions?.cadd_phred
+    ? predictions.cadd_phred.toExponential(2).toString()
     : TABLE_EMPTY_PLACE_HOLDER;
 };
 
