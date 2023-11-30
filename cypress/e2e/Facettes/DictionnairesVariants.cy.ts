@@ -99,8 +99,7 @@ describe('Page des variants - Dictionnaire', () => {
                           'Feature Elongation',
                           'Regulatory Region',
                           'Feature Truncation',
-                          'Intergenic',
-                          'No Data'];
+                          'Intergenic'];
 
     cy.validateDictionnary('Variant', 'Conséquences', dictionnary);
   });
