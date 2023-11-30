@@ -286,6 +286,26 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('Gène', 'RQDM', dictionnary);
   });
 
+  it('Gène - OMIM (Transmission) [CLIN-2387]', () => {
+    const dictionnary = ['AD',
+                         'AR',
+                         'DD',
+                         'DR',
+                         'IC',
+                         'Mi',
+                         'Mu',
+                         'NRT',
+                         'SMo',
+                         'Smu',
+                         'XL',
+                         'XLD',
+                         'XLR',
+                         'YL',
+                         'No Data'];
+
+    cy.validateDictionnary('Gène', 'OMIM (Transmission)', dictionnary);
+  });
+
   it('Pathogénicité - ClinVar', () => {
     const dictionnary = ['Benign',
                          'Likely Benign',

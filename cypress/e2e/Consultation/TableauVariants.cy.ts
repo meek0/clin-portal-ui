@@ -9,6 +9,8 @@ describe('Page des variants - Consultation du tableau', () => {
   beforeEach(() => {
     cy.visitVariantsPage('?sharedFilterId=ed4de9bb-016e-4869-ac9d-40b11ac3102a');
     cy.showColumn('Tier', 0);
+    cy.showColumn('CADD', 0);
+    cy.showColumn('REVEL', 0);
   });
   
   it('Vérifier les informations affichées', () => {
@@ -38,6 +40,8 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 13, '-');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 14, 'Other');
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 14, 'ant-tag-default');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 15, '2.56e+1');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 16, '-');
   });
  
   it('Valider les liens disponibles Lien Variant', () => {
@@ -85,6 +89,8 @@ describe('Page des variants - Consultation du tableau', () => {
   beforeEach(() => {
     cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
     cy.showColumn('Tier', 0);
+    cy.showColumn('CADD', 0);
+    cy.showColumn('REVEL', 0);
   });
   
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {

@@ -79,6 +79,7 @@ const filterGroups: {
           'gene_external_reference',
           'genes__gnomad__pli',
           'genes__gnomad__loeuf',
+          'genes__omim__inheritance_code',
         ],
       },
       {

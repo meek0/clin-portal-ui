@@ -151,6 +151,18 @@ describe('Page des variants d\'un patient (somatic) - Colonnes du tableau', () =
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(24)
       .contains('Tier').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .contains('CADD').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(25)
+      .contains('CADD').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .contains('REVEL').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(26)
+      .contains('REVEL').should('exist');
   });
 
   it('Masquer une colonne affichée', () => {

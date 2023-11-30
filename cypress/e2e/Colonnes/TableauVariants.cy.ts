@@ -82,11 +82,23 @@ describe('Page des variants - Colonnes du tableau', () => {
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(13)
       .contains('Tier').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .contains('CADD').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(14)
+      .contains('CADD').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .contains('REVEL').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(15)
+      .contains('REVEL').should('exist');
 /* CLICE-120
     cy.get('thead[class="ant-table-thead"]')
       .contains('CADD (Phred)').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(14)
+      .find('div[class="ant-space-item"]').eq(16)
       .contains('CADD (Phred)').should('exist');*/
   });
 

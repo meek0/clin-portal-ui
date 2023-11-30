@@ -383,6 +383,7 @@ export const getFacetsDictionarySNV = () => ({
     },
     omim: {
       name: intl.get('filters.group.genes.omim.name'),
+      inheritance_code: intl.get('filters.group.genes.omim.inheritance_code'),
     },
     orphanet: {
       panel: intl.get('filters.group.genes.orphanet.panel'),
@@ -451,6 +452,11 @@ export const getFacetsDictionarySNV = () => ({
       },
     },
     hotspot: intl.get('filters.group.hotspot.tooltip'),
+    genes: {
+      omim: {
+        inheritance_code: intl.get('filters.group.genes.omim.inheritance_code.tooltip'),
+      },
+    },
   },
 });
 

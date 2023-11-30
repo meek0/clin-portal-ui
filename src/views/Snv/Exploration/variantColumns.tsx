@@ -702,24 +702,56 @@ export const getVariantColumns = (
     }
   }
 
-  columns.push({
-    key: 'cmc.tier',
-    title: intl.get('screen.patientsnv.results.table.cmc_tier'),
-    tooltip: intl.get('screen.patientsnv.results.table.cmc_tier.tooltip'),
-    width: 70,
-    defaultHidden: true,
-    sorter: {
-      multiple: 1,
+  columns.push(
+    {
+      key: 'cmc.tier',
+      title: intl.get('screen.patientsnv.results.table.cmc_tier'),
+      tooltip: intl.get('screen.patientsnv.results.table.cmc_tier.tooltip'),
+      width: 70,
+      defaultHidden: true,
+      sorter: {
+        multiple: 1,
+      },
+      render: (record: VariantEntity) =>
+        record.cmc?.tier ? (
+          <Tag color={CmcTierColorMap[record.cmc.tier]}>
+            {intl.get(`filters.options.cmc.tier.${record.cmc.tier}`)}
+          </Tag>
+        ) : (
+          TABLE_EMPTY_PLACE_HOLDER
+        ),
     },
-    render: (record: VariantEntity) =>
-      record.cmc?.tier ? (
-        <Tag color={CmcTierColorMap[record.cmc.tier]}>
-          {intl.get(`filters.options.cmc.tier.${record.cmc.tier}`)}
-        </Tag>
-      ) : (
-        TABLE_EMPTY_PLACE_HOLDER
-      ),
-  });
+    {
+      key: 'consequences.predictions.cadd_phred',
+      title: intl.get('screen.patientsnv.results.table.cadd_phred'),
+      tooltip: intl.get('screen.patientsnv.results.table.cadd_phred.tooltip'),
+      width: 70,
+      defaultHidden: true,
+      render: (record: VariantEntity) => {
+        const pickedConsequenceSymbol = record.consequences?.hits.edges.find(
+          ({ node }: any) => !!node.picked,
+        );
+        return pickedConsequenceSymbol?.node?.predictions?.cadd_phred
+          ? pickedConsequenceSymbol.node.predictions.cadd_phred.toExponential(2)
+          : TABLE_EMPTY_PLACE_HOLDER;
+      },
+    },
+    {
+      key: 'consequences.predictions.revel_score',
+      title: intl.get('screen.patientsnv.results.table.revel_score'),
+      tooltip: intl.get('screen.patientsnv.results.table.revel_score.tooltip'),
+      width: 70,
+      defaultHidden: true,
+      render: (record: VariantEntity) => {
+        const pickedConsequenceSymbol = record.consequences?.hits.edges.find(
+          ({ node }: any) => !!node.picked,
+        );
+        return pickedConsequenceSymbol?.node?.predictions?.revel_score
+          ? pickedConsequenceSymbol.node.predictions.revel_score.toExponential(2)
+          : TABLE_EMPTY_PLACE_HOLDER;
+      },
+    },
+  );
   return columns;
 };
 
@@ -842,10 +874,36 @@ export const renderManeToString = (variant: any) => {
   if (mane_plus) {
     value.push(intl.get('screen.variantDetails.summaryTab.manePlus'));
   }
-  if (pickedConsequence === null) {
+  if (!pickedConsequence) {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
   return value.join(',');
+};
+
+export const renderCaddPhredToString = (variant: any) => {
+  const pickedConsequence = variant.consequences?.hits.edges.find(
+    ({ node }: any) => !!node.picked,
+  ).node;
+  if (!pickedConsequence) {
+    return TABLE_EMPTY_PLACE_HOLDER;
+  }
+  const { predictions } = pickedConsequence;
+  return predictions?.cadd_phred
+    ? predictions.cadd_phred.toExponential(2).toString()
+    : TABLE_EMPTY_PLACE_HOLDER;
+};
+
+export const renderRevelScoreToString = (variant: any) => {
+  const pickedConsequence = variant.consequences?.hits.edges.find(
+    ({ node }: any) => !!node.picked,
+  ).node;
+  if (!pickedConsequence) {
+    return TABLE_EMPTY_PLACE_HOLDER;
+  }
+  const { predictions } = pickedConsequence;
+  return predictions?.revel_score
+    ? predictions.revel_score.toExponential(2).toString()
+    : TABLE_EMPTY_PLACE_HOLDER;
 };
 
 export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
