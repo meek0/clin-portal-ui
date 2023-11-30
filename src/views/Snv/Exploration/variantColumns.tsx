@@ -114,7 +114,7 @@ const getDonorQd = (patientId: string) => ({
   title: intl.get('qd'),
   tooltip: intl.get('qd.tooltip'),
   defaultHidden: true,
-  width: 180,
+  width: 70,
   render: (record: VariantEntity) =>
     renderDonorByKey('donors.qd', findDonorById(record.donors, patientId)),
 });
