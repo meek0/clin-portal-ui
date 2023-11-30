@@ -88,7 +88,6 @@ export const dictionaries: Record<string, string[]> = {
     'regulatory_region_variant',
     'feature_truncation',
     'intergenic_variant',
-    ArrangerValues.missing,
   ],
   variant_external_reference: ['DBSNP', 'Clinvar', 'PubMed', 'Cosmic', ArrangerValues.missing],
   chromosome: [

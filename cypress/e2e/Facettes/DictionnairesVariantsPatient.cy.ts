@@ -85,8 +85,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                           'Feature Elongation',
                           'Regulatory Region',
                           'Feature Truncation',
-                          'Intergenic',
-                          'No Data'];
+                          'Intergenic'];
 
     cy.validateDictionnary('Variant', 'Conséquences', dictionnary);
   });
