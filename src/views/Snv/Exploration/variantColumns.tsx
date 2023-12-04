@@ -179,6 +179,24 @@ const getHotspotCol = () => ({
     return TABLE_EMPTY_PLACE_HOLDER;
   },
 });
+const getCmcTier = (variantType: VariantType) => ({
+  key: 'cmc.tier',
+  title: intl.get('screen.patientsnv.results.table.cmc_tier'),
+  tooltip: intl.get('screen.patientsnv.results.table.cmc_tier.tooltip'),
+  width: 70,
+  defaultHidden: variantType !== VariantType.SOMATIC_TUMOR_ONLY ? true : false,
+  sorter: {
+    multiple: 1,
+  },
+  render: (record: VariantEntity) =>
+    record.cmc?.tier ? (
+      <Tag color={CmcTierColorMap[record.cmc.tier]}>
+        {intl.get(`filters.options.cmc.tier.${record.cmc.tier}`)}
+      </Tag>
+    ) : (
+      TABLE_EMPTY_PLACE_HOLDER
+    ),
+});
 
 export const getVariantColumns = (
   queryBuilderId: string,
@@ -409,8 +427,15 @@ export const getVariantColumns = (
       render: renderClinvar,
     },
   );
+  if (patientId && variantType === VariantType.SOMATIC_TUMOR_ONLY) {
+    columns.push(
+      { ...getHotspotCol() },
+      { ...getCmcTier(variantType) },
+      { ...getCmcSampleMutatedCol(variantType, patientId) },
+    );
+  }
 
-  if (patientId) {
+  if (patientId && variantType !== VariantType.SOMATIC_TUMOR_ONLY) {
     columns.push(
       {
         key: 'donors.exomiser.gene_combined_score',
@@ -584,7 +609,6 @@ export const getVariantColumns = (
         },
       );
     } else if (variantType === VariantType.SOMATIC_TUMOR_ONLY) {
-      columns.push({ ...getCmcSampleMutatedCol(variantType, patientId) });
       if (onlyExportTSV) {
         columns.push({
           key: 'cmc.sample_ratio',
@@ -593,9 +617,6 @@ export const getVariantColumns = (
         });
       }
       columns.push(
-        {
-          ...getHotspotCol(),
-        },
         {
           key: 'donors.sq',
           title: intl.get('screen.patientsnv.results.table.sq'),
@@ -700,6 +721,7 @@ export const getVariantColumns = (
         ...getHotspotCol(),
       });
     }
+    columns.push({ ...getCmcTier(variantType) });
   }
 
   columns.push(
