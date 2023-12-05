@@ -1,5 +1,6 @@
 import axios from 'axios';
 import capitalize from 'lodash/capitalize';
+import { VariantType } from 'views/Prescriptions/Entity/context';
 
 import { IAnnotationTrack, IIGVTrack } from '../components/Igv/type';
 import { FhirDoc, FhirDocContent, PatientFileResults } from '../graphql/patients/models/Patient';
@@ -15,7 +16,8 @@ const FHIR_CRAM_CRAI_DOC_TYPE = 'ALIR';
 const FHIR_CRAM_TYPE = 'CRAM';
 const FHIR_CRAI_TYPE = 'CRAI';
 
-const FHIR_VCF_TBI_DOC_TYPE = 'GCNV';
+const FHIR_GERMLINE_VCF_TBI_DOC_TYPE = 'GCNV';
+const FHIR_SOMATIC_VCF_TBI_DOC_TYPE = 'SCNV';
 const FHIR_VCF_TYPE = 'VCF';
 const FHIR_TBI_TYPE = 'TBI';
 
@@ -59,6 +61,7 @@ const trackName = (
 
 export const generateTracks = (
   files: PatientFileResults,
+  variantType: VariantType,
   patientId: string,
   gender: GENDER,
   position: PATIENT_POSITION | PARENT_TYPE,
@@ -67,7 +70,12 @@ export const generateTracks = (
   const cramDoc = findDoc(files, FHIR_CRAM_CRAI_DOC_TYPE);
   const cramFiles = findFiles(cramDoc!, FHIR_CRAM_TYPE, FHIR_CRAI_TYPE);
 
-  const vcfDoc = findDoc(files, FHIR_VCF_TBI_DOC_TYPE);
+  const vcfDoc = findDoc(
+    files,
+    variantType === VariantType.GERMLINE
+      ? FHIR_GERMLINE_VCF_TBI_DOC_TYPE
+      : FHIR_SOMATIC_VCF_TBI_DOC_TYPE,
+  );
   const vcfFiles = findFiles(vcfDoc!, FHIR_VCF_TYPE, FHIR_TBI_TYPE);
 
   const segDoc = findDoc(files, FHIR_IGV_DOC_TYPE);
@@ -75,7 +83,7 @@ export const generateTracks = (
   const newTracks: any = [];
   segDoc?.content.forEach(({ format, attachment }) => {
     if (!attachment.title.includes(HYPER_EXOME_FILE_NAME)) {
-      let type = (format = '');
+      let type = '';
       if (format === FHIR_BED_TYPE) {
         type = 'annotation';
         format = 'bed';
