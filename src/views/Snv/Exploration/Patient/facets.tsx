@@ -173,7 +173,6 @@ const filterGroups: {
       {
         title: intl.get('exomiser'),
         facets: ['donors__exomiser__acmg_evidence'],
-        tooltips: ['donors__exomiser__gene_combined_score'],
       },
       {
         title: intl.get('predictions'),
