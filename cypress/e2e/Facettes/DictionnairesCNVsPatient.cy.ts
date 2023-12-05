@@ -28,6 +28,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                          'Rhabdomyolysis (RHAB)',
                          'Solid Tumor (somatic) (SSOLID)',
                          'Leukemia (somatic) (SHEMA)',
+                         'Severe Combined Immune Deficiency (SCID)',
                          'No Data'];
 
     cy.validateDictionnary('Panel RQDM', 'Panel RQDM', dictionnary);
@@ -86,6 +87,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                          'Rhabdomyolysis (RHAB)',
                          'Solid Tumor (somatic) (SSOLID)',
                          'Leukemia (somatic) (SHEMA)',
+                         'Severe Combined Immune Deficiency (SCID)',
                          'No Data'];
 
     cy.validateDictionnary('Gène', 'Panel RQDM', dictionnary);
