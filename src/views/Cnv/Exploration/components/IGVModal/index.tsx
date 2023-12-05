@@ -6,6 +6,7 @@ import { usePatientFilesData } from 'graphql/patients/actions';
 import { PatientFileResults } from 'graphql/patients/models/Patient';
 import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
+import { getVariantTypeFromCNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 
 import IgvContainer from 'components/containers/IGV/IGVContainer';
 import { IIGVTrack } from 'components/Igv/type';
@@ -24,21 +25,23 @@ interface OwnProps {
 }
 
 const buildTracks = (
+  variantEntity: VariantEntity,
   patientFiles: PatientFileResults,
   motherFiles: PatientFileResults,
   fatherFiles: PatientFileResults,
   rpt: string,
-  variantEntity: VariantEntity,
 ) => {
   if (!patientFiles.docs) {
     return [];
   }
 
+  const variantType = getVariantTypeFromCNVVariantEntity(variantEntity);
   const tracks: IIGVTrack[] = [];
 
   tracks.push(
     ...generateTracks(
       patientFiles,
+      variantType,
       variantEntity.patient_id,
       variantEntity.gender as GENDER,
       variantEntity.is_proband ? PATIENT_POSITION.PROBAND : PATIENT_POSITION.PARENT,
@@ -50,6 +53,7 @@ const buildTracks = (
     tracks.push(
       ...generateTracks(
         motherFiles,
+        variantType,
         variantEntity.mother_id,
         GENDER.FEMALE,
         PARENT_TYPE.MOTHER,
@@ -60,7 +64,14 @@ const buildTracks = (
 
   if (variantEntity.father_id && fatherFiles) {
     tracks.push(
-      ...generateTracks(fatherFiles, variantEntity.father_id, GENDER.MALE, PARENT_TYPE.FATHER, rpt),
+      ...generateTracks(
+        fatherFiles,
+        variantType,
+        variantEntity.father_id,
+        GENDER.MALE,
+        PARENT_TYPE.FATHER,
+        rpt,
+      ),
     );
   }
   return tracks;
@@ -100,7 +111,7 @@ const IGVModal = ({ variantEntity, isOpen = false, toggleModal, rpt }: OwnProps)
               100,
               variantEntity?.end,
             )}
-            tracks={buildTracks(results!, motherResults, fatherResults, rpt, variantEntity!)}
+            tracks={buildTracks(variantEntity, results!, motherResults, fatherResults, rpt)}
             hyperXenomeTrack={getHyperXenomeTrack(
               results,
               variantEntity.patient_id,
