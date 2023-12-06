@@ -1,6 +1,6 @@
 import * as formattingMod from '@ferlab/ui/core/data/arranger/formatting';
 
-import { keyEnhanceBooleanOnlyExcept } from '../Filters';
+import { getExtraFilterDictionnairy, keyEnhanceBooleanOnlyExcept } from '../Filters';
 
 describe('Filters', () => {
   describe('keyEnhanceBooleanOnlyExcept', () => {
@@ -25,5 +25,103 @@ describe('Filters', () => {
       expect(keyEnhanceBooleanOnlyExcept('somethingelse', '1')).toEqual('1');
       expect(spy).toHaveBeenCalled();
     });
+  });
+
+  describe('extraFilterDictionnairy', () => {
+    test('should return extraFilterDictionnairy if no value', () => {
+      const extendedMapping = {
+        field: 'variant_class',
+        displayName: 'Variant Class',
+        active: false,
+        isArray: false,
+        type: 'keyword',
+      };
+      const aggregation = {
+        __typename: 'Aggregations',
+        buckets: [],
+      };
+      const expectValue = [
+        'insertion',
+        'deletion',
+        'SNV',
+        'indel',
+        'substitution',
+        'sequence_alteration',
+        '__missing__',
+      ];
+      expect(getExtraFilterDictionnairy(extendedMapping, aggregation)).toEqual(expectValue);
+    });
+    test('should return extraFilterDictionnairy if missing value', () => {
+      const extendedMapping = {
+        field: 'variant_class',
+        displayName: 'Variant Class',
+        active: false,
+        isArray: false,
+        type: 'keyword',
+      };
+      const aggregation = {
+        __typename: 'Aggregations',
+        buckets: [
+          {
+            __typename: 'Bucket',
+            key: 'SNV',
+            key_as_string: null,
+            doc_count: 10,
+          },
+          {
+            __typename: 'Bucket',
+            key: 'deletion',
+            key_as_string: null,
+            doc_count: 12,
+          },
+          {
+            __typename: 'Bucket',
+            key: 'insertion',
+            key_as_string: null,
+            doc_count: 14,
+          },
+        ],
+      };
+      const expectValue = [
+        'insertion',
+        'deletion',
+        'SNV',
+        'indel',
+        'substitution',
+        'sequence_alteration',
+        '__missing__',
+      ];
+      expect(getExtraFilterDictionnairy(extendedMapping, aggregation)).toEqual(expectValue);
+    });
+  });
+  test('should return extraFilterDictionnairy if only _missing_ value', () => {
+    const extendedMapping = {
+      field: 'variant_class',
+      displayName: 'Variant Class',
+      active: false,
+      isArray: false,
+      type: 'keyword',
+    };
+    const aggregation = {
+      __typename: 'Aggregations',
+      buckets: [
+        {
+          __typename: 'Bucket',
+          key: '__missing__',
+          key_as_string: null,
+          doc_count: 1,
+        },
+      ],
+    };
+    const expectValue = [
+      'insertion',
+      'deletion',
+      'SNV',
+      'indel',
+      'substitution',
+      'sequence_alteration',
+      '__missing__',
+    ];
+    expect(getExtraFilterDictionnairy(extendedMapping, aggregation)).toEqual(expectValue);
   });
 });
