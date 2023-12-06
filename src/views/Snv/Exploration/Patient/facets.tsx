@@ -172,12 +172,7 @@ const filterGroups: {
       },
       {
         title: intl.get('exomiser'),
-        facets: [
-          'donors__exomiser__gene_combined_score',
-          'donors__exomiser__acmg_classification',
-          'donors__exomiser__acmg_evidence',
-        ],
-        tooltips: ['donors__exomiser__gene_combined_score'],
+        facets: ['donors__exomiser__acmg_evidence'],
       },
       {
         title: intl.get('predictions'),

@@ -14,7 +14,6 @@ beforeEach(() => {
   cy.showColumn('A/(A+R)', 0);
   cy.showColumn('Filtre', 0);
   cy.showColumn('Crit. Exo.', 0);
-  cy.showColumn('Tier', 0);
   cy.showColumn('CADD', 0);
   cy.showColumn('REVEL', 0);
 });
@@ -37,29 +36,27 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 9, 'ant-tag-processing');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 10, /^B$/);
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 10, 'ant-tag-green');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 11, '-');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 12, '-');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 13, '9.91e-1');
-    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 13, 'GnomadCell_gnomadIndicatorDefault');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 14, '150 926');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 15, /^128$/);
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 15, /(\d{1}.\d{2}e(-|\+)\d{1})/);
-    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 16, /^1$/);
-    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 16, '(2.31e-5)');
-    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 17, 'hotspotOutlined');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 18, '64.73');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 19, 'Het');
-    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 19, 'ant-tag-blue');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 20, '-');
+    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 11, 'hotspotOutlined'); /////////////////
+    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 12, 'Other'); ////////////////
+    cy.validateTableDataRowKeyClass('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 12, 'ant-tag-default');
+    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 13, /^1$/); ////////////////////
+    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 13, '(2.31e-5)');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 14, '9.91e-1'); ////////////////
+    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 14, 'GnomadCell_gnomadIndicatorDefault');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 15, '150 926');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 16, /^128$/);
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 16, /(\d{1}.\d{2}e(-|\+)\d{1})/);
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 17, '64.73');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 18, 'Het');
+    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 18, 'ant-tag-blue');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 19, '-');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 20, '321');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 21, '321');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 22, '321');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 23, '1.00');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 24, 'PASS');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 25, '-');
-    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 26, 'Other');
-    cy.validateTableDataRowKeyClass('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 26, 'ant-tag-default');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 27, '4.00e+0');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 28, '-');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 22, '1.00');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 23, 'PASS');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 24, '-');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 25, '4.00e+0');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 26, '-');
   });
  
   it('Valider les liens disponibles Lien UCSC', () => {
@@ -104,14 +101,14 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/1185321');
   });
  
-  it('Valider les liens disponibles Lien RQDM', () => {
-    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(15).find('a[href]').click({force: true});
-    cy.validateTableResultsCount(/^130$/);
+  it('Valider les liens disponibles Lien CMC', () => {
+    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"]').find('td').eq(13).find('a[href]')
+      .should('have.attr', 'href', 'https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=23814818&genome=37');
   });
  
-  it('Valider les liens disponibles Lien CMC', () => {
-    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"]').find('td').eq(16).find('a[href]')
-      .should('have.attr', 'href', 'https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=23814818&genome=37');
+  it('Valider les liens disponibles Lien RQDM', () => {
+    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(16).find('a[href]').click({force: true});
+    cy.validateTableResultsCount(/^130$/);
   });
   
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {
@@ -135,62 +132,48 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.validateTableFirstRow('ZZZ3', 6);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Exo.', () => {
-    cy.sortTableAndIntercept('Exo.', 1);
-    cy.validateTableFirstRow('-', 11);
-    cy.sortTableAndIntercept('Exo.', 1);
-    cy.validateTableFirstRow('-', 11);
-  });
-
-  it('Valider les fonctionnalités du tableau - Tri ACMG E.', () => {
-    cy.sortTableAndIntercept('ACMG E.', 1);
-    cy.validateTableFirstRow('-', 12);
-    cy.sortTableAndIntercept('ACMG E.', 1);
-    cy.validateTableFirstRow('-', 12);
-  });
-
-  it('Valider les fonctionnalités du tableau - Tri gnomAD', () => {
-    cy.sortTableAndIntercept(/^gnomAD $/, 1);
-    cy.validateTableFirstRow('-', 13);
-    cy.sortTableAndIntercept(/^gnomAD $/, 1);
-    cy.validateTableFirstRow('1.00e+0', 13);
-  });
-
-  it('Valider les fonctionnalités du tableau - Tri gnomAD ALT', () => {
-    cy.sortTableAndIntercept('gnomAD ALT', 1);
-    cy.validateTableFirstRow('-', 14);
-    cy.sortTableAndIntercept('gnomAD ALT', 1);
-    cy.validateTableFirstRow('152 312', 14);
-  });
-
-  it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
-    cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('0.00e+0', 15);
-    cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('1.00e+0', 15);
-  });
-
-  it('Valider les fonctionnalités du tableau - Tri CMC', () => {
-    cy.sortTableAndIntercept('CMC', 1);
-    cy.validateTableFirstRow('-', 16);
-    cy.sortTableAndIntercept('CMC', 1);
-    cy.validateTableFirstRow('419', 16);
-  });
-
   it('Valider les fonctionnalités du tableau - Tri Hotspot', () => {
     cy.clickAndIntercept('thead[class="ant-table-thead"] [data-icon="fire"]', 'POST', '**/graphql', 1);
     cy.wait(1000);
-    cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(17).find('[class*="hotspotOutlined"]').should('exist');
+    cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(11).find('[class*="hotspotOutlined"]').should('exist');
     cy.clickAndIntercept('thead[class="ant-table-thead"] [data-icon="fire"]', 'POST', '**/graphql', 1);
     cy.wait(1000);
-    cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(17).find('[class*="hotspotFilled"]').should('exist');
+    cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(11).find('[class*="hotspotFilled"]').should('exist');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Tier', () => {
     cy.sortTableAndIntercept('Tier', 1);
-    cy.validateTableFirstRow('-', 26);
+    cy.validateTableFirstRow('-', 12);
     cy.sortTableAndIntercept('Tier', 1);
-    cy.validateTableFirstRow('Other', 26);
+    cy.validateTableFirstRow('Other', 12);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri CMC', () => {
+    cy.sortTableAndIntercept('CMC', 1);
+    cy.validateTableFirstRow('-', 13);
+    cy.sortTableAndIntercept('CMC', 1);
+    cy.validateTableFirstRow('419', 13);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri gnomAD', () => {
+    cy.sortTableAndIntercept(/^gnomAD $/, 1);
+    cy.validateTableFirstRow('-', 14);
+    cy.sortTableAndIntercept(/^gnomAD $/, 1);
+    cy.validateTableFirstRow('1.00e+0', 14);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri gnomAD ALT', () => {
+    cy.sortTableAndIntercept('gnomAD ALT', 1);
+    cy.validateTableFirstRow('-', 15);
+    cy.sortTableAndIntercept('gnomAD ALT', 1);
+    cy.validateTableFirstRow('152 312', 15);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
+    cy.sortTableAndIntercept('RQDM', 1);
+    cy.validateTableFirstRow('0.00e+0', 16);
+    cy.sortTableAndIntercept('RQDM', 1);
+    cy.validateTableFirstRow('1.00e+0', 16);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
