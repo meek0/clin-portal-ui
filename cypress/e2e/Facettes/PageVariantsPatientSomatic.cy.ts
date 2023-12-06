@@ -24,7 +24,7 @@ describe('Page des variants d\'un patient (somatic) - Filtrer avec les facettes'
 
   it('Pathogénicité - Hotspot', () => {
     cy.validateFacetFilter('Pathogénicité', 'Hotspot', 'True', 'true', /^27$/);
-    cy.validateFacetRank(17, 'Hotspot');
+    cy.validateFacetRank(15, 'Hotspot');
   });
 
   it('Occurrence - Qualité somatique', () => {
