@@ -117,6 +117,7 @@ export const prescriptionsColumns = (
       title: intl.get('assignment.title'),
       iconTitle: <UserOutlined style={{ fontSize: '16px' }} />,
       width: 50,
+      fixed: 'left',
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) =>
         practitionerRolesBundle && (
           <AssignmentsFilterDropdown

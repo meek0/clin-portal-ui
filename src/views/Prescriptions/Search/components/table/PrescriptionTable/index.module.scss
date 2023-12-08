@@ -2,4 +2,8 @@
     :global(.ant-pagination) {
         margin-bottom: 0;
     }
+
+    :global(.ant-table-body){
+        overflow: auto !important;
+    }
 }
