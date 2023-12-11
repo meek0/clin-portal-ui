@@ -15,7 +15,7 @@ declare namespace Cypress {
     sortTableAndWait(column: string, eq: number = 0): cy & CyEventEmitter;
     typeAndIntercept(selector: string, text: string, methodHTTP: string, routeMatcher: string, nbCalls: number): cy & CyEventEmitter;
     validateClearAllButton(shouldExist: boolean): cy & CyEventEmitter;
-    validateDictionnary(section: string, facetTitle: string, dictionnary: (string|RegExp)[]): cy & CyEventEmitter;
+    validateDictionnary(section: string, facetTitle: string, dictionnary: (string|RegExp)[], moreButton:boolean = false): cy & CyEventEmitter;
     validateExpandCollapse(section: string, isRqdmExpand: boolean = false): cy & CyEventEmitter;
     validateFacetFilter(section: string, facetTitle: string|RegExp, valueFront: string, valueBack: string, expectedCount: string|RegExp, isRqdmExpand: boolean = false): cy & CyEventEmitter;
     validateFacetRank(facetRank: number, facetTitle: string|RegExp): cy & CyEventEmitter;
@@ -34,7 +34,7 @@ declare namespace Cypress {
     visitAndIntercept(url: string, methodHTTP: string, routeMatcher: string, nbCalls: number): cy & CyEventEmitter;
     visitArchivesPatientPage(patientId: string): cy & CyEventEmitter;
     visitBioinformaticsAnalysisPage(bioAnalysisId: string): cy & CyEventEmitter;
-    visitCNVsPatientPage(patientId: string, prescriptionId: string, nbGraphqlCalls: number): cy & CyEventEmitter;
+    visitCNVsPatientPage(patientId: string, prescriptionId: string, nbGraphqlCalls: number, sharedFilterOption?: string): cy & CyEventEmitter;
     visitCQPatientPage(prescriptionId: string): cy & CyEventEmitter;
     visitFilesPatientPage(prescriptionId: string): cy & CyEventEmitter;
     visitPrescriptionEntityPage(prescriptionId: string): cy & CyEventEmitter;

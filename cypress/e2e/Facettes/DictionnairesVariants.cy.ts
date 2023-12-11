@@ -10,7 +10,7 @@ beforeEach(() => {
 describe('Page des variants - Dictionnaire', () => {
 
   beforeEach(() => {
-    cy.visitVariantsPage();
+    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
   });
 
   it('Patient - Analyse', () => {
@@ -57,7 +57,7 @@ describe('Page des variants - Dictionnaire', () => {
                          'Séquence Altération',
                          'No Data'];
 
-    cy.validateDictionnary('Variant', 'Type de variant', dictionnary);
+    cy.validateDictionnary('Variant', 'Type de variant', dictionnary, true);
   });
 
   it('Variant - Conséquences', () => {
