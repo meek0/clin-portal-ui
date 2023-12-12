@@ -44,7 +44,7 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des prescrip
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .contains('Modifiée le').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(6)
+      .find('div[class="ant-space-item"]').eq(5)
       .contains('Modifiée le').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(0)
@@ -65,19 +65,19 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des prescrip
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .contains('Requérant').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(10)
+      .find('div[class="ant-space-item"]').eq(9)
       .contains('Requérant').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .contains('Prénatal').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(11)
+      .find('div[class="ant-space-item"]').eq(10)
       .contains('Prénatal').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .contains('Dossier').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(12)
+      .find('div[class="ant-space-item"]').eq(11)
       .contains('Dossier').should('exist');
   });
 
