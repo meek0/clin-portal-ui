@@ -220,26 +220,18 @@ export const getFilterGroup = (
   };
 };
 
-const getExtraFilterDictionnairy = (
+export const getExtraFilterDictionnairy = (
   extendedMapping: ExtendedMapping | undefined,
   aggregation: any,
 ) => {
   let extraFilterDictionary = extendedMapping?.field ? dictionaries[extendedMapping?.field] : null;
   if (extendedMapping) {
     if (!exceptions.includes(extendedMapping?.field)) {
-      if (aggregation && aggregation.buckets) {
-        const { buckets } = aggregation;
-        const existingKey = buckets.map((bucket: any) => bucket.key_as_string);
-        if (existingKey.length < 2) {
-          // add opposite values
-          extraFilterDictionary = existingKey.map((key: any) => String(!++key));
-        }
-      } else {
+      if (!aggregation && !aggregation.buckets) {
         extraFilterDictionary = ['true', 'false'];
       }
     }
   }
-
   return extraFilterDictionary;
 };
 

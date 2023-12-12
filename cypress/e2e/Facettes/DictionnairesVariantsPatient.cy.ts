@@ -10,7 +10,7 @@ beforeEach(() => {
 describe('Page des variants d\'un patient - Dictionnaire', () => {
 
   beforeEach(() => {
-    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd3eefb82-edcc-42f1-a4e6-28808bd06f34');
   });
 
   it('Panel RQDM - RQDM', () => {
@@ -43,7 +43,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Séquence Altération',
                          'No Data'];
 
-    cy.validateDictionnary('Variant', 'Type de variant', dictionnary);
+    cy.validateDictionnary('Variant', 'Type de variant', dictionnary, true);
   });
 
   it('Variant - Conséquences', () => {

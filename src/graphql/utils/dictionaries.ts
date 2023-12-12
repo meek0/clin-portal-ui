@@ -287,6 +287,8 @@ export const dictionaries: Record<string, string[]> = {
     'unknown_mother_genotype',
     ArrangerValues.missing,
   ],
+  'donors.is_hc': ['0', '1'],
+  'donors.is_possibly_hc': ['0', '1'],
   'donors.filters': [
     'PASS',
     'DRAGENSnpHardQUAL',

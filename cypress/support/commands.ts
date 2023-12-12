@@ -151,7 +151,7 @@ Cypress.Commands.add('validateClearAllButton', (shouldExist: boolean) => {
   cy.get('[id="query-builder-header-tools"]').contains('Tout effacer').should(strExist);
 });
 
-Cypress.Commands.add('validateDictionnary', (section: string, facetTitle: string, dictionnary: (string|RegExp)[]) => {
+Cypress.Commands.add('validateDictionnary', (section: string, facetTitle: string, dictionnary: (string|RegExp)[], moreButton: boolean = false) => {
   cy.get('[data-cy="SidebarMenuItem_' + section + '"]').click({force: true});
 
   if (section !== 'Panel RQDM') {
@@ -160,6 +160,12 @@ Cypress.Commands.add('validateDictionnary', (section: string, facetTitle: string
   
   cy.get('[data-cy="Button_Dict_' + facetTitle + '"]').click({force: true});
   cy.wait(1000);
+
+  if (moreButton) {
+    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__O6v-O')
+      .find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+    cy.wait(1000);
+  }
 
   // Toutes les valeurs du dictionnaire sont présentes dans la facette
   for (let i = 0; i < dictionnary.length; i++) {
@@ -360,8 +366,9 @@ Cypress.Commands.add('visitBioinformaticsAnalysisPage', (bioAnalProbId: string) 
                        1);
 });
 
-Cypress.Commands.add('visitCNVsPatientPage', (patientId: string, prescriptionId: string, nbGraphqlCalls: number) => {
-  cy.visitAndIntercept('/prescription/entity/' + prescriptionId + '?variantSection=cnv#variants',
+Cypress.Commands.add('visitCNVsPatientPage', (patientId: string, prescriptionId: string, nbGraphqlCalls: number, sharedFilterOption?: string) => {
+  const strSharedFilterOption = sharedFilterOption !== undefined ? sharedFilterOption+'&variantSection=cnv#variants' : '?variantSection=cnv#variants';
+  cy.visitAndIntercept('/prescription/entity/' + prescriptionId + strSharedFilterOption,
                        'POST',
                        '**/graphql',
                        nbGraphqlCalls);

@@ -10,7 +10,7 @@ beforeEach(() => {
 describe('Page des CNVs d\'un patient - Dictionnaire', () => {
 
   beforeEach(() => {
-    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
   });
 
   it('Panel RQDM - RQDM', () => {
