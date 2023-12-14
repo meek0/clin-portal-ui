@@ -11,6 +11,7 @@ import { isEmpty } from 'lodash';
 import { v4 } from 'uuid';
 
 import { globalActions } from 'store/global';
+import { ALREADY_EXISTS_ERROR_STATUS } from 'utils/constants';
 import { FILTER_TAG_QB_ID_MAPPING } from 'utils/queryBuilder';
 
 const fetchSavedFilters = createAsyncThunk<
@@ -56,12 +57,21 @@ const createSavedFilter = createAsyncThunk<
   const { data, error } = await SavedFilterApi.create(filter);
 
   if (error) {
-    thunkAPI.dispatch(
-      globalActions.displayMessage({
-        type: 'error',
-        content: intl.get('api.savedFilter.error.messageUpdate'),
-      }),
-    );
+    if (error.response?.status === ALREADY_EXISTS_ERROR_STATUS) {
+      thunkAPI.dispatch(
+        globalActions.displayMessage({
+          type: 'error',
+          content: intl.get('api.savedFilter.error.nameAlreadyExists'),
+        }),
+      );
+    } else {
+      thunkAPI.dispatch(
+        globalActions.displayMessage({
+          type: 'error',
+          content: intl.get('api.savedFilter.error.messageUpdate'),
+        }),
+      );
+    }
     return thunkAPI.rejectWithValue(error.message);
   }
 
@@ -84,12 +94,21 @@ const updateSavedFilter = createAsyncThunk<
   const { data, error } = await SavedFilterApi.update(id, filterInfo);
 
   if (error) {
-    thunkAPI.dispatch(
-      globalActions.displayMessage({
-        type: 'error',
-        content: intl.get('api.savedFilter.error.messageUpdate'),
-      }),
-    );
+    if (error.response?.status === ALREADY_EXISTS_ERROR_STATUS) {
+      thunkAPI.dispatch(
+        globalActions.displayMessage({
+          type: 'error',
+          content: intl.get('api.savedFilter.error.nameAlreadyExists'),
+        }),
+      );
+    } else {
+      thunkAPI.dispatch(
+        globalActions.displayMessage({
+          type: 'error',
+          content: intl.get('api.savedFilter.error.messageUpdate'),
+        }),
+      );
+    }
     return thunkAPI.rejectWithValue(error.message);
   }
 
