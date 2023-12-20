@@ -146,6 +146,7 @@ export type VariantEntity = {
     sample_mutated: number;
     sample_ratio: number;
     mutation_url: string;
+    cosmic_id: string;
     tier: string;
   };
   variant_type: VariantType[];

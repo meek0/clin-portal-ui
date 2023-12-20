@@ -151,7 +151,11 @@ const getCmcSampleMutatedCol = (variantType: VariantType, patientId?: string) =>
   render: (record: VariantEntity) =>
     record.cmc ? (
       <Space size={4}>
-        <a href={record.cmc.mutation_url} target="_blank" rel="noreferrer">
+        <a
+          href={`https://cancer.sanger.ac.uk/cosmic/search?q=${record.cmc.cosmic_id}&genome=38#`}
+          target="_blank"
+          rel="noreferrer"
+        >
           {record.cmc.sample_mutated}
         </a>
         <Typography.Text>({record.cmc.sample_ratio.toExponential(2)})</Typography.Text>

@@ -11,6 +11,7 @@ const VARIANT_QUERY_BASE_FIELDS = `
     sample_ratio
     mutation_url
     tier
+    cosmic_id
   }
   clinvar {
     clinvar_id
