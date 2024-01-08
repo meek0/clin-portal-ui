@@ -170,7 +170,7 @@ const getFranklinAcmgEvidence = (patientId?: string) => ({
   title: intl.get('franklin.acmg_evidence.title'),
   tooltip: intl.get('franklin.acmg_evidence.tooltip'),
   width: 100,
-  defaultHidden: patientId ? true : false,
+  defaultHidden: !!patientId,
   render: (record: VariantEntity) =>
     renderFranklinAcmg_evidence(record?.franklin_max?.acmg_evidence),
 });
