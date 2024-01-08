@@ -301,7 +301,7 @@
       "max_score": "Score Franklin (Max)",
       "tooltip": {
         "donor_score": "Score Franklin calculé en fonction des caractéristiques du variant et des phénotypes du patient",
-        "max_score": "Score Franklin le plus élévé parmi tous patients pour ce variant"
+        "max_score": "Score Franklin le plus élevé parmi tous les patients pour ce variant"
       }
     },
     "donors": {
@@ -338,7 +338,7 @@
     },
     "combined_score": {
       "title": "Max Fra.",
-      "tooltip": "Score Franklin le plus élévé parmi tous patients pour ce variant"
+      "tooltip": "Score Franklin le plus élevé parmi tous les patients pour ce variant"
     }
   },
   "global.errors.backHome": "Retour à l'accueil",
