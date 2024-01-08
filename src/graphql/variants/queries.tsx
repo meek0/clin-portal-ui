@@ -25,6 +25,11 @@ const VARIANT_QUERY_BASE_FIELDS = `
   start
   end
   hotspot
+  franklin_max {
+    combined_score
+    acmg_classification
+    acmg_evidence
+  }
   consequences {
     hits {
       edges {
@@ -135,6 +140,7 @@ export const VARIANT_QUERY = gql`
                     sq
                     bioinfo_analysis_code
                     filters
+                    franklin_combined_score
                     mother_id
                     mother_zygosity
                     mother_affected_status

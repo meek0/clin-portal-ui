@@ -154,6 +154,7 @@
   "filters.group.donors.exomiser.acmg_classification": "Exomiser ACMG",
   "filters.group.donors.exomiser.acmg_evidence": "Exomiser ACMG Evidences",
   "filters.group.donors.filters": "Filter (Dragen)",
+  "filters.group.donors.franklin": "Franklin Score",
   "filters.group.donors.gender": "Sex",
   "filters.group.donors.gq": "Genotype Quality",
   "filters.group.donors.gq.tooltip": "Only occurrences with GQ ≥ 20 are taken into account for frequency calculation.",
@@ -279,10 +280,66 @@
   "filters.options.donors.exomiser.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
   "filters.options.donors.exomiser.acmg_classification.LIKELY_BENIGN": "Likely Benign",
   "filters.options.donors.exomiser.acmg_classification.BENIGN": "Benign",
+  "filters.options.franklin_max.acmg_classification.PATHOGENIC": "Pathogenic",
+  "filters.options.franklin_max.acmg_classification.LIKELY_PATHOGENIC": "Likely Pathogenic",
+  "filters.options.franklin_max.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+  "filters.options.franklin_max.acmg_classification.LIKELY_BENIGN": "Likely Benign",
+  "filters.options.franklin_max.acmg_classification.BENIGN": "Benign",
+  "filters.options.franklin_max.acmg_classification.POSSIBLY_PATHOGENIC_MODERATE": "Possibly Pathogenic",
+  "filters.options.franklin_max.acmg_classification.POSSIBLY_BENIGN": "Possibly Pathogenic Benign",
   "first.name": "First name",
   "folder": "MRN",
   "footer.navigation.fhir": "Fhir",
   "footer.navigation.zepplin": "Zeppelin",
+  "franklin": {
+    "filter":{
+      "groupTitle": "Franklin",
+      "acmg_classification": "Franklin ACMG",
+      "acmg_evidence": "Franklin ACMG Rules",
+      "donor_score": "Franklin Score",
+      "max_score": "Score Franklin (Max)",
+      "tooltip": {
+        "donor_score": "Franklin score based on variant properties and patient phenotypes",
+        "max_score": "Highest Franklin score among all patients for this variant."
+      }
+    },
+    "donors": {
+      "combined_score":{
+        "title":"Fra.",
+        "tooltip": "Franklin score based on variant properties and patient phenotypes"
+      } 
+    },
+    "acmg_classification": {
+      "title":"ACMG F.",
+      "tooltip": "Franklin ACMG",
+      "abrv": {
+        "PATHOGENIC": "P",
+        "LIKELY_PATHOGENIC": "LP",
+        "UNCERTAIN_SIGNIFICANCE": "VUS",
+        "LIKELY_BENIGN": "LB",
+        "BENIGN": "B",
+        "POSSIBLY_PATHOGENIC_MODERATE": "PP",
+        "POSSIBLY_BENIGN": "PB"
+      },
+      "value":{
+        "PATHOGENIC": "Pathogenic",
+        "LIKELY_PATHOGENIC": "Likely Pathogenic",
+        "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+        "LIKELY_BENIGN": "Likely Benign",
+        "BENIGN": "Benign",
+        "POSSIBLY_PATHOGENIC_MODERATE":"Possibly Pathogenic",
+        "POSSIBLY_BENIGN": "Possibly Pathogenic Benign"
+      }
+    } ,
+    "acmg_evidence": {
+      "title":"Fra. Rules.",
+      "tooltip": "Franklin ACMG rules"
+    },
+    "combined_score":{
+      "title":"Max Fra.",
+      "tooltip": "Highest Franklin score among all patients for this variant."
+    }
+  },
   "global.errors.backHome": "Go to home page",
   "global.search.genes.emptyText": "No gene found",
   "global.search.genes.placeholder": "e.g. BRAF, ENSG00000157764",

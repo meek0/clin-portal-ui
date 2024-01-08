@@ -110,7 +110,19 @@ const filterGroups: {
   [FilterTypes.Pathogenicity_germline]: {
     groups: [
       {
-        facets: ['clinvar__clin_sig', 'consequences__vep_impact'],
+        facets: ['clinvar__clin_sig'],
+      },
+      {
+        title: intl.get('franklin.filter.groupTitle'),
+        facets: [
+          'franklin_max__acmg_classification',
+          'franklin_max__acmg_evidence',
+          'franklin_max__combined_score',
+        ],
+        tooltips: ['franklin_max.combined_score'],
+      },
+      {
+        facets: ['consequences__vep_impact'],
       },
       {
         title: intl.get('predictions'),

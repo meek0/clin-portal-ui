@@ -11,6 +11,9 @@ import {
   renderCaddPhredToString,
   renderClinvarToString,
   renderDonorToString,
+  renderFranklinAcmg_ClassificationToString,
+  renderFranklinAcmg_evidenceToString,
+  renderFranklinScoreToString,
   renderGeneToString,
   renderGnomADACToString,
   renderGnomADAFToString,
@@ -95,6 +98,12 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderRQDMToString(row));
     } else if (key === 'frequency_RQDM.total.pc') {
       return convertToPlain(renderRQDMPCToString(row));
+    } else if (key === 'franklin_max.combined_score') {
+      return convertToPlain(renderFranklinScoreToString(row));
+    } else if (key === 'franklin_max.acmg_classification') {
+      return convertToPlain(renderFranklinAcmg_ClassificationToString(row));
+    } else if (key === 'franklin_max.acmg_evidence') {
+      return convertToPlain(renderFranklinAcmg_evidenceToString(row));
     } else if (key === 'MANE') {
       return convertToPlain(renderManeToString(row));
     } else if (
@@ -116,6 +125,7 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
         'donors.ad_total',
         'donors.ad_ratio',
         'donors.filters',
+        'donors.franklin_combined_score',
       ].includes(key)
     ) {
       return convertToPlain(renderDonorToString(key, findDonorById(row.donors, patientId)));

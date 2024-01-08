@@ -353,6 +353,7 @@ export const getFacetsDictionarySNV = () => ({
     },
     father_zygosity: intl.get('filters.group.donors.father_zygosity'),
     filters: intl.get('filters.group.donors.filters'),
+    franklin_combined_score: intl.get('franklin.filter.donor_score'),
     gender: intl.get('filters.group.donors.gender'),
     gq: intl.get('filters.group.donors.gq'),
     is_hc: intl.get('filters.group.donors.is_hc'),
@@ -383,6 +384,11 @@ export const getFacetsDictionarySNV = () => ({
     thousand_genomes: {
       af: intl.get('filters.group.external_frequencies.thousand_genomes.af'),
     },
+  },
+  franklin_max: {
+    acmg_classification: intl.get('franklin.filter.acmg_classification'),
+    acmg_evidence: intl.get('franklin.filter.acmg_evidence'),
+    combined_score: intl.get('franklin.filter.max_score'),
   },
   frequency_RQDM: {
     total: {
@@ -447,6 +453,7 @@ export const getFacetsDictionarySNV = () => ({
       exomiser: {
         gene_combined_score: intl.get('filters.group.donors.exomiser.gene_combined_score.tooltip'),
       },
+      franklin_combined_score: intl.get('franklin.filter.tooltip.donor_score'),
       gq: intl.get('filters.group.donors.gq.tooltip'),
       qd: intl.get('filters.group.donors.qd.tooltip'),
       transmission: intl.get('filters.group.donors.transmission.tooltip'),
@@ -467,6 +474,9 @@ export const getFacetsDictionarySNV = () => ({
       thousand_genomes: {
         af: intl.get('filters.group.external_frequencies.thousand_genomes.af.tooltip'),
       },
+    },
+    franklin_max: {
+      combined_score: intl.get('franklin.filter.tooltip.max_score'),
     },
     frequency_RQDM: {
       total: {
