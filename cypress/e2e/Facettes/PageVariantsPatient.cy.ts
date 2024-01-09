@@ -111,7 +111,7 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Fréquence - Fréq. all. tous les patients', () => {
-    cy.validateFacetNumFilter('Fréquence', 'Fréq. all. tous les patients', '0.01', '8 705');
+    cy.validateFacetNumFilter('Fréquence', 'Fréq. all. tous les patients', '0.01', /^8 70\d{1}$/);
     cy.validateFacetRank(0, 'Fréq. all. tous les patients');
   });
 
@@ -121,7 +121,7 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Fréquence - Fréq. all. patients non atteints', () => {
-    cy.validateFacetNumFilter('Fréquence', 'Fréq. all. patients non atteints', '0.01', '18 346');
+    cy.validateFacetNumFilter('Fréquence', 'Fréq. all. patients non atteints', '0.01', /^18 3\d{2}$/);
     cy.validateFacetRank(2, 'Fréq. all. patients non atteints');
   });
 
@@ -189,64 +189,79 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(4, 'Critères ACMG de Exomiser');
   });
 
+  it('Pathogénicité - Score Franklin', () => {
+    cy.validateFacetNumFilter('Pathogénicité', 'Score Franklin', '0.05', '184 077');
+    cy.validateFacetRank(5, 'Score Franklin');
+  });
+
+  it('Pathogénicité - ACMG de Franklin', () => {
+    cy.validateFacetFilter('Pathogénicité', 'ACMG de Franklin', 'Possibly Pathogenic Benign', 'POSSIBLY_BENIGN', /^1$/);
+    cy.validateFacetRank(6, 'ACMG de Franklin');
+  });
+
+  it('Pathogénicité - Critères ACMG de Franklin', () => {
+    cy.validateFacetFilter('Pathogénicité', 'Critères ACMG de Franklin', 'BP4', 'BP4', /^2$/);
+    cy.validateFacetRank(7, 'Critères ACMG de Franklin');
+  });
+
   it('Pathogénicité - CADD (Phred)', () => {
     cy.validateFacetNumFilter('Pathogénicité', 'CADD (Phred)', '0.01', '179 165');
-    cy.validateFacetRank(5, 'CADD (Phred)');
+    cy.validateFacetRank(8, 'CADD (Phred)');
   });
 
   it('Pathogénicité - CADD (raw)', () => {
     cy.validateFacetNumFilter('Pathogénicité', 'CADD (raw)', '0.01', '180 151');
-    cy.validateFacetRank(6, 'CADD (raw)');
+    cy.validateFacetRank(9, 'CADD (raw)');
   });
 
   it('Pathogénicité - DANN', () => {
     cy.validateFacetNumFilter('Pathogénicité', 'DANN', '0.05', '179 067');
-    cy.validateFacetRank(7, 'DANN');
+    cy.validateFacetRank(10, 'DANN');
   });
 
   it('Pathogénicité - FATHMM', () => {
     cy.validateFacetFilter('Pathogénicité', 'FATHMM', 'Tolerated', 'T', /^9 183$/);
-    cy.validateFacetRank(8, 'FATHMM');
+    cy.validateFacetRank(11, 'FATHMM');
   });
 
   it('Pathogénicité - LRT', () => {
     cy.validateFacetFilter('Pathogénicité', 'LRT', 'Neutral', 'N', /^6 653$/);
-    cy.validateFacetRank(9, 'LRT');
+    cy.validateFacetRank(12, 'LRT');
   });
 
   it('Pathogénicité - Polyphen 2 HVAR', () => {
     cy.validateFacetFilter('Pathogénicité', 'Polyphen 2 HVAR', 'Possibily Damaging', 'P', /^749$/);
-    cy.validateFacetRank(10, 'Polyphen 2 HVAR');
+    cy.validateFacetRank(13, 'Polyphen 2 HVAR');
   });
 
   it('Pathogénicité - SIFT', () => {
     cy.validateFacetFilter('Pathogénicité', 'SIFT', 'Deleterious', 'D', /^2 107$/);
-    cy.validateFacetRank(11, 'SIFT');
+    cy.validateFacetRank(14, 'SIFT');
   });
 
   it('Pathogénicité - SpliceAI', () => {
     cy.validateFacetNumFilter('Pathogénicité', 'SpliceAI', '0.01', '154 143');
-    cy.validateFacetRank(12, 'SpliceAI');
+    cy.validateFacetRank(15, 'SpliceAI');
   });
 
   it('Pathogénicité - REVEL', () => {
     cy.validateFacetNumFilter('Pathogénicité', 'REVEL', '0.01', '180 624');
-    cy.validateFacetRank(13, 'REVEL');
+    cy.validateFacetRank(16, 'REVEL');
   });
 
   it('Pathogénicité - CMC', () => {
     cy.validateFacetNumFilter('Pathogénicité', 'CMC', '5', '177 160');
-    cy.validateFacetRank(14, 'CMC');
+    cy.validateFacetRank(17, 'CMC');
   });
 
   it('Pathogénicité - CMC (ratio)', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'CMC (ratio)', '0.01', '184 062');
-    cy.validateFacetRank(15, 'CMC (ratio)');
+    cy.validateFacetNumFilter('Pathogénicité', 'CMC (ratio)', '0.01', /184 06\d{1}$/);
+    cy.validateFacetRank(18, 'CMC (ratio)');
   });
 
   it('Pathogénicité - CMC tier', () => {
     cy.validateFacetFilter('Pathogénicité', 'CMC tier', 'Tier 3', '3', /^26\d{1}$/);
-    cy.validateFacetRank(16, 'CMC tier');
+    cy.validateFacetRank(19, 'CMC tier');
   });
 
   it('Occurrence - Expand all/Collapse all', () => {

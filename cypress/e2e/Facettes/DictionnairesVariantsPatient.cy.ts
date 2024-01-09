@@ -95,6 +95,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Clinvar',
                          'PubMed',
                          'Cosmic',
+                         'Franklin',
                          'No Data'];
 
     cy.validateDictionnary('Variant', 'Référence externe', dictionnary);
@@ -314,6 +315,39 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'No Data'];
 
     cy.validateDictionnary('Pathogénicité', 'ACMG de Exomiser', dictionnary);
+  });
+
+  it('Pathogénicité - ACMG de Franklin', () => {
+    const dictionnary = ['Pathogenic',
+                         'Likely Pathogenic',
+                         'Uncertain Significance',
+                         'Likely Benign',
+                         'Benign',
+                         'Possibly Pathogenic',
+                         'Possibly Pathogenic Benign',
+                         'No Data'];
+
+    cy.validateDictionnary('Pathogénicité', 'ACMG de Franklin', dictionnary);
+  });
+
+  it('Pathogénicité - Critères ACMG de Franklin', () => {
+    const dictionnary = ['PVS1',
+                         'PS1',
+                         'PM1',
+                         'PM2',
+                         'PM5',
+                         'PP2',
+                         'PP3',
+                         'PP5',
+                         'BA1',
+                         'BS1',
+                         'BS2',
+                         'BP1',
+                         'BP4',
+                         'BP6',
+                         'No Data'];
+
+    cy.validateDictionnary('Pathogénicité', 'Critères ACMG de Franklin', dictionnary);
   });
 
   it('Pathogénicité - FATHMM', () => {

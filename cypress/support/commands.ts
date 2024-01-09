@@ -18,6 +18,15 @@ Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: st
     cy.wait(1000);
   }
 
+  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__O6v-O')
+    .find('button').then(($button) => {
+      if ($button.hasClass('ant-btn-link')) {
+        cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__O6v-O')
+          .find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+        cy.waitWhileSpin(1000);
+      };
+  });
+
   cy.get(`[data-cy="Checkbox_${facetTitle}_${value}"]`).check({force: true});
   cy.clickAndIntercept(`[data-cy="Apply_${facetTitle}"]`, 'POST', '**/graphql', 4);
 });

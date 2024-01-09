@@ -35,6 +35,11 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('c6c851354ecc5c10473d596260d5bfff84bbc9db', 16, '3, 0');
   });
  
+  it('Valider l\'icône de sauvegarde des requêtes personnalisées [CLIN-2547]', () => {
+    cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'GAIN');
+    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-save"]').should('not.exist');
+  });
+ 
   it('Valider les liens disponibles', () => {
     cy.get('tr[data-row-key="c6c851354ecc5c10473d596260d5bfff84bbc9db"]').contains(/^2$/).click({force: true});
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');

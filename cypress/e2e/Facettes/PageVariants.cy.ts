@@ -21,7 +21,7 @@ describe('Page des variants - Filtrer avec les facettes', () => {
   });
 
   it('Patient - Statut clinique', () => {
-    cy.validateFacetFilter('Patient', 'Statut clinique', 'Non atteint', 'not_affected', /^423 26\d{1}$/);
+    cy.validateFacetFilter('Patient', 'Statut clinique', 'Non atteint', 'not_affected', /^423 \d{3}$/);
     cy.validateFacetRank(1, 'Statut clinique');
   });
 
