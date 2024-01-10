@@ -262,6 +262,23 @@ export const getQueryBuilderDictionary = (
           3: intl.get('filters.options.cmc.tier.3'),
           Other: intl.get('filters.options.cmc.tier.Other'),
         },
+        'franklin_max.acmg_classification': {
+          PATHOGENIC: intl.get('filters.options.franklin_max.acmg_classification.PATHOGENIC'),
+          LIKELY_PATHOGENIC: intl.get(
+            'filters.options.franklin_max.acmg_classification.LIKELY_PATHOGENIC',
+          ),
+          UNCERTAIN_SIGNIFICANCE: intl.get(
+            'filters.options.franklin_max.acmg_classification.UNCERTAIN_SIGNIFICANCE',
+          ),
+          LIKELY_BENIGN: intl.get('filters.options.franklin_max.acmg_classification.LIKELY_BENIGN'),
+          BENIGN: intl.get('filters.options.franklin_max.acmg_classification.BENIGN'),
+          POSSIBLY_PATHOGENIC_MODERATE: intl.get(
+            'filters.options.franklin_max.acmg_classification.POSSIBLY_PATHOGENIC_MODERATE',
+          ),
+          POSSIBLY_BENIGN: intl.get(
+            'filters.options.franklin_max.acmg_classification.POSSIBLY_BENIGN',
+          ),
+        },
       },
     },
     actions: {
