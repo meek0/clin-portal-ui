@@ -119,7 +119,7 @@ const filterGroups: {
           'franklin_max__acmg_evidence',
           'franklin_max__combined_score',
         ],
-        tooltips: ['franklin_max.combined_score'],
+        tooltips: ['franklin_max__combined_score'],
       },
       {
         facets: ['consequences__vep_impact'],
