@@ -238,7 +238,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnary('Gène', 'RQDM', dictionnary);
   });
 
-  it('Gène - OMIM (Transmission) [CLIN-2387]', () => {
+  it('Gène - OMIM (Transmission)', () => {
     const dictionnary = ['AD',
                          'AR',
                          'DD',
@@ -253,6 +253,19 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'XLD',
                          'XLR',
                          'YL',
+                         '?AD',
+                         '?AR',
+                         '?DD',
+                         '?DR',
+                         '?IC',
+                         '?Mi',
+                         '?Mu',
+                         '?SMo',
+                         '?Smu',
+                         '?XL',
+                         '?XLD',
+                         '?XLR',
+                         '?YL',
                          'No Data'];
 
     cy.validateDictionnary('Gène', 'OMIM (Transmission)', dictionnary);
