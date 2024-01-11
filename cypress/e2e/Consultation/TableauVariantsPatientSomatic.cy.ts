@@ -103,7 +103,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
  
   it('Valider les liens disponibles Lien CMC', () => {
     cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"]').find('td').eq(13).find('a[href]')
-      .should('have.attr', 'href', 'https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=23814818&genome=37');
+      .should('have.attr', 'href', 'https://cancer.sanger.ac.uk/cosmic/search?q=COSV53313027&genome=38#');
   });
  
   it('Valider les liens disponibles Lien RQDM', () => {
