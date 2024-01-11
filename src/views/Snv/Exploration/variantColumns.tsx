@@ -1057,14 +1057,13 @@ const renderOmim = (
       </Tooltip>
     );
   }
-
   return (
     <StackLayout horizontal>
       <Space size={4} className={style.variantSnvOmimCellItem}>
         {inheritance.length
           ? inheritance.map((code) => (
               <Tooltip key={code} title={intl.get(`inheritant.code.${code}`)}>
-                <Tag color="processing">
+                <Tag color={code.includes('?') ? 'default' : 'blue'}>
                   <ExternalLink href={omimLink}>{code}</ExternalLink>
                 </Tag>
               </Tooltip>
