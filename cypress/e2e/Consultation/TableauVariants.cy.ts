@@ -81,7 +81,7 @@ describe('Page des variants - Consultation du tableau', () => {
  
   it('Valider les liens disponibles Lien CMC', () => {
     cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(12).find('a[href]')
-      .should('have.attr', 'href', 'https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=21242198&genome=37');
+      .should('have.attr', 'href', 'https://cancer.sanger.ac.uk/cosmic/search?q=COSV52051792&genome=38#');
   });
 });
 
