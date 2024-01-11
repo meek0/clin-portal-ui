@@ -140,6 +140,15 @@ const filterGroups: {
         tooltips: ['donors__exomiser__gene_combined_score'],
       },
       {
+        title: intl.get('franklin.filter.groupTitle'),
+        facets: [
+          'donors__franklin_combined_score',
+          'franklin_max__acmg_classification',
+          'franklin_max__acmg_evidence',
+        ],
+        tooltips: ['donors__franklin_combined_score'],
+      },
+      {
         title: intl.get('predictions'),
         facets: [
           'consequences__predictions__cadd_phred',

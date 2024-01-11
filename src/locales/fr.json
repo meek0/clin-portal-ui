@@ -155,6 +155,7 @@
   "filters.group.donors.exomiser.acmg_classification": "ACMG de Exomiser",
   "filters.group.donors.exomiser.acmg_evidence": "Critères ACMG de Exomiser",
   "filters.group.donors.filters": "Filtre (Dragen)",
+  "filters.group.donors.franklin_combined_score": "Score Franklin",
   "filters.group.donors.gender": "Sexe",
   "filters.group.donors.gq": "Qualité du génotype",
   "filters.group.donors.gq.tooltip": "Seules les occurrences rencontrant le critère QG ≥ 20 sont considérées pour le calcul des fréquences.",
@@ -190,6 +191,9 @@
   "filters.group.external_frequencies.topmed_bravo.af": "TopMed Bravo",
   "filters.group.external_frequencies.topmed_bravo.af.tooltip": "Valeurs entre [0-1]. Les variants les plus rares auront une fréquence proche de 0.",
   "filters.group.filters": "Filtre",
+  "filters.group.franklin_max.acmg_classification": "ACMG de Franklin",
+  "filters.group.franklin_max.acmg_evidence": "Critères ACMG de Franklin",
+  "filters.group.franklin_max.combined_score": "Score Franklin (Max)",
   "filters.group.frequency_RQDM.affected.af": "Fréq. all. patients atteints",
   "filters.group.frequency_RQDM.affected.af.tooltip": "Valeurs entre [0-1]. Un score proche de 1 indique un variant fréquent dans la cohorte de patients atteints pour une analyse.",
   "filters.group.frequency_RQDM.non_affected.af": "Fréq. all. patients non atteints",
@@ -280,10 +284,66 @@
   "filters.options.donors.exomiser.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
   "filters.options.donors.exomiser.acmg_classification.LIKELY_BENIGN": "Likely Benign",
   "filters.options.donors.exomiser.acmg_classification.BENIGN": "Benign",
+  "filters.options.franklin_max.acmg_classification.PATHOGENIC": "Pathogenic",
+  "filters.options.franklin_max.acmg_classification.LIKELY_PATHOGENIC": "Likely Pathogenic",
+  "filters.options.franklin_max.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+  "filters.options.franklin_max.acmg_classification.LIKELY_BENIGN": "Likely Benign",
+  "filters.options.franklin_max.acmg_classification.BENIGN": "Benign",
+  "filters.options.franklin_max.acmg_classification.POSSIBLY_PATHOGENIC_MODERATE": "Possibly Pathogenic",
+  "filters.options.franklin_max.acmg_classification.POSSIBLY_BENIGN": "Possibly Pathogenic Benign",
   "first.name": "Prénom",
   "folder": "Dossier",
   "footer.navigation.fhir": "Fhir",
   "footer.navigation.zepplin": "Zeppelin",
+  "franklin": {
+    "filter":{
+      "groupTitle": "Franklin",
+      "acmg_classification": "ACMG de Franklin",
+      "acmg_evidence": "Critères ACMG de Franklin",
+      "donor_score": "Score Franklin",
+      "max_score": "Score Franklin (Max)",
+      "tooltip": {
+        "donor_score": "Score Franklin calculé en fonction des caractéristiques du variant et des phénotypes du patient",
+        "max_score": "Score Franklin le plus élevé parmi tous les patients pour ce variant"
+      }
+    },
+    "donors": {
+      "combined_score": {
+        "title": "Fra.",
+        "tooltip": "Score Franklin calculé en fonction des caractéristiques du variant et des phénotypes du patient"
+      }
+    },
+    "acmg_classification": {
+      "title": "ACMG F.",
+      "tooltip": "ACMG de Franklin",
+      "abrv": {
+        "PATHOGENIC": "P",
+        "LIKELY_PATHOGENIC": "LP",
+        "UNCERTAIN_SIGNIFICANCE": "VUS",
+        "LIKELY_BENIGN": "LB",
+        "BENIGN": "B",
+        "POSSIBLY_PATHOGENIC_MODERATE": "PP",
+        "POSSIBLY_BENIGN": "PB"
+      },
+      "value":{
+        "PATHOGENIC": "Pathogenic",
+        "LIKELY_PATHOGENIC": "Likely Pathogenic",
+        "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+        "LIKELY_BENIGN": "Likely Benign",
+        "BENIGN": "Benign",
+        "POSSIBLY_PATHOGENIC_MODERATE":"Possibly Pathogenic",
+        "POSSIBLY_BENIGN": "Possibly Pathogenic Benign"
+      }
+    },
+    "acmg_evidence": {
+      "title": "Crit. Fra.",
+      "tooltip": "Critères ACMG de Franklin"
+    },
+    "combined_score": {
+      "title": "Max Fra.",
+      "tooltip": "Score Franklin le plus élevé parmi tous les patients pour ce variant"
+    }
+  },
   "global.errors.backHome": "Retour à l'accueil",
   "global.search.genes.emptyText": "Aucun gene trouvé",
   "global.search.genes.placeholder": "Ex : BRAF, ENSG00000157764",

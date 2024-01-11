@@ -94,6 +94,7 @@ export type DonorsEntity = {
   sq: number;
   bioinfo_analysis_code: BioinfoAnalysisCode;
   filters?: string[];
+  franklin_combined_score?: number;
   zygosity?: string;
   transmission?: string;
   analysis_code?: string;
@@ -148,6 +149,11 @@ export type VariantEntity = {
     mutation_url: string;
     cosmic_id: string;
     tier: string;
+  };
+  franklin_max: {
+    combined_score: number;
+    acmg_classification: string;
+    acmg_evidence: string[];
   };
   variant_type: VariantType[];
   frequency_RQDM: frequency_RQDMEntity;

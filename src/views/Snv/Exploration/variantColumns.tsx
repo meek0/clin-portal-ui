@@ -75,6 +75,16 @@ const ACMGExoColorMap: Record<any, string> = {
   LIKELY_PATHOGENIC: 'volcano',
 };
 
+const ACMGFranklinColorMap: Record<any, string> = {
+  BENIGN: 'green',
+  LIKELY_BENIGN: 'lime',
+  UNCERTAIN_SIGNIFICANCE: 'orange',
+  PATHOGENIC: 'red',
+  LIKELY_PATHOGENIC: 'volcano',
+  POSSIBLY_PATHOGENIC_MODERATE: 'volcano',
+  POSSIBLY_BENIGN: 'lime',
+};
+
 const CmcTierColorMap: Record<any, string> = {
   1: 'red',
   2: 'volcano',
@@ -117,6 +127,52 @@ const getDonorQd = (patientId: string) => ({
   width: 70,
   render: (record: VariantEntity) =>
     renderDonorByKey('donors.qd', findDonorById(record.donors, patientId)),
+});
+
+const getDonorsFranklinScore = (patientId: string) => ({
+  key: 'donors.franklin_combined_score',
+  title: intl.get('franklin.donors.combined_score.title'),
+  tooltip: intl.get('franklin.donors.combined_score.tooltip'),
+  width: 70,
+  sorter: {
+    multiple: 1,
+  },
+  render: (record: VariantEntity) =>
+    renderDonorByKey('donors.franklin_combined_score', findDonorById(record.donors, patientId)),
+});
+
+const getFranklinScore = () => ({
+  key: 'franklin_max.combined_score',
+  title: intl.get('franklin.combined_score.title'),
+  tooltip: intl.get('franklin.combined_score.tooltip'),
+  width: 80,
+  defaultHidden: true,
+  render: (record: VariantEntity) =>
+    record?.franklin_max?.acmg_evidence
+      ? record.franklin_max.combined_score.toExponential(2)
+      : TABLE_EMPTY_PLACE_HOLDER,
+});
+
+const getFranklinAcmgClassification = () => ({
+  key: 'franklin_max.acmg_classification',
+  title: intl.get('franklin.acmg_classification.title'),
+  tooltip: intl.get('franklin.acmg_classification.tooltip'),
+  width: 90,
+  sorter: {
+    multiple: 1,
+  },
+  render: (record: VariantEntity) =>
+    renderFranklinAcmg_Classification(record?.franklin_max?.acmg_classification),
+});
+
+const getFranklinAcmgEvidence = (patientId?: string) => ({
+  key: 'franklin_max.acmg_evidence',
+  title: intl.get('franklin.acmg_evidence.title'),
+  tooltip: intl.get('franklin.acmg_evidence.tooltip'),
+  width: 100,
+  defaultHidden: !!patientId,
+  render: (record: VariantEntity) =>
+    renderFranklinAcmg_evidence(record?.franklin_max?.acmg_evidence),
 });
 
 const getDonorZygosity = (patientId: string) => ({
@@ -441,6 +497,7 @@ export const getVariantColumns = (
 
   if (patientId && variantType !== VariantType.SOMATIC_TUMOR_ONLY) {
     columns.push(
+      { ...getDonorsFranklinScore(patientId) },
       {
         key: 'donors.exomiser.gene_combined_score',
         title: intl.get('screen.patientsnv.results.table.gene_combined_score'),
@@ -455,6 +512,7 @@ export const getVariantColumns = (
             findDonorById(record.donors, patientId),
           ),
       },
+      { ...getFranklinAcmgClassification() },
       {
         key: 'donors.exomiser.acmg_classification',
         title: intl.get('screen.patientsnv.results.table.acmg_classification'),
@@ -728,25 +786,33 @@ export const getVariantColumns = (
     columns.push({ ...getCmcTier(variantType) });
   }
 
-  columns.push(
-    {
-      key: 'cmc.tier',
-      title: intl.get('screen.patientsnv.results.table.cmc_tier'),
-      tooltip: intl.get('screen.patientsnv.results.table.cmc_tier.tooltip'),
-      width: 70,
-      defaultHidden: true,
-      sorter: {
-        multiple: 1,
-      },
-      render: (record: VariantEntity) =>
-        record.cmc?.tier ? (
-          <Tag color={CmcTierColorMap[record.cmc.tier]}>
-            {intl.get(`filters.options.cmc.tier.${record.cmc.tier}`)}
-          </Tag>
-        ) : (
-          TABLE_EMPTY_PLACE_HOLDER
-        ),
+  columns.push({
+    key: 'cmc.tier',
+    title: intl.get('screen.patientsnv.results.table.cmc_tier'),
+    tooltip: intl.get('screen.patientsnv.results.table.cmc_tier.tooltip'),
+    width: 70,
+    defaultHidden: true,
+    sorter: {
+      multiple: 1,
     },
+    render: (record: VariantEntity) =>
+      record.cmc?.tier ? (
+        <Tag color={CmcTierColorMap[record.cmc.tier]}>
+          {intl.get(`filters.options.cmc.tier.${record.cmc.tier}`)}
+        </Tag>
+      ) : (
+        TABLE_EMPTY_PLACE_HOLDER
+      ),
+  });
+  if (!patientId) {
+    columns.push(
+      { ...getFranklinAcmgClassification() },
+      { ...getFranklinScore() },
+      { ...getFranklinAcmgEvidence(patientId) },
+    );
+  }
+
+  columns.push(
     {
       key: 'consequences.predictions.cadd_phred',
       title: intl.get('screen.patientsnv.results.table.cadd_phred'),
@@ -778,6 +844,9 @@ export const getVariantColumns = (
       },
     },
   );
+  if (patientId && variantType === VariantType.GERMLINE) {
+    columns.push({ ...getFranklinAcmgEvidence(patientId) });
+  }
   return columns;
 };
 
@@ -819,6 +888,24 @@ const renderAcmgExo = (acmg?: string) =>
     TABLE_EMPTY_PLACE_HOLDER
   );
 
+const renderFranklinAcmg_Classification = (acmg?: string) =>
+  acmg ? (
+    <Tooltip
+      title={intl
+        .get(`franklin.acmg_classification.value.${acmg}`)
+        .defaultMessage(removeUnderscoreAndCapitalize(acmg || ''))}
+    >
+      <Tag color={ACMGFranklinColorMap[acmg]}>
+        {intl.get(`franklin.acmg_classification.abrv.${acmg}`)}
+      </Tag>
+    </Tooltip>
+  ) : (
+    TABLE_EMPTY_PLACE_HOLDER
+  );
+
+const renderFranklinAcmg_evidence = (acmg?: string[]) =>
+  acmg && acmg.length > 0 ? acmg.join(', ') : TABLE_EMPTY_PLACE_HOLDER;
+
 const renderToString = (element: any) => {
   if (typeof element === 'string' || typeof element === 'number') {
     return String(element);
@@ -834,6 +921,22 @@ export const renderOmimToString = (variant: any) => {
   )?.node.symbol;
 
   return renderToString(renderOmim(variant, pickedConsequenceSymbol));
+};
+
+export const renderFranklinScoreToString = (variant: any) => {
+  const score = variant?.franklin_max?.combined_score;
+  if (!score && score !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return score.toExponential(2).toString();
+};
+
+export const renderFranklinAcmg_ClassificationToString = (variant: any) => {
+  const value = variant?.franklin_max?.acmg_classification;
+  return renderToString(renderFranklinAcmg_Classification(value));
+};
+
+export const renderFranklinAcmg_evidenceToString = (variant: any) => {
+  const value = variant?.franklin_max?.acmg_evidence;
+  return renderToString(renderFranklinAcmg_evidence(value));
 };
 
 export const renderClinvarToString = (variant: any) => {
@@ -977,6 +1080,8 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
     ).defaultMessage(TABLE_EMPTY_PLACE_HOLDER);
   } else if (key === 'donors.zygosity') {
     return donor ? donor?.zygosity : TABLE_EMPTY_PLACE_HOLDER;
+  } else if (key === 'donors.franklin_combined_score') {
+    return donor?.franklin_combined_score?.toExponential(2) || TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors_genotype') {
     const motherCalls = formatGenotype(donor?.mother_calls!);
     const fatherCalls = formatGenotype(donor?.father_calls!);
