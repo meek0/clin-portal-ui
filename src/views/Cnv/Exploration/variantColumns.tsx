@@ -4,7 +4,7 @@ import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Button, Space, Tooltip } from 'antd';
 import cx from 'classnames';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
-import { VariantType } from 'views/Prescriptions/Entity/context';
+import { VariantType } from 'graphql/variants/models';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';

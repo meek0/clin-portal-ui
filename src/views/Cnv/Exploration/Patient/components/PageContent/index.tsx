@@ -8,6 +8,7 @@ import { Card } from 'antd';
 import { useVariants } from 'graphql/cnv/actions';
 import { VARIANT_QUERY } from 'graphql/cnv/queries';
 import { ExtendedMappingResults } from 'graphql/models';
+import { VariantType } from 'graphql/variants/models';
 import { cloneDeep } from 'lodash';
 import VariantContentLayout from 'views/Cnv/Exploration/components/VariantContentLayout';
 import { getVariantColumns } from 'views/Cnv/Exploration/variantColumns';
@@ -20,7 +21,6 @@ import {
   DEFAULT_SORT_QUERY,
 } from 'views/Cnv/utils/constant';
 import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
-import { VariantType } from 'views/Prescriptions/Entity/context';
 import { MAX_VARIANTS_DOWNLOAD } from 'views/Prescriptions/utils/export';
 
 import DownloadTSVWrapper from 'components/Download';

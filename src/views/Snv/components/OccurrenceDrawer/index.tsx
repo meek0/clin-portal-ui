@@ -5,9 +5,8 @@ import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils
 import { Button, Descriptions, Divider, Drawer, Space, Tooltip } from 'antd';
 import { Rpt } from 'auth/types';
 import cx from 'classnames';
-import { DonorsEntity } from 'graphql/variants/models';
+import { DonorsEntity, VariantType } from 'graphql/variants/models';
 import capitalize from 'lodash/capitalize';
-import { VariantType } from 'views/Prescriptions/Entity/context';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import FemaleAffectedIcon from 'components/icons/FemaleAffectedIcon';

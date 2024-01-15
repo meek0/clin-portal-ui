@@ -138,6 +138,7 @@ export const VARIANT_QUERY = gql`
                     qd
                     gq
                     sq
+                    variant_type
                     bioinfo_analysis_code
                     filters
                     franklin_combined_score

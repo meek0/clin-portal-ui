@@ -44,6 +44,7 @@ const makeRows = (donors: ArrangerEdge<DonorsEntity>[]): TTableDonorEntity[] =>
     qd: donor.node.qd,
     gq: donor.node.gq,
     sq: donor.node.sq,
+    variant_type: donor.node.variant_type,
     bioinfo_analysis_code: donor.node.bioinfo_analysis_code,
     filters: donor.node.filters,
     ad_alt: donor.node.ad_alt,

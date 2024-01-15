@@ -68,11 +68,11 @@ const VariantEntityPage = () => {
 
   const buildExtra = () => {
     const extra = [];
-    if (isVariantType(VariantType.Germline)) {
+    if (isVariantType(VariantType.GERMLINE)) {
       extra.push(buildTag(intl.get('screen.variantdetails.header.germline'), 'purple'));
     }
-    if (isVariantType(VariantType.SomaticTumorOnly)) {
-      extra.push(buildTag(intl.get('screen.variantdetails.header.somatic_tumor_only'), 'gold'));
+    if (isVariantType(VariantType.SOMATIC)) {
+      extra.push(buildTag(intl.get('screen.variantdetails.header.somatic'), 'gold'));
     }
     extra.push(<div key="score">{getVepImpactTag(data?.max_impact_score)}</div>);
     return extra;

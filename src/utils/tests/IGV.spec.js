@@ -1,4 +1,4 @@
-import { VariantType } from 'views/Prescriptions/Entity/context';
+import { VariantType } from 'graphql/variants/models';
 
 import { GENDER, PATIENT_POSITION } from 'utils/constants';
 import { generateTracks, getHyperXenomeTrack } from 'utils/IGV';

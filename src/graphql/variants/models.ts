@@ -12,8 +12,8 @@ export enum Impact {
 }
 
 export enum VariantType {
-  Germline = 'germline',
-  SomaticTumorOnly = 'somatic_tumor_only',
+  GERMLINE = 'germline',
+  SOMATIC = 'somatic',
 }
 
 export enum BioinfoAnalysisCode {
@@ -92,6 +92,7 @@ export type DonorsEntity = {
   qd: number;
   gq: number;
   sq: number;
+  variant_type: VariantType;
   bioinfo_analysis_code: BioinfoAnalysisCode;
   filters?: string[];
   franklin_combined_score?: number;

@@ -3,7 +3,7 @@ import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { SuggestionType } from 'api/arranger/models';
 import { INDEXES } from 'graphql/constants';
 import { ExtendedMappingResults } from 'graphql/models';
-import { VariantType } from 'views/Prescriptions/Entity/context';
+import { VariantType } from 'graphql/variants/models';
 import {
   FilterTypes,
   GeneSearchFieldsMapping,
@@ -61,7 +61,7 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Variant_somatic_tumor_only]: {
+  [FilterTypes.Variant_somatic]: {
     customSearches: () => [
       <VariantGeneSearch
         key="variants"
@@ -174,7 +174,7 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Pathogenicity_somatic_tumor_only]: {
+  [FilterTypes.Pathogenicity_somatic]: {
     groups: [
       {
         facets: ['clinvar__clin_sig', 'consequences__vep_impact'],
@@ -245,7 +245,7 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Frequency_somatic_tumor_only]: {
+  [FilterTypes.Frequency_somatic]: {
     groups: [
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
@@ -318,7 +318,7 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Occurrence_somatic_tumor_only]: {
+  [FilterTypes.Occurrence_somatic]: {
     groups: [
       {
         facets: ['donors__zygosity'],
@@ -353,10 +353,10 @@ export const getMenuItems = (
           FilterTypes.Pathogenicity_germline,
         ]
       : [
-          FilterTypes.Variant_somatic_tumor_only,
-          FilterTypes.Frequency_somatic_tumor_only,
-          FilterTypes.Occurrence_somatic_tumor_only,
-          FilterTypes.Pathogenicity_somatic_tumor_only,
+          FilterTypes.Variant_somatic,
+          FilterTypes.Frequency_somatic,
+          FilterTypes.Occurrence_somatic,
+          FilterTypes.Pathogenicity_somatic,
         ];
 
   return [

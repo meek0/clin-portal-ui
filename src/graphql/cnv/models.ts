@@ -5,6 +5,7 @@ import {
   HpoEntity,
   OmimEntity,
   OrphanetEntity,
+  VariantType,
 } from 'graphql/variants/models';
 
 export interface IVariantResultTree {
@@ -21,7 +22,7 @@ export type ITableGeneEntity = GeneEntity & {
 
 export type VariantEntity = {
   id: string;
-  variant_type: string;
+  variant_type: VariantType;
   bioinfo_analysis_code: string;
   patient_id: string;
   name: string;

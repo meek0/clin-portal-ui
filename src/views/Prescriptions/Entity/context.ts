@@ -1,10 +1,6 @@
 import React, { useContext } from 'react';
 import { ServiceRequestEntity } from 'api/fhir/models';
-
-export enum VariantType {
-  GERMLINE = 'germline', // by default
-  SOMATIC_TUMOR_ONLY = 'somatic_tumor_only',
-}
+import { VariantType } from 'graphql/variants/models';
 
 export type PrescriptionEntityContextType = {
   patientId: string | undefined;

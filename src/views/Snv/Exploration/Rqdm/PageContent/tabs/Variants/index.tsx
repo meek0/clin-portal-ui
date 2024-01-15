@@ -2,8 +2,7 @@ import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { IQueryResults } from 'graphql/models';
-import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
-import { VariantType } from 'views/Prescriptions/Entity/context';
+import { ITableVariantEntity, VariantEntity, VariantType } from 'graphql/variants/models';
 import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
 import {
