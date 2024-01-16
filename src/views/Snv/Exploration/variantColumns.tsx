@@ -22,10 +22,10 @@ import {
   Gene,
   ITableVariantEntity,
   VariantEntity,
+  VariantType,
 } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
 import { capitalize } from 'lodash';
-import { VariantType } from 'views/Prescriptions/Entity/context';
 import ConsequencesCell from 'views/Snv/components/ConsequencesCell';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
@@ -200,7 +200,7 @@ const getCmcSampleMutatedCol = (variantType: VariantType, patientId?: string) =>
   title: intl.get('screen.patientsnv.results.table.cmc'),
   tooltip: intl.get('screen.patientsnv.results.table.cmc.tooltip'),
   width: 150,
-  defaultHidden: patientId && variantType !== VariantType.SOMATIC_TUMOR_ONLY ? true : false,
+  defaultHidden: patientId && variantType !== VariantType.SOMATIC ? true : false,
   sorter: {
     multiple: 1,
   },
@@ -244,7 +244,7 @@ const getCmcTier = (variantType: VariantType) => ({
   title: intl.get('screen.patientsnv.results.table.cmc_tier'),
   tooltip: intl.get('screen.patientsnv.results.table.cmc_tier.tooltip'),
   width: 70,
-  defaultHidden: variantType !== VariantType.SOMATIC_TUMOR_ONLY ? true : false,
+  defaultHidden: variantType !== VariantType.SOMATIC ? true : false,
   sorter: {
     multiple: 1,
   },
@@ -355,7 +355,7 @@ export const getVariantColumns = (
     },
   ];
 
-  if (patientId && variantType === VariantType.SOMATIC_TUMOR_ONLY) {
+  if (patientId && variantType === VariantType.SOMATIC) {
     columns.push({
       key: 'donors.bioinfo_analysis_code',
       title: intl.get('screen.patientsnv.results.table.bioinfo_analysis_code'),
@@ -487,7 +487,7 @@ export const getVariantColumns = (
       render: renderClinvar,
     },
   );
-  if (patientId && variantType === VariantType.SOMATIC_TUMOR_ONLY) {
+  if (patientId && variantType === VariantType.SOMATIC) {
     columns.push(
       { ...getHotspotCol() },
       { ...getCmcTier(variantType) },
@@ -495,7 +495,7 @@ export const getVariantColumns = (
     );
   }
 
-  if (patientId && variantType !== VariantType.SOMATIC_TUMOR_ONLY) {
+  if (patientId && variantType !== VariantType.SOMATIC) {
     columns.push(
       { ...getDonorsFranklinScore(patientId) },
       {
@@ -670,7 +670,7 @@ export const getVariantColumns = (
             renderDonorByKey('donors.parental_origin', findDonorById(record.donors, patientId)),
         },
       );
-    } else if (variantType === VariantType.SOMATIC_TUMOR_ONLY) {
+    } else if (variantType === VariantType.SOMATIC) {
       if (onlyExportTSV) {
         columns.push({
           key: 'cmc.sample_ratio',
@@ -769,7 +769,7 @@ export const getVariantColumns = (
     );
   }
 
-  if (variantType !== VariantType.SOMATIC_TUMOR_ONLY) {
+  if (variantType !== VariantType.SOMATIC) {
     columns.push({ ...getCmcSampleMutatedCol(variantType, patientId) });
     if (onlyExportTSV) {
       columns.push({

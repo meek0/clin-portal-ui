@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { VariantType } from 'graphql/variants/models';
 import capitalize from 'lodash/capitalize';
-import { VariantType } from 'views/Prescriptions/Entity/context';
 
 import { IAnnotationTrack, IIGVTrack } from '../components/Igv/type';
 import { FhirDoc, FhirDocContent, PatientFileResults } from '../graphql/patients/models/Patient';

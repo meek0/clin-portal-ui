@@ -902,7 +902,7 @@
   "screen.variantDetails.frequenciesTab.nbAllelesAltRef": "# Alleles (ALT + REF)",
   "screen.variantDetails.frequenciesTab.nbHomozygotes": "# Homozygotes",
   "screen.variantdetails.header.germline": "GERMLINE",
-  "screen.variantdetails.header.somatic_tumor_only": "SOMATIC",
+  "screen.variantdetails.header.somatic": "SOMATIC",
   "screen.variantDetails.panel.emptyTable": "No data Available",
   "screen.variantDetails.patientsTab.adAlt": "ALT",
   "screen.variantDetails.patientsTab.adAlt.tooltip": "Variant Allele Depth ALT",

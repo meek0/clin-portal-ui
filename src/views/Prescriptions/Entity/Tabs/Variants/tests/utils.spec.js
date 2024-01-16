@@ -23,8 +23,8 @@ describe('getVariantType', () => {
     expect(getVariantTypeFromServiceRequest({})).toEqual('germline');
     expect(getVariantTypeFromServiceRequest({ code: ['FOO'] })).toEqual('germline');
   });
-  test('should return somatic_tumor_only', () => {
-    expect(getVariantTypeFromServiceRequest({ code: ['EXTUM'] })).toEqual('somatic_tumor_only');
+  test('should return somatic', () => {
+    expect(getVariantTypeFromServiceRequest({ code: ['EXTUM'] })).toEqual('somatic');
   });
 });
 
@@ -34,16 +34,16 @@ describe('getVariantTypeFromSNVVariantEntity', () => {
     expect(getVariantTypeFromSNVVariantEntity({})).toEqual('germline');
     expect(
       getVariantTypeFromSNVVariantEntity({
-        donors: { hits: { edges: [{ node: { bioinfo_analysis_code: 'FOO' } }] } },
+        donors: { hits: { edges: [{ node: { variant_type: 'germline' } }] } },
       }),
     ).toEqual('germline');
   });
-  test('should return somatic_tumor_only', () => {
+  test('should return somatic', () => {
     expect(
       getVariantTypeFromSNVVariantEntity({
-        donors: { hits: { edges: [{ node: { bioinfo_analysis_code: 'TEBA' } }] } },
+        donors: { hits: { edges: [{ node: { variant_type: 'somatic' } }] } },
       }),
-    ).toEqual('somatic_tumor_only');
+    ).toEqual('somatic');
   });
 });
 
@@ -53,15 +53,15 @@ describe('getVariantTypeFromCNVVariantEntity', () => {
     expect(getVariantTypeFromCNVVariantEntity({})).toEqual('germline');
     expect(
       getVariantTypeFromCNVVariantEntity({
-        bioinfo_analysis_code: 'FOO',
+        variant_type: 'germline',
       }),
     ).toEqual('germline');
   });
-  test('should return somatic_tumor_only', () => {
+  test('should return somatic', () => {
     expect(
       getVariantTypeFromCNVVariantEntity({
-        bioinfo_analysis_code: 'TEBA',
+        variant_type: 'somatic',
       }),
-    ).toEqual('somatic_tumor_only');
+    ).toEqual('somatic');
   });
 });

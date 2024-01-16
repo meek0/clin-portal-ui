@@ -39,14 +39,14 @@ export const DEFAULT_QUERY_CONFIG: IQueryConfig & { weightedAverages?: WeightedA
 export enum FilterTypes {
   Rqdm,
   Variant_germline,
-  Variant_somatic_tumor_only,
+  Variant_somatic,
   Gene,
   Pathogenicity_germline,
-  Pathogenicity_somatic_tumor_only,
+  Pathogenicity_somatic,
   Frequency_germline,
-  Frequency_somatic_tumor_only,
+  Frequency_somatic,
   Occurrence_germline,
-  Occurrence_somatic_tumor_only,
+  Occurrence_somatic,
   Patient,
 }
 
