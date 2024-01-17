@@ -129,7 +129,7 @@ export type DonorsEntity = {
 export type Exomiser = {
   gene_combined_score: number;
   acmg_classification: string;
-  acmg_evidence: string;
+  acmg_evidence: string[];
 };
 
 export type ITableVariantEntity = VariantEntity & {
