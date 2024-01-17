@@ -185,7 +185,7 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Pathogénicité - Critères ACMG de Exomiser', () => {
-    cy.validateFacetFilter('Pathogénicité', 'Critères ACMG de Exomiser', 'BP4 Moderate,BP6', 'BP4_Moderate,BP6', /^1$/);
+    cy.validateFacetFilter('Pathogénicité', 'Critères ACMG de Exomiser', 'BP4 Moderate', 'BP4_Moderate', /^3$/);
     cy.validateFacetRank(4, 'Critères ACMG de Exomiser');
   });
 
