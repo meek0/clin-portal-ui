@@ -25,6 +25,9 @@ const VARIANT_QUERY_BASE_FIELDS = `
   start
   end
   hotspot
+  exomiser_max{
+    variant_score
+  }
   franklin_max {
     combined_score
     acmg_classification

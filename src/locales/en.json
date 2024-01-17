@@ -189,6 +189,8 @@
   "filters.group.external_frequencies.thousand_genomes.af.tooltip": "Values between [0-1]. The rarest variants will have a frequency close to 0.",
   "filters.group.external_frequencies.topmed_bravo.af": "TopMed Bravo",
   "filters.group.external_frequencies.topmed_bravo.af.tooltip": "Values between [0-1]. The rarest variants will have a frequency close to 0.",
+  "filters.group.exomiser_max.variant_score": "Exomiser Score (Variant)",
+  "filters.group.exomiser_max.variant_score.tooltip": "Score calculated by Exomiser based on variant characteristics only (without patient phenotypes)",
   "filters.group.filters": "Filter",
   "filters.group.franklin_max.acmg_classification": "Franklin ACMG",
   "filters.group.franklin_max.acmg_evidence": "Franklin ACMG Rules",
@@ -294,6 +296,12 @@
   "folder": "MRN",
   "footer.navigation.fhir": "Fhir",
   "footer.navigation.zepplin": "Zeppelin",
+  "exomiser_max":{
+    "table": {
+      "title":"Exo. (var)",
+      "tooltip":"Score calculated by Exomiser based on variant characteristics only (without patient phenotypes)"
+    }
+  },
   "franklin": {
     "filter":{
       "groupTitle": "Franklin",

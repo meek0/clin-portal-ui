@@ -779,9 +779,24 @@ export const getVariantColumns = (
       });
     }
     if (!patientId) {
-      columns.push({
-        ...getHotspotCol(),
-      });
+      columns.push(
+        {
+          ...getHotspotCol(),
+        },
+        {
+          key: 'exomiser_max.variant_score',
+          title: intl.get('exomiser_max.table.title'),
+          tooltip: intl.get('exomiser_max.table.tooltip'),
+          width: 95,
+          sorter: {
+            multiple: 1,
+          },
+          render: (record: VariantEntity) =>
+            record.exomiser_max?.variant_score
+              ? record.exomiser_max?.variant_score
+              : TABLE_EMPTY_PLACE_HOLDER,
+        },
+      );
     }
     columns.push({ ...getCmcTier(variantType) });
   }

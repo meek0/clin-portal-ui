@@ -127,6 +127,7 @@ const filterGroups: {
       {
         title: intl.get('predictions'),
         facets: [
+          'exomiser_max__variant_score',
           'consequences__predictions__cadd_phred',
           'consequences__predictions__cadd_score',
           'consequences__predictions__dann_score',
@@ -138,6 +139,7 @@ const filterGroups: {
           'consequences__predictions__revel_score',
         ],
         tooltips: [
+          'exomiser_max__variant_score',
           'consequences__predictions__cadd_phred',
           'consequences__predictions__cadd_score',
           'consequences__predictions__dann_score',
