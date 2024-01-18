@@ -3,7 +3,7 @@ import { capitalize } from 'lodash';
 
 const { Text } = Typography;
 
-const titleAndCodeExtractor = (value: string, codeSubstring: string) => {
+export const titleAndCodeExtractor = (value: string, codeSubstring: string) => {
   if (!value) {
     return null;
   }
