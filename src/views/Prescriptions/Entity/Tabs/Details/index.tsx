@@ -9,7 +9,7 @@ import { usePrescriptionEntityContext } from '../../context';
 import ParentCard from '../../ParentCard';
 import PatientCard from '../../PatientCard';
 
-import styles from './index.module.scss';
+import styles from '../index.module.scss';
 
 const PrescriptionDetails = () => {
   const { prescription, loading } = usePrescriptionEntityContext();
