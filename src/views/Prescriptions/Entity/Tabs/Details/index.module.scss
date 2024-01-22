@@ -5,7 +5,8 @@
   overflow: scroll;
 
   .content {
-    padding: 24px;
+    padding: $default-page-content-padding;
+    min-height: calc(100vh - #{$main-header-height} - #{$page-header-height} - #{$main-footer-height});
   }
 
   :global(.ant-card) {
