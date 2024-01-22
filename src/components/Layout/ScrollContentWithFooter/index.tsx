@@ -6,6 +6,7 @@ import ConditionalWrapper from 'components/utils/ConditionalWrapper';
 import Container from '../Container';
 import Footer from '../Footer';
 
+import sharedStyles from '../shared.module.scss';
 import styles from './index.module.scss';
 
 interface OwnProps {
@@ -26,8 +27,8 @@ const ScrollContentWithFooter = ({
       <ConditionalWrapper
         condition={container}
         wrapper={(children) => (
-          <div className={styles.containerWrapper}>
-            <Container className={styles.container}>{children}</Container>
+          <div className={sharedStyles.containerWrapper}>
+            <Container className={sharedStyles.container}>{children}</Container>
           </div>
         )}
       >

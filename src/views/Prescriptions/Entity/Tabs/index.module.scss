@@ -1,6 +1,6 @@
 @import 'src/style/themes/clin/layout';
 
-.prescriptionEntityFileWrapper {
+.prescriptionEntityWrapper, .prescriptionEntityFileWrapper {
   height: calc(100vh - #{$main-header-height} - #{$page-header-height});
   overflow: scroll;
 
