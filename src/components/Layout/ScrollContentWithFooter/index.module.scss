@@ -15,6 +15,7 @@
     flex-grow: 1;
     align-items: start;
     padding: $default-page-content-padding;
+    min-height: calc(100vh - #{$main-header-height} - #{$page-header-height} - #{$main-footer-height} - #{2 * $default-page-content-padding});
 
     .container {
       height: 100%;
