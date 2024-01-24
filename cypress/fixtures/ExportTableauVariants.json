@@ -14,6 +14,7 @@
               "cmc.sample_mutated",
               "cmc.sample_ratio",
               "hotspot",
+              "exomiser_max.variant_score",
               "cmc.tier"],
   "content": ["chrX:g.123403094G>A",
               "SNV",
@@ -30,5 +31,6 @@
               "3",
               "0.00006934171597633136",
               "--",
+              "0.9436",
               "Other"]
 }
