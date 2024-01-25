@@ -29,4 +29,9 @@ describe('Page des variants - Filtrer avec les facettes', () => {
     cy.validateFacetFilter('Patient', 'Sexe', 'Indéterminé', 'unknown', /^192 10\d{1}$/);
     cy.validateFacetRank(2, 'Sexe');
   });
+
+  it('Pathogénicité - Score Franklin (max)', () => {
+    cy.validateFacetNumFilter('Pathogénicité', 'Score Franklin (max)', '0.01', '1 298 772');
+    cy.validateFacetRank(3, 'Score Franklin (max)');
+  });
 });
