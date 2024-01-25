@@ -298,7 +298,7 @@
   "footer.navigation.zepplin": "Zeppelin",
   "exomiser_max":{
     "table": {
-      "title":"Exo. (var)",
+      "title":"Exo. (Var)",
       "tooltip":"Score calculated by Exomiser based on variant characteristics only (without patient phenotypes)"
     }
   },
