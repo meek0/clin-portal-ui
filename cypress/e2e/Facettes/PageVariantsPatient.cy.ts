@@ -75,9 +75,9 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(3, 'gnomAD LOEUF');
   });
 
-  it('Gène - OMIM (Transmission)', () => {
-    cy.validateFacetFilter('Gène', 'OMIM (Transmission)', 'Smu', 'Smu', /^683$/);
-    cy.validateFacetRank(4, 'OMIM (Transmission)');
+  it('Gène - OMIM (transmission)', () => {
+    cy.validateFacetFilter('Gène', 'OMIM (transmission)', 'Smu', 'Smu', /^683$/);
+    cy.validateFacetRank(4, 'OMIM (transmission)');
   });
 
   it('Gène - RQDM', () => {
@@ -194,9 +194,9 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(5, 'CADD (Phred)');
   });
 
-  it('Pathogénicité - CADD (Raw)', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'CADD (Raw)', '0.01', '180 151');
-    cy.validateFacetRank(6, 'CADD (Raw)');
+  it('Pathogénicité - CADD (raw)', () => {
+    cy.validateFacetNumFilter('Pathogénicité', 'CADD (raw)', '0.01', '180 151');
+    cy.validateFacetRank(6, 'CADD (raw)');
   });
 
   it('Pathogénicité - DANN', () => {

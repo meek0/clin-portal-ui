@@ -285,7 +285,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('Gène', 'RQDM', dictionnary);
   });
 
-  it('Gène - OMIM (Transmission)', () => {
+  it('Gène - OMIM (transmission)', () => {
     const dictionnary = ['AD',
                          'AR',
                          'DD',
@@ -315,7 +315,7 @@ describe('Page des variants - Dictionnaire', () => {
                          '?YL',
                          'No Data'];
 
-    cy.validateDictionnary('Gène', 'OMIM (Transmission)', dictionnary);
+    cy.validateDictionnary('Gène', 'OMIM (transmission)', dictionnary);
   });
 
   it('Pathogénicité - ClinVar', () => {
