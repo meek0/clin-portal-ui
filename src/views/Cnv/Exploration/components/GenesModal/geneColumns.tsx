@@ -23,7 +23,9 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
         multiple: 1,
       },
       render: (symbol: string) => (
-        <ExternalLink href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${symbol}`}>
+        <ExternalLink
+          href={`https://www.omim.org/search?index=entry&start=1&limit=10&sort=score+desc%2C+prefix_sort+desc&search=${symbol}`}
+        >
           {symbol}
         </ExternalLink>
       ),
@@ -109,7 +111,6 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
           },
           render: (record: GeneEntity) => {
             const type = getGeneOverlapType(record.overlap_gene_ratio, record.overlap_cnv_ratio);
-
             const Icon =
               type === GeneOverlapType.TYPE1
                 ? Type1Icon
