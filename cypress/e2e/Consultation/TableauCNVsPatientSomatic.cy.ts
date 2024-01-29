@@ -32,6 +32,11 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableDataRowKeyContent('e216d4e7a7164b39f0fba518c47d24da7097660d', 15, '25, 7');
   });
  
+  it('Valider l\'icône de sauvegarde des requêtes personnalisées [CLIN-2547]', () => {
+    cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'GAIN');
+    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-save"]').should('not.exist');
+  });
+ 
   it('Valider les liens disponibles', () => {
     cy.get('tr[data-row-key="e216d4e7a7164b39f0fba518c47d24da7097660d"]').contains(/^191$/).click({force: true});
     cy.contains('LOSS:chr1:450731-7249626').should('exist');

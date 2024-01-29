@@ -22,6 +22,7 @@ beforeEach(() => {
   cy.showColumn('Tier', 0);
   cy.showColumn('CADD', 0);
   cy.showColumn('REVEL', 0);
+  cy.showColumn('Crit. Fra.', 0);
 });
 
 describe('Page des variants d\'un patient - Consultation du tableau', () => {
@@ -42,36 +43,44 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 9, /^LB$/);
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 9, 'ant-tag-green');
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 9, 'ant-tag-lime');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 10, '0.9641');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 11, 'VUS');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 11, 'ant-tag-orange');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 12, '9.01e-4');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 12, 'GnomadCell_gnomadIndicator');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 13, '101');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 14, /^6$/);
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 14, /(4.\d{2}e-2)/);
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 15, '170');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 15, 'GQLine_high');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 16, 'Hem');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 16, 'ant-tag-blue');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 17, '0/1 : 0');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 18, '-');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 19, '-');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 20, 'XLR');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 21, '0.97');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 22, 'M');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 22, 'ant-tag-blue');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 23, '84');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 24, '84');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 25, '1.00');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 26, 'PASS');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 27, 'PP4, BP6_Strong');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 28, /^3$/);
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 28, '(6.93e-5)');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 29, 'Other');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 29, 'ant-tag-default');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 30, '2.56e+1');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 31, '-');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 10, '-');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 11, '0.9641');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 12, '-');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 13, 'VUS');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 13, 'ant-tag-orange');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 14, '9.01e-4');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 14, 'GnomadCell_gnomadIndicator');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 15, '101');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 16, /^6$/);
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 16, /(4.\d{2}e-2)/);
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 17, '170');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 17, 'GQLine_high');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 18, 'Hem');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 18, 'ant-tag-blue');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 19, '0/1 : 0');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 20, '-');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 21, '-');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 22, 'XLR');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 23, '0.97');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 24, 'M');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 24, 'ant-tag-blue');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 25, '84');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 26, '84');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 27, '1.00');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 28, 'PASS');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 29, 'PP4, BP6_Strong');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 30, /^3$/);
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 30, '(6.93e-5)');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 31, 'Other');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 31, 'ant-tag-default');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 32, '2.56e+1');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 33, '-');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 34, '-');
+  });
+ 
+  it('Valider l\'icône de sauvegarde des requêtes personnalisées [CLIN-2547]', () => {
+    cy.visitVariantsPage('?sharedFilterId=b07af6d5-dedc-4081-a218-b8893dba5dd4');
+    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-save"]').should('not.exist');
   });
  
   it('Valider les liens disponibles Lien UCSC', () => {
@@ -117,7 +126,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
   });
  
   it('Valider les liens disponibles Lien RQDM', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(14).find('a[href]').click({force: true});
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(16).find('a[href]').click({force: true});
     cy.validateTableResultsCount('6 Résultats');
   });
  
@@ -156,14 +165,34 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow('ZZZ3', 5);
   });
 
+  it('Valider les fonctionnalités du tableau - Tri Fra.', () => {
+    cy.get('[id="query-builder-header-tools"]').find('[data-icon="plus"]').click({force: true});
+    cy.waitWhileSpin(2000);
+
+    cy.sortTableAndIntercept('Fra.', 1);
+    cy.validateTableFirstRow('-', 10);
+    cy.sortTableAndIntercept('Fra.', 1);
+    cy.validateTableFirstRow('-', 10);
+  });
+
   it('Valider les fonctionnalités du tableau - Tri Exo.', () => {
     cy.get('[id="query-builder-header-tools"]').find('[data-icon="plus"]').click({force: true});
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('Exo.', 1);
-    cy.validateTableFirstRow('-', 10);
+    cy.validateTableFirstRow('-', 11);
     cy.sortTableAndIntercept('Exo.', 1);
-    cy.validateTableFirstRow('0.9641', 10);
+    cy.validateTableFirstRow('0.9641', 11);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri ACMG F.', () => {
+    cy.get('[id="query-builder-header-tools"]').find('[data-icon="plus"]').click({force: true});
+    cy.waitWhileSpin(2000);
+
+    cy.sortTableAndIntercept('ACMG F.', 1);
+    cy.validateTableFirstRow('-', 12);
+    cy.sortTableAndIntercept('ACMG F.', 1);
+    cy.validateTableFirstRow('VUS', 12);
   });
 
   it('Valider les fonctionnalités du tableau - Tri ACMG E.', () => {
@@ -171,9 +200,9 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('ACMG E.', 1);
-    cy.validateTableFirstRow('-', 11);
+    cy.validateTableFirstRow('-', 13);
     cy.sortTableAndIntercept('ACMG E.', 1);
-    cy.validateTableFirstRow('VUS', 11);
+    cy.validateTableFirstRow('VUS', 13);
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD', () => {
@@ -181,9 +210,9 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept(/^gnomAD $/, 1);
-    cy.validateTableFirstRow('-', 12);
+    cy.validateTableFirstRow('-', 14);
     cy.sortTableAndIntercept(/^gnomAD $/, 1);
-    cy.validateTableFirstRow('1.00e+0', 12);
+    cy.validateTableFirstRow('1.00e+0', 14);
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD ALT', () => {
@@ -191,9 +220,9 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('gnomAD ALT', 1);
-    cy.validateTableFirstRow('-', 13);
+    cy.validateTableFirstRow('-', 15);
     cy.sortTableAndIntercept('gnomAD ALT', 1);
-    cy.validateTableFirstRow('152 312', 13);
+    cy.validateTableFirstRow('152 312', 15);
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
@@ -201,72 +230,72 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('0.00e+0', 14);
+    cy.validateTableFirstRow('0.00e+0', 16);
     cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('1.00e+0', 14);
+    cy.validateTableFirstRow(/(1\.00e\+0|9\.\d{2}e\-1)/, 16);
   });
 
   it('Valider les fonctionnalités du tableau - Tri QG', () => {
     cy.sortTableAndIntercept('QG', 1);
-    cy.validateTableFirstRow(/^1$/, 15);
+    cy.validateTableFirstRow(/^1$/, 17);
     cy.sortTableAndIntercept('QG', 1);
-    cy.validateTableFirstRow('447', 15);
+    cy.validateTableFirstRow('447', 17);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Zyg.', () => {
     cy.sortTableAndIntercept('Zyg.', 1);
-    cy.validateTableFirstRow('Hem', 16);
+    cy.validateTableFirstRow('Hem', 18);
     cy.sortTableAndIntercept('Zyg.', 1);
-    cy.validateTableFirstRow('Hom', 16);
+    cy.validateTableFirstRow('Hom', 18);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Trans.', () => {
     cy.sortTableAndIntercept('Trans.', 1);
-    cy.validateTableFirstRow('-', 20);
+    cy.validateTableFirstRow('-', 22);
     cy.sortTableAndIntercept('Trans.', 1);
-    cy.validateTableFirstRow('XLR DNV', 20);
+    cy.validateTableFirstRow('XLR DNV', 22);
   });
 
   it('Valider les fonctionnalités du tableau - Tri QP', () => {
     cy.sortTableAndIntercept('QP', 1);
-    cy.validateTableFirstRow(/^0$/, 21);
+    cy.validateTableFirstRow(/^0$/, 23);
     cy.sortTableAndIntercept('QP', 1);
-    cy.validateTableFirstRow('34.99', 21);
+    cy.validateTableFirstRow('34.99', 23);
   });
 
   it('Valider les fonctionnalités du tableau - Tri OP', () => {
     cy.sortTableAndIntercept('OP', 1);
-    cy.validateTableFirstRow('-', 22);
+    cy.validateTableFirstRow('-', 24);
     cy.sortTableAndIntercept('OP', 1);
-    cy.validateTableFirstRow('UNK', 22);
+    cy.validateTableFirstRow('UNK', 24);
   });
 
   it('Valider les fonctionnalités du tableau - Tri A', () => {
     cy.sortTableAndIntercept(/^A$/, 1);
-    cy.validateTableFirstRow(/^3$/, 23);
+    cy.validateTableFirstRow(/^3$/, 25);
     cy.sortTableAndIntercept(/^A$/, 1);
-    cy.validateTableFirstRow('458', 23);
+    cy.validateTableFirstRow('458', 25);
   });
 
   it('Valider les fonctionnalités du tableau - Tri A+R', () => {
     cy.sortTableAndIntercept(/^A\+R$/, 1);
-    cy.validateTableFirstRow(/^3$/, 24);
+    cy.validateTableFirstRow(/^3$/, 26);
     cy.sortTableAndIntercept(/^A\+R$/, 1);
-    cy.validateTableFirstRow('631', 24);
+    cy.validateTableFirstRow('631', 26);
   });
 
   it('Valider les fonctionnalités du tableau - Tri A/(A+R)', () => {
     cy.sortTableAndIntercept('A/(A+R)', 1);
-    cy.validateTableFirstRow('0.05', 25);
+    cy.validateTableFirstRow('0.05', 27);
     cy.sortTableAndIntercept('A/(A+R)', 1);
-    cy.validateTableFirstRow('1.00', 25);
+    cy.validateTableFirstRow('1.00', 27);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Filtre', () => {
     cy.sortTableAndIntercept('Filtre', 1);
-    cy.validateTableFirstRow('DRAGENIndelHardQUAL', 26);
+    cy.validateTableFirstRow('DRAGENIndelHardQUAL', 28);
     cy.sortTableAndIntercept('Filtre', 1);
-    cy.validateTableFirstRow('PASS', 26);
+    cy.validateTableFirstRow('PASS', 28);
   });
 
   it('Valider les fonctionnalités du tableau - Tri CMC', () => {
@@ -274,9 +303,9 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('CMC', 1);
-    cy.validateTableFirstRow('-', 28);
+    cy.validateTableFirstRow('-', 30);
     cy.sortTableAndIntercept('CMC', 1);
-    cy.validateTableFirstRow('419', 28);
+    cy.validateTableFirstRow('419', 30);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Tier', () => {
@@ -284,9 +313,9 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('Tier', 1);
-    cy.validateTableFirstRow('-', 29);
+    cy.validateTableFirstRow('-', 31);
     cy.sortTableAndIntercept('Tier', 1);
-    cy.validateTableFirstRow('Other', 29);
+    cy.validateTableFirstRow('Other', 31);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

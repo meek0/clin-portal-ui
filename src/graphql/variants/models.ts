@@ -151,6 +151,7 @@ export type VariantEntity = {
     cosmic_id: string;
     tier: string;
   };
+  exomiser_max?: { variant_score: number };
   franklin_max: {
     combined_score: number;
     acmg_classification: string;

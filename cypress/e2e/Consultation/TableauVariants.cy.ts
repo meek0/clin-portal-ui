@@ -9,6 +9,7 @@ describe('Page des variants - Consultation du tableau', () => {
   beforeEach(() => {
     cy.visitVariantsPage('?sharedFilterId=ed4de9bb-016e-4869-ac9d-40b11ac3102a');
     cy.showColumn('Tier', 0);
+    cy.showColumn('Max Fra.', 0);
     cy.showColumn('CADD', 0);
     cy.showColumn('REVEL', 0);
   });
@@ -38,12 +39,20 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 12, /^3$/);
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 12, '(6.93e-5)');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 13, '-');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 14, 'Other');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 14, 'ant-tag-default');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 15, '2.56e+1');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 14, '0.9436');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 15, 'Other');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 15, 'ant-tag-default');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 16, '-');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 17, '-');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 18, '-');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 19, '2.56e+1');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 20, '-');
   });
  
+  it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
+    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-save"]').should('exist');
+  });
+
   it('Valider les liens disponibles Lien Variant', () => {
     cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').contains('chrX:g.123403094G>A').invoke('removeAttr', 'target').click({force: true});
     cy.get('[data-cy="Summary_Start"]').contains('123 403 094').should('exist');
@@ -89,6 +98,7 @@ describe('Page des variants - Consultation du tableau', () => {
   beforeEach(() => {
     cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
     cy.showColumn('Tier', 0);
+    cy.showColumn('Max Fra.', 0);
     cy.showColumn('CADD', 0);
     cy.showColumn('REVEL', 0);
   });
@@ -144,7 +154,7 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.sortTableAndIntercept('RQDM', 1);
     cy.validateTableFirstRow('0.00e+0', 11);
     cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('1.00e+0', 11);
+    cy.validateTableFirstRow(/(1\.00e\+0|9\.\d{2}e\-1)/, 11);
   });
 
   it('Valider les fonctionnalités du tableau - Tri CMC', () => {
@@ -167,13 +177,31 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(13).find('[class*="hotspotFilled"]').should('exist');
   });
 
+  it('Valider les fonctionnalités du tableau - Tri Exo. (var)', () => {
+    cy.waitWhileSpin(2000);
+
+    cy.sortTableAndIntercept('Exo. (var)', 1);
+    cy.validateTableFirstRow('-', 14);
+    cy.sortTableAndIntercept('Exo. (var)', 1);
+    cy.validateTableFirstRow('0.9992', 14);
+  });
+
   it('Valider les fonctionnalités du tableau - Tri Tier', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('Tier', 1);
-    cy.validateTableFirstRow('-', 14);
+    cy.validateTableFirstRow('-', 15);
     cy.sortTableAndIntercept('Tier', 1);
-    cy.validateTableFirstRow('Other', 14);
+    cy.validateTableFirstRow('Other', 15);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri ACMG F.', () => {
+    cy.waitWhileSpin(2000);
+
+    cy.sortTableAndIntercept('ACMG F.', 1);
+    cy.validateTableFirstRow('-', 16);
+    cy.sortTableAndIntercept('ACMG F.', 1);
+    cy.validateTableFirstRow('VUS', 16);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

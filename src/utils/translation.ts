@@ -402,6 +402,9 @@ export const getFacetsDictionarySNV = () => ({
       af: intl.get('filters.group.external_frequencies.thousand_genomes.af'),
     },
   },
+  exomiser_max: {
+    variant_score: intl.get('filters.group.exomiser_max.variant_score'),
+  },
   franklin_max: {
     acmg_classification: intl.get('franklin.filter.acmg_classification'),
     acmg_evidence: intl.get('franklin.filter.acmg_evidence'),
@@ -491,6 +494,9 @@ export const getFacetsDictionarySNV = () => ({
       thousand_genomes: {
         af: intl.get('filters.group.external_frequencies.thousand_genomes.af.tooltip'),
       },
+    },
+    exomiser_max: {
+      variant_score: intl.get('filters.group.exomiser_max.variant_score.tooltip'),
     },
     franklin_max: {
       combined_score: intl.get('franklin.filter.tooltip.max_score'),

@@ -78,29 +78,50 @@ describe('Page des variants - Colonnes du tableau', () => {
       .find('[data-icon="fire"]').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
+      .find('th[class*="ant-table-cell"]').eq(14)
+      .should('have.class', 'ant-table-column-has-sorters')
+      .contains('Exo. (var)').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
       .contains('Tier').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(13)
+      .find('div[class="ant-space-item"]').eq(14)
       .contains('Tier').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .find('th[class*="ant-table-cell"]').eq(15)
+      .should('have.class', 'ant-table-column-has-sorters')
+      .contains('ACMG F.').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .contains('Max Fra.').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(16)
+      .contains('Max Fra.').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .find('th[class*="ant-table-cell"]').eq(16)
+      .should('not.have.class', 'ant-table-column-has-sorters')
+      .contains('Crit. Fra.').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('CADD').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(14)
+      .find('div[class="ant-space-item"]').eq(18)
       .contains('CADD').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('REVEL').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(15)
+      .find('div[class="ant-space-item"]').eq(19)
       .contains('REVEL').should('exist');
 /* CLICE-120
     cy.get('thead[class="ant-table-thead"]')
       .contains('CADD (Phred)').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(16)
+      .find('div[class="ant-space-item"]').eq(20)
       .contains('CADD (Phred)').should('exist');*/
-  });
+    });
 
   it('Masquer une colonne affichée', () => {
     cy.get('thead[class="ant-table-thead"]')

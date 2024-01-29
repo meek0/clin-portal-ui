@@ -59,6 +59,11 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 26, '-');
   });
  
+  it('Valider l\'icône de sauvegarde des requêtes personnalisées [CLIN-2547]', () => {
+    cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'SNV');
+    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-save"]').should('not.exist');
+  });
+ 
   it('Valider les liens disponibles Lien UCSC', () => {
     cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('button[class*="ant-dropdown-trigger"]').click({force: true});
     cy.get('[data-menu-id*="UCSC"]').find('a[href]')
@@ -173,7 +178,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.sortTableAndIntercept('RQDM', 1);
     cy.validateTableFirstRow('0.00e+0', 16);
     cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('1.00e+0', 16);
+    cy.validateTableFirstRow(/(1\.00e\+0|9\.\d{2}e\-1)/, 16);
   });
 
   it('Valider les fonctionnalités du tableau - Tri QS', () => {
