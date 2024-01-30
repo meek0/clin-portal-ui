@@ -403,6 +403,12 @@ export const getFacetsDictionarySNV = () => ({
     },
   },
   exomiser_max: {
+<<<<<<< HEAD
+=======
+    acmg_classification: intl.get('filters.group.exomiser_max.acmg_classification'),
+    acmg_evidence: intl.get('filters.group.exomiser_max.acmg_evidence'),
+    gene_combined_score: intl.get('filters.group.exomiser_max.gene_combined_score'),
+>>>>>>> 8222a97b5... feat: CLIN-2483 ajustement colonnes part 6
     variant_score: intl.get('filters.group.exomiser_max.variant_score'),
   },
   franklin_max: {
@@ -496,6 +502,12 @@ export const getFacetsDictionarySNV = () => ({
       },
     },
     exomiser_max: {
+<<<<<<< HEAD
+=======
+      acmg_classification: intl.get('filters.group.exomiser_max.acmg_classification.tooltip'),
+      acmg_evidence: intl.get('filters.group.exomiser_max.acmg_evidence.tooltip'),
+      gene_combined_score: intl.get('filters.group.exomiser_max.gene_combined_score.tooltip'),
+>>>>>>> 8222a97b5... feat: CLIN-2483 ajustement colonnes part 6
       variant_score: intl.get('filters.group.exomiser_max.variant_score.tooltip'),
     },
     franklin_max: {

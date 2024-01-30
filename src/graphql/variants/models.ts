@@ -157,6 +157,11 @@ export type VariantEntity = {
     combined_score: number;
     acmg_classification: string;
     acmg_evidence: string[];
+    link: string;
+  };
+  exomiser_max: {
+    gene_combined_score: number;
+    acmg_classification: string;
   };
   variant_type: VariantType[];
   frequency_RQDM: frequency_RQDMEntity;

@@ -104,6 +104,30 @@
   "duplication": "Duplication",
   "ensemblID": "Ensembl ID",
   "exomiser": "Exomiser",
+  "exomiser_max": {
+    "combined_score": {
+      "title": "Max Exo.",
+      "tooltip": "Score Exomiser (Max)"
+    },
+    "acmg_classification": {
+      "abrv": {
+        "PATHOGENIC": "P",
+        "LIKELY_PATHOGENIC": "LP",
+        "UNCERTAIN_SIGNIFICANCE": "VUS",
+        "LIKELY_BENIGN": "LB",
+        "BENIGN": "B"
+      },
+      "value":{
+        "PATHOGENIC": "Pathogenic",
+        "LIKELY_PATHOGENIC": "Likely Pathogenic",
+        "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+        "LIKELY_BENIGN": "Likely Benign",
+        "BENIGN": "Benign"
+      },
+      "title": "ACMG E.",
+      "tooltip": "Classification Exomiser ACMG la plus élevé parmi tous les patients pour ce variant"
+    }
+  },
   "family": "famille",
   "father": "père",
   "female": "Femme",
@@ -190,6 +214,12 @@
   "filters.group.external_frequencies.thousand_genomes.af.tooltip": "Valeurs entre [0-1]. Les variants les plus rares auront une fréquence proche de 0.",
   "filters.group.external_frequencies.topmed_bravo.af": "TopMed Bravo",
   "filters.group.external_frequencies.topmed_bravo.af.tooltip": "Valeurs entre [0-1]. Les variants les plus rares auront une fréquence proche de 0.",
+  "filters.group.exomiser_max.acmg_classification": "ACMG de Exomiser (Max)",
+  "filters.group.exomiser_max.acmg_classification.tooltip": "Classification Exomiser ACMG la plus élevé parmi tous les patients pour ce variant",
+  "filters.group.exomiser_max.acmg_evidence": "Critères ACMG de Exomiser (Max)",
+  "filters.group.exomiser_max.acmg_evidence.tooltip": "Critères Exomiser ACMG les plus élevés parmi tous les patients pour ce variant.",
+  "filters.group.exomiser_max.gene_combined_score": "Score Exomiser",
+  "filters.group.exomiser_max.gene_combined_score.tooltip": "Exomiser score du patient ayant le score gene_combined_score le plus élevé.",
   "filters.group.exomiser_max.variant_score": "Score Exomiser (variant)",
   "filters.group.exomiser_max.variant_score.tooltip": "Score calculé par Exomiser en fonction des caractéristiques du variant seulement (sans les phénotypes du patient)",
   "filters.group.filters": "Filtre",

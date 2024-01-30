@@ -11,6 +11,8 @@ import {
   renderCaddPhredToString,
   renderClinvarToString,
   renderDonorToString,
+  renderExomiserAcmg_ClassificationToString,
+  renderExomiserScoreToString,
   renderFranklinAcmg_ClassificationToString,
   renderFranklinAcmg_evidenceToString,
   renderFranklinScoreToString,
@@ -94,6 +96,10 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderGnomADAFToString(row));
     } else if (key === 'external_frequencies.gnomad_genomes_3_1_1.ac') {
       return convertToPlain(renderGnomADACToString(row));
+    } else if (key === 'exomiser_max.gene_combined_score') {
+      return convertToPlain(renderExomiserScoreToString(row));
+    } else if (key === 'exomiser_max.acmg_classification') {
+      return convertToPlain(renderExomiserAcmg_ClassificationToString(row));
     } else if (key === 'frequency_RQDM.total.pf') {
       return convertToPlain(renderRQDMToString(row));
     } else if (key === 'frequency_RQDM.total.pc') {

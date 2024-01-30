@@ -113,6 +113,19 @@ const filterGroups: {
         facets: ['clinvar__clin_sig'],
       },
       {
+        title: intl.get('exomiser'),
+        facets: [
+          'exomiser_max__gene_combined_score',
+          'exomiser_max__acmg_classification',
+          'exomiser_max__acmg_evidence',
+        ],
+        tooltips: [
+          'exomiser_max__gene_combined_score',
+          'exomiser_max__acmg_classification',
+          'exomiser_max__acmg_evidence',
+        ],
+      },
+      {
         title: intl.get('franklin.filter.groupTitle'),
         facets: [
           'franklin_max__acmg_classification',

@@ -180,10 +180,6 @@ const filterGroups: {
         facets: ['clinvar__clin_sig', 'consequences__vep_impact'],
       },
       {
-        title: intl.get('exomiser'),
-        facets: ['donors__exomiser__acmg_evidence'],
-      },
-      {
         title: intl.get('predictions'),
         facets: [
           'consequences__predictions__cadd_phred',

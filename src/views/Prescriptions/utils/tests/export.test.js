@@ -124,7 +124,7 @@ describe('customMapping SNV', () => {
               node: {
                 patient_id: 'p1',
                 exomiser: {
-                  gene_combined_score: 0.42,
+                  gene_combined_score: 0.4234,
                   acmg_classification: 'foo_bar',
                   acmg_evidence: null,
                 },
@@ -134,7 +134,7 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'donors.exomiser.gene_combined_score', row, 'p1')).toEqual('0.42');
+    expect(customMapping('SNV', 'donors.exomiser.gene_combined_score', row, 'p1')).toEqual('0.423');
     expect(customMapping('SNV', 'donors.exomiser.acmg_classification', row, 'p1')).toEqual(
       'Foo Bar',
     );
