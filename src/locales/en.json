@@ -103,30 +103,6 @@
   "duplication": "Duplication",
   "ensemblID": "Ensembl ID",
   "exomiser": "Exomiser",
-  "exomiser_max": {
-    "combined_score": {
-      "title": "Max Exo.",
-      "tooltip": "Exomiser Score (Max)"
-    },
-    "acmg_classification": {
-      "abrv": {
-        "PATHOGENIC": "P",
-        "LIKELY_PATHOGENIC": "LP",
-        "UNCERTAIN_SIGNIFICANCE": "VUS",
-        "LIKELY_BENIGN": "LB",
-        "BENIGN": "B"
-      },
-      "value":{
-        "PATHOGENIC": "Pathogenic",
-        "LIKELY_PATHOGENIC": "Likely Pathogenic",
-        "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
-        "LIKELY_BENIGN": "Likely Benign",
-        "BENIGN": "Benign"
-      },
-      "title": "ACMG E.",
-      "tooltip": "Highest Exomiser ACMG classification among all patients for this variant."
-    }
-  },
   "family": "family",
   "father": "father",
   "female": "Female",
@@ -330,6 +306,28 @@
     "table": {
       "title":"Exo. (Var)",
       "tooltip":"Score calculated by Exomiser based on variant characteristics only (without patient phenotypes)"
+    },
+    "combined_score": {
+      "title": "Max Exo.",
+      "tooltip": "Exomiser Score (Max)"
+    },
+    "acmg_classification": {
+      "abrv": {
+        "PATHOGENIC": "P",
+        "LIKELY_PATHOGENIC": "LP",
+        "UNCERTAIN_SIGNIFICANCE": "VUS",
+        "LIKELY_BENIGN": "LB",
+        "BENIGN": "B"
+      },
+      "value":{
+        "PATHOGENIC": "Pathogenic",
+        "LIKELY_PATHOGENIC": "Likely Pathogenic",
+        "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+        "LIKELY_BENIGN": "Likely Benign",
+        "BENIGN": "Benign"
+      },
+      "title": "ACMG E.",
+      "tooltip": "Highest Exomiser ACMG classification among all patients for this variant."
     }
   },
   "franklin": {
