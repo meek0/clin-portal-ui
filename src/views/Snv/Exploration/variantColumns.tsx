@@ -39,6 +39,7 @@ import { formatNumber } from 'utils/formatNumber';
 import GqLine from '../components/GQLine';
 import { HcComplementDescription } from '../components/OccurrenceDrawer/HcDescription';
 import { TAB_ID } from '../Entity';
+import { ZygosityValue } from '../utils/constant';
 
 import GnomadCell from './components/Gnomad/GnomadCell';
 import ManeCell from './components/ManeCell';
@@ -228,13 +229,7 @@ const getDonorZygosity = (patientId: string) => ({
   },
   render: (record: ArrangerResultsTree<DonorsEntity>) => {
     const zyg = renderDonorByKey('donors.zygosity', findDonorById(record, patientId)) as string;
-    const zygValue: Record<any, string> = {
-      HET: '0/1',
-      HOM: '1/1',
-      HEM: '1',
-    };
-
-    return zygValue[zyg];
+    return ZygosityValue[zyg];
   },
 });
 
@@ -957,9 +952,11 @@ const renderFranklinAcmg_Classification = (acmg?: string, link?: string) =>
         .defaultMessage(removeUnderscoreAndCapitalize(acmg || ''))}
     >
       <Tag color={ACMGFranklinColorMap[acmg]}>
+        link ?
         <ExternalLink href={link}>
           {intl.get(`franklin.acmg_classification.abrv.${acmg}`)}
         </ExternalLink>
+        : {intl.get(`franklin.acmg_classification.abrv.${acmg}`)}
       </Tag>
     </Tooltip>
   ) : (

@@ -54,3 +54,9 @@ export const GeneSearchFieldsMapping = {
   [SuggestionType.GENES]: 'consequences.symbol',
   [SuggestionType.VARIANTS]: 'locus',
 };
+
+export const ZygosityValue: Record<any, string> = {
+  HET: '0/1',
+  HOM: '1/1',
+  HEM: '1',
+};
