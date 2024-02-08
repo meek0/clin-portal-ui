@@ -20,7 +20,7 @@ const GenesModal = ({ variantEntity, isOpen = false, toggleModal }: OwnProps) =>
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
 
   const data = variantEntity?.genes.hits.edges.map((gene: any, index: number) => ({
-    key: `${index}`,
+    key: `${variantEntity?.genes.hits.edges[index].node.symbol}`,
     ...gene.node,
   }));
 
