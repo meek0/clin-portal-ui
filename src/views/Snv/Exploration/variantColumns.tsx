@@ -145,7 +145,11 @@ const getFranklinScore = () => ({
   key: 'franklin_max.combined_score',
   title: intl.get('franklin.combined_score.title'),
   tooltip: intl.get('franklin.combined_score.tooltip'),
+  className: `${style.variantTableHeaderCellNowrap}`,
   width: 80,
+  sorter: {
+    multiple: 1,
+  },
   defaultHidden: true,
   render: (record: VariantEntity) =>
     record?.franklin_max?.acmg_evidence
