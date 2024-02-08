@@ -311,7 +311,7 @@
       "max_score": "Score Franklin (Max)",
       "tooltip": {
         "donor_score": "Franklin score based on variant properties and patient phenotypes",
-        "max_score": "Highest Franklin score among all patients for this variant."
+        "max_score": "Highest Franklin score among all patients for this variant"
       }
     },
     "donors": {
@@ -343,12 +343,12 @@
       }
     } ,
     "acmg_evidence": {
-      "title":"Fra. Rules.",
-      "tooltip": "Franklin ACMG rules"
+      "title":"Fra. Rules",
+      "tooltip": "Franklin ACMG Rules"
     },
     "combined_score":{
       "title":"Max Fra.",
-      "tooltip": "Highest Franklin score among all patients for this variant."
+      "tooltip": "Highest Franklin score among all patients for this variant"
     }
   },
   "global.errors.backHome": "Go to home page",
