@@ -125,6 +125,7 @@ export const VARIANT_QUERY = gql`
                 total
                 edges {
                   node {
+                    aliquot_id
                     patient_id
                     organization_id
                     gender
@@ -546,6 +547,7 @@ export const TAB_PATIENT_QUERY = gql`
                 total
                 edges {
                   node {
+                    aliquot_id
                     patient_id
                     organization_id
                     analysis_code

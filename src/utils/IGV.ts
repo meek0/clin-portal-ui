@@ -34,8 +34,18 @@ const getPresignedUrl = (file: string, rpt: string) =>
     })
     .then((response) => response.data.url);
 
-const findDoc = (files: PatientFileResults, docType: string): FhirDoc | undefined =>
-  files.docs.find((doc) => doc.type === docType);
+const findDoc = (
+  files: PatientFileResults,
+  docType: string,
+  aliquot_id?: string,
+): FhirDoc | undefined => {
+  const e = files.docs.find(
+    (doc) =>
+      doc.type === docType &&
+      doc.content.some((c) => !aliquot_id || c.attachment.title.startsWith(aliquot_id)),
+  );
+  return e;
+};
 
 const findFiles = (doc: FhirDoc, mainType: string, indexType: string): ITrackFiles => ({
   mainFile: doc?.content!.find((content) => content.format === mainType)?.attachment.url,
@@ -66,8 +76,9 @@ export const generateTracks = (
   gender: GENDER,
   position: PATIENT_POSITION | PARENT_TYPE,
   rpt: string,
+  aliquotId?: string,
 ): IIGVTrack[] => {
-  const cramDoc = findDoc(files, FHIR_CRAM_CRAI_DOC_TYPE);
+  const cramDoc = findDoc(files, FHIR_CRAM_CRAI_DOC_TYPE, aliquotId);
   const cramFiles = findFiles(cramDoc!, FHIR_CRAM_TYPE, FHIR_CRAI_TYPE);
 
   const vcfDoc = findDoc(
@@ -75,10 +86,11 @@ export const generateTracks = (
     variantType === VariantType.GERMLINE
       ? FHIR_GERMLINE_VCF_TBI_DOC_TYPE
       : FHIR_SOMATIC_VCF_TBI_DOC_TYPE,
+    aliquotId,
   );
   const vcfFiles = findFiles(vcfDoc!, FHIR_VCF_TYPE, FHIR_TBI_TYPE);
 
-  const segDoc = findDoc(files, FHIR_IGV_DOC_TYPE);
+  const segDoc = findDoc(files, FHIR_IGV_DOC_TYPE, aliquotId);
 
   const newTracks: any = [];
   segDoc?.content.forEach(({ format, attachment }) => {
@@ -140,8 +152,9 @@ export const getHyperXenomeTrack = (
   gender: GENDER,
   position: PATIENT_POSITION | PARENT_TYPE,
   rpt: string,
+  aliquot_id?: string,
 ): IAnnotationTrack | null => {
-  const doc = findDoc(files, FHIR_IGV_DOC_TYPE);
+  const doc = findDoc(files, FHIR_IGV_DOC_TYPE, aliquot_id);
   if (!doc) return null;
 
   const { attachment } = doc?.content.find(({ attachment }) =>
