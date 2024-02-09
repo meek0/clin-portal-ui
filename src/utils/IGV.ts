@@ -42,7 +42,7 @@ const findDoc = (
   const e = files.docs.find(
     (doc) =>
       doc.type === docType &&
-      doc.content.some((c) => !aliquot_id || c.attachment.title.startsWith(aliquot_id)),
+      (!aliquot_id || doc.content.some((c) => c.attachment?.title?.startsWith(aliquot_id))),
   );
   return e;
 };
