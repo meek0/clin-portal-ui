@@ -860,9 +860,9 @@ export const getVariantColumns = (
   });
   if (!patientId) {
     columns.push(
-      { ...getFranklinAcmgClassification() },
       { ...getFranklinScore() },
       { ...getExomiserScore() },
+      { ...getFranklinAcmgClassification() },
       { ...getExomiserAcmgClassification() },
       { ...getFranklinAcmgEvidence(patientId) },
     );
@@ -944,24 +944,24 @@ const renderAcmgExo = (acmg?: string) =>
     TABLE_EMPTY_PLACE_HOLDER
   );
 
-const renderFranklinAcmg_Classification = (acmg?: string, link?: string) =>
-  acmg ? (
+const renderFranklinAcmg_Classification = (acmg?: string, link?: string) => {
+  const value = link ? (
+    <ExternalLink href={link}>{intl.get(`franklin.acmg_classification.abrv.${acmg}`)}</ExternalLink>
+  ) : (
+    intl.get(`franklin.acmg_classification.abrv.${acmg}`)
+  );
+  return acmg ? (
     <Tooltip
       title={intl
         .get(`franklin.acmg_classification.value.${acmg}`)
         .defaultMessage(removeUnderscoreAndCapitalize(acmg || ''))}
     >
-      <Tag color={ACMGFranklinColorMap[acmg]}>
-        link ?
-        <ExternalLink href={link}>
-          {intl.get(`franklin.acmg_classification.abrv.${acmg}`)}
-        </ExternalLink>
-        : {intl.get(`franklin.acmg_classification.abrv.${acmg}`)}
-      </Tag>
+      <Tag color={ACMGFranklinColorMap[acmg]}>{value}</Tag>
     </Tooltip>
   ) : (
     TABLE_EMPTY_PLACE_HOLDER
   );
+};
 
 const renderFranklinAcmg_evidence = (acmg?: string[]) =>
   acmg && acmg.length > 0 ? acmg.join(', ') : TABLE_EMPTY_PLACE_HOLDER;

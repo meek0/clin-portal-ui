@@ -302,6 +302,16 @@ export const dictionaries: Record<string, string[]> = {
     'BP6',
     ArrangerValues.missing,
   ],
+  'exomiser_max.acmg_evidence': [
+    'PVS1',
+    'PM2',
+    'PP3',
+    'PP5',
+    'BA1',
+    'BP4',
+    'BP6',
+    ArrangerValues.missing,
+  ],
   hotspot: ['0', '1', ArrangerValues.missing],
   // Occurrence
   'donors.zygosity': ['HOM', 'HEM', 'HET'],
