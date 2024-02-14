@@ -47,6 +47,7 @@ const buildTracks = (
       donor.gender as GENDER,
       donor.is_proband ? PATIENT_POSITION.PROBAND : PATIENT_POSITION.PARENT,
       rpt,
+      donor.aliquot_id,
     ),
   );
 
@@ -116,6 +117,7 @@ const IGVModal = ({ donor, variantEntity, isOpen = false, toggleModal, rpt }: Ow
               donor.gender as GENDER,
               donor.is_proband ? PATIENT_POSITION.PROBAND : PATIENT_POSITION.PARENT,
               rpt,
+              donor.aliquot_id,
             )}
           />
         )
