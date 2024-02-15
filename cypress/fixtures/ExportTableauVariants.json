@@ -15,7 +15,14 @@
               "cmc.sample_ratio",
               "hotspot",
               "exomiser_max.variant_score",
-              "cmc.tier"],
+              "cmc.tier",
+              "franklin_max.combined_score",
+              "exomiser_max.gene_combined_score",
+              "franklin_max.acmg_classification",
+              "exomiser_max.acmg_classification",
+              "franklin_max.acmg_evidence",
+              "consequences.predictions.cadd_phred",
+              "consequences.predictions.revel_score"],
   "content": ["chrX:g.123403094G>A",
               "SNV",
               "rs138817389",
@@ -32,5 +39,8 @@
               "0.00006934171597633136",
               "--",
               "0.9436",
-              "Other"]
+              "Other",
+              "0.964",
+              "VUS",
+              "2.56e+1"]
 }

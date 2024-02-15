@@ -44,7 +44,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 9, 'ant-tag-green');
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 9, 'ant-tag-lime');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 10, '-');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 11, '0.9641');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 11, '0.964');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 12, '-');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 13, 'VUS');
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 13, 'ant-tag-orange');
@@ -55,8 +55,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 16, /(4.\d{2}e-2)/);
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 17, '170');
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 17, 'GQLine_high');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 18, 'Hem');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 18, 'ant-tag-blue');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 18, /^1$/);
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 19, '0/1 : 0');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 20, '-');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 21, '-');
@@ -78,9 +77,10 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 34, '-');
   });
  
-  it('Valider l\'icône de sauvegarde des requêtes personnalisées [CLIN-2547]', () => {
-    cy.visitVariantsPage('?sharedFilterId=b07af6d5-dedc-4081-a218-b8893dba5dd4');
+  it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd3eefb82-edcc-42f1-a4e6-28808bd06f34');
     cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-save"]').should('not.exist');
+    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-copy"]').should('exist');
   });
  
   it('Valider les liens disponibles Lien UCSC', () => {
@@ -123,6 +123,12 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
   it('Valider les liens disponibles Lien ClinVar', () => {
     cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(9).find('a[href]').eq(1)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/198752');
+  });
+ 
+  it('Valider les liens disponibles Lien ACMG F.', () => {
+    cy.sortTableAndIntercept('ACMG F.', 1);
+    cy.sortTableAndIntercept('ACMG F.', 1);
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(12).find('a[href]').should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/snp/chr1-248441241-C-T-HG38');
   });
  
   it('Valider les liens disponibles Lien RQDM', () => {
@@ -182,7 +188,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.sortTableAndIntercept('Exo.', 1);
     cy.validateTableFirstRow('-', 11);
     cy.sortTableAndIntercept('Exo.', 1);
-    cy.validateTableFirstRow('0.9641', 11);
+    cy.validateTableFirstRow('0.964', 11);
   });
 
   it('Valider les fonctionnalités du tableau - Tri ACMG F.', () => {
@@ -244,9 +250,9 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
 
   it('Valider les fonctionnalités du tableau - Tri Zyg.', () => {
     cy.sortTableAndIntercept('Zyg.', 1);
-    cy.validateTableFirstRow('Hem', 18);
+    cy.validateTableFirstRow(/^1$/, 18);
     cy.sortTableAndIntercept('Zyg.', 1);
-    cy.validateTableFirstRow('Hom', 18);
+    cy.validateTableFirstRow('1/1', 18);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Trans.', () => {

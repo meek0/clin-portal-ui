@@ -89,37 +89,48 @@ describe('Page des variants - Colonnes du tableau', () => {
       .contains('Tier').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
+      .contains('Max Fra.').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(15)
+      .contains('Max Fra.').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .contains('Max Exo.').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(16)
+      .contains('Max Exo.').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(15)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('ACMG F.').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('Max Fra.').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(16)
-      .contains('Max Fra.').should('exist');
+      .find('th[class*="ant-table-cell"]').eq(16)
+      .should('have.class', 'ant-table-column-has-sorters')
+      .contains('ACMG E.').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(16)
+      .find('th[class*="ant-table-cell"]').eq(17)
       .should('not.have.class', 'ant-table-column-has-sorters')
       .contains('Crit. Fra.').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('CADD').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(18)
+      .find('div[class="ant-space-item"]').eq(20)
       .contains('CADD').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('REVEL').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(19)
+      .find('div[class="ant-space-item"]').eq(21)
       .contains('REVEL').should('exist');
 /* CLICE-120
     cy.get('thead[class="ant-table-thead"]')
       .contains('CADD (Phred)').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(20)
+      .find('div[class="ant-space-item"]').eq(22)
       .contains('CADD (Phred)').should('exist');*/
     });
 

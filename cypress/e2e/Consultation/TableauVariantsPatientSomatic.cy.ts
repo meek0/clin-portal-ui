@@ -13,7 +13,6 @@ beforeEach(() => {
   cy.showColumn('A+R', 0);
   cy.showColumn('A/(A+R)', 0);
   cy.showColumn('Filtre', 0);
-  cy.showColumn('Crit. Exo.', 0);
   cy.showColumn('CADD', 0);
   cy.showColumn('REVEL', 0);
 });
@@ -36,32 +35,31 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 9, 'ant-tag-blue');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 10, /^B$/);
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 10, 'ant-tag-green');
-    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 11, 'hotspotOutlined'); /////////////////
-    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 12, 'Other'); ////////////////
+    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 11, 'hotspotOutlined');
+    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 12, 'Other');
     cy.validateTableDataRowKeyClass('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 12, 'ant-tag-default');
-    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 13, /^1$/); ////////////////////
+    cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 13, /^1$/);
     cy.validateTableDataRowKeyContent('bdc7b7f2fba4aef570b1ac84217fe870f14261db', 13, '(2.31e-5)');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 14, '9.91e-1'); ////////////////
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 14, '9.91e-1');
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 14, 'GnomadCell_gnomadIndicatorDefault');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 15, '150 926');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 16, /^128$/);
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 16, /(\d{1}.\d{2}e(-|\+)\d{1})/);
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 17, '64.73');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 18, 'Het');
-    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 18, 'ant-tag-blue');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 18, '0/1');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 19, '-');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 20, '321');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 21, '321');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 22, '1.00');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 23, 'PASS');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 24, '-');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 25, '4.00e+0');
-    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 26, '-');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 24, '4.00e+0');
+    cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 25, '-');
   });
  
-  it('Valider l\'icône de sauvegarde des requêtes personnalisées [CLIN-2547]', () => {
+  it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'SNV');
     cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-save"]').should('not.exist');
+    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-copy"]').should('exist');
   });
  
   it('Valider les liens disponibles Lien UCSC', () => {
@@ -190,9 +188,9 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
 
   it('Valider les fonctionnalités du tableau - Tri Zyg.', () => {
     cy.sortTableAndIntercept('Zyg.', 1);
-    cy.validateTableFirstRow('Het', 18);
+    cy.validateTableFirstRow('0/1', 18);
     cy.sortTableAndIntercept('Zyg.', 1);
-    cy.validateTableFirstRow('Het', 18);
+    cy.validateTableFirstRow('0/1', 18);
   });
 
   it('Valider les fonctionnalités du tableau - Tri QP', () => {

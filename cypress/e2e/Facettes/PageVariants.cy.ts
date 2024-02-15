@@ -30,8 +30,23 @@ describe('Page des variants - Filtrer avec les facettes', () => {
     cy.validateFacetRank(2, 'Sexe');
   });
 
+  it('Pathogénicité - Score Exomiser (max)', () => {
+    cy.validateFacetNumFilter('Pathogénicité', 'Score Exomiser (max)', '0.01', '1 298 759');
+    cy.validateFacetRank(1, 'Score Exomiser (max)');
+  });
+
+  it('Pathogénicité - ACMG de Exomiser (max)', () => {
+    cy.validateFacetFilter('Pathogénicité', 'ACMG de Exomiser (max)', 'Uncertain Significance', 'UNCERTAIN_SIGNIFICANCE', /^15$/);
+    cy.validateFacetRank(2, 'ACMG de Exomiser (max)');
+  });
+
+  it('Pathogénicité - Critères ACMG de Exomiser (max)', () => {
+    cy.validateFacetFilter('Pathogénicité', 'Critères ACMG de Exomiser (max)', 'PP4', 'PP4', /^5$/);
+    cy.validateFacetRank(3, 'Critères ACMG de Exomiser (max)');
+  });
+
   it('Pathogénicité - Score Franklin (max)', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'Score Franklin (max)', '0.01', '1 298 772');
-    cy.validateFacetRank(3, 'Score Franklin (max)');
+    cy.validateFacetNumFilter('Pathogénicité', 'Score Franklin (max)', '0.01', /^1 298 772$/);
+    cy.validateFacetRank(6, 'Score Franklin (max)');
   });
 });

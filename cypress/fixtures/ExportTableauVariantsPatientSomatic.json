@@ -22,8 +22,7 @@
               "donors.ad_alt",
               "donors.ad_total",
               "donors.ad_ratio",
-              "donors.filters",
-              "donors.exomiser.acmg_evidence"],
+              "donors.filters"],
   "content": ["chr10:g.1096268T>C",
               "SNV",
               "TO",
@@ -38,7 +37,7 @@
               "150926",
               "128",
               "64.73",
-              "HET",
+              "0/1",
               "321",
               "1.00",
               "PASS"]
