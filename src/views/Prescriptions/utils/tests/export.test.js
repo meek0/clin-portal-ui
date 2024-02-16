@@ -165,14 +165,14 @@ describe('customMapping SNV', () => {
             {
               node: {
                 patient_id: 'p1',
-                zygosity: 'foo',
+                zygosity: 'HET',
               },
             },
           ],
         },
       },
     };
-    expect(customMapping('SNV', 'donors.zygosity', row, 'p1')).toEqual('foo');
+    expect(customMapping('SNV', 'donors.zygosity', row, 'p1')).toEqual('0/1');
   });
   test('should map donors_genotype', () => {
     const row = {

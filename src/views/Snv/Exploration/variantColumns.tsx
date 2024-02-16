@@ -227,10 +227,8 @@ const getDonorZygosity = (patientId: string) => ({
   sorter: {
     multiple: 1,
   },
-  render: (record: ArrangerResultsTree<DonorsEntity>) => {
-    const zyg = renderDonorByKey('donors.zygosity', findDonorById(record, patientId)) as string;
-    return ZygosityValue[zyg];
-  },
+  render: (record: ArrangerResultsTree<DonorsEntity>) =>
+    renderDonorByKey('donors.zygosity', findDonorById(record, patientId)) as string,
 });
 
 const getCmcSampleMutatedCol = (variantType: VariantType, patientId?: string) => ({
@@ -1165,7 +1163,7 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
       donor?.exomiser?.acmg_classification.toLowerCase() || '',
     ).defaultMessage(TABLE_EMPTY_PLACE_HOLDER);
   } else if (key === 'donors.zygosity') {
-    return donor ? donor?.zygosity : TABLE_EMPTY_PLACE_HOLDER;
+    return donor && donor.zygosity ? ZygosityValue[donor.zygosity] : TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors.franklin_combined_score') {
     return donor?.franklin_combined_score?.toFixed(2) || TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors_genotype') {
