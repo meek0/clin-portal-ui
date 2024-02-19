@@ -158,7 +158,7 @@ export const getVariantColumns = (
       tooltip: intl.get('screen.patientcnv.results.table.number_genes.tooltip'),
       key: 'number_genes',
       dataIndex: 'number_genes',
-      width: 82,
+      width: 85,
       sorter: { multiple: 1 },
       render: (number_genes: number, variant: VariantEntity) =>
         number_genes !== 0 ? (
