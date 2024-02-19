@@ -136,21 +136,15 @@ describe('Page des variants d\'un patient (somatic) - Colonnes du tableau', () =
       .contains('Filtre').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('Crit. Exo.').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(22)
-      .contains('Crit. Exo.').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
       .contains('CADD').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(23)
+      .find('div[class="ant-space-item"]').eq(22)
       .contains('CADD').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('REVEL').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(24)
+      .find('div[class="ant-space-item"]').eq(23)
       .contains('REVEL').should('exist');
   });
 

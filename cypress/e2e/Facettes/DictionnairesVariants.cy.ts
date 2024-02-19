@@ -343,6 +343,36 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnary('Pathogénicité', 'ClinVar', dictionnary);
   });
 
+  it('Pathogénicité - ACMG de Exomiser (max)', () => {
+    const dictionnary = ['Pathogenic',
+                         'Likely Pathogenic',
+                         'Uncertain Significance',
+                         'Likely Benign',
+                         'Benign',
+                         'No Data'];
+
+    cy.validateDictionnary('Pathogénicité', 'ACMG de Exomiser (max)', dictionnary);
+  });
+
+  it('Pathogénicité - Critères ACMG de Exomiser (max)', () => {
+    const dictionnary = ['PVS1',
+                         'PS2',
+                         'PM2',
+                         'PM3',
+                         'PM4',
+                         'PP3',
+                         'PP4',
+                         'PP5',
+                         'BA1',
+                         'BS4',
+                         'BP2',
+                         'BP4',
+                         'BP6',
+                         'No Data'];
+
+    cy.validateDictionnary('Pathogénicité', 'Critères ACMG de Exomiser (max)', dictionnary);
+  });
+
   it('Pathogénicité - ACMG de Franklin', () => {
     const dictionnary = ['Pathogenic',
                          'Likely Pathogenic',

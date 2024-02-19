@@ -223,6 +223,7 @@ Cypress.Commands.add('validateFacetNumFilter', (section: string, facetTitle: str
 });
 
 Cypress.Commands.add('validateFacetRank', (facetRank: number, facetTitle: string) => {
+  cy.log(facetTitle);
   cy.get('div[class*="Filters_customFilterContainer"]').eq(facetRank).contains(facetTitle).should('exist');
 });
 

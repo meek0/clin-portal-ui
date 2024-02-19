@@ -22,8 +22,8 @@ describe('Page des variants - Requêtes', () => {
 
   it('Éditer une pilule via son popup', () => {
     cy.get('[class*="QueryValues_queryValuesContainer"]').contains('SNV').click({force:true});
-    cy.get('input[id="input-insertion"]').check({force: true});
-    cy.clickAndIntercept('[data-cy="Apply_Type de variant"]', 'POST', '**/graphql', 3);
+    cy.get('[class*="filtersDropdown"] input[id="input-insertion"]').check({force: true});
+    cy.clickAndIntercept('[class*="filtersDropdown"] [data-cy="Apply_Type de variant"]', 'POST', '**/graphql', 3);
 
     cy.validatePillSelectedQuery('Type de variant', ['SNV','Insertion']);
     cy.validateTotalSelectedQuery('1.2M');

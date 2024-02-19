@@ -32,6 +32,11 @@ const VARIANT_QUERY_BASE_FIELDS = `
     combined_score
     acmg_classification
     acmg_evidence
+    link
+  }
+  exomiser_max {
+    gene_combined_score
+    acmg_classification
   }
   consequences {
     hits {

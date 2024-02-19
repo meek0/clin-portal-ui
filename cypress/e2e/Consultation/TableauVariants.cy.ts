@@ -10,6 +10,7 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.visitVariantsPage('?sharedFilterId=ed4de9bb-016e-4869-ac9d-40b11ac3102a');
     cy.showColumn('Tier', 0);
     cy.showColumn('Max Fra.', 0);
+    cy.showColumn('Max Exo.', 0);
     cy.showColumn('CADD', 0);
     cy.showColumn('REVEL', 0);
   });
@@ -43,10 +44,13 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 15, 'Other');
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 15, 'ant-tag-default');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 16, '-');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 17, '-');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 17, '0.964');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 18, '-');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 19, '2.56e+1');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 19, 'VUS');
+    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 19, 'ant-tag-orange');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 20, '-');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 21, '2.56e+1');
+    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 22, '-');
   });
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
@@ -99,6 +103,7 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
     cy.showColumn('Tier', 0);
     cy.showColumn('Max Fra.', 0);
+    cy.showColumn('Max Exo.', 0);
     cy.showColumn('CADD', 0);
     cy.showColumn('REVEL', 0);
   });
@@ -195,13 +200,31 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.validateTableFirstRow('Other', 15);
   });
 
+  it('Valider les fonctionnalités du tableau - Tri Max Exo.', () => {
+    cy.waitWhileSpin(2000);
+
+    cy.sortTableAndIntercept('Max Exo.', 1);
+    cy.validateTableFirstRow('-', 17);
+    cy.sortTableAndIntercept('Max Exo.', 1);
+    cy.validateTableFirstRow('0.964', 17);
+  });
+
   it('Valider les fonctionnalités du tableau - Tri ACMG F.', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('ACMG F.', 1);
-    cy.validateTableFirstRow('-', 16);
+    cy.validateTableFirstRow('-', 18);
     cy.sortTableAndIntercept('ACMG F.', 1);
-    cy.validateTableFirstRow('VUS', 16);
+    cy.validateTableFirstRow('VUS', 18);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri ACMG E.', () => {
+    cy.waitWhileSpin(2000);
+
+    cy.sortTableAndIntercept('ACMG E.', 1);
+    cy.validateTableFirstRow('-', 19);
+    cy.sortTableAndIntercept('ACMG E.', 1);
+    cy.validateTableFirstRow('VUS', 19);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

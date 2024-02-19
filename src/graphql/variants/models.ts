@@ -152,11 +152,16 @@ export type VariantEntity = {
     cosmic_id: string;
     tier: string;
   };
-  exomiser_max?: { variant_score: number };
+  exomiser_max?: {
+    variant_score: number;
+    gene_combined_score: number;
+    acmg_classification: string;
+  };
   franklin_max: {
     combined_score: number;
     acmg_classification: string;
     acmg_evidence: string[];
+    link: string;
   };
   variant_type: VariantType[];
   frequency_RQDM: frequency_RQDMEntity;

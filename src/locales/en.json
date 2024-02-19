@@ -189,6 +189,12 @@
   "filters.group.external_frequencies.thousand_genomes.af.tooltip": "Values between [0-1]. The rarest variants will have a frequency close to 0.",
   "filters.group.external_frequencies.topmed_bravo.af": "TopMed Bravo",
   "filters.group.external_frequencies.topmed_bravo.af.tooltip": "Values between [0-1]. The rarest variants will have a frequency close to 0.",
+  "filters.group.exomiser_max.acmg_classification": "Exomiser ACMG (Max)",
+  "filters.group.exomiser_max.acmg_classification.tooltip": "Highest Exomiser ACMG classification among all patients for this variant",
+  "filters.group.exomiser_max.acmg_evidence": "Exomiser ACMG Evidences (Max)",
+  "filters.group.exomiser_max.acmg_evidence.tooltip": "Highest Exomiser ACMG criteria among all patients for this variant",
+  "filters.group.exomiser_max.gene_combined_score": "Exomiser Score (Max)",
+  "filters.group.exomiser_max.gene_combined_score.tooltip": "Exomiser score of the patient with the highest gene combined score",
   "filters.group.exomiser_max.variant_score": "Exomiser Score (Variant)",
   "filters.group.exomiser_max.variant_score.tooltip": "Score calculated by Exomiser based on variant characteristics only (without patient phenotypes)",
   "filters.group.filters": "Filter",
@@ -292,6 +298,11 @@
   "filters.options.franklin_max.acmg_classification.BENIGN": "Benign",
   "filters.options.franklin_max.acmg_classification.POSSIBLY_PATHOGENIC_MODERATE": "Possibly Pathogenic",
   "filters.options.franklin_max.acmg_classification.POSSIBLY_BENIGN": "Possibly Pathogenic Benign",
+  "filters.options.exomiser_max.acmg_classification.PATHOGENIC": "Pathogenic",
+  "filters.options.exomiser_max.acmg_classification.LIKELY_PATHOGENIC": "Likely Pathogenic",
+  "filters.options.exomiser_max.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+  "filters.options.exomiser_max.acmg_classification.LIKELY_BENIGN": "Likely Benign",
+  "filters.options.exomiser_max.acmg_classification.BENIGN": "Benign",
   "first.name": "First name",
   "folder": "MRN",
   "footer.navigation.fhir": "Fhir",
@@ -300,6 +311,28 @@
     "table": {
       "title":"Exo. (Var)",
       "tooltip":"Score calculated by Exomiser based on variant characteristics only (without patient phenotypes)"
+    },
+    "combined_score": {
+      "title": "Max Exo.",
+      "tooltip": "Exomiser Score (Max)"
+    },
+    "acmg_classification": {
+      "abrv": {
+        "PATHOGENIC": "P",
+        "LIKELY_PATHOGENIC": "LP",
+        "UNCERTAIN_SIGNIFICANCE": "VUS",
+        "LIKELY_BENIGN": "LB",
+        "BENIGN": "B"
+      },
+      "value":{
+        "PATHOGENIC": "Pathogenic",
+        "LIKELY_PATHOGENIC": "Likely Pathogenic",
+        "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+        "LIKELY_BENIGN": "Likely Benign",
+        "BENIGN": "Benign"
+      },
+      "title": "ACMG E.",
+      "tooltip": "Highest Exomiser ACMG classification among all patients for this variant."
     }
   },
   "franklin": {
