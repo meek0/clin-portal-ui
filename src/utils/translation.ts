@@ -279,6 +279,17 @@ export const getQueryBuilderDictionary = (
             'filters.options.franklin_max.acmg_classification.POSSIBLY_BENIGN',
           ),
         },
+        'exomiser_max.acmg_classification': {
+          PATHOGENIC: intl.get('filters.options.exomiser_max.acmg_classification.PATHOGENIC'),
+          LIKELY_PATHOGENIC: intl.get(
+            'filters.options.exomiser_max.acmg_classification.LIKELY_PATHOGENIC',
+          ),
+          UNCERTAIN_SIGNIFICANCE: intl.get(
+            'filters.options.exomiser_max.acmg_classification.UNCERTAIN_SIGNIFICANCE',
+          ),
+          LIKELY_BENIGN: intl.get('filters.options.exomiser_max.acmg_classification.LIKELY_BENIGN'),
+          BENIGN: intl.get('filters.options.exomiser_max.acmg_classification.BENIGN'),
+        },
       },
     },
     actions: {
