@@ -7,6 +7,7 @@ import { Rpt } from 'auth/types';
 import cx from 'classnames';
 import { DonorsEntity, VariantType } from 'graphql/variants/models';
 import capitalize from 'lodash/capitalize';
+import { ZygosityValue } from 'views/Snv/utils/constant';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import FemaleAffectedIcon from 'components/icons/FemaleAffectedIcon';
@@ -115,7 +116,7 @@ const OccurrenceDrawer = ({
             title={capitalize(intl.get('zygosity'))}
           >
             <Descriptions.Item label={capitalize(intl.get('zygosity'))}>
-              {donor?.zygosity ?? TABLE_EMPTY_PLACE_HOLDER}
+              {donor?.zygosity ? ZygosityValue[donor.zygosity] : TABLE_EMPTY_PLACE_HOLDER}
             </Descriptions.Item>
             {variantType === VariantType.GERMLINE && (
               <>
