@@ -41,7 +41,7 @@ exports[`RequestTable should be as the snapshot 1`] = `
                     rowSpan={null}
                     style={Object {}}
                   >
-                    ID requête
+                    Requête
                   </th>
                   <th
                     className="ant-table-cell"
@@ -81,7 +81,7 @@ exports[`RequestTable should be as the snapshot 1`] = `
                     rowSpan={null}
                     style={Object {}}
                   >
-                    ID échantillon
+                    Échantillon
                   </th>
                   <th
                     className="ant-table-cell"
