@@ -21,9 +21,9 @@ import { useUser } from 'store/user';
 import { formatDate } from 'utils/date';
 import { getAssignmentDictionary } from 'utils/translation';
 
-import styles from './index.module.scss';
-
 import { formatServiceRequestTag } from '../Tabs/Variants/utils';
+
+import styles from './index.module.scss';
 
 interface OwnProps {
   prescription?: ServiceRequestEntity;
@@ -132,9 +132,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
       <ParagraphLoader loading={loading} paragraph={{ rows: 5 }}>
         {prescription && (
           <Descriptions column={1} size="small" className="label-35">
-            <Descriptions.Item
-              label={intl.get('screen.prescription.entity.analysisCard.prescriptionId')}
-            >
+            <Descriptions.Item label={intl.get('screen.prescription.entity.identifier')}>
               {extractServiceRequestId(prescription?.id)}
             </Descriptions.Item>
             {
