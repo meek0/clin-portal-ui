@@ -21,7 +21,7 @@ import {
 } from './models';
 
 const FHIR_API_URL = EnvironmentVariables.configFor('FHIR_API');
-const FORM_API_URL = EnvironmentVariables.configFor('FORM_API_URL');
+export const FORM_API_URL = EnvironmentVariables.configFor('FORM_API_URL');
 
 const searchPatient = (ramq: string) =>
   sendRequestWithRpt<Bundle<Patient>>({
