@@ -59,6 +59,7 @@ const buildTracks = (
         GENDER.FEMALE,
         PARENT_TYPE.MOTHER,
         rpt,
+        variantEntity.mother_aliquot_id,
       ),
     );
   }
@@ -72,6 +73,7 @@ const buildTracks = (
         GENDER.MALE,
         PARENT_TYPE.FATHER,
         rpt,
+        variantEntity.father_aliquot_id,
       ),
     );
   }

@@ -60,6 +60,7 @@ const buildTracks = (
         GENDER.FEMALE,
         PARENT_TYPE.MOTHER,
         rpt,
+        donor.mother_aliquot_id,
       ),
     );
   }
@@ -73,6 +74,7 @@ const buildTracks = (
         GENDER.MALE,
         PARENT_TYPE.FATHER,
         rpt,
+        donor.father_aliquot_id,
       ),
     );
   }

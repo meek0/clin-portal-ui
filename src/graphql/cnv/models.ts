@@ -44,6 +44,8 @@ export type VariantEntity = {
   pe: number[];
   father_id: string;
   mother_id: string;
+  father_aliquot_id?: string;
+  mother_aliquot_id?: string;
   is_proband: string;
   gender: string;
   genes: ArrangerResultsTree<GeneEntity>;
