@@ -101,6 +101,7 @@ export type DonorsEntity = {
   transmission?: string;
   analysis_code?: string;
   mother_id?: string;
+  mother_aliquot_id?: string;
   mother_zygosity?: string;
   mother_affected_status?: boolean;
   mother_calls?: number[];
@@ -110,6 +111,7 @@ export type DonorsEntity = {
   mother_ad_ratio?: number;
   mother_gq?: number;
   father_id?: string;
+  father_aliquot_id?: string;
   father_zygosity?: string;
   father_affected_status?: boolean;
   father_calls?: number[];

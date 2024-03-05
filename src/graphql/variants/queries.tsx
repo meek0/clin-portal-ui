@@ -152,6 +152,7 @@ export const VARIANT_QUERY = gql`
                     filters
                     franklin_combined_score
                     mother_id
+                    mother_aliquot_id
                     mother_zygosity
                     mother_affected_status
                     mother_calls
@@ -161,6 +162,7 @@ export const VARIANT_QUERY = gql`
                     mother_ad_ratio
                     mother_gq
                     father_id
+                    father_aliquot_id
                     father_zygosity
                     father_affected_status
                     father_calls

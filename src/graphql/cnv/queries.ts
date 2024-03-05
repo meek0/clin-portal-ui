@@ -41,6 +41,8 @@ export const VARIANT_QUERY = gql`
             pe
             father_id
             mother_id
+            father_aliquot_id
+            mother_aliquot_id
             is_proband
             gender
             genes {
