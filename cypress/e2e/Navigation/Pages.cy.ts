@@ -54,7 +54,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Variants').should('exist', {timeout: 20*1000});
     cy.contains('Fichiers').should('exist', {timeout: 20*1000});
     cy.contains('Analyse').should('exist', {timeout: 20*1000});
-    cy.contains('ID prescription').should('exist', {timeout: 20*1000});
+    cy.contains('Identifiant').should('exist', {timeout: 20*1000});
     cy.contains('Statut').should('exist', {timeout: 20*1000});
     cy.contains('Approuvée').should('exist', {timeout: 20*1000});
     cy.contains('Analyse demandée').should('exist', {timeout: 20*1000});
@@ -64,7 +64,6 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Établissement prescripteur').should('exist', {timeout: 20*1000});
     cy.contains('LDM').should('exist', {timeout: 20*1000});
     cy.contains('Patient').should('exist', {timeout: 20*1000});
-    cy.contains('ID patient').should('exist', {timeout: 20*1000});
     cy.contains('Dossier').should('exist', {timeout: 20*1000});
     cy.contains('RAMQ').should('exist', {timeout: 20*1000});
     cy.contains('Nom').should('exist', {timeout: 20*1000});
@@ -75,11 +74,11 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Présence de consanguinité').should('exist', {timeout: 20*1000});
     cy.contains('Ethnicité').should('exist', {timeout: 20*1000});
     cy.contains('Hypothèse diagnostique').should('exist', {timeout: 20*1000});
-    cy.contains('ID requête').should('exist', {timeout: 20*1000});
+    cy.contains('Requête').should('exist', {timeout: 20*1000});
     cy.contains('Statut').should('exist', {timeout: 20*1000});
     cy.contains('Créée le').should('exist', {timeout: 20*1000});
     cy.contains('Requérant').should('exist', {timeout: 20*1000});
-    cy.contains('ID échantillon').should('exist', {timeout: 20*1000});
+    cy.contains('Échantillon').should('exist', {timeout: 20*1000});
     cy.contains('Liens').should('exist', {timeout: 20*1000});
     cy.contains('Complétée').should('exist', {timeout: 20*1000});
     cy.contains('Fichiers').should('exist', {timeout: 20*1000});
