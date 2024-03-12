@@ -25,7 +25,7 @@ export const getVariantTypeFromServiceRequest = (
     : VariantType.GERMLINE;
 
 export const getVariantTypeFromSNVVariantEntity = (variantEntity?: SNVVariantEntity): VariantType =>
-  variantEntity?.donors?.hits?.edges?.[0].node.variant_type || VariantType.GERMLINE;
+  variantEntity?.donors?.hits?.edges?.[0]?.node?.variant_type || VariantType.GERMLINE;
 
 export const getVariantTypeFromCNVVariantEntity = (variantEntity?: CNVVariantEntity): VariantType =>
   variantEntity?.variant_type || VariantType.GERMLINE;
