@@ -1,7 +1,6 @@
 import React from 'react';
-import { Tag } from 'antd';
+import { Tag, Tooltip } from 'antd';
 import { PatientServiceRequestFragment, ServiceRequestEntity } from 'api/fhir/models';
-import { formatServiceRequestTag } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 
 import SpecimenIcon from 'components/icons/SpecimenIcon';
 import { useGlobals } from 'store/global';
@@ -53,16 +52,17 @@ export default (
       </Tag>,
     );
   }
-
   if (prescription) {
     const analysisCode = prescription.code?.[0];
     const sequencingCode = prescription.code?.[1];
     tags.push(
       <div key="analsysis-name">
         {
-          <Tag color="geekblue">
-            {formatServiceRequestTag(getAnalysisNameByCode(analysisCode), sequencingCode)}
-          </Tag>
+          <Tooltip title={getAnalysisNameByCode(analysisCode, false)}>
+            <Tag color="geekblue">
+              {analysisCode} | {sequencingCode}
+            </Tag>
+          </Tooltip>
         }
       </div>,
     );
