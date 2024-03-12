@@ -22,6 +22,7 @@ export const PRESCRIPTIONS_QUERY = gql`
             ldm
             analysis_code
             status
+            priority
           }
         }
         total
@@ -158,7 +159,7 @@ const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
                 given
               }
             }
-          
+
           }
         }
       }
@@ -225,7 +226,7 @@ export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
                 value
               }
             }
-          
+
           }
         }
       }
@@ -253,11 +254,11 @@ export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
                 id
                 resourceType
               }
-              
+
             }
           }
         }
-  
+
       }
       orderDetail @first{
         text
@@ -307,7 +308,7 @@ export const ANALYSIS_TASK_QUERY = (taskId: string) => gql`
         serviceRequestReference: reference
       }
       for @flatten{
-        patientReference: reference  
+        patientReference: reference
       }
       owner @flatten {
         ownerReference: reference
@@ -329,10 +330,10 @@ export const ANALYSIS_TASK_QUERY = (taskId: string) => gql`
         }
         extension(url:"workflowVersion") @first @flatten{
             version: value
-        }        
+        }
         extension(url:"genomeBuild") @first @flatten{
             valueCoding @flatten{ genomeBuild:code}
-        }                
+        }
     }
     experiment: extension(url:"http://fhir.cqgc.ferlab.bio/StructureDefinition/sequencing-experiment") @first{
         extension(url:"runName") @first @flatten{
@@ -340,27 +341,27 @@ export const ANALYSIS_TASK_QUERY = (taskId: string) => gql`
         }
         extension(url:"runAlias") @first @flatten{
             alias: value
-        }       
+        }
         extension(url:"experimentalStrategy") @first @flatten{
             valueCoding @flatten{ experimentalStrategy:code}
-        }    
+        }
         extension(url:"platform") @first @flatten{
             platform: value
-        }   
+        }
         extension(url:"captureKit") @first @flatten{
             captureKit: value
-        }   
+        }
         extension(url:"sequencerId") @first @flatten{
             sequencerId: value
-        }   
+        }
         extension(url:"runDate") @first @flatten{
             runDate: value
-        }         
+        }
         extension(url:"labAliquotId") @first @flatten{
             aliquotId: value
-        }                 
-                                                   
-    }  
+        }
+
+    }
      input @flatten {
 	    valueReference @flatten {
 		    sample: resource(type: Specimen) {
@@ -385,17 +386,17 @@ export const ANALYSIS_TASK_QUERY = (taskId: string) => gql`
                   display
                   code
                 }
-              }   
+              }
               collection @flatten @first{
                 bodySite @flatten{
                   value
                 }
-              }                     
+              }
             }
           }
         }
       }
-    }        
+    }
     output @flatten {
 	    valueReference @flatten {
 		    docs: resource(type: DocumentReference) {
@@ -412,9 +413,9 @@ export const ANALYSIS_TASK_QUERY = (taskId: string) => gql`
 						  url
               hash
               title
-              size: extension(url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/full-size") @flatten @first{ 
+              size: extension(url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/full-size") @flatten @first{
                 size:value
-              } 
+              }
 		  		   }
              format @flatten {
               format: code
@@ -520,11 +521,11 @@ export const ANALYSE_PARACLINIQUE_OBSERVATION = (ids: string[] | null) => gql`
               code @flatten{
                 coding @first @flatten{
                   code
-                } 
+                }
               }
               category @first @flatten{
                   coding @first @flatten{
-                    category: code 
+                    category: code
                   }
                 }
               interpretation @first{
@@ -553,7 +554,7 @@ export const ANALYSE_COMPLEX_PARACLINIQUE_OBSERVATION = (ids: string[] | null) =
               code @flatten{
                 coding @first @flatten{
                   code
-                } 
+                }
               }
               interpretation @first{
                 coding @first{
@@ -595,7 +596,7 @@ export const ANALYSE_COMPLEX_PARACLINIQUE_VALUESET = (ids: string[] | null) => g
                 }
               }
             }
-    
+
         `,
               )
             : null

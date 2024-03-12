@@ -5,8 +5,12 @@ import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { extractOrganizationId } from 'api/fhir/helper';
 import { PractitionerBundleType } from 'api/fhir/models';
 import { AnalysisResult, ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
+import PriorityTag from 'views/Prescriptions/components/PriorityTag';
 import StatusTag from 'views/Prescriptions/components/StatusTag';
-import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
+import {
+  getPrescriptionStatusDictionnary,
+  prescriptionPriorityDictionnary,
+} from 'views/Prescriptions/utils/constant';
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
@@ -32,6 +36,16 @@ export const prescriptionsColumns = (
       dataIndex: ['patient_id'],
       render: (patient_id: string) => patient_id,
       title: intl.get('screen.patientsearch.table.patient'),
+      sorter: { multiple: 1 },
+    },
+    {
+      key: 'priority',
+      dataIndex: ['priority'],
+      render: (value: string) =>
+        value ? (
+          <PriorityTag dictionaries={prescriptionPriorityDictionnary()} priority={value} />
+        ) : null,
+      title: intl.get('screen.patientsearch.table.priority'),
       sorter: { multiple: 1 },
     },
     {

@@ -296,6 +296,7 @@ export interface AnalysisTaskEntity {
 export interface ServiceRequestEntity {
   id: string;
   authoredOn: string;
+  priority: string;
   status: string;
   code: string[];
   note: {

@@ -8,9 +8,13 @@ import { Card, Descriptions, Space, Tag } from 'antd';
 import { FhirApi } from 'api/fhir';
 import { extractOrganizationId, extractServiceRequestId } from 'api/fhir/helper';
 import { PractitionerRole, RequesterType, ServiceRequestEntity } from 'api/fhir/models';
+import PriorityTag from 'views/Prescriptions/components/PriorityTag';
 import StatusTag from 'views/Prescriptions/components/StatusTag';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
-import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
+import {
+  getPrescriptionStatusDictionnary,
+  prescriptionPriorityDictionnary,
+} from 'views/Prescriptions/utils/constant';
 import { getPractitionerInfoList, putUserFirst } from 'views/Prescriptions/utils/export';
 
 import { Roles, validate } from 'components/Roles/Rules';
@@ -154,6 +158,16 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
                 )}
               </Descriptions.Item>
             }
+            <Descriptions.Item label={intl.get('screen.prescription.entity.analysisCard.priority')}>
+              {prescription?.priority ? (
+                <PriorityTag
+                  dictionaries={prescriptionPriorityDictionnary()}
+                  priority={prescription?.priority}
+                />
+              ) : (
+                EMPTY_FIELD
+              )}
+            </Descriptions.Item>
             <Descriptions.Item label={intl.get('status')}>
               <StatusTag
                 dictionary={getPrescriptionStatusDictionnary()}
