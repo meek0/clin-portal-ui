@@ -198,6 +198,7 @@ export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
       id
       authoredOn
       status
+      priority
       note @first{
         text
       }
