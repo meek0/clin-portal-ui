@@ -64,6 +64,10 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
   };
 
   const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
+  const variantResultsWithDonors = {
+    ...variantResults,
+    data: variantResults?.data?.filter((v) => (v.donors?.hits?.edges || []).length > 0),
+  };
 
   useEffect(() => {
     if (
@@ -112,7 +116,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
       savedFilterTag={SNV_EXPLORATION_PATIENT_FILTER_TAG}
       variantMapping={variantMapping}
       activeQuery={activeQuery}
-      variantResults={variantResults}
+      variantResults={variantResultsWithDonors}
       getVariantResolvedSqon={getVariantResolvedSqon}
     >
       <Tabs type="card" activeKey={'variants'}>
@@ -122,7 +126,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
         >
           <VariantsTab
             queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
-            results={variantResults}
+            results={variantResultsWithDonors}
             setQueryConfig={setVariantQueryConfig}
             queryConfig={variantQueryConfig}
             patientId={patientId!}
@@ -136,7 +140,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
             queryVariables={queryVariables}
             triggered={downloadTriggered}
             setTriggered={setDownloadTriggered}
-            total={variantResults.total}
+            total={variantResultsWithDonors.total}
             prefix={'SNV'}
             operations={variantQueryConfig.operations}
             query={VARIANT_QUERY}
