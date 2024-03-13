@@ -22,6 +22,7 @@ export enum PATIENT_POSITION {
 
 export const enum MIME_TYPES {
   APPLICATION_XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  APPLICATION_PDF = 'application/pdf',
 }
 
 export const FILTER_ID_QUERY_PARAM_KEY = 'filterId';
