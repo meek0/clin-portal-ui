@@ -50,6 +50,8 @@ const PrescriptionEntity = () => {
         setSelectedRequest(data?.data.ServiceRequest);
         data?.data.ServiceRequest.basedOn ? null : setRequestLoading(false);
       });
+    } else {
+      setRequestLoading(false);
     }
   }, [prescription?.subject?.resource?.requests]);
 
