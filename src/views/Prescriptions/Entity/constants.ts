@@ -1,4 +1,4 @@
-export const EMPTY_FIELD = '';
+export const EMPTY_FIELD = '--';
 
 //fhir id
 
