@@ -603,6 +603,7 @@
   "querybuilder.header.modal.edit.input.placeholder": "Filtre sans titre",
   "querybuilder.header.modal.edit.input.maximumLength": "caractères maximum",
   "querybuilder.header.modal.saveThisFilter": "Sauvegarder ce filtre",
+  "querybuilder.header.form.error.field.required": "Ce champs est requis",
   "querybuilder.header.modal.confirmUnsaved.title": "Modifications non enregistrées",
   "querybuilder.header.modal.confirmUnsaved.openSavedFilter.okText": "Continuer",
   "querybuilder.header.modal.confirmUnsaved.openSavedFilter.cancelText": "Annuler",
