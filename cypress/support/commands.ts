@@ -1,5 +1,4 @@
 /// <reference types="cypress"/>
-import '@testing-library/cypress/add-commands';
 import { oneMinute } from '../support/utils';
 
 export interface Replacement {
