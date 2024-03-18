@@ -41,6 +41,7 @@ export const prescriptionsColumns = (
     {
       key: 'priority',
       dataIndex: ['priority'],
+      width: '6em',
       render: (value: string) =>
         value ? (
           <PriorityTag dictionaries={prescriptionPriorityDictionnary()} priority={value} />
