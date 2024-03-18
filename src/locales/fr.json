@@ -252,7 +252,7 @@
   "filters.options.cmc.tier.3": "Tier 3",
   "filters.options.cmc.tier.Other": "Other",
   "filters.options.gene_external_reference.gnomAD": "gnomAD",
-  "filters.options.priority.asap": "DQP",
+  "filters.options.priority.asap": "ASAP",
   "filters.options.priority.asap.tooltip": "Dès que possible",
   "filters.options.priority.routine": "Routine",
   "filters.options.priority.routine.tooltip": "Service de routine",
