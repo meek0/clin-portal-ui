@@ -45,7 +45,9 @@ export const prescriptionsColumns = (
       render: (value: string) =>
         value ? (
           <PriorityTag dictionaries={prescriptionPriorityDictionnary()} priority={value} />
-        ) : null,
+        ) : (
+          TABLE_EMPTY_PLACE_HOLDER
+        ),
       title: intl.get('screen.patientsearch.table.priority'),
       sorter: { multiple: 1 },
     },
