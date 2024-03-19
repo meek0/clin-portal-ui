@@ -302,8 +302,10 @@
   "filters.options.franklin_max.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
   "filters.options.franklin_max.acmg_classification.LIKELY_BENIGN": "Likely Benign",
   "filters.options.franklin_max.acmg_classification.BENIGN": "Benign",
-  "filters.options.franklin_max.acmg_classification.POSSIBLY_PATHOGENIC_MODERATE": "Possibly Pathogenic",
-  "filters.options.franklin_max.acmg_classification.POSSIBLY_BENIGN": "Possibly Pathogenic Benign",
+  "filters.options.franklin_max.acmg_classification.POSSIBLY_PATHOGENIC_MODERATE": "Possibly Pathogenic Moderate",
+  "filters.options.franklin_max.acmg_classification.POSSIBLY_PATHOGENIC_BENIGN": "Possibly Pathogenic Benign",
+  "filters.options.franklin_max.acmg_classification.POSSIBLY_PATHOGENIC_LOW": "Possibly Pathogenic Low",
+  "filters.options.franklin_max.acmg_classification.POSSIBLY_BENIGN": "Possibly Benign",  
   "filters.options.exomiser_max.acmg_classification.PATHOGENIC": "Pathogenic",
   "filters.options.exomiser_max.acmg_classification.LIKELY_PATHOGENIC": "Likely Pathogenic",
   "filters.options.exomiser_max.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
@@ -368,8 +370,10 @@
         "UNCERTAIN_SIGNIFICANCE": "VUS",
         "LIKELY_BENIGN": "LB",
         "BENIGN": "B",
-        "POSSIBLY_PATHOGENIC_MODERATE": "PP",
-        "POSSIBLY_BENIGN": "PB"
+        "POSSIBLY_PATHOGENIC_MODERATE":"VUS",
+        "POSSIBLY_PATHOGENIC_BENIGN": "VUS",
+        "POSSIBLY_PATHOGENIC_LOW": "VUS",
+        "POSSIBLY_BENIGN": "VUS"
       },
       "value":{
         "PATHOGENIC": "Pathogenic",
@@ -377,8 +381,10 @@
         "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
         "LIKELY_BENIGN": "Likely Benign",
         "BENIGN": "Benign",
-        "POSSIBLY_PATHOGENIC_MODERATE":"Possibly Pathogenic",
-        "POSSIBLY_BENIGN": "Possibly Pathogenic Benign"
+        "POSSIBLY_PATHOGENIC_MODERATE":"VUS, Possibly Pathogenic Moderate",
+        "POSSIBLY_PATHOGENIC_BENIGN": "VUS, Possibly Pathogenic Benign",
+        "POSSIBLY_PATHOGENIC_LOW": "VUS, Possibly Pathogenic Low",
+        "POSSIBLY_BENIGN": "VUS, Possibly Benign"
       }
     } ,
     "acmg_evidence": {

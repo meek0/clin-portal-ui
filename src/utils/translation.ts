@@ -280,6 +280,12 @@ export const getQueryBuilderDictionary = (
           POSSIBLY_PATHOGENIC_MODERATE: intl.get(
             'filters.options.franklin_max.acmg_classification.POSSIBLY_PATHOGENIC_MODERATE',
           ),
+          POSSIBLY_PATHOGENIC_BENIGN: intl.get(
+            'filters.options.franklin_max.acmg_classification.POSSIBLY_PATHOGENIC_BENIGN',
+          ),
+          POSSIBLY_PATHOGENIC_LOW: intl.get(
+            'filters.options.franklin_max.acmg_classification.POSSIBLY_PATHOGENIC_LOW',
+          ),
           POSSIBLY_BENIGN: intl.get(
             'filters.options.franklin_max.acmg_classification.POSSIBLY_BENIGN',
           ),
