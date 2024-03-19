@@ -11,7 +11,7 @@ beforeEach(() => {
 
 describe('Page des prescriptions et requêtes - Consultation du tableau des requêtes', () => {
   beforeEach(() => {  
-    cy.checkValueFacet('Statut', 'active');
+    cy.checkValueFacet('Statut des prescriptions', 'active');
     cy.checkValueFacet('Analyse', 'RGDI');
   
     cy.get('div[id*="tab-requests"]').click({force: true});
@@ -56,7 +56,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
 
 describe('Page des prescriptions et requêtes - Consultation du tableau des requêtes', () => {
   beforeEach(() => {  
-    cy.checkValueFacet('Statut', 'active');
+    cy.checkValueFacet('Statut des prescriptions', 'active');
     cy.checkValueFacet('Analyse', 'HYPM');
   
     cy.get('div[id*="tab-requests"]').click({force: true});
