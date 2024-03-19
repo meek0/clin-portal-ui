@@ -231,7 +231,7 @@
   "filters.group.sequencing_requests.status": "Requests status",
   "filters.group.start": "Position",
   "filters.group.state": "Status",
-  "filters.group.status": "Prescirption Status",
+  "filters.group.status": "Prescription Status",
   "filters.group.type": "Type",
   "filters.group.variant_class": "Variant Type",
   "filters.group.donors.bioinfo_analysis_code": "Bioinformatic Analysis",
