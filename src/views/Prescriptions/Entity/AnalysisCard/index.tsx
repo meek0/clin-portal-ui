@@ -165,7 +165,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
                   priority={prescription?.priority}
                 />
               ) : (
-                EMPTY_FIELD
+                '--'
               )}
             </Descriptions.Item>
             <Descriptions.Item label={intl.get('status')}>
