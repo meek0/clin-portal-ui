@@ -69,9 +69,10 @@ export interface AnalysisSequencingRequest {
 }
 
 export const analysisFields = [
+  'priority',
+  'analysis_code',
   'status',
   'sequencing_requests__status',
-  'analysis_code',
   'ldm',
   'ep',
   'prenatal',

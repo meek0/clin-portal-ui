@@ -13,28 +13,15 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
     cy.visitPrescriptionsPage();
   });
 
-  it('Statut - Approuvée', () => {
-    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(0).contains('Statut').should('exist');
-    cy.checkValueFacet('Statut', 'active');
+  it('Priorité - ASAP', () => {
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(0).contains('Priorité').should('exist');
+    cy.checkValueFacet('Priorité', 'asap');
 
-    cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
-
-    cy.get('body').contains('Prescriptions (1)').should('exist');
-    cy.get('body').contains('Requêtes (3)').should('exist');
-  });
-  
-  it('Statut des requêtes - Complétée', () => {
-    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(1).contains('Statut des requêtes').should('exist');
-    cy.checkValueFacet('Statut des requêtes', 'completed');
-
-    cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
-
-    cy.get('body').contains('Prescriptions (1)').should('exist');
-    cy.get('body').contains('Requêtes (3)').should('exist');
+    cy.get('body').contains('Résultats').should('exist');
   });
   
   it('Analyse - Malignant Hyperthermia (HYPM)', () => {
-    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(2).contains('Analyse').should('exist');
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(1).contains('Analyse').should('exist');
     cy.checkValueFacet('Analyse', 'HYPM');
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
@@ -60,9 +47,29 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
     cy.get('body').contains('Prescriptions (1)').should('exist');
     cy.get('body').contains('Requêtes (3)').should('exist');
   });
+
+  it('Statut des prescriptions - Approuvée', () => {
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(2).contains('Statut des prescriptions').should('exist');
+    cy.checkValueFacet('Statut des prescriptions', 'active');
+
+    cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
+
+    cy.get('body').contains('Prescriptions (1)').should('exist');
+    cy.get('body').contains('Requêtes (3)').should('exist');
+  });
+  
+  it('Statut des requêtes - Complétée', () => {
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(3).contains('Statut des requêtes').should('exist');
+    cy.checkValueFacet('Statut des requêtes', 'completed');
+
+    cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
+
+    cy.get('body').contains('Prescriptions (1)').should('exist');
+    cy.get('body').contains('Requêtes (3)').should('exist');
+  });
   
   it('Laboratoire (LDM) - LDM-CHUSJ', () => {
-    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(3).contains('Laboratoire (LDM)').should('exist');
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(4).contains('Laboratoire (LDM)').should('exist');
     cy.checkValueFacet('Laboratoire (LDM)', 'LDM-CHUSJ');
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
@@ -90,7 +97,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
   });
   
   it('Établissement prescripteur - CHUSJ', () => {
-    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(4).contains('Établissement prescripteur').should('exist');
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(5).contains('Établissement prescripteur').should('exist');
     cy.checkValueFacet('Établissement prescripteur', 'CHUSJ');
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
@@ -118,6 +125,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
   });
   
   it('Prénatal - False', () => {
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(6).contains('Prénatal').should('exist');
     cy.checkValueFacet('Prénatal', 'false'); 
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});

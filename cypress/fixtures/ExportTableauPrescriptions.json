@@ -1,6 +1,7 @@
 {
   "headers": ["prescription_id",
               "patient_id",
+              "priority",
               "status",
               "created_on",
               "timestamp",
@@ -12,6 +13,7 @@
               "patient_mrn"],
   "content": ["{{prescriptionId}}",
               "{{patientId}}",
+              "--",
               "active",
               "{{stampDate}}",
               "RGDI",
