@@ -796,7 +796,7 @@
   "screen.patientsearch.table.ramq": "RAMQ",
   "screen.patientsearch.table.requester": "Requérant",
   "screen.patientsearch.table.requester.tooltip": "Médecin prescripteur",
-  "screen.patientsearch.table.status": "Statut des prescriptions",
+  "screen.patientsearch.table.status": "Statut",
   "screen.patientsearch.table.test": "Analyse",
   "screen.patientsearch.table.test.tooltip": "Code de l’analyse demandée",
   "screen.patientsearch.table.updatedOn": "Modifiée le",
