@@ -134,6 +134,11 @@ export const getQueryBuilderDictionary = (
         okText: intl.get('close'),
         lastSavedAt: intl.get('querybuilder.header.manageFilters.lastSaved'),
       },
+      form: {
+        error: {
+          fieldRequired: intl.get('querybuilder.header.form.error.field.required'),
+        },
+      },
       modal: {
         edit: {
           title: intl.get('querybuilder.header.modal.edit.title'),
