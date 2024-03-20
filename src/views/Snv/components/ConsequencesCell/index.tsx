@@ -40,7 +40,6 @@ const ConsequencesCell = ({ consequences }: OwnProps) => {
           return (
             <div
               style={{
-                maxWidth: 200,
                 textOverflow: 'ellipsis',
                 display: 'flex',
                 alignItems: 'center',
