@@ -218,7 +218,7 @@ export const getVariantColumns = (
       key: 'pe',
       dataIndex: 'pe',
       defaultHidden: true,
-      render: (pe: string[]) => pe.join(', '),
+      render: (pe: string[]) => pe?.join(', ') || TABLE_EMPTY_PLACE_HOLDER,
       width: 50,
     },
   );
