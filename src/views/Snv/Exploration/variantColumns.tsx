@@ -82,8 +82,10 @@ const ACMGFranklinColorMap: Record<any, string> = {
   UNCERTAIN_SIGNIFICANCE: 'orange',
   PATHOGENIC: 'red',
   LIKELY_PATHOGENIC: 'volcano',
-  POSSIBLY_PATHOGENIC_MODERATE: 'volcano',
-  POSSIBLY_BENIGN: 'lime',
+  POSSIBLY_PATHOGENIC_MODERATE: 'orange',
+  POSSIBLY_PATHOGENIC_BENIGN: 'orange',
+  POSSIBLY_PATHOGENIC_LOW: 'orange',
+  POSSIBLY_BENIGN: 'orange',
 };
 
 const ACMGExomiserColorMap: Record<any, string> = {
