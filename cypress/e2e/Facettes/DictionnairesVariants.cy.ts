@@ -309,21 +309,21 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Gène - RQDM', () => {
-    const dictionnary = ['Malignant Hyperthermia (HYPM)',
-                         'Congenital Myopathies (MYOC)',
-                         'Global Developmental Delay / Intellectual Deficiency (Trio) (RGDI)',
-                         'Hematological malignancies predisposition (TUHEM)',
-                         'Congenital Myasthenia (MYAC)',
-                         'Global Muscular diseases (Global Panel) (MMG)',
-                         'Muscular Dystrophies (DYSM)',
-                         'Nuclear Mitochondriopathies (MITN)',
-                         'Pediatric cancer predisposition (TUPED)',
-                         'Polymalformation (POLYM)',
-                         'RGDI+ (RGDI+)',
-                         'Rhabdomyolysis (RHAB)',
-                         'Solid Tumor (somatic) (SSOLID)',
-                         'Leukemia (somatic) (SHEMA)',
-                         'Severe Combined Immune Deficiency (SCID)',
+    const dictionnary = ['Malignant Hyperthermia (HYPM v1)',
+                         'Congenital Myopathies (MYOC v1)',
+                         'Global Developmental Delay / Intellectual Disabilty (Trio) (RGDI v3)',
+                         'Hematological Malignancies Predisposition (TUHEM v1)',
+                         'Congenital Myasthenia (MYAC v1)',
+                         'Global Muscular Diseases (MMG v1)',
+                         'Muscular Dystrophies (DYSM v1)',
+                         'Nuclear Mitochondriopathies (MITN v2)',
+                         'Pediatric Cancer Predisposition (TUPED v1)',
+                         'Polymalformation (POLYM v1)',
+                         'RGDI+ (RGDI+ v5)',
+                         'Rhabdomyolysis (RHAB v1)',
+                         'Solid Tumor (Somatic) (SSOLID v2)',
+                         'Leukemia (Somatic) (SHEMA v3)',
+                         'Severe Combined Immune Deficiency (SCID v1)',
                          'No Data'];
 
     cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
