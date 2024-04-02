@@ -9,21 +9,21 @@ beforeEach(() => {
 
 describe('Page des CNVs d\'un patient - Dictionnaire', () => {
   it('Panel RQDM - RQDM', () => {
-    const dictionnary = ['Malignant Hyperthermia (HYPM)',
-                         'Congenital Myopathies (MYOC)',
-                         'Global Developmental Delay / Intellectual Deficiency (Trio) (RGDI)',
-                         'Hematological malignancies predisposition (TUHEM)',
-                         'Congenital Myasthenia (MYAC)',
-                         'Global Muscular diseases (Global Panel) (MMG)',
-                         'Muscular Dystrophies (DYSM)',
-                         'Nuclear Mitochondriopathies (MITN)',
-                         'Pediatric cancer predisposition (TUPED)',
-                         'Polymalformation (POLYM)',
-                         'RGDI+ (RGDI+)',
-                         'Rhabdomyolysis (RHAB)',
-                         'Solid Tumor (somatic) (SSOLID)',
-                         'Leukemia (somatic) (SHEMA)',
-                         'Severe Combined Immune Deficiency (SCID)',
+    const dictionnary = ['Malignant Hyperthermia (HYPM v1)',
+                         'Congenital Myopathies (MYOC v1)',
+                         'Global Developmental Delay / Intellectual Disabilty (Trio) (RGDI v3)',
+                         'Hematological Malignancies Predisposition (TUHEM v1)',
+                         'Congenital Myasthenia (MYAC v1)',
+                         'Global Muscular Diseases (MMG v1)',
+                         'Muscular Dystrophies (DYSM v1)',
+                         'Nuclear Mitochondriopathies (MITN v2)',
+                         'Pediatric Cancer Predisposition (TUPED v1)',
+                         'Polymalformation (POLYM v1)',
+                         'RGDI+ (RGDI+ v5)',
+                         'Rhabdomyolysis (RHAB v1)',
+                         'Solid Tumor (Somatic) (SSOLID v2)',
+                         'Leukemia (Somatic) (SHEMA v3)',
+                         'Severe Combined Immune Deficiency (SCID v1)',
                          'No Data'];
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
@@ -80,21 +80,21 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
   });
 
   it('Gène - Panel RQDM', () => {
-    const dictionnary = ['Malignant Hyperthermia (HYPM)',
-                         'Congenital Myopathies (MYOC)',
-                         'Global Developmental Delay / Intellectual Deficiency (Trio) (RGDI)',
-                         'Hematological malignancies predisposition (TUHEM)',
-                         'Congenital Myasthenia (MYAC)',
-                         'Global Muscular diseases (Global Panel) (MMG)',
-                         'Muscular Dystrophies (DYSM)',
-                         'Nuclear Mitochondriopathies (MITN)',
-                         'Pediatric cancer predisposition (TUPED)',
-                         'Polymalformation (POLYM)',
-                         'RGDI+ (RGDI+)',
-                         'Rhabdomyolysis (RHAB)',
-                         'Solid Tumor (somatic) (SSOLID)',
-                         'Leukemia (somatic) (SHEMA)',
-                         'Severe Combined Immune Deficiency (SCID)',
+    const dictionnary = ['Malignant Hyperthermia (HYPM v1)',
+                         'Congenital Myopathies (MYOC v1)',
+                         'Global Developmental Delay / Intellectual Disabilty (Trio) (RGDI v3)',
+                         'Hematological Malignancies Predisposition (TUHEM v1)',
+                         'Congenital Myasthenia (MYAC v1)',
+                         'Global Muscular Diseases (MMG v1)',
+                         'Muscular Dystrophies (DYSM v1)',
+                         'Nuclear Mitochondriopathies (MITN v2)',
+                         'Pediatric Cancer Predisposition (TUPED v1)',
+                         'Polymalformation (POLYM v1)',
+                         'RGDI+ (RGDI+ v5)',
+                         'Rhabdomyolysis (RHAB v1)',
+                         'Solid Tumor (Somatic) (SSOLID v2)',
+                         'Leukemia (Somatic) (SHEMA v3)',
+                         'Severe Combined Immune Deficiency (SCID v1)',
                          'No Data'];
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
