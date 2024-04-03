@@ -93,7 +93,7 @@ const PrescriptionDetails = () => {
             </Col>
             {prescription?.extensions?.map((extension, index) => (
               <Col key={index} span={24}>
-                <ParentCard loading={loading} extension={extension} />
+                <ParentCard prescription={prescription} loading={loading} extension={extension} />
               </Col>
             ))}
           </Row>
