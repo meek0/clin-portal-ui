@@ -931,11 +931,13 @@ const renderClinvar = (clinVar: ClinVar, locus?: string) => {
       </Tooltip>
     ))
   ) : (
-    <Tag>
-      <ExternalLink href={`https://www.ncbi.nlm.nih.gov/clinvar/?term=${locus}`}>
-        {TABLE_ND_PLACE_HOLDER}
-      </ExternalLink>
-    </Tag>
+    <Tooltip placement="topLeft" title={intl.get('no_data')}>
+      <Tag>
+        <ExternalLink href={`https://www.ncbi.nlm.nih.gov/clinvar/?term=${locus}`}>
+          {TABLE_ND_PLACE_HOLDER}
+        </ExternalLink>
+      </Tag>
+    </Tooltip>
   );
 };
 
@@ -947,7 +949,9 @@ const renderAcmgExo = (acmg?: string) =>
       </Tag>
     </Tooltip>
   ) : (
-    <Tag>{TABLE_ND_PLACE_HOLDER}</Tag>
+    <Tooltip placement="topLeft" title={intl.get('no_data')}>
+      <Tag>{TABLE_ND_PLACE_HOLDER}</Tag>
+    </Tooltip>
   );
 
 const renderFranklinAcmg_Classification = (acmg?: string, link?: string, locus?: string) => {
@@ -965,11 +969,13 @@ const renderFranklinAcmg_Classification = (acmg?: string, link?: string, locus?:
       <Tag color={ACMGFranklinColorMap[acmg]}>{value}</Tag>
     </Tooltip>
   ) : (
-    <Tag>
-      <ExternalLink href={`https://franklin.genoox.com/clinical-db/variant/snp/chr${locus}-HG38`}>
-        {TABLE_ND_PLACE_HOLDER}
-      </ExternalLink>
-    </Tag>
+    <Tooltip placement="topLeft" title={intl.get('no_data')}>
+      <Tag>
+        <ExternalLink href={`https://franklin.genoox.com/clinical-db/variant/snp/chr${locus}-HG38`}>
+          {TABLE_ND_PLACE_HOLDER}
+        </ExternalLink>
+      </Tag>
+    </Tooltip>
   );
 };
 

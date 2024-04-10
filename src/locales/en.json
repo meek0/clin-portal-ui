@@ -440,6 +440,7 @@
   "name": "Name",
   "next": "Next",
   "no": "No",
+  "no_data": "No Data",
   "no.data.available": "No data available",
   "no.folder.number": "No file number",
   "no.ramq.or.new.born": "No RAMQ or newborn number",
