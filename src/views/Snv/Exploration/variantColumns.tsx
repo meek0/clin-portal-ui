@@ -994,7 +994,9 @@ const renderExomiserAcmg_Classification = (acmg?: string) =>
       </Tag>
     </Tooltip>
   ) : (
-    <Tag>{TABLE_ND_PLACE_HOLDER}</Tag>
+    <Tooltip placement="topLeft" title={intl.get('no_data')}>
+      <Tag>{TABLE_ND_PLACE_HOLDER}</Tag>
+    </Tooltip>
   );
 
 const renderToString = (element: any) => {
