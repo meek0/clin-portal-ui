@@ -39,7 +39,7 @@ export const dictionaries: Record<string, string[]> = {
   'donors.affected_status_code': ['affected', 'not_affected', 'unknown'],
   'donors.gender': ['Female', 'Male', 'Other', 'unknown'],
   // Variants
-  type: ['GAIN', 'LOSS', ArrangerValues.missing],
+  type: ['GAIN', 'LOSS', 'GAINLOH', 'CNLOH', ArrangerValues.missing],
   variant_class: [
     'insertion',
     'deletion',
@@ -382,7 +382,16 @@ export const dictionaries: Record<string, string[]> = {
     'read_position',
     'multiallelic',
     'long_indel',
+    'low_tlen',
     ArrangerValues.missing,
   ],
-  filters: ['PASS', 'cnvQual', 'cnvCopyRatio', 'LoDFail', ArrangerValues.missing],
+  filters: [
+    'PASS',
+    'cnvQual',
+    'cnvCopyRatio',
+    'LoDFail',
+    'binCount',
+    'segmentMean',
+    ArrangerValues.missing,
+  ],
 };
