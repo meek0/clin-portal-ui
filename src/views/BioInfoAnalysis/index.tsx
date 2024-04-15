@@ -38,7 +38,7 @@ const BioInfoAnalysis = () => {
         title: intl.get('screen.bioinfo.analysis.title', { id }),
       }}
     >
-      <ScrollContentWithFooter className={styles.bioInfoAnalysisWrapper} container>
+      <ScrollContentWithFooter className={styles.bioInfoAnalysisWrapper} dynamic={true} container>
         <Row gutter={[24, 24]}>
           <Col span={12}>
             <AnalysisCard analysis={results.task} loading={results.loading} />
