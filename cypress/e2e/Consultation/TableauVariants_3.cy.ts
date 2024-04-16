@@ -120,7 +120,7 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('ACMG F.', 1);
-    cy.validateTableFirstRow('-', 18);
+    cy.validateTableFirstRow('ND', 18);
     cy.sortTableAndIntercept('ACMG F.', 1);
     cy.validateTableFirstRow('VUS', 18);
   });
@@ -129,7 +129,7 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('ACMG E.', 1);
-    cy.validateTableFirstRow('-', 19);
+    cy.validateTableFirstRow('ND', 19);
     cy.sortTableAndIntercept('ACMG E.', 1);
     cy.validateTableFirstRow('VUS', 19);
   });

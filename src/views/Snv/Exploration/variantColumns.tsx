@@ -26,12 +26,13 @@ import {
 } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
 import { capitalize } from 'lodash';
+import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 import ConsequencesCell from 'views/Snv/components/ConsequencesCell';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import UserAffectedIcon from 'components/icons/UserAffectedIcon';
-import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { TABLE_EMPTY_PLACE_HOLDER, TABLE_ND_PLACE_HOLDER } from 'utils/constants';
 import { formatFilters } from 'utils/formatFilters';
 import { formatGenotype } from 'utils/formatGenotype';
 import { formatNumber } from 'utils/formatNumber';
@@ -180,6 +181,7 @@ const getFranklinAcmgClassification = () => ({
     renderFranklinAcmg_Classification(
       record?.franklin_max?.acmg_classification,
       record?.franklin_max?.link,
+      record?.locus,
     ),
 });
 
@@ -513,16 +515,15 @@ export const getVariantColumns = (
         const pickedConsequenceSymbol = variant.consequences?.hits.edges.find(
           ({ node }) => !!node.picked,
         )?.node.symbol;
-
         return renderOmim(variant, pickedConsequenceSymbol);
       },
     },
     {
       key: 'clinvar',
       title: intl.get('screen.patientsnv.results.table.clinvar'),
-      dataIndex: 'clinvar',
       width: 92,
-      render: renderClinvar,
+      render: (variant: { clinvar: ClinVar; locus: string }) =>
+        renderClinvar(variant.clinvar, variant.locus),
     },
   );
   if (patientId && variantType === VariantType.SOMATIC) {
@@ -906,31 +907,38 @@ export const getVariantColumns = (
   return columns;
 };
 
-const renderClinvar = (clinVar: ClinVar) => {
+const renderClinvar = (clinVar: ClinVar, locus?: string) => {
   const clinVarSigKey: string[] = [];
 
   clinVar?.clin_sig &&
     clinVar.clin_sig.map((c) => {
       clinVarSigKey.push(c.toLowerCase());
     });
-
-  return clinVar?.clin_sig && clinVar.clinvar_id
-    ? clinVarSigKey.map((clinvarKey) => (
-        <Tooltip
-          key={clinvarKey}
-          placement="topLeft"
-          title={removeUnderscoreAndCapitalize(clinvarKey)}
-        >
-          <Tag color={ClinvarColorMap[clinvarKey]}>
-            <ExternalLink
-              href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
-            >
-              {intl.get(`clinvar.abrv.${clinvarKey}`)}
-            </ExternalLink>
-          </Tag>
-        </Tooltip>
-      ))
-    : TABLE_EMPTY_PLACE_HOLDER;
+  return clinVar?.clin_sig && clinVar.clinvar_id ? (
+    clinVarSigKey.map((clinvarKey) => (
+      <Tooltip
+        key={clinvarKey}
+        placement="topLeft"
+        title={removeUnderscoreAndCapitalize(clinvarKey)}
+      >
+        <Tag color={ClinvarColorMap[clinvarKey]}>
+          <ExternalLink
+            href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
+          >
+            {intl.get(`clinvar.abrv.${clinvarKey}`)}
+          </ExternalLink>
+        </Tag>
+      </Tooltip>
+    ))
+  ) : (
+    <Tooltip placement="topLeft" title={intl.get('no_data')}>
+      <Tag>
+        <ExternalLink href={`https://www.ncbi.nlm.nih.gov/clinvar/?term=${locus}`}>
+          {TABLE_ND_PLACE_HOLDER}
+        </ExternalLink>
+      </Tag>
+    </Tooltip>
+  );
 };
 
 const renderAcmgExo = (acmg?: string) =>
@@ -941,10 +949,12 @@ const renderAcmgExo = (acmg?: string) =>
       </Tag>
     </Tooltip>
   ) : (
-    TABLE_EMPTY_PLACE_HOLDER
+    <Tooltip placement="topLeft" title={intl.get('no_data')}>
+      <Tag>{TABLE_ND_PLACE_HOLDER}</Tag>
+    </Tooltip>
   );
 
-const renderFranklinAcmg_Classification = (acmg?: string, link?: string) => {
+const renderFranklinAcmg_Classification = (acmg?: string, link?: string, locus?: string) => {
   const value = link ? (
     <ExternalLink href={link}>{intl.get(`franklin.acmg_classification.abrv.${acmg}`)}</ExternalLink>
   ) : (
@@ -959,7 +969,13 @@ const renderFranklinAcmg_Classification = (acmg?: string, link?: string) => {
       <Tag color={ACMGFranklinColorMap[acmg]}>{value}</Tag>
     </Tooltip>
   ) : (
-    TABLE_EMPTY_PLACE_HOLDER
+    <Tooltip placement="topLeft" title={intl.get('no_data')}>
+      <Tag>
+        <ExternalLink href={`https://franklin.genoox.com/clinical-db/variant/snp/chr${locus}-HG38`}>
+          {TABLE_ND_PLACE_HOLDER}
+        </ExternalLink>
+      </Tag>
+    </Tooltip>
   );
 };
 
@@ -978,7 +994,9 @@ const renderExomiserAcmg_Classification = (acmg?: string) =>
       </Tag>
     </Tooltip>
   ) : (
-    TABLE_EMPTY_PLACE_HOLDER
+    <Tooltip placement="topLeft" title={intl.get('no_data')}>
+      <Tag>{TABLE_ND_PLACE_HOLDER}</Tag>
+    </Tooltip>
   );
 
 const renderToString = (element: any) => {
@@ -1012,12 +1030,18 @@ export const renderExomiserScoreToString = (variant: any) => {
 
 export const renderExomiserAcmg_ClassificationToString = (variant: any) => {
   const value = variant?.exomiser_max?.acmg_classification;
-  return renderToString(renderExomiserAcmg_Classification(value));
+  if (value) {
+    return renderToString(renderExomiserAcmg_Classification(value));
+  }
+  return EMPTY_FIELD;
 };
 
 export const renderFranklinAcmg_ClassificationToString = (variant: any) => {
   const value = variant?.franklin_max?.acmg_classification;
-  return renderToString(renderFranklinAcmg_Classification(value));
+  if (value) {
+    return renderToString(renderFranklinAcmg_Classification(value));
+  }
+  return EMPTY_FIELD;
 };
 
 export const renderFranklinAcmg_evidenceToString = (variant: any) => {
@@ -1028,8 +1052,12 @@ export const renderFranklinAcmg_evidenceToString = (variant: any) => {
 export const renderClinvarToString = (variant: any) => {
   const clinvarList = renderClinvar(variant.clinvar);
   const clinvarStringList = [];
-  for (let i = 0; i < clinvarList.length; i++) {
-    clinvarStringList.push(renderToString(clinvarList[i]));
+  if (Array.isArray(clinvarList)) {
+    for (let i = 0; i < clinvarList.length; i++) {
+      clinvarStringList.push(renderToString(clinvarList[i]));
+    }
+  } else {
+    clinvarStringList.push(EMPTY_FIELD);
   }
   return clinvarStringList.join(',');
 };

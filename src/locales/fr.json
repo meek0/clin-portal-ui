@@ -472,6 +472,7 @@
   "name": "Nom",
   "next": "Suivant",
   "no": "Non",
+  "no_data": "No Data",
   "no.data.available": "Aucune donnée disponible",
   "no.folder.number": "Aucun numéro de dossier",
   "no.ramq.or.new.born": "Aucun numéro de RAMQ ou nouveau-né",
