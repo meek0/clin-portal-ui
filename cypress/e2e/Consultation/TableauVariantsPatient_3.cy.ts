@@ -81,7 +81,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('ACMG F.', 1);
-    cy.validateTableFirstRow('-', 12);
+    cy.validateTableFirstRow('ND', 12);
     cy.sortTableAndIntercept('ACMG F.', 1);
     cy.validateTableFirstRow('VUS', 12);
   });
@@ -91,7 +91,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.waitWhileSpin(2000);
 
     cy.sortTableAndIntercept('ACMG E.', 1);
-    cy.validateTableFirstRow('-', 13);
+    cy.validateTableFirstRow('ND', 13);
     cy.sortTableAndIntercept('ACMG E.', 1);
     cy.validateTableFirstRow('VUS', 13);
   });
