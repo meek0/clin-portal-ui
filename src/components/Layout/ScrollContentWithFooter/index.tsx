@@ -14,6 +14,7 @@ interface OwnProps {
   children: React.ReactElement;
   className?: string;
   container?: boolean;
+  dynamic?: boolean;
 }
 
 const ScrollContentWithFooter = ({
@@ -21,13 +22,18 @@ const ScrollContentWithFooter = ({
   scrollId,
   className = '',
   container = false,
+  dynamic,
 }: OwnProps) => (
   <ScrollContent id={scrollId} className={cx(styles.contentWithFooter, className)}>
     <div className={styles.mainWrapper}>
       <ConditionalWrapper
         condition={container}
         wrapper={(children) => (
-          <div className={sharedStyles.containerWrapper}>
+          <div
+            className={
+              dynamic ? sharedStyles.dynamicContainerWrapper : sharedStyles.containerWrapper
+            }
+          >
             <Container className={sharedStyles.container}>{children}</Container>
           </div>
         )}
