@@ -35,8 +35,10 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
 
   it('Variant - Type de variant', () => {
     const dictionnary = ['GAIN',
-                          'LOSS',
-                          'No Data'];
+                         'LOSS',
+                         'GAINLOH',
+                         'CNLOH',
+                         'No Data'];
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
     cy.validateDictionnaryPresetValues('Variant', 'Type de variant', dictionnary);
@@ -109,6 +111,8 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                          'CnvQual',
                          'CnvCopyRatio',
                          'LoDFail',
+                         'BinCount',
+                         'SegmentMean',
                          'No Data'];
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
