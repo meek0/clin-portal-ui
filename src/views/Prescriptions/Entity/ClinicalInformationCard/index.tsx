@@ -7,7 +7,7 @@ import RequestTable from '../RequestTable';
 
 const { Title } = Typography;
 
-import { ServiceRequestEntity } from 'api/fhir/models';
+import { ServiceRequestEntity, TFormConfig } from 'api/fhir/models';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 
 import { ClinicalSign } from './components/ClinicalSign';
@@ -21,10 +21,11 @@ import styles from './index.module.scss';
 
 type OwnProps = {
   prescription?: ServiceRequestEntity;
+  prescriptionFormConfig?: TFormConfig;
   loading: boolean;
 };
 
-const ClinicalInformation = ({ prescription, loading }: OwnProps) => {
+const ClinicalInformation = ({ prescription, prescriptionFormConfig, loading }: OwnProps) => {
   let ethnValue = undefined;
   const phenotype: string[] = [];
   let generalObservation = undefined;
@@ -97,6 +98,7 @@ const ClinicalInformation = ({ prescription, loading }: OwnProps) => {
                   <Paraclinique
                     ids={paraclinique.length > 0 ? paraclinique : null}
                     complexIds={complexParaclinique.length > 0 ? complexParaclinique : null}
+                    prescriptionFormConfig={prescriptionFormConfig}
                   />
                 }
               </Card.Grid>

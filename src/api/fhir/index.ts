@@ -18,6 +18,7 @@ import {
   PractitionerRole,
   ServiceRequestCode,
   ServiceRequestEntity,
+  TFormConfig,
 } from './models';
 
 const FHIR_API_URL = EnvironmentVariables.configFor('FHIR_API');
@@ -95,6 +96,15 @@ const prescriptionAssignment = (analysis_id: string, assignements: string[]) =>
     },
   });
 
+const fetchPrescriptionFormConfig = (code: string) =>
+  sendRequestWithRpt<{ config: TFormConfig }>({
+    method: 'GET',
+    url: `${FORM_API_URL}/form/${code}`,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
 const fetchTaskMetadata = (taskId: string) =>
   sendRequestWithRpt<Bundle<any>>({
     method: 'GET',
@@ -134,6 +144,7 @@ export const FhirApi = {
   fetchTaskMetadata,
   fetchServiceRequestCodes,
   fetchServiceRequestEntity,
+  fetchPrescriptionFormConfig,
   prescriptionAssignment,
   getFileURL,
 };

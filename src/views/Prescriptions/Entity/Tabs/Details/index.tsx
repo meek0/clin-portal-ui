@@ -4,8 +4,9 @@ import { useDispatch } from 'react-redux';
 import { DownloadOutlined } from '@ant-design/icons';
 import { downloadDocuments } from '@ferlab/core/core/utils';
 import { Button, Card, Col, Row } from 'antd';
-import { FORM_API_URL } from 'api/fhir';
+import { FhirApi, FORM_API_URL } from 'api/fhir';
 import { extractServiceRequestId } from 'api/fhir/helper';
+import { TFormConfig } from 'api/fhir/models';
 import { RptManager } from 'auth/rpt';
 
 import ContentHeader from 'components/Layout/ContentWithHeader/Header';
@@ -27,6 +28,7 @@ const PrescriptionDetails = () => {
   const { prescription, loading } = usePrescriptionEntityContext();
   const id = extractServiceRequestId(prescription?.id!);
   const [downloadingDocuments, setDownloadingDocuments] = useState(false);
+  const [perscriptionFormConfig, setPerscriptionFormConfig] = useState<TFormConfig>();
   const [rptToken, setRptToken] = useState<string | undefined>();
   const dispatch = useDispatch();
   const lang = useLang();
@@ -36,6 +38,14 @@ const PrescriptionDetails = () => {
       setRptToken(token);
     });
   }, []);
+
+  useEffect(() => {
+    if (prescription?.code[0]) {
+      FhirApi.fetchPrescriptionFormConfig(prescription?.code[0]).then(({ data }) => {
+        setPerscriptionFormConfig(data?.config);
+      });
+    }
+  }, [prescription]);
 
   const errorNotification = () => {
     dispatch(
@@ -89,7 +99,11 @@ const PrescriptionDetails = () => {
               </Col>
             )}
             <Col span={24}>
-              <ClinicalInformation prescription={prescription} loading={loading} />
+              <ClinicalInformation
+                prescription={prescription}
+                prescriptionFormConfig={perscriptionFormConfig}
+                loading={loading}
+              />
             </Col>
             {prescription?.extensions?.map((extension, index) => (
               <Col key={index} span={24}>
