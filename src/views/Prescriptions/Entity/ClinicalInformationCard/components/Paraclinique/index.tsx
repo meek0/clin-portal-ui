@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { Descriptions } from 'antd';
-import { CodeListEntity, ParaclinicEntity } from 'api/fhir/models';
+import { CodeListEntity, ParaclinicEntity, TFormConfig } from 'api/fhir/models';
 import { HpoApi } from 'api/hpo';
 import { IHpoNode } from 'api/hpo/models';
 import {
@@ -18,6 +18,7 @@ import { useLang } from 'store/global';
 type OwnProps = {
   ids: string[] | null;
   complexIds: string[] | null;
+  prescriptionFormConfig?: TFormConfig;
 };
 
 export const moveOtherParaclinique = (paracliniqueList: ParaclinicEntity[]) => {
@@ -60,7 +61,12 @@ const displayComplexParaclinique = (
   );
 };
 
-const displayParaclinique = (value: ParaclinicEntity, codeInfo: CodeListEntity, lang: string) => {
+const displayParaclinique = (
+  value: ParaclinicEntity,
+  codeInfo: CodeListEntity,
+  lang: string,
+  unit: string,
+) => {
   const codeSystemInfo = find(codeInfo?.concept, (c) => c.code === value?.code);
   const label =
     value?.category === 'exam'
@@ -70,13 +76,17 @@ const displayParaclinique = (value: ParaclinicEntity, codeInfo: CodeListEntity, 
   let displayValue = null;
 
   if (value?.interpretation?.coding?.code === 'A') {
-    displayValue = `${intl.get(`screen.prescription.entity.paraclinique.A`)} : ${
-      value?.valueString
-    }  UI/L`;
+    if (value?.valueString) {
+      displayValue = `${intl.get(`screen.prescription.entity.paraclinique.A`)} : ${
+        value?.valueString
+      }  ${unit}`;
+    } else {
+      displayValue = intl.get(`screen.prescription.entity.paraclinique.A`);
+    }
   } else if (value?.interpretation?.coding?.code === 'N') {
     displayValue = intl.get(`screen.prescription.entity.paraclinique.N`);
   } else {
-    displayValue = value?.valueString;
+    displayValue = value?.valueString ? value?.valueString : '';
   }
   return (
     <Descriptions.Item
@@ -91,7 +101,7 @@ const displayParaclinique = (value: ParaclinicEntity, codeInfo: CodeListEntity, 
 const hasHPO = (element: ParaclinicEntity) =>
   ['BMUS', 'EMG'].includes(element?.code) && element?.interpretation?.coding?.code === 'A';
 
-export const Paraclinique = ({ ids, complexIds }: OwnProps) => {
+export const Paraclinique = ({ ids, complexIds, prescriptionFormConfig }: OwnProps) => {
   const { paracliniqueValue } = useObservationParacliniqueEntity(ids);
   const { complexParacliniqueValue } = useObservationComplexParacliniqueEntity(complexIds);
   const { codeInfo } = useCodeSystem('observation-code');
@@ -147,7 +157,10 @@ export const Paraclinique = ({ ids, complexIds }: OwnProps) => {
         if (hasHPO(element)) {
           return displayComplexParaclinique(element, codeInfo, lang, paraclinicValueSet);
         }
-        return displayParaclinique(element, codeInfo, lang);
+        const associatedConfig = prescriptionFormConfig?.paraclinical_exams.default_list.find(
+          (d) => d.value === element.code,
+        );
+        return displayParaclinique(element, codeInfo, lang, associatedConfig?.extra?.unit || '');
       })}
     </Descriptions>
   );
