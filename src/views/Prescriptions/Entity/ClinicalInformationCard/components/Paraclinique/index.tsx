@@ -157,9 +157,11 @@ export const Paraclinique = ({ ids, complexIds, prescriptionFormConfig }: OwnPro
         if (hasHPO(element)) {
           return displayComplexParaclinique(element, codeInfo, lang, paraclinicValueSet);
         }
+
         const associatedConfig = prescriptionFormConfig?.paraclinical_exams.default_list.find(
-          (d) => d.value === element.code,
+          (d) => d.value === element?.code,
         );
+
         return displayParaclinique(element, codeInfo, lang, associatedConfig?.extra?.unit || '');
       })}
     </Descriptions>
