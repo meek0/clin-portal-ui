@@ -99,7 +99,7 @@ const displayParaclinique = (
 };
 
 const hasHPO = (element: ParaclinicEntity) =>
-  ['BMUS', 'EMG'].includes(element?.code) && element?.interpretation?.coding?.code === 'A';
+  ['BMUS', 'EMG', 'CGH'].includes(element?.code) && element?.interpretation?.coding?.code === 'A';
 
 export const Paraclinique = ({ ids, complexIds, prescriptionFormConfig }: OwnProps) => {
   const { paracliniqueValue } = useObservationParacliniqueEntity(ids);
