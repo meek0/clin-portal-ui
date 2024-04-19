@@ -9,6 +9,7 @@ import {
   useObservationComplexParacliniqueEntity,
   useObservationParacliniqueEntity,
   useParaclinicValueSetEntity,
+  useValueSet,
 } from 'graphql/prescriptions/actions';
 import { concat, find, map, some } from 'lodash';
 import { valueSetID } from 'views/Prescriptions/Entity/constants';
@@ -61,6 +62,47 @@ const displayComplexParaclinique = (
   );
 };
 
+const displayCgh = (
+  value: ParaclinicEntity,
+  codeInfo: CodeListEntity,
+  cghValueSet: CodeListEntity,
+  lang: string,
+) => {
+  const codeSystemInfo = find(codeInfo?.concept, (c) => c.code === value?.code);
+  const label =
+    value?.category === 'exam'
+      ? intl.get('prescription.clinical_exam.other_examination')
+      : find(codeSystemInfo?.designation, (o) => o.language === lang)?.value;
+
+  let displayValue = null;
+
+  if (value?.interpretation?.coding?.code === 'A') {
+    displayValue = `${intl.get(
+      `screen.prescription.entity.paraclinique.A`,
+    )} : ${value?.valueCodeableConcept?.coding
+      .map(
+        (v) =>
+          cghValueSet.concept
+            .find((concept) => concept.code === v.code)
+            ?.designation.find((d) => d.language === lang)?.value,
+      )
+      .join(', ')}`;
+  } else if (value?.interpretation?.coding?.code === 'N') {
+    displayValue = intl.get(`screen.prescription.entity.paraclinique.N`);
+  } else {
+    displayValue = value?.valueString ? value?.valueString : '';
+  }
+
+  return (
+    <Descriptions.Item
+      key={value?.id?.split('/')[1]}
+      label={label ? label : codeSystemInfo?.display}
+    >
+      {displayValue}
+    </Descriptions.Item>
+  );
+};
+
 const displayParaclinique = (
   value: ParaclinicEntity,
   codeInfo: CodeListEntity,
@@ -99,7 +141,7 @@ const displayParaclinique = (
 };
 
 const hasHPO = (element: ParaclinicEntity) =>
-  ['BMUS', 'EMG', 'CGH'].includes(element?.code) && element?.interpretation?.coding?.code === 'A';
+  ['BMUS', 'EMG'].includes(element?.code) && element?.interpretation?.coding?.code === 'A';
 
 export const Paraclinique = ({ ids, complexIds, prescriptionFormConfig }: OwnProps) => {
   const { paracliniqueValue } = useObservationParacliniqueEntity(ids);
@@ -108,6 +150,7 @@ export const Paraclinique = ({ ids, complexIds, prescriptionFormConfig }: OwnPro
   const [allParacliniqueValue, setAllParacliniqueValue] = useState<any>();
   const [currentHPOOptions, setCurrentHPOOptions] = useState<IHpoNode>();
   const [hpoList, setHpoList] = useState<IHpoNode[]>([]);
+  const cghAnomaliesValueSet = useValueSet('cgh-abnormalities');
   const { paraclinicValueSet: paraclinicValueSet } = useParaclinicValueSetEntity([
     valueSetID.bmusAbnormalities,
     valueSetID.emgAbnormalities,
@@ -156,6 +199,8 @@ export const Paraclinique = ({ ids, complexIds, prescriptionFormConfig }: OwnPro
       {allParacliniqueValue?.map((element: ParaclinicEntity) => {
         if (hasHPO(element)) {
           return displayComplexParaclinique(element, codeInfo, lang, paraclinicValueSet);
+        } else if (element?.code === 'CGH') {
+          return displayCgh(element, codeInfo, cghAnomaliesValueSet.valueSet, lang);
         }
 
         const associatedConfig = prescriptionFormConfig?.paraclinical_exams.default_list.find(
