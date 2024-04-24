@@ -20,7 +20,7 @@ interface OwnProps {
   variantSection?: VariantSection;
 }
 
-const SnvPatient = ({ variantSection }: OwnProps) => {
+const SnvTNPatient = ({ variantSection }: OwnProps) => {
   const { prescriptionId, variantInfo } = usePrescriptionEntityContext();
   const variantMappingResults = useGetExtendedMappings(INDEXES.VARIANT);
   const filterMapper = (filters: ISqonGroupFilter) =>
@@ -43,10 +43,10 @@ const SnvPatient = ({ variantSection }: OwnProps) => {
   );
 };
 
-const SnvPatientWrapper = (props: OwnProps) => (
+const SnvTNPatientWrapper = (props: OwnProps) => (
   <ApolloProvider backend={GraphqlBackend.ARRANGER}>
-    <SnvPatient {...props} />
+    <SnvTNPatient {...props} />
   </ApolloProvider>
 );
 
-export default SnvPatientWrapper;
+export default SnvTNPatientWrapper;

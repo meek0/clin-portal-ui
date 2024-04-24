@@ -1,10 +1,12 @@
 import { BooleanOperators, TermOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 
 export const wrapSqonWithDonorIdAndSrId = (
   resolvedSqon: ISqonGroupFilter,
   patientId?: string,
   prescriptionId?: string,
+  variantSection?: VariantSection,
 ) => {
   const cleanSqon = (sqon: any, keyToRemove = 'pivot') => {
     if (typeof sqon !== 'object' || sqon === null) {
@@ -27,6 +29,8 @@ export const wrapSqonWithDonorIdAndSrId = (
   const addFilters = (content: any, patientFilter: any, prescriptionFilter: any) => {
     if (patientFilter) content.push(patientFilter);
     if (prescriptionFilter) content.push(prescriptionFilter);
+    if (variantSection === VariantSection.SNVTO) content.push(tebaFilter);
+    if (variantSection === VariantSection.SNVTN) content.push(tnebaFilter);
     return content;
   };
   const handleContent = (sqon: any, patientFilter: any, prescriptionFilter: any): any => {
@@ -86,6 +90,15 @@ export const wrapSqonWithDonorIdAndSrId = (
   const patientFilter = patientId
     ? { content: { field: 'donors.patient_id', value: [patientId] }, op: TermOperators.in }
     : null;
+
+  const tebaFilter = {
+    content: { field: 'donors.bioinfo_analysis_code', value: ['TEBA'] },
+    op: TermOperators.in,
+  };
+  const tnebaFilter = {
+    content: { field: 'donors.bioinfo_analysis_code', value: ['TNEBA'] },
+    op: TermOperators.in,
+  };
 
   if (patientId || prescriptionId) {
     const cleanedSqon = cleanSqon(resolvedSqon);

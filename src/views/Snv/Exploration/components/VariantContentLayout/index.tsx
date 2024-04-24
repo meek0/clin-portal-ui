@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import intl from 'react-intl-universal';
+import { useHistory } from 'react-router-dom';
 import QueryBuilder from '@ferlab/ui/core/components/QueryBuilder';
 import { dotToUnderscore } from '@ferlab/ui/core/data/arranger/formatting';
 import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
@@ -12,6 +13,7 @@ import { INDEXES } from 'graphql/constants';
 import { ExtendedMapping, ExtendedMappingResults, IQueryResults } from 'graphql/models';
 import { IVariantResultTree, VariantEntity } from 'graphql/variants/models';
 import { GET_VARIANT_COUNT } from 'graphql/variants/queries';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { getMenuItemsEditionPill } from 'views/Snv/Exploration/Rqdm/facets';
 import { QUERY_EDITION_QB_ID } from 'views/Snv/utils/constant';
 
@@ -25,7 +27,6 @@ import { VARIANT_RQDM_QB_ID_FILTER_TAG } from 'utils/queryBuilder';
 import { getQueryBuilderDictionary } from 'utils/translation';
 
 import styles from './index.module.scss';
-import { useHistory } from "react-router-dom";
 
 interface OwnProps {
   queryBuilderId: string;
@@ -35,6 +36,7 @@ interface OwnProps {
   variantMapping: ExtendedMappingResults;
   children: React.ReactElement;
   getVariantResolvedSqon: (query: ISyntheticSqon) => ISqonGroupFilter;
+  variantSection?: VariantSection;
 }
 
 const VariantContentLayout = ({
@@ -44,6 +46,7 @@ const VariantContentLayout = ({
   variantResults,
   variantMapping,
   getVariantResolvedSqon,
+  variantSection,
   children,
 }: OwnProps) => {
   const { getAnalysisNameByCode } = useGlobals();
@@ -56,7 +59,7 @@ const VariantContentLayout = ({
   );
 
   const { handleOnDeleteFilter, handleOnSaveFilter, handleOnShareFilter, handleOnUpdateFilter } =
-    useSavedFiltersActions(savedFilterTag);
+    useSavedFiltersActions(savedFilterTag, variantSection);
 
   const { handleOnCreateCustomPill, handleOnUpdateCustomPill } =
     useCustomPillsActions(savedFilterTag);
@@ -80,16 +83,20 @@ const VariantContentLayout = ({
       <QueryBuilder
         id={queryBuilderId}
         className="variant-patient-repo__query-builder"
-        customPillConfig={history.location.pathname.includes('prescription') ? undefined : {
-          createCustomPill: handleOnCreateCustomPill,
-          tag: VARIANT_RQDM_QB_ID_FILTER_TAG,
-          editPill: handleOnUpdateCustomPill,
-          getFiltersByPill: fetchFiltersByCustomPill,
-          getPillById: fetchSavedFilterById,
-          editMenuItems: getMenuItemsEditionPill(variantMapping),
-          queryEditionQBId: QUERY_EDITION_QB_ID,
-          validateName: CustomPillApi.validateName,
-        }}
+        customPillConfig={
+          history.location.pathname.includes('prescription')
+            ? undefined
+            : {
+                createCustomPill: handleOnCreateCustomPill,
+                tag: VARIANT_RQDM_QB_ID_FILTER_TAG,
+                editPill: handleOnUpdateCustomPill,
+                getFiltersByPill: fetchFiltersByCustomPill,
+                getPillById: fetchSavedFilterById,
+                editMenuItems: getMenuItemsEditionPill(variantMapping),
+                queryEditionQBId: QUERY_EDITION_QB_ID,
+                validateName: CustomPillApi.validateName,
+              }
+        }
         headerConfig={{
           showHeader: true,
           showTools: true,

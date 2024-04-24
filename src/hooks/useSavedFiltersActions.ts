@@ -1,5 +1,6 @@
 import { ISavedFilter } from '@ferlab/ui/core/components/QueryBuilder/types';
 import copy from 'copy-to-clipboard';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 
 import { useAppDispatch } from 'store';
 import { globalActions } from 'store/global';
@@ -9,7 +10,7 @@ import { getCurrentUrl } from 'utils/helper';
 
 import { TUserSavedFilter } from '../api/savedFilter/models';
 
-const useSavedFiltersActions = (savedFilterTag: string) => {
+const useSavedFiltersActions = (savedFilterTag: string, variantSection?: VariantSection) => {
   const dispatch = useAppDispatch();
 
   const handleOnUpdateFilter = (filter: ISavedFilter) => dispatch(updateSavedFilter(filter));
@@ -28,7 +29,7 @@ const useSavedFiltersActions = (savedFilterTag: string) => {
     let url = `${getCurrentUrl()}?${SHARED_FILTER_ID_QUERY_PARAM_KEY}=${filter.id}`;
     const aFilter = filter as TUserSavedFilter;
     if (aFilter.tag?.includes('patient')) {
-      url = url.concat(`&variantSection=${aFilter.tag.split('_')[0]}`).concat('#variants')
+      url = url.concat(`&variantSection=${variantSection}`).concat('#variants');
     }
     copy(url);
     dispatch(

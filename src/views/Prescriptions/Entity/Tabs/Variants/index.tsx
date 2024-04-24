@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import intl from 'react-intl-universal';
 import { Select, Space, Spin, Typography } from 'antd';
+import { VariantType } from 'graphql/variants/models';
 
 import ContentHeader from 'components/Layout/ContentWithHeader/Header';
 import PatientTags from 'components/Variant/PatientTags';
@@ -14,6 +15,7 @@ import VariantSectionNav, {
 } from './components/VariantSectionNav';
 import CnvPatient from './cnv';
 import SnvPatient from './snv';
+import SnvTNPatient from './snvTN';
 import { extractOptionValue, formatOptionValue, getRequestOptions, hasVariantInfo } from './utils';
 
 import styles from './index.module.scss';
@@ -33,7 +35,22 @@ const PrescriptionVariants = () => {
     ? PatientTags(variantInfo.patientId, selectedRequest, selectedBasedOnRequest)
     : [];
 
-  const variantSection = queryParams.get(VariantSectionKey) || VariantSection.SNV;
+  const defaultVariantSection =
+    variantInfo.variantType === VariantType.GERMLINE ? VariantSection.SNV : VariantSection.SNVTO;
+  const variantSection = queryParams.get(VariantSectionKey) || defaultVariantSection;
+  const getVariantPage = () => {
+    switch (variantSection) {
+      case VariantSection.SNV:
+      case VariantSection.SNVTO:
+        return <SnvPatient variantSection={variantSection} />;
+      case VariantSection.SNVTN:
+        return <SnvTNPatient variantSection={variantSection} />;
+      case VariantSection.CNV:
+        return <CnvPatient />;
+      default:
+        break;
+    }
+  };
 
   return (
     <div>
@@ -56,17 +73,17 @@ const PrescriptionVariants = () => {
               </Space>
             )}
           </>,
-          <VariantSectionNav key="variant-section-nav" />,
+          <VariantSectionNav
+            key="variant-section-nav"
+            extum={prescription?.code.includes('EXTUM')}
+            requestID={selectedRequest?.id}
+          />,
           ...patientTags,
         ]}
         loading={loading}
       />
       {hasVariantInfo(variantInfo) ? (
-        variantSection === VariantSection.SNV ? (
-          <SnvPatient />
-        ) : (
-          <CnvPatient />
-        )
+        getVariantPage()
       ) : (
         <div className={styles.loadingContainer}>
           <Spin spinning />

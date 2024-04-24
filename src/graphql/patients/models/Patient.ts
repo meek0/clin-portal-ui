@@ -80,6 +80,7 @@ export interface FhirTask {
   runDate: string;
   authoredOn: string;
   runAlias: string;
+  type?: string;
 }
 
 export interface FhirOwner {

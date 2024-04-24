@@ -13,6 +13,8 @@ export enum PageType {
 
 export enum VariantType {
   SNV = 'snv',
+  SNVTO = 'snv-to',
+  SNVTN = 'snv-tn',
   CNV = 'cnv',
 }
 

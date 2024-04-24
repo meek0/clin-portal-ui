@@ -6,6 +6,7 @@ import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { IQueryResults } from 'graphql/models';
 import { ITableVariantEntity, VariantEntity, VariantType } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { getVariantTypeFromSNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import IGVModal from 'views/Snv/components//IGVModal';
@@ -37,6 +38,7 @@ type OwnProps = {
   setVariantType: (variantType: VariantType) => void;
   setDownloadTriggered: (value: boolean) => void;
   setSelectedRows: (value: any[]) => void;
+  variantSection?: VariantSection;
 };
 
 const VariantsTab = ({
@@ -50,6 +52,7 @@ const VariantsTab = ({
   setVariantType,
   setDownloadTriggered,
   setSelectedRows,
+  variantSection,
 }: OwnProps) => {
   const dispatch = useDispatch();
   const { user } = useUser();
@@ -72,10 +75,15 @@ const VariantsTab = ({
 
   const variantType = getVariantTypeFromSNVVariantEntity(results?.data?.[0]);
 
+  const getSomaticColumns = () =>
+    variantSection === VariantSection.SNVTO
+      ? user.config.data_exploration?.tables?.patientSnvTo?.columns
+      : user.config.data_exploration?.tables?.patientSnvTn?.columns;
+
   const initialColumnState =
     variantType === VariantType.GERMLINE
       ? user.config.data_exploration?.tables?.patientSnvGermline?.columns
-      : user.config.data_exploration?.tables?.patientSnvSomatique?.columns;
+      : getSomaticColumns();
 
   setVariantType(variantType);
   const columns = getVariantColumns(
@@ -151,10 +159,18 @@ const VariantsTab = ({
                           },
                         },
                       })
+                    : variantSection === VariantSection.SNVTO
+                    ? updateConfig({
+                        data_exploration: {
+                          tables: {
+                            patientSnvTo: { columns },
+                          },
+                        },
+                      })
                     : updateConfig({
                         data_exploration: {
                           tables: {
-                            patientSnvSomatique: { columns },
+                            patientSnvTn: { columns },
                           },
                         },
                       }),
@@ -184,11 +200,22 @@ const VariantsTab = ({
                           },
                         },
                       })
+                    : variantSection === VariantSection.SNVTO
+                    ? updateConfig({
+                        data_exploration: {
+                          tables: {
+                            patientSnvTo: {
+                              ...user?.config.data_exploration?.tables?.patientSnvTo,
+                              viewPerQuery,
+                            },
+                          },
+                        },
+                      })
                     : updateConfig({
                         data_exploration: {
                           tables: {
-                            patientSnvSomatique: {
-                              ...user?.config.data_exploration?.tables?.patientSnvSomatique,
+                            patientSnvTn: {
+                              ...user?.config.data_exploration?.tables?.patientSnvTn,
                               viewPerQuery,
                             },
                           },
