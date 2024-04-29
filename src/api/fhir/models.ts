@@ -200,6 +200,11 @@ export type PractitionerBundleType = (Practitioner | PractitionerRole)[];
 
 export interface Investigation {
   item: {
+    item?: {
+      code?: {
+        coding: Coding;
+      };
+    };
     reference: string;
     resource: {
       code: CodeableConcept;
@@ -299,6 +304,12 @@ export interface ServiceRequestEntity {
   priority: string;
   status: string;
   code: string[];
+  category: {
+    text: string;
+    coding: {
+      code: string;
+    }[];
+  }[];
   note: {
     text: string;
   };
