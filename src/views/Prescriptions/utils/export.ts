@@ -8,6 +8,7 @@ import orderBy from 'lodash/orderBy';
 import { renderCNVToString } from 'views/Cnv/Exploration/variantColumns';
 import { renderToString as renderConsequencesToString } from 'views/Snv/components/ConsequencesCell/index';
 import {
+  renderAllAnalysisToString,
   renderCaddPhredToString,
   renderClinvarToString,
   renderDonorToString,
@@ -119,7 +120,6 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
         'donors.exomiser.acmg_evidence',
         'donors.gq',
         'donors.sq',
-        'donors.bioinfo_analysis_code',
         'donors.zygosity',
         'donors_genotype',
         'ch',
@@ -135,6 +135,8 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       ].includes(key)
     ) {
       return convertToPlain(renderDonorToString(key, findDonorById(row.donors, patientId)));
+    } else if (key === 'donors.all_analyses') {
+      return convertToPlain(renderAllAnalysisToString(key, findDonorById(row.donors, patientId)));
     }
   } else if (prefix === 'CNV') {
     if (['calls', 'genes'].includes(key)) {

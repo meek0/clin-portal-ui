@@ -243,10 +243,6 @@ export const getQueryBuilderDictionary = (
           not_affected: intl.get('donors.status.not_affected'),
           unknown: intl.get('unknown'),
         },
-        'donors.bioinfo_analysis_code': {
-          TEBA: intl.get('filters.options.donors.bioinfo_analysis_code.TEBA'),
-          TNBA: intl.get('filters.options.donors.bioinfo_analysis_code.TNBA'),
-        },
         'donors.exomiser.acmg_classification': {
           PATHOGENIC: intl.get('filters.options.donors.exomiser.acmg_classification.PATHOGENIC'),
           LIKELY_PATHOGENIC: intl.get(
@@ -417,7 +413,7 @@ export const getFacetsDictionarySNV = () => ({
     sq: intl.get('filters.group.donors.sq'),
     affected_status_code: intl.get('filters.group.donors.affected_status_code'),
     analysis_code: intl.get('filters.group.donors.analysis_code'),
-    bioinfo_analysis_code: intl.get('filters.group.donors.bioinfo_analysis_code'),
+    all_analyses: intl.get('filters.group.donors.all_analyses'),
     exomiser: {
       acmg_classification: intl.get('filters.group.donors.exomiser.acmg_classification'),
       acmg_evidence: intl.get('filters.group.donors.exomiser.acmg_evidence'),

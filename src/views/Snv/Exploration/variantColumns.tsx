@@ -14,7 +14,6 @@ import { Button, Space, Tag, Tooltip, Typography } from 'antd';
 import { INDEXES } from 'graphql/constants';
 import { ArrangerResultsTree } from 'graphql/models';
 import {
-  BioinfoAnalysisCode,
   ClinVar,
   DonorsEntity,
   ExternalFrequenciesEntity,
@@ -397,12 +396,12 @@ export const getVariantColumns = (
 
   if (patientId && variantType === VariantType.SOMATIC) {
     columns.push({
-      key: 'donors.bioinfo_analysis_code',
+      key: 'donors.all_analyses',
       title: intl.get('screen.patientsnv.results.table.bioinfo_analysis_code'),
       tooltip: intl.get('bioinfo_analysis_code.tooltip'),
       width: 59,
       render: (record: VariantEntity) =>
-        renderDonorByKey('donors.bioinfo_analysis_code', findDonorById(record.donors, patientId)),
+        renderDonorByKey('donors.all_analyses', findDonorById(record.donors, patientId)),
     });
   }
 
@@ -1149,19 +1148,13 @@ export const renderRevelScoreToString = (variant: any) => {
     : TABLE_EMPTY_PLACE_HOLDER;
 };
 
+export const renderAllAnalysisToString = (key: string, donor?: DonorsEntity) => {
+  const codes = donor?.all_analyses;
+  return codes ? codes?.join(',') : TABLE_EMPTY_PLACE_HOLDER;
+};
+
 export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
   renderToString(renderDonorByKey(key, donor));
-
-const getBioinfoTagColor = (code: BioinfoAnalysisCode) => {
-  switch (code) {
-    case BioinfoAnalysisCode.TEBA:
-      return 'blue';
-    case BioinfoAnalysisCode.TNBA:
-      return 'red';
-    default:
-      return 'default';
-  }
-};
 
 // eslint-disable-next-line complexity
 const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
@@ -1169,21 +1162,20 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
     return <GqLine value={donor?.gq} />;
   } else if (key === 'donors.sq') {
     return donor ? donor?.sq : TABLE_EMPTY_PLACE_HOLDER;
-  } else if (key === 'donors.bioinfo_analysis_code') {
-    const code = donor?.bioinfo_analysis_code;
-    return code ? (
-      <Tooltip
-        title={intl
-          .get(`type.abrv.bioinfo_analysis_code.${code}.tooltip`)
-          .defaultMessage(capitalize(code))}
-      >
-        <Tag color={getBioinfoTagColor(code)}>
-          {intl.get(`type.abrv.bioinfo_analysis_code.${code}`).defaultMessage(capitalize(code))}
-        </Tag>
-      </Tooltip>
-    ) : (
-      TABLE_EMPTY_PLACE_HOLDER
-    );
+  } else if (key === 'donors.all_analyses') {
+    const codes = donor?.all_analyses;
+    return codes
+      ? codes.map((code) => (
+          <Tooltip
+            key={code}
+            title={intl
+              .get(`type.abrv.all_analyses.${code}.tooltip`)
+              .defaultMessage(capitalize(code))}
+          >
+            <Tag color={code === 'TN' ? 'red' : undefined}>{code}</Tag>
+          </Tooltip>
+        ))
+      : TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors.exomiser.gene_combined_score') {
     return donor?.exomiser?.gene_combined_score.toFixed(3) || TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors.exomiser.acmg_evidence') {

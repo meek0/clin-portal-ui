@@ -269,6 +269,8 @@ export const dictionaries: Record<string, string[]> = {
     'BENIGN',
     ArrangerValues.missing,
   ],
+  'donors.all_analyses': ['TO', 'TN', ArrangerValues.missing],
+
   'consequences.vep_impact': ['HIGH', 'MODERATE', 'LOW', 'MODIFIER', ArrangerValues.missing],
   'consequences.predictions.fathmm_pred': ['D', 'T', ArrangerValues.missing],
   'consequences.predictions.lrt_pred': ['D', 'N', 'U', ArrangerValues.missing],
