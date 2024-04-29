@@ -50,6 +50,7 @@ module.exports = (on: Cypress.PluginEvents, config: Cypress.ConfigOptions) => {
   config.env.presc_EP_CHUS_LDM_CHUS   = process.env.CYPRESS_PRESC_EP_CHUS_LDM_CHUS;
   config.env.prescs_CUSM_RGDI         = process.env.CYPRESS_PRESCS_CUSM_RGDI;
   config.env.presc_SOMATIC            = process.env.CYPRESS_PRESC_SOMATIC;
+  config.env.presc_PAIRED             = process.env.CYPRESS_PRESC_PAIRED;
   config.env.shared_filter_id         = process.env.CYPRESS_SHAREDFILTERID;
 
   config.env.google_Username = process.env.CYPRESS_GOOGLE_USERNAME;
