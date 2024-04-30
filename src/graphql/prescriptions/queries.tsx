@@ -510,6 +510,23 @@ export const ANALYSE_PHENOTYPE_OBSERVATION = (ids: string[]) => gql`
     }
 `;
 
+export const ANALYSE_SOCIAL_HISTORY_OBSERVATION = (id: string) => gql`
+  query GetConsanguinityObservation($id: String = "${id}") {
+    Observation(id: $id) {
+      id
+      note @first{
+        text
+      }
+      valueCodeableConcept{
+        coding @first{
+          code
+          system
+        }
+      }
+    }
+  }
+`;
+
 export const ANALYSE_GENERALOBS_INDICATION_OBSERVATION = (id: string) => gql`
   query GetGeneralObservationObservation($id: String = "${id}") {
     Observation(id: $id) {
