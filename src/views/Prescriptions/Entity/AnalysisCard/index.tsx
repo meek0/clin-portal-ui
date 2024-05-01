@@ -184,7 +184,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
             <Descriptions.Item
               label={intl.get('screen.prescription.entity.analysisCard.reflexpanel')}
             >
-              {prescription.orderDetail ? prescription.orderDetail.text.split(':')[1] : '--'}
+              {prescription.orderDetail ? prescription.orderDetail.text.split(':')[1] : EMPTY_FIELD}
             </Descriptions.Item>
             <Descriptions.Item label={intl.get('screen.patientsearch.table.createdOn')}>
               {formatDate(prescription?.authoredOn)}
@@ -195,9 +195,11 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
               {prescription?.requester ? getPractionnerName(prescription.requester) : EMPTY_FIELD}
             </Descriptions.Item>
             <Descriptions.Item label={intl.get('prescribing.institution')}>
-              {prescription?.requester
-                ? extractOrganizationId(prescription.requester.organization?.reference)
-                : EMPTY_FIELD}
+              {extractOrganizationId(
+                prescription?.subject.resource?.managingOrganization?.reference
+                  ? prescription.subject.resource.managingOrganization.reference
+                  : EMPTY_FIELD,
+              )}
             </Descriptions.Item>
             <Descriptions.Item label={intl.get('screen.patientsearch.table.ldm')}>
               {extractOrganizationId(
