@@ -21,7 +21,7 @@ apiInstance.interceptors.request.use((config) => {
 });
 
 const rptApiInstance = axios.create({
-  timeout: 15000,
+  timeout: 60000,
 });
 
 rptApiInstance.interceptors.request.use(async (config) => {
