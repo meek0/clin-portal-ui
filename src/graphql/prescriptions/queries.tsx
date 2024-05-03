@@ -511,7 +511,7 @@ export const ANALYSE_PHENOTYPE_OBSERVATION = (ids: string[]) => gql`
 `;
 
 export const ANALYSE_SOCIAL_HISTORY_OBSERVATION = (id: string) => gql`
-  query GetConsanguinityObservation($id: String = "${id}") {
+  query GetSocialHistoryObservation($id: String = "${id}") {
     Observation(id: $id) {
       id
       note @first{
