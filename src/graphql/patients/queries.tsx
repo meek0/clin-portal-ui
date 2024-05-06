@@ -109,6 +109,21 @@ export const SEARCH_PATIENT_FILES_QUERY = (searchValue: string) => gql`
   }
 `;
 
+export const SEARCH_REQUEST_TASK_QUERY = (searchValue: string) => gql`
+  {
+    taskList: TaskList(
+      _filter: "(focus eq ${searchValue})"
+    ) {
+      id
+      code @flatten {
+              coding @first @flatten {
+                type: code
+              }
+            }
+    }
+  }
+`;
+
 export const SEARCH_PRESCRIPTION_FILES_QUERY = (searchValue: string) => gql`
   {
     taskList: TaskList(

@@ -462,6 +462,14 @@ Cypress.Commands.add('visitVariantsPage', (sharedFilterOption?: string) => {
   cy.resetColumns(0);
 });
 
+Cypress.Commands.add('visitVariantsPairedPatientPage', (patientId: string, prescriptionId: string, nbGraphqlCalls: number) => {
+  cy.visitAndIntercept(`/prescription/entity/${prescriptionId}?variantSection=snv-tn#variants`,
+                       'POST',
+                       '**/graphql',
+                       nbGraphqlCalls,);
+  cy.resetColumns(0);
+});
+
 Cypress.Commands.add('visitVariantsPatientPage', (patientId: string, prescriptionId: string, nbGraphqlCalls: number, sharedFilterOption?: string) => {
   const strSharedFilterOption = sharedFilterOption !== undefined ? '?sharedFilterId='+sharedFilterOption+'&variantSection=snv' : '';
   cy.visitAndIntercept(`/prescription/entity/${prescriptionId}${strSharedFilterOption}#variants`,

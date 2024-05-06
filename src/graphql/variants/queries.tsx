@@ -130,6 +130,7 @@ export const VARIANT_QUERY = gql`
                 total
                 edges {
                   node {
+                    all_analyses
                     aliquot_id
                     patient_id
                     organization_id

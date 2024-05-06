@@ -10,6 +10,7 @@ import { useVariants } from 'graphql/variants/actions';
 import { VariantType } from 'graphql/variants/models';
 import { VARIANT_QUERY } from 'graphql/variants/queries';
 import { cloneDeep } from 'lodash';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { MAX_VARIANTS_WITH_DONORS_DOWNLOAD, VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import VariantContentLayout from 'views/Snv/Exploration/components/VariantContentLayout';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
@@ -33,9 +34,10 @@ type OwnProps = {
   variantMapping: ExtendedMappingResults;
   patientId?: string;
   prescriptionId?: string;
+  variantSection?: VariantSection;
 };
 
-const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) => {
+const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection }: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(SNV_VARIANT_PATIENT_QB_ID);
   const [variantQueryConfig, setVariantQueryConfig] = useState({
     ...DEFAULT_QUERY_CONFIG,
@@ -48,6 +50,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
       cloneDeep(resolveSyntheticSqonWithReferences(queryList, query, variantMapping)),
       patientId,
       prescriptionId,
+      variantSection,
     );
 
   const queryVariables = {
@@ -68,6 +71,27 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     ...variantResults,
     data: variantResults?.data?.filter((v) => (v.donors?.hits?.edges || []).length > 0),
   };
+
+  useEffect(() => {
+    setVariantQueryConfig({
+      ...variantQueryConfig,
+      searchAfter: undefined,
+    });
+  }, [variantSection]);
+
+  useEffect(() => {
+    if (
+      variantQueryConfig.firstPageFlag !== undefined ||
+      variantQueryConfig.searchAfter === undefined
+    ) {
+      return;
+    }
+
+    setVariantQueryConfig({
+      ...variantQueryConfig,
+      firstPageFlag: variantQueryConfig.searchAfter,
+    });
+  }, [variantQueryConfig]);
 
   useEffect(() => {
     if (
@@ -118,6 +142,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
       activeQuery={activeQuery}
       variantResults={variantResultsWithDonors}
       getVariantResolvedSqon={getVariantResolvedSqon}
+      variantSection={variantSection}
     >
       <Tabs type="card" activeKey={'variants'}>
         <Tabs.TabPane
@@ -135,6 +160,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
             setVariantType={setVariantType}
             setDownloadTriggered={setDownloadTriggered}
             setSelectedRows={setSelectedRows}
+            variantSection={variantSection}
           />
           <DownloadTSVWrapper
             queryVariables={queryVariables}

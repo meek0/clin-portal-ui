@@ -40,4 +40,5 @@ CYPRESS_PRESC_EP_CUSM_LDM_CHUSJ  = {"prescriptionId": "TO_FILL", "patientProbId"
 CYPRESS_PRESC_EP_CUSM_LDM_CUSM   = {"prescriptionId": "TO_FILL", "patientProbId": "TO_FILL", "mrnProb": "MRN-283897", "firstNameProb": "Maya"}
 CYPRESS_PRESC_EP_CHUS_LDM_CHUS   = {"prescriptionId": "TO_FILL", "patientProbId": "TO_FILL", "mrnProb": "MRN-283834", "firstNameProb": "Tristan"}
 CYPRESS_PRESC_SOMATIC = {"prescriptionId": "TO_FILL", "patientProbId": "TO_FILL", "mrnProb": "03419540"}
+CYPRESS_PRESC_PAIRED = {"prescriptionId": "TO_FILL", "patientProbId": "TO_FILL", "mrnProb": "MRN-283791"}
 CYPRESS_SHAREDFILTERID = "0286826d-f20f-4a43-a17c-d196460bf834"
