@@ -22,7 +22,10 @@ interface OwnProps {
 
 const ParentCard = ({ extension, loading, prescription }: OwnProps) => {
   const phenotype: string[] = [];
-  const generalObservation = undefined;
+  const generalObservation =
+    extension?.extension?.[1].valueReference?.resource.clinicalImpressions[0].investigation[0].item?.find(
+      (item) => get(item, 'item.code.coding.code') === 'OBSG',
+    );
 
   extension?.extension?.[1].valueReference?.resource.clinicalImpressions[0].investigation[0].item
     ?.filter((item) => get(item, 'item.code.coding.code') === 'PHEN')
@@ -63,7 +66,7 @@ const ParentCard = ({ extension, loading, prescription }: OwnProps) => {
                       <p style={{ marginBottom: '.5em' }} />
                       <ClinicalSign
                         phenotypeIds={phenotype}
-                        generalObervationId={generalObservation}
+                        generalObervationId={generalObservation?.reference}
                         prescriptionCode={prescription.code[0]}
                       />
                     </>
