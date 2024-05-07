@@ -234,7 +234,7 @@
   "filters.group.status": "Prescription Status",
   "filters.group.type": "Type",
   "filters.group.variant_class": "Variant Type",
-  "filters.group.donors.bioinfo_analysis_code": "Bioinformatic Analysis",
+  "filters.group.donors.all_analyses": "Bioinformatic Analysis",
   "filters.group.variant_external_reference": "External Reference",
   "filters.options.consequences.predictions.fathmm_pred.D": "Deleterious",
   "filters.options.consequences.predictions.fathmm_pred.T": "Tolerated",
@@ -1145,10 +1145,8 @@
   "type.abrv.substitution.tooltip": "Substitution",
   "type.abrv.sequence_alteration": "SeqAlt",
   "type.abrv.sequence_alteration.tooltip": "Sequence Alteration",
-  "type.abrv.bioinfo_analysis_code.TEBA": "TO",
-  "type.abrv.bioinfo_analysis_code.TEBA.tooltip": "Tumor Only",
-  "type.abrv.bioinfo_analysis_code.TNBA": "TN",
-  "type.abrv.bioinfo_analysis_code.TNBA.tooltip": "Tumor-Normal",
+  "type.abrv.all_analyses.TO.tooltip": "Tumor exome only",
+  "type.abrv.all_analyses.TN.tooltip": "Tumor-normal exome comparison",
   "acmg": {
     "exomiser": {
       "likely_benign": "Likely Benign",

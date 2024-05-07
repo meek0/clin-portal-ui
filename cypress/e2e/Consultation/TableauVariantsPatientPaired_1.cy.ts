@@ -21,8 +21,8 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   it('Vérifier les informations affichées', () => {
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 2, 'chr10:g.17617338A>C');
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 3, 'SNV');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 4, 'Tneba');
-    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 4, 'ant-tag-default');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 4, 'TN');
+    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 4, 'ant-tag-red');
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 5, '-');
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 6, 'HACD1');
     cy.validateTableDataRowKeyAttr('2f53f2ed574a720853172ff224c608efc5e3b623', 6, 'data-icon', 'plus');

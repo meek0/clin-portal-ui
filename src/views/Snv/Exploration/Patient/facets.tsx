@@ -75,7 +75,7 @@ const filterGroups: {
       {
         facets: [
           'variant_class',
-          'donors__bioinfo_analysis_code',
+          'donors__all_analyses',
           'consequences__consequences',
           'variant_external_reference',
           'chromosome',
