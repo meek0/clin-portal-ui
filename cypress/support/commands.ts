@@ -427,7 +427,7 @@ Cypress.Commands.add('visitFilesPatientPage', (prescriptionId: string) => {
   cy.visitAndIntercept(`/prescription/entity/${prescriptionId}#files`,
                        'POST',
                        '**/$graphql*',
-                       7);
+                       6);
   cy.resetColumns(0);
 });
 

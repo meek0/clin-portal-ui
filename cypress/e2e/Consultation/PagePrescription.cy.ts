@@ -9,7 +9,7 @@ beforeEach(() => {
 });
 
 describe('Page d\'une prescription - Vérifier les informations affichées', () => {
-  it('Panneau Analyse [CLIN-2551]', () => {
+  it('Panneau Analyse', () => {
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(2).contains('--').should('exist');
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(3).contains('Approuvée').should('exist');
@@ -17,13 +17,14 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(5).contains('--').should('exist');
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(6).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(7).contains('--').should('exist');
-    cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(8).contains('--').should('exist');
+    cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(8).contains('CHUSJ').should('exist');
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(9).contains('LDM-CHUSJ').should('exist');
   });
   
   it('Panneau Patient', () => {
     cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist');
     cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(1).contains(epCHUSJ_ldmCHUSJ.mrnProb).should('exist');
+    cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(1).contains('CHUSJ').should('exist');
     cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(2).contains(epCHUSJ_ldmCHUSJ.ramqProb).should('exist');
     cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(3).contains(epCHUSJ_ldmCHUSJ.lastNameProb).should('exist');
     cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(3).contains(epCHUSJ_ldmCHUSJ.firstNameProb).should('exist');
@@ -31,7 +32,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(5).contains(epCHUSJ_ldmCHUSJ.genderProb).should('exist');
   });
   
-  it('Panneau Information clinique [CLIN-2551]', () => {
+  it('Panneau Information clinique', () => {
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(0).contains('--').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(1).contains('--').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(2).contains('--').should('exist');
@@ -45,9 +46,10 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
   });
   
-  it('Panneau Mère [CLIN-2551]', () => {
+  it('Panneau Mère', () => {
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains(epCHUSJ_ldmCHUSJ.mrnMth, {matchCase: false}).should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains('CHUSJ').should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(2).contains(epCHUSJ_ldmCHUSJ.ramqMth).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(3).contains(epCHUSJ_ldmCHUSJ.lastNameMth).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(3).contains(epCHUSJ_ldmCHUSJ.firstNameMth).should('exist');
@@ -63,9 +65,10 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
   });
   
-  it('Panneau Père [CLIN-2551]', () => {
+  it('Panneau Père', () => {
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains(epCHUSJ_ldmCHUSJ.mrnFth).should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains('CHUSJ').should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(2).contains(epCHUSJ_ldmCHUSJ.ramqFth).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(3).contains(epCHUSJ_ldmCHUSJ.lastNameFth).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(3).contains(epCHUSJ_ldmCHUSJ.firstNameFth).should('exist');
@@ -76,7 +79,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(1).contains('Complétée').should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(3).contains('Complétée').should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(3).contains('--').should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(4).contains(epCHUSJ_ldmCHUSJ.sampleFthId).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
   });
