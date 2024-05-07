@@ -34,7 +34,7 @@ const PrescriptionFiles = () => {
       return requestId;
     });
 
-    return [requestId, ...otherRequestIds];
+    return [requestId, ...otherRequestIds].filter((e) => !!e?.trim());
   };
 
   const allRequestIds = getAllRequestIds();
