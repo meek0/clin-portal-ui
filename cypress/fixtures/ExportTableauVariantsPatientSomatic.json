@@ -1,7 +1,7 @@
 {
   "headers": ["hgvsg",
               "variant_class",
-              "donors.bioinfo_analysis_code",
+              "donors.all_analyses",
               "rsnumber",
               "gene",
               "consequence",

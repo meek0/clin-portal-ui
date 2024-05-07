@@ -18,7 +18,7 @@ describe('Page des variants d\'un patient (somatic) - Filtrer avec les facettes'
   });
 
   it('Variant - Analyse bioinformatique', () => {
-    cy.validateFacetFilter('Variant', 'Analyse bioinformatique', 'Tumor Only', 'TEBA', /^195 065$/);
+    cy.validateFacetFilter('Variant', 'Analyse bioinformatique', 'TO', 'TO', /^195 065$/);
     cy.validateFacetRank(1, 'Analyse bioinformatique');
   });
 

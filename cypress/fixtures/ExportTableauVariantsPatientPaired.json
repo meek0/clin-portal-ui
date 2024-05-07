@@ -1,7 +1,7 @@
 {
   "headers": ["hgvsg",
               "variant_class",
-              "donors.bioinfo_analysis_code",
+              "donors.all_analyses",
               "rsnumber",
               "gene",
               "consequence",
@@ -25,7 +25,7 @@
               "donors.filters"],
   "content": ["chr10:g.17617338A>C",
               "SNV",
-              "Tneba",
+              "TN",
               "--",
               "HACD1",
               "Start Lost p.Met1Arg",
