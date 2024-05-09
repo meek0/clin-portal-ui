@@ -81,6 +81,16 @@ export interface FhirTask {
   authoredOn: string;
   runAlias: string;
   type?: string;
+  input?: {
+    type: {
+      text: string;
+    };
+    sepicmen: {
+      accessionIdentifier: {
+        value: string;
+      };
+    };
+  }[];
 }
 
 export interface FhirOwner {

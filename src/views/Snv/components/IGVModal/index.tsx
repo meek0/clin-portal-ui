@@ -1,11 +1,14 @@
+import { useContext, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { Modal } from 'antd';
+import { FhirApi } from 'api/fhir';
 import cx from 'classnames';
 import { usePatientFilesData } from 'graphql/patients/actions';
-import { PatientFileResults } from 'graphql/patients/models/Patient';
+import { FhirTask, PatientFileResults } from 'graphql/patients/models/Patient';
 import { DonorsEntity, VariantEntity } from 'graphql/variants/models';
 import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
+import PrescriptionEntityContext from 'views/Prescriptions/Entity/context';
 import { getVariantTypeFromSNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 
 import IGVContainer from 'components/containers/IGV/IGVContainer';
@@ -31,6 +34,7 @@ const buildTracks = (
   fatherFiles: PatientFileResults,
   rpt: string,
   donor: DonorsEntity,
+  task?: FhirTask,
 ) => {
   if (!patientFiles.docs) {
     return [];
@@ -48,6 +52,7 @@ const buildTracks = (
       donor.is_proband ? PATIENT_POSITION.PROBAND : PATIENT_POSITION.PARENT,
       rpt,
       donor.aliquot_id,
+      task,
     ),
   );
 
@@ -84,6 +89,18 @@ const buildTracks = (
 
 const IGVModal = ({ donor, variantEntity, isOpen = false, toggleModal, rpt }: OwnProps) => {
   const { loading, results, error } = usePatientFilesData(donor?.patient_id, !isOpen);
+  const [task, setTask] = useState<FhirTask>();
+  const { selectedRequest } = useContext(PrescriptionEntityContext);
+  useEffect(() => {
+    if (selectedRequest?.id) {
+      FhirApi.searchRequestTask(selectedRequest.id).then(({ data }) => {
+        if (data?.data.taskList) {
+          setTask(data.data.taskList.find((t) => t.type === 'TNEBA'));
+        }
+      });
+    }
+  }, [selectedRequest]);
+
   const {
     loading: motherLoading,
     results: motherResults,
@@ -112,7 +129,15 @@ const IGVModal = ({ donor, variantEntity, isOpen = false, toggleModal, rpt }: Ow
         !(loading || motherLoading || fatherLoading) && (
           <IGVContainer
             locus={formatLocus(variantEntity?.start, variantEntity?.chromosome, 20)}
-            tracks={buildTracks(variantEntity, results!, motherResults, fatherResults, rpt, donor!)}
+            tracks={buildTracks(
+              variantEntity,
+              results!,
+              motherResults,
+              fatherResults,
+              rpt,
+              donor!,
+              task,
+            )}
             hyperXenomeTrack={getHyperXenomeTrack(
               results,
               donor.patient_id,
