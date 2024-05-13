@@ -8,17 +8,17 @@ import { FhirApi, FORM_API_URL } from 'api/fhir';
 import { extractServiceRequestId } from 'api/fhir/helper';
 import { TFormConfig } from 'api/fhir/models';
 import { RptManager } from 'auth/rpt';
+import AbsentParentCard from 'views/Prescriptions/Entity/AbsentParentCard';
+import AnalysisCard from 'views/Prescriptions/Entity/AnalysisCard';
+import ClinicalInformation from 'views/Prescriptions/Entity/ClinicalInformationCard';
+import { usePrescriptionEntityContext } from 'views/Prescriptions/Entity/context';
+import ParentCard from 'views/Prescriptions/Entity/ParentCard';
+import PatientCard from 'views/Prescriptions/Entity/PatientCard';
 
 import ContentHeader from 'components/Layout/ContentWithHeader/Header';
 import Footer from 'components/Layout/Footer';
 import { globalActions, useLang } from 'store/global';
 import { MIME_TYPES } from 'utils/constants';
-
-import AnalysisCard from '../../AnalysisCard';
-import ClinicalInformation from '../../ClinicalInformationCard';
-import { usePrescriptionEntityContext } from '../../context';
-import ParentCard from '../../ParentCard';
-import PatientCard from '../../PatientCard';
 
 import styles from '../index.module.scss';
 
@@ -110,6 +110,21 @@ const PrescriptionDetails = () => {
                 <ParentCard prescription={prescription} loading={loading} extension={extension} />
               </Col>
             ))}
+            {prescription?.observation.investigation.item
+              .filter(
+                (item) =>
+                  item.resourceType === 'Observation' &&
+                  ['MMTH', 'MFTH'].indexOf(item.coding.code) > -1,
+              )
+              .map((item, index) => (
+                <Col key={index} span={24}>
+                  <AbsentParentCard
+                    observationId={item.id[0]}
+                    loading={loading}
+                    code={item.coding.code}
+                  />
+                </Col>
+              ))}
           </Row>
         </div>
         <Footer />
