@@ -120,6 +120,18 @@ export const SEARCH_REQUEST_TASK_QUERY = (searchValue: string) => gql`
                 type: code
               }
             }
+      input {
+        type{
+          text
+        }
+        valueReference @flatten {
+          sepicmen: resource(type: Specimen) {
+            accessionIdentifier{
+              value
+            }
+          }
+        }
+      }
     }
   }
 `;

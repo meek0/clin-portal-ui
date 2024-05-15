@@ -3,7 +3,12 @@ import { VariantType } from 'graphql/variants/models';
 import capitalize from 'lodash/capitalize';
 
 import { IAnnotationTrack, IIGVTrack } from '../components/Igv/type';
-import { FhirDoc, FhirDocContent, PatientFileResults } from '../graphql/patients/models/Patient';
+import {
+  FhirDoc,
+  FhirDocContent,
+  FhirTask,
+  PatientFileResults,
+} from '../graphql/patients/models/Patient';
 
 import { GENDER, PARENT_TYPE, PATIENT_POSITION } from './constants';
 import { appendBearerIfToken, getPatientPosition } from './helper';
@@ -77,10 +82,14 @@ export const generateTracks = (
   position: PATIENT_POSITION | PARENT_TYPE,
   rpt: string,
   aliquotId?: string,
+  task?: FhirTask,
 ): IIGVTrack[] => {
+  const normalSepicment = task?.input?.find((t) => t.type.text === 'Analysed normal sample');
   const cramDoc = findDoc(files, FHIR_CRAM_CRAI_DOC_TYPE, aliquotId);
   const cramFiles = findFiles(cramDoc!, FHIR_CRAM_TYPE, FHIR_CRAI_TYPE);
-
+  const normalDoc = files.docs.filter(
+    (f) => f.sample.value === normalSepicment?.sepicmen?.accessionIdentifier.value,
+  );
   const vcfDoc = findDoc(
     files,
     variantType === VariantType.GERMLINE
@@ -89,6 +98,11 @@ export const generateTracks = (
     aliquotId,
   );
   const vcfFiles = findFiles(vcfDoc!, FHIR_VCF_TYPE, FHIR_TBI_TYPE);
+
+  const vcfNormalDoc = normalDoc.find((d) => d.type === FHIR_GERMLINE_VCF_TBI_DOC_TYPE);
+  const vcfNormalFiles = findFiles(vcfNormalDoc!, FHIR_VCF_TYPE, FHIR_TBI_TYPE);
+  const cramNormalDoc = normalDoc.find((d) => d.type === FHIR_CRAM_CRAI_DOC_TYPE);
+  const cramNormalFiles = findFiles(cramNormalDoc!, FHIR_CRAM_TYPE, FHIR_CRAI_TYPE);
 
   const segDoc = findDoc(files, FHIR_IGV_DOC_TYPE, aliquotId);
 
@@ -116,7 +130,7 @@ export const generateTracks = (
     }
   });
 
-  return [
+  const vcfTrack = [
     {
       type: 'variant',
       format: 'vcf',
@@ -126,6 +140,9 @@ export const generateTracks = (
       autoHeight: true,
       colorBy: 'SVTYPE',
     },
+  ];
+
+  const cramTrack = [
     {
       type: 'alignment',
       format: 'cram',
@@ -142,8 +159,38 @@ export const generateTracks = (
         direction: 'ASC',
       },
     },
-    ...newTracks,
   ];
+
+  if (task) {
+    vcfTrack.push({
+      type: 'variant',
+      format: 'vcf',
+      url: getPresignedUrl(vcfNormalFiles.mainFile!, rpt),
+      indexURL: getPresignedUrl(vcfNormalFiles.indexFile!, rpt),
+      name: 'CNVs: ' + trackName(vcfNormalDoc, patientId, gender, position),
+      autoHeight: true,
+      colorBy: 'SVTYPE',
+    });
+
+    cramTrack.push({
+      type: 'alignment',
+      format: 'cram',
+      url: getPresignedUrl(cramNormalFiles.mainFile!, rpt),
+      indexURL: getPresignedUrl(cramNormalFiles.indexFile!, rpt),
+      name: 'Reads: ' + trackName(cramNormalDoc, patientId, gender, position),
+      autoHeight: true,
+      maxHeight: 500,
+      colorBy: 'strand',
+      sort: {
+        chr: 'chr8',
+        option: 'BASE',
+        position: 128750986,
+        direction: 'ASC',
+      },
+    });
+  }
+
+  return [...vcfTrack, ...cramTrack, ...newTracks];
 };
 
 export const getHyperXenomeTrack = (
