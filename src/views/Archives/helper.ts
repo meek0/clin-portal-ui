@@ -1,5 +1,6 @@
 import { extractPatientId, extractServiceRequestId } from 'api/fhir/helper';
 import { FhirDoc, PatientTaskResults } from 'graphql/patients/models/Patient';
+import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 
 import { formatDate } from 'utils/date';
 import { formatFileSize } from 'utils/formatFileSize';
@@ -24,7 +25,8 @@ export const extractContentsFromDocs = (docs?: FhirDoc[]) =>
 export const extractDocsFromTask = (tasks: PatientTaskResults) => {
   const docsList: DocsWithTaskInfo[] = [];
   tasks?.forEach((task) => {
-    task.docs.forEach((doc) => {
+    const docs = Array.isArray(task.docs) ? [...task.docs] : [task.docs];
+    docs.forEach((doc) => {
       doc.content.forEach((content) => {
         // ignore index files
         if (!INDEXES_FORMAT.includes(content.format)) {
@@ -33,7 +35,7 @@ export const extractDocsFromTask = (tasks: PatientTaskResults) => {
             key: content.attachment.title,
             url: content.attachment.url,
             taskRunAlias: task.runAlias,
-            taskAuthoredOn: formatDate(task.authoredOn),
+            taskAuthoredOn: task.authoredOn ? formatDate(task.authoredOn) : EMPTY_FIELD,
             taskOwner: task.owner,
             taskId: task.id,
             patientId: extractPatientId(doc.patientReference),

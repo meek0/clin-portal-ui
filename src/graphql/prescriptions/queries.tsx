@@ -317,6 +317,9 @@ export const ANALYSIS_TASK_QUERY = (taskId: string) => gql`
           code
         }
       }
+      basedOn @first {
+        reference
+      }
       focus @flatten {
         serviceRequestReference: reference
       }
@@ -376,6 +379,20 @@ export const ANALYSIS_TASK_QUERY = (taskId: string) => gql`
 
     }
      input @flatten {
+      valueReference @flatten {
+        relatedTask:resource(type: Task) {
+          id
+          authoredOn
+          basedOn @first {
+            reference
+          }
+          code @flatten{
+          coding @first @flatten{
+            code
+          }
+      }
+        }
+      }
 	    valueReference @flatten {
 		    sample: resource(type: Specimen) {
           id

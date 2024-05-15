@@ -5,6 +5,7 @@ import { FhirDoc } from 'graphql/patients/models/Patient';
 import { isEmpty } from 'lodash';
 import { DocsWithTaskInfo } from 'views/Archives';
 import { extractContentsFromDocs } from 'views/Archives/helper';
+import NoData from 'views/Snv/Entity/NoData';
 
 import CollapsePanel from 'components/containers/collapse';
 
@@ -55,7 +56,7 @@ const FilesCard = ({ files, loading }: OwnProps) => (
     datacy="FilesCard"
   >
     {isEmpty(files) ? (
-      <></>
+      <NoData />
     ) : (
       <Table
         loading={loading}

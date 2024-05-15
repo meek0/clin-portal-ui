@@ -1,4 +1,5 @@
 import intl from 'react-intl-universal';
+import { Link } from 'react-router-dom';
 import { Card, Descriptions } from 'antd';
 import {
   extractOrganizationId,
@@ -7,6 +8,7 @@ import {
   extractTaskId,
 } from 'api/fhir/helper';
 import { AnalysisTaskEntity } from 'api/fhir/models';
+import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 
 import ParagraphLoader from 'components/uiKit/ParagraphLoader';
 import { formatDate } from 'utils/date';
@@ -25,13 +27,19 @@ const AnalysisCard = ({ analysis, loading }: OwnProps) => (
             {extractTaskId(analysis.id)}
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.type')}>
-            {analysis.code.code}
+            {`${intl.get(`screen.bioinfo.analysis.analysis.type.${analysis.code.code}`)} (${
+              analysis.code.code
+            })`}
+          </Descriptions.Item>
+          <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.prescription')}>
+            <Link
+              to={`/prescription/entity/${extractServiceRequestId(analysis.basedOn.reference)}`}
+            >
+              {extractServiceRequestId(analysis.basedOn?.reference)}
+            </Link>
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.date')}>
-            {formatDate(analysis.authoredOn)}
-          </Descriptions.Item>
-          <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.request')}>
-            {extractServiceRequestId(analysis.serviceRequestReference)}
+            {analysis.authoredOn ? formatDate(analysis.authoredOn) : EMPTY_FIELD}
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.bioinfo.analysis.analysis.patient')}>
             {extractPatientId(analysis.patientReference)}
