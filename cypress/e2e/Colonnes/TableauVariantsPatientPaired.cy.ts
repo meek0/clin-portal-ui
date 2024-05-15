@@ -10,7 +10,7 @@ beforeEach(() => {
 describe('Page des variants d\'un patient (paired) - Colonnes du tableau', () => {
 
   beforeEach(() => {
-    cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId, 3);
+    cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
   });
 
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {

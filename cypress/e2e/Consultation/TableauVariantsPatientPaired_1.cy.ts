@@ -5,7 +5,7 @@ const presc_PAIRED = JSON.parse(Cypress.env('presc_PAIRED'));
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId, 3);
+  cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
 
   cy.showColumn('gnomAD ALT', 0);
   cy.showColumn('QP', 0);
