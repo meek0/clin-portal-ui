@@ -38,7 +38,7 @@ export const PATIENT_FILES_QUERY = (patientID: string) => gql`
 export const SEARCH_PATIENT_FILES_QUERY = (searchValue: string) => gql`
   {
     taskList: TaskList(
-      _filter: "(patient eq ${searchValue}) or (input_specimen.accession eq ${searchValue}) or (run-name eq ${searchValue}) or (focus eq ${searchValue})"
+      _filter: "(patient eq ${searchValue}) or (focus eq ${searchValue})"
     ) {
       id
       focus{

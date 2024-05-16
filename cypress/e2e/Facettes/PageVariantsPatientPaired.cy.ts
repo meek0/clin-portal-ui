@@ -10,7 +10,7 @@ beforeEach(() => {
 describe('Page des variants d\'un patient (paired) - Filtrer avec les facettes', () => {
 
   beforeEach(() => {
-    cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId, 3);
+    cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
   });
 
   it('Variant - Expand all/Collapse all', () => {

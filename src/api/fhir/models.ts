@@ -283,6 +283,9 @@ export interface AnalysisTaskEntity {
     code: string;
     system: string;
   };
+  basedOn: {
+    reference: string;
+  };
   patientReference: string;
   serviceRequestReference: string;
   ownerReference: string;
@@ -291,6 +294,7 @@ export interface AnalysisTaskEntity {
     email: string;
     id: string;
   };
+  relatedTask: Task[];
   experiment: AnalysisTaskExperiment;
   sample: AnalysisTaskSample;
   docs: FhirDoc[];

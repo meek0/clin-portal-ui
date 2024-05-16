@@ -15,6 +15,7 @@ import AnalysisCard from './AnalysisCard';
 import BioInfoPipelineCard from './BioInfoPipeline';
 import ExperimentCard from './ExperimentCard';
 import FilesCard from './FilesCard';
+import RelatedAnalysesCard from './RelatedAnalysesCard';
 import SamplesCard from './SamplesCard';
 
 import styles from './index.module.scss';
@@ -30,6 +31,23 @@ const BioInfoAnalysis = () => {
   if (results.error) {
     return <ServerError />;
   }
+  const samples = results.task?.sample
+    ? Array.isArray(results.task?.sample)
+      ? [...results.task.sample]
+      : [results.task?.sample]
+    : [];
+
+  const docs = results.task?.docs
+    ? Array.isArray(results.task.docs)
+      ? [...results.task.docs]
+      : [results.task.docs]
+    : [];
+
+  const relatedTask = results.task?.relatedTask
+    ? Array.isArray(results.task.relatedTask)
+      ? [...results.task.relatedTask]
+      : [results.task.relatedTask]
+    : [];
 
   return (
     <ContentWithHeader
@@ -47,16 +65,16 @@ const BioInfoAnalysis = () => {
             <BioInfoPipelineCard workflow={results.task?.workflow} loading={results.loading} />
           </Col>
           <Col span={12}>
-            <ExperimentCard experiment={results.task?.experiment} loading={results.loading} />
+            <ExperimentCard task={results.task} loading={results.loading} />
           </Col>
           <Col span={24}>
-            <SamplesCard
-              samples={results.task?.sample ? [results.task.sample] : []}
-              loading={results.loading}
-            />
+            <SamplesCard samples={samples} loading={results.loading} />
           </Col>
           <Col span={24}>
-            <FilesCard files={results.task?.docs} loading={results.loading} />
+            <FilesCard files={docs} loading={results.loading} />
+          </Col>
+          <Col span={24}>
+            <RelatedAnalysesCard relatedAnalyses={relatedTask} loading={results.loading} />
           </Col>
         </Row>
       </ScrollContentWithFooter>

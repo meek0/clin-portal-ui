@@ -3,6 +3,7 @@ import Empty from '@ferlab/ui/core/components/Empty';
 import { Table, TableColumnType, Typography } from 'antd';
 import { AnalysisTaskSample } from 'api/fhir/models';
 import { isEmpty } from 'lodash';
+import NoData from 'views/Snv/Entity/NoData';
 
 import CollapsePanel from 'components/containers/collapse';
 
@@ -44,7 +45,7 @@ const SamplesCard = ({ samples, loading }: OwnProps) => (
     datacy="SamplesCard"
   >
     {isEmpty(samples) ? (
-      <></>
+      <NoData />
     ) : (
       <Table
         loading={loading}
