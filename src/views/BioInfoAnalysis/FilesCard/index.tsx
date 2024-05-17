@@ -8,6 +8,7 @@ import { extractContentsFromDocs } from 'views/Archives/helper';
 import NoData from 'views/Snv/Entity/NoData';
 
 import CollapsePanel from 'components/containers/collapse';
+import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
 const { Title } = Typography;
 
@@ -44,7 +45,7 @@ const getFilesColumns = (): TableColumnType<any>[] => [
   },
   {
     title: intl.get('screen.bioinfo.analysis.files.hash'),
-    render: (doc: DocsWithTaskInfo) => doc.hash,
+    render: (doc: DocsWithTaskInfo) => (doc.hash ? doc.hash : TABLE_EMPTY_PLACE_HOLDER),
     width: 100,
   },
 ];
