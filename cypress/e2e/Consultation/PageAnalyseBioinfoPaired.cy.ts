@@ -57,7 +57,7 @@ describe('Page d\'une analyse bioinformatique (paired) - Vérifier les informati
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(3).contains(presc_PAIRED.sampleProbId.GEBA).should('exist');
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(4).contains('1.3 MB').should('exist');
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(5).contains('https://ferload').should('exist');
-    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(6).contains(/^$/).should('exist');
+    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(6).contains(/^-$/).should('exist');
   });
   
   it('Panneau Analyses connexes', () => {
