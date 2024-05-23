@@ -20,13 +20,17 @@ import {
   DEFAULT_PAGE_SIZE,
   DEFAULT_QUERY_CONFIG,
   DEFAULT_SORT_QUERY,
-  SNV_VARIANT_PATIENT_QB_ID,
+  getQueryBuilderID,
 } from 'views/Snv/utils/constant';
 import { wrapSqonWithDonorIdAndSrId } from 'views/Snv/utils/helper';
 
 import DownloadTSVWrapper from 'components/Download';
 import { resolveSyntheticSqonWithReferences } from 'utils/query';
-import { SNV_EXPLORATION_PATIENT_FILTER_TAG } from 'utils/queryBuilder';
+import {
+  SNV_EXPLORATION_PATIENT_FILTER_TAG,
+  SNV_EXPLORATION_PATIENT_TN_FILTER_TAG,
+  SNV_EXPLORATION_PATIENT_TO_FILTER_TAG,
+} from 'utils/queryBuilder';
 
 import VariantsTab from './tabs/Variants';
 
@@ -38,7 +42,7 @@ type OwnProps = {
 };
 
 const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection }: OwnProps) => {
-  const { queryList, activeQuery } = useQueryBuilderState(SNV_VARIANT_PATIENT_QB_ID);
+  const { queryList, activeQuery } = useQueryBuilderState(getQueryBuilderID(variantSection));
   const [variantQueryConfig, setVariantQueryConfig] = useState({
     ...DEFAULT_QUERY_CONFIG,
     size: DEFAULT_PAGE_SIZE,
@@ -109,7 +113,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
 
   const activeQuerySnapshot = JSON.stringify(activeQuery);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
-
   const [downloadTriggered, setDownloadTriggered] = useState(false);
 
   useEffect(() => {
@@ -133,11 +136,23 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   }, [activeQuerySnapshot]);
 
   const [variantType, setVariantType] = useState<VariantType | null>(null);
+  const getSavedFilterID = () => {
+    switch (variantSection) {
+      case VariantSection.SNV:
+        return SNV_EXPLORATION_PATIENT_FILTER_TAG;
+      case VariantSection.SNVTO:
+        return SNV_EXPLORATION_PATIENT_TO_FILTER_TAG;
+      case VariantSection.SNVTN:
+        return SNV_EXPLORATION_PATIENT_TN_FILTER_TAG;
+      default:
+        return SNV_EXPLORATION_PATIENT_FILTER_TAG;
+    }
+  };
 
   return (
     <VariantContentLayout
-      queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
-      savedFilterTag={SNV_EXPLORATION_PATIENT_FILTER_TAG}
+      queryBuilderId={getQueryBuilderID(variantSection)}
+      savedFilterTag={getSavedFilterID()}
       variantMapping={variantMapping}
       activeQuery={activeQuery}
       variantResults={variantResultsWithDonors}
@@ -150,7 +165,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
           key="variants"
         >
           <VariantsTab
-            queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
+            queryBuilderId={getQueryBuilderID(variantSection)}
             results={variantResultsWithDonors}
             setQueryConfig={setVariantQueryConfig}
             queryConfig={variantQueryConfig}
@@ -175,7 +190,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
             columns={
               variantType
                 ? getVariantColumns(
-                    SNV_VARIANT_PATIENT_QB_ID,
+                    getQueryBuilderID(variantSection),
                     variantType,
                     patientId,
                     undefined,

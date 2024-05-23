@@ -4,10 +4,14 @@ import { SuggestionType } from 'api/arranger/models';
 import { INDEXES } from 'graphql/constants';
 import { ExtendedMappingResults } from 'graphql/models';
 import { VariantType } from 'graphql/variants/models';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import {
   FilterTypes,
   GeneSearchFieldsMapping,
+  getQueryBuilderID,
   SNV_VARIANT_PATIENT_QB_ID,
+  SNV_VARIANT_PATIENT_TN_QB_ID,
+  SNV_VARIANT_PATIENT_TO_QB_ID,
 } from 'views/Snv/utils/constant';
 
 import GenesUploadIds from 'components/GeneUploadIds';
@@ -61,14 +65,14 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Variant_somatic]: {
+  [FilterTypes.Variant_somatic_to]: {
     customSearches: () => [
       <VariantGeneSearch
         key="variants"
         index={INDEXES.VARIANT}
         fields={GeneSearchFieldsMapping}
         type={SuggestionType.VARIANTS}
-        queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
+        queryBuilderId={SNV_VARIANT_PATIENT_TO_QB_ID}
       />,
     ],
     groups: [
@@ -87,7 +91,33 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Gene]: {
+  [FilterTypes.Variant_somatic_tn]: {
+    customSearches: () => [
+      <VariantGeneSearch
+        key="variants"
+        index={INDEXES.VARIANT}
+        fields={GeneSearchFieldsMapping}
+        type={SuggestionType.VARIANTS}
+        queryBuilderId={SNV_VARIANT_PATIENT_TN_QB_ID}
+      />,
+    ],
+    groups: [
+      {
+        facets: [
+          'variant_class',
+          'donors__all_analyses',
+          'consequences__consequences',
+          'variant_external_reference',
+          'chromosome',
+          'start',
+        ],
+        intervalDecimal: {
+          start: 0,
+        },
+      },
+    ],
+  },
+  [FilterTypes.Gene_germline]: {
     customSearches: () => [
       <VariantGeneSearch
         key="genes"
@@ -100,6 +130,82 @@ const filterGroups: {
         key="geneIds"
         field="consequences.symbol_id_1"
         queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
+      />,
+    ],
+    groups: [
+      {
+        facets: [
+          'consequences__biotype',
+          'gene_external_reference',
+          'genes__gnomad__pli',
+          'genes__gnomad__loeuf',
+          'genes__omim__inheritance_code',
+        ],
+      },
+      {
+        title: intl.get('screen.patientsnv.filter.grouptitle.genepanel'),
+        facets: [
+          'panels',
+          'genes__hpo__hpo_term_label',
+          'genes__orphanet__panel',
+          'genes__omim__name',
+          'genes__ddd__disease_name',
+          'genes__cosmic__tumour_types_germline',
+        ],
+      },
+    ],
+  },
+  [FilterTypes.Gene_somatic_to]: {
+    customSearches: () => [
+      <VariantGeneSearch
+        key="genes"
+        index={INDEXES.VARIANT}
+        fields={GeneSearchFieldsMapping}
+        type={SuggestionType.GENES}
+        queryBuilderId={SNV_VARIANT_PATIENT_TO_QB_ID}
+      />,
+      <GenesUploadIds
+        key="geneIds"
+        field="consequences.symbol_id_1"
+        queryBuilderId={SNV_VARIANT_PATIENT_TO_QB_ID}
+      />,
+    ],
+    groups: [
+      {
+        facets: [
+          'consequences__biotype',
+          'gene_external_reference',
+          'genes__gnomad__pli',
+          'genes__gnomad__loeuf',
+          'genes__omim__inheritance_code',
+        ],
+      },
+      {
+        title: intl.get('screen.patientsnv.filter.grouptitle.genepanel'),
+        facets: [
+          'panels',
+          'genes__hpo__hpo_term_label',
+          'genes__orphanet__panel',
+          'genes__omim__name',
+          'genes__ddd__disease_name',
+          'genes__cosmic__tumour_types_germline',
+        ],
+      },
+    ],
+  },
+  [FilterTypes.Gene_somatic_tn]: {
+    customSearches: () => [
+      <VariantGeneSearch
+        key="genes"
+        index={INDEXES.VARIANT}
+        fields={GeneSearchFieldsMapping}
+        type={SuggestionType.GENES}
+        queryBuilderId={SNV_VARIANT_PATIENT_TN_QB_ID}
+      />,
+      <GenesUploadIds
+        key="geneIds"
+        field="consequences.symbol_id_1"
+        queryBuilderId={SNV_VARIANT_PATIENT_TN_QB_ID}
       />,
     ],
     groups: [
@@ -174,7 +280,38 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Pathogenicity_somatic]: {
+  [FilterTypes.Pathogenicity_somatic_to]: {
+    groups: [
+      {
+        facets: ['clinvar__clin_sig', 'consequences__vep_impact'],
+      },
+      {
+        title: intl.get('predictions'),
+        facets: [
+          'consequences__predictions__cadd_phred',
+          'consequences__predictions__cadd_score',
+          'consequences__predictions__dann_score',
+          'consequences__predictions__fathmm_pred',
+          'consequences__predictions__lrt_pred',
+          'consequences__predictions__polyphen2_hvar_pred',
+          'consequences__predictions__sift_pred',
+          'genes__spliceai__ds',
+          'consequences__predictions__revel_score',
+        ],
+        tooltips: [
+          'consequences__predictions__cadd_phred',
+          'consequences__predictions__cadd_score',
+          'consequences__predictions__dann_score',
+        ],
+      },
+      {
+        title: intl.get('oncology'),
+        facets: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier', 'hotspot'],
+        tooltips: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier', 'hotspot'],
+      },
+    ],
+  },
+  [FilterTypes.Pathogenicity_somatic_tn]: {
     groups: [
       {
         facets: ['clinvar__clin_sig', 'consequences__vep_impact'],
@@ -241,7 +378,43 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Frequency_somatic]: {
+  [FilterTypes.Frequency_somatic_to]: {
+    groups: [
+      {
+        title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
+        facets: [
+          'frequency_RQDM__total__af',
+          'frequency_RQDM__affected__af',
+          'frequency_RQDM__non_affected__af',
+        ],
+        tooltips: [
+          'frequency_RQDM__total__af',
+          'frequency_RQDM__affected__af',
+          'frequency_RQDM__non_affected__af',
+        ],
+      },
+      {
+        title: intl.get('screen.patientsnv.filter.grouptitle.publiccohorts'),
+        facets: [
+          'external_frequencies__gnomad_exomes_2_1_1__af',
+          'external_frequencies__gnomad_genomes_2_1_1__af',
+          'external_frequencies__gnomad_genomes_3_0__af',
+          'external_frequencies__gnomad_genomes_3_1_1__af',
+          'external_frequencies__gnomad_genomes_3_1_1__ac',
+          'external_frequencies__topmed_bravo__af',
+          'external_frequencies__thousand_genomes__af',
+        ],
+        tooltips: [
+          'external_frequencies__gnomad_genomes_2_1_1__af',
+          'external_frequencies__gnomad_genomes_3_0__af',
+          'external_frequencies__gnomad_genomes_3_1_1__af',
+          'external_frequencies__topmed_bravo__af',
+          'external_frequencies__thousand_genomes__af',
+        ],
+      },
+    ],
+  },
+  [FilterTypes.Frequency_somatic_tn]: {
     groups: [
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
@@ -314,7 +487,26 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Occurrence_somatic]: {
+  [FilterTypes.Occurrence_somatic_to]: {
+    groups: [
+      {
+        facets: ['donors__zygosity'],
+      },
+      {
+        title: intl.get('screen.patientsnv.category_metric'),
+        facets: [
+          'donors__filters',
+          'donors__qd',
+          'donors__ad_alt',
+          'donors__ad_total',
+          'donors__ad_ratio',
+          'donors__sq',
+        ],
+        tooltips: ['donors__qd', 'donors__ad_alt', 'donors__ad_total', 'donors__ad_ratio'],
+      },
+    ],
+  },
+  [FilterTypes.Occurrence_somatic_tn]: {
     groups: [
       {
         facets: ['donors__zygosity'],
@@ -339,20 +531,31 @@ export const getMenuItems = (
   variantMappingResults: ExtendedMappingResults,
   filterMapper: TCustomFilterMapper,
   variantType: VariantType = VariantType.GERMLINE,
+  variantSection?: VariantSection,
 ): ISidebarMenuItem[] => {
-  const [filterVariantType, filterFrequencyType, filterOccType, filterPathType] =
+  const [filterVariantType, filterGeneType, filterFrequencyType, filterOccType, filterPathType] =
     variantType === VariantType.GERMLINE
       ? [
           FilterTypes.Variant_germline,
+          FilterTypes.Gene_germline,
           FilterTypes.Frequency_germline,
           FilterTypes.Occurrence_germline,
           FilterTypes.Pathogenicity_germline,
         ]
+      : variantSection === VariantSection.SNVTO
+      ? [
+          FilterTypes.Variant_somatic_to,
+          FilterTypes.Gene_somatic_to,
+          FilterTypes.Frequency_somatic_to,
+          FilterTypes.Occurrence_somatic_to,
+          FilterTypes.Pathogenicity_somatic_to,
+        ]
       : [
-          FilterTypes.Variant_somatic,
-          FilterTypes.Frequency_somatic,
-          FilterTypes.Occurrence_somatic,
-          FilterTypes.Pathogenicity_somatic,
+          FilterTypes.Variant_somatic_tn,
+          FilterTypes.Gene_somatic_tn,
+          FilterTypes.Frequency_somatic_tn,
+          FilterTypes.Occurrence_somatic_tn,
+          FilterTypes.Pathogenicity_somatic_tn,
         ];
 
   return [
@@ -363,7 +566,7 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        SNV_VARIANT_PATIENT_QB_ID,
+        getQueryBuilderID(variantSection),
         filterGroups[FilterTypes.Rqdm],
         filterMapper,
       ),
@@ -375,7 +578,7 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        SNV_VARIANT_PATIENT_QB_ID,
+        getQueryBuilderID(variantSection),
         filterGroups[filterVariantType],
         filterMapper,
       ),
@@ -387,8 +590,8 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        SNV_VARIANT_PATIENT_QB_ID,
-        filterGroups[FilterTypes.Gene],
+        getQueryBuilderID(variantSection),
+        filterGroups[filterGeneType],
         filterMapper,
       ),
     },
@@ -399,7 +602,7 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        SNV_VARIANT_PATIENT_QB_ID,
+        getQueryBuilderID(variantSection),
         filterGroups[filterFrequencyType],
         filterMapper,
       ),
@@ -411,7 +614,7 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        SNV_VARIANT_PATIENT_QB_ID,
+        getQueryBuilderID(variantSection),
         filterGroups[filterPathType],
         filterMapper,
       ),
@@ -423,7 +626,7 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        SNV_VARIANT_PATIENT_QB_ID,
+        getQueryBuilderID(variantSection),
         filterGroups[filterOccType],
         filterMapper,
       ),

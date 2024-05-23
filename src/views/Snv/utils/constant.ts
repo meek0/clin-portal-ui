@@ -1,12 +1,31 @@
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { IQueryConfig, ISort } from '@ferlab/ui/core/graphql/types';
 import { SuggestionType } from 'api/arranger/models';
+import { CNV_VARIANT_PATIENT_QB_ID } from 'views/Cnv/utils/constant';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 
 import { WeightedAverage } from 'store/global/types';
 
 export const SNV_VARIANT_PATIENT_QB_ID = 'patient-variant-repo';
+export const SNV_VARIANT_PATIENT_TO_QB_ID = 'patient-variant-to-repo';
+export const SNV_VARIANT_PATIENT_TN_QB_ID = 'patient-variant-tn-repo';
 export const VARIANT_RQDM_QB_ID = 'rqdm-variant-repo';
 export const QUERY_EDITION_QB_ID = 'query-edition';
+
+export const getQueryBuilderID = (variantSection?: VariantSection) => {
+  switch (variantSection) {
+    case VariantSection.SNV:
+      return SNV_VARIANT_PATIENT_QB_ID;
+    case VariantSection.SNVTO:
+      return SNV_VARIANT_PATIENT_TO_QB_ID;
+    case VariantSection.SNVTN:
+      return SNV_VARIANT_PATIENT_TN_QB_ID;
+    case VariantSection.CNV:
+      return CNV_VARIANT_PATIENT_QB_ID;
+    default:
+      return SNV_VARIANT_PATIENT_QB_ID;
+  }
+};
 
 export const DEFAULT_PAGE_INDEX = 1;
 export const DEFAULT_PAGE_SIZE = 20;
@@ -39,14 +58,20 @@ export const DEFAULT_QUERY_CONFIG: IQueryConfig & { weightedAverages?: WeightedA
 export enum FilterTypes {
   Rqdm,
   Variant_germline,
-  Variant_somatic,
-  Gene,
+  Variant_somatic_to,
+  Variant_somatic_tn,
+  Gene_germline,
+  Gene_somatic_to,
+  Gene_somatic_tn,
   Pathogenicity_germline,
-  Pathogenicity_somatic,
+  Pathogenicity_somatic_to,
+  Pathogenicity_somatic_tn,
   Frequency_germline,
-  Frequency_somatic,
+  Frequency_somatic_to,
+  Frequency_somatic_tn,
   Occurrence_germline,
-  Occurrence_somatic,
+  Occurrence_somatic_to,
+  Occurrence_somatic_tn,
   Patient,
 }
 

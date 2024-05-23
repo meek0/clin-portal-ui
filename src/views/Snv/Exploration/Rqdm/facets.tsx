@@ -69,7 +69,7 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Gene]: {
+  [FilterTypes.Gene_germline]: {
     customSearches: () => [
       <VariantGeneSearch
         key="genes"
@@ -264,7 +264,7 @@ export const getMenuItems = ({
       variantMappingResults,
       INDEXES.VARIANT,
       VARIANT_RQDM_QB_ID,
-      filterGroups[FilterTypes.Gene],
+      filterGroups[FilterTypes.Gene_germline],
       filterMapper,
     ),
   },
@@ -357,7 +357,7 @@ const filterGroupsEditionPill: {
       },
     ],
   },
-  [FilterTypes.Gene]: {
+  [FilterTypes.Gene_germline]: {
     customSearches: () => [
       <VariantGeneSearch
         key="genes"
@@ -500,7 +500,7 @@ export const getMenuItemsEditionPill = (
       variantMappingResults,
       INDEXES.VARIANT,
       QUERY_EDITION_QB_ID,
-      filterGroupsEditionPill[FilterTypes.Gene],
+      filterGroupsEditionPill[FilterTypes.Gene_germline],
       filterMapper,
     ),
   },

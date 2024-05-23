@@ -1,16 +1,15 @@
-import React from 'react';
 import intl from 'react-intl-universal';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
 import { Button, Space, Tooltip, Typography } from 'antd';
 import { INDEXES } from 'graphql/constants';
-import { CNV_VARIANT_PATIENT_QB_ID } from 'views/Cnv/utils/constant';
+import { VariantType } from 'graphql/variants/models';
 import {
   VariantSection,
   VariantSectionKey,
 } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
-import { SNV_VARIANT_PATIENT_QB_ID } from 'views/Snv/utils/constant';
+import { getQueryBuilderID } from 'views/Snv/utils/constant';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 
@@ -22,11 +21,10 @@ import style from 'views/Snv/Exploration/variantColumns.module.scss';
 
 const handleRedirection = (
   record: ITableGeneCoverage,
-  target: string,
+  target: VariantSection,
   { replace, location }: any,
 ) => {
-  const queryBuilderId =
-    target === VariantSection.SNV ? SNV_VARIANT_PATIENT_QB_ID : CNV_VARIANT_PATIENT_QB_ID;
+  const queryBuilderId = getQueryBuilderID(target);
   addQuery({
     queryBuilderId,
     query: generateQuery({
@@ -53,6 +51,7 @@ export const getGeneCoverageTableColumns = (
   igvModalCb: (record: ITableGeneCoverage) => void,
   history: any,
   noData: boolean = false,
+  variantType?: VariantType,
 ): ProColumnType<ITableGeneCoverage>[] => [
   {
     className: noData
@@ -77,7 +76,16 @@ export const getGeneCoverageTableColumns = (
         </Tooltip>
         <Tooltip>
           <Typography.Link>
-            <a id={'snv'} onClick={() => handleRedirection(record, VariantSection.SNV, history)}>
+            <a
+              id={'snv'}
+              onClick={() =>
+                handleRedirection(
+                  record,
+                  variantType === VariantType.GERMLINE ? VariantSection.SNV : VariantSection.SNVTO,
+                  history,
+                )
+              }
+            >
               {VariantSection.SNV.toUpperCase()}
             </a>
           </Typography.Link>
