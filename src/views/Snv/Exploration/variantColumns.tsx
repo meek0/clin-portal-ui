@@ -618,7 +618,7 @@ export const getVariantColumns = (
     sorter: {
       multiple: 1,
     },
-    width: 110,
+    width: 120,
     render: (record: VariantEntity) => formatRqdm(record.frequency_RQDM, record),
   });
 
