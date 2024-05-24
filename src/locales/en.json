@@ -972,6 +972,7 @@
   "screen.prescription.entity.title": "Prescription ID : {id}",
   "screen.prescription.entity.paraclinique.A": "Abnormal",
   "screen.prescription.entity.paraclinique.N": "Normal",
+  "screen.prescription.entity.paraclinique.other": "Other Paraclinical Exams",
   "screen.prescription.entity.request.createdOn": "Created on",
   "screen.prescription.entity.request.id": "Request",
   "screen.prescription.entity.request.links": "Links",
