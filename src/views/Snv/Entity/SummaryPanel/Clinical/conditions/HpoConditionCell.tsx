@@ -1,4 +1,5 @@
 import React from 'react';
+import intl from 'react-intl-universal';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import ExpandableCell from '@ferlab/ui/core/components/tables/ExpandableCell';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
@@ -13,6 +14,10 @@ const { Text } = Typography;
 
 const HpoConditionCell = ({ conditions }: OwnProps) => (
   <ExpandableCell
+    dictionnary={{
+      'see.less': intl.get('see.less'),
+      'see.more': intl.get('see.more'),
+    }}
     dataSource={conditions || []}
     renderItem={(hpoItem, id) => {
       const item = hpoItem as HpoCondition;

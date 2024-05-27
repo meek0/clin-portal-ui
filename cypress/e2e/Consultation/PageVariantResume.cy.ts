@@ -159,7 +159,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Hemolytic-uremic syndrome').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Dementia').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Lethargy').should('not.exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('See more').should('exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Voir plus').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(0).contains('HPO').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(1).contains('PRDX1').should('exist');
@@ -167,7 +167,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Dementia').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Homocystinuria').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Muscular hypotonia').should('not.exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('See more').should('exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Voir plus').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_DDD_MMACHC"]').find('td[class="ant-table-cell"]').eq(0).contains('DDD').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_DDD_MMACHC"]').find('td[class="ant-table-cell"]').eq(1).contains('MMACHC').should('exist');
@@ -260,9 +260,9 @@ describe('Page d\'un variant (onglet Résumé) - Valider les liens disponibles',
   });
   
   it('Lien \'See more\' de la condition de la section Gène - Phénotype', () => {
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('See more').click({force: true});
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Voir plus').click({force: true});
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Lethargy').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('See less').click({force: true});
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Voir moins').click({force: true});
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Lethargy').should('not.exist');
   });
 });
