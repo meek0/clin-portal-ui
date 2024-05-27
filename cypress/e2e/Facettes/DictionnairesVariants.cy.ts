@@ -458,10 +458,15 @@ describe('Page des variants - Dictionnaire', () => {
   it('Pathogénicité - Critères ACMG de Franklin', () => {
     const dictionnary = ['PVS1',
                          'PS1',
+                         'PS2',
+                         'PS3',
+                         'PS4',
                          'PM1',
                          'PM2',
+                         'PM3',
                          'PM4',
                          'PM5',
+                         'PP1',
                          'PP2',
                          'PP3',
                          'PP5',
@@ -469,8 +474,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'BS1',
                          'BS2',
                          'BP1',
+                         'BP3',
                          'BP4',
                          'BP6',
+                         'BS3',
                          'No Data'];
 
     cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
