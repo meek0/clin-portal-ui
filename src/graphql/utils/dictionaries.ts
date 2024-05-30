@@ -388,6 +388,7 @@ export const dictionaries: Record<string, string[]> = {
     'low_depth',
     'low_tlen',
     'low_frac_info_reads',
+    'low_normal_depth',
     'mapping_quality',
     'multiallelic',
     'no_reliable_supporting_read',
