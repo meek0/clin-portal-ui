@@ -114,7 +114,6 @@
   "filter.suggester.search.noresults": "No results found",
   "filter.suggester.search.variants": "Search by Variant",
   "filter.suggester.search.variants.tooltip": "Search by locus, dbSNP ID and ClinVar ID",
-  "filters.group.analysis.code": "Analysis",
   "filters.group.analysis.display": "Analysis",
   "filters.group.analysis_code": "Analysis",
   "filters.group.approver.lastNameFirstName": "Approver",
