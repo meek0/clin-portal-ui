@@ -11,8 +11,19 @@ groups:
   - name: update-pipeline
     jobs:
       - update-pipeline
+  - name: portal-ui-cypress
+    jobs:
+      - run-cypress-tests-portal-ui   
+      - run-cypress-tests-parallel 
+      # - run-cypress-tests-parallel-v2
+
 
 resource_types:
+- name: time
+  type: registry-image
+  source:
+    repository: concourse/time-resource
+
 - name: git
   type: registry-image
   source:
@@ -26,6 +37,7 @@ resource_types:
     repository: aoldershaw/git-branches-resource
     username: ((docker.username))
     password: ((docker.password))
+
 - name: pull-request
   type: docker-image
   source:
@@ -42,6 +54,32 @@ resource_types:
     tag: latest
 
 resources:
+# Cypress
+- name: daily-schedule
+  type: time
+  check_every: 30s
+  source:
+    interval: 24h
+    start: "02:00 AM"
+    stop: "03:00 AM"
+    location: "America/Toronto"
+    days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+
+- name: slack-alert-cypress
+  type: slack-notification
+  source:
+    url: ((slack.webhook-url-cypress))
+
+- name: minio-storage
+  type: s3
+  source:
+    endpoint: https://s3.cqgc.hsj.rtss.qc.ca
+    bucket: cqgc-qa-cypress-tests
+    access_key_id: "((minio.access_key))"
+    secret_access_key: ((minio.secret_key))
+    use_ssl: false  # Set to true if MinIO is configured with SSL
+    regexp: test-results/merged-results-.*\.xml
+    
 - name: slack-alert
   type: slack-notification
   source:
@@ -112,6 +150,355 @@ resources:
     tag: 0.2.2
 
 jobs:
+- name: run-cypress-tests-parallel
+  plan:
+  - get: daily-schedule
+    trigger: true
+  - get: git-portal-ui
+    trigger: false
+    params:
+      submodule_recursive: true
+
+  - in_parallel:
+      fail_fast: false
+      steps:
+
+      - task: cypress-parallel-1
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: ferlabcrsj/cypress-included-custom
+              tag: latest
+          inputs:
+            - name: git-portal-ui
+          outputs:
+            - name: test-results-1
+          params:
+            CYPRESS_PASSWORD: ((cypress.password))
+          run:
+            path: bash
+            args:
+              - -c
+              - |
+                set +e 
+                pushd git-portal-ui
+                npm install
+                cp env-qa .env
+                sed -i 's/CYPRESS_PASSWORD=""/CYPRESS_PASSWORD="'$CYPRESS_PASSWORD'"/' .env
+                npx cypress run --config-file cypress.config.ts --config retries=9 --browser chrome --reporter junit --reporter-options "mochaFile=../test-results-1/results-[hash].xml" --spec "cypress/e2e/Consultation/[Q-Z]*VariantsPatient!(*Somatic*),cypress/e2e/Facettes/[P-Z]*"
+                
+                # Run only the first Cypress test
+                # FIRST_TEST=$(ls cypress/e2e/**/*.cy.{js,jsx,ts,tsx} | head -n 1)
+                # npx cypress run --config-file cypress.config.ts --config retries=2 --browser chrome --reporter junit --reporter-options "mochaFile=../test-results-1/results-[hash].xml" --spec "$FIRST_TEST"
+             
+                popd
+                exit 0
+
+      - task: cypress-parallel-2
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: ferlabcrsj/cypress-included-custom
+              tag: latest
+          inputs:
+            - name: git-portal-ui
+          outputs:
+            - name: test-results-2
+          params:
+            CYPRESS_PASSWORD: ((cypress.password))
+          run:
+            path: bash
+            args:
+              - -c
+              - |
+                set +e 
+                pushd git-portal-ui
+                npm install
+                cp env-qa .env
+                sed -i 's/CYPRESS_PASSWORD=""/CYPRESS_PASSWORD="'$CYPRESS_PASSWORD'"/' .env
+                npx cypress run --config-file cypress.config.ts --config retries=9 --browser chrome --reporter junit --reporter-options "mochaFile=../test-results-2/results-[hash].xml" --spec "cypress/e2e/Facettes/[A-O]*,cypress/e2e/Consultation/[Q-Z]*Variants!(*Patient*),cypress/e2e/Requetes/*,cypress/e2e/Filtres/*"
+                
+                # Run only the first Cypress test
+                # FIRST_TEST=$(ls cypress/e2e/**/*.cy.{js,jsx,ts,tsx} | head -n 1)
+                # npx cypress run --config-file cypress.config.ts --config retries=2 --browser chrome --reporter junit --reporter-options "mochaFile=../test-results-2/results-[hash].xml" --spec "$FIRST_TEST"
+             
+                popd
+                exit 0
+      - task: cypress-parallel-3
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: ferlabcrsj/cypress-included-custom
+              tag: latest
+          inputs:
+            - name: git-portal-ui
+          outputs:
+            - name: test-results-3
+          params:
+            CYPRESS_PASSWORD: ((cypress.password))
+          run:
+            path: bash
+            args:
+              - -c
+              - |
+                set +e 
+                pushd git-portal-ui
+                npm install
+                cp env-qa .env
+                sed -i 's/CYPRESS_PASSWORD=""/CYPRESS_PASSWORD="'$CYPRESS_PASSWORD'"/' .env
+                npx cypress run --config-file cypress.config.ts --config retries=9 --browser chrome --reporter junit --reporter-options "mochaFile=../test-results-3/results-[hash].xml" --spec "cypress/e2e/Consultation/[A-P]*Variant*,cypress/e2e/AccesUtilisateurs/*,cypress/e2e/Navigation/*,cypress/e2e/Telechargement/*,cypress/e2e/Colonnes/*,cypress/e2e/Recherches/*"
+
+                # Run only the first Cypress test
+                # FIRST_TEST=$(ls cypress/e2e/**/*.cy.{js,jsx,ts,tsx} | head -n 1)
+                # npx cypress run --config-file cypress.config.ts --config retries=2 --browser chrome --reporter junit --reporter-options "mochaFile=../test-results-3/results-[hash].xml" --spec "$FIRST_TEST"
+             
+                popd
+                exit 0
+      - task: cypress-parallel-4
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: ferlabcrsj/cypress-included-custom
+              tag: latest
+          inputs:
+            - name: git-portal-ui
+          outputs:
+            - name: test-results-4
+          params:
+            CYPRESS_PASSWORD: ((cypress.password))
+          run:
+            path: bash
+            args:
+              - -c
+              - |
+                set +e
+                pushd git-portal-ui
+                npm install
+                cp env-qa .env
+                sed -i 's/CYPRESS_PASSWORD=""/CYPRESS_PASSWORD="'$CYPRESS_PASSWORD'"/' .env
+                npx cypress run --config-file cypress.config.ts --config retries=9 --browser chrome --reporter junit --reporter-options "mochaFile=../test-results-4/results-[hash].xml" --spec "cypress/e2e/Consultation/!(*Variant*),cypress/e2e/Consultation/[Q-Z]*VariantsPatientSomatic*"
+
+                # Run only the first Cypress test
+                # FIRST_TEST=$(ls cypress/e2e/**/*.cy.{js,jsx,ts,tsx} | head -n 1)
+                # npx cypress run --config-file cypress.config.ts --config retries=2 --browser chrome --reporter junit --reporter-options "mochaFile=../test-results-4/results-[hash].xml" --spec "$FIRST_TEST"
+             
+                popd
+                exit 0
+                
+  - task: merge-results
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: ferlabcrsj/cypress-included-custom
+          tag: latest
+      inputs:
+        - name: test-results-1
+        - name: test-results-2
+        - name: test-results-3
+        - name: test-results-4
+      outputs:
+        - name: merged-results
+        - name: timestamp
+      run:
+        path: bash
+        args:
+          - -c
+          - |
+            set -e # Exit on error
+            mkdir -p merged-results
+            TIMESTAMP=$(date +%Y%m%d%H%M%S)
+            echo $TIMESTAMP > timestamp/timestamp.txt
+            npx junit-merge test-results-1/*.xml test-results-2/*.xml test-results-3/*.xml test-results-4/*.xml -o merged-results/merged-results-${TIMESTAMP}.xml
+
+  - put: minio-storage
+    params:
+      file: merged-results/merged-results-*.xml
+    no_get: true
+
+  - task: generate-presigned-url
+    params:
+      MINIO_ACCESS_KEY: ((minio.access_key))
+      MINIO_SECRET_KEY: ((minio.secret_key))
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: ferlabcrsj/cypress-included-custom
+          tag: latest
+      inputs:
+        - name: merged-results
+        - name: timestamp
+      outputs:
+        - name: slack-data
+      run:
+        path: bash
+        args:
+          - -c
+          - |
+            set -e  # Exit on error
+
+            # Read the timestamp
+            TIMESTAMP=$(cat timestamp/timestamp.txt)
+
+            # Check if the merged results file is not empty
+            if [ -s merged-results/merged-results-${TIMESTAMP}.xml ]; then
+              # Generate a pre-signed URL
+              mc alias set myminio https://s3.cqgc.hsj.rtss.qc.ca $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
+              PRESIGNED_URL=$(mc share download myminio/cqgc-qa-cypress-tests/test-results/merged-results-${TIMESTAMP}.xml --expire=48h | grep -oP '(?<=Share: ).*')
+
+              # Prepare Slack message for success
+              echo '[
+                {
+                  "color": "good",
+                  "title": "Portal UI Cypress Test Results",
+                  "text": "Cypress test results are available for Portal UI. <'$PRESIGNED_URL'|View Results>"
+                }
+              ]' > slack-data/attachments.json
+            else
+              # Prepare Slack message for absence of results
+              echo '[
+                {
+                  "color": "warning",
+                  "title": "Portal UI Cypress Test Results",
+                  "text": "No test results are available for Portal UI due to an error or no tests were executed."
+                }
+              ]' > slack-data/attachments.json
+            fi
+
+  - put: slack-alert-cypress
+    params:
+      attachments_file: slack-data/attachments.json
+
+# Cypress
+- name: run-cypress-tests-portal-ui  
+  plan:
+    - get: daily-schedule
+      trigger: true
+    - get: git-portal-ui
+      trigger: false
+      params: { submodule_recursive: true }
+    - task: prepare-and-run-cypress
+      params:
+        CYPRESS_PASSWORD: ((cypress.password))
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: ferlabcrsj/cypress-included-custom 
+            tag: latest
+        inputs:
+          - name: git-portal-ui
+        outputs:
+          - name: test-results
+          - name: timestamp
+        run:
+          path: bash
+          args:
+            - -c
+            - |
+              set -e # Exit on error
+
+              # Navigate to the project directory
+              pushd git-portal-ui
+
+              # Install dependencies
+              npm install
+
+              # Copy env-qa to .env
+              cp env-qa .env
+
+              # Update the .env file with the Cypress password
+              sed -i 's/CYPRESS_PASSWORD=""/CYPRESS_PASSWORD="'$CYPRESS_PASSWORD'"/' .env
+
+              # Run Cypress tests
+              npx cypress run --config-file cypress.config.ts --config retries=9 --browser chrome --reporter junit --reporter-options "mochaFile=test-results/results-[hash].xml" --spec "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}"
+              
+              # Generate a timestamp
+              TIMESTAMP=$(date +%Y%m%d%H%M%S)
+              echo $TIMESTAMP > ../timestamp/timestamp.txt
+
+              # Merge the XML files using junit-merge if results exist
+              if compgen -G "test-results/results-*.xml" > /dev/null; then
+                npx junit-merge test-results/results-*.xml -o ../test-results/merged-results-${TIMESTAMP}.xml
+              else
+                echo "No results to merge." > ../test-results/merged-results-${TIMESTAMP}.xml
+              fi
+
+              popd
+
+    - put: minio-storage
+      params:
+        file: test-results/merged-results-*.xml
+      no_get: true
+
+    - task: generate-presigned-url
+      params:
+        MINIO_ACCESS_KEY: ((minio.access_key))
+        MINIO_SECRET_KEY: ((minio.secret_key))
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: ferlabcrsj/cypress-included-custom 
+            tag: latest
+        inputs:
+          - name: timestamp
+          - name: test-results
+        outputs:
+          - name: slack-data
+        run:
+          path: sh
+          args:
+            - -c
+            - |
+              set -e  # Exit on error
+
+              # Read the timestamp
+              TIMESTAMP=$(cat timestamp/timestamp.txt)
+
+              # Check if the merged results file is not empty
+              if [ -s test-results/merged-results-${TIMESTAMP}.xml ]; then
+                # Generate a pre-signed URL
+                mc alias set myminio https://s3.cqgc.hsj.rtss.qc.ca $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
+                PRESIGNED_URL=$(mc share download myminio/cqgc-qa-cypress-tests/test-results/merged-results-${TIMESTAMP}.xml --expire=48h | grep -oP '(?<=Share: ).*')
+
+                # Prepare Slack message for success
+                echo '[
+                  {
+                    "color": "good",
+                    "title": "Portal UI Cypress Test Results",
+                    "text": "Cypress test results are available for Portal UI. <'$PRESIGNED_URL'|View Results>"
+                  }
+                ]' > slack-data/attachments.json
+              else
+                # Prepare Slack message for absence of results
+                echo '[
+                  {
+                    "color": "warning",
+                    "title": "Portal UI Cypress Test Results",
+                    "text": "No test results are available for Portal UI due to an error or no tests were executed."
+                  }
+                ]' > slack-data/attachments.json
+              fi
+
+    - put: slack-alert-cypress
+      params:
+        attachments_file: slack-data/attachments.json
+
+
 - name: update-pipeline
   plan:
     - get: ci-folder
