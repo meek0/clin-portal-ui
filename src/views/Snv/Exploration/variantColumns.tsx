@@ -399,7 +399,7 @@ export const getVariantColumns = (
       key: 'donors.all_analyses',
       title: intl.get('screen.patientsnv.results.table.bioinfo_analysis_code'),
       tooltip: intl.get('bioinfo_analysis_code.tooltip'),
-      width: 59,
+      width: 90,
       render: (record: VariantEntity) =>
         renderDonorByKey('donors.all_analyses', findDonorById(record.donors, patientId)),
     });
