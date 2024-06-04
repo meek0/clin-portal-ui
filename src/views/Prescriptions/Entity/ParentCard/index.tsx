@@ -2,7 +2,7 @@ import intl from 'react-intl-universal';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Descriptions, Divider, Space, Typography } from 'antd';
 import { ServiceRequestEntity, ServiceRequestEntityExtension } from 'api/fhir/models';
-import { getPatientAffectedStatus } from 'api/fhir/patientHelper';
+import { AFFECTED_STATUS_CODE, AffectedStatusCode } from 'api/fhir/patientHelper';
 import { get } from 'lodash';
 import { ClinicalSign } from 'views/Prescriptions/Entity/ClinicalInformationCard/components/ClinicalSign';
 
@@ -28,6 +28,7 @@ const ParentCard = ({ extension, loading, prescription }: OwnProps) => {
     extension?.extension?.[1].valueReference?.resource.clinicalImpressions;
   const phenotype: string[] = [];
   let generalObservation = undefined;
+  let affectedStatus = '';
 
   if (clinicalImpressions && clinicalImpressions.length > 0) {
     clinicalImpressions
@@ -37,7 +38,12 @@ const ParentCard = ({ extension, loading, prescription }: OwnProps) => {
       )
       ?.investigation.forEach((inv) => {
         inv.item.forEach((item) => {
-          if (get(item, 'item.code.coding.code') === 'OBSG') {
+          if (get(item, 'item.code.coding.code') === 'DSTA') {
+            affectedStatus =
+              AFFECTED_STATUS_CODE[
+                get(item, 'item.interpretation.coding.code', '') as AffectedStatusCode
+              ];
+          } else if (get(item, 'item.code.coding.code') === 'OBSG') {
             generalObservation = item.reference;
           } else if (get(item, 'item.code.coding.code') === 'PHEN') {
             phenotype.push(item.reference);
@@ -73,7 +79,7 @@ const ParentCard = ({ extension, loading, prescription }: OwnProps) => {
                     <Descriptions.Item
                       label={intl.get('screen.prescription.entity.parent.affectedStatus')}
                     >
-                      {intl.get(getPatientAffectedStatus(extension))}
+                      {intl.get(affectedStatus)}
                     </Descriptions.Item>
                   </Descriptions>
                   {prescription && (phenotype.length > 0 || generalObservation) && (
