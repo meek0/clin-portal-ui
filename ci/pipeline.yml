@@ -164,6 +164,7 @@ jobs:
       steps:
 
       - task: cypress-parallel-1
+        attempts: 6
         config:
           platform: linux
           image_resource:
@@ -197,6 +198,7 @@ jobs:
                 exit 0
 
       - task: cypress-parallel-2
+        attempts: 6
         config:
           platform: linux
           image_resource:
@@ -229,6 +231,7 @@ jobs:
                 popd
                 exit 0
       - task: cypress-parallel-3
+        attempts: 6
         config:
           platform: linux
           image_resource:
@@ -261,6 +264,7 @@ jobs:
                 popd
                 exit 0
       - task: cypress-parallel-4
+        attempts: 6
         config:
           platform: linux
           image_resource:
@@ -294,6 +298,7 @@ jobs:
                 exit 0
                 
   - task: merge-results
+    attempts: 3
     config:
       platform: linux
       image_resource:
@@ -321,11 +326,13 @@ jobs:
             npx junit-merge test-results-1/*.xml test-results-2/*.xml test-results-3/*.xml test-results-4/*.xml -o merged-results/merged-results-${TIMESTAMP}.xml
 
   - put: minio-storage
+    attempts: 3
     params:
       file: merged-results/merged-results-*.xml
     no_get: true
 
   - task: generate-presigned-url
+    attempts: 3
     params:
       MINIO_ACCESS_KEY: ((minio.access_key))
       MINIO_SECRET_KEY: ((minio.secret_key))
