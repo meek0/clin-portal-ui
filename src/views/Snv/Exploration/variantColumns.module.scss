@@ -56,6 +56,10 @@
   }
 }
 
+th.userAffectedBtnCell {
+  text-align: left !important;
+}
+
 .userAffectedBtnCell {
   min-width: 60px;
   .affectedIcon {
@@ -97,6 +101,6 @@
   color: $gray-6;
 }
 
-.fixedVariantTableCellNoData{
+.fixedVariantTableCellNoData {
   left: 0 !important;
 }

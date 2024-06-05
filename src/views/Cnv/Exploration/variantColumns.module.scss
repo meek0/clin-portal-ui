@@ -9,6 +9,11 @@
   white-space: nowrap;
 }
 
+
+th.userAffectedBtnCell {
+  text-align: left !important;
+}
+
 // prevent safari double tooltip
 .variantTableCellElipsis::after {
   content: '';
