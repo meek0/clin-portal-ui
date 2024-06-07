@@ -36,7 +36,7 @@ resources:
   check_every: 30s
   source:
     interval: 24h
-    start: "07:00 PM"
+    start: "02:00 AM"
     stop: "03:00 AM"
     location: "America/Toronto"
     days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
