@@ -32,6 +32,11 @@ const FHIR_BW_TYPE = 'BW';
 const HYPER_EXOME_FILE_NAME = 'KAPA_HyperExome_hg38_combined_targets';
 const HYPER_EXOME_TRACK_NAME = 'HyperExome_hg38';
 
+enum SampleType {
+  TUMOR = 'tumor sample',
+  NORMAL = 'normal sample',
+}
+
 const getPresignedUrl = (file: string, rpt: string) =>
   axios
     .get(`${file}?format=json`, {
@@ -59,12 +64,14 @@ const findFiles = (doc: FhirDoc, mainType: string, indexType: string): ITrackFil
 
 const trackName = (
   doc: FhirDoc | undefined,
-  patientId: string,
   gender: GENDER,
   position: PATIENT_POSITION | PARENT_TYPE,
   attachmentTitle?: string,
+  sample?: string,
 ): string => {
-  const trackName = `${doc?.sample.value!} ${getPatientPosition(gender, position)}`;
+  const trackName = `${doc?.sample.value!} ${
+    sample ? sample : getPatientPosition(gender, position)
+  }`;
   if (!attachmentTitle) return trackName;
 
   const splittedTitle = attachmentTitle.split('.');
@@ -82,9 +89,11 @@ export const generateTracks = (
   position: PATIENT_POSITION | PARENT_TYPE,
   rpt: string,
   aliquotId?: string,
-  task?: FhirTask,
+  task?: FhirTask[],
 ): IIGVTrack[] => {
-  const normalSepicment = task?.input?.find((t) => t.type.text === 'Analysed normal sample');
+  const tnebaTask = task?.find((t) => t.type === 'TNEBA');
+  const tebaTask = task?.find((t) => t.type === 'TEBA');
+  const normalSepicment = tnebaTask?.input?.find((t) => t.type.text === 'Analysed normal sample');
   const cramDoc = findDoc(files, FHIR_CRAM_CRAI_DOC_TYPE, aliquotId);
   const cramFiles = findFiles(cramDoc!, FHIR_CRAM_TYPE, FHIR_CRAI_TYPE);
   const normalDoc = files.docs.filter(
@@ -122,7 +131,7 @@ export const generateTracks = (
         type,
         format,
         url: getPresignedUrl(attachment.url!, rpt),
-        name: trackName(segDoc, patientId, gender, position, attachment.title),
+        name: trackName(segDoc, gender, position, attachment.title),
         autoHeight: true,
         maxHeight: 500,
         colorBy: 'strand',
@@ -136,7 +145,7 @@ export const generateTracks = (
       format: 'vcf',
       url: getPresignedUrl(vcfFiles.mainFile!, rpt),
       indexURL: getPresignedUrl(vcfFiles.indexFile!, rpt),
-      name: 'CNVs: ' + trackName(vcfDoc, patientId, gender, position),
+      name: 'CNVs: ' + trackName(vcfDoc, gender, position, undefined, tebaTask && SampleType.TUMOR),
       autoHeight: true,
       colorBy: 'SVTYPE',
     },
@@ -148,7 +157,8 @@ export const generateTracks = (
       format: 'cram',
       url: getPresignedUrl(cramFiles.mainFile!, rpt),
       indexURL: getPresignedUrl(cramFiles.indexFile!, rpt),
-      name: 'Reads: ' + trackName(cramDoc, patientId, gender, position),
+      name:
+        'Reads: ' + trackName(cramDoc, gender, position, undefined, tebaTask && SampleType.TUMOR),
       autoHeight: true,
       maxHeight: 500,
       colorBy: 'strand',
@@ -161,13 +171,13 @@ export const generateTracks = (
     },
   ];
 
-  if (task) {
+  if (tnebaTask) {
     vcfTrack.push({
       type: 'variant',
       format: 'vcf',
       url: getPresignedUrl(vcfNormalFiles.mainFile!, rpt),
       indexURL: getPresignedUrl(vcfNormalFiles.indexFile!, rpt),
-      name: 'CNVs: ' + trackName(vcfNormalDoc, patientId, gender, position),
+      name: 'CNVs: ' + trackName(vcfNormalDoc, gender, position, undefined, SampleType.NORMAL),
       autoHeight: true,
       colorBy: 'SVTYPE',
     });
@@ -177,7 +187,7 @@ export const generateTracks = (
       format: 'cram',
       url: getPresignedUrl(cramNormalFiles.mainFile!, rpt),
       indexURL: getPresignedUrl(cramNormalFiles.indexFile!, rpt),
-      name: 'Reads: ' + trackName(cramNormalDoc, patientId, gender, position),
+      name: 'Reads: ' + trackName(cramNormalDoc, gender, position, undefined, SampleType.NORMAL),
       autoHeight: true,
       maxHeight: 500,
       colorBy: 'strand',
@@ -215,7 +225,6 @@ export const getHyperXenomeTrack = (
     indexURL: null,
     name: trackName(
       doc,
-      patientId,
       gender,
       position,
       attachment.title.replace(HYPER_EXOME_FILE_NAME, HYPER_EXOME_TRACK_NAME),

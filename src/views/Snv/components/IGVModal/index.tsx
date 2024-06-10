@@ -34,7 +34,7 @@ const buildTracks = (
   fatherFiles: PatientFileResults,
   rpt: string,
   donor: DonorsEntity,
-  task?: FhirTask,
+  task?: FhirTask[],
 ) => {
   if (!patientFiles.docs) {
     return [];
@@ -89,13 +89,13 @@ const buildTracks = (
 
 const IGVModal = ({ donor, variantEntity, isOpen = false, toggleModal, rpt }: OwnProps) => {
   const { loading, results, error } = usePatientFilesData(donor?.patient_id, !isOpen);
-  const [task, setTask] = useState<FhirTask>();
+  const [task, setTask] = useState<FhirTask[]>();
   const { selectedRequest } = useContext(PrescriptionEntityContext);
   useEffect(() => {
     if (selectedRequest?.id) {
       FhirApi.searchRequestTask(selectedRequest.id).then(({ data }) => {
         if (data?.data.taskList) {
-          setTask(data.data.taskList.find((t) => t.type === 'TNEBA'));
+          setTask(data?.data.taskList);
         }
       });
     }
