@@ -158,10 +158,9 @@ export const AssignmentsCell = ({
         }
       },
     ) as PractitionerRole;
-
     if (userPractionnerRoles) {
       practitionerInfoList = putUserFirst(practitionerInfoList, userPractionnerRoles);
-      selectedInfoList = putUserFirst(selectedInfoList, userPractionnerRoles);
+      selectedInfoList = putUserFirst(selectedInfoList, userPractionnerRoles, practitionerInfoList);
     }
   }
 

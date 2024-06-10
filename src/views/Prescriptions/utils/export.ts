@@ -255,10 +255,11 @@ export const getPractitionerInfoList = (
 export const putUserFirst = (
   practitionerInfoList: TPractitionnerInfo[],
   userPractitionerId: PractitionerRole,
+  allPractitionerInfoList?: TPractitionnerInfo[],
 ) => {
-  const userInfo = practitionerInfoList.find(
-    (p) => p.practitionerRoles_Id === userPractitionerId.id,
-  );
+  const allInfo = allPractitionerInfoList ? allPractitionerInfoList : practitionerInfoList;
+  const userInfo = allInfo.find((p) => p.practitionerRoles_Id === userPractitionerId.id);
+
   const newList = practitionerInfoList.filter((p) =>
     userInfo
       ? getPractitionnerName(p.name) !== getPractitionnerName(userInfo.name)
