@@ -223,12 +223,7 @@ export const getHyperXenomeTrack = (
     format: 'bed',
     url: getPresignedUrl(attachment.url!, rpt),
     indexURL: null,
-    name: trackName(
-      doc,
-      gender,
-      position,
-      attachment.title.replace(HYPER_EXOME_FILE_NAME, HYPER_EXOME_TRACK_NAME),
-    ),
+    name: HYPER_EXOME_TRACK_NAME,
     autoHeight: true,
     maxHeight: 500,
   };
