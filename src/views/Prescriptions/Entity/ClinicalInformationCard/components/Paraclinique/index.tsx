@@ -72,7 +72,8 @@ const displayCgh = (
   const label =
     value?.category === 'exam'
       ? intl.get('prescription.clinical_exam.other_examination')
-      : find(codeSystemInfo?.designation, (o) => o.language === lang)?.value;
+      : find(codeSystemInfo?.designation, (o) => o.language === lang)?.value ||
+        codeSystemInfo?.display;
 
   let displayValue = null;
 
@@ -80,12 +81,12 @@ const displayCgh = (
     displayValue = `${intl.get(
       `screen.prescription.entity.paraclinique.A`,
     )} : ${value?.valueCodeableConcept?.coding
-      .map(
-        (v) =>
-          cghValueSet?.concept
-            .find((concept) => concept.code === v.code)
-            ?.designation.find((d) => d.language === lang)?.value,
-      )
+      .map((v) => {
+        const foundConcept = cghValueSet?.concept.find((concept) => concept.code === v.code);
+        return (
+          foundConcept?.designation.find((d) => d.language === lang)?.value || foundConcept?.display
+        );
+      })
       .join(', ')}`;
   } else if (value?.interpretation?.coding?.code === 'N') {
     displayValue = intl.get(`screen.prescription.entity.paraclinique.N`);
@@ -112,7 +113,7 @@ const displayParaclinique = (
   const codeSystemInfo = find(codeInfo?.concept, (c) => c.code === value?.code);
   const label =
     value?.category === 'exam'
-      ? 'Autres examens paracliniques'
+      ? `${intl.get('screen.prescription.entity.paraclinique.other')}`
       : find(codeSystemInfo?.designation, (o) => o.language === lang)?.value;
 
   let displayValue = null;
