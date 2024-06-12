@@ -11,7 +11,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
   it('Panel RQDM - RQDM', () => {
     const dictionnary = ['Malignant Hyperthermia (HYPM v1)',
                          'Congenital Myopathies (MYOC v1)',
-                         'Global Developmental Delay / Intellectual Disabilty (Trio) (RGDI v3)',
+                         'Global Developmental Delay / Intellectual Disability (Trio) (RGDI v3)',
                          'Hematological Malignancies Predisposition (TUHEM v1)',
                          'Congenital Myasthenia (MYAC v1)',
                          'Global Muscular Diseases (MMG v1)',
@@ -244,7 +244,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
   it('Gène - RQDM', () => {
     const dictionnary = ['Malignant Hyperthermia (HYPM v1)',
                          'Congenital Myopathies (MYOC v1)',
-                         'Global Developmental Delay / Intellectual Disabilty (Trio) (RGDI v3)',
+                         'Global Developmental Delay / Intellectual Disability (Trio) (RGDI v3)',
                          'Hematological Malignancies Predisposition (TUHEM v1)',
                          'Congenital Myasthenia (MYAC v1)',
                          'Global Muscular Diseases (MMG v1)',
