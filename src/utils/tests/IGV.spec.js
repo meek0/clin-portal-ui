@@ -189,7 +189,7 @@ describe('getHyperXenomeTrack', () => {
       format: 'bed',
       indexURL: null,
       maxHeight: 500,
-      name: 'HyperExome_hg38',
+      name: 'HyperExome hg38',
       type: 'annotation',
       url: expect.any(Promise),
     };

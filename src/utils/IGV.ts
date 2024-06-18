@@ -30,7 +30,7 @@ const FHIR_IGV_DOC_TYPE = 'IGV';
 const FHIR_BED_TYPE = 'BED';
 const FHIR_BW_TYPE = 'BW';
 const HYPER_EXOME_FILE_NAME = 'KAPA_HyperExome_hg38_combined_targets';
-const HYPER_EXOME_TRACK_NAME = 'HyperExome_hg38';
+const HYPER_EXOME_TRACK_NAME = 'HyperExome hg38';
 
 enum SampleType {
   TUMOR = 'tumor sample',
