@@ -35,12 +35,14 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 5, epCHUSJ_ldmCHUSJ.stampDate);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 6, /^\d{4}-\d{2}-\d{2}$/);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 7, 'RGDI');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 8, 'LDM-CHUSJ');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 9, 'CHUSJ');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 10, epCHUSJ_ldmCHUSJ.prescriptionId);
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 11, '-');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 12, 'Non');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 13, epCHUSJ_ldmCHUSJ.mrnProb);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 8, 'G');
+    cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.requestProbId, 8, 'ant-tag-green');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 9, 'LDM-CHUSJ');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 10, 'CHUSJ');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 11, epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 12, '-');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 13, 'Non');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 14, epCHUSJ_ldmCHUSJ.mrnProb);
   });
 
   it('Valider les liens disponibles Lien Requête', () => {
@@ -73,23 +75,23 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
 
   it('Valider les fonctionnalités du tableau - Tri Requête', () => {
     cy.sortTableAndIntercept('Requête', 3, 1);
-    cy.validateTableFirstRow('MRN-283831', 13, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283831', 14, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('Requête', 3, 1);
-    cy.validateTableFirstRow('MRN-283900', 13, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283900', 14, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Échantillon', () => {
     cy.sortTableAndIntercept('Échantillon', 3, 1);
-    cy.validateTableFirstRow('MRN-283900', 13, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283900', 14, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('Échantillon', 3, 1);
-    cy.validateTableFirstRow('MRN-283890', 13, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283890', 14, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Patient', () => {
     cy.sortTableAndIntercept('Patient', 3, 1);
-    cy.validateTableFirstRow('MRN-283831', 13, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283831', 14, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('Patient', 3, 1);
-    cy.validateTableFirstRow('MRN-283900', 13, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283900', 14, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Statut', () => {
@@ -121,53 +123,61 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
     cy.validateTableFirstRow('MYOC', 7, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
+  it('Valider les fonctionnalités du tableau - Tri Bioinfo', () => {
+    cy.checkValueFacet('Analyse', 'MYOC');
+    cy.sortTableAndIntercept('Bioinfo', 3, 1);
+    cy.validateTableFirstRow('G', 8, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.sortTableAndIntercept('Bioinfo', 3, 1);
+    cy.validateTableFirstRow('G', 8, true, '[id="rc-tabs-0-panel-requests"]');
+  });
+
   it('Valider les fonctionnalités du tableau - Tri LDM', () => {
     cy.sortTableAndIntercept('LDM', 3, 1);
-    cy.validateTableFirstRow('LDM-CHUS', 8, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('LDM-CHUS', 9, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('LDM', 3, 1);
-    cy.validateTableFirstRow('LDM-CHUSJ', 8, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('LDM-CHUSJ', 9, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri EP', () => {
     cy.sortTableAndIntercept('EP', 3, 1);
-    cy.validateTableFirstRow('CHUS', 9, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('CHUS', 10, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('EP', 3, 1);
-    cy.validateTableFirstRow('CUSM', 9, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('CUSM', 10, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Prescription', () => {
     cy.sortTableAndIntercept('Prescription', 3, 1);
-    cy.validateTableFirstRow('MRN-283831', 13, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283831', 14, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('Prescription', 3, 1);
-    cy.validateTableFirstRow('MRN-283900', 13, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283900', 14, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Requérant', () => {
     cy.sortTableAndIntercept('Requérant', 3, 1);
-    cy.validateTableFirstRow('-', 11, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('-', 12, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('Requérant', 3, 1);
-    cy.validateTableFirstRow('-', 11, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('-', 12, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Prénatal', () => {
     cy.sortTableAndIntercept('Prénatal', 3, 1);
-    cy.validateTableFirstRow('Non', 12, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('Non', 13, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('Prénatal', 3, 1);
-    cy.validateTableFirstRow('Non', 12, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('Non', 13, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Dossier', () => {
     cy.sortTableAndIntercept('Dossier', 3, 1);
-    cy.validateTableFirstRow('MRN-283831', 13, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283831', 14, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('Dossier', 3, 1);
-    cy.validateTableFirstRow('MRN-283900', 13, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283900', 14, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndWait('Dossier', 1);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
     cy.sortTableAndIntercept('LDM', 3, 1);
     cy.sortTableAndIntercept('Échantillon', 3, 1);
-    cy.validateTableFirstRow('MRN-283831', 13, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283831', 14, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {

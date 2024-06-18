@@ -48,8 +48,18 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
     cy.get('body').contains('Requêtes (3)').should('exist');
   });
 
+  it('Bioinfo - TN', () => {
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(2).contains('Bioinfo').should('exist');
+    cy.checkValueFacet('Bioinfo', 'TNEBA');
+
+    cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
+
+    cy.get('body').contains('Prescriptions (1)').should('exist');
+    cy.get('body').contains('Requêtes (1)').should('exist');
+  });
+
   it('Statut des prescriptions - Approuvée', () => {
-    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(2).contains('Statut des prescriptions').should('exist');
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(3).contains('Statut des prescriptions').should('exist');
     cy.checkValueFacet('Statut des prescriptions', 'active');
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
@@ -59,7 +69,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
   });
   
   it('Statut des requêtes - Complétée', () => {
-    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(3).contains('Statut des requêtes').should('exist');
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(4).contains('Statut des requêtes').should('exist');
     cy.checkValueFacet('Statut des requêtes', 'completed');
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
@@ -69,7 +79,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
   });
   
   it('Laboratoire (LDM) - LDM-CHUSJ', () => {
-    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(4).contains('Laboratoire (LDM)').should('exist');
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(5).contains('Laboratoire (LDM)').should('exist');
     cy.checkValueFacet('Laboratoire (LDM)', 'LDM-CHUSJ');
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
@@ -97,7 +107,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
   });
   
   it('Établissement prescripteur - CHUSJ', () => {
-    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(5).contains('Établissement prescripteur').should('exist');
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(6).contains('Établissement prescripteur').should('exist');
     cy.checkValueFacet('Établissement prescripteur', 'CHUSJ');
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
@@ -125,7 +135,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
   });
   
   it('Prénatal - False', () => {
-    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(6).contains('Prénatal').should('exist');
+    cy.get('div[class="Filter_facetCollapse__ft2Q2"]').eq(7).contains('Prénatal').should('exist');
     cy.checkValueFacet('Prénatal', 'false'); 
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
