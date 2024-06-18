@@ -333,7 +333,7 @@
   "filters.options.donors.parental_origin.unknown.abrv": "UNK",
   "filters.options.donors.filters.alt_allele_in_normal": "ALT Allele in Normal",
   "filters.options.donors.filters.artifact_in_normal": "Artifact in Normal",
-  "filters.options.donors.filters.panel_of_normals": "Panels of Normal",
+  "filters.options.donors.filters.panel_of_normals": "Panels of Normals",
   "filters.options.donors.exomiser.acmg_classification.PATHOGENIC": "Pathogenic",
   "filters.options.donors.exomiser.acmg_classification.LIKELY_PATHOGENIC": "Likely Pathogenic",
   "filters.options.donors.exomiser.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
