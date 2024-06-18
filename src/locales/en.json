@@ -228,6 +228,7 @@
   "filters.group.prenatal": "Prenatal",
   "filters.group.prescriber.lastNameFirstName": "Prescriber / Responsable",
   "filters.group.priority": "Priority",
+  "filters.group.tasks": "Bioinfo",
   "filters.group.qual": "Quality",
   "filters.group.sequencing_requests.status": "Requests status",
   "filters.group.start": "Position",
