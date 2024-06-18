@@ -1,10 +1,11 @@
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
+import { Tag, Tooltip } from 'antd';
 import { extractOrganizationId } from 'api/fhir/helper';
 import { ITableSequencingResult, SequencingResult } from 'graphql/sequencing/models';
 import StatusTag from 'views/Prescriptions/components/StatusTag';
-import { getPrescriptionStatusDictionnary } from 'views/Prescriptions/utils/constant';
+import { getPrescriptionStatusDictionnary, TaskColorMap } from 'views/Prescriptions/utils/constant';
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
@@ -63,6 +64,25 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     title: intl.get('screen.patientsearch.table.test'),
     tooltip: intl.get('screen.patientsearch.table.test.tooltip'),
     sorter: { multiple: 1 },
+  },
+  {
+    key: 'tasks',
+    dataIndex: 'tasks',
+    width: 90,
+    title: intl.get('screen.patientsearch.table.tasks'),
+    sorter: { multiple: 1 },
+    render: (tasks: string[]) =>
+      tasks.length > 0
+        ? tasks.map((task) => (
+            <Tooltip
+              key={task}
+              placement="topLeft"
+              title={intl.get(`filters.options.tasks.${task}.tooltip`)}
+            >
+              <Tag color={TaskColorMap[task]}>{intl.get(`filters.options.tasks.${task}`)}</Tag>
+            </Tooltip>
+          ))
+        : TABLE_EMPTY_PLACE_HOLDER,
   },
   {
     key: 'ldm',

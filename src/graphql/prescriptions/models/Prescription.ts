@@ -31,6 +31,7 @@ export interface AnalysisResult extends ArrangerNodeData {
   requester: string;
   security_tags: string;
   status: string;
+  task: string[];
   timestamp: string;
   sequencing_requests: ArrangerResultsTree<AnalysisSequencingRequest>;
   assignments: string[];
@@ -71,6 +72,7 @@ export interface AnalysisSequencingRequest {
 export const analysisFields = [
   'priority',
   'analysis_code',
+  'tasks',
   'status',
   'sequencing_requests__status',
   'ldm',

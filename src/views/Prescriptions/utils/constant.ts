@@ -19,6 +19,12 @@ export const prescriptionPriorityDictionnary = () => ({
   },
 });
 
+export const TaskColorMap: Record<any, string> = {
+  GEBA: 'green',
+  TEBA: 'blue',
+  TNEBA: 'red',
+};
+
 export const commonPrescriptionFilterFields = [
   'prescription_id',
   'patient_mrn',
