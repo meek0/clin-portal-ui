@@ -16,6 +16,7 @@ const panelsDictionaries = [
   'SSOLID',
   'SHEMA',
   'SCID',
+  'THBP',
   ArrangerValues.missing,
 ];
 

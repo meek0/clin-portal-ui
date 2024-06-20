@@ -73,7 +73,7 @@ describe('Page des CNVs d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Panel RQDM - Panel RQDM', () => {
-    cy.validateFacetFilter('Panel RQDM', 'Panel RQDM', 'Polymalformation (POLYM v1)', 'POLYM', /^26$/);
+    cy.validateFacetFilter('Panel RQDM', 'Panel RQDM', /^POLYM v1$/, 'POLYM', /^26$/);
     cy.validateFacetRank(0, 'Panel RQDM');
   });
 
@@ -111,7 +111,7 @@ describe('Page des CNVs d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Gène - Panel RQDM', () => {
-    cy.validateFacetFilter('Gène', 'Panel RQDM', 'Polymalformation (POLYM v1)', 'POLYM', /^26$/);
+    cy.validateFacetFilter('Gène', 'Panel RQDM', /^POLYM v1$/, 'POLYM', /^26$/);
     cy.validateFacetRank(0, 'Panel RQDM');
   });
 

@@ -257,7 +257,7 @@ Cypress.Commands.add('validateExpandCollapse', (section: string, isRqdmExpand: b
   cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').contains('Tout ouvrir').should('exist');
 });
 
-Cypress.Commands.add('validateFacetFilter', (section: string, facetTitle: string, valueFront: string, valueBack: string, expectedCount: string|RegExp, isRqdmExpand: boolean = false) => {
+Cypress.Commands.add('validateFacetFilter', (section: string, facetTitle: string, valueFront: string|RegExp, valueBack: string, expectedCount: string|RegExp, isRqdmExpand: boolean = false) => {
   cy.checkAndClickApplyFacet(section, facetTitle, valueBack, isRqdmExpand);
 
   cy.validatePillSelectedQuery(facetTitle, [valueFront]);

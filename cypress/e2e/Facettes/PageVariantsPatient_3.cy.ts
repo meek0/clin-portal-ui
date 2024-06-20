@@ -98,7 +98,7 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Gène - RQDM', () => {
-    cy.validateFacetFilter('Gène', 'RQDM', 'Polymalformation (POLYM v1)', 'POLYM', /^24 975$/);
+    cy.validateFacetFilter('Gène', 'RQDM', /^POLYM v1$/, 'POLYM', /^24 975$/);
     cy.validateFacetRank(5, 'RQDM');
   });
 
