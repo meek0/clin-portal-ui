@@ -22,7 +22,7 @@ declare namespace Cypress {
     validateDictionnaryNewValues(section: string, facetTitle: string, dictionnary: (string|RegExp)[], moreButton:boolean = false): cy & CyEventEmitter;
     validateDictionnaryPresetValues(section: string, facetTitle: string, dictionnary: (string|RegExp)[], moreButton:boolean = false): cy & CyEventEmitter;
     validateExpandCollapse(section: string, isRqdmExpand: boolean = false): cy & CyEventEmitter;
-    validateFacetFilter(section: string, facetTitle: string, valueFront: string, valueBack: string, expectedCount: string|RegExp, isRqdmExpand: boolean = false): cy & CyEventEmitter;
+    validateFacetFilter(section: string, facetTitle: string, valueFront: string|RegExp, valueBack: string, expectedCount: string|RegExp, isRqdmExpand: boolean = false): cy & CyEventEmitter;
     validateFacetNumFilter(section: string, facetTitle: string, value: string, expectedCount: string|RegExp): cy & CyEventEmitter;
     validateFacetRank(facetRank: number, facetTitle: string): cy & CyEventEmitter;
     validateFileContent(fixture: string, replacements?: Replacement[]): cy & CyEventEmitter;

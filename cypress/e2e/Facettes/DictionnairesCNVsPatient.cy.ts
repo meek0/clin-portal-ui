@@ -24,6 +24,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                          'Solid Tumor (Somatic) (SSOLID v2)',
                          'Leukemia (Somatic) (SHEMA v3)',
                          'Severe Combined Immune Deficiency (SCID v1)',
+                         'Thrombocytopenia (THBP v1)',
                          'No Data'];
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
@@ -97,6 +98,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                          'Solid Tumor (Somatic) (SSOLID v2)',
                          'Leukemia (Somatic) (SHEMA v3)',
                          'Severe Combined Immune Deficiency (SCID v1)',
+                         'Thrombocytopenia (THBP v1)',
                          'No Data'];
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');

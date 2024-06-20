@@ -308,7 +308,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Gène', 'Référence externe', dictionnary);
   });
 
-  it('Gène - RQDM [CLIN-2875]', () => {
+  it('Gène - RQDM', () => {
     const dictionnary = ['Malignant Hyperthermia (HYPM v1)',
                          'Congenital Myopathies (MYOC v1)',
                          'Global Developmental Delay / Intellectual Disability (Trio) (RGDI v3)',
@@ -324,6 +324,7 @@ describe('Page des variants - Dictionnaire', () => {
                          'Solid Tumor (Somatic) (SSOLID v2)',
                          'Leukemia (Somatic) (SHEMA v3)',
                          'Severe Combined Immune Deficiency (SCID v1)',
+                         'Thrombocytopenia (THBP v1)',
                          'No Data'];
 
     cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
