@@ -1,3 +1,4 @@
+import { renderToString } from 'react-dom/server';
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
@@ -5,10 +6,37 @@ import { Tag, Tooltip } from 'antd';
 import { extractOrganizationId } from 'api/fhir/helper';
 import { ITableSequencingResult, SequencingResult } from 'graphql/sequencing/models';
 import StatusTag from 'views/Prescriptions/components/StatusTag';
+import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 import { getPrescriptionStatusDictionnary, TaskColorMap } from 'views/Prescriptions/utils/constant';
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
+
+export const renderTasksToString = (analyisis: any) => {
+  const tasksList = renderTasks(analyisis.tasks);
+  const tasksStringList = [];
+  if (Array.isArray(tasksList)) {
+    for (let i = 0; i < tasksList.length; i++) {
+      tasksStringList.push(renderToString(tasksList[i]));
+    }
+  } else {
+    tasksStringList.push(EMPTY_FIELD);
+  }
+  return tasksStringList.join(',');
+};
+
+const renderTasks = (tasks: string[]) =>
+  tasks.length > 0
+    ? tasks.map((task) => (
+        <Tooltip
+          key={task}
+          placement="topLeft"
+          title={intl.get(`filters.options.tasks.${task}.tooltip`)}
+        >
+          <Tag color={TaskColorMap[task]}>{intl.get(`filters.options.tasks.${task}`)}</Tag>
+        </Tooltip>
+      ))
+    : TABLE_EMPTY_PLACE_HOLDER;
 
 export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] => [
   {
@@ -71,18 +99,7 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     width: 90,
     title: intl.get('screen.patientsearch.table.tasks'),
     sorter: { multiple: 1 },
-    render: (tasks: string[]) =>
-      tasks.length > 0
-        ? tasks.map((task) => (
-            <Tooltip
-              key={task}
-              placement="topLeft"
-              title={intl.get(`filters.options.tasks.${task}.tooltip`)}
-            >
-              <Tag color={TaskColorMap[task]}>{intl.get(`filters.options.tasks.${task}`)}</Tag>
-            </Tooltip>
-          ))
-        : TABLE_EMPTY_PLACE_HOLDER,
+    render: (tasks: string[]) => renderTasks(tasks),
   },
   {
     key: 'ldm',
