@@ -31,11 +31,13 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 6, epCHUSJ_ldmCHUSJ.stampDate);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 7, /^\d{4}-\d{2}-\d{2}$/);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 8, 'RGDI');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 9, 'LDM-CHUSJ');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 10, 'CHUSJ');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 11, '-');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 12, 'Non');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 13, epCHUSJ_ldmCHUSJ.mrnProb);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 9, 'G');
+    cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.prescriptionId, 9, 'ant-tag-green');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 10, 'LDM-CHUSJ');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 11, 'CHUSJ');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 12, '-');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 13, 'Non');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 14, epCHUSJ_ldmCHUSJ.mrnProb);
   });
 
   it('Valider les liens disponibles Lien Prescription', () => {
@@ -63,16 +65,16 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
 
   it('Valider les fonctionnalités du tableau - Tri Prescription', () => {
     cy.sortTableAndIntercept('Prescription', 3);
-    cy.validateTableFirstRow('MRN-283791', 13, true);
+    cy.validateTableFirstRow('MRN-283791', 14, true);
     cy.sortTableAndIntercept('Prescription', 3);
-    cy.validateTableFirstRow('MRN-283900', 13, true);
+    cy.validateTableFirstRow('MRN-283900', 14, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Patient', () => {
     cy.sortTableAndIntercept('Patient', 3);
-    cy.validateTableFirstRow('MRN-283791', 13, true);
+    cy.validateTableFirstRow('MRN-283791', 14, true);
     cy.sortTableAndIntercept('Patient', 3);
-    cy.validateTableFirstRow('MRN-283900', 13, true);
+    cy.validateTableFirstRow('MRN-283900', 14, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Priorité', () => {
@@ -110,45 +112,52 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
     cy.validateTableFirstRow('MYOC', 8, true);
   });
 
+  it('Valider les fonctionnalités du tableau - Tri Bioinfo', () => {
+    cy.sortTableAndIntercept('Bioinfo', 3);
+    cy.validateTableFirstRow('G', 9, true);
+    cy.sortTableAndIntercept('Bioinfo', 3);
+    cy.validateTableFirstRow('G', 9, true);
+  });
+
   it('Valider les fonctionnalités du tableau - Tri LDM', () => {
     cy.sortTableAndIntercept('LDM', 3);
-    cy.validateTableFirstRow('LDM-CHUS', 9, true);
+    cy.validateTableFirstRow('LDM-CHUS', 10, true);
     cy.sortTableAndIntercept('LDM', 3);
-    cy.validateTableFirstRow('LDM-CHUSJ', 9, true);
+    cy.validateTableFirstRow('LDM-CHUSJ', 10, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri EP', () => {
     cy.sortTableAndIntercept('EP', 3);
-    cy.validateTableFirstRow('CHUS', 10, true);
+    cy.validateTableFirstRow('CHUS', 11, true);
     cy.sortTableAndIntercept('EP', 3);
-    cy.validateTableFirstRow('CUSM', 10, true);
+    cy.validateTableFirstRow('CUSM', 11, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Requérant', () => {
     cy.sortTableAndIntercept('Requérant', 3);
-    cy.validateTableFirstRow('-', 11, true);
+    cy.validateTableFirstRow('-', 12, true);
     cy.sortTableAndIntercept('Requérant', 3);
-    cy.validateTableFirstRow('-', 11, true);
+    cy.validateTableFirstRow('-', 12, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Prénatal', () => {
     cy.sortTableAndIntercept('Prénatal', 3);
-    cy.validateTableFirstRow('Non', 12, true);
+    cy.validateTableFirstRow('Non', 13, true);
     cy.sortTableAndIntercept('Prénatal', 3);
-    cy.validateTableFirstRow('Non', 12, true);
+    cy.validateTableFirstRow('Non', 13, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Dossier', () => {
     cy.sortTableAndIntercept('Dossier', 3);
-    cy.validateTableFirstRow('MRN-283791', 13, true);
+    cy.validateTableFirstRow('MRN-283791', 14, true);
     cy.sortTableAndIntercept('Dossier', 3);
-    cy.validateTableFirstRow('MRN-283900', 13, true);
+    cy.validateTableFirstRow('MRN-283900', 14, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
     cy.sortTableAndIntercept('EP', 3);
     cy.sortTableAndIntercept('Dossier', 3);
-    cy.validateTableFirstRow('MRN-283804', 13, true);
+    cy.validateTableFirstRow('MRN-283804', 14, true);
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {

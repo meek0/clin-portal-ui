@@ -19,6 +19,7 @@ export interface SequencingResult extends ArrangerNodeData {
   requester: string;
   security_tags: string;
   status: string;
+  task: string[];
   timestamp: string;
   request_id: string;
   sample: string;

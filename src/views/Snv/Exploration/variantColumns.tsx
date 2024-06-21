@@ -998,7 +998,7 @@ const renderExomiserAcmg_Classification = (acmg?: string) =>
     </Tooltip>
   );
 
-const renderToString = (element: any) => {
+export const renderToString = (element: any) => {
   if (typeof element === 'string' || typeof element === 'number') {
     return String(element);
   } else if (element) {

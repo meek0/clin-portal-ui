@@ -31,6 +31,8 @@ import {
 import { TABLE_EMPTY_PLACE_HOLDER, TSV_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { downloadText } from 'utils/helper';
 
+import { renderTasksToString } from '../Search/components/table/PrescriptionTable/columns';
+
 export const ALL_KEYS = '*';
 export const MAX_VARIANTS_DOWNLOAD = 10000;
 export const MAX_VARIANTS_WITH_DONORS_DOWNLOAD = 1000;
@@ -141,6 +143,10 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
   } else if (prefix === 'CNV') {
     if (['calls', 'genes'].includes(key)) {
       return renderCNVToString(key, row);
+    }
+  } else if (prefix === 'PR' || prefix === 'RQ') {
+    if (key === 'tasks') {
+      return convertToPlain(renderTasksToString(row));
     }
   }
   return null;

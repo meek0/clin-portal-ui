@@ -27,6 +27,7 @@ export const SEQUENCING_QUERY = gql`
             analysis_code
             status
             sample
+            tasks
             prescription_status
           }
         }

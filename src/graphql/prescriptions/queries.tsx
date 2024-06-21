@@ -20,6 +20,7 @@ export const PRESCRIPTIONS_QUERY = gql`
             requester
             prenatal
             ldm
+            tasks
             analysis_code
             status
             priority
