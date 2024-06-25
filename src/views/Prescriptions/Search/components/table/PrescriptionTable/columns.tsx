@@ -36,6 +36,14 @@ export const renderTasksToString = (analyisis: any) => {
   return tasksStringList.join(',');
 };
 
+export const renderAssignmentsToString = (analyisis: any) => {
+  const assignmentsList = analyisis.assignments;
+  if (assignmentsList.length > 0) {
+    return assignmentsList.join(', ');
+  }
+  return EMPTY_FIELD;
+};
+
 const renderTasks = (tasks: string[]) =>
   tasks.length > 0
     ? tasks.map((task) => (
