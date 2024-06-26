@@ -410,6 +410,36 @@ describe('customMapping CNV', () => {
   });
 });
 
+describe('customMapping PrescriptionTable', () => {
+  test('should map nothing', () => {
+    expect(customMapping(null, null, null)).toEqual(null);
+  });
+  test('should map assignments', () => {
+    const row = {
+      assignments: ['p1', 'p2'],
+    };
+    expect(customMapping('PR', 'assignments', row)).toEqual('p1,p2');
+  });
+  test('should map assignments empty array', () => {
+    const row = {
+      assignments: [],
+    };
+    expect(customMapping('PR', 'assignments', row)).toEqual('--');
+  });
+  test('should map tasks', () => {
+    const row = {
+      tasks: ['TEBA', 'TNEBA', 'GEBA'],
+    };
+    expect(customMapping('PR', 'tasks', row)).toEqual('TO,TN,G');
+  });
+  test('should map tasks empty array', () => {
+    const row = {
+      tasks: [],
+    };
+    expect(customMapping('PR', 'tasks', row)).toEqual('--');
+  });
+});
+
 describe('makeFilenameDatePart', () => {
   test('should format datetime', () => {
     const date = new Date(2020, 10, 31, 12, 42, 35);
