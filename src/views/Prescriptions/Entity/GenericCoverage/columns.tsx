@@ -30,7 +30,7 @@ const handleRedirection = (
     query: generateQuery({
       newFilters: [
         generateValueFilter({
-          field: 'consequences.symbol',
+          field: target === 'cnv' ? 'genes.symbol' : 'consequences.symbol',
           value: [record.gene],
           index: INDEXES.VARIANT,
         }),
