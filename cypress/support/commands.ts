@@ -144,7 +144,7 @@ Cypress.Commands.add('resetColumns', (eq: number) => {
 });
 
 Cypress.Commands.add('saveFilterAs', (filterName: string) => {
-  cy.get('button[class*="Header_iconBtnAction"]').click({force: true});
+  cy.get('[class*="Header_QBHActionContainer"] button').click({force: true});
   cy.get('[class="ant-modal-content"] input').clear().type(filterName);
   cy.get(`[class="ant-modal-content"] input[value="`+filterName+`"]`).should('exist');
   cy.clickAndIntercept('[class="ant-modal-content"] button[class*="ant-btn-primary"]', 'POST', '**/saved-filters', 1);
