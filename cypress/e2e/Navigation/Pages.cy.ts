@@ -188,7 +188,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.get('button[class="ant-modal-close"]').invoke('click');
 
     // Enregistrer le filtre
-    cy.get('button[class*="Header_iconBtnAction"]').click({force: true});
+    cy.get('[class*="Header_QBHActionContainer"] button').click({force: true});
     cy.contains('Sauvegarder ce filtre').should('exist', {timeout: 20*1000});
     cy.contains('Nom du filtre').should('exist', {timeout: 20*1000});
     cy.contains('Annuler').should('exist', {timeout: 20*1000});

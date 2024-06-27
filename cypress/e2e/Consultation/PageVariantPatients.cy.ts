@@ -172,12 +172,12 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
     cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
     cy.get('[data-cy="VariantPatient_GridCard"]').contains('Indéterminé').should('exist');
     cy.get('[data-cy="VariantPatient_GridCard"]').find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('not.exist');
-    cy.validateTableResultsCount('1 Résultats');
+    cy.validateTableResultsCount(/^1 Résultat$/);
     cy.get('[data-cy="VariantPatient_GridCard"]').find('thead[class="ant-table-thead"]').find('span[class*="ant-dropdown-trigger"]').eq(1).click({force: true});
     cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-link"]').last().click({force: true});
     cy.get('div[class="ant-table-filter-dropdown"]').find('button[class*="ant-btn-primary"]').last().click({force: true});
     cy.get('[data-cy="VariantPatient_GridCard"]').find('tr[data-row-key*="'+epCHUS_ldmCHUS.patientProbId+'"]').should('exist');
-    cy.validateTableResultsCount('1 Résultats', false);
+    cy.validateTableResultsCount(/^1 Résultat$/, false);
   });
 
   it('Filtre Statut', () => {

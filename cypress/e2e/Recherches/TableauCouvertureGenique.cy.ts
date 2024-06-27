@@ -83,7 +83,7 @@ describe('Page de la couverture génique d\'un patient - Rechercher et filtrer',
     cy.clickAndIntercept('[data-cy="MMG"]', 'POST', '*/graphql', 1);
     cy.typeAndIntercept('[data-cy="SearchBox"]', 'MYMK', 'POST', '*/graphql', 4);
 
-    cy.validateTableResultsCount('1 Résultats');
+    cy.validateTableResultsCount(/^1 Résultat$/);
     cy.get('[data-cy="AverageCoverage"]').contains('436.65').should('exist');
 
     cy.contains('Effacer les filtres').should('exist');
