@@ -1,5 +1,6 @@
 {
-  "headers": ["prescription_id",
+  "headers": ["assignments",
+              "prescription_id",
               "patient_id",
               "priority",
               "status",
@@ -12,7 +13,8 @@
               "requester",
               "prenatal",
               "patient_mrn"],
-  "content": ["{{prescriptionId}}",
+  "content": ["URR000012",
+              "{{prescriptionId}}",
               "{{patientId}}",
               "--",
               "active",
