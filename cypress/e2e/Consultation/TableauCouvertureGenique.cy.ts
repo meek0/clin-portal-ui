@@ -37,7 +37,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
     cy.validateTableResultsCount('3 Résultats');
   });
  
-  it('Valider les liens disponibles Lien CNV [CLIN-2872]', () => {
+  it('Valider les liens disponibles Lien CNV', () => {
     cy.get('tr[data-row-key]').eq(6).find('td').eq(1).find('[id="cnv"]').click({force: true});
     cy.get('[class*="ant-radio-button-wrapper-checked"]').contains('CNV').should('exist');
     cy.get('[class*="QueryBar_selected"]').find('[class*="QueryPill_field"]').contains(/^Gènes$/).should('exist');
