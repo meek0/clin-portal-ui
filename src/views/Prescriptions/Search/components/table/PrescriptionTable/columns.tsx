@@ -52,7 +52,7 @@ const renderTasks = (tasks: string[]) =>
           placement="topLeft"
           title={intl.get(`filters.options.tasks.${task}.tooltip`)}
         >
-          <Tag color={TaskColorMap[task]}>{intl.get(`filters.options.tasks.${task}`)}</Tag>
+          <Tag color={TaskColorMap[task]}>{intl.get(`filters.options.tasks.${task}.abrv`)}</Tag>
         </Tooltip>
       ))
     : TABLE_EMPTY_PLACE_HOLDER;
