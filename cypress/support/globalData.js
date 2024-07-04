@@ -15,6 +15,7 @@ const globalData = {
     aliquotProbId: '16774',
     patientMthId: 'willBeSetByFetchFhirValues',
     mrnMth: 'MRN-283774',
+    bioAnalMthId: 'willBeSetByFetchFhirValues',
     requestMthId: 'willBeSetByFetchFhirValues',
     ramqMth: 'MORL 7051 3037',
     firstNameMth: 'Lea',

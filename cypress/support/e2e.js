@@ -123,6 +123,12 @@ Cypress.Commands.add('fetchFhirValues', () => {
           {
             "request": {
             "method": "GET",
+            "url": `/Task?patient=${globalData.presc_EP_CHUSJ_LDM_CHUSJ.patientMthId}`
+            }
+          },
+          {
+            "request": {
+            "method": "GET",
             "url": `/Task?patient=${globalData.presc_EP_CHUSJ_LDM_CHUSJ.patientFthId}`
             }
           },
@@ -200,22 +206,23 @@ Cypress.Commands.add('fetchFhirValues', () => {
     globalData.presc_EP_CHUSJ_LDM_CHUSJ.requestMthId = fhirValues.entry[1].resource.entry[0].resource.id;
     globalData.presc_EP_CHUSJ_LDM_CHUSJ.requestFthId = fhirValues.entry[2].resource.entry[0].resource.id;
     globalData.presc_EP_CHUSJ_LDM_CHUSJ.bioAnalProbId = fhirValues.entry[3].resource.entry[0].resource.id;
-    globalData.presc_EP_CHUSJ_LDM_CHUSJ.bioAnalFthId = fhirValues.entry[4].resource.entry[0].resource.id;
-    globalData.presc_EP_CUSM_LDM_CHUSJ.prescriptionId = fhirValues.entry[5].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
-    globalData.presc_EP_CUSM_LDM_CUSM.prescriptionId = fhirValues.entry[6].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
-    globalData.presc_EP_CHUS_LDM_CHUS.prescriptionId = fhirValues.entry[7].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
-    globalData.presc_SOMATIC.prescriptionId = fhirValues.entry[8].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
-    globalData.presc_SOMATIC.requestProbId = fhirValues.entry[8].resource.entry[0].resource.id;
-    globalData.presc_SOMATIC.bioAnalProbId = fhirValues.entry[9].resource.entry[0].resource.id;
-    globalData.presc_PAIRED.prescriptionId.GEBA = fhirValues.entry[10].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
-    globalData.presc_PAIRED.requestProbId.GEBA = fhirValues.entry[10].resource.entry[0].resource.id;
-    globalData.presc_PAIRED.prescriptionId.TEBA = fhirValues.entry[11].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
-    globalData.presc_PAIRED.requestProbId.TEBA = fhirValues.entry[11].resource.entry[0].resource.id;
-    globalData.presc_PAIRED.bioAnalProbId.GEBA = fhirValues.entry[12].resource.entry[0].resource.id;
-    globalData.presc_PAIRED.stampDate.GEBA = fhirValues.entry[12].resource.entry[0].resource.meta.lastUpdated.split('T')[0];
-    globalData.presc_PAIRED.bioAnalProbId.TEBA = fhirValues.entry[13].resource.entry[0].resource.id;
-    globalData.presc_PAIRED.stampDate.TEBA = fhirValues.entry[13].resource.entry[0].resource.meta.lastUpdated.split('T')[0];
-    globalData.presc_PAIRED.bioAnalProbId.TNEBA = fhirValues.entry[14].resource.entry[0].resource.id;
+    globalData.presc_EP_CHUSJ_LDM_CHUSJ.bioAnalMthId = fhirValues.entry[4].resource.entry[0].resource.id;
+    globalData.presc_EP_CHUSJ_LDM_CHUSJ.bioAnalFthId = fhirValues.entry[5].resource.entry[0].resource.id;
+    globalData.presc_EP_CUSM_LDM_CHUSJ.prescriptionId = fhirValues.entry[6].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
+    globalData.presc_EP_CUSM_LDM_CUSM.prescriptionId = fhirValues.entry[7].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
+    globalData.presc_EP_CHUS_LDM_CHUS.prescriptionId = fhirValues.entry[8].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
+    globalData.presc_SOMATIC.prescriptionId = fhirValues.entry[9].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
+    globalData.presc_SOMATIC.requestProbId = fhirValues.entry[9].resource.entry[0].resource.id;
+    globalData.presc_SOMATIC.bioAnalProbId = fhirValues.entry[10].resource.entry[0].resource.id;
+    globalData.presc_PAIRED.prescriptionId.GEBA = fhirValues.entry[11].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
+    globalData.presc_PAIRED.requestProbId.GEBA = fhirValues.entry[11].resource.entry[0].resource.id;
+    globalData.presc_PAIRED.prescriptionId.TEBA = fhirValues.entry[12].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
+    globalData.presc_PAIRED.requestProbId.TEBA = fhirValues.entry[12].resource.entry[0].resource.id;
+    globalData.presc_PAIRED.bioAnalProbId.GEBA = fhirValues.entry[13].resource.entry[0].resource.id;
+    globalData.presc_PAIRED.stampDate.GEBA = fhirValues.entry[13].resource.entry[0].resource.meta.lastUpdated.split('T')[0];
+    globalData.presc_PAIRED.bioAnalProbId.TEBA = fhirValues.entry[14].resource.entry[0].resource.id;
+    globalData.presc_PAIRED.stampDate.TEBA = fhirValues.entry[14].resource.entry[0].resource.meta.lastUpdated.split('T')[0];
+    globalData.presc_PAIRED.bioAnalProbId.TNEBA = fhirValues.entry[15].resource.entry[0].resource.id;
 
     Cypress.env('globalData', globalData);
   });

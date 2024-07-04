@@ -83,7 +83,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Liens').should('exist', {timeout: 20*1000});
     cy.contains('Complétée').should('exist', {timeout: 20*1000});
     cy.contains('Fichiers').should('exist', {timeout: 20*1000});
-    cy.contains('Variants').should('exist', {timeout: 20*1000});
+    cy.contains('Type').should('exist', {timeout: 20*1000});
     cy.contains('Mère').should('exist', {timeout: 20*1000});
     cy.contains('Père').should('exist', {timeout: 20*1000});
     cy.contains('Statut').should('exist', {timeout: 20*1000});
