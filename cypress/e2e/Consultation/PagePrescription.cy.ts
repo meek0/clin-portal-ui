@@ -39,12 +39,18 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(2).contains('--').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(3).contains('--').should('exist');
 
-    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
-    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(1).contains('Complétée').should('exist');
-    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
-    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(3).contains('--').should('exist');
-    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(4).contains(epCHUSJ_ldmCHUSJ.sampleProbId).should('exist');
-    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(1).contains('Complétée').should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(3).contains('--').should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(4).contains(epCHUSJ_ldmCHUSJ.sampleProbId).should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
+
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.bioAnalProbId).should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains(/^G$/).should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(4).contains('Fichiers').should('exist');
   });
   
   it('Panneau Mère', () => {
@@ -58,12 +64,18 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(5).contains('Féminin').should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(6).contains(epCHUSJ_ldmCHUSJ.statusMth).should('exist');
 
-    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestMthId).should('exist');
-    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(1).contains('Complétée').should('exist');
-    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
-    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(3).contains('--').should('exist');
-    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(4).contains(epCHUSJ_ldmCHUSJ.sampleMthId, {matchCase: false}).should('exist');
-    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestMthId).should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(1).contains('Complétée').should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(3).contains('--').should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(4).contains(epCHUSJ_ldmCHUSJ.sampleMthId, {matchCase: false}).should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
+
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.bioAnalMthId).should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains(/^G$/).should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.requestMthId).should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(4).contains('Fichiers').should('exist');
   });
   
   it('Panneau Père', () => {
@@ -77,30 +89,69 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(5).contains('Masculin').should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(6).contains(epCHUSJ_ldmCHUSJ.statusFth).should('exist');
     
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(1).contains('Complétée').should('exist');
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(3).contains('--').should('exist');
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(4).contains(epCHUSJ_ldmCHUSJ.sampleFthId).should('exist');
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"] [class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(1).contains('Complétée').should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(3).contains('--').should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(4).contains(epCHUSJ_ldmCHUSJ.sampleFthId).should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
+
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.bioAnalFthId).should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains(/^G$/).should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(4).contains('Fichiers').should('exist');
   });
 });
 
 describe('Page d\'une prescription - Valider les liens disponibles', () => {
-  it('Lien Fichiers (Cas-index)', () => {
+  it('Lien Fichiers du tableau Requête (Cas-index)', () => {
     cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestProbId+'"]', 'POST', '**/$graphql*', 1);
     cy.resetColumns(0);
     cy.contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist', {timeout: 20*1000});
   });
 
-  it('Lien Fichiers (Mère)', () => {
+  it('Lien Analyse (Cas-index)', () => {
+    cy.clickAndIntercept('[data-cy="ClinicalInformation_CollapsePanel"] [href*="/bioinformatics-analysis/"]', 'POST', '**/$graphql*', 1);
+    cy.contains(`Analyse bioinformatique : ${epCHUSJ_ldmCHUSJ.bioAnalProbId}`).should('exist', {timeout: 20*1000});
+  });
+
+  it('Lien Fichiers du tableau Analyse (Cas-index)', () => {
+    cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestProbId+'"]', 'POST', '**/$graphql*', 1, 1);
+    cy.resetColumns(0);
+    cy.contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist', {timeout: 20*1000});
+  });
+
+  it('Lien Fichiers du tableau Requête (Mère)', () => {
     cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestMthId+'"]', 'POST', '**/$graphql*', 1);
     cy.resetColumns(0);
     cy.contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist', {timeout: 20*1000});
   });
 
-  it('Lien Fichiers (Père)', () => {
+  it('Lien Analyse (Mère)', () => {
+    cy.clickAndIntercept('[data-cy="ParentCard_Mère_CollapsePanel"] [href*="/bioinformatics-analysis/"]', 'POST', '**/$graphql*', 1);
+    cy.contains(`Analyse bioinformatique : ${epCHUSJ_ldmCHUSJ.bioAnalMthId}`).should('exist', {timeout: 20*1000});
+  });
+
+  it('Lien Fichiers du tableau Analyse (Mère)', () => {
+    cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestMthId+'"]', 'POST', '**/$graphql*', 1, 1);
+    cy.resetColumns(0);
+    cy.contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist', {timeout: 20*1000});
+  });
+
+  it('Lien Fichiers du tableau Requête (Père)', () => {
     cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestFthId+'"]', 'POST', '**/$graphql*', 1);
+    cy.resetColumns(0);
+    cy.contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist', {timeout: 20*1000});
+  });
+
+  it('Lien Analyse (Père)', () => {
+    cy.clickAndIntercept('[data-cy="ParentCard_Père_CollapsePanel"] [href*="/bioinformatics-analysis/"]', 'POST', '**/$graphql*', 1);
+    cy.contains(`Analyse bioinformatique : ${epCHUSJ_ldmCHUSJ.bioAnalFthId}`).should('exist', {timeout: 20*1000});
+  });
+
+  it('Lien Fichiers du tableau Analyse (Père)', () => {
+    cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestFthId+'"]', 'POST', '**/$graphql*', 1, 1);
     cy.resetColumns(0);
     cy.contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist', {timeout: 20*1000});
   });
