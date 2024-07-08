@@ -70,6 +70,16 @@ const VARIANT_QUERY_BASE_FIELDS = `
     }
   }
 
+  freq_rqdm_tumor_normal {
+    pc
+    pf
+  }
+
+  freq_rqdm_tumor_only {
+    pc
+    pf
+  }
+
   external_frequencies {
     gnomad_exomes_2_1_1 {
       af

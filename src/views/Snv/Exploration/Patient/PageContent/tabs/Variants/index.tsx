@@ -94,6 +94,7 @@ const VariantsTab = ({
     openIgvModal,
     undefined,
     results?.data.length === 0,
+    variantSection,
   );
   return (
     <>

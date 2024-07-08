@@ -66,7 +66,10 @@ const VariantContentLayout = ({
 
   const facetTransResolver = (key: string) => {
     if (key === 'locus') return 'Variant';
-
+    if (key === 'freq_rqdm_tumor_normal.pf')
+      return intl.get('filters.group.freq_rqdm_tumor_normal.pf.query');
+    if (key === 'freq_rqdm_tumor_only.pf')
+      return intl.get('filters.group.freq_rqdm_tumor_only.pf.query');
     const title = intl
       .get(`${INDEXES.VARIANT}.filters.group.${key}`)
       .defaultMessage(intl.get(`filters.group.${key}`));

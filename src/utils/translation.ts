@@ -470,6 +470,12 @@ export const getFacetsDictionarySNV = () => ({
     acmg_evidence: intl.get('franklin.filter.acmg_evidence'),
     combined_score: intl.get('franklin.filter.max_score'),
   },
+  freq_rqdm_tumor_normal: {
+    pf: intl.get('filters.group.freq_rqdm_tumor_normal.pf'),
+  },
+  freq_rqdm_tumor_only: {
+    pf: intl.get('filters.group.freq_rqdm_tumor_only.pf'),
+  },
   frequency_RQDM: {
     total: {
       af: intl.get('filters.group.frequency_RQDM.total.af'),
@@ -563,6 +569,12 @@ export const getFacetsDictionarySNV = () => ({
     },
     franklin_max: {
       combined_score: intl.get('franklin.filter.tooltip.max_score'),
+    },
+    freq_rqdm_tumor_normal: {
+      pf: intl.get('filters.group.freq_rqdm_tumor_normal.pf.tooltip'),
+    },
+    freq_rqdm_tumor_only: {
+      pf: intl.get('filters.group.freq_rqdm_tumor_only.pf.tooltip'),
     },
     frequency_RQDM: {
       total: {
