@@ -65,7 +65,7 @@ describe('Page des variants - Colonnes du tableau', () => {
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(11)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('RQDM').should('exist');
+      .contains('RQDM G').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(12)

@@ -60,12 +60,12 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.validateTableFirstRow('152 312', 10, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
+  it('Valider les fonctionnalités du tableau - Tri RQDM G', () => {
     cy.waitWhileSpin(2000);
 
-    cy.sortTableAndIntercept('RQDM', 1);
+    cy.sortTableAndIntercept('RQDM G', 1);
     cy.validateTableFirstRow('0.00e+0', 11, true);
-    cy.sortTableAndIntercept('RQDM', 1);
+    cy.sortTableAndIntercept('RQDM G', 1);
     cy.validateTableFirstRow(/(1\.00e\+0|\d{1}\.\d{2}e\-1)/, 11, true);
   });
 

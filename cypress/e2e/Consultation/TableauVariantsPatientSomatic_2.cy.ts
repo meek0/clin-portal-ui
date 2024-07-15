@@ -66,8 +66,13 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
       .should('have.attr', 'href', 'https://cancer.sanger.ac.uk/cosmic/search?q=COSV53313027&genome=38#');
   });
  
-  it('Valider les liens disponibles Lien RQDM', () => {
+  it('Valider les liens disponibles Lien RQDM G', () => {
     cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(16).find('a[href]').click({force: true});
+    cy.validateTableResultsCount(/^13\d{1}$/);
+  });
+ 
+  it('Valider les liens disponibles Lien RQDM TO', () => {
+    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(17).find('a[href]').click({force: true});
     cy.validateTableResultsCount(/^13\d{1}$/);
   });
 });

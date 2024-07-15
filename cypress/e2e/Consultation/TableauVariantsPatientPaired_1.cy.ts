@@ -43,15 +43,17 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 15, '-');
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 16, /^0$/);
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 16, '(0.00e+0)');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 17, '14.62');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 18, '0/1');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 19, '-');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 20, '9');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 21, '136');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 22, '0.07');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 23, 'Weak Evidence');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 24, '2.25e+1');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 25, '2.30e-1');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 17, /^0$/);
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 17, '(0.00e+0)');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 18, '14.62');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 19, '0/1');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 20, '-');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 21, '9');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 22, '136');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 23, '0.07');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 24, 'Weak Evidence');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 25, '2.25e+1');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 26, '2.30e-1');
   });
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {

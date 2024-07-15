@@ -45,7 +45,7 @@ describe('Page des variants - Consultation du tableau', () => {
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/198752');
   });
  
-  it('Valider les liens disponibles Lien RQDM', () => {
+  it('Valider les liens disponibles Lien RQDM G', () => {
     cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(11).find('a[href]').click({force: true});
     cy.validateTableResultsCount('6 Résultats');
   });
