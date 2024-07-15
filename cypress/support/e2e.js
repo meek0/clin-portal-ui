@@ -1,5 +1,5 @@
 /* eslint-disable */
-/// <reference types="Cypress" />
+/// <reference types="cypress" />
 import './commands';
 import {getGlobalData} from './globalData';
 
@@ -219,9 +219,9 @@ Cypress.Commands.add('fetchFhirValues', () => {
     globalData.presc_PAIRED.prescriptionId.TEBA = fhirValues.entry[12].resource.entry[0].resource.basedOn[0].reference.split('/')[1];
     globalData.presc_PAIRED.requestProbId.TEBA = fhirValues.entry[12].resource.entry[0].resource.id;
     globalData.presc_PAIRED.bioAnalProbId.GEBA = fhirValues.entry[13].resource.entry[0].resource.id;
-    globalData.presc_PAIRED.stampDate.GEBA = fhirValues.entry[13].resource.entry[0].resource.meta.lastUpdated.split('T')[0];
+    globalData.presc_PAIRED.stampDate.GEBA = fhirValues.entry[13].resource.entry[0].resource.authoredOn.split('T')[0];
     globalData.presc_PAIRED.bioAnalProbId.TEBA = fhirValues.entry[14].resource.entry[0].resource.id;
-    globalData.presc_PAIRED.stampDate.TEBA = fhirValues.entry[14].resource.entry[0].resource.meta.lastUpdated.split('T')[0];
+    globalData.presc_PAIRED.stampDate.TEBA = fhirValues.entry[14].resource.entry[0].resource.authoredOn.split('T')[0];
     globalData.presc_PAIRED.bioAnalProbId.TNEBA = fhirValues.entry[15].resource.entry[0].resource.id;
 
     Cypress.env('globalData', globalData);

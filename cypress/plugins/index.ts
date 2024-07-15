@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-/// <reference types="Cypress" />
+/// <reference types="cypress"/>
 import { rmdir } from 'fs';
 
 require('dotenv').config();

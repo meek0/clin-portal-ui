@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress"/>
 import '@testing-library/cypress/add-commands';
 
 export interface Replacement {
@@ -18,9 +18,9 @@ Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: st
     cy.wait(1000);
   }
 
-  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__O6v-O').find('button').then(($button) => {
+  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
     if ($button.hasClass('ant-btn-link')) {
-      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__O6v-O').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
       cy.waitWhileSpin(1000);
     };
   });
@@ -32,9 +32,9 @@ Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: st
 Cypress.Commands.add('checkValueFacet', (facetTitle: string, valueBack: string) => {
   cy.get(`[aria-expanded="true"] [data-cy="FilterContainer_${facetTitle}"]`).should('exist');
   cy.waitWhileSpin(1000);
-  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__O6v-O').find('button').then(($button) => {
+  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
     if ($button.hasClass('ant-btn-link')) {
-      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__O6v-O').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
       cy.waitWhileSpin(1000);
     };
   });
@@ -207,7 +207,7 @@ Cypress.Commands.add('validateDictionnaryNewValues', (section: string, facetTitl
   cy.wait(1000);
 
   if (moreButton) {
-    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__O6v-O').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
     cy.wait(1000);
   }
     
@@ -228,7 +228,7 @@ Cypress.Commands.add('validateDictionnaryPresetValues', (section: string, facetT
   cy.wait(1000);
 
   if (moreButton) {
-    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__O6v-O').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
     cy.wait(1000);
   }
 
@@ -244,16 +244,16 @@ Cypress.Commands.add('validateExpandCollapse', (section: string, isRqdmExpand: b
   cy.get(`[data-cy="SidebarMenuItem_${section}"]`).click({force: true});
 
   if (section !== 'Panel RQDM') {
-    cy.get('div[class="FilterContainer_filterContainer__O6v-O"]').eq(eq).find('[aria-expanded="false"]').should('exist');
+    cy.get('div[class="FilterContainer_filterContainer__8Dsbs"]').eq(eq).find('[aria-expanded="false"]').should('exist');
     cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').contains('Tout ouvrir').should('exist');
 
     cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').click({force: true});
   }
   cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').contains('Tout fermer').should('exist');
-  cy.get('div[class="FilterContainer_filterContainer__O6v-O"]').eq(eq).find('[aria-expanded="true"]').should('exist');
+  cy.get('div[class="FilterContainer_filterContainer__8Dsbs"]').eq(eq).find('[aria-expanded="true"]').should('exist');
 
   cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').click({force: true});
-  cy.get('div[class="FilterContainer_filterContainer__O6v-O"]').eq(eq).find('[aria-expanded="false"]').should('exist');
+  cy.get('div[class="FilterContainer_filterContainer__8Dsbs"]').eq(eq).find('[aria-expanded="false"]').should('exist');
   cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').contains('Tout ouvrir').should('exist');
 });
 

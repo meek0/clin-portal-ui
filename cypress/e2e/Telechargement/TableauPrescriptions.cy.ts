@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress"/>
 import { Replacement } from '../../support/commands';
 import { getDateTime } from '../../support/utils';
 

@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress"/>
 import '../../support/commands';
 
 let epCHUSJ_ldmCHUSJ: any;
@@ -33,7 +33,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(5).contains(epCHUSJ_ldmCHUSJ.genderProb).should('exist');
   });
   
-  it('Panneau Information clinique', () => {
+  it('Panneau Information clinique [CLIN-3001]', () => {
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(0).contains('--').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(1).contains('--').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(2).contains('--').should('exist');
@@ -53,7 +53,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(4).contains('Fichiers').should('exist');
   });
   
-  it('Panneau Mère', () => {
+  it('Panneau Mère [CLIN-3001]', () => {
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains(epCHUSJ_ldmCHUSJ.mrnMth).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains('CHUSJ').should('exist');
@@ -78,7 +78,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(4).contains('Fichiers').should('exist');
   });
   
-  it('Panneau Père', () => {
+  it('Panneau Père [CLIN-3001]', () => {
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains(epCHUSJ_ldmCHUSJ.mrnFth).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains('CHUSJ').should('exist');

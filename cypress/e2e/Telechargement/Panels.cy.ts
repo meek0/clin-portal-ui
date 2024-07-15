@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress"/>
 
 beforeEach(() => {
   cy.removeFilesFromFolder(Cypress.config('downloadsFolder'));

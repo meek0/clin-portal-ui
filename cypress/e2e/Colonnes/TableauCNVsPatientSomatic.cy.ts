@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress" />
 import '../../support/commands';
 
 let presc_SOMATIC: any;
@@ -130,7 +130,7 @@ describe('Page des CNVs d\'un patient (somatic) - Colonnes du tableau', () => {
       .find('span[aria-roledescription="sortable"]').eq(1).focus()
       .trigger('mousedown', {which: 1, eventConstructor: 'MouseEvent', force: true});
 
-    cy.get('div[class*="ColumnSelector_ProTablePopoverColumn__nrwPi"]')
+    cy.get('div[class*="ColumnSelector_ProTablePopoverColumn__gZAeY"]')
       .trigger('mousemove', {eventConstructor: 'MouseEvent', force: true})
       .trigger('mouseup', {which: 1, eventConstructor: 'MouseEvent', force: true});
 
