@@ -36,6 +36,8 @@
 .filterExpandBtnWrapper button {
   padding-right: 0;
   padding-left: 0;
+  margin-right: 2px; /* to display the outline on focus-visible */
+  margin-top: 2px; /* to display the outline on focus-visible */
 }
 
 .customSearchesWrapper {
