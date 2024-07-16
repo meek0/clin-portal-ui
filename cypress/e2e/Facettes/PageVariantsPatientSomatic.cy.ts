@@ -18,7 +18,7 @@ describe('Page des variants d\'un patient (somatic) - Filtrer avec les facettes'
     cy.validateExpandCollapse('Variant');
   });
 
-  it('Variant - Analyse bioinformatique [CLIN-2954]', () => {
+  it('Variant - Analyse bioinformatique', () => {
     cy.validateFacetFilter('Variant', 'Analyse bioinformatique', 'TO', 'TO', /^195 065$/);
     cy.validateFacetRank(1, 'Analyse bioinformatique');
   });
@@ -28,7 +28,7 @@ describe('Page des variants d\'un patient (somatic) - Filtrer avec les facettes'
     cy.validateFacetRank(14, 'Hotspot');
   });
 
-  it('Occurrence - Qualité somatique [CLIN-2954]', () => {
+  it('Occurrence - Qualité somatique', () => {
     cy.validateFacetNumFilter('Occurrence', 'Qualité somatique', '0.01', /^11 865$/);
     cy.validateFacetRank(6, 'Qualité somatique');
   });
