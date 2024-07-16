@@ -1214,7 +1214,7 @@
   "type.abrv.sequence_alteration": "SeqAlt",
   "type.abrv.sequence_alteration.tooltip": "Sequence Alteration",
   "type.abrv.all_analyses.TO.tooltip": "Tumor exome only",
-  "type.abrv.all_analyses.TN.tooltip": "Tumor-normal exome comparison",
+  "type.abrv.all_analyses.TN.tooltip": "Tumor-normal exomes comparison",
   "acmg": {
     "exomiser": {
       "likely_benign": "Likely Benign",
