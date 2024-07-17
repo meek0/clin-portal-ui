@@ -33,7 +33,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(5).contains(epCHUSJ_ldmCHUSJ.genderProb).should('exist');
   });
   
-  it('Panneau Information clinique [CLIN-3001]', () => {
+  it('Panneau Information clinique', () => {
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(0).contains('--').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(1).contains('--').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(2).contains('--').should('exist');
@@ -47,13 +47,13 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
 
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.bioAnalProbId).should('exist');
-    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains(/^G$/).should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains('G : Germinale').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(4).contains('Fichiers').should('exist');
   });
   
-  it('Panneau Mère [CLIN-3001]', () => {
+  it('Panneau Mère', () => {
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains(epCHUSJ_ldmCHUSJ.mrnMth).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains('CHUSJ').should('exist');
@@ -72,13 +72,13 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
 
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.bioAnalMthId).should('exist');
-    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains(/^G$/).should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains('G : Germinale').should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.requestMthId).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(4).contains('Fichiers').should('exist');
   });
   
-  it('Panneau Père [CLIN-3001]', () => {
+  it('Panneau Père', () => {
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains(epCHUSJ_ldmCHUSJ.mrnFth).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains('CHUSJ').should('exist');
@@ -97,7 +97,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
 
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.bioAnalFthId).should('exist');
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains(/^G$/).should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains('G : Germinale').should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(4).contains('Fichiers').should('exist');
