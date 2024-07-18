@@ -29,6 +29,7 @@ declare namespace Cypress {
     validateFileHeaders(fixture: string): cy & CyEventEmitter;
     validateFileName(namePattern: string): cy & CyEventEmitter;
     validateFilterInManager(filterName: string, expect: string): cy & CyEventEmitter;
+    validatePdfFileContent(fixture: string, replacements?: Replacement[]): cy & CyEventEmitter;
     validateIconStates(iconName: string, isDisable: boolean, isDirty: boolean): cy & CyEventEmitter;
     validateOperatorSelectedQuery(expectedOperator: string): cy & CyEventEmitter;
     validatePillSelectedQuery(facetTitle: string, values: (string|RegExp)[], eq: number = 0): cy & CyEventEmitter;

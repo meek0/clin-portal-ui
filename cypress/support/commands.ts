@@ -333,6 +333,28 @@ Cypress.Commands.add('validateFilterInManager', (filterName: string, expect: str
   cy.get('button[class="ant-modal-close"]').invoke('click');
 });
 
+Cypress.Commands.add('validatePdfFileContent', (fixture: string, replacements?: Replacement[]) => {
+  const arrReplacements = replacements !== undefined ? replacements : [];
+  cy.fixture(fixture).then((expectedData) => {
+    cy.exec(`/bin/ls ${Cypress.config('downloadsFolder')}/*`).then((result) => {
+      const filename = result.stdout.trim();
+      cy.task('extractTextFromPDF', filename).then((file) => {
+        let fileWithData = typeof file === 'string' ? file : '';
+        arrReplacements.forEach((replacement) => {
+          fileWithData = fileWithData.replace(replacement.placeholder, replacement.value);
+        });
+        expectedData.content.forEach((value: any) => {
+          let valueWithData = value
+          arrReplacements.forEach((replacement) => {
+            valueWithData = valueWithData.replace(replacement.placeholder, replacement.value);
+          });
+          expect(fileWithData).to.include(valueWithData);
+        });
+      });
+    });
+  });
+});
+
 Cypress.Commands.add('validateIconStates', (iconName: string, isDisable: boolean, isDirty: boolean) => {
   const strShouldDisable = isDisable ? 'be.disabled' : 'not.be.disabled';
   const strShouldDirty = isDirty ? 'have.class' : 'not.have.class';
