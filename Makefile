@@ -36,4 +36,11 @@ start:
 stop: 
 	docker-compose down
 
+# Work with local ferlab-ui
+ferlab_local:
+	npm install ../ferlab-ui/packages/ui
+
+ferlab_external:
+	sed -if '/@ferlab\/ui/d' ./package.json
+	npm install @ferlab/ui
 

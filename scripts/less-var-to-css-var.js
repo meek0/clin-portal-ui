@@ -4,7 +4,8 @@ const path = require('path');
 // eslint-disable-next-line no-undef
 const STYLE_PATH = path.join(__dirname, '../src/style/themes/clin');
 const LESS_INPUT_FILE = path.join(STYLE_PATH, 'colors.less');
-const CSS_OUTPUT_FILE = path.join(STYLE_PATH, 'dist', 'colors.css');
+const CSS_OUTPUT_DIR = path.join(STYLE_PATH, 'dist');
+const CSS_OUTPUT_FILE = path.join(CSS_OUTPUT_DIR, 'colors.css');
 
 // Get less file
 const less = fs.readFileSync(LESS_INPUT_FILE);
@@ -22,4 +23,7 @@ css = css.replace(/\/\/(.+)/g, '\t/*$1: */');
 css = ':root{\n' + css + '\n}';
 
 // Write css file
+if (!fs.existsSync(CSS_OUTPUT_DIR)) {
+  fs.mkdirSync(CSS_OUTPUT_DIR);
+}
 fs.writeFileSync(CSS_OUTPUT_FILE, css);

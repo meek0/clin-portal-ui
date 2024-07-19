@@ -1,7 +1,7 @@
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
 import { FileTextOutlined } from '@ant-design/icons';
-import { Space } from 'antd';
+import { Button, Space } from 'antd';
 import { extractServiceRequestId } from 'api/fhir/helper';
 
 import { STATIC_ROUTES } from 'utils/routes';
@@ -21,8 +21,9 @@ const Links = ({ prescriptionId, withDownload = true }: OwnProps) => (
         data-cy={`ArchiveLink_${extractServiceRequestId(prescriptionId)}`}
       >
         <Space size={4}>
-          <FileTextOutlined />
-          {intl.get('links.files')}
+          <Button icon={<FileTextOutlined />} type="link" size={'small'}>
+            {intl.get('links.files')}
+          </Button>
         </Space>
       </Link>
     )}
