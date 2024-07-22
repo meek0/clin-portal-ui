@@ -1,8 +1,6 @@
 /// <reference types="cypress"/>
-import { Replacement } from '../../support/commands';
 import { getDateTime } from '../../support/utils';
 
-const { strDate } = getDateTime();
 let epCHUSJ_ldmCHUSJ: any;
 
 beforeEach(() => {
@@ -12,22 +10,22 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
   cy.get('[data-cy="RadioButton_CouvertureGenique"]').click({force: true});
+  cy.get('div[role="tabpanel"]').find('tr[data-row-key]').eq(0).should('exist');
 
-  cy.get('div[role="tabpanel"]').find('tr[data-row-key]').eq(6).find('[type="checkbox"]').check({force: true});
-  cy.get('div[id="content"] svg[data-icon="download"]').eq(1).click({force:true});
+  cy.get('[class*="Header_ProTableHeader"] button[class*="ant-btn-default"]').click({force: true});
   cy.waitUntilFile(60*1000);
 });
 
-describe('Page de la couverture génique d\'un patient - Exporter les statistiques en TSV', () => {
+describe('Télécharger le rapport de la couverture génique', () => {
   it('Valider le nom du fichier', () => {
-    cy.validateFileName('GC_'+strDate+'T*.tsv');
+    cy.validateFileName('16774.coverage_by_gene.GENCODE_CODING_CANONICAL.csv');
   });
 
   it('Valider les en-têtes du fichier', () => {
-    cy.validateFileHeaders('ExportTableauCouvertureGenique.json');
+    cy.validateFileHeaders('DownloadRapportCouvertureGenique.json');
   });
 
   it('Valider le contenu du fichier', () => {
-    cy.validateFileContent('ExportTableauCouvertureGenique.json');
+    cy.validateFileContent('DownloadRapportCouvertureGenique.json');
   });
 });

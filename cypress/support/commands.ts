@@ -344,7 +344,29 @@ Cypress.Commands.add('validatePdfFileContent', (fixture: string, replacements?: 
           fileWithData = fileWithData.replace(replacement.placeholder, replacement.value);
         });
         expectedData.content.forEach((value: any) => {
-          let valueWithData = value
+          let valueWithData = value;
+          arrReplacements.forEach((replacement) => {
+            valueWithData = valueWithData.replace(replacement.placeholder, replacement.value);
+          });
+          expect(fileWithData).to.include(valueWithData);
+        });
+      });
+    });
+  });
+});
+
+Cypress.Commands.add('validateXlsxFileContent', (fixture: string, replacements?: Replacement[]) => {
+  const arrReplacements = replacements !== undefined ? replacements : [];
+  cy.fixture(fixture).then((expectedData) => {
+    cy.exec(`/bin/ls ${Cypress.config('downloadsFolder')}/*`).then((result) => {
+      const filename = result.stdout.trim();
+      cy.task('extractTextFromXLSX', filename).then((file) => {
+        let fileWithData = typeof file === 'string' ? file : '';
+        arrReplacements.forEach((replacement) => {
+          fileWithData = fileWithData.replace(replacement.placeholder, replacement.value);
+        });
+        expectedData.content.forEach((value: any) => {
+          let valueWithData = value;
           arrReplacements.forEach((replacement) => {
             valueWithData = valueWithData.replace(replacement.placeholder, replacement.value);
           });
@@ -474,7 +496,7 @@ Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, rout
     cy.wait('@getRouteMatcher', {timeout: 20*1000});
   };
 
-  cy.wait(1000);
+  cy.waitWhileSpin(60*1000);
 });
 
 Cypress.Commands.add('visitArchivesPatientPage', (patientId: string) => {
@@ -564,12 +586,44 @@ Cypress.Commands.add('visitVariantsPatientPage', (patientId: string, prescriptio
   cy.resetColumns(0);
 });
 
-Cypress.Commands.add('waitWhileSpin', (ms: number) => {
-  cy.get('body').should(($body) => {
-    if ($body.hasClass('ant-spin-container')) {
-      cy.get('.ant-spin-container').should('not.have.class', 'ant-spin-blur', {timeout: ms});
+Cypress.Commands.add('waitUntilFile', (ms: number) => {
+  const start = new Date().getTime();
+
+  function checkFile(): any {
+    const now = new Date().getTime();
+    if (now - start > ms) {
+      throw new Error(`Timed out after ${ms}ms waiting for file`);
     }
-  });
+
+    return cy.task('fileExists', `${Cypress.config('downloadsFolder')}`).then((exists) => {
+      if (exists) {
+        return true;
+      } else {
+        return cy.wait(500).then(checkFile);
+      }
+    });
+  }
+
+  return checkFile();
+});
+
+Cypress.Commands.add('waitWhileSpin', (ms: number) => {
+  const start = new Date().getTime();
+
+  function checkForSpinners():any {
+    const now = new Date().getTime();
+    if (now - start > ms) {
+      throw new Error(`Timed out after ${ms}ms waiting for spinners to disappear`);
+    };
+
+    return cy.get('body').then(($body) => {
+      if ($body.find('.ant-spin-blur').length > 0) {
+        return cy.wait(500).then(checkForSpinners);
+      };
+    });
+  };
+
+  return checkForSpinners();
 });
 
 Cypress.Commands.overwrite('log', (subject, message) => cy.task('log', message));

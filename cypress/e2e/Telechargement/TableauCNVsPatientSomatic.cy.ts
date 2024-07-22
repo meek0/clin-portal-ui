@@ -13,7 +13,7 @@ beforeEach(() => {
 
   cy.get('div[role="tabpanel"]').find('tr[data-row-key="230d341fb95184d399ab5a5a00f5bbc709f92c5f"]').find('[type="checkbox"]').check({force: true});
   cy.get('div[id="content"] svg[data-icon="download"]').click({force: true});
-  cy.wait(2000);
+  cy.waitUntilFile(60*1000);
 });
 
 describe('Page des CNVs d\'un patient (somatic) - Exporter les CNVs en TSV', () => {

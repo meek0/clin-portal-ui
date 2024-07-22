@@ -13,7 +13,7 @@ beforeEach(() => {
 
   cy.get('div[role="tabpanel"]').find('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('[type="checkbox"]').check({force: true});
   cy.get('div[id="content"] svg[data-icon="download"]').click({force: true});
-  cy.wait(2000);
+  cy.waitUntilFile(60*1000);
 });
 
 describe('Page des variants d\'un patient - Exporter un variant en TSV', () => {

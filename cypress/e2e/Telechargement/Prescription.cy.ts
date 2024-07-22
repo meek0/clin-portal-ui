@@ -13,6 +13,7 @@ beforeEach(() => {
   cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
 
   cy.get('[class*="Header_contentHeader"] button[class*="ant-btn-primary"]').click({force: true});
+  cy.waitUntilFile(60*1000);
 });
 
 describe('Télécharger la prescription', () => {

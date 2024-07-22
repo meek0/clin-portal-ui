@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 /// <reference types="cypress"/>
 import fs, { rmdir } from 'fs';
+import path from 'path';
 import pdfParse from 'pdf-parse';
+import XLSX from 'xlsx';
 
 require('dotenv').config();
 
@@ -20,14 +22,33 @@ module.exports = (on: Cypress.PluginEvents, config: Cypress.ConfigOptions) => {
         });
       });
     },
-    log (message: any) {
-      console.log(message);
-      return null
-    },
     async extractTextFromPDF(filePath) {
       const dataBuffer = fs.readFileSync(filePath);
       const data = await pdfParse(dataBuffer);
       return data.text;
+    },
+    async extractTextFromXLSX(filePath) {
+      const workbook = XLSX.readFile(filePath);
+      let text = '';
+    
+      workbook.SheetNames.forEach(sheetName => {
+        const sheet = workbook.Sheets[sheetName];
+        const sheetText = XLSX.utils.sheet_to_csv(sheet);
+        text += sheetText;
+      });
+    
+      return text;
+    },
+    fileExists(folder) {
+      const files = fs.readdirSync(folder);
+      const regex = new RegExp('.*');
+
+      const foundFile = files.find(file => regex.test(file));
+      return foundFile ? path.join(folder, foundFile) : null;
+    },
+    log (message: any) {
+      console.log(message);
+      return null
     },
   });
 

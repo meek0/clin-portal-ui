@@ -30,6 +30,7 @@ declare namespace Cypress {
     validateFileName(namePattern: string): cy & CyEventEmitter;
     validateFilterInManager(filterName: string, expect: string): cy & CyEventEmitter;
     validatePdfFileContent(fixture: string, replacements?: Replacement[]): cy & CyEventEmitter;
+    validateXlsxFileContent(fixture: string, replacements?: Replacement[]): cy & CyEventEmitter;
     validateIconStates(iconName: string, isDisable: boolean, isDirty: boolean): cy & CyEventEmitter;
     validateOperatorSelectedQuery(expectedOperator: string): cy & CyEventEmitter;
     validatePillSelectedQuery(facetTitle: string, values: (string|RegExp)[], eq: number = 0): cy & CyEventEmitter;
@@ -53,6 +54,7 @@ declare namespace Cypress {
     visitVariantsPage(sharedFilterOption?: string): cy & CyEventEmitter;
     visitVariantsPairedPatientPage(patientId: string, prescriptionId: string, nbGraphqlCalls: number): cy & CyEventEmitter;
     visitVariantsPatientPage(patientId: string, prescriptionId: string, nbGraphqlCalls: number, sharedFilterOption?: string): cy & CyEventEmitter;
+    waitUntilFile(ms: number): cy & CyEventEmitter;
     waitWhileSpin(ms: number): cy & CyEventEmitter;
 
     loginByGoogleApi(): cy & CyEventEmitter;
