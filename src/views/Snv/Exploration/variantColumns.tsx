@@ -14,10 +14,10 @@ import { Button, Space, Tag, Tooltip, Typography } from 'antd';
 import { INDEXES } from 'graphql/constants';
 import { ArrangerResultsTree } from 'graphql/models';
 import {
+  BoundType,
   ClinVar,
   DonorsEntity,
   ExternalFrequenciesEntity,
-  frequency_RQDMEntity,
   Gene,
   ITableVariantEntity,
   VariantEntity,
@@ -26,6 +26,7 @@ import {
 import { findDonorById } from 'graphql/variants/selector';
 import { capitalize } from 'lodash';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import ConsequencesCell from 'views/Snv/components/ConsequencesCell';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
@@ -103,14 +104,14 @@ const CmcTierColorMap: Record<any, string> = {
   Other: 'default',
 };
 
-const formatRqdm = (rqdm: frequency_RQDMEntity, variant: VariantEntity) => {
-  if (!rqdm?.total?.pc && rqdm?.total?.pc !== 0) {
+const formatRqdm = (rqdm: BoundType, variant: VariantEntity) => {
+  if (!rqdm?.pc && rqdm?.pc !== 0) {
     return TABLE_EMPTY_PLACE_HOLDER;
   }
   return (
     <Space size={4}>
-      <Link to={`/variant/entity/${variant.locus}/${TAB_ID.PATIENTS}`}>{rqdm.total.pc}</Link>
-      <Typography.Text>({rqdm.total.pf.toExponential(2)})</Typography.Text>
+      <Link to={`/variant/entity/${variant.locus}/${TAB_ID.PATIENTS}`}>{rqdm.pc}</Link>
+      <Typography.Text>({rqdm.pf.toExponential(2)})</Typography.Text>
     </Space>
   );
 };
@@ -305,6 +306,7 @@ export const getVariantColumns = (
   igvModalCb?: (record: VariantEntity) => void,
   onlyExportTSV: boolean = false,
   noData: boolean = false,
+  variantSection?: string,
 ): ProColumnType<ITableVariantEntity>[] => {
   let columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -531,6 +533,13 @@ export const getVariantColumns = (
       { ...getCmcTier(variantType) },
       { ...getCmcSampleMutatedCol(variantType, patientId) },
     );
+    if (onlyExportTSV) {
+      columns.push({
+        key: 'cmc.sample_ratio',
+        title: intl.get('screen.patientsnv.results.table.cmc'),
+        defaultHidden: true,
+      });
+    }
   }
 
   if (patientId && variantType !== VariantType.SOMATIC) {
@@ -619,7 +628,7 @@ export const getVariantColumns = (
       multiple: 1,
     },
     width: 120,
-    render: (record: VariantEntity) => formatRqdm(record.frequency_RQDM, record),
+    render: (record: VariantEntity) => formatRqdm(record.frequency_RQDM.total, record),
   });
 
   if (patientId) {
@@ -709,12 +718,43 @@ export const getVariantColumns = (
         },
       );
     } else if (variantType === VariantType.SOMATIC) {
-      if (onlyExportTSV) {
+      if (variantSection === VariantSection.SNVTO) {
         columns.push({
-          key: 'cmc.sample_ratio',
-          title: intl.get('screen.patientsnv.results.table.cmc'),
-          defaultHidden: true,
+          key: 'freq_rqdm_tumor_only.pc',
+          title: intl.get('screen.patientsnv.results.table.rqdm.TO'),
+          tooltip: intl.get('screen.patientsnv.results.table.rqdm.TO.tooltip'),
+          width: 120,
+          sorter: {
+            multiple: 1,
+          },
+          render: (record: VariantEntity) => formatRqdm(record.freq_rqdm_tumor_only, record),
         });
+        if (onlyExportTSV) {
+          columns.push({
+            key: 'freq_rqdm_tumor_only.pf',
+            title: intl.get('screen.patientsnv.results.table.rqdm.TO'),
+            defaultHidden: true,
+          });
+        }
+      }
+      if (variantSection === VariantSection.SNVTN) {
+        columns.push({
+          key: 'freq_rqdm_tumor_normal.pc',
+          title: intl.get('screen.patientsnv.results.table.rqdm.TN'),
+          tooltip: intl.get('screen.patientsnv.results.table.rqdm.TN.tooltip'),
+          width: 120,
+          sorter: {
+            multiple: 1,
+          },
+          render: (record: VariantEntity) => formatRqdm(record.freq_rqdm_tumor_normal, record),
+        });
+        if (onlyExportTSV) {
+          columns.push({
+            key: 'freq_rqdm_tumor_normal.pf',
+            title: intl.get('screen.patientsnv.results.table.rqdm.TN'),
+            defaultHidden: true,
+          });
+        }
       }
       columns.push(
         {
@@ -1097,6 +1137,28 @@ export const renderRQDMToString = (variant: any) => {
 };
 export const renderRQDMPCToString = (variant: any) => {
   const rqdm = variant?.frequency_RQDM?.total?.pc;
+  if (!rqdm && rqdm !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return rqdm.toString();
+};
+
+export const renderRQDMTOToString = (variant: any) => {
+  const rqdm = variant?.freq_rqdm_tumor_only?.pf;
+  if (!rqdm && rqdm !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return rqdm.toExponential(2).toString();
+};
+export const renderRQDMTOPCToString = (variant: any) => {
+  const rqdm = variant?.freq_rqdm_tumor_only?.pc;
+  if (!rqdm && rqdm !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return rqdm.toString();
+};
+
+export const renderRQDMTNToString = (variant: any) => {
+  const rqdm = variant?.freq_rqdm_tumor_normal?.pf;
+  if (!rqdm && rqdm !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return rqdm.toExponential(2).toString();
+};
+export const renderRQDMTNPCToString = (variant: any) => {
+  const rqdm = variant?.freq_rqdm_tumor_normal?.pc;
   if (!rqdm && rqdm !== 0) return TABLE_EMPTY_PLACE_HOLDER;
   return rqdm.toString();
 };

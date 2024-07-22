@@ -383,11 +383,13 @@ const filterGroups: {
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
         facets: [
+          'freq_rqdm_tumor_only__pf',
           'frequency_RQDM__total__af',
           'frequency_RQDM__affected__af',
           'frequency_RQDM__non_affected__af',
         ],
         tooltips: [
+          'freq_rqdm_tumor_only__pf',
           'frequency_RQDM__total__af',
           'frequency_RQDM__affected__af',
           'frequency_RQDM__non_affected__af',
@@ -419,11 +421,13 @@ const filterGroups: {
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
         facets: [
+          'freq_rqdm_tumor_normal__pf',
           'frequency_RQDM__total__af',
           'frequency_RQDM__affected__af',
           'frequency_RQDM__non_affected__af',
         ],
         tooltips: [
+          'freq_rqdm_tumor_normal__pf',
           'frequency_RQDM__total__af',
           'frequency_RQDM__affected__af',
           'frequency_RQDM__non_affected__af',

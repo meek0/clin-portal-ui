@@ -75,7 +75,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(12).find('a[href]').should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/snp/chr1-248441241-C-T-HG38');
   });
  
-  it('Valider les liens disponibles Lien RQDM', () => {
+  it('Valider les liens disponibles Lien RQDM G', () => {
     cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(16).find('a[href]').click({force: true});
     cy.validateTableResultsCount('6 Résultats');
   });

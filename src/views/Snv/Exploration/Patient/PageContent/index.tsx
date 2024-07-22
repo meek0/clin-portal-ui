@@ -196,6 +196,8 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
                     undefined,
                     undefined,
                     true,
+                    false,
+                    variantSection,
                   ).filter((h) => h.key !== 'actions')
                 : []
             }

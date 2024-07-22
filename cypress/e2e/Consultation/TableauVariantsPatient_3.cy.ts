@@ -117,13 +117,13 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow('152 312', 15, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
+  it('Valider les fonctionnalités du tableau - Tri RQDM G', () => {
     cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').click({force: true});
     cy.waitWhileSpin(2000);
 
-    cy.sortTableAndIntercept('RQDM', 1);
+    cy.sortTableAndIntercept('RQDM G', 1);
     cy.validateTableFirstRow('0.00e+0', 16, true);
-    cy.sortTableAndIntercept('RQDM', 1);
+    cy.sortTableAndIntercept('RQDM G', 1);
     cy.validateTableFirstRow(/(1\.00e\+0|\d{1}\.\d{2}e\-1)/, 16, true);
   });
 

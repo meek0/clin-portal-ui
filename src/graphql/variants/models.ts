@@ -167,6 +167,8 @@ export type VariantEntity = {
     link: string;
   };
   variant_type: VariantType[];
+  freq_rqdm_tumor_normal: BoundType;
+  freq_rqdm_tumor_only: BoundType;
   frequency_RQDM: frequency_RQDMEntity;
   consequences?: ArrangerResultsTree<ConsequenceEntity>;
   hotspot: boolean;

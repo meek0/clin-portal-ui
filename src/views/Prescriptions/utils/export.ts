@@ -25,7 +25,11 @@ import {
   renderOmimToString,
   renderRevelScoreToString,
   renderRQDMPCToString,
+  renderRQDMTNPCToString,
+  renderRQDMTNToString,
+  renderRQDMTOPCToString,
   renderRQDMToString,
+  renderRQDMTOToString,
 } from 'views/Snv/Exploration/variantColumns';
 
 import { TABLE_EMPTY_PLACE_HOLDER, TSV_EMPTY_PLACE_HOLDER } from 'utils/constants';
@@ -110,6 +114,14 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderRQDMToString(row));
     } else if (key === 'frequency_RQDM.total.pc') {
       return convertToPlain(renderRQDMPCToString(row));
+    } else if (key === 'freq_rqdm_tumor_only.pf') {
+      return convertToPlain(renderRQDMTOToString(row));
+    } else if (key === 'freq_rqdm_tumor_only.pc') {
+      return convertToPlain(renderRQDMTOPCToString(row));
+    } else if (key === 'freq_rqdm_tumor_normal.pf') {
+      return convertToPlain(renderRQDMTNToString(row));
+    } else if (key === 'freq_rqdm_tumor_normal.pc') {
+      return convertToPlain(renderRQDMTNPCToString(row));
     } else if (key === 'franklin_max.combined_score') {
       return convertToPlain(renderFranklinScoreToString(row));
     } else if (key === 'franklin_max.acmg_classification') {

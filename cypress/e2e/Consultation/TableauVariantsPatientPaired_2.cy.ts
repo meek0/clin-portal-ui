@@ -61,8 +61,13 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/1507888');
   });
  
-  it('Valider les liens disponibles Lien RQDM', () => {
+  it('Valider les liens disponibles Lien RQDM G', () => {
     cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"]').find('td').eq(16).find('a[href]').click({force: true});
+    cy.validateTableResultsCount(/^1 Résultat$/);
+  });
+ 
+  it('Valider les liens disponibles Lien RQDM TN', () => {
+    cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"]').find('td').eq(17).find('a[href]').click({force: true});
     cy.validateTableResultsCount(/^1 Résultat$/);
   });
 });
