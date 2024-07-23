@@ -304,6 +304,7 @@ export interface AnalysisTaskEntity {
 // For Prescription Entity Page
 export interface ServiceRequestEntity {
   id: string;
+  meta: Meta;
   authoredOn: string;
   priority: string;
   status: string;
