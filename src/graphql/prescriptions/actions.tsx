@@ -239,11 +239,8 @@ export const useServiceRequestEntity = (
     },
   });
 
-  if (
-    data?.ServiceRequest.meta?.profile.indexOf(ANALYSIS_SERVICE_REQUEST_PROFILE) === -1 &&
-    !error
-  ) {
-    const newError = new GraphQLError('Invalid request', {
+  if (!data?.ServiceRequest.meta?.profile?.includes(ANALYSIS_SERVICE_REQUEST_PROFILE) && !error) {
+    const newError = new GraphQLError('Forbidden request', {
       extensions: {
         code: 'FORBIDDEN',
       },
