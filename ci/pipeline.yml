@@ -64,7 +64,7 @@ resources:
   source:
     uri: git@github.com:Ferlab-Ste-Justine/clin-portal-ui.git
     branch: main
-    private_key: ((git.ssh-key))
+    private_key: ((git.portal-ssh-key))
     # ignore_paths: [ci/]
 
 - name: ci-folder
@@ -74,7 +74,7 @@ resources:
     uri: git@github.com:Ferlab-Ste-Justine/clin-portal-ui.git
     branch: main
     paths: [ci]
-    private_key: ((git.ssh-key))
+    private_key: ((git.portal-ssh-key))
 
 
 jobs:
