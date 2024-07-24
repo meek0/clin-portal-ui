@@ -43,7 +43,7 @@ const getPresignedUrl = (file: string, rpt: string) =>
       headers: { Authorization: appendBearerIfToken(rpt) },
     })
     .then((response) => response.data.url)
-    .catch((e) => e);
+    .catch(() => '');
 
 const findDoc = (
   files: PatientFileResults,
