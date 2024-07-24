@@ -105,7 +105,7 @@ beforeEach(() => {
   // Mocking axios
   axios.get.mockImplementation(async () => ({
     data: {
-      url: 'adssadsadasd',
+      url: 'mockedUrl',
     },
   }));
 });
