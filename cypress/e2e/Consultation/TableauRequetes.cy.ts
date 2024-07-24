@@ -15,7 +15,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
     cy.checkValueFacet('Statut des prescriptions', 'active');
     cy.checkValueFacet('Analyse', 'RGDI');
   
-    cy.get('div[id*="tab-requests"]').click({force: true});
+    cy.get('div[id*="tab-requests"]').clickAndWait({force: true});
     cy.resetColumns(1);
   
     cy.showColumn('Modifiée le', 1);
@@ -23,8 +23,8 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
     cy.showColumn('Prénatal', 1);
     cy.showColumn('Dossier',1);
   
-    cy.get('body').find('span[class*="ant-select-selection-item"]').eq(1).click({force: true});
-    cy.get('body').find('div[class*="ant-select-item-option-content"]').contains('100').click({force: true});
+    cy.get('body').find('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('body').find('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
   });
 
   it('Vérifier les informations affichées', () => {
@@ -48,12 +48,12 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
 
   it('Valider les liens disponibles Lien Requête', () => {
     cy.clickAndIntercept('tr[data-row-key="'+epCHUSJ_ldmCHUSJ.requestProbId+'"] a[href*="prescription"]', 'POST', '**/$graphql*', 1, 0);
-    cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist', {timeout: 20*1000});
+    cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
   });
 
   it('Valider les liens disponibles Lien Prescription', () => {
     cy.clickAndIntercept('tr[data-row-key="'+epCHUSJ_ldmCHUSJ.requestProbId+'"] a[href*="prescription"]', 'POST', '**/$graphql*', 1, 1);
-    cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist', {timeout: 20*1000});
+    cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
   });
 });
 
@@ -62,7 +62,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
     cy.checkValueFacet('Statut des prescriptions', 'active');
     cy.checkValueFacet('Analyse', 'HYPM');
   
-    cy.get('div[id*="tab-requests"]').click({force: true});
+    cy.get('div[id*="tab-requests"]').clickAndWait({force: true});
     cy.resetColumns(1);
   
     cy.showColumn('Modifiée le', 1);
@@ -70,8 +70,8 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
     cy.showColumn('Prénatal', 1);
     cy.showColumn('Dossier',1);
   
-    cy.get('body').find('span[class*="ant-select-selection-item"]').eq(1).click({force: true});
-    cy.get('body').find('div[class*="ant-select-item-option-content"]').contains('100').click({force: true});
+    cy.get('body').find('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('body').find('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
   });
 
   it('Valider les fonctionnalités du tableau - Tri Requête', () => {

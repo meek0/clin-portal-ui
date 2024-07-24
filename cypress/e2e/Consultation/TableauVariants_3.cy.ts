@@ -16,8 +16,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
   
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('Variant', 1);
     cy.validateTableFirstRow('chr10:g.100018446C>T', 1, true);
     cy.sortTableAndIntercept('Variant', 1);
@@ -25,8 +23,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Type [CLIN-2149]', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('Type', 1);
     cy.validateTableFirstRow('Ind', 2, true);
     cy.sortTableAndIntercept('Type', 1);
@@ -34,8 +30,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Gène [CLIN-2149,CLIN-2287]', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('Gène', 1);
     cy.validateTableFirstRow('-', 4, true);
     cy.sortTableAndIntercept('Gène', 1);
@@ -43,8 +37,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept(/^gnomAD $/, 1);
     cy.validateTableFirstRow('-', 9, true);
     cy.sortTableAndIntercept(/^gnomAD $/, 1);
@@ -52,8 +44,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD ALT', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('gnomAD ALT', 1);
     cy.validateTableFirstRow('-', 10, true);
     cy.sortTableAndIntercept('gnomAD ALT', 1);
@@ -61,8 +51,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM G', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('RQDM G', 1);
     cy.validateTableFirstRow('0.00e+0', 11, true);
     cy.sortTableAndIntercept('RQDM G', 1);
@@ -70,8 +58,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri CMC', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('CMC', 1);
     cy.validateTableFirstRow('-', 12, true);
     cy.sortTableAndIntercept('CMC', 1);
@@ -79,21 +65,15 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Hotspot', () => {
-    cy.waitWhileSpin(2000);
-
     cy.clickAndIntercept('thead[class="ant-table-thead"] [data-icon="fire"]', 'POST', '**/graphql', 1);
-    cy.wait(1000);
     cy.validateTableFirstRow('-', 13, true);
     cy.clickAndIntercept('thead[class="ant-table-thead"] [data-icon="fire"]', 'POST', '**/graphql', 1);
-    cy.wait(1000);
     cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(13).find('[class*="hotspotFilled"]').should('exist');
     cy.get('[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').check({force: true});
     cy.get('[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').should('be.checked');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Exo. (var)', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('Exo. (var)', 1);
     cy.validateTableFirstRow('-', 14, true);
     cy.sortTableAndIntercept('Exo. (var)', 1);
@@ -101,8 +81,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Tier', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('Tier', 1);
     cy.validateTableFirstRow('-', 15, true);
     cy.sortTableAndIntercept('Tier', 1);
@@ -110,8 +88,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Max Exo.', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('Max Exo.', 1);
     cy.validateTableFirstRow('-', 17, true);
     cy.sortTableAndIntercept('Max Exo.', 1);
@@ -119,8 +95,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri ACMG F.', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('ACMG F.', 1);
     cy.validateTableFirstRow('ND', 18, true);
     cy.sortTableAndIntercept('ACMG F.', 1);
@@ -128,8 +102,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri ACMG E.', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('ACMG E.', 1);
     cy.validateTableFirstRow('ND', 19, true);
     cy.sortTableAndIntercept('ACMG E.', 1);
@@ -137,8 +109,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
-    cy.waitWhileSpin(2000);
-
     cy.sortTableAndIntercept('gnomAD', 1);
     cy.sortTableAndWait('Variant');
     cy.sortTableAndIntercept('Variant', 1);
@@ -146,8 +116,6 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
-    cy.waitWhileSpin(20000);
-
     cy.validatePaging('', 0);
   });
 });

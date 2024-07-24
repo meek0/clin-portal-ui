@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-import { getDateTime } from '../../support/utils';
+import { getDateTime, oneMinute } from '../../support/utils';
 
 const { strDate } = getDateTime();
 let epCHUSJ_ldmCHUSJ: any;
@@ -12,6 +12,7 @@ beforeEach(() => {
   cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 
   cy.clickAndIntercept('div[id="content"] svg[data-icon="download"]', 'POST', '**/graphql', 2);
+  cy.waitUntilFile(oneMinute);
 });
 
 describe('Page des CNVs d\'un patient - Exporter les CNVs en TSV', () => {

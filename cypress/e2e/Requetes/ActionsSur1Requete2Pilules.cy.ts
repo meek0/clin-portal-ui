@@ -13,9 +13,9 @@ describe('Page des variants - Requêtes', () => {
 
   it('Modifier l\'opérateur d\'une requête', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql1');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="Combiner_operator"]').click({force: true});
-    cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
-    cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
+    cy.get('[class*="QueryBar_selected"]').find('[class*="Combiner_operator"]').clickAndWait({force: true});
+    cy.wait('@getPOSTgraphql1');
+    cy.wait('@getPOSTgraphql1');
 
     cy.validatePillSelectedQuery('Type de variant', ['SNV']);
     cy.validatePillSelectedQuery('Position', ['100000'], 1);
@@ -25,9 +25,9 @@ describe('Page des variants - Requêtes', () => {
     cy.validateClearAllButton(false);
 
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql2');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="Combiner_operator"]').click({force: true});
-    cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
-    cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
+    cy.get('[class*="QueryBar_selected"]').find('[class*="Combiner_operator"]').clickAndWait({force: true});
+    cy.wait('@getPOSTgraphql2');
+    cy.wait('@getPOSTgraphql2');
 
     cy.validatePillSelectedQuery('Type de variant', ['SNV']);
     cy.validatePillSelectedQuery('Position', ['100000'], 1);
@@ -40,9 +40,9 @@ describe('Page des variants - Requêtes', () => {
   it('Supprimer une des pilules d\'une requête avec le X', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
-    cy.get('[class*="QueryBar_selected"]').find('button[class*="QueryPill_close"]').eq(0).click();
-    cy.wait('@getPOSTgraphql', {timeout: 20*1000});
-    cy.wait('@getPOSTgraphql', {timeout: 20*1000});
+    cy.get('[class*="QueryBar_selected"]').find('button[class*="QueryPill_close"]').eq(0).clickAndWait();
+    cy.wait('@getPOSTgraphql');
+    cy.wait('@getPOSTgraphql');
 
     cy.validatePillSelectedQuery('Position', ['100000']);
     cy.validateTotalSelectedQuery(/1,4\d{2}/);

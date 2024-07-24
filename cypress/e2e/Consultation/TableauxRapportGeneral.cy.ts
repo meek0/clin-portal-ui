@@ -24,7 +24,7 @@ describe('Page du rapport général d\'un patient - Consultation des tableaux', 
   });
 
   it('Dragen Mapping Metrics - Vérifier les informations affichées', () => {
-    cy.get('[data-node-key="DRAGEN_mapping_metrics"]').click({force: true});
+    cy.get('[data-node-key="DRAGEN_mapping_metrics"]').clickAndWait({force: true});
     cy.fixture('ExportTableauDragenMappingMetrics.json').then((expectedData) => {
       for (let i = 0; i < expectedData.headers.length; i++) {
         cy.get('tr[class="ant-descriptions-row"]').eq(i).find('th').contains(expectedData.headers[i]).should('exist');
@@ -34,7 +34,7 @@ describe('Page du rapport général d\'un patient - Consultation des tableaux', 
   });
 
   it('Picard Collect Hs Metrics - Vérifier les informations affichées', () => {
-    cy.get('[data-node-key="Picard_CollectHsMetrics"]').click({force: true});
+    cy.get('[data-node-key="Picard_CollectHsMetrics"]').clickAndWait({force: true});
     cy.fixture('ExportTableauPicardCollectHsMetrics.json').then((expectedData) => {
       for (let i = 0; i < expectedData.headers.length; i++) {
         cy.get('tr[class="ant-descriptions-row"]').eq(i).find('th').contains(expectedData.headers[i]).should('exist');

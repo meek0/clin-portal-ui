@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
 import '@testing-library/cypress/add-commands';
+import { oneMinute } from '../support/utils';
 
 export interface Replacement {
   placeholder: string;
@@ -7,15 +8,15 @@ export interface Replacement {
 }
 
 Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: string, value: string, isRqdmExpand: boolean = false) => {
-  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).click({force: true});
+  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
 
   if (isRqdmExpand) {
-    cy.get('[data-cy="FilterContainer_Panel RQDM"]').click({force: true});
+    cy.get('[data-cy="FilterContainer_Panel RQDM"]').clickAndWait({force: true});
   }
 
   if (section !== 'Panel RQDM') {
-    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).click({force: true});
-    cy.wait(1000);
+    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).clickAndWait({force: true});
+    cy.waitWhileSpin(oneMinute);
   }
 
   cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
@@ -48,26 +49,30 @@ Cypress.Commands.add('clickAndIntercept', (selector: string, methodHTTP: string,
   }
 
   cy.intercept(methodHTTP, routeMatcher).as('getRouteMatcher');
-
-  cy.get(selector).eq(eq).click({force: true});
+  cy.get(selector).eq(eq).clickAndWait({force: true});
 
   for (let i = 0; i < nbCalls; i++) {
-    cy.wait('@getRouteMatcher', {timeout: 20*1000});
+    cy.wait('@getRouteMatcher', {timeout: oneMinute});
   };
 
-  cy.wait(1000);
+  cy.waitWhileSpin(oneMinute);
+});
+
+Cypress.Commands.add('clickAndWait', { prevSubject: 'element' }, (subject, options) => {
+  cy.wrap(subject).click(options);
+  cy.waitWhileSpin(oneMinute);
 });
 
 Cypress.Commands.add('closePopup', () => {
   cy.get('body').find('button').then(($button) => {
     if ($button.hasClass('close')) {
-      cy.get('body').find('button[class="close"]').click({force: true});
+      cy.get('body').find('button[class="close"]').clickAndWait({force: true});
     };
   });
 });
 
 Cypress.Commands.add('createFilterIfNotExists', (filterName: string) => {
-  cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
+  cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
   cy.get('[class*="ant-dropdown-menu-root"]').invoke('text').then((invokeText) => {
     if (!invokeText.includes(filterName)) {
       cy.saveFilterAs(filterName);
@@ -76,17 +81,17 @@ Cypress.Commands.add('createFilterIfNotExists', (filterName: string) => {
 });
 
 Cypress.Commands.add('deleteFilter', (filterName: string) => {
-  cy.get('[class*="ant-dropdown-menu-title-content"]').contains(filterName).click({force: true});
+  cy.get('[class*="ant-dropdown-menu-title-content"]').contains(filterName).clickAndWait({force: true});
   cy.get('[id="query-builder-header-tools"] [class*="Header_togglerTitle"]').contains(filterName).should('exist');
-  cy.get('[id="query-builder-header-tools"] [class*="anticon-delete"]').click({force: true});
+  cy.get('[id="query-builder-header-tools"] [class*="anticon-delete"]').clickAndWait({force: true});
   cy.clickAndIntercept('[class="ant-modal-content"] button[class*="ant-btn-dangerous"]', 'POST', '**/graphql', 1);
 
-  cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
+  cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
   cy.get('[class*="ant-dropdown-menu-root"]').contains(filterName).should('not.exist');
 });
 
 Cypress.Commands.add('deleteFilterIfExists', (filterName: string) => {
-  cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
+  cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
   cy.get('[class*="ant-dropdown-menu-root"]').invoke('text').then((invokeText) => {
     if (invokeText.includes(filterName)) {
       cy.deleteFilter(filterName);
@@ -98,14 +103,16 @@ Cypress.Commands.add('login', (user: string, password: string, restoreSession: b
   const strUserSession = restoreSession ? user : Math.random();
   cy.session([strUserSession], () => {
     cy.visit('/');
-    cy.get('button[class*="ant-btn-primary ant-btn-lg"]').should('exist', {timeout: 60*1000});
-    cy.get('button[class*="ant-btn-primary ant-btn-lg"]').click();
+    cy.waitWhileSpin(oneMinute);
+    cy.get('button[class*="ant-btn-primary ant-btn-lg"]').should('exist');
+    cy.get('button[class*="ant-btn-primary ant-btn-lg"]').clickAndWait();
+    cy.waitWhileSpin(oneMinute);
 
-    cy.get('input[id="username"]').should('exist', {timeout: 60*1000});
+    cy.get('input[id="username"]').should('exist');
 
     cy.get('input[id="username"]').type(user);
     cy.get('input[id="password"]').type(password, {log: false});
-    cy.get('button[type="submit"]').click();
+    cy.get('button[type="submit"]').clickAndWait();
   });
 });
 
@@ -115,13 +122,13 @@ Cypress.Commands.add('logout', () => {
 
     cy.get('div').then(($div) => {
         if ($div.hasClass('App')) {
-            cy.get('span[class="anticon anticon-down"]').click({force: true});
-            cy.get('[data-menu-id*="logout"]').click({force: true});
+            cy.get('span[class="anticon anticon-down"]').clickAndWait({force: true});
+            cy.get('[data-menu-id*="logout"]').clickAndWait({force: true});
         };
     });
 
   cy.exec('npm cache clear --force');
-  cy.wait(1000);
+  cy.waitWhileSpin(oneMinute);
 });
 
 Cypress.Commands.add('removeFilesFromFolder', (folder: string) => {
@@ -129,22 +136,22 @@ Cypress.Commands.add('removeFilesFromFolder', (folder: string) => {
 });
 
 Cypress.Commands.add('resetColumns', (eq: number) => {
-  cy.get('svg[data-icon="setting"]').eq(eq).click({force: true});
-  cy.wait(1000);
+  cy.get('svg[data-icon="setting"]').eq(eq).clickAndWait({force: true});
+  cy.waitWhileSpin(oneMinute);
   cy.get('button[class*="ProTablePopoverColumnResetBtn"]').eq(eq).then(($button) => {
-    cy.wrap($button).click({force: true});
-    cy.wait(1000);
-    cy.wrap($button).click({force: true});
-    cy.wait(1000);
+    cy.wrap($button).clickAndWait({force: true});
+    cy.waitWhileSpin(oneMinute);
+    cy.wrap($button).clickAndWait({force: true});
+    cy.waitWhileSpin(oneMinute);
   });
   
   cy.get('button[class*="ProTablePopoverColumnResetBtn"]').eq(eq).should('be.disabled', {timeout: 20*1000});
-  cy.get('svg[data-icon="setting"]').eq(eq).click({force: true});
-  cy.get('div[class*="Header_ProTableHeader"]').click({force: true, multiple: true});
+  cy.get('svg[data-icon="setting"]').eq(eq).clickAndWait({force: true});
+  cy.get('div[class*="Header_ProTableHeader"]').clickAndWait({force: true, multiple: true});
 });
 
 Cypress.Commands.add('saveFilterAs', (filterName: string) => {
-  cy.get('[class*="Header_QBHActionContainer"] button').click({force: true});
+  cy.get('[class*="Header_QBHActionContainer"] button').clickAndWait({force: true});
   cy.get('[class="ant-modal-content"] input').clear().type(filterName);
   cy.get(`[class="ant-modal-content"] input[value="`+filterName+`"]`).should('exist');
   cy.clickAndIntercept('[class="ant-modal-content"] button[class*="ant-btn-primary"]', 'POST', '**/saved-filters', 1);
@@ -156,27 +163,26 @@ Cypress.Commands.add('showColumn', (column: string|RegExp, eq: number) => {
   cy.intercept('PUT', '**/user').as('getPOSTuser');
 
   cy.get('div[class="ant-popover-inner"]').eq(eq).find('div[class="ant-space-item"]').contains(column).find('[type="checkbox"]').check({force: true});
-  cy.wait('@getPOSTuser', {timeout: 20*1000});
-  cy.get('div[class*="Header_ProTableHeader"]').click({force: true, multiple: true});
-  cy.wait(1000);
+  cy.wait('@getPOSTuser', {timeout: oneMinute});
+  cy.get('div[class*="Header_ProTableHeader"]').clickAndWait({force: true, multiple: true});
+  cy.waitWhileSpin(oneMinute);
 });
 
 Cypress.Commands.add('sortTableAndIntercept', (column: string|RegExp, nbCalls: number, eq: number = 0) => {
   cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
 
-  cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).click({force: true});
+  cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).clickAndWait({force: true});
 
   for (let i = 0; i < nbCalls; i++) {
-    cy.wait('@getPOSTgraphql', {timeout: 60*1000});
+    cy.wait('@getPOSTgraphql', {timeout: oneMinute});
   };
 
-  cy.waitWhileSpin(5000);
-  cy.wait(1000);
+  cy.waitWhileSpin(oneMinute);
 });
 
 Cypress.Commands.add('sortTableAndWait', (column: string, eq: number = 0) => {
-  cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).click({force: true});
-  cy.waitWhileSpin(1000);
+  cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).clickAndWait({force: true});
+  cy.wait(1000);
 });
 
 Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, methodHTTP: string, routeMatcher: string, nbCalls: number) => {
@@ -185,10 +191,10 @@ Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, method
   cy.get(selector).type(text, {force: true});
 
   for (let i = 0; i < nbCalls; i++) {
-    cy.wait('@getRouteMatcher', {timeout: 60*1000});
+    cy.wait('@getRouteMatcher', {timeout: oneMinute});
   };
 
-  cy.wait(1000);
+  cy.waitWhileSpin(oneMinute);
 });
 
 Cypress.Commands.add('validateClearAllButton', (shouldExist: boolean) => {
@@ -197,39 +203,39 @@ Cypress.Commands.add('validateClearAllButton', (shouldExist: boolean) => {
 });
 
 Cypress.Commands.add('validateDictionnaryNewValues', (section: string, facetTitle: string, dictionnary: (string|RegExp)[], moreButton: boolean = false) => {
-  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).click({force: true});
+  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
 
   if (section !== 'Panel RQDM') {
-    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).click({force: true});
+    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).clickAndWait({force: true});
   }
   
   cy.get(`[data-cy="Button_Dict_${facetTitle}"]`).click({force: true});
-  cy.wait(1000);
+  cy.waitWhileSpin(oneMinute);
 
   if (moreButton) {
     cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
-    cy.wait(1000);
+    cy.waitWhileSpin(oneMinute);
   }
     
   // Aucune nouvelle valeur n'est présente dans la facette
-  cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').click({force: true});
+  cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').clickAndWait({force: true});
   cy.waitWhileSpin(2000);
   cy.get(`[data-cy*="Checkbox_${facetTitle}_"]`).its('length').should('eq', dictionnary.length);
 });
 
 Cypress.Commands.add('validateDictionnaryPresetValues', (section: string, facetTitle: string, dictionnary: (string|RegExp)[], moreButton: boolean = false) => {
-  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).click({force: true});
+  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
 
   if (section !== 'Panel RQDM') {
-    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).click({force: true});
+    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).clickAndWait({force: true});
   }
   
   cy.get(`[data-cy="Button_Dict_${facetTitle}"]`).click({force: true});
-  cy.wait(1000);
+  cy.waitWhileSpin(oneMinute);
 
   if (moreButton) {
     cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
-    cy.wait(1000);
+    cy.waitWhileSpin(oneMinute);
   }
 
   // Toutes les valeurs du dictionnaire sont présentes dans la facette
@@ -241,18 +247,18 @@ Cypress.Commands.add('validateDictionnaryPresetValues', (section: string, facetT
 Cypress.Commands.add('validateExpandCollapse', (section: string, isRqdmExpand: boolean = false) => {
   const eq = isRqdmExpand ? 1 : 0;
 
-  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).click({force: true});
+  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
 
   if (section !== 'Panel RQDM') {
     cy.get('div[class="FilterContainer_filterContainer__8Dsbs"]').eq(eq).find('[aria-expanded="false"]').should('exist');
     cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').contains('Tout ouvrir').should('exist');
 
-    cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').click({force: true});
+    cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').clickAndWait({force: true});
   }
   cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').contains('Tout fermer').should('exist');
   cy.get('div[class="FilterContainer_filterContainer__8Dsbs"]').eq(eq).find('[aria-expanded="true"]').should('exist');
 
-  cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').click({force: true});
+  cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').clickAndWait({force: true});
   cy.get('div[class="FilterContainer_filterContainer__8Dsbs"]').eq(eq).find('[aria-expanded="false"]').should('exist');
   cy.get('[class*="Filters_filterExpandBtnWrapper"] button[class*="ant-btn-link"]').contains('Tout ouvrir').should('exist');
 });
@@ -265,15 +271,15 @@ Cypress.Commands.add('validateFacetFilter', (section: string, facetTitle: string
 });
 
 Cypress.Commands.add('validateFacetNumFilter', (section: string, facetTitle: string, value: string, expectedCount: string|RegExp) => {
-  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).click({force: true});
-  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).click({force: true});
-  cy.wait(1000);
+  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
+  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).clickAndWait({force: true});
+  cy.waitWhileSpin(oneMinute);
   cy.get(`[data-cy="InputNumber_Max_${facetTitle}"]`).type(value, {force: true});
-  cy.wait(1000);
+  cy.waitWhileSpin(oneMinute);
   cy.get(`[data-cy="Checkbox_NoData_${facetTitle}"]`).check({force: true});
-  cy.wait(1000);
-  cy.get(`[data-cy="Button_Apply_${facetTitle}"]`).click({force: true});
-  cy.wait(1000);
+  cy.waitWhileSpin(oneMinute);
+  cy.get(`[data-cy="Button_Apply_${facetTitle}"]`).clickAndWait({force: true});
+  cy.waitWhileSpin(oneMinute);
 
   cy.validatePillSelectedQuery(facetTitle, [value, 'No Data']);
   cy.get('body').contains(expectedCount).should('exist');
@@ -327,8 +333,8 @@ Cypress.Commands.add('validateFileName', (namePattern: string) => {
 });
 
 Cypress.Commands.add('validateFilterInManager', (filterName: string, expect: string) => {
-  cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
-  cy.get('[data-menu-id*="manage-my-filters"]').click({force: true});
+  cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
+  cy.get('[data-menu-id*="manage-my-filters"]').clickAndWait({force: true});
   cy.get('[class="ant-modal-content"]').contains(filterName).should(expect);
   cy.get('button[class="ant-modal-close"]').invoke('click');
 });
@@ -393,43 +399,38 @@ Cypress.Commands.add('validatePaging', (total: string|RegExp, eqSelect: number, 
     total = new RegExp(total);
   }
 
-  cy.get('span[class*="ant-select-selection-item"]').eq(eqSelect).click({force: true});
-  cy.get('div[class*="ant-select-item-option-content"]').contains('100').click({force: true});
-  cy.waitWhileSpin(20*1000);
+  cy.get('span[class*="ant-select-selection-item"]').eq(eqSelect).clickAndWait({force: true});
+  cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
+  cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Résultats 1 - 100 de '+total.source));
 
-  cy.get('span[class*="ant-select-selection-item"]').eq(eqSelect).click({force: true});
-  cy.get('div[class*="ant-select-item-option-content"]').contains('20 ').click({force: true});
-  cy.waitWhileSpin(20*1000);
-  cy.wait(2000);
+  cy.get('span[class*="ant-select-selection-item"]').eq(eqSelect).clickAndWait({force: true});
+  cy.get('div[class*="ant-select-item-option-content"]').contains('20 ').clickAndWait({force: true});
+  cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Résultats 1 - 20 de '+total.source));
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Précédent').parent('button').should('be.disabled');
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Début').parent('button').should('be.disabled');
 
-  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Suivant').click({force: !!eqSelect});
-  cy.waitWhileSpin(20*1000);
-  cy.wait(2000);
+  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Suivant').clickAndWait({force: !!eqSelect});
+  cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Résultats 21 - 40 de '+total.source));
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
 
-  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Suivant').click({force: true});
-  cy.waitWhileSpin(20*1000);
-  cy.wait(2000);
+  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Suivant').clickAndWait({force: true});
+  cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Résultats 41 - 60 de '+total.source));
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
 
-  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Précédent').click({force: true});
-  cy.waitWhileSpin(20*1000);
-  cy.wait(2000);
+  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Précédent').clickAndWait({force: true});
+  cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Résultats 21 - 40 de '+total.source));
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
 
-  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Début').click({force: true});
-  cy.waitWhileSpin(20*1000);
-  cy.wait(2000);
+  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Début').clickAndWait({force: true});
+  cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Résultats 1 - 20 de '+total.source));
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Précédent').parent('button').should('be.disabled');
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Début').parent('button').should('be.disabled');
@@ -449,7 +450,7 @@ Cypress.Commands.add('validatePillSelectedQuery', (facetTitle: string, values: (
 });
 
 Cypress.Commands.add('validateSelectedFilterInDropdown', (filterName: string) => {
-  cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
+  cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
   cy.get('[class*="ant-dropdown-menu-item-selected"]').contains(filterName).should('exist');
 });
 
@@ -493,10 +494,10 @@ Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, rout
   cy.visit(url);
 
   for (let i = 0; i < nbCalls; i++) {
-    cy.wait('@getRouteMatcher', {timeout: 20*1000});
+    cy.wait('@getRouteMatcher', {timeout: oneMinute});
   };
 
-  cy.waitWhileSpin(60*1000);
+  cy.waitWhileSpin(oneMinute);
 });
 
 Cypress.Commands.add('visitArchivesPatientPage', (patientId: string) => {

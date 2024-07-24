@@ -8,7 +8,7 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
 
-  cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td[class*="ant-table-cell-fix-left"]').eq(1).find('svg[class="anticon"]').first().click({force: true});
+  cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td[class*="ant-table-cell-fix-left"]').eq(1).find('svg[class="anticon"]').first().clickAndWait({force: true});
 });
 
 describe('Tiroir d\'une occurrence (somatic)', () => {

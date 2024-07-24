@@ -28,19 +28,19 @@ beforeEach(() => {
 
 describe('Page des variants d\'un patient - Consultation du tableau', () => {
    it('Valider les liens disponibles Lien UCSC', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('button[class*="ant-dropdown-trigger"]').click({force: true});
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
     cy.get('[data-menu-id*="UCSC"]').find('a[href]')
       .should('have.attr', 'href', 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chrX%3A123403094-123403095');
   });
  
   it('Valider les liens disponibles Lien LitVar', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('button[class*="ant-dropdown-trigger"]').click({force: true});
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
     cy.get('[data-menu-id*="LitVAR"]').find('a[href]')
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/research/litvar2/docsum?text=rs138817389');
   });
  
   it('Valider les liens disponibles Lien Variant', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').contains('chrX:g.123403094G>A').invoke('removeAttr', 'target').click({force: true});
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').contains('chrX:g.123403094G>A').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.get('[data-cy="Summary_Start"]').contains('123 403 094').should('exist');
   });
  
@@ -55,7 +55,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
   });
  
   it('Valider les liens disponibles Lien Gène Plus', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(5).find('[data-icon="plus"]').click({force: true});
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(5).find('[data-icon="plus"]').clickAndWait({force: true});
     cy.validatePillSelectedQuery('Gène', ['GRIA3']);
   });
  
@@ -76,7 +76,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
   });
  
   it('Valider les liens disponibles Lien RQDM G', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(16).find('a[href]').click({force: true});
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(16).find('a[href]').clickAndWait({force: true});
     cy.validateTableResultsCount('6 Résultats');
   });
  

@@ -1,6 +1,5 @@
 /// <reference types="cypress"/>
-import { Replacement } from '../../support/commands';
-import { getDateTime } from '../../support/utils';
+import { getDateTime, oneMinute } from '../../support/utils';
 
 const { strDate } = getDateTime();
 let epCHUSJ_ldmCHUSJ: any;
@@ -11,11 +10,11 @@ beforeEach(() => {
 
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
-  cy.get('[data-cy="RadioButton_CouvertureGenique"]').click({force: true});
+  cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
 
   cy.get('div[role="tabpanel"]').find('tr[data-row-key]').eq(6).find('[type="checkbox"]').check({force: true});
-  cy.get('div[id="content"] svg[data-icon="download"]').eq(1).click({force:true});
-  cy.waitUntilFile(60*1000);
+  cy.get('div[id="content"] svg[data-icon="download"]').eq(1).clickAndWait({force:true});
+  cy.waitUntilFile(oneMinute);
 });
 
 describe('Page de la couverture génique d\'un patient - Exporter les statistiques en TSV', () => {

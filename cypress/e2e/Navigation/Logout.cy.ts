@@ -8,10 +8,10 @@ beforeEach(() => {
 describe('Affichage de la page Logout', () => {
   it('Vérifier le texte affiché', () => {
     cy.logout();
-    cy.contains('Analyses et diagnostics').should('exist', {timeout: 20*1000});
-    cy.contains('Le Centre québécois de génomique clinique offre une plateforme clinique de séquençage à haut débit pour le diagnostic moléculaire des patients québécois en partenariat avec les huit laboratoires du Réseau de diagnostic moléculaire du Québec.').should('exist', {timeout: 20*1000});
-    cy.contains('Connexion').should('exist', {timeout: 20*1000});
-    cy.contains('EN').should('exist', {timeout: 20*1000});
+    cy.contains('Analyses et diagnostics').should('exist');
+    cy.contains('Le Centre québécois de génomique clinique offre une plateforme clinique de séquençage à haut débit pour le diagnostic moléculaire des patients québécois en partenariat avec les huit laboratoires du Réseau de diagnostic moléculaire du Québec.').should('exist');
+    cy.contains('Connexion').should('exist');
+    cy.contains('EN').should('exist');
   });
 
   it('Vérifier les images des partenaires', () => {

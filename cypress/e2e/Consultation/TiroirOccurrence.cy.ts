@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
+import { oneMinute } from '../../support/utils';
 
 let epCHUSJ_ldmCHUSJ: any;
 
@@ -8,7 +9,7 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, Cypress.env('shared_filter_id'));
 
-  cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="9ea37b2966662962908b94b1898dc0a9ac4e9645"]').find('td[class*="ant-table-cell-fix-left"]').eq(1).find('svg[class="anticon"]').first().click({force: true});
+  cy.get('body').find('div[role="tabpanel"]').find('tr[data-row-key="9ea37b2966662962908b94b1898dc0a9ac4e9645"]').find('td[class*="ant-table-cell-fix-left"]').eq(1).find('svg[class="anticon"]').first().clickAndWait({force: true});
 });
 
 describe('Tiroir d\'une occurrence', () => {
@@ -42,20 +43,20 @@ describe('Tiroir d\'une occurrence', () => {
  
   it('Valider les liens disponibles', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql1');
-    cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(1).find('tr[class="ant-descriptions-row"]').eq(1).contains('3').click({force: true});
-    cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
-    cy.wait('@getPOSTgraphql1', {timeout: 20*1000});
-    cy.contains('4 Résultats').should('exist', {timeout: 60*1000});
+    cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(1).find('tr[class="ant-descriptions-row"]').eq(1).contains('3').clickAndWait({force: true});
+    cy.wait('@getPOSTgraphql1');
+    cy.wait('@getPOSTgraphql1');
+    cy.contains('4 Résultats').should('exist');
 
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql2');
-    cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(1).find('tr[class="ant-descriptions-row"]').eq(2).contains('4').click({force: true});
-    cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
-    cy.wait('@getPOSTgraphql2', {timeout: 20*1000});
-    cy.contains('4 Résultats').should('exist', {timeout: 60*1000});
+    cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(1).find('tr[class="ant-descriptions-row"]').eq(2).contains('4').clickAndWait({force: true});
+    cy.wait('@getPOSTgraphql2');
+    cy.wait('@getPOSTgraphql2');
+    cy.contains('4 Résultats').should('exist');
   });
   
   it('Vérifier les informations affichées des métriques de séquençage parental', () => {
-    cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(2).find('tr[class="ant-descriptions-row"]').eq(0).find('button[class*="ant-btn-sm"]').click({force: true});
+    cy.get('div[class*="ant-drawer-open"]').find('div[class*="OccurrenceDrawer_description"]').eq(2).find('tr[class="ant-descriptions-row"]').eq(0).find('button[class*="ant-btn-sm"]').clickAndWait({force: true});
 
     cy.get('div[class*="SequencingMetricModal_description"]').eq(0).find('tr[class="ant-descriptions-row"]').eq(0).contains('0.27').should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(0).find('tr[class="ant-descriptions-row"]').eq(1).contains('117').should('exist');

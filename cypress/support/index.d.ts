@@ -5,6 +5,7 @@ declare namespace Cypress {
     checkAndClickApplyFacet(section: string, facetTitle: string, valueBack: string, isRqdmExpand: boolean = false): cy & CyEventEmitter;
     checkValueFacet(facetTitle: string, valueBack: string): cy & CyEventEmitter;
     clickAndIntercept(selector: string, methodHTTP: string, routeMatcher: string, nbCalls: number, eq?: number): cy & CyEventEmitter;
+    clickAndWait(options?: Partial<ClickOptions>): Chainable<Element>;
     closePopup(): cy & CyEventEmitter;
     createFilterIfNotExists(filterName: string): cy & CyEventEmitter;
     deleteFilter(filterName: string): cy & CyEventEmitter;

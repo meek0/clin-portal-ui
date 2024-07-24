@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-import { getDateTime } from '../../support/utils';
+import { oneMinute } from '../../support/utils';
 
 let epCHUSJ_ldmCHUSJ: any;
 
@@ -10,8 +10,8 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
 
-  cy.get('[class="ant-card-head"] button[class*="ant-btn-default"]').click({force: true});
-  cy.waitUntilFile(60*1000);
+  cy.get('[class="ant-card-head"] button[class*="ant-btn-default"]').clickAndWait({force: true});
+  cy.waitUntilFile(oneMinute);
 });
 
 describe('Télécharger le rapport général', () => {

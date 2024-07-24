@@ -37,18 +37,18 @@ describe('Page d\'archives - Consultation du tableau', () => {
  
   it('Valider les liens disponibles Lien Requête', () => {
     cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
-    cy.get('tr[data-row-key="16774.exomiser.variants.tsv"]').contains(epCHUSJ_ldmCHUSJ.requestProbId).click({force: true});
-    cy.wait('@getPOSTgraphql', {timeout: 20*1000});
+    cy.get('tr[data-row-key="16774.exomiser.variants.tsv"]').contains(epCHUSJ_ldmCHUSJ.requestProbId).clickAndWait({force: true});
+    cy.wait('@getPOSTgraphql');
 
-    cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist', {timeout: 20*1000});
+    cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
   });
  
   it('Valider les liens disponibles Lien Analyse bioinfo', () => {
     cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
-    cy.get('tr[data-row-key="16774.exomiser.variants.tsv"]').contains(epCHUSJ_ldmCHUSJ.bioAnalProbId).click({force: true});
-    cy.wait('@getPOSTgraphql', {timeout: 20*1000});
+    cy.get('tr[data-row-key="16774.exomiser.variants.tsv"]').contains(epCHUSJ_ldmCHUSJ.bioAnalProbId).clickAndWait({force: true});
+    cy.wait('@getPOSTgraphql');
 
-    cy.contains('Analyse bioinformatique : '+epCHUSJ_ldmCHUSJ.bioAnalProbId).should('exist', {timeout: 20*1000});
+    cy.contains('Analyse bioinformatique : '+epCHUSJ_ldmCHUSJ.bioAnalProbId).should('exist');
   });
   
   it('Valider les fonctionnalités du tableau - Tri Patient', () => {

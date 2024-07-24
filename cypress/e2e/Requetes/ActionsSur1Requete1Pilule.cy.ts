@@ -21,7 +21,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Éditer une pilule via son popup', () => {
-    cy.get('[class*="QueryValues_queryValuesContainer"]').contains('SNV').click({force:true});
+    cy.get('[class*="QueryValues_queryValuesContainer"]').contains('SNV').clickAndWait({force:true});
     cy.get('[class*="filtersDropdown"] input[id="input-insertion"]').check({force: true});
     cy.clickAndIntercept('[class*="filtersDropdown"] [data-cy="Apply_Type de variant"]', 'POST', '**/graphql', 3);
 
@@ -44,9 +44,9 @@ describe('Page des variants - Requêtes', () => {
 
   it('Construire une deuxième requête', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
-    cy.get('button[class*="QueryTools_button"]').contains('Nouvelle requête').click({force:true});
-    cy.wait('@getPOSTgraphql', {timeout: 20*1000});
-    cy.wait('@getPOSTgraphql', {timeout: 20*1000});
+    cy.get('button[class*="QueryTools_button"]').contains('Nouvelle requête').clickAndWait({force:true});
+    cy.wait('@getPOSTgraphql');
+    cy.wait('@getPOSTgraphql');
 
     cy.get('body').contains('Utiliser les filtres pour créer une requête').should('exist');
     cy.validateTotalSelectedQuery('1.3M');
@@ -63,8 +63,8 @@ describe('Page des variants - Requêtes', () => {
 
   it('Dupliquer une requête', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
-    cy.get('[class*="QueryBar_selected"]').find('[data-icon="copy"]').click({force: true});
-    cy.wait('@getPOSTgraphql', {timeout: 20*1000});
+    cy.get('[class*="QueryBar_selected"]').find('[data-icon="copy"]').clickAndWait({force: true});
+    cy.wait('@getPOSTgraphql');
 
     cy.validatePillSelectedQuery('Type de variant', ['SNV']);
     cy.validateTotalSelectedQuery('1.1M');

@@ -25,7 +25,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-cy="Summary_LastAnnotation"]').contains(/^\d{4}-\d{2}-\d{2}$/).should('exist');
   });
   
-  it('Panneau Conséquences géniques', () => {
+  it('Panneau Conséquences géniques [CLIN-3037]', () => {
     cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('PRDX1').should('exist');
     cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('Omim').should('exist');
     cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('176763').should('exist');
@@ -219,9 +219,9 @@ describe('Page d\'un variant (onglet Résumé) - Valider les liens disponibles',
   });
   
   it('Lien \'5 autres transcrits\' de la section Conséquences géniques', () => {
-    cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('5 autres transcrits +').click({force: true});
+    cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('5 autres transcrits +').clickAndWait({force: true});
     cy.get('[data-cy="Consequences_PRDX1_Space"]').find('tr[class*="ant-table-row"]').eq(1).should('exist');
-    cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('Afficher moins -').click({force: true});
+    cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('Afficher moins -').clickAndWait({force: true});
     cy.get('[data-cy="Consequences_PRDX1_Space"]').find('tr[class*="ant-table-row"]').eq(1).should('not.exist');
   });
   
@@ -260,9 +260,9 @@ describe('Page d\'un variant (onglet Résumé) - Valider les liens disponibles',
   });
   
   it('Lien \'See more\' de la condition de la section Gène - Phénotype', () => {
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Voir plus').click({force: true});
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Voir plus').clickAndWait({force: true});
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Renal insufficiency').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Voir moins').click({force: true});
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Voir moins').clickAndWait({force: true});
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Renal insufficiency').should('not.exist');
   });
 });
@@ -270,41 +270,41 @@ describe('Page d\'un variant (onglet Résumé) - Valider les liens disponibles',
 describe('Page d\'un variant (onglet Résumé) - Valider les panneaux masquables', () => {
   it('Panneau Conséquences géniques', () => {
     cy.get('[data-cy="Consequences_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="Consequences_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="Consequences_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="Consequences_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="Consequences_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="Consequences_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="Consequences_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 
   it('Panneau Cohortes du RQDM', () => {
     cy.get('[data-cy="FrequencyCard_RQDM_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="FrequencyCard_RQDM_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="FrequencyCard_RQDM_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="FrequencyCard_RQDM_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="FrequencyCard_RQDM_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="FrequencyCard_RQDM_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="FrequencyCard_RQDM_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 
   it('Panneau Cohortes publiques', () => {
     cy.get('[data-cy="FrequencyCard_Cohort_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="FrequencyCard_Cohort_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="FrequencyCard_Cohort_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="FrequencyCard_Cohort_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="FrequencyCard_Cohort_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="FrequencyCard_Cohort_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="FrequencyCard_Cohort_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 
   it('Panneau ClinVar', () => {
     cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 
   it('Panneau Gène - Phénotype', () => {
     cy.get('[data-cy="ClinicalCard_GenePhenotype_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="ClinicalCard_GenePhenotype_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="ClinicalCard_GenePhenotype_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="ClinicalCard_GenePhenotype_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="ClinicalCard_GenePhenotype_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="ClinicalCard_GenePhenotype_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="ClinicalCard_GenePhenotype_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 });

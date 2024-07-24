@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
+import { oneMinute } from '../../support/utils';
 
 let presc_PAIRED: any;
 
@@ -7,8 +8,8 @@ beforeEach(() => {
   presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
-  cy.get(`[data-cy="SidebarMenuItem_Gène"]`).click({force: true});
-  cy.get('button[class*="UploadIdsButton"]').click({force: true});
+  cy.get(`[data-cy="SidebarMenuItem_Gène"]`).clickAndWait({force: true});
+  cy.get('button[class*="UploadIdsButton"]').clickAndWait({force: true});
   cy.get('[class*="UploadModal"] textarea').type('prdx1,nkefa ensg00000117450\nunknown');
 });
 
@@ -30,14 +31,14 @@ describe('Page des variants d\'un patient (paired) - Téléverser une liste de g
 
   it('Valider les fonctionnalités de la modal - Bouton Supprimer', () => {
     cy.get('[class*="UploadModal"] textarea').contains('prdx1').should('exist');
-    cy.get('[class*="UploadModal"] button[class*="ant-btn-text"]').click({force: true});
+    cy.get('[class*="UploadModal"] button[class*="ant-btn-text"]').clickAndWait({force: true});
 
     cy.get('[class*="UploadModal"] textarea').contains('prdx1').should('not.exist');
     cy.get('[class*="UploadModal"] button[class*="ant-btn-text"]').should('not.exist');
   });
   
   it('Valider les fonctionnalités de la modal - Bouton Annuler', () => {
-    cy.get('[class="ant-modal-footer"] button[class*="ant-btn-default"]').click({force: true});
+    cy.get('[class="ant-modal-footer"] button[class*="ant-btn-default"]').clickAndWait({force: true});
 
     cy.get('body').contains('Utiliser les filtres pour créer une requête').should('exist');
   });
@@ -45,15 +46,15 @@ describe('Page des variants d\'un patient (paired) - Téléverser une liste de g
   it('Valider les fonctionnalités de la modal - Section Résumé masquable [CLIN-2624]', () => {
     cy.get('[class*="UploadModal"] [class="ant-collapse-header-text"]').contains('Résumé (3 reconnus, 1 inconnus)').should('exist');
 
-    cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[class*="UploadModal"] div[class*="ant-collapse-content-active"]').should('exist');
 
-    cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[class*="UploadModal"] div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
   });
 
   it('Vérifier les informations affichées - Section Résumé (onglet Reconnus) [CLIN-2624]', () => {
-    cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
 
     cy.get('[class*="UploadModal_tablesMessages"]').contains('4 identifiants soumis correspondant à 1 identifiants système uniques').should('exist');
     cy.get('[data-node-key="matched"]').contains('Reconnus (3)').should('exist');
@@ -73,8 +74,8 @@ describe('Page des variants d\'un patient (paired) - Téléverser une liste de g
   });
 
   it('Vérifier les informations affichées - Section Résumé (onglet Inconnus) [CLIN-2904, CLIN-2624]', () => {
-    cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').click({force: true});
-    cy.get('[data-node-key="unmatched"]').click({force: true});
+    cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
+    cy.get('[data-node-key="unmatched"]').clickAndWait({force: true});
 
     cy.get('[data-node-key="unmatched"]').contains('Inconnus (1)').should('exist');
     cy.get('[id*="panel-unmatched"] thead').contains('Identifiants soumis').should('exist');
@@ -94,7 +95,7 @@ describe('Page des variants d\'un patient (paired) - Téléverser une liste de g
     cy.validateTableResultsCount('Aucun résultat');
     cy.get('[class*="ant-select-show-search"] [class="ant-tag"]').should('not.exist');
 
-    cy.get('[class*="QueryValues_queryValuesContainer"]').contains('Liste téléversée').click({force:true});
+    cy.get('[class*="QueryValues_queryValuesContainer"]').contains('Liste téléversée').clickAndWait({force:true});
     cy.get('[class*="filtersDropdown"]').should('not.exist');
   });
 });

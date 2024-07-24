@@ -39,15 +39,15 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   });
  
   it('Valider les liens disponibles', () => {
-    cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"]').contains(/^191$/).click({force: true});
+    cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"]').contains(/^191$/).clickAndWait({force: true});
     cy.contains('LOSS:chr1:450731-7249626').should('exist');
     cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
 
-    cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"]').contains(/^[^,]+,[^,]+,[^,]+...$/).click({force: true});
+    cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"]').contains(/^[^,]+,[^,]+,[^,]+...$/).clickAndWait({force: true});
     cy.contains('LOSS:chr1:450731-7249626').should('exist');
     cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
 
-    cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"]').find('svg[class="anticon"]').click({force: true});
+    cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"]').find('svg[class="anticon"]').clickAndWait({force: true});
     cy.contains('Alignement et variant').should('exist');
     cy.contains('Zoom in to see features').should('exist');
     cy.contains('ERROR').should('not.exist');

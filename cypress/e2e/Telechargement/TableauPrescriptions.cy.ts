@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 import { Replacement } from '../../support/commands';
-import { getDateTime } from '../../support/utils';
+import { getDateTime, oneMinute } from '../../support/utils';
 
 const { strDate } = getDateTime();
 let epCHUSJ_ldmCHUSJ: any;
@@ -13,6 +13,7 @@ beforeEach(() => {
   cy.visitPrescriptionsPage();
 
   cy.clickAndIntercept('div[id="content"] svg[data-icon="download"]', 'POST', '**/graphql', 3);
+  cy.waitUntilFile(oneMinute);
 });
 
 describe('Page des prescriptions et requêtes - Exporter les prescriptions en TSV', () => {

@@ -93,7 +93,7 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(14, 'SIFT');
   });
 
-  it('Pathogénicité - SpliceAI', () => {
+  it('Pathogénicité - SpliceAI [CLIN-3037]', () => {
     cy.validateFacetNumFilter('Pathogénicité', 'SpliceAI', '0.01', /^154 143$/);
     cy.validateFacetRank(15, 'SpliceAI');
   });

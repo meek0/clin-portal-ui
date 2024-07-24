@@ -12,7 +12,7 @@ describe('Page de la couverture génique d\'un patient - Colonnes du tableau', (
 
   beforeEach(() => {
     cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
-    cy.get('[data-cy="RadioButton_CouvertureGenique"]').click({force: true});
+    cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
     cy.resetColumns(0);
   });
 

@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 import { Replacement } from '../../support/commands';
-import { getDateTime } from '../../support/utils';
+import { getDateTime, oneMinute } from '../../support/utils';
 
 const { strDate } = getDateTime();
 let epCHUSJ_ldmCHUSJ: any;
@@ -13,13 +13,12 @@ beforeEach(() => {
   cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
 
   cy.get('[class*="Header_contentHeader"] button[class*="ant-btn-primary"]').click({force: true});
-  cy.waitUntilFile(60*1000);
+  cy.waitUntilFile(oneMinute);
 });
 
 describe('Télécharger la prescription', () => {
   it('Valider le nom du fichier', () => {
     cy.validateFileName(epCHUSJ_ldmCHUSJ.prescriptionId+'_'+strDate+'T*.pdf');
-
   });
 
   it('Valider le contenu du fichier [CLIN-PRESC-269]', () => {

@@ -36,18 +36,18 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
   });
  
   it('Valider les liens disponibles Lien Requête', () => {
-    cy.get('tr[data-row-key="16776.hard-filtered.gvcf.gz"]').contains(epCHUSJ_ldmCHUSJ.requestFthId).click({force: true});
+    cy.get('tr[data-row-key="16776.hard-filtered.gvcf.gz"]').contains(epCHUSJ_ldmCHUSJ.requestFthId).clickAndWait({force: true});
 
-    cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist', {timeout: 20*1000});
+    cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
     cy.get('div[aria-selected="true"]').contains('Détails').should('exist');
   });
  
   it('Valider les liens disponibles Lien Analyse bioinfo', () => {
     cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
-    cy.get('tr[data-row-key="16776.hard-filtered.gvcf.gz"]').contains(epCHUSJ_ldmCHUSJ.bioAnalFthId).click({force: true});
-    cy.wait('@getPOSTgraphql', {timeout: 20*1000});
+    cy.get('tr[data-row-key="16776.hard-filtered.gvcf.gz"]').contains(epCHUSJ_ldmCHUSJ.bioAnalFthId).clickAndWait({force: true});
+    cy.wait('@getPOSTgraphql');
 
-    cy.contains('Analyse bioinformatique : '+epCHUSJ_ldmCHUSJ.bioAnalFthId).should('exist', {timeout: 20*1000});
+    cy.contains('Analyse bioinformatique : '+epCHUSJ_ldmCHUSJ.bioAnalFthId).should('exist');
   });
   
   it('Valider les fonctionnalités du tableau - Tri Format', () => {

@@ -76,25 +76,25 @@ describe('Page d\'une analyse bioinformatique (paired) - Vérifier les informati
 describe('Page d\'une analyse bioinformatique (paired) - Valider les panneaux masquables', () => {
   it('Panneau Échantillons', () => {
     cy.get('[data-cy="SamplesCard_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="SamplesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="SamplesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="SamplesCard_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="SamplesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="SamplesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="SamplesCard_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 
   it('Panneau Fichiers de données', () => {
     cy.get('[data-cy="FilesCard_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="FilesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="FilesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="FilesCard_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="FilesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="FilesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="FilesCard_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 
   it('Panneau Analyses connexes', () => {
     cy.get('[data-cy="RelatedAnalysesCard_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="RelatedAnalysesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="RelatedAnalysesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="RelatedAnalysesCard_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="RelatedAnalysesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="RelatedAnalysesCard_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="RelatedAnalysesCard_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 });

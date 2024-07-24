@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 import { Replacement } from '../../support/commands';
-import { getDateTime } from '../../support/utils';
+import { getDateTime, oneMinute } from '../../support/utils';
 
 const { strDate } = getDateTime();
 let presc_SOMATIC: any;
@@ -15,9 +15,9 @@ beforeEach(() => {
 
 describe('Télécharger le rapport d\'un variant d\'un patient (somatic)', () => {
   beforeEach(() => {
-    cy.get('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('button[class*="ant-dropdown-trigger"]').click({force: true});
-    cy.get('[data-menu-id*="downloadReport"]').click({force: true});
-    cy.waitUntilFile(60*1000);
+    cy.get('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
+    cy.get('[data-menu-id*="downloadReport"]').clickAndWait({force: true});
+    cy.waitUntilFile(oneMinute);
   });
 
   it('Valider le nom du fichier', () => {
@@ -35,9 +35,9 @@ describe('Télécharger le rapport d\'un variant d\'un patient (somatic)', () =>
 
 describe('Télécharger le rapport d\'un variant d\'un patient du tiroir (somatic)', () => {
   beforeEach(() => {
-    cy.get('[data-cy="drawerCb_chr10:g.1096268T>C"]').click({force: true});
-    cy.get('[class="ant-drawer-content-wrapper"] button[class*="ant-btn-default"]').click({force: true});
-    cy.waitUntilFile(60*1000);
+    cy.get('[data-cy="drawerCb_chr10:g.1096268T>C"]').clickAndWait({force: true});
+    cy.get('[class="ant-drawer-content-wrapper"] button[class*="ant-btn-default"]').clickAndWait({force: true});
+    cy.waitUntilFile(oneMinute);
   });
 
   it('Valider le nom du fichier', () => {

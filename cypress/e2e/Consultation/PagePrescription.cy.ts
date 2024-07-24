@@ -108,77 +108,77 @@ describe('Page d\'une prescription - Valider les liens disponibles', () => {
   it('Lien Fichiers du tableau Requête (Cas-index)', () => {
     cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestProbId+'"]', 'POST', '**/$graphql*', 1);
     cy.resetColumns(0);
-    cy.contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist', {timeout: 20*1000});
+    cy.contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist');
   });
 
   it('Lien Analyse (Cas-index)', () => {
     cy.clickAndIntercept('[data-cy="ClinicalInformation_CollapsePanel"] [href*="/bioinformatics-analysis/"]', 'POST', '**/$graphql*', 1);
-    cy.contains(`Analyse bioinformatique : ${epCHUSJ_ldmCHUSJ.bioAnalProbId}`).should('exist', {timeout: 20*1000});
+    cy.contains(`Analyse bioinformatique : ${epCHUSJ_ldmCHUSJ.bioAnalProbId}`).should('exist');
   });
 
   it('Lien Fichiers du tableau Analyse (Cas-index)', () => {
     cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestProbId+'"]', 'POST', '**/$graphql*', 1, 1);
     cy.resetColumns(0);
-    cy.contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist', {timeout: 20*1000});
+    cy.contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist');
   });
 
   it('Lien Fichiers du tableau Requête (Mère)', () => {
     cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestMthId+'"]', 'POST', '**/$graphql*', 1);
     cy.resetColumns(0);
-    cy.contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist', {timeout: 20*1000});
+    cy.contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist');
   });
 
   it('Lien Analyse (Mère)', () => {
     cy.clickAndIntercept('[data-cy="ParentCard_Mère_CollapsePanel"] [href*="/bioinformatics-analysis/"]', 'POST', '**/$graphql*', 1);
-    cy.contains(`Analyse bioinformatique : ${epCHUSJ_ldmCHUSJ.bioAnalMthId}`).should('exist', {timeout: 20*1000});
+    cy.contains(`Analyse bioinformatique : ${epCHUSJ_ldmCHUSJ.bioAnalMthId}`).should('exist');
   });
 
   it('Lien Fichiers du tableau Analyse (Mère)', () => {
     cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestMthId+'"]', 'POST', '**/$graphql*', 1, 1);
     cy.resetColumns(0);
-    cy.contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist', {timeout: 20*1000});
+    cy.contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist');
   });
 
   it('Lien Fichiers du tableau Requête (Père)', () => {
     cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestFthId+'"]', 'POST', '**/$graphql*', 1);
     cy.resetColumns(0);
-    cy.contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist', {timeout: 20*1000});
+    cy.contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist');
   });
 
   it('Lien Analyse (Père)', () => {
     cy.clickAndIntercept('[data-cy="ParentCard_Père_CollapsePanel"] [href*="/bioinformatics-analysis/"]', 'POST', '**/$graphql*', 1);
-    cy.contains(`Analyse bioinformatique : ${epCHUSJ_ldmCHUSJ.bioAnalFthId}`).should('exist', {timeout: 20*1000});
+    cy.contains(`Analyse bioinformatique : ${epCHUSJ_ldmCHUSJ.bioAnalFthId}`).should('exist');
   });
 
   it('Lien Fichiers du tableau Analyse (Père)', () => {
     cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestFthId+'"]', 'POST', '**/$graphql*', 1, 1);
     cy.resetColumns(0);
-    cy.contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist', {timeout: 20*1000});
+    cy.contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist');
   });
 });
 
 describe('Page d\'une prescription - Valider les panneaux masquables', () => {
   it('Panneau Information clinique', () => {
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="ClinicalInformation_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="ClinicalInformation_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 
   it('Panneau Mère', () => {
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 
   it('Panneau Père', () => {
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"]').find('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').click({force: true});
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"]').find('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"]').find('div[class*="ant-collapse-content-active"]').should('exist');
   });
 });

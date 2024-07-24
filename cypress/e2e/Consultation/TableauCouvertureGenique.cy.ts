@@ -7,7 +7,7 @@ beforeEach(() => {
   epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
-  cy.get('[data-cy="RadioButton_CouvertureGenique"]').click({force: true});
+  cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
   cy.resetColumns(0);
 });
 
@@ -30,7 +30,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
  
   it('Valider les liens disponibles Lien SNV', () => {
-    cy.get('tr[data-row-key]').eq(6).find('td').eq(1).find('[id="snv"]').click({force: true});
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(1).find('[id="snv"]').clickAndWait({force: true});
     cy.get('[class*="ant-radio-button-wrapper-checked"]').contains('SNV').should('exist');
     cy.get('[class*="QueryBar_selected"]').find('[class*="QueryPill_field"]').contains(/^Gène$/).should('exist');
     cy.get('[class*="QueryBar_selected"]').find('[class*="QueryValues_value"]').contains('RPL41').should('exist');
@@ -38,7 +38,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
  
   it('Valider les liens disponibles Lien CNV', () => {
-    cy.get('tr[data-row-key]').eq(6).find('td').eq(1).find('[id="cnv"]').click({force: true});
+    cy.get('tr[data-row-key]').eq(6).find('td').eq(1).find('[id="cnv"]').clickAndWait({force: true});
     cy.get('[class*="ant-radio-button-wrapper-checked"]').contains('CNV').should('exist');
     cy.get('[class*="QueryBar_selected"]').find('[class*="QueryPill_field"]').contains(/^Gènes$/).should('exist');
     cy.get('[class*="QueryBar_selected"]').find('[class*="QueryValues_value"]').contains('RPL41').should('exist');

@@ -7,7 +7,7 @@ beforeEach(() => {
   presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCQPatientPage(presc_SOMATIC.prescriptionId);
-  cy.get('[data-cy="RadioButton_CouvertureGenique"]').click({force: true});
+  cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
   cy.resetColumns(0);
 });
 

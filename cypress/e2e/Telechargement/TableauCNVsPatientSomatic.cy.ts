@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-import { getDateTime } from '../../support/utils';
+import { getDateTime, oneMinute } from '../../support/utils';
 
 const { strDate } = getDateTime();
 let presc_SOMATIC: any;
@@ -12,8 +12,8 @@ beforeEach(() => {
   cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
 
   cy.get('div[role="tabpanel"]').find('tr[data-row-key="230d341fb95184d399ab5a5a00f5bbc709f92c5f"]').find('[type="checkbox"]').check({force: true});
-  cy.get('div[id="content"] svg[data-icon="download"]').click({force: true});
-  cy.waitUntilFile(60*1000);
+  cy.get('div[id="content"] svg[data-icon="download"]').clickAndWait({force: true});
+  cy.waitUntilFile(oneMinute);
 });
 
 describe('Page des CNVs d\'un patient (somatic) - Exporter les CNVs en TSV', () => {

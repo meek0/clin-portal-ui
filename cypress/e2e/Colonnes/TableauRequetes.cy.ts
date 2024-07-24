@@ -9,7 +9,7 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des requête
 
   beforeEach(() => {
     cy.visitPrescriptionsPage();
-    cy.get('div[id*="tab-requests"]').click({force: true});
+    cy.get('div[id*="tab-requests"]').clickAndWait({force: true});
 
     cy.resetColumns(1);
   });

@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-import { getDateTime } from '../../support/utils';
+import { getDateTime, oneMinute } from '../../support/utils';
 
 const { strDate } = getDateTime();
 let presc_PAIRED: any;
@@ -12,8 +12,8 @@ beforeEach(() => {
   cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
 
   cy.get('div[role="tabpanel"]').find('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"]').find('[type="checkbox"]').check({force: true});
-  cy.get('div[id="content"] svg[data-icon="download"]').click({force: true});
-  cy.waitUntilFile(60*1000);
+  cy.get('div[id="content"] svg[data-icon="download"]').clickAndWait({force: true});
+  cy.waitUntilFile(oneMinute);
 });
 
 describe('Page des variants d\'un patient (paired) - Exporter un variant en TSV', () => {

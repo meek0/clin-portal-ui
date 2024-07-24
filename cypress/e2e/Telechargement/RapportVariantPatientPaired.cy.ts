@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 import { Replacement } from '../../support/commands';
-import { getDateTime } from '../../support/utils';
+import { getDateTime, oneMinute } from '../../support/utils';
 
 const { strDate } = getDateTime();
 let presc_PAIRED: any;
@@ -15,9 +15,9 @@ beforeEach(() => {
 
 describe('Télécharger le rapport d\'un variant d\'un patient (paired)', () => {
   beforeEach(() => {
-    cy.get('div[role="tabpanel"]').find('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"]').find('button[class*="ant-dropdown-trigger"]').click({force: true});
-    cy.get('[data-menu-id*="downloadReport"]').click({force: true});
-    cy.waitUntilFile(60*1000);
+    cy.get('div[role="tabpanel"]').find('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
+    cy.get('[data-menu-id*="downloadReport"]').clickAndWait({force: true});
+    cy.waitUntilFile(oneMinute);
   });
 
   it('Valider le nom du fichier', () => {
@@ -35,9 +35,9 @@ describe('Télécharger le rapport d\'un variant d\'un patient (paired)', () => 
 
 describe('Télécharger le rapport d\'un variant d\'un patient du tiroir (paired)', () => {
   beforeEach(() => {
-    cy.get('[data-cy="drawerCb_chr10:g.17617338A>C"]').click({force: true});
-    cy.get('[class="ant-drawer-content-wrapper"] button[class*="ant-btn-default"]').click({force: true});
-    cy.waitUntilFile(60*1000);
+    cy.get('[data-cy="drawerCb_chr10:g.17617338A>C"]').clickAndWait({force: true});
+    cy.get('[class="ant-drawer-content-wrapper"] button[class*="ant-btn-default"]').clickAndWait({force: true});
+    cy.waitUntilFile(oneMinute);
   });
 
   it('Valider le nom du fichier', () => {

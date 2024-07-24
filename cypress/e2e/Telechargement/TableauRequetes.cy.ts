@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 import { Replacement } from '../../support/commands';
-import { getDateTime } from '../../support/utils';
+import { getDateTime, oneMinute } from '../../support/utils';
 
 const { strDate } = getDateTime();
 let epCHUSJ_ldmCHUSJ: any;
@@ -11,9 +11,10 @@ beforeEach(() => {
 
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitPrescriptionsPage();
-  cy.get('div[id*="tab-requests"]').click({force: true});
+  cy.get('div[id*="tab-requests"]').clickAndWait({force: true});
 
   cy.clickAndIntercept('div[id="content"] svg[data-icon="download"]', 'POST', '**/graphql', 3, 1);
+  cy.waitUntilFile(oneMinute);
 });
 
 describe('Page des prescriptions et requêtes - Exporter les requêtes en TSV', () => {

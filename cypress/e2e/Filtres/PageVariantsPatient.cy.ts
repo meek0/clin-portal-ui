@@ -7,8 +7,7 @@ beforeEach(() => {
   epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
-  cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').click({force: true});
-  cy.waitWhileSpin(2000);
+  cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').clickAndWait({force: true});
 });
 
 describe('Page des variants d\'un patient - Filtres', () => {
@@ -38,8 +37,8 @@ describe('Page des variants d\'un patient - Filtres', () => {
   });
 
   it('Sélectionner un filtre dans la dropdown', () => {
-    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
-    cy.get('[class*="ant-dropdown-menu-item"]').contains('Cypress_F1').click({force: true});
+    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
+    cy.get('[class*="ant-dropdown-menu-item"]').contains('Cypress_F1').clickAndWait({force: true});
 
     cy.get('[id="query-builder-header-tools"] [class*="Header_togglerTitle"]').contains(/^Cypress_F1$/).should('exist');
     cy.validateSelectedFilterInDropdown('Cypress_F1');
@@ -51,8 +50,8 @@ describe('Page des variants d\'un patient - Filtres', () => {
   });
 
   it('Renommer un filtre par la querybar', () => {
-    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
-    cy.get('[class*="ant-dropdown-menu-item"]').contains(/^Cypress_F1$/).click({force: true});
+    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
+    cy.get('[class*="ant-dropdown-menu-item"]').contains(/^Cypress_F1$/).clickAndWait({force: true});
     cy.saveFilterAs('Cypress_FA');
 
     cy.get('[id="query-builder-header-tools"] [class*="Header_togglerTitle"]').contains(/^Cypress_FA$/).should('exist');
@@ -68,9 +67,9 @@ describe('Page des variants d\'un patient - Filtres', () => {
   });
 
   it('Renommer un filtre par le manager', () => {
-    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
-    cy.get('[data-menu-id*="manage-my-filters"]').click({force: true});
-    cy.get('[class="ant-modal-content"]').contains(/^Cypress_F1$/).parentsUntil('li[class*="ListItemWithActions"]').parent().find('[data-icon="edit"]').click({force: true});
+    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
+    cy.get('[data-menu-id*="manage-my-filters"]').clickAndWait({force: true});
+    cy.get('[class="ant-modal-content"]').contains(/^Cypress_F1$/).parentsUntil('li[class*="ListItemWithActions"]').parent().find('[data-icon="edit"]').clickAndWait({force: true});
     cy.get('[class="ant-modal-content"] input').clear().type('Cypress_FA');
     cy.get(`[class="ant-modal-content"] input[value="Cypress_FA"]`).should('exist');
     cy.clickAndIntercept('[class="ant-modal-content"] button[class*="ant-btn-primary"]', 'PUT', '**/saved-filters/**', 1, 1);
@@ -83,9 +82,9 @@ describe('Page des variants d\'un patient - Filtres', () => {
   });
 
   it('Dupliquer un filtre sans sauvegarder [CLIN-2762]', () => {
-    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
-    cy.get('[class*="ant-dropdown-menu-item"]').contains('Cypress_F1').click({force: true});
-    cy.get('[id="query-builder-header-tools"] [data-icon="copy"]').click({force: true});
+    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
+    cy.get('[class*="ant-dropdown-menu-item"]').contains('Cypress_F1').clickAndWait({force: true});
+    cy.get('[id="query-builder-header-tools"] [data-icon="copy"]').clickAndWait({force: true});
     
     cy.get('[id="query-builder-header-tools"] [class*="Header_togglerTitle"]').contains(/^Cypress_F1 COPIÉ$/).should('exist');
     cy.get('[class*="ant-dropdown-menu-item"]').contains('Cypress_F1 COPIÉ').should('not.exist');
@@ -98,10 +97,10 @@ describe('Page des variants d\'un patient - Filtres', () => {
   });
 
   it('Dupliquer un filtre et sauvegarder [CLIN-2762]', () => {
-    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
-    cy.get('[class*="ant-dropdown-menu-item"]').contains('Cypress_F1').click({force: true});
-    cy.get('[id="query-builder-header-tools"] [data-icon="copy"]').click({force: true});
-    cy.get('[id="query-builder-header-tools"] [data-icon="save"]').click({force: true});
+    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
+    cy.get('[class*="ant-dropdown-menu-item"]').contains('Cypress_F1').clickAndWait({force: true});
+    cy.get('[id="query-builder-header-tools"] [data-icon="copy"]').clickAndWait({force: true});
+    cy.get('[id="query-builder-header-tools"] [data-icon="save"]').clickAndWait({force: true});
     
     cy.get('[id="query-builder-header-tools"] [class*="Header_togglerTitle"]').contains(/^Cypress_F1 COPIÉ$/).should('exist');
     cy.get('[class*="ant-dropdown-menu-item"]').contains('Cypress_F1 COPIÉ').should('not.exist');
@@ -115,9 +114,9 @@ describe('Page des variants d\'un patient - Filtres', () => {
 
   // Ne fonctionne pas, le popup "Copy to clipboard: ⌘+C, Enter" s'affiche et bloque le test
   it.skip('Copier l\'url d\'un filtre', () => {
-    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
-    cy.get('[class*="ant-dropdown-menu-item"]').contains('Cypress_F1').click({force: true});
-    cy.get('[id="query-builder-header-tools"] [data-icon="share-alt"]').click({force: true});
+    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
+    cy.get('[class*="ant-dropdown-menu-item"]').contains('Cypress_F1').clickAndWait({force: true});
+    cy.get('[id="query-builder-header-tools"] [data-icon="share-alt"]').clickAndWait({force: true});
     // TODO: Récupérer l'rul copié et la valider
   });
 });
@@ -141,9 +140,9 @@ describe('Page des variants d\'un patient - Filtres', () => {
   });
 
   it('Supprimer un filtre par le manager', () => {
-    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').click({force: true});
-    cy.get('[data-menu-id*="manage-my-filters"]').click({force: true});
-    cy.get('[class="ant-modal-content"]').contains('Cypress_F2').parentsUntil('li[class*="ListItemWithActions"]').parent().find('[data-icon="delete"]').click({force: true});
+    cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
+    cy.get('[data-menu-id*="manage-my-filters"]').clickAndWait({force: true});
+    cy.get('[class="ant-modal-content"]').contains('Cypress_F2').parentsUntil('li[class*="ListItemWithActions"]').parent().find('[data-icon="delete"]').clickAndWait({force: true});
     cy.clickAndIntercept('[class="ant-modal-content"] button[class*="ant-btn-dangerous"]', 'POST', '**/graphql', 1);
     cy.get('button[class="ant-modal-close"]').invoke('click');
     

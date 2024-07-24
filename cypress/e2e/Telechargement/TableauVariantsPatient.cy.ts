@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-import { getDateTime } from '../../support/utils';
+import { getDateTime, oneMinute } from '../../support/utils';
 
 const { strDate } = getDateTime();
 let epCHUSJ_ldmCHUSJ: any;
@@ -12,8 +12,8 @@ beforeEach(() => {
   cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 
   cy.get('div[role="tabpanel"]').find('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('[type="checkbox"]').check({force: true});
-  cy.get('div[id="content"] svg[data-icon="download"]').click({force: true});
-  cy.waitUntilFile(60*1000);
+  cy.get('div[id="content"] svg[data-icon="download"]').clickAndWait({force: true});
+  cy.waitUntilFile(oneMinute);
 });
 
 describe('Page des variants d\'un patient - Exporter un variant en TSV', () => {

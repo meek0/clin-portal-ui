@@ -20,19 +20,19 @@ beforeEach(() => {
 
 describe('Page des variants d\'un patient (somatic) - Consultation du tableau', () => { 
   it('Valider les liens disponibles Lien UCSC', () => {
-    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('button[class*="ant-dropdown-trigger"]').click({force: true});
+    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
     cy.get('[data-menu-id*="UCSC"]').find('a[href]')
       .should('have.attr', 'href', 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr10%3A1096268-1096269');
   });
  
   it('Valider les liens disponibles Lien LitVar', () => {
-    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('button[class*="ant-dropdown-trigger"]').click({force: true});
+    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
     cy.get('[data-menu-id*="LitVAR"]').find('a[href]')
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/research/litvar2/docsum?text=rs10794716');
   });
  
   it('Valider les liens disponibles Lien Variant', () => {
-    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').contains('chr10:g.1096268T>C').invoke('removeAttr', 'target').click({force: true});
+    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').contains('chr10:g.1096268T>C').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.get('[data-cy="Summary_Start"]').contains('1 096 268').should('exist');
   });
  
@@ -47,7 +47,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
  
   it('Valider les liens disponibles Lien Gène Plus', () => {
-    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(6).find('[data-icon="plus"]').click({force: true});
+    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(6).find('[data-icon="plus"]').clickAndWait({force: true});
     cy.validatePillSelectedQuery('Gène', ['WDR37']);
   });
  
@@ -67,12 +67,12 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
  
   it('Valider les liens disponibles Lien RQDM G', () => {
-    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(16).find('a[href]').click({force: true});
+    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(16).find('a[href]').clickAndWait({force: true});
     cy.validateTableResultsCount(/^13\d{1}$/);
   });
  
   it('Valider les liens disponibles Lien RQDM TO', () => {
-    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(17).find('a[href]').click({force: true});
+    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('td').eq(17).find('a[href]').clickAndWait({force: true});
     cy.validateTableResultsCount(/^13\d{1}$/);
   });
 });
