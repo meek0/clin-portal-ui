@@ -1,7 +1,10 @@
+import axios from 'axios';
 import { VariantType } from 'graphql/variants/models';
 
 import { GENDER, PATIENT_POSITION } from 'utils/constants';
 import { generateTracks, getHyperXenomeTrack } from 'utils/IGV';
+
+jest.mock('axios');
 
 const files = {
   docs: [
@@ -97,6 +100,15 @@ const files_with_aliquot_id = {
     },
   ],
 };
+
+beforeEach(() => {
+  // Mocking axios
+  axios.get.mockImplementation(async () => ({
+    data: {
+      url: 'mockedUrl',
+    },
+  }));
+});
 
 describe('generateTracks', () => {
   test('Should generate tracks', () => {

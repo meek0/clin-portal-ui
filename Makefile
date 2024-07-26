@@ -41,6 +41,5 @@ ferlab_local:
 	npm install ../ferlab-ui/packages/ui
 
 ferlab_external:
-	sed -if '/@ferlab\/ui/d' ./package.json
+	sed -i '' '/@ferlab\/ui/d' ./package.json
 	npm install @ferlab/ui
-
