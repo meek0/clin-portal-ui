@@ -156,18 +156,17 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
 
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(0).contains('HPO').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(1).contains('MMACHC').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Homocystinuria').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Hemolytic-uremic syndrome').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Dementia').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Lethargy').should('not.exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Pigmentary retinopathy').should('exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Autosomal recessive inheritance').should('exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Hematuria').should('not.exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Voir plus').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(0).contains('HPO').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(1).contains('PRDX1').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Abnormality of extrapyramidal motor function').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Dementia').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Homocystinuria').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Muscular hypotonia').should('not.exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Hematuria').should('exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Reduced visual acuity').should('exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Neutropenia').should('exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Renal insufficiency').should('not.exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Voir plus').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_DDD_MMACHC"]').find('td[class="ant-table-cell"]').eq(0).contains('DDD').should('exist');
@@ -256,15 +255,15 @@ describe('Page d\'un variant (onglet Résumé) - Valider les liens disponibles',
   });
   
   it('Lien HPO de la condition de la section Gène - Phénotype', () => {
-    cy.get('[data-cy="ClinicalCard_GenePhenotype_HpoCondition_HP:0002071_ExternalLink"]')
-      .should('have.attr', 'href', 'https://hpo.jax.org/app/browse/term/HP:0002071');
+    cy.get('[data-cy="ClinicalCard_GenePhenotype_HpoCondition_HP:0000790_ExternalLink"]')
+      .should('have.attr', 'href', 'https://hpo.jax.org/app/browse/term/HP:0000790');
   });
   
   it('Lien \'See more\' de la condition de la section Gène - Phénotype', () => {
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Voir plus').click({force: true});
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Lethargy').should('exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Renal insufficiency').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Voir moins').click({force: true});
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Lethargy').should('not.exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').contains('Renal insufficiency').should('not.exist');
   });
 });
 
