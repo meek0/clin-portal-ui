@@ -203,10 +203,10 @@ Cypress.Commands.add('validateClearAllButton', (shouldExist: boolean) => {
 });
 
 Cypress.Commands.add('validateDictionnaryNewValues', (section: string, facetTitle: string, dictionnary: (string|RegExp)[], moreButton: boolean = false) => {
-  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
+  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).click({force: true});
 
   if (section !== 'Panel RQDM') {
-    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).clickAndWait({force: true});
+    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).click({force: true});
   }
   
   cy.get(`[data-cy="Button_Dict_${facetTitle}"]`).click({force: true});
@@ -218,16 +218,16 @@ Cypress.Commands.add('validateDictionnaryNewValues', (section: string, facetTitl
   }
     
   // Aucune nouvelle valeur n'est présente dans la facette
-  cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').clickAndWait({force: true});
+  cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').click({force: true});
   cy.waitWhileSpin(2000);
   cy.get(`[data-cy*="Checkbox_${facetTitle}_"]`).its('length').should('eq', dictionnary.length);
 });
 
 Cypress.Commands.add('validateDictionnaryPresetValues', (section: string, facetTitle: string, dictionnary: (string|RegExp)[], moreButton: boolean = false) => {
-  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
+  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).click({force: true});
 
   if (section !== 'Panel RQDM') {
-    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).clickAndWait({force: true});
+    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).click({force: true});
   }
   
   cy.get(`[data-cy="Button_Dict_${facetTitle}"]`).click({force: true});
@@ -492,9 +492,10 @@ Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, rout
   cy.intercept(methodHTTP, routeMatcher).as('getRouteMatcher');
 
   cy.visit(url);
+  cy.waitWhileSpin(oneMinute);
 
   for (let i = 0; i < nbCalls; i++) {
-    cy.wait('@getRouteMatcher', {timeout: oneMinute});
+    cy.wait('@getRouteMatcher');
   };
 
   cy.waitWhileSpin(oneMinute);
@@ -605,6 +606,7 @@ Cypress.Commands.add('waitUntilFile', (ms: number) => {
     });
   }
 
+  cy.wait(2000);
   return checkFile();
 });
 

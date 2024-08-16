@@ -7,7 +7,7 @@ beforeEach(() => {
   epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
-  cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
+  cy.get('[data-cy="RadioButton_CouvertureGenique"]').click({force: true});
   cy.resetColumns(0);
 });
 
@@ -27,7 +27,8 @@ describe('Page de la couverture génique d\'un patient - Rechercher', () => {
     cy.get('[data-cy="SearchBox"]').parent().find('[class="ant-input-clear-icon"]').should('exist');
     cy.get('[data-cy="SelectPanel"] [class="ant-select-clear"]').should('not.exist');
 
-    cy.get('[data-cy="SelectPanel"]').click({force:true});
+    cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
+    cy.get('[data-cy="SelectPanel"]').click();
     cy.get('[data-cy="__missing__"]').should('exist');
     cy.get('[data-cy="MMG"]').should('not.exist');
 
@@ -50,6 +51,7 @@ describe('Page de la couverture génique d\'un patient - Filtrer', () => {
     cy.get('[data-cy="SearchBox"]').parent().find('[class="ant-input-clear-icon"]').should('not.exist');
     cy.get('[data-cy="SelectPanel"] [class="ant-select-clear"]').should('not.exist');
 
+    cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
     cy.get('[data-cy="SelectPanel"]').click();
     cy.clickAndIntercept('[data-cy="MMG"]', 'POST', '*/graphql', 1);
     
@@ -79,6 +81,7 @@ describe('Page de la couverture génique d\'un patient - Rechercher et filtrer',
     cy.get('[data-cy="SearchBox"]').parent().find('[class="ant-input-clear-icon"]').should('not.exist');
     cy.get('[data-cy="SelectPanel"] [class="ant-select-clear"]').should('not.exist');
 
+    cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
     cy.get('[data-cy="SelectPanel"]').click();
     cy.clickAndIntercept('[data-cy="MMG"]', 'POST', '*/graphql', 1);
     cy.typeAndIntercept('[data-cy="SearchBox"]', 'MYMK', 'POST', '*/graphql', 4);
