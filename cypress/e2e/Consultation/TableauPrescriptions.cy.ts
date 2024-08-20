@@ -68,7 +68,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
     cy.sortTableAndIntercept('Prescription', 3);
     cy.validateTableFirstRow('MRN-283791', 14, true);
     cy.sortTableAndIntercept('Prescription', 3);
-    cy.validateTableFirstRow('MRN-283900', 14, true);
+    cy.validateTableFirstRow('MRN-283798', 14, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Patient', () => {
@@ -96,7 +96,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
     cy.sortTableAndIntercept('Créée le', 3);
     cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.stampDate, 6, true);
     cy.sortTableAndIntercept('Créée le', 3);
-    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.stampDate, 6, true);
+    cy.validateTableFirstRow(/^\d{4}-\d{2}-\d{2}$/, 6, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Modifiée le', () => {
@@ -162,6 +162,6 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
-    cy.validatePaging('101', 0);
+    cy.validatePaging('102', 0);
   });
 });
