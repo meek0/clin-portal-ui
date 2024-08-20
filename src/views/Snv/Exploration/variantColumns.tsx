@@ -291,7 +291,11 @@ const getCmcTier = (variantType: VariantType) => ({
   render: (record: VariantEntity) =>
     record.cmc?.tier ? (
       <Tag color={CmcTierColorMap[record.cmc.tier]}>
-        {intl.get(`filters.options.cmc.tier.${record.cmc.tier}`)}
+        <ExternalLink
+          href={`https://franklin.genoox.com/clinical-db/variant/snpTumor/chr${record.locus}-hg38`}
+        >
+          {intl.get(`filters.options.cmc.tier.${record.cmc.tier}`)}
+        </ExternalLink>
       </Tag>
     ) : (
       TABLE_EMPTY_PLACE_HOLDER
@@ -892,6 +896,11 @@ export const getVariantColumns = (
     render: (record: VariantEntity) =>
       record.cmc?.tier ? (
         <Tag color={CmcTierColorMap[record.cmc.tier]}>
+          <ExternalLink
+            href={`https://franklin.genoox.com/clinical-db/variant/snpTumor/chr${record.locus}-hg38`}
+          >
+            {intl.get(`filters.options.cmc.tier.${record.cmc.tier}`)}
+          </ExternalLink>
           {intl.get(`filters.options.cmc.tier.${record.cmc.tier}`)}
         </Tag>
       ) : (

@@ -61,6 +61,11 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/1185321');
   });
  
+  it('Valider les liens disponibles Lien Tier', () => {
+    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"]').find('td').eq(12).find('a[href]')
+      .should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/snpTumor/chr10-114441020-G-A-hg38');
+  });
+ 
   it('Valider les liens disponibles Lien CMC', () => {
     cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"]').find('td').eq(13).find('a[href]')
       .should('have.attr', 'href', 'https://cancer.sanger.ac.uk/cosmic/search?q=COSV53313027&genome=38#');
