@@ -13,6 +13,7 @@ beforeEach(() => {
   cy.get('div[role="tabpanel"]').find('tr[data-row-key]').eq(0).should('exist');
 
   cy.get('[class*="Header_ProTableHeader"] button[class*="ant-btn-default"]').clickAndWait({force: true});
+  cy.wait(2000);
   cy.waitUntilFile(oneMinute);
 });
 
