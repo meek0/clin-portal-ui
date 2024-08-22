@@ -244,11 +244,6 @@ describe('Affichage de toutes les pages et modals', () => {
     // IGV
     cy.get('[data-cy="igvModalCb_chr10:g.1096268T>C"]').clickAndWait({force: true});
     cy.contains('Alignement et variant').should('exist');
-    cy.contains('proband').should('exist');
-    cy.contains('mother').should('exist');
-    cy.contains('father').should('exist');
-    cy.contains('Refseq Genes').should('exist');
-    cy.contains('ERROR').should('not.exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
   });
  

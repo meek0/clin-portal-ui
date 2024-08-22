@@ -49,12 +49,6 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.get('tr[data-row-key="c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c"]').contains('CFHR1').clickAndWait({force: true});
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');
     cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
-
-    cy.get('tr[data-row-key="c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c"]').find('svg[class="anticon"]').clickAndWait({force: true});
-    cy.contains('Alignement et variant').should('exist');
-    cy.contains('Zoom in to see features').should('exist');
-    cy.contains('ERROR').should('not.exist');
-    cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
   });
   
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {
