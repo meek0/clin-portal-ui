@@ -261,6 +261,7 @@
   "filters.options.cmc.tier.2": "Tier 2",
   "filters.options.cmc.tier.3": "Tier 3",
   "filters.options.cmc.tier.Other": "Other",
+  "filters.options.cmc.tier.null": "ND",
   "filters.options.panels.MMG": "Global Muscular Diseases (MMG v1)",
   "filters.options.panels.MMG.query": "MMG v1",
   "filters.options.panels.DYSM": "Muscular Dystrophies (DYSM v1)",
