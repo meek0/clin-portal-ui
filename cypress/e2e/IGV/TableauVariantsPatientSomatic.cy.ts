@@ -9,7 +9,7 @@ beforeEach(() => {
   cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
 });
 
-describe('Page des variants d\'un patient - IGV à partir du tableau', () => {
+describe('Page des variants d\'un patient (somatic) - IGV à partir du tableau', () => {
   beforeEach(() => {
     cy.get('[data-cy="igvModalCb_chr10:g.1096268T>C"]').clickAndWait({force: true});
     cy.contains('Alignement et variant').should('exist');
@@ -33,7 +33,7 @@ describe('Page des variants d\'un patient - IGV à partir du tableau', () => {
   });
 });
 
-describe('Page des variants d\'un patient - IGV à partir du tiroir', () => {
+describe('Page des variants d\'un patient (somatic) - IGV à partir du tiroir', () => {
   beforeEach(() => {
     cy.get('[data-cy="drawerCb_chr10:g.1096268T>C"]').clickAndWait({force: true});
     cy.get('div[class*="ant-drawer-open"] button[class="ant-btn ant-btn-primary"]').clickAndWait({force: true});

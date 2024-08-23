@@ -9,7 +9,7 @@ beforeEach(() => {
   cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
 });
 
-describe('Page des variants d\'un patient - IGV à partir du tableau', () => {
+describe('Page des CNVs d\'un patient (somatic) - IGV à partir du tableau', () => {
   beforeEach(() => {
     cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"] svg[class="anticon"]').clickAndWait({force: true});
     cy.contains('Alignement et variant').should('exist');

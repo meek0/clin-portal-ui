@@ -9,7 +9,7 @@ beforeEach(() => {
   cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 });
 
-describe('Page des variants d\'un patient - IGV à partir du tableau', () => {
+describe('Page des CNVs d\'un patient - IGV à partir du tableau', () => {
   beforeEach(() => {
     cy.get('tr[data-row-key="c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c"] svg[class="anticon"]').clickAndWait({force: true});
     cy.contains('Alignement et variant').should('exist');
