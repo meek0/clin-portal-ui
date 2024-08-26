@@ -95,7 +95,7 @@ const Archives = () => {
         title: intl.get('screen.archives.search.title'),
       }}
     >
-      <ScrollContentWithFooter container>
+      <ScrollContentWithFooter dynamic={true} container>
         <Space
           direction="vertical"
           className={styles.archiveWrapper}
