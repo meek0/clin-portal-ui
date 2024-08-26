@@ -54,7 +54,7 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
 
   it('Valider les fonctionnalités du tableau - Tri Tier', () => {
     cy.sortTableAndIntercept('Tier', 1);
-    cy.validateTableFirstRow('-', 12, true);
+    cy.validateTableFirstRow('ND', 12, true);
     cy.sortTableAndIntercept('Tier', 1);
     cy.validateTableFirstRow('Other', 12, true);
   });

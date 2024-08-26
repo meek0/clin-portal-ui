@@ -82,7 +82,7 @@ describe('Page des variants - Consultation du tableau', () => {
 
   it('Valider les fonctionnalités du tableau - Tri Tier', () => {
     cy.sortTableAndIntercept('Tier', 1);
-    cy.validateTableFirstRow('-', 15, true);
+    cy.validateTableFirstRow('ND', 15, true);
     cy.sortTableAndIntercept('Tier', 1);
     cy.validateTableFirstRow('Other', 15, true);
   });

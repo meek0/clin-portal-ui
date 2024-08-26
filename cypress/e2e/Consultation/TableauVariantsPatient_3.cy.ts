@@ -193,7 +193,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').clickAndWait({force: true});
 
     cy.sortTableAndIntercept('Tier', 1);
-    cy.validateTableFirstRow('-', 31, true);
+    cy.validateTableFirstRow('ND', 31, true);
     cy.sortTableAndIntercept('Tier', 1);
     cy.validateTableFirstRow('Other', 31, true);
   });
