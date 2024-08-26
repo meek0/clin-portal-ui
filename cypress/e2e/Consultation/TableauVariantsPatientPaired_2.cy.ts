@@ -61,6 +61,11 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/1507888');
   });
  
+  it('Valider les liens disponibles Lien Tier', () => {
+    cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"]').find('td').eq(12).find('a[href]')
+      .should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/snpTumor/chr10-17617338-A-C-hg38');
+  });
+ 
   it('Valider les liens disponibles Lien RQDM G', () => {
     cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"]').find('td').eq(16).find('a[href]').clickAndWait({force: true});
     cy.validateTableResultsCount(/^1 Résultat$/);
