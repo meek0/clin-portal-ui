@@ -303,7 +303,7 @@ Cypress.Commands.add('validateFileContent', (fixture: string, replacements?: Rep
           arrReplacements.forEach((replacement) => {
             valueWithData = valueWithData.replace(replacement.placeholder, replacement.value);
           });
-          expect(fileWithData).to.include(valueWithData);
+          assert.include(fileWithData, valueWithData);
         });
       });
     });
@@ -316,7 +316,7 @@ Cypress.Commands.add('validateFileHeaders', (fixture: string) => {
       const filename = result.stdout.trim();
       cy.readFile(`${filename}`).then((file) => {
         expectedData.headers.forEach((header: any) => {
-          expect(file).to.include(header);
+          assert.include(file, header);
         });
       });
     });
@@ -352,7 +352,7 @@ Cypress.Commands.add('validatePdfFileContent', (fixture: string, replacements?: 
           arrReplacements.forEach((replacement) => {
             valueWithData = valueWithData.replace(replacement.placeholder, replacement.value);
           });
-          expect(fileWithData).to.include(valueWithData);
+          assert.include(fileWithData, valueWithData);
         });
       });
     });
@@ -374,7 +374,7 @@ Cypress.Commands.add('validateXlsxFileContent', (fixture: string, replacements?:
           arrReplacements.forEach((replacement) => {
             valueWithData = valueWithData.replace(replacement.placeholder, replacement.value);
           });
-          expect(fileWithData).to.include(valueWithData);
+          assert.include(fileWithData, valueWithData);
         });
       });
     });

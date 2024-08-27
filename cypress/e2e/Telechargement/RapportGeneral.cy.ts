@@ -22,7 +22,7 @@ describe('Télécharger le rapport général', () => {
   it('Valider le contenu du fichier', () => {
     cy.fixture('DownloadRapportGeneral.json').then((expectedData) => {
       cy.readFile(`${Cypress.config('downloadsFolder')}/16774.QC_report.json`).then((fileContent) => {
-        expect(JSON.stringify(fileContent)).to.deep.equal(JSON.stringify(expectedData));
+        assert.deepEqual(JSON.stringify(fileContent), JSON.stringify(expectedData));
       });
     });
   });
