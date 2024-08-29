@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
+import { oneMinute } from '../../support/utils';
 
 let epCHUSJ_ldmCHUSJ: any;
 
@@ -9,12 +10,12 @@ beforeEach(() => {
 });
 
 describe('Page des variants d\'un patient - Requêtes', () => {
-
   beforeEach(() => {
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd1de057e-f4e7-4245-97e0-6bab9070e799');
   });
 
   it('Validation Facette numérique ou No Data', () => {
+//  cy.wait(oneMinute); // Pour laisser IGV/TableauCouvertureGenique.cy.ts s'exécuter seul via Concourse. À supprimer suite à CLIN-2871.
     cy.validateTotalSelectedQuery('156K');
     cy.validateTableResultsCount('155 549');
   });
