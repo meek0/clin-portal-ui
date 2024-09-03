@@ -24,6 +24,17 @@ export const PRESCRIPTIONS_QUERY = gql`
             analysis_code
             status
             priority
+            sequencing_requests {
+              hits {
+                edges {
+                  node {
+                    patient_relationship
+                    patient_disease_status
+                    task_runname
+                  }
+                }
+              }
+            }
           }
         }
         total

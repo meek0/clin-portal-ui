@@ -33,6 +33,7 @@ export const commonPrescriptionFilterFields = [
   'sequencing_requests.sample',
   'sequencing_requests.patient_mrn',
   'sequencing_requests.patient_id',
+  'sequencing_requests.task_runname',
   'request_id',
   'sample',
 ];
