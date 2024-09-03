@@ -12,7 +12,6 @@ beforeEach(() => {
 
 describe('Page d\'accueil - Rechercher des prescriptions', () => {
   it('Par numéro de prescription', () => {
-    cy.wait(oneMinute); // Pour laisser IGV/TableauCouvertureGenique.cy.ts s'exécuter seul via Concourse. À supprimer suite à CLIN-2871.
     cy.get('[data-cy="PrescriptionAutoComplete"]').type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
     cy.clickAndIntercept('[data-cy="'+epCHUSJ_ldmCHUSJ.prescriptionId+'"]', 'POST', '**/$graphql*', 1);
 

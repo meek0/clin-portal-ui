@@ -15,7 +15,6 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Validation Facette numérique ou No Data', () => {
-//  cy.wait(oneMinute); // Pour laisser IGV/TableauCouvertureGenique.cy.ts s'exécuter seul via Concourse. À supprimer suite à CLIN-2871.
     cy.validateTotalSelectedQuery('156K');
     cy.validateTableResultsCount('155 549');
   });

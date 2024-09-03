@@ -18,7 +18,7 @@ describe('Page de la couverture génique d\'un patient - IGV à partir du tablea
     cy.contains('Alignement et variant').should('exist');
   });
 
-  it('Vérifier les informations affichées [CLIN-2871]', () => {
+  it('Vérifier les informations affichées [CLIN-2871]', () => { // Remettre l'exécution via Concourse suite à CLIN-2871
     cy.get('[class="igv-track-label"]').eq(0).contains('Refseq Genes').should('exist');
     cy.get('[class="igv-track-label"]').eq(1).contains('HyperExome hg38').should('exist');
     cy.get('[class="igv-track-label"]').eq(2).contains(`CNVs: ${epCHUSJ_ldmCHUSJ.sampleProbId} proband`).should('exist');

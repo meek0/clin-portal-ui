@@ -21,7 +21,6 @@ beforeEach(() => {
 
 describe('Page des variants d\'un patient (somatic) - Consultation du tableau', () => {  
   it('Valider les liens disponibles Lien UCSC', () => {
-    cy.wait(oneMinute); // Pour laisser IGV/TableauCouvertureGenique.cy.ts s'exécuter seul via Concourse. À supprimer suite à CLIN-2871.
     cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
     cy.get('[data-menu-id*="UCSC"]').find('a[href]')
       .should('have.attr', 'href', 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr10%3A1096268-1096269');
