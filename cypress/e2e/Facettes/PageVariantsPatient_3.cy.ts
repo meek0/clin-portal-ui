@@ -87,12 +87,12 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(1, 'Référence externe');
   });
 
-  it('Gène - gnomAD pLi', () => {
+  it('Gène - gnomAD pLi [CLIN-3141]', () => {
     cy.validateFacetNumFilter('Gène', 'gnomAD pLi', '0.01', /^141 443$/);
     cy.validateFacetRank(2, 'gnomAD pLi');
   });
 
-  it('Gène - gnomAD LOEUF', () => {
+  it('Gène - gnomAD LOEUF [CLIN-3141]', () => {
     cy.validateFacetNumFilter('Gène', 'gnomAD LOEUF', '0.01', /^59 125$/);
     cy.validateFacetRank(3, 'gnomAD LOEUF');
   });
@@ -107,7 +107,7 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(5, 'RQDM');
   });
 
-  it('Gène - HPO', () => {
+  it('Gène - HPO [CLIN-3141]', () => {
     cy.validateFacetFilter('Gène', 'HPO', 'Autosomal recessive inheritance (HP:0000007)', 'Autosomal recessive inheritance (HP:0000007)', /^31 726$/);
     cy.validateFacetRank(6, 'HPO');
   });

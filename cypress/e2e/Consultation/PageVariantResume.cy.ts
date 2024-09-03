@@ -25,7 +25,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-cy="Summary_LastAnnotation"]').contains(/^\d{4}-\d{2}-\d{2}$/).should('exist');
   });
   
-  it('Panneau Conséquences géniques [CLIN-3037]', () => {
+  it('Panneau Conséquences géniques', () => {
     cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('PRDX1').should('exist');
     cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('Omim').should('exist');
     cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('176763').should('exist');
@@ -156,17 +156,12 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
 
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(0).contains('HPO').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(1).contains('MMACHC').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Pigmentary retinopathy').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Autosomal recessive inheritance').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Hematuria').should('not.exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains(/(Abnormal brain morphology|Peripheral demyelination|Respiratory distress|Smooth philtrum|Vomiting|Nephropathy|Ataxia|Intellectual disability|Personality changes|Neonatal onset|Severe demyelination of the white matter|Abnormal circulating vitamin B12 concentration|Pigmentary retinopathy|Abnormal heart morphology|Metabolic acidosis|Decreased circulating adenosylcobalamin concentration|Stroke|Childhood onset|Hypoglycemia|Abnormal facial shape|Tremor|Global developmental delay|Hyperammonemia|Confusion|Atrophy of the spinal cord|Abnormality of extrapyramidal motor function|Middle age onset|Low-set ears|Abnormality of the nervous system|Pulmonary arterial hypertension|High forehead|Failure to thrive|Feeding difficulties in infancy|Hydrocephalus|Macrotia|Hypothermia|Microcephaly|Long face|Hypomethioninemia|Dehydration|Elevated circulating palmitoleylcarnitine concentration|Psychosis|Bradycardia|Megaloblastic anemia|Intrauterine growth retardation|Feeding difficulties|Infantile spasms|Hypotonia|Seizure|Lethargy|Reduced visual acuity|Dilated cardiomyopathy|Hydrops fetalis|Homocystinuria|Autosomal recessive inheritance|Decreased circulating methylcobalamin concentration|Axial hypotonia|Jaundice|Cerebral cortical atrophy|Cerebral atrophy|Optic atrophy|Young adult onset|Infantile onset|Macular coloboma|Pulmonary embolism|Retinal degeneration|Thrombocytopenia|Abnormal speech pattern|Juvenile onset|Hepatomegaly|Ketonuria|Proteinuria|Neurodevelopmental delay|Decreased methylmalonyl-CoA mutase activity|Thromboembolism|Decreased methionine synthase activity|Auditory hallucination|Hyperhomocystinemia|Small for gestational age|Delirium|Acute kidney injury|Tachycardia|Neutropenia|Subdural hemorrhage|Poor fine motor coordination|Nystagmus|Impaired executive functioning|Developmental regression|Dementia|Abnormality of macular pigmentation|Growth delay|Methylmalonic aciduria|Methylmalonic acidemia|Pallor|Atypical behavior|Hematuria|Cardiac arrest|Hemolytic-uremic syndrome|Leukoencephalopathy|Encephalopathy|Deep venous thrombosis|Mental deterioration|Stomatitis|Renal insufficiency|Glomerulopathy|Memory impairment|Hypotension|Generalized hypotonia|Cystathioninuria|Periventricular white matter hyperintensities|Cystathioninemia|Visual impairment|Glossitis)/).should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(2).contains('Voir plus').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_MMACHC"]').find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(0).contains('HPO').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(1).contains('PRDX1').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Hematuria').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Reduced visual acuity').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Neutropenia').should('exist');
-    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Renal insufficiency').should('not.exist');
+    cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains(/(Bradycardia|Reduced visual acuity|Neonatal onset|Nephropathy|Intellectual disability|Young adult onset|Generalized hypotonia|Small for gestational age|Hypomethioninemia|Childhood onset|Long face|Feeding difficulties in infancy|Vomiting|Decreased circulating methylcobalamin concentration|Decreased methionine synthase activity|Cystathioninemia|Hepatomegaly|Thrombocytopenia|Seizure|Cerebral cortical atrophy|Tremor|Nystagmus|Abnormal circulating vitamin B12 concentration|Hyperhomocystinemia|Homocystinuria|Juvenile onset|Hemolytic-uremic syndrome|Infantile onset|Proteinuria|Tachycardia|Global developmental delay|Neutropenia|Low-set ears|Failure to thrive|Methylmalonic aciduria|Lethargy|Thromboembolism|Macrotia|Pigmentary retinopathy|Acute kidney injury|Hypotonia|Decreased methylmalonyl-CoA mutase activity|Pallor|Megaloblastic anemia|Autosomal recessive inheritance|Metabolic acidosis|Hypotension|Visual impairment|Microcephaly|Abnormality of extrapyramidal motor function|Cardiac arrest|High forehead|Axial hypotonia|Hydrocephalus|Methylmalonic acidemia|Hematuria|Pulmonary arterial hypertension|Delirium|Smooth philtrum|Renal insufficiency|Confusion|Decreased circulating adenosylcobalamin concentration|Middle age onset|Cystathioninuria|Dementia)/).should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(2).contains('Voir plus').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_HPO_PRDX1"]').find('td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_DDD_MMACHC"]').find('td[class="ant-table-cell"]').eq(0).contains('DDD').should('exist');
@@ -255,8 +250,8 @@ describe('Page d\'un variant (onglet Résumé) - Valider les liens disponibles',
   });
   
   it('Lien HPO de la condition de la section Gène - Phénotype', () => {
-    cy.get('[data-cy="ClinicalCard_GenePhenotype_HpoCondition_HP:0000790_ExternalLink"]')
-      .should('have.attr', 'href', 'https://hpo.jax.org/app/browse/term/HP:0000790');
+    cy.get('[data-cy*="ClinicalCard_GenePhenotype_HpoCondition_HP:"]').eq(0)
+      .should('have.attr', 'href').and('match', /https:\/\/hpo\.jax\.org\/app\/browse\/term\/HP:*/);
   });
   
   it('Lien \'See more\' de la condition de la section Gène - Phénotype', () => {

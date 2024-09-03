@@ -120,7 +120,7 @@ describe('Page des CNVs d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(0, 'Panel RQDM');
   });
 
-  it('Gène - HPO', () => {
+  it('Gène - HPO [CLIN-3141]', () => {
     cy.validateFacetFilter('Gène', 'HPO', 'Autosomal recessive inheritance (HP:0000007)', 'Autosomal recessive inheritance (HP:0000007)', /^24$/, true);
     cy.validateFacetRank(1, 'HPO');
   });
