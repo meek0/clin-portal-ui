@@ -15,6 +15,7 @@ const getName = (url = '', parallel = '') => {
 export default defineConfig({
   projectId: 'e6jd58',
   chromeWebSecurity: false,
+  experimentalMemoryManagement: true,
   video: false,
   screenshotOnRunFailure: true,
   viewportWidth: 1920,
