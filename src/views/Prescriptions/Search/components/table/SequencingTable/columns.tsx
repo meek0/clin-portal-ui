@@ -64,6 +64,15 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     sorter: { multiple: 1 },
   },
   {
+    key: 'timestamp',
+    dataIndex: 'timestamp',
+    render: (date: string) => formatDate(date),
+    title: intl.get('screen.patientsearch.table.updatedOn'),
+    tooltip: intl.get('screen.patientsearch.table.updatedOn.tooltip'),
+    sorter: { multiple: 1 },
+    defaultHidden: true,
+  },
+  {
     key: 'sample',
     render: (results: SequencingResult) => results?.sample || TABLE_EMPTY_PLACE_HOLDER,
     title: intl.get('screen.sequencingsearch.table.sample'),
@@ -152,15 +161,6 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     tooltip: intl.get('screen.patientsearch.table.prenatal.tooltip'),
     sorter: { multiple: 1 },
     render: (prenatal: boolean) => intl.get(prenatal ? 'yes' : 'no'),
-    defaultHidden: true,
-  },
-  {
-    key: 'timestamp',
-    dataIndex: 'timestamp',
-    render: (date: string) => formatDate(date),
-    title: intl.get('screen.patientsearch.table.updatedOn'),
-    tooltip: intl.get('screen.patientsearch.table.updatedOn.tooltip'),
-    sorter: { multiple: 1 },
     defaultHidden: true,
   },
   {
