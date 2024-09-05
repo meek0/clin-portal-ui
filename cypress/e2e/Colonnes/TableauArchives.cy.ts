@@ -74,10 +74,10 @@ describe('Page d\'archives - Colonnes du tableau', () => {
       .contains('Hash').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('Run').should('not.exist');
+      .contains('Lot').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(12)
-      .contains('Run').should('exist');
+      .contains('Lot').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(8)

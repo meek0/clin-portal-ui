@@ -74,13 +74,13 @@ describe('Page des fichiers d\'un patient - Colonnes du tableau', () => {
       .contains('Hash').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('Run').should('not.exist');
+      .contains('Lot').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(11)
-      .contains('Run').should('exist');
+      .contains('Lot').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('Run').should('not.exist');
+      .contains('Type').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(12)
       .contains('Type').should('exist');

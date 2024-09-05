@@ -144,4 +144,14 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
     cy.get('body').contains('Prescriptions (1)').should('exist');
     cy.get('body').contains('Requêtes (3)').should('exist');
   });
+  
+  it('Lien de parenté - Cas-index', () => {
+    cy.get('div[class="Filter_facetCollapse__8Ofdg"]').eq(8).contains('Lien de parenté').should('exist');
+    cy.checkValueFacet('Lien de parenté', 'CasIndex');
+
+    cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
+
+    cy.get('body').contains('Prescriptions (1)').should('exist');
+    cy.get('body').contains('Requêtes (1)').should('exist');
+  });
 });

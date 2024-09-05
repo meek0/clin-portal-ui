@@ -105,6 +105,13 @@ describe('Page des prescriptions et requêtes - Rechercher des prescriptions', (
     cy.get('body').contains('Prescriptions (1)').should('exist');
     cy.get('body').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
   });
+
+  it('Par numéro de lot', () => {
+    cy.typeAndIntercept('[data-cy="PrescriptionsSearch"]', '2_data_to_import', 'POST', '**/graphql', 4*'2_data_to_import'.length);
+
+    cy.get('body').contains('Prescriptions (1)').should('exist');
+    cy.get('body').contains('MYOC').should('exist');
+  });
 });
 
 describe('Page des prescriptions et requêtes - Rechercher des requêtes', () => {
@@ -208,5 +215,12 @@ describe('Page des prescriptions et requêtes - Rechercher des requêtes', () =>
 
     cy.get('body').contains('Requêtes (1)').should('exist');
     cy.get('body').contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
+  });
+
+  it('Par numéro de lot', () => {
+    cy.typeAndIntercept('[data-cy="PrescriptionsSearch"]', '2_data_to_import', 'POST', '**/graphql', 4*'2_data_to_import'.length);
+
+    cy.get('body').contains('Requêtes (1)').should('exist');
+    cy.get('body').contains('MYOC').should('exist');
   });
 });

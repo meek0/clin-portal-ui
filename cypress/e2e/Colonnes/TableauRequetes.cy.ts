@@ -27,28 +27,28 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des requête
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .find('th[class*="ant-table-cell"]').eq(2)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Échantillon').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]').eq(1)
-      .find('th[class*="ant-table-cell"]').eq(3)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Patient').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]').eq(1)
-      .find('th[class*="ant-table-cell"]').eq(4)
-      .should('have.class', 'ant-table-column-has-sorters')
       .contains('Statut').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
-      .find('th[class*="ant-table-cell"]').eq(5)
+      .find('th[class*="ant-table-cell"]').eq(3)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Créée le').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .contains('Modifiée le').should('not.exist');
     cy.get('div[class="ant-popover-inner"]').eq(1)
-      .find('div[class="ant-space-item"]').eq(6)
+      .find('div[class="ant-space-item"]').eq(4)
       .contains('Modifiée le').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]').eq(1)
+      .find('th[class*="ant-table-cell"]').eq(4)
+      .should('have.class', 'ant-table-column-has-sorters')
+      .contains('Échantillon').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]').eq(1)
+      .find('th[class*="ant-table-cell"]').eq(5)
+      .should('have.class', 'ant-table-column-has-sorters')
+      .contains('Patient').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .find('th[class*="ant-table-cell"]').eq(6)
@@ -58,46 +58,57 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des requête
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .find('th[class*="ant-table-cell"]').eq(7)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Bioinfo').should('exist');
+      .contains('Prescription').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .find('th[class*="ant-table-cell"]').eq(8)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('LDM').should('exist');
+      .contains('Parenté').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .find('th[class*="ant-table-cell"]').eq(9)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('EP').should('exist');
+      .contains('Bioinfo').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .find('th[class*="ant-table-cell"]').eq(10)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Prescription').should('exist');
+      .contains('LDM').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
-      .contains('Requérant').should('not.exist');
+      .find('th[class*="ant-table-cell"]').eq(11)
+      .should('have.class', 'ant-table-column-has-sorters')
+      .contains('EP').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]').eq(1)
+      .contains('Statut clinique').should('not.exist');
     cy.get('div[class="ant-popover-inner"]').eq(1)
-      .find('div[class="ant-space-item"]').eq(12)
-      .contains('Requérant').should('exist');
+      .find('div[class="ant-space-item"]').eq(13)
+      .contains('Statut clinique').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]').eq(1)
+      .contains('Lot').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]').eq(1)
+      .find('div[class="ant-space-item"]').eq(14)
+      .contains('Lot').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .contains('Prénatal').should('not.exist');
     cy.get('div[class="ant-popover-inner"]').eq(1)
-      .find('div[class="ant-space-item"]').eq(13)
+      .find('div[class="ant-space-item"]').eq(15)
       .contains('Prénatal').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .contains('Dossier').should('not.exist');
     cy.get('div[class="ant-popover-inner"]').eq(1)
-      .find('div[class="ant-space-item"]').eq(14)
+      .find('div[class="ant-space-item"]').eq(16)
       .contains('Dossier').should('exist');
-/* CLIN-1551
+
     cy.get('thead[class="ant-table-thead"]').eq(1)
-      .contains('Run').should('not.exist');
+      .contains('Requérant').should('not.exist');
     cy.get('div[class="ant-popover-inner"]').eq(1)
-      .find('div[class="ant-space-item"]').eq(15)
-      .contains('Run').should('exist');*/
+      .find('div[class="ant-space-item"]').eq(17)
+      .contains('Requérant').should('exist');
   });
 
   it('Masquer une colonne affichée', () => {

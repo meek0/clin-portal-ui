@@ -15,7 +15,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.visit('/');
     cy.waitWhileSpin(oneMinute);
     cy.contains('Rechercher une prescription').should('exist');
-    cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier et numéro de patient:').should('exist');
+    cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier, numéro de patient et numéro de lot:').should('exist');
     cy.contains('Rechercher un variant').should('exist');
     cy.contains('Rechercher par locus, dbSNP, ClinVar:').should('exist');
     cy.get('[data-cy="ZeppelinLink"]').should('have.attr', 'href', Cypress.env('zeppelin_URL'));
@@ -23,11 +23,11 @@ describe('Affichage de toutes les pages et modals', () => {
 
     // Page Prescriptions - Onglet Prescriptions
     cy.get('[data-cy="HeaderLinkPrescriptions"]').clickAndWait();
-    cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier et numéro de patient:').should('exist');
+    cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier, numéro de patient et numéro de lot:').should('exist');
 
     // Page Prescriptions - Onglet Requêtes
     cy.get('div[id*="tab-requests"]').clickAndWait({force: true});
-    cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier et numéro de patient:').should('exist');
+    cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier, numéro de patient et numéro de lot:').should('exist');
     
     // Page Archives
     cy.get('[data-cy="HeaderLinkArchives"]').clickAndWait();
@@ -107,8 +107,8 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Génome').should('exist');
     cy.contains('Séquençage').should('exist');
     cy.contains('Stratégie expérimentale').should('exist');
-    cy.contains('Nom de la run').should('exist');
-    cy.contains('Alias de la run').should('exist');
+    cy.contains('Nom du lot').should('exist');
+    cy.contains('Alias du lot').should('exist');
     cy.contains('Plateforme').should('exist');
     cy.contains('Kit de capture').should('exist');
     cy.contains('Séquenceur').should('exist');
