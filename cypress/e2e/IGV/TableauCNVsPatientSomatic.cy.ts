@@ -24,7 +24,7 @@ describe('Page des CNVs d\'un patient (somatic) - IGV à partir du tableau', () 
     cy.contains('ERROR').should('not.exist');
   });
 
-  it('Valider les fonctionnalités [CLIN-3144]', () => {
+  it('Valider les fonctionnalités', () => {
     cy.get('[class="igv-windowsize-panel-container"]').should('have.attr', 'style', 'display: block;');
     cy.get('[class="igv-windowsize-panel-container"]').invoke('text').then((strBeforeZoom) => {
       cy.get('[class*="igv-zoom-widget"] path').eq(0).clickAndWait({force: true});

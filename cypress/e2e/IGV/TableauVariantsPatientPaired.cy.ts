@@ -26,7 +26,7 @@ describe('Page des variants d\'un patient (paired) - IGV à partir du tableau', 
     cy.contains('ERROR').should('not.exist');
   });
 
-  it('Valider les fonctionnalités [CLIN-3144]', () => {
+  it('Valider les fonctionnalités', () => {
     cy.get('[class="igv-windowsize-panel-container"]').should('have.attr', 'style', 'display: block;');
     cy.get('[class="igv-windowsize-panel-container"]').invoke('text').then((strBeforeZoom) => {
       cy.get('[class*="igv-zoom-widget"] path').eq(0).clickAndWait({force: true});
@@ -53,7 +53,7 @@ describe('Page des variants d\'un patient (paired) - IGV à partir du tiroir', (
     cy.contains('ERROR').should('not.exist');
   });
 
-  it('Valider les fonctionnalités [CLIN-3144]', () => {
+  it('Valider les fonctionnalités', () => {
     cy.get('[class="igv-windowsize-panel-container"]').should('have.attr', 'style', 'display: block;');
     cy.get('[class="igv-windowsize-panel-container"]').invoke('text').then((strBeforeZoom) => {
       cy.get('[class*="igv-zoom-widget"] path').eq(0).clickAndWait({force: true});
