@@ -6,7 +6,7 @@ export const CNV_VARIANT_PATIENT_QB_ID = 'patient-cnv-repo';
 export const SCROLL_WRAPPER_ID = 'cnv-scroll-wrapper';
 
 export const DEFAULT_PAGE_INDEX = 1;
-export const DEFAULT_PAGE_SIZE = 20;
+export const DEFAULT_PAGE_SIZE = 50;
 
 export const DEFAULT_OFFSET = 0;
 
