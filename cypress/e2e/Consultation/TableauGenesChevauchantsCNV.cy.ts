@@ -120,14 +120,10 @@ describe('Modal des gènes chevauchant un CNV - Consultation du tableau', () => 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
     cy.get('tr[data-row-key="f0b2a5bfad2c43cdb71d4f1535c475e640978e20"]').contains(/^38$/).clickAndWait({force: true});
 
-    cy.get('div[role="dialog"]').find('[class*="ant-pagination-item-2"]').clickAndWait({force: true});
-    cy.get('div[role="dialog"]').find('div[class*="ProTableHeader"]').contains('Résultats 21 - 38 de 38').should('exist');
-
-    cy.get('div[role="dialog"]').find('[class*="anticon-left"]').clickAndWait({force: true});
-    cy.get('div[role="dialog"]').find('div[class*="ProTableHeader"]').contains('Résultats 1 - 20 de 38').should('exist');
-
-    cy.get('div[role="dialog"]').find('[class*="anticon-right"]').clickAndWait({force: true});
-    cy.get('div[role="dialog"]').find('div[class*="ProTableHeader"]').contains('Résultats 21 - 38 de 38').should('exist');
+    cy.get('div[role="dialog"] div[class*="ProTableHeader"]').contains('38 Résultats').should('exist');
+    cy.get('div[role="dialog"] [class*="ant-pagination-item-2"]').should('not.exist');
+    cy.get('div[role="dialog"] [class*="anticon-left"]').should('not.exist');
+    cy.get('div[role="dialog"] [class*="anticon-right"]').should('not.exist');
   });
 });
   
