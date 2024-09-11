@@ -1,4 +1,5 @@
 import intl from 'react-intl-universal';
+import { useHistory } from 'react-router-dom';
 import FilterContainer from '@ferlab/ui/core/components/filters/FilterContainer';
 import FilterSelector from '@ferlab/ui/core/components/filters/FilterSelector';
 import { IFilter, IFilterGroup, VisualType } from '@ferlab/ui/core/components/filters/types';
@@ -46,7 +47,7 @@ export interface IGenerateFilter {
 const isTermAgg = (obj: TermAggs) => !!obj.buckets;
 const isRangeAgg = (obj: RangeAggs) => !!obj.stats;
 
-export const generateFilters = ({
+export const GenerateFilters = ({
   queryBuilderId,
   aggregations,
   extendedMapping,
@@ -56,8 +57,10 @@ export const generateFilters = ({
   showSearchInput = false,
   useFilterSelector = false,
   index,
-}: IGenerateFilter) =>
-  Object.keys(aggregations || [])
+}: IGenerateFilter) => {
+  const history = useHistory();
+
+  return Object.keys(aggregations || [])
     .filter((key) => key != '__typename')
     .map((key) => {
       const found = (extendedMapping?.data || []).find(
@@ -84,20 +87,22 @@ export const generateFilters = ({
             collapseProps={{
               headerBorderOnly: true,
             }}
-            onChange={(fg, f) =>
+            onChange={(fg, f) => {
+              history.replace({ search: '' });
               updateActiveQueryFilters({
                 queryBuilderId,
                 filterGroup: fg,
                 selectedFilters: f,
                 index,
-              })
-            }
+              });
+            }}
             searchInputVisible={showSearchInput}
             selectedFilters={selectedFilters}
           />
         </div>
       );
     });
+};
 
 const translateWhenNeeded = (group: string, key: string, type: string = '') =>
   intl

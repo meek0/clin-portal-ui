@@ -1,7 +1,7 @@
 import { Layout, Spin } from 'antd';
 import { ExtendedMappingResults } from 'graphql/models';
 import { AGGREGATION_QUERY } from 'graphql/queries';
-import { generateFilters } from 'graphql/utils/Filters';
+import { GenerateFilters } from 'graphql/utils/Filters';
 
 import useGetAggregations from 'hooks/graphql/useGetAggregations';
 
@@ -33,7 +33,7 @@ const GenericFilters = ({
   return (
     <Spin size="large" spinning={results.loading}>
       <Layout className={`${styles.filterWrapper} ${styles.genericFilterWrapper}`}>
-        {generateFilters({
+        {GenerateFilters({
           queryBuilderId,
           aggregations: results?.aggregations,
           extendedMapping: extendedMappingResults,

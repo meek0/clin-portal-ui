@@ -31,3 +31,8 @@ export enum TableTabs {
   Prescriptions = 'prescriptions',
   Requests = 'requests',
 }
+
+export enum TableSearchParams {
+  Tab = 'tab',
+  SearchBox = 's',
+}
