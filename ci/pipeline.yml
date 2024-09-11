@@ -84,8 +84,6 @@ jobs:
     trigger: true
   - get: git-portal-ui
     trigger: false
-    params:
-      submodule_recursive: true
 
   - in_parallel:
       fail_fast: false

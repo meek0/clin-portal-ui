@@ -21,9 +21,6 @@ REACT_APP_USERS_API_URL=https://users.qa.cqgc.hsj.rtss.qc.ca
 REACT_APP_FORM_API_URL=https://forms.qa.cqgc.hsj.rtss.qc.ca
 REACT_APP_PANELS_FILE=https://s3.cqgc.hsj.rtss.qc.ca/cqgc-qa-app-public/panels/panels.xlsx
 
-# Style
-SASS_PATH=/code/src/style/themes/clin
-
 # Cypress
 CYPRESS_USERNAME_DG_CHUSJ_CUSM_CHUS="cypress.test.pg@chusjcusmchus.org"
 CYPRESS_USERNAME_G_CHUSJ_CUSM_CHUS="jean.leblanc.g@chusjcusmchus.org"
