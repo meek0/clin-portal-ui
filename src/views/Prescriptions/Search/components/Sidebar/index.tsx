@@ -41,30 +41,30 @@ const PrescriptionSidebar = ({
   useEffect(() => {
     if (location.search && !isLoading && aggregations) {
       const searchParams = new URLSearchParams(location.search);
-      analysisFields
-        .filter((f) => searchParams.has(f))
-        .forEach((f) => {
-          const found = (extendedMapping?.data || []).find(
-            (d: ExtendedMapping) => d.field === underscoreToDot(f),
-          );
+      analysisFields.forEach((f) => {
+        if (!searchParams.has(f)) return;
 
-          const filters = getFilters(aggregations, f);
-          const filterGroup = getFilterGroup(found, aggregations[f], [], false, undefined);
+        const found = (extendedMapping?.data || []).find(
+          (d: ExtendedMapping) => d.field === underscoreToDot(f),
+        );
 
-          const newSelectedFilters: IFilter<any>[] = [];
-          searchParams.getAll(f).forEach((param) => {
-            const foundFilter = filters.find((i) => i.id === param);
-            if (foundFilter) {
-              newSelectedFilters.push(foundFilter);
-            }
-          });
+        const filters = getFilters(aggregations, f);
+        const filterGroup = getFilterGroup(found, aggregations[f], [], false, undefined);
 
-          updateActiveQueryFilters({
-            queryBuilderId,
-            filterGroup,
-            selectedFilters: newSelectedFilters,
-          });
+        const newSelectedFilters: IFilter<any>[] = [];
+        searchParams.getAll(f).forEach((param) => {
+          const foundFilter = filters.find((i) => i.id === param);
+          if (foundFilter) {
+            newSelectedFilters.push(foundFilter);
+          }
         });
+
+        updateActiveQueryFilters({
+          queryBuilderId,
+          filterGroup,
+          selectedFilters: newSelectedFilters,
+        });
+      });
     }
   }, [location, isLoading]);
 

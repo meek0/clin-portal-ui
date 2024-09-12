@@ -60,7 +60,7 @@ export const GenerateFilters = ({
 }: IGenerateFilter) => {
   const history = useHistory();
 
-  return Object.keys(aggregations || [])
+  return Object.keys(aggregations || {})
     .filter((key) => key != '__typename')
     .map((key) => {
       const found = (extendedMapping?.data || []).find(
