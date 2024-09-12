@@ -545,8 +545,9 @@ Cypress.Commands.add('visitPrescriptionEntityPage', (prescriptionId: string) => 
                        3);
 });
 
-Cypress.Commands.add('visitPrescriptionsPage', () => {
-  cy.visitAndIntercept('/prescription/search',
+Cypress.Commands.add('visitPrescriptionsPage', (preselectionParams?: string) => {
+  const strPreselectionParams = preselectionParams !== undefined ? preselectionParams : '';
+  cy.visitAndIntercept('/prescription/search'+strPreselectionParams,
                        'POST',
                        '**/graphql',
                        3);
