@@ -2,7 +2,7 @@ import React from 'react';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
 import { Aggregations } from 'graphql/models';
 import { ExtendedMappingResults } from 'graphql/models';
-import { generateFilters } from 'graphql/utils/Filters';
+import { GenerateFilters } from 'graphql/utils/Filters';
 
 import style from './index.module.css';
 
@@ -24,7 +24,7 @@ const SidebarFilters = ({
   extendedMapping,
 }: SidebarFilterProps): React.ReactElement => (
   <>
-    {generateFilters({
+    {GenerateFilters({
       queryBuilderId,
       aggregations,
       extendedMapping,

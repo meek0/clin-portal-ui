@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
+import { useLocation } from 'react-router-dom';
 import { MedicineBoxOutlined, SolutionOutlined } from '@ant-design/icons';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
@@ -28,6 +29,7 @@ import {
   DEFAULT_SORT_QUERY,
   PRESCRIPTION_QB_ID,
   PRESCRIPTION_SCROLL_ID,
+  TableSearchParams,
   TableTabs,
 } from 'views/Prescriptions/Search/utils/contstant';
 import { commonPrescriptionFilterFields } from 'views/Prescriptions/utils/constant';
@@ -78,9 +80,11 @@ const PrescriptionSearch = (): React.ReactElement => {
     size: DEFAULT_PAGE_SIZE,
   });
   const [searchValue, setSearchValue] = useState('');
+  const [activeTab, setActiveTab] = useState(TableTabs.Prescriptions);
   const [downloadPrescriptionKeys, setDownloadPrescriptionKeys] = useState<string[]>([]);
   const [downloadSequencingKeys, setDownloadSequencingKeys] = useState<string[]>([]);
   const sequencingActiveQuery = setPrescriptionStatusInActiveQuery(activeQuery);
+  const location = useLocation();
 
   const sequencingsQueryVariables = {
     first: sequencingQueryConfig.size,
@@ -141,6 +145,8 @@ const PrescriptionSearch = (): React.ReactElement => {
     searchAfter: undefined,
     first: downloadSequencingKeys.length > 0 ? sequencings.total : 0,
   });
+
+  const changeTab = (key: string) => setActiveTab(key as TableTabs);
 
   useEffect(() => {
     if (
@@ -238,6 +244,25 @@ const PrescriptionSearch = (): React.ReactElement => {
       setSearchValue('');
     }
   };
+
+  useEffect(() => {
+    if (location.search) {
+      const searchParams = new URLSearchParams(location.search);
+      const tab = searchParams.get(TableSearchParams.Tab);
+      const searchBoxParamVal = searchParams.get(TableSearchParams.SearchBox);
+
+      if (tab && Object.values<string>(TableTabs).includes(tab)) {
+        // change tab
+        setActiveTab(tab as TableTabs);
+      }
+
+      if (searchBoxParamVal) {
+        // change search box value
+        setSearchValue(decodeURIComponent(searchBoxParamVal));
+      }
+    }
+  }, [location]);
+
   return (
     <ContentWithHeader
       className={styles.prescriptionLayout}
@@ -257,9 +282,14 @@ const PrescriptionSearch = (): React.ReactElement => {
         <Space direction="vertical" size="middle" className={styles.patientContentContainer}>
           <div className={styles.patientContentHeader}>
             <ProLabel title={intl.get('home.prescription.search.box.label')} colon />
-            <Input onChange={searchPrescription} data-cy="PrescriptionsSearch" allowClear />
+            <Input
+              onChange={searchPrescription}
+              data-cy="PrescriptionsSearch"
+              allowClear
+              value={searchValue}
+            />
           </div>
-          <Tabs type="card">
+          <Tabs type="card" activeKey={activeTab} onTabClick={changeTab}>
             <Tabs.TabPane
               key={TableTabs.Prescriptions}
               tab={
