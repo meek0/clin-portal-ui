@@ -55,9 +55,10 @@ const PrescriptionSidebar = ({
 
         if (searchParams.has(f)) {
           searchParams.getAll(f).forEach((param) => {
-            const foundFilter = filters.find(
-              (i) =>
-                i.id === param || param.toLowerCase() === ((i.name || '') as string).toLowerCase(),
+            const foundFilter = filters.find((i) =>
+              [i.id.toLowerCase(), ((i.name || '') as string).toLowerCase()].includes(
+                param.toLowerCase(),
+              ),
             );
             if (foundFilter) {
               newSelectedFilters.push(foundFilter);
