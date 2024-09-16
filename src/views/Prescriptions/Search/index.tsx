@@ -45,8 +45,16 @@ import { sequencingsColumns } from './components/table/SequencingTable/columns';
 
 import styles from './index.module.css';
 
-const adjustSqon = (sqon: ISyntheticSqon) =>
-  JSON.parse(JSON.stringify(sqon).replace('sequencing_requests.status', 'status'));
+const adjustSqon = (sqon: ISyntheticSqon) => {
+  let replaced = JSON.stringify(sqon).replace('sequencing_requests.status', 'status');
+  replaced = replaced.replace('sequencing_requests.task_runname', 'task_runname');
+  replaced = replaced.replace('sequencing_requests.patient_relationship', 'patient_relationship');
+  replaced = replaced.replace(
+    'sequencing_requests.patient_disease_status',
+    'patient_disease_status',
+  );
+  return JSON.parse(replaced);
+};
 
 const generateSearchFilter = (search: string) =>
   generateQuery({

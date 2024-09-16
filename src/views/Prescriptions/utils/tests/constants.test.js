@@ -18,6 +18,6 @@ describe('prescriptionPriorityDictionnary', () => {
 
 describe('commonPrescriptionFilterFields', () => {
   test('should be robust', () => {
-    expect(commonPrescriptionFilterFields.length).toEqual(9);
+    expect(commonPrescriptionFilterFields.length).toEqual(10);
   });
 });

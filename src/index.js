@@ -22,13 +22,12 @@ const SentryDSN = EnvironmentVariables.configFor('SENTRY_API');
 
 Sentry.init({
   dsn: SentryDSN,
+  // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
+  tracePropagationTargets: ['localhost', reactAppWebRoot],
   integrations: [
-    new Sentry.BrowserTracing({
-      // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
-      tracePropagationTargets: ['localhost', reactAppWebRoot],
-    }),
     new ContextLines(),
-    new Sentry.BrowserProfilingIntegration(),
+    Sentry.browserTracingIntegration(),
+    Sentry.browserProfilingIntegration(),
     new LocalStorageIntegrations('LocalStorage'),
   ],
   // Performance Monitoring

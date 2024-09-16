@@ -15,7 +15,7 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
 
     cy.showColumn('Taille', 0);
     cy.showColumn('Hash', 0);
-    cy.showColumn('Run', 0);
+    cy.showColumn('Lot', 0);
     cy.showColumn('Type', 0);
   });
 
@@ -112,12 +112,12 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow('3.11 GB', 8);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Run', () => {    
+  it('Valider les fonctionnalités du tableau - Tri Lot', () => {    
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');
-    cy.sortTableAndWait('Run');
+    cy.sortTableAndWait('Lot');
     cy.validateTableFirstRow('A00516_0169_16774', 10);
-    cy.sortTableAndWait('Run');
+    cy.sortTableAndWait('Lot');
     cy.validateTableFirstRow('A00516_0169_16776', 10);
   });
 

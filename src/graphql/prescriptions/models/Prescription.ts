@@ -67,6 +67,9 @@ export interface AnalysisSequencingRequest {
   score: number;
   request_id: string;
   status: string;
+  patient_relationship: string;
+  patient_disease_status: string;
+  task_runname: string;
 }
 
 export const analysisFields = [
@@ -78,6 +81,7 @@ export const analysisFields = [
   'ldm',
   'ep',
   'prenatal',
+  'sequencing_requests__patient_relationship',
 ];
 
 // Model V1

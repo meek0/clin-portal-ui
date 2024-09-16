@@ -101,6 +101,13 @@ describe('Page d\'accueil - Rechercher des prescriptions', () => {
 
     cy.get('body').contains(epCHUSJ_ldmCHUSJ.lastNameProb+' '+epCHUSJ_ldmCHUSJ.firstNameProb).should('exist');
   });
+
+  it('Par numéro de lot', () => {
+    cy.get('[data-cy="PrescriptionAutoComplete"]').type('2_data_to_import', {force: true});
+    cy.clickAndIntercept('[href*="/prescription/entity/"]', 'POST', '**/$graphql*', 1);
+
+    cy.get('body').contains('BEAULIEU Zoe').should('exist');
+  });
 });
 
 describe('Page d\'accueil - Rechercher des variants', () => {

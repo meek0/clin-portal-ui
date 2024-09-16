@@ -16,7 +16,7 @@ describe('Page d\'archives - Consultation du tableau', () => {
     cy.showColumn('URL', 0);
     cy.showColumn('Taille', 0);
     cy.showColumn('Hash', 0);
-    cy.showColumn('Run', 0);
+    cy.showColumn('Lot', 0);
   });
 
   it('Vérifier les informations affichées', () => {

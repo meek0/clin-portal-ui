@@ -29,6 +29,9 @@ export const SEQUENCING_QUERY = gql`
             sample
             tasks
             prescription_status
+            patient_relationship
+            patient_disease_status
+            task_runname
           }
         }
         total
