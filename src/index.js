@@ -2,7 +2,7 @@
 // required for the theme to be correctly applied
 /// <reference types="@welldone-software/why-did-you-render" />
 // import 'utils/wdyr';
-import 'style/themes/clin/main.css';
+import 'clin-portal-theme/themes/clin/main.css';
 
 import React from 'react';
 import './prototypes/number';
