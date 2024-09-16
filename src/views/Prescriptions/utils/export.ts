@@ -14,6 +14,7 @@ import {
   renderDonorToString,
   renderExomiserAcmg_ClassificationToString,
   renderExomiserScoreToString,
+  renderFlagToString,
   renderFranklinAcmg_ClassificationToString,
   renderFranklinAcmg_evidenceToString,
   renderFranklinScoreToString,
@@ -130,6 +131,8 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderFranklinAcmg_evidenceToString(row));
     } else if (key === 'MANE') {
       return convertToPlain(renderManeToString(row));
+    } else if (key === 'flags') {
+      return convertToPlain(renderFlagToString(row));
     } else if (
       [
         'donors.exomiser.gene_combined_score',
@@ -158,6 +161,8 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
   } else if (prefix === 'CNV') {
     if (['calls', 'genes'].includes(key)) {
       return renderCNVToString(key, row);
+    } else if (key === 'flags') {
+      return convertToPlain(renderFlagToString(row));
     }
   } else if (prefix === 'PR' || prefix === 'RQ') {
     if (key === 'tasks') {
@@ -266,6 +271,7 @@ export const getPractitionerInfoList = (
     const email = getEmailfromPractionnerRole(pr);
     const obj: TPractitionnerInfo = {
       practitionerRoles_Id: pr.id,
+      practitioner: practitionerInfo.id,
       name: practitionerInfo.name,
       email: email?.value,
       ldm: pr.organization.reference.split('/')[1],

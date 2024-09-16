@@ -71,6 +71,7 @@ describe('exportAsTSV', () => {
 
     const expected = [
       {
+        practitioner: 'PR01',
         practitionerRoles_Id: 'PRR01',
         name: [
           {
@@ -83,6 +84,7 @@ describe('exportAsTSV', () => {
         ldm: 'LDM-CHUSJ',
       },
       {
+        practitioner: 'PR02',
         practitionerRoles_Id: 'PRR02',
         name: [
           {

@@ -1,4 +1,5 @@
 import intl from 'react-intl-universal';
+import { setLocale } from '@ferlab/ui/core/utils/localeUtils';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ArgsProps as NotificationArgsProps } from 'antd/lib/notification';
 import locales from 'locales';
@@ -27,6 +28,7 @@ const globalSlice = createSlice({
         currentLocale: action.payload,
         locales,
       });
+      setLocale(action.payload);
 
       return {
         ...state,

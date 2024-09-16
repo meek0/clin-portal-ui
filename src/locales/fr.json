@@ -410,6 +410,47 @@
   "filters.options.sequencing_requests.patient_disease_status.NEG": "Non atteint",
   "filters.options.sequencing_requests.patient_disease_status.IND": "Inconnu",
   "first.name": "Prénom",
+  "flag": {
+    "table": {
+      "tooltip":"Identifiez les éléments importants à l’aide de drapeaux"
+    },
+    "options": {
+      "flag": "Drapeau",
+      "pin": "Punaise",
+      "star": "Étoile",
+      "none": "Aucun"
+    },
+    "error": {
+      "title": "Erreur de signet",
+      "description": "Désolé, nous n'avons pas pu mettre à jour l'état du signet pour cet élément. Veuillez réessayer."
+    },
+    "date":{
+      "now": "Maintenant",
+      "today": "Aujourd’hui à {hour}",
+      "yesteday": "Hier à {hour}",
+      "completeDate": "le {day} {month} à {time}",
+      "completeDatePastYear": "le {day} {month} {year}",
+      "month": {
+        "january":"janvier",
+        "february":"février",
+        "march":"mars",
+        "april":"avril",
+        "may":"mai",
+        "june":"juin",
+        "july":"juillet",
+        "august":"août",
+        "september":"septembre",
+        "october":"octobre",
+        "november":"novembre",
+        "december":"décembre"
+      }
+    },
+    "modal": {
+      "title": "Historique",
+      "close": "Fermer",
+      "tooltip":"Voir l’historique"
+    }
+  },
   "folder": "Dossier",
   "footer.navigation.fhir": "Fhir",
   "footer.navigation.zepplin": "Zeppelin",
@@ -988,6 +1029,7 @@
   "screen.patientsnv.results.table.mane": "MANE",
   "screen.patientsnv.results.table.dbsnp": "dbSNP",
   "screen.patientsnv.results.table.filter": "Filtre",
+  "screen.patientsnv.results.table.flag": "Drapeau",
   "screen.patientsnv.results.table.gene_combined_score": "Exo.",
   "screen.patientsnv.results.table.gene_combined_score.tooltip": "Score Exomiser calculé en fonction des caractéristiques du variant et des phénotypes du patient",
   "screen.patientsnv.results.table.acmg_classification": "ACMG E.",

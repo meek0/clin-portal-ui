@@ -148,6 +148,7 @@ export type VariantEntity = {
   panels: string[];
   variant_class: string;
   rsnumber: string;
+  flags: string[];
   cmc: {
     sample_mutated: number;
     sample_ratio: number;

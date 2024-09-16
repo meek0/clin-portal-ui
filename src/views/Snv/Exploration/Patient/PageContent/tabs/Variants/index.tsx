@@ -39,6 +39,7 @@ type OwnProps = {
   setDownloadTriggered: (value: boolean) => void;
   setSelectedRows: (value: any[]) => void;
   variantSection?: VariantSection;
+  isSameLDM?: boolean;
 };
 
 const VariantsTab = ({
@@ -53,17 +54,39 @@ const VariantsTab = ({
   setDownloadTriggered,
   setSelectedRows,
   variantSection,
+  isSameLDM,
 }: OwnProps) => {
   const dispatch = useDispatch();
   const { user } = useUser();
+
   const { loading: loadingRpt, rpt } = useRpt();
   const [drawerOpened, toggleDrawer] = useState(false);
   const [modalOpened, toggleModal] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<VariantEntity | undefined>(undefined);
-
   const openDrawer = (record: VariantEntity) => {
     setSelectedVariant(record);
     toggleDrawer(true);
+  };
+
+  //TODO Filter
+  const [filtersList] = useState<string[]>([]);
+  const [, setIsClear] = useState<boolean>(false);
+  /* const handleFilterList = (columnKey: string | undefined) => {
+    if (columnKey) {
+      setIsClear(false);
+      if (filtersList.includes(columnKey)) {
+        setFilterList(filtersList.filter((s) => s !== columnKey));
+      } else {
+        setFilterList([...filtersList, columnKey]);
+      }
+    } else {
+      setFilterList([]);
+    }
+  }; 
+  */
+
+  const clearFilter = () => {
+    setIsClear(true);
   };
 
   const openIgvModal = (record: VariantEntity) => {
@@ -95,6 +118,7 @@ const VariantsTab = ({
     undefined,
     results?.data.length === 0,
     variantSection,
+    isSameLDM,
   );
   return (
     <>
@@ -177,6 +201,8 @@ const VariantsTab = ({
                       }),
                 );
               },
+              hasFilter: filtersList.length > 0 ? true : false,
+              clearFilter: () => clearFilter(),
             }}
             size="small"
             scroll={dimension}

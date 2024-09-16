@@ -1,9 +1,8 @@
 /* eslint-disable complexity */
-import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
-import { FireFilled, FireOutlined, PlusOutlined } from '@ant-design/icons';
+import { FireFilled, FireOutlined, FlagOutlined, PlusOutlined } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
@@ -42,6 +41,7 @@ import { HcComplementDescription } from '../components/OccurrenceDrawer/HcDescri
 import { TAB_ID } from '../Entity';
 import { ZygosityValue } from '../utils/constant';
 
+import FlagCell from './components/Flag/FlagCell';
 import GnomadCell from './components/Gnomad/GnomadCell';
 import ManeCell from './components/ManeCell';
 import { OtherActions } from './components/OtherActions';
@@ -312,6 +312,7 @@ export const getVariantColumns = (
   onlyExportTSV: boolean = false,
   noData: boolean = false,
   variantSection?: string,
+  isSameLDM?: boolean,
 ): ProColumnType<ITableVariantEntity>[] => {
   let columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -349,6 +350,39 @@ export const getVariantColumns = (
       ),
       align: 'center',
     });
+
+    if (isSameLDM) {
+      columns.push({
+        key: 'flags',
+        title: intl.get('screen.patientsnv.results.table.flag'),
+        dataIndex: 'flags',
+        tooltip: intl.get('flag.table.tooltip'),
+        iconTitle: <FlagOutlined />,
+        // TODO: Ajouter Filter plus tard
+        /* onFilter: (value, record) => {
+          if (value === 'none') {
+            return record.flags.length === 0;
+          }
+          return record.flags.includes(value.toString());
+        },
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <FlagFilterDropdown
+            confirm={() => {
+              setFilterList && setFilterList(selectedKeys.length > 0 ? 'flag' : undefined);
+              confirm();
+            }}
+            selectedKeys={selectedKeys}
+            setSelectedKeys={setSelectedKeys}
+            setFilterList={setFilterList}
+            isClear={isClear}
+          />
+        ), */
+        width: 85,
+        render: (flags: string[], entity: VariantEntity) => (
+          <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="snv" />
+        ),
+      });
+    }
   }
 
   columns = [
@@ -1228,6 +1262,11 @@ export const renderRevelScoreToString = (variant: any) => {
 export const renderAllAnalysisToString = (key: string, donor?: DonorsEntity) => {
   const codes = donor?.all_analyses;
   return codes ? codes?.join(',') : TABLE_EMPTY_PLACE_HOLDER;
+};
+
+export const renderFlagToString = (variant: any) => {
+  const flags = variant?.flags;
+  return flags && flags.length > 0 ? flags?.join(',') : TABLE_EMPTY_PLACE_HOLDER;
 };
 
 export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
