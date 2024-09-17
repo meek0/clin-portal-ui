@@ -79,11 +79,7 @@ const FlagCell = ({ options, hash, variantType }: OwnProps) => {
   };
 
   useEffect(() => {
-    if (history.length > 0) {
-      setIsPopOverOpen(true);
-    } else {
-      setIsPopOverOpen(false);
-    }
+    setIsPopOverOpen(history.length > 0);
   }, [history]);
 
   const handlePopOverHover = (open: boolean) => {

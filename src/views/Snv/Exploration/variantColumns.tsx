@@ -1266,7 +1266,7 @@ export const renderAllAnalysisToString = (key: string, donor?: DonorsEntity) => 
 
 export const renderFlagToString = (variant: any) => {
   const flags = variant?.flags;
-  return flags && flags.length > 0 ? flags?.join(',') : TABLE_EMPTY_PLACE_HOLDER;
+  return flags?.length > 0 ? flags?.join(',') : TABLE_EMPTY_PLACE_HOLDER;
 };
 
 export const renderDonorToString = (key: string, donor?: DonorsEntity) =>
