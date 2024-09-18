@@ -1,5 +1,6 @@
 {
-  "headers": ["hgvsg",
+  "headers": ["flags",
+              "hgvsg",
               "variant_class",
               "rsnumber",
               "gene",
