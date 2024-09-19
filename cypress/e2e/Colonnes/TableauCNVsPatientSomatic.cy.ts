@@ -8,13 +8,13 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
 });
 
-describe('Page des CNVs d\'un patient (somatic) - Colonnes du tableau [CLIN-3215]', () => {
+describe('Page des CNVs d\'un patient (somatic) - Colonnes du tableau', () => {
 
   beforeEach(() => {
     cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   });
 
-  it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
+  it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes [CLIN-3215]', () => {
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(1)
       .should('not.have.class', 'ant-table-column-has-sorters')
