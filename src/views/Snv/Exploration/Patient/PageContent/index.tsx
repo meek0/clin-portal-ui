@@ -5,11 +5,13 @@ import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Tabs } from 'antd';
+import { extractOrganizationId } from 'api/fhir/helper';
 import { ExtendedMappingResults } from 'graphql/models';
 import { useVariants } from 'graphql/variants/actions';
 import { VariantType } from 'graphql/variants/models';
 import { VARIANT_QUERY } from 'graphql/variants/queries';
 import { cloneDeep } from 'lodash';
+import { usePrescriptionEntityContext } from 'views/Prescriptions/Entity/context';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { MAX_VARIANTS_WITH_DONORS_DOWNLOAD, VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import VariantContentLayout from 'views/Snv/Exploration/components/VariantContentLayout';
@@ -25,6 +27,7 @@ import {
 import { wrapSqonWithDonorIdAndSrId } from 'views/Snv/utils/helper';
 
 import DownloadTSVWrapper from 'components/Download';
+import { useRpt } from 'hooks/useRpt';
 import { resolveSyntheticSqonWithReferences } from 'utils/query';
 import {
   SNV_EXPLORATION_PATIENT_FILTER_TAG,
@@ -42,6 +45,7 @@ type OwnProps = {
 };
 
 const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection }: OwnProps) => {
+  const { decodedRpt } = useRpt();
   const { queryList, activeQuery } = useQueryBuilderState(getQueryBuilderID(variantSection));
   const [variantQueryConfig, setVariantQueryConfig] = useState({
     ...DEFAULT_QUERY_CONFIG,
@@ -114,6 +118,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   const activeQuerySnapshot = JSON.stringify(activeQuery);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [downloadTriggered, setDownloadTriggered] = useState(false);
+  const { prescription } = usePrescriptionEntityContext();
 
   useEffect(() => {
     setVariantQueryConfig({
@@ -149,6 +154,14 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     }
   };
 
+  const isSameLDM = () => {
+    const org = decodedRpt?.fhir_organization_id;
+    const getOrganizationReference = prescription?.performer.find((r) =>
+      r.reference.includes('Organization'),
+    )?.reference;
+    return org?.includes(extractOrganizationId(getOrganizationReference!));
+  };
+
   return (
     <VariantContentLayout
       queryBuilderId={getQueryBuilderID(variantSection)}
@@ -176,6 +189,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
             setDownloadTriggered={setDownloadTriggered}
             setSelectedRows={setSelectedRows}
             variantSection={variantSection}
+            isSameLDM={isSameLDM()}
           />
           <DownloadTSVWrapper
             queryVariables={queryVariables}
@@ -198,6 +212,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
                     true,
                     false,
                     variantSection,
+                    isSameLDM(),
                   ).filter((h) => h.key !== 'actions')
                 : []
             }

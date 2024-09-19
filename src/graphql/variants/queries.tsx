@@ -23,6 +23,7 @@ const VARIANT_QUERY_BASE_FIELDS = `
   rsnumber
   chromosome
   start
+  flags
   end
   hotspot
   exomiser_max{

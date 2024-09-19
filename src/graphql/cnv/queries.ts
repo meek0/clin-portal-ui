@@ -18,6 +18,8 @@ export const VARIANT_QUERY = gql`
         edges {
           searchAfter
           node {
+            service_request_id
+            analysis_service_request_id
             id
             variant_type
             bioinfo_analysis_code
@@ -27,6 +29,7 @@ export const VARIANT_QUERY = gql`
             chromosome
             sort_chromosome
             type
+            flags
             qual
             start
             end

@@ -409,6 +409,47 @@
   "filters.options.sequencing_requests.patient_disease_status.NEG": "Not affected",
   "filters.options.sequencing_requests.patient_disease_status.IND": "Unknown",
   "first.name": "First name",
+  "flag": {
+    "table": {
+      "tooltip":"Use flags to mark important items"
+    },
+    "options": {
+      "flag": "Flag",
+      "pin": "Pin",
+      "star": "Star",
+      "none": "None"
+    },
+    "error": {
+      "title": "Flagging error",
+      "description": "Sorry, we couldn't update the flag status for this item. Please try again."
+    },
+    "date":{
+      "now": "Now",
+      "today": "Today at {hour}{ampm}",
+      "yesteday": "Yesterday at {hour}{ampm}",
+      "completeDate": "{month} {day}th at {time}{ampm}",
+      "completeDatePastYear": "{month} {day}th {year}",
+      "month": {
+        "january":"January",
+        "february":"February",
+        "march":"March",
+        "april":"April",
+        "may":"May",
+        "june":"June",
+        "july":"July",
+        "august":"August",
+        "september":"September",
+        "october":"October",
+        "november":"November",
+        "december":"December"
+      }
+    },
+    "modal": {
+      "title": "History",
+      "close": "Close",
+      "tooltip":"View history"
+    }
+  },
   "folder": "MRN",
   "footer.navigation.fhir": "Fhir",
   "footer.navigation.zepplin": "Zeppelin",
@@ -986,6 +1027,7 @@
   "screen.patientsnv.results.table.mane": "MANE",
   "screen.patientsnv.results.table.dbsnp": "dbSNP",
   "screen.patientsnv.results.table.filter": "Filter",
+  "screen.patientsnv.results.table.flag": "Flag",
   "screen.patientsnv.results.table.gene_combined_score": "Exo.",
   "screen.patientsnv.results.table.gene_combined_score.tooltip": "Exomiser score based on variant properties and patient phenotypes",
   "screen.patientsnv.results.table.acmg_classification": "ACMG E.",

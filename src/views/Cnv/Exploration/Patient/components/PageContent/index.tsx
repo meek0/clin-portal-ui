@@ -5,6 +5,7 @@ import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Card } from 'antd';
+import { extractOrganizationId } from 'api/fhir/helper';
 import { useVariants } from 'graphql/cnv/actions';
 import { VARIANT_QUERY } from 'graphql/cnv/queries';
 import { ExtendedMappingResults } from 'graphql/models';
@@ -21,9 +22,11 @@ import {
   DEFAULT_SORT_QUERY,
 } from 'views/Cnv/utils/constant';
 import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
+import { usePrescriptionEntityContext } from 'views/Prescriptions/Entity/context';
 import { MAX_VARIANTS_DOWNLOAD } from 'views/Prescriptions/utils/export';
 
 import DownloadTSVWrapper from 'components/Download';
+import { useRpt } from 'hooks/useRpt';
 import { resolveSyntheticSqonWithReferences } from 'utils/query';
 import { CNV_EXPLORATION_PATIENT_FILTER_TAG } from 'utils/queryBuilder';
 
@@ -37,6 +40,8 @@ type OwnProps = {
 
 const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(CNV_VARIANT_PATIENT_QB_ID);
+  const { decodedRpt } = useRpt();
+  const { prescription } = usePrescriptionEntityContext();
 
   const [variantQueryConfig, setVariantQueryConfig] = useState({
     ...DEFAULT_QUERY_CONFIG,
@@ -104,6 +109,14 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     setPageIndex(DEFAULT_PAGE_INDEX);
   }, [activeQuerySnapshot]);
 
+  const isSameLDM = () => {
+    const org = decodedRpt?.fhir_organization_id;
+    const getOrganizationReference = prescription?.performer.find((r) =>
+      r.reference.includes('Organization'),
+    )?.reference;
+    return org?.includes(extractOrganizationId(getOrganizationReference!));
+  };
+
   const [downloadTriggered, setDownloadTriggered] = useState(false);
   const [variantType, setVariantType] = useState(VariantType.GERMLINE);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
@@ -127,6 +140,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
             setVariantType={setVariantType}
             setSelectedRows={setSelectedRows}
             setDownloadTriggered={setDownloadTriggered}
+            isSameLDM={isSameLDM()}
           />
         </Card>
       </VariantContentLayout>
@@ -139,6 +153,8 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
           variantType,
           () => {},
           () => {},
+          false,
+          isSameLDM(),
         )}
         query={VARIANT_QUERY}
         mapping={{

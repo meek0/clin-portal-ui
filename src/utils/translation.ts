@@ -1,6 +1,7 @@
 import intl from 'react-intl-universal';
 import { IAssignmentsDictionary } from '@ferlab/ui/core/components/Assignments/types';
 import { IDictionary as FiltersDict } from '@ferlab/ui/core/components/filters/types';
+import { IFlagDictionary } from '@ferlab/ui/core/components/Flag/types';
 import { IProTableDictionary } from '@ferlab/ui/core/components/ProTable/types';
 import { IDictionary as QueryBuilderDict } from '@ferlab/ui/core/components/QueryBuilder/types';
 
@@ -99,6 +100,33 @@ export const getAssignmentDictionary = (): IAssignmentsDictionary => ({
     textInfo: {
       searchPlaceholder: intl.get('assignment.dropdown.select.searchPlaceholder'),
     },
+  },
+});
+
+export const getFlagDictionary = (): IFlagDictionary => ({
+  options: {
+    flag: intl.get('flag.options.flag'),
+    pin: intl.get('flag.options.pin'),
+    star: intl.get('flag.options.star'),
+    none: intl.get('flag.options.none'),
+  },
+  filter: {
+    actions: {
+      reset: intl.get('assignment.filter.actions.reset'),
+      filter: intl.get('assignment.filter.actions.ok'),
+    },
+  },
+  date: {
+    now: intl.get('flag.date.now'),
+    today: intl.get('flag.date.today'),
+    yesteday: intl.get('flag.date.yesteday'),
+    thisYear: intl.get('flag.date.completeDate'),
+    pastYear: intl.get('flag.date.completeDatePastYear'),
+  },
+  modal: {
+    title: intl.get('flag.modal.title'),
+    close: intl.get('flag.modal.close'),
+    tooltip: intl.get('flag.modal.tooltip'),
   },
 });
 

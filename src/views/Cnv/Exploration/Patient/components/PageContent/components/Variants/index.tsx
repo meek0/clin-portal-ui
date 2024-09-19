@@ -31,6 +31,7 @@ type OwnProps = {
   setDownloadTriggered: any;
   setVariantType: any;
   setSelectedRows: any;
+  isSameLDM?: boolean;
 };
 
 const VariantsTable = ({
@@ -42,6 +43,7 @@ const VariantsTable = ({
   setDownloadTriggered,
   setVariantType,
   setSelectedRows,
+  isSameLDM,
 }: OwnProps) => {
   const dispatch = useDispatch();
   const { user } = useUser();
@@ -90,6 +92,7 @@ const VariantsTable = ({
               openGenesModal,
               openIgvModal,
               results?.data.length === 0,
+              isSameLDM,
             )}
             initialColumnState={initialColumnState}
             dataSource={results?.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}

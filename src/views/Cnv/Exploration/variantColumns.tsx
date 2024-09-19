@@ -1,10 +1,12 @@
 import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
+import { FlagOutlined } from '@ant-design/icons';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Button, Space, Tooltip } from 'antd';
 import cx from 'classnames';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 import { VariantType } from 'graphql/variants/models';
+import FlagCell from 'views/Snv/Exploration/components/Flag/FlagCell';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
@@ -19,6 +21,7 @@ export const getVariantColumns = (
   openGenesModal: (record: VariantEntity) => void,
   igvModalCb?: (record: VariantEntity) => void,
   noData: boolean = false,
+  isSameLDM?: boolean,
 ): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -70,6 +73,22 @@ export const getVariantColumns = (
           <>{TABLE_EMPTY_PLACE_HOLDER}</>
         ),
     },
+  );
+  if (isSameLDM) {
+    columns.push({
+      key: 'flags',
+      title: intl.get('screen.patientsnv.results.table.flag'),
+      dataIndex: 'flags',
+      tooltip: intl.get('flag.table.tooltip'),
+      iconTitle: <FlagOutlined />,
+      width: 85,
+      render: (flags: string[], entity: VariantEntity) => (
+        <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="cnv" />
+      ),
+    });
+  }
+
+  columns.push(
     {
       title: intl.get('screen.patientcnv.results.table.variant'),
       key: 'name',
@@ -245,4 +264,8 @@ const renderCNVByKey = (key: string, variant: VariantEntity) => {
     return genesSymbol;
   }
   return <></>;
+};
+export const renderFlagToString = (variant: any) => {
+  const flags = variant?.flags;
+  return flags && flags.length > 0 ? flags?.join(',') : TABLE_EMPTY_PLACE_HOLDER;
 };
