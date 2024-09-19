@@ -191,8 +191,8 @@ export const getQueryBuilderDictionary = (
         unsetDefaultFilter: intl.get('querybuilder.header.tooltips.unsetDefaultFilter'),
         undoChanges: intl.get('querybuilder.header.tooltips.undoChanges'),
         noSavedFilters: intl.get('querybuilder.header.tooltips.noSavedFilters'),
-        saveDisabled: intl.get('querybuilder.header.tooltips.saveChanges'),
-        shareDisabled: intl.get('querybuilder.header.tooltips.share'),
+        saveDisabled: intl.get('querybuilder.header.tooltips.save.disabled'),
+        shareDisabled: intl.get('querybuilder.header.tooltips.share.disabled'),
       },
       myFiltersDropdown: {
         title: intl.get('querybuilder.header.myFiltersDropdown.title'),
