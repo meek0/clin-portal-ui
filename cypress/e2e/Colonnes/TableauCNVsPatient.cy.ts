@@ -7,7 +7,7 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
 });
 
-describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
+describe('Page des CNVs d\'un patient - Colonnes du tableau [CLIN-3215]', () => {
 
   beforeEach(() => {
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);

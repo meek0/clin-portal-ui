@@ -16,7 +16,7 @@ beforeEach(() => {
   cy.showColumn('PE', 0);
 });
 
-describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
+describe('Page des CNVs d\'un patient - Consultation du tableau [CLIN-3215]', () => {
   it('Vérifier les informations affichées', () => {
     cy.validateTableDataRowKeyClass('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 2, 'FlagDropdown');
     cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 3, 'CFHR1');

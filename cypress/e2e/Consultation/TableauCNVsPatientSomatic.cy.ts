@@ -15,10 +15,10 @@ beforeEach(() => {
   cy.showColumn('PE', 0);
 });
 
-describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () => {
+describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau [CLIN-3215]', () => {
   it('Vérifier les informations affichées', () => {
-    cy.validateTableDataRowKeyClass('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 3, 'FlagDropdown');
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 2, /^[^,]+,[^,]+,[^,]+...$/);
+    cy.validateTableDataRowKeyClass('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 2, 'FlagDropdown');
+    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 3, /^[^,]+,[^,]+,[^,]+...$/);
     cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 4, 'LOSS:chr1:450731-7249626');
     cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 5, /^1$/);
     cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 6, '450 730');

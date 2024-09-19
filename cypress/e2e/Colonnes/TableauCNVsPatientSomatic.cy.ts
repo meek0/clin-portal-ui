@@ -8,7 +8,7 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
 });
 
-describe('Page des CNVs d\'un patient (somatic) - Colonnes du tableau', () => {
+describe('Page des CNVs d\'un patient (somatic) - Colonnes du tableau [CLIN-3215]', () => {
 
   beforeEach(() => {
     cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
