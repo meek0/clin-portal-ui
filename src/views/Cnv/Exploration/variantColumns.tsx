@@ -10,6 +10,7 @@ import FlagCell from 'views/Snv/Exploration/components/Flag/FlagCell';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import EnvironmentVariables from 'utils/EnvVariables';
 import { formatFilters } from 'utils/formatFilters';
 import { formatGenotype } from 'utils/formatGenotype';
 import { formatDnaLength, formatNumber } from 'utils/formatNumber';
@@ -74,18 +75,21 @@ export const getVariantColumns = (
         ),
     },
   );
-  if (isSameLDM) {
-    columns.push({
-      key: 'flags',
-      title: intl.get('screen.patientsnv.results.table.flag'),
-      dataIndex: 'flags',
-      tooltip: intl.get('flag.table.tooltip'),
-      iconTitle: <FlagOutlined />,
-      width: 85,
-      render: (flags: string[], entity: VariantEntity) => (
-        <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="cnv" />
-      ),
-    });
+
+  if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true') {
+    if (isSameLDM) {
+      columns.push({
+        key: 'flags',
+        title: intl.get('screen.patientsnv.results.table.flag'),
+        dataIndex: 'flags',
+        tooltip: intl.get('flag.table.tooltip'),
+        iconTitle: <FlagOutlined />,
+        width: 85,
+        render: (flags: string[], entity: VariantEntity) => (
+          <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="cnv" />
+        ),
+      });
+    }
   }
 
   columns.push(

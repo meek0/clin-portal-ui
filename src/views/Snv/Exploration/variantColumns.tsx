@@ -32,6 +32,7 @@ import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import UserAffectedIcon from 'components/icons/UserAffectedIcon';
 import { TABLE_EMPTY_PLACE_HOLDER, TABLE_ND_PLACE_HOLDER } from 'utils/constants';
+import EnvironmentVariables from 'utils/EnvVariables';
 import { formatFilters } from 'utils/formatFilters';
 import { formatGenotype } from 'utils/formatGenotype';
 import { formatNumber } from 'utils/formatNumber';
@@ -351,37 +352,39 @@ export const getVariantColumns = (
       align: 'center',
     });
 
-    if (isSameLDM) {
-      columns.push({
-        key: 'flags',
-        title: intl.get('screen.patientsnv.results.table.flag'),
-        dataIndex: 'flags',
-        tooltip: intl.get('flag.table.tooltip'),
-        iconTitle: <FlagOutlined />,
-        // TODO: Ajouter Filter plus tard
-        /* onFilter: (value, record) => {
-          if (value === 'none') {
-            return record.flags.length === 0;
-          }
-          return record.flags.includes(value.toString());
-        },
-        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-          <FlagFilterDropdown
-            confirm={() => {
-              setFilterList && setFilterList(selectedKeys.length > 0 ? 'flag' : undefined);
-              confirm();
-            }}
-            selectedKeys={selectedKeys}
-            setSelectedKeys={setSelectedKeys}
-            setFilterList={setFilterList}
-            isClear={isClear}
-          />
-        ), */
-        width: 85,
-        render: (flags: string[], entity: VariantEntity) => (
-          <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="snv" />
-        ),
-      });
+    if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true') {
+      if (isSameLDM) {
+        columns.push({
+          key: 'flags',
+          title: intl.get('screen.patientsnv.results.table.flag'),
+          dataIndex: 'flags',
+          tooltip: intl.get('flag.table.tooltip'),
+          iconTitle: <FlagOutlined />,
+          // TODO: Ajouter Filter plus tard
+          /* onFilter: (value, record) => {
+            if (value === 'none') {
+              return record.flags.length === 0;
+            }
+            return record.flags.includes(value.toString());
+          },
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <FlagFilterDropdown
+              confirm={() => {
+                setFilterList && setFilterList(selectedKeys.length > 0 ? 'flag' : undefined);
+                confirm();
+              }}
+              selectedKeys={selectedKeys}
+              setSelectedKeys={setSelectedKeys}
+              setFilterList={setFilterList}
+              isClear={isClear}
+            />
+          ), */
+          width: 85,
+          render: (flags: string[], entity: VariantEntity) => (
+            <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="snv" />
+          ),
+        });
+      }
     }
   }
 
