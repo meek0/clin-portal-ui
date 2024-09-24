@@ -352,16 +352,15 @@ export const getVariantColumns = (
       align: 'center',
     });
 
-    if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true') {
-      if (isSameLDM) {
-        columns.push({
-          key: 'flags',
-          title: intl.get('screen.patientsnv.results.table.flag'),
-          dataIndex: 'flags',
-          tooltip: intl.get('flag.table.tooltip'),
-          iconTitle: <FlagOutlined />,
-          // TODO: Ajouter Filter plus tard
-          /* onFilter: (value, record) => {
+    if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true' && isSameLDM) {
+      columns.push({
+        key: 'flags',
+        title: intl.get('screen.patientsnv.results.table.flag'),
+        dataIndex: 'flags',
+        tooltip: intl.get('flag.table.tooltip'),
+        iconTitle: <FlagOutlined />,
+        // TODO: Ajouter Filter plus tard
+        /* onFilter: (value, record) => {
             if (value === 'none') {
               return record.flags.length === 0;
             }
@@ -379,12 +378,11 @@ export const getVariantColumns = (
               isClear={isClear}
             />
           ), */
-          width: 85,
-          render: (flags: string[], entity: VariantEntity) => (
-            <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="snv" />
-          ),
-        });
-      }
+        width: 85,
+        render: (flags: string[], entity: VariantEntity) => (
+          <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="snv" />
+        ),
+      });
     }
   }
 
