@@ -1,5 +1,6 @@
 {
-  "headers": ["genes",
+  "headers": ["flags",
+              "genes",
               "name",
               "chromosome",
               "start",
