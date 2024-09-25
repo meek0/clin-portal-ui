@@ -10,6 +10,7 @@ import FlagCell from 'views/Snv/Exploration/components/Flag/FlagCell';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import EnvironmentVariables from 'utils/EnvVariables';
 import { formatFilters } from 'utils/formatFilters';
 import { formatGenotype } from 'utils/formatGenotype';
 import { formatDnaLength, formatNumber } from 'utils/formatNumber';
@@ -74,7 +75,8 @@ export const getVariantColumns = (
         ),
     },
   );
-  if (isSameLDM) {
+
+  if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true' && isSameLDM) {
     columns.push({
       key: 'flags',
       title: intl.get('screen.patientsnv.results.table.flag'),
