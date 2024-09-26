@@ -26,6 +26,20 @@ export const getVariantColumns = (
 ): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [];
 
+  if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true' && isSameLDM) {
+    columns.push({
+      key: 'flags',
+      fixed: 'left',
+      title: intl.get('screen.patientsnv.results.table.flag'),
+      dataIndex: 'flags',
+      tooltip: intl.get('flag.table.tooltip'),
+      iconTitle: <FlagOutlined />,
+      width: 85,
+      render: (flags: string[], entity: VariantEntity) => (
+        <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="cnv" />
+      ),
+    });
+  }
   columns.push(
     {
       className: noData
@@ -75,20 +89,6 @@ export const getVariantColumns = (
         ),
     },
   );
-
-  if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true' && isSameLDM) {
-    columns.push({
-      key: 'flags',
-      title: intl.get('screen.patientsnv.results.table.flag'),
-      dataIndex: 'flags',
-      tooltip: intl.get('flag.table.tooltip'),
-      iconTitle: <FlagOutlined />,
-      width: 85,
-      render: (flags: string[], entity: VariantEntity) => (
-        <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="cnv" />
-      ),
-    });
-  }
 
   columns.push(
     {
