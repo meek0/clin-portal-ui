@@ -35,17 +35,17 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'GAIN');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-save"]').should('not.exist');
+    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
   });
  
   it('Valider les liens disponibles', () => {
     cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"]').contains(/^191$/).clickAndWait({force: true});
     cy.contains('LOSS:chr1:450731-7249626').should('exist');
-    cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
 
     cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"]').contains(/^[^,]+,[^,]+,[^,]+...$/).clickAndWait({force: true});
     cy.contains('LOSS:chr1:450731-7249626').should('exist');
-    cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
   });
   
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {

@@ -35,8 +35,8 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.get('[class*="ant-select-dropdown"] [class*="ant-select-item"]').eq(0).clickAndWait({force: true}); //data-cy="Search_Dropdown"
 
     cy.get('[class*="ant-tag"]').contains('PRDX1').should('exist'); //data-cy="Tag_PRDX1"
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryPill_field"]').contains('Gène').should('exist');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryValues_value"]').contains('PRDX1').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryPill_field"]').contains('Gène').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryValues_value"]').contains('PRDX1').should('exist');
     cy.validateTableResultsCount(/^13$/);
 
     cy.get('[data-icon="close-circle"]').clickAndWait({force: true});
@@ -55,8 +55,8 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.get('[class*="ant-select-dropdown"] [class*="ant-select-item"]').eq(0).clickAndWait({force: true}); //data-cy="Search_Dropdown"
 
     cy.get('[class*="ant-tag"]').contains('PRDX1').should('exist'); //data-cy="Tag_PRDX1"
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryPill_field"]').contains('Gène').should('exist');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryValues_value"]').contains('PRDX1').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryPill_field"]').contains('Gène').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryValues_value"]').contains('PRDX1').should('exist');
     cy.validateTableResultsCount(/^13$/);
   });
 
@@ -72,8 +72,8 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.get('[class*="ant-select-dropdown"] [class*="ant-select-item"]').eq(0).clickAndWait({force: true}); //data-cy="Search_Dropdown"
 
     cy.get('[class*="ant-tag"]').contains('PRDX1').should('exist'); //data-cy="Tag_PRDX1"
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryPill_field"]').contains('Gène').should('exist');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryValues_value"]').contains('PRDX1').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryPill_field"]').contains('Gène').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryValues_value"]').contains('PRDX1').should('exist');
     cy.validateTableResultsCount(/^13$/);
   });
 

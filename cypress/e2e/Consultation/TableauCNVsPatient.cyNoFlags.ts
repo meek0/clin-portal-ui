@@ -38,17 +38,17 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'GAIN');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-save"]').should('not.exist');
+    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
   });
  
   it('Valider les liens disponibles', () => {
     cy.get('tr[data-row-key="c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c"]').contains(/^2$/).clickAndWait({force: true});
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');
-    cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
 
     cy.get('tr[data-row-key="c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c"]').contains('CFHR1').clickAndWait({force: true});
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');
-    cy.get('body').find('button[class="ant-modal-close"]').invoke('click');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
   });
   
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {

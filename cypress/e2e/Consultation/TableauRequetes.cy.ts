@@ -25,8 +25,8 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
     cy.showColumn('Dossier', 1);
     cy.showColumn('Requérant', 1);
   
-    cy.get('body').find('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
-    cy.get('body').find('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
+    cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
   });
 
   it('Vérifier les informations affichées', () => {
@@ -77,8 +77,8 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
     cy.showColumn('Dossier', 1);
     cy.showColumn('Requérant', 1);
   
-    cy.get('body').find('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
-    cy.get('body').find('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
+    cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
   });
 
   it('Valider les fonctionnalités du tableau - Tri Requête', () => {

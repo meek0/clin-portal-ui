@@ -13,7 +13,7 @@ describe('Page des variants - Requêtes', () => {
 
   it('Modifier l\'opérateur d\'une requête', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql1');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="Combiner_operator"]').clickAndWait({force: true});
+    cy.get('[class*="QueryBar_selected"] [class*="Combiner_operator"]').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql1');
     cy.wait('@getPOSTgraphql1');
 
@@ -25,7 +25,7 @@ describe('Page des variants - Requêtes', () => {
     cy.validateClearAllButton(false);
 
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql2');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="Combiner_operator"]').clickAndWait({force: true});
+    cy.get('[class*="QueryBar_selected"] [class*="Combiner_operator"]').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql2');
     cy.wait('@getPOSTgraphql2');
 
@@ -40,7 +40,7 @@ describe('Page des variants - Requêtes', () => {
   it('Supprimer une des pilules d\'une requête avec le X', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
-    cy.get('[class*="QueryBar_selected"]').find('button[class*="QueryPill_close"]').eq(0).clickAndWait();
+    cy.get('[class*="QueryBar_selected"] button[class*="QueryPill_close"]').eq(0).clickAndWait();
     cy.wait('@getPOSTgraphql');
     cy.wait('@getPOSTgraphql');
 

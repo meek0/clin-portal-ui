@@ -10,7 +10,7 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
   cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
-  cy.get('div[role="tabpanel"]').find('tr[data-row-key]').eq(0).should('exist');
+  cy.get('div[role="tabpanel"] tr[data-row-key]').eq(0).should('exist');
 
   cy.get('[class*="Header_ProTableHeader"] button[class*="ant-btn-default"]').clickAndWait({force: true});
   cy.wait(2000);

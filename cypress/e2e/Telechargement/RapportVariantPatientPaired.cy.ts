@@ -15,7 +15,7 @@ beforeEach(() => {
 
 describe('Télécharger le rapport d\'un variant d\'un patient (paired)', () => {
   beforeEach(() => {
-    cy.get('div[role="tabpanel"]').find('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
+    cy.get('div[role="tabpanel"] tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
     cy.get('[data-menu-id*="downloadReport"]').clickAndWait({force: true});
     cy.waitUntilFile(oneMinute);
   });

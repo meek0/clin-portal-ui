@@ -35,8 +35,8 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.get('[class*="ant-select-dropdown"] [class*="ant-select-item"]').eq(0).clickAndWait({force: true}); //data-cy="Search_Dropdown"
 
     cy.get('[class*="ant-tag"]').contains('X-123403094-G-A').should('exist'); //data-cy="Tag_X-123403094-G-A"
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryPill_field"]').contains('Variant').should('exist');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryValues_value"]').contains('X-123403094-G-A').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryPill_field"]').contains('Variant').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryValues_value"]').contains('X-123403094-G-A').should('exist');
     cy.validateTableResultsCount(/^1$/);
 
     cy.get('[data-icon="close-circle"]').clickAndWait({force: true});
@@ -55,8 +55,8 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.get('[class*="ant-select-dropdown"] [class*="ant-select-item"]').eq(0).clickAndWait({force: true}); //data-cy="Search_Dropdown"
 
     cy.get('[class*="ant-tag"]').contains('X-123403094-G-A').should('exist'); //data-cy="Tag_X-123403094-G-A"
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryPill_field"]').contains('Variant').should('exist');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryValues_value"]').contains('X-123403094-G-A').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryPill_field"]').contains('Variant').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryValues_value"]').contains('X-123403094-G-A').should('exist');
     cy.validateTableResultsCount(/^1$/);
   });
 
@@ -72,8 +72,8 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.get('[class*="ant-select-dropdown"] [class*="ant-select-item"]').eq(0).clickAndWait({force: true}); //data-cy="Search_Dropdown"
 
     cy.get('[class*="ant-tag"]').contains('X-123403094-G-A').should('exist'); //data-cy="Tag_X-123403094-G-A"
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryPill_field"]').contains('Variant').should('exist');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="QueryValues_value"]').contains('X-123403094-G-A').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryPill_field"]').contains('Variant').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="QueryValues_value"]').contains('X-123403094-G-A').should('exist');
     cy.validateTableResultsCount(/^1$/);
   });
 

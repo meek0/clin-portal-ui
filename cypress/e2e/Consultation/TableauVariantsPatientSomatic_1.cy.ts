@@ -30,9 +30,9 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.validateTableDataRowKeyAttr('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 7, 'data-icon', 'plus');
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 8, 'ConsequencesCell_highImpact');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 8, 'Stop Lost p.Ter250Arg');
-    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"]').find('td').eq(9).find('path[d*="M16.7732"]').should('exist'); // C
-    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"]').find('td').eq(9).find('path[d*="M8.98279"]').should('not.exist'); // M
-    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"]').find('td').eq(9).find('path[d*="M10.9335"]').should('not.exist'); // P
+    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"] td').eq(9).find('path[d*="M16.7732"]').should('exist'); // C
+    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"] td').eq(9).find('path[d*="M8.98279"]').should('not.exist'); // M
+    cy.get('tr[data-row-key="bdc7b7f2fba4aef570b1ac84217fe870f14261db"] td').eq(9).find('path[d*="M10.9335"]').should('not.exist'); // P
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 10, 'AD');
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 10, 'ant-tag-blue');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 11, /^B$/);
@@ -62,7 +62,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'SNV');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-save"]').should('not.exist');
-    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-copy"]').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
+    cy.get('[class*="QueryBar_selected"] [class*="anticon-copy"]').should('exist');
   });
 });

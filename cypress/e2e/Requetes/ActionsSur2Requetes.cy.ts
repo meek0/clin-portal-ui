@@ -66,7 +66,7 @@ describe('Page des variants - Requêtes', () => {
   it('Combiner deux requêtes avec ET', () => {
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(0).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).find('input[class="ant-checkbox-input"]').check({force: true});
-    cy.get('[class*="QueryTools"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
+    cy.get('[class*="QueryTools"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('[class="ant-dropdown-menu-title-content"]').contains('Et').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql');
@@ -83,7 +83,7 @@ describe('Page des variants - Requêtes', () => {
   it('Combiner deux requêtes avec OU', () => {
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(0).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).find('input[class="ant-checkbox-input"]').check({force: true});
-    cy.get('[class*="QueryTools"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
+    cy.get('[class*="QueryTools"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('[class="ant-dropdown-menu-title-content"]').contains('Ou').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql');
@@ -101,7 +101,7 @@ describe('Page des variants - Requêtes', () => {
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(0).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
-    cy.get('[class*="QueryTools"]').find('button[class*="ant-btn-compact-first-item"]').clickAndWait({force: true});
+    cy.get('[class*="QueryTools"] button[class*="ant-btn-compact-first-item"]').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql');
     cy.wait('@getPOSTgraphql');
 
@@ -114,10 +114,10 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Supprimer une requête avec le bouton et annuler', () => {
-    cy.get('[class*="QueryBar_selected"]').find('[data-icon="delete"]').clickAndWait({force: true});
+    cy.get('[class*="QueryBar_selected"] [data-icon="delete"]').clickAndWait({force: true});
     cy.get('[class*="ant-popconfirm"]').should('not.have.class', 'ant-popover-hidden');
 
-    cy.get('[class*="ant-popconfirm"]').find('button[class*="ant-btn-default"]').clickAndWait({force:true});
+    cy.get('[class*="ant-popconfirm"] button[class*="ant-btn-default"]').clickAndWait({force:true});
     cy.get('[class*="ant-popconfirm"]').should('have.class', 'ant-popover-hidden');
     cy.get('[class*="QueryBar_queryBarWrapper"]').its('length').should('eq', 2);
     cy.validatePillSelectedQuery('Type de variant', ['SNV']);
@@ -127,7 +127,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Supprimer une requête avec le bouton et confirmer', () => {
-    cy.get('[class*="QueryBar_selected"]').find('[data-icon="delete"]').clickAndWait({force: true});
+    cy.get('[class*="QueryBar_selected"] [data-icon="delete"]').clickAndWait({force: true});
     cy.get('[class*="ant-popconfirm"]').should('not.have.class', 'ant-popover-hidden');
 
     cy.clickAndIntercept('[class*="ant-popconfirm"] button[class*="ant-btn-primary"]', 'POST', '**/graphql', 1);
@@ -142,7 +142,7 @@ describe('Page des variants - Requêtes', () => {
   it('Supprimer l\'unique pilule d\'une requête avec le X', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
-    cy.get('[class*="QueryBar_selected"]').find('button[class*="QueryPill_close"]').clickAndWait();
+    cy.get('[class*="QueryBar_selected"] button[class*="QueryPill_close"]').clickAndWait();
     cy.wait('@getPOSTgraphql');
 
     cy.get('[class*="QueryBar_queryBarWrapper"]').its('length').should('eq', 1);
@@ -156,7 +156,7 @@ describe('Page des variants - Requêtes', () => {
     cy.get('[id="query-builder-header-tools"]').contains('Tout effacer').clickAndWait({force: true});
     cy.get('[class*="ant-modal-confirm"]').should('exist');
 
-    cy.get('[class*="ant-modal-confirm"]').find('button[class*="ant-btn-default"]').clickAndWait({force:true});
+    cy.get('[class*="ant-modal-confirm"] button[class*="ant-btn-default"]').clickAndWait({force:true});
     cy.get('[class*="ant-modal-confirm"]').should('not.exist');
     cy.get('[class*="QueryBar_queryBarWrapper"]').its('length').should('eq', 2);
     cy.validatePillSelectedQuery('Type de variant', ['SNV']);
@@ -169,7 +169,7 @@ describe('Page des variants - Requêtes', () => {
     cy.get('[id="query-builder-header-tools"]').contains('Tout effacer').clickAndWait({force: true});
     cy.get('[class*="ant-modal-confirm"]').should('exist');
 
-    cy.get('[class*="ant-modal-confirm"]').find('button[class*="ant-btn-primary"]').clickAndWait({force:true});
+    cy.get('[class*="ant-modal-confirm"] button[class*="ant-btn-primary"]').clickAndWait({force:true});
     cy.get('[class*="ant-modal-confirm"]').should('not.exist');
     cy.get('body').contains('Utiliser les filtres pour créer une requête').should('exist');
     cy.validateTotalSelectedQuery('1.3M');

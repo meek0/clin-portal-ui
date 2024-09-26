@@ -15,7 +15,7 @@ beforeEach(() => {
 
 describe('Télécharger le rapport d\'un variant d\'un patient (somatic)', () => {
   beforeEach(() => {
-    cy.get('div[role="tabpanel"]').find('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
+    cy.get('div[role="tabpanel"] tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
     cy.get('[data-menu-id*="downloadReport"]').clickAndWait({force: true});
     cy.waitUntilFile(oneMinute);
   });

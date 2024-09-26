@@ -23,9 +23,9 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.validateTableDataRowKeyAttr('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 4, 'data-icon', 'plus');
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 5, 'ConsequencesCell_moderateImpact');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 5, 'Missense p.Arg394Gln');
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(6).find('path[d*="M16.7732"]').should('exist'); // C
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(6).find('path[d*="M8.98279"]').should('exist'); // M
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(6).find('path[d*="M10.9335"]').should('not.exist'); // P
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(6).find('path[d*="M16.7732"]').should('exist'); // C
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(6).find('path[d*="M8.98279"]').should('exist'); // M
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(6).find('path[d*="M10.9335"]').should('not.exist'); // P
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 7, 'XLR');
     cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 7, 'ant-tag-blue');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 8, /^B$/);
@@ -55,7 +55,7 @@ describe('Page des variants - Consultation du tableau', () => {
   });
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
-    cy.get('[class*="QueryBar_selected"]').find('[class*="anticon-save"]').should('exist');
+    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('exist');
   });
 });
   

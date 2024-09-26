@@ -18,9 +18,9 @@ Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: st
     cy.waitWhileSpin(oneMinute);
   }
 
-  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
+  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs button').then(($button) => {
     if ($button.hasClass('ant-btn-link')) {
-      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
       cy.waitWhileSpin(1000);
     };
   });
@@ -32,9 +32,9 @@ Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: st
 Cypress.Commands.add('checkValueFacet', (facetTitle: string, valueBack: string) => {
   cy.get(`[aria-expanded="true"] [data-cy="FilterContainer_${facetTitle}"]`).should('exist');
   cy.waitWhileSpin(1000);
-  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
+  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs button').then(($button) => {
     if ($button.hasClass('ant-btn-link')) {
-      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
       cy.waitWhileSpin(1000);
     };
   });
@@ -63,9 +63,9 @@ Cypress.Commands.add('clickAndWait', { prevSubject: 'element' }, (subject, optio
 });
 
 Cypress.Commands.add('closePopup', () => {
-  cy.get('body').find('button').then(($button) => {
+  cy.get('button').then(($button) => {
     if ($button.hasClass('close')) {
-      cy.get('body').find('button[class="close"]').clickAndWait({force: true});
+      cy.get('button[class="close"]').clickAndWait({force: true});
     };
   });
 });
@@ -212,7 +212,7 @@ Cypress.Commands.add('validateDictionnaryNewValues', (section: string, facetTitl
   cy.waitWhileSpin(oneMinute);
 
   if (moreButton) {
-    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
     cy.waitWhileSpin(oneMinute);
   }
     
@@ -233,7 +233,7 @@ Cypress.Commands.add('validateDictionnaryPresetValues', (section: string, facetT
   cy.waitWhileSpin(oneMinute);
 
   if (moreButton) {
-    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
     cy.waitWhileSpin(oneMinute);
   }
 
@@ -453,15 +453,15 @@ Cypress.Commands.add('validateSelectedFilterInDropdown', (filterName: string) =>
 });
 
 Cypress.Commands.add('validateTableDataRowKeyAttr', (dataRowKey: string, eq: number, expectedAttr: string, expectedValue: string) => {
-  cy.get('tr[data-row-key="'+dataRowKey+'"]').find('td').eq(eq).find('['+expectedAttr+'="'+expectedValue+'"]').should('exist');
+  cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).find('['+expectedAttr+'="'+expectedValue+'"]').should('exist');
 });
 
 Cypress.Commands.add('validateTableDataRowKeyClass', (dataRowKey: string, eq: number, expectedClass: string) => {
-  cy.get('tr[data-row-key="'+dataRowKey+'"]').find('td').eq(eq).find('[class*="'+expectedClass+'"]').should('exist');
+  cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).find('[class*="'+expectedClass+'"]').should('exist');
 });
 
 Cypress.Commands.add('validateTableDataRowKeyContent', (dataRowKey: string, eq: number, expectedContent: string|RegExp) => {
-  cy.get('tr[data-row-key="'+dataRowKey+'"]').find('td').eq(eq).contains(expectedContent).should('exist');
+  cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).contains(expectedContent).should('exist');
 });
 
 Cypress.Commands.add('validateTableFirstRow', (expectedValue: string|RegExp, eq: number, hasCheckbox: boolean = false, selector: string = '') => {

@@ -28,14 +28,14 @@ beforeEach(() => {
 
 describe('Page des variants d\'un patient - Consultation du tableau', () => {
    it('Valider les liens disponibles Lien UCSC', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
-    cy.get('[data-menu-id*="UCSC"]').find('a[href]')
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
+    cy.get('[data-menu-id*="UCSC"] a[href]')
       .should('have.attr', 'href', 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chrX%3A123403094-123403095');
   });
  
   it('Valider les liens disponibles Lien LitVar', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
-    cy.get('[data-menu-id*="LitVAR"]').find('a[href]')
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
+    cy.get('[data-menu-id*="LitVAR"] a[href]')
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/research/litvar2/docsum?text=rs138817389');
   });
  
@@ -45,27 +45,27 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
   });
  
   it('Valider les liens disponibles Lien dbSNP', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(5).find('a[href]')
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(5).find('a[href]')
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/snp/rs138817389');
   });
  
   it('Valider les liens disponibles Lien Gène', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(6).find('a[href]')
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(6).find('a[href]')
       .should('have.attr', 'href', 'https://www.omim.org/entry/305915');
   });
  
   it('Valider les liens disponibles Lien Gène Plus', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(6).find('[data-icon="plus"]').clickAndWait({force: true});
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(6).find('[data-icon="plus"]').clickAndWait({force: true});
     cy.validatePillSelectedQuery('Gène', ['GRIA3']);
   });
  
   it('Valider les liens disponibles Lien OMIM', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(9).find('a[href]')
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(9).find('a[href]')
       .should('have.attr', 'href', 'https://www.omim.org/entry/305915');
   });
  
   it('Valider les liens disponibles Lien ClinVar', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(10).find('a[href]').eq(1)
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(10).find('a[href]').eq(1)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/198752');
   });
  
@@ -76,17 +76,17 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
   });
  
   it('Valider les liens disponibles Lien RQDM G', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(17).find('a[href]').clickAndWait({force: true});
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(17).find('a[href]').clickAndWait({force: true});
     cy.validateTableResultsCount('6 Résultats');
   });
  
   it('Valider les liens disponibles Lien CMC', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(31).find('a[href]')
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(31).find('a[href]')
       .should('have.attr', 'href', 'https://cancer.sanger.ac.uk/cosmic/search?q=COSV52051792&genome=38#');
   });
  
   it('Valider les liens disponibles Lien Tier', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').find('td').eq(32).find('a[href]')
+    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(32).find('a[href]')
       .should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/snpTumor/chrX-123403094-G-A-hg38');
   });
 });

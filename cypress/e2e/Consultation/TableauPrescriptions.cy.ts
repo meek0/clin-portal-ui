@@ -43,7 +43,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
 
   it('Valider les liens disponibles Lien Prescription', () => {
     cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
-    cy.get('tr[data-row-key="'+epCHUSJ_ldmCHUSJ.prescriptionId+'"]').find('a[href*="prescription"]').clickAndWait({force: true});
+    cy.get('tr[data-row-key="'+epCHUSJ_ldmCHUSJ.prescriptionId+'"] a[href*="prescription"]').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql');
 
     cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');

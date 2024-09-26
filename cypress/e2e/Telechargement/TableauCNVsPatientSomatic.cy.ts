@@ -11,7 +11,7 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
 
-  cy.get('div[role="tabpanel"]').find('tr[data-row-key="230d341fb95184d399ab5a5a00f5bbc709f92c5f"]').find('[type="checkbox"]').check({force: true});
+  cy.get('div[role="tabpanel"] tr[data-row-key="230d341fb95184d399ab5a5a00f5bbc709f92c5f"] [type="checkbox"]').check({force: true});
   cy.get('div[id="content"] svg[data-icon="download"]').clickAndWait({force: true});
   cy.waitUntilFile(oneMinute);
 });

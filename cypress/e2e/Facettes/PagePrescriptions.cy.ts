@@ -18,7 +18,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
     cy.get('div[class="Filter_facetCollapse__8Ofdg"]').eq(0).contains('Priorité').should('exist');
     cy.checkValueFacet('Priorité', 'asap');
 
-    cy.get('body').contains('Résultats').should('exist');
+    cy.validateTableResultsCount('Résultats');
   });
   
   it('Analyse - Malignant Hyperthermia (HYPM)', () => {
@@ -27,8 +27,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions 0').should('exist');
-    cy.get('body').contains('Requêtes 0').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions 0').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes 0').should('exist');
   });
 
   it('Analyse - Congenital Myopathies (MYOC)', () => {
@@ -36,8 +36,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions 0').should('exist');
-    cy.get('body').contains('Requêtes 0').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions 0').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes 0').should('exist');
   });
 
   it('Analyse - Global Developmental Delay / Intellectual Deficiency (Trio) (RGDI)', () => {
@@ -45,8 +45,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions (1)').should('exist');
-    cy.get('body').contains('Requêtes (3)').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions (1)').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes (3)').should('exist');
   });
 
   it('Bioinfo - TN', () => {
@@ -55,8 +55,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions (1)').should('exist');
-    cy.get('body').contains('Requêtes (1)').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions (1)').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes (1)').should('exist');
   });
 
   it('Statut des prescriptions - Approuvée', () => {
@@ -65,8 +65,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions (1)').should('exist');
-    cy.get('body').contains('Requêtes (3)').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions (1)').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes (3)').should('exist');
   });
   
   it('Statut des requêtes - Complétée', () => {
@@ -75,8 +75,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions (1)').should('exist');
-    cy.get('body').contains('Requêtes (3)').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions (1)').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes (3)').should('exist');
   });
   
   it('Laboratoire (LDM) - LDM-CHUSJ', () => {
@@ -85,8 +85,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions (1)').should('exist');
-    cy.get('body').contains('Requêtes (3)').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions (1)').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes (3)').should('exist');
   });
 
   it('Laboratoire (LDM) - LDM-CHUS', () => {
@@ -94,8 +94,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions 0').should('exist');
-    cy.get('body').contains('Requêtes 0').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions 0').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes 0').should('exist');
   });
 
   it('Laboratoire (LDM) - LDM-CUSM', () => {
@@ -103,8 +103,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions 0').should('exist');
-    cy.get('body').contains('Requêtes 0').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions 0').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes 0').should('exist');
   });
   
   it('Établissement prescripteur - CHUSJ', () => {
@@ -113,8 +113,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions (1)').should('exist');
-    cy.get('body').contains('Requêtes (3)').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions (1)').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes (3)').should('exist');
   });
 
   it('Établissement prescripteur - CHUS', () => {
@@ -122,8 +122,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions 0').should('exist');
-    cy.get('body').contains('Requêtes 0').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions 0').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes 0').should('exist');
   });
 
   it('Établissement prescripteur - CUSM', () => {
@@ -131,8 +131,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions 0').should('exist');
-    cy.get('body').contains('Requêtes 0').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions 0').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes 0').should('exist');
   });
   
   it('Prénatal - False', () => {
@@ -141,8 +141,8 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions (1)').should('exist');
-    cy.get('body').contains('Requêtes (3)').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions (1)').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes (3)').should('exist');
   });
   
   it('Lien de parenté - Cas-index', () => {
@@ -151,7 +151,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
 
     cy.get('input[class="ant-input"]').first().type(epCHUSJ_ldmCHUSJ.prescriptionId, {force: true});
 
-    cy.get('body').contains('Prescriptions (1)').should('exist');
-    cy.get('body').contains('Requêtes (1)').should('exist');
+    cy.get('[data-node-key="prescriptions"]').contains('Prescriptions (1)').should('exist');
+    cy.get('[data-node-key="requests"]').contains('Requêtes (1)').should('exist');
   });
 });
