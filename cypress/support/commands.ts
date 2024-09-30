@@ -18,9 +18,9 @@ Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: st
     cy.waitWhileSpin(oneMinute);
   }
 
-  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs button').then(($button) => {
+  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
     if ($button.hasClass('ant-btn-link')) {
-      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
       cy.waitWhileSpin(1000);
     };
   });
@@ -32,9 +32,9 @@ Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: st
 Cypress.Commands.add('checkValueFacet', (facetTitle: string, valueBack: string) => {
   cy.get(`[aria-expanded="true"] [data-cy="FilterContainer_${facetTitle}"]`).should('exist');
   cy.waitWhileSpin(1000);
-  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs button').then(($button) => {
+  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
     if ($button.hasClass('ant-btn-link')) {
-      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
       cy.waitWhileSpin(1000);
     };
   });
@@ -212,7 +212,7 @@ Cypress.Commands.add('validateDictionnaryNewValues', (section: string, facetTitl
   cy.waitWhileSpin(oneMinute);
 
   if (moreButton) {
-    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
     cy.waitWhileSpin(oneMinute);
   }
     
@@ -233,7 +233,7 @@ Cypress.Commands.add('validateDictionnaryPresetValues', (section: string, facetT
   cy.waitWhileSpin(oneMinute);
 
   if (moreButton) {
-    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+    cy.get('[data-cy="FilterContainer_' + facetTitle + '"]').parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
     cy.waitWhileSpin(oneMinute);
   }
 
