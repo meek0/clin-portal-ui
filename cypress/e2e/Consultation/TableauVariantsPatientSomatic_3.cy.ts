@@ -21,9 +21,9 @@ beforeEach(() => {
 describe('Page des variants d\'un patient (somatic) - Consultation du tableau', () => {  
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {
     cy.sortTableAndIntercept('Variant', 1);
-    cy.validateTableFirstRow('chr10:g.100063786T>C', 2, true);
+    cy.validateTableFirstRow('chr10:g.100063786T>C', 3, true);
     cy.sortTableAndIntercept('Variant', 1);
-    cy.validateTableFirstRow('chrY:g.56884027T>G', 2, true);
+    cy.validateTableFirstRow('chrY:g.56884027T>G', 3, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Type [CLIN-2149]', () => {
@@ -148,7 +148,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.sortTableAndIntercept('Gène', 1);
     cy.sortTableAndWait('Variant');
     cy.sortTableAndIntercept('Variant', 1);
-    cy.validateTableFirstRow('chr1:g.77633035C>T', 2, true);
+    cy.validateTableFirstRow('chr1:g.77633035C>T', 3, true);
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {

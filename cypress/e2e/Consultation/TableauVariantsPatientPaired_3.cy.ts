@@ -21,9 +21,9 @@ beforeEach(() => {
 describe('Page des variants d\'un patient (paired) - Consultation du tableau', () => {  
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {
     cy.sortTableAndIntercept('Variant', 1);
-    cy.validateTableFirstRow('chr10:g.100298459del', 2, true);
+    cy.validateTableFirstRow('chr10:g.100298459del', 3, true);
     cy.sortTableAndIntercept('Variant', 1);
-    cy.validateTableFirstRow('chrY:g.9908200A>C', 2, true);
+    cy.validateTableFirstRow('chrY:g.9908200A>C', 3, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Type [CLIN-2149]', () => {
@@ -147,7 +147,7 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
     cy.sortTableAndIntercept('Gène', 1);
     cy.sortTableAndWait('Variant');
     cy.sortTableAndIntercept('Variant', 1);
-    cy.validateTableFirstRow('chrY:g.56712379G>A', 2, true);
+    cy.validateTableFirstRow('chrY:g.56712379G>A', 3, true);
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {

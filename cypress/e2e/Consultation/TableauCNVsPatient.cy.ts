@@ -17,8 +17,8 @@ beforeEach(() => {
 });
 
 describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
-  it('Vérifier les informations affichées [CLIN-3215]', () => {
-    cy.validateTableDataRowKeyClass('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 2, 'FlagDropdown');
+  it('Vérifier les informations affichées', () => {
+    cy.validateTableDataRowKeyClass('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 1, 'FlagDropdown');
     cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 3, 'CFHR1');
     cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 3, 'CFHR3');
     cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 4, 'GAIN:chr1:196774873-196832007');

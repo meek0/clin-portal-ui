@@ -31,9 +31,9 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').clickAndWait({force: true});
 
     cy.sortTableAndIntercept('Variant', 1);
-    cy.validateTableFirstRow('chr10:g.100049106G>A', 2, true);
+    cy.validateTableFirstRow('chr10:g.100049106G>A', 3, true);
     cy.sortTableAndIntercept('Variant', 1);
-    cy.validateTableFirstRow('chrY:g.9951709_9951710del', 2, true);
+    cy.validateTableFirstRow('chrY:g.9951709_9951710del', 3, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Type [CLIN-2149]', () => {

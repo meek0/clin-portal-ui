@@ -16,8 +16,8 @@ beforeEach(() => {
 });
 
 describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () => {
-  it('Vérifier les informations affichées [CLIN-3215]', () => {
-    cy.validateTableDataRowKeyClass('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 2, 'FlagDropdown');
+  it('Vérifier les informations affichées', () => {
+    cy.validateTableDataRowKeyClass('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 1, 'FlagDropdown');
     cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 3, /^[^,]+,[^,]+,[^,]+...$/);
     cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 4, 'LOSS:chr1:450731-7249626');
     cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 5, /^1$/);
