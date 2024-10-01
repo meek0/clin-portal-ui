@@ -318,6 +318,39 @@ export const getVariantColumns = (
   let columns: ProColumnType<ITableVariantEntity>[] = [];
 
   if (patientId) {
+    if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true' && isSameLDM) {
+      columns.push({
+        key: 'flags',
+        fixed: 'left',
+        title: intl.get('screen.patientsnv.results.table.flag'),
+        dataIndex: 'flags',
+        tooltip: intl.get('flag.table.tooltip'),
+        iconTitle: <FlagOutlined />,
+        // TODO: Ajouter Filter plus tard
+        /* onFilter: (value, record) => {
+            if (value === 'none') {
+              return record.flags.length === 0;
+            }
+            return record.flags.includes(value.toString());
+          },
+          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+            <FlagFilterDropdown
+              confirm={() => {
+                setFilterList && setFilterList(selectedKeys.length > 0 ? 'flag' : undefined);
+                confirm();
+              }}
+              selectedKeys={selectedKeys}
+              setSelectedKeys={setSelectedKeys}
+              setFilterList={setFilterList}
+              isClear={isClear}
+            />
+          ), */
+        width: 85,
+        render: (flags: string[], entity: VariantEntity) => (
+          <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="snv" />
+        ),
+      });
+    }
     columns.push({
       className: noData
         ? `${style.fixedVariantTableCellNoData} ${style.userAffectedBtnCell}`
@@ -351,39 +384,6 @@ export const getVariantColumns = (
       ),
       align: 'center',
     });
-
-    if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true' && isSameLDM) {
-      columns.push({
-        key: 'flags',
-        title: intl.get('screen.patientsnv.results.table.flag'),
-        dataIndex: 'flags',
-        tooltip: intl.get('flag.table.tooltip'),
-        iconTitle: <FlagOutlined />,
-        // TODO: Ajouter Filter plus tard
-        /* onFilter: (value, record) => {
-            if (value === 'none') {
-              return record.flags.length === 0;
-            }
-            return record.flags.includes(value.toString());
-          },
-          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <FlagFilterDropdown
-              confirm={() => {
-                setFilterList && setFilterList(selectedKeys.length > 0 ? 'flag' : undefined);
-                confirm();
-              }}
-              selectedKeys={selectedKeys}
-              setSelectedKeys={setSelectedKeys}
-              setFilterList={setFilterList}
-              isClear={isClear}
-            />
-          ), */
-        width: 85,
-        render: (flags: string[], entity: VariantEntity) => (
-          <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="snv" />
-        ),
-      });
-    }
   }
 
   columns = [
