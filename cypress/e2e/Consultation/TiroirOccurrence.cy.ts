@@ -9,7 +9,7 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, Cypress.env('shared_filter_id'));
 
-  cy.get('div[role="tabpanel"] tr[data-row-key="9ea37b2966662962908b94b1898dc0a9ac4e9645"] td[class*="ant-table-cell-fix-left"]').eq(1).find('svg[class="anticon"]').first().clickAndWait({force: true});
+  cy.get('div[role="tabpanel"] tr[data-row-key="9ea37b2966662962908b94b1898dc0a9ac4e9645"] td[class*="ant-table-cell-fix-left"]').eq(2).find('svg[class="anticon"]').first().clickAndWait({force: true});
 });
 
 describe('Tiroir d\'une occurrence', () => {
