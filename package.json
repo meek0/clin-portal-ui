@@ -37,7 +37,7 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
-    "start": "ESLINT_NO_DEV_ERRORS='true' craco start",
+    "start": "ESLINT_NO_DEV_ERRORS=true craco start",
     "build": "DISABLE_ESLINT_PLUGIN=true craco build",
     "build:dev": "DISABLE_ESLINT_PLUGIN=true craco build",
     "commit:lint": "commitlint --edit $1",

@@ -122,6 +122,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       ...variantQueryConfig,
       searchAfter: undefined,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variantSection]);
 
   useEffect(() => {
@@ -200,8 +201,8 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       ...variantQueryConfig,
       searchAfter: undefined,
     });
-
     setPageIndex(DEFAULT_PAGE_INDEX);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeQuerySnapshot]);
 
   useEffect(() => {
@@ -213,6 +214,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       setVariantQueryConfig,
     );
     setPageIndex(DEFAULT_PAGE_INDEX);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeQuerySnapshot]);
 
   const [variantType, setVariantType] = useState<VariantType | null>(null);
@@ -247,59 +249,66 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       getVariantResolvedSqon={getVariantResolvedSqon}
       variantSection={variantSection}
     >
-      <Tabs type="card" activeKey={'variants'}>
-        <Tabs.TabPane
-          tab={intl.get('screen.patientsnv.results.table.variants') || 'Variants'}
-          key="variants"
-        >
-          <VariantsTab
-            queryBuilderId={getQueryBuilderID(variantSection)}
-            results={variantResultsWithDonorsWithFilter}
-            setQueryConfig={setVariantQueryConfig}
-            queryConfig={variantQueryConfig}
-            patientId={patientId!}
-            pageIndex={pageIndex}
-            setPageIndex={setPageIndex}
-            setVariantType={setVariantType}
-            setDownloadTriggered={setDownloadTriggered}
-            setSelectedRows={setSelectedRows}
-            variantSection={variantSection}
-            isSameLDM={isSameLDM()}
-            setFilterList={handleFilterList}
-            filtersList={filtersList}
-            isClear={isClear}
-          />
-          <DownloadTSVWrapper
-            queryVariables={queryVariables}
-            triggered={downloadTriggered}
-            setTriggered={setDownloadTriggered}
-            total={variantResultsWithDonorsWithFilter.total}
-            prefix={'SNV'}
-            operations={variantQueryConfig.operations}
-            query={VARIANT_QUERY}
-            maxAllowed={MAX_VARIANTS_WITH_DONORS_DOWNLOAD}
-            data={selectedRows}
-            columns={
-              variantType
-                ? getVariantColumns(
-                    getQueryBuilderID(variantSection),
-                    variantType,
-                    patientId,
-                    undefined,
-                    undefined,
-                    true,
-                    false,
-                    variantSection,
-                    isSameLDM(),
-                  ).filter((h) => h.key !== 'actions')
-                : []
-            }
-            queryKey={'Variants'}
-            columnKey={VARIANT_KEY}
-            patientId={patientId}
-          />
-        </Tabs.TabPane>
-      </Tabs>
+      <Tabs
+        type="card"
+        activeKey={'variants'}
+        items={[
+          {
+            label: intl.get('screen.patientsnv.results.table.variants') || 'Variants',
+            key: 'variants',
+            children: (
+              <>
+                <VariantsTab
+                  queryBuilderId={getQueryBuilderID(variantSection)}
+                  results={variantResultsWithDonorsWithFilter}
+                  setQueryConfig={setVariantQueryConfig}
+                  queryConfig={variantQueryConfig}
+                  patientId={patientId!}
+                  pageIndex={pageIndex}
+                  setPageIndex={setPageIndex}
+                  setVariantType={setVariantType}
+                  setDownloadTriggered={setDownloadTriggered}
+                  setSelectedRows={setSelectedRows}
+                  variantSection={variantSection}
+                  isSameLDM={isSameLDM()}
+                  setFilterList={handleFilterList}
+                  filtersList={filtersList}
+                  isClear={isClear}
+                />
+                <DownloadTSVWrapper
+                  queryVariables={queryVariables}
+                  triggered={downloadTriggered}
+                  setTriggered={setDownloadTriggered}
+                  total={variantResultsWithDonorsWithFilter.total}
+                  prefix={'SNV'}
+                  operations={variantQueryConfig.operations}
+                  query={VARIANT_QUERY}
+                  maxAllowed={MAX_VARIANTS_WITH_DONORS_DOWNLOAD}
+                  data={selectedRows}
+                  columns={
+                    variantType
+                      ? getVariantColumns(
+                          getQueryBuilderID(variantSection),
+                          variantType,
+                          patientId,
+                          undefined,
+                          undefined,
+                          true,
+                          false,
+                          variantSection,
+                          isSameLDM(),
+                        ).filter((h) => h.key !== 'actions')
+                      : []
+                  }
+                  queryKey={'Variants'}
+                  columnKey={VARIANT_KEY}
+                  patientId={patientId}
+                />
+              </>
+            ),
+          },
+        ]}
+      />
     </VariantContentLayout>
   );
 };

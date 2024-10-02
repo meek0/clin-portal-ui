@@ -20,7 +20,7 @@ const useElementSize = (elementID: string) => {
         resizeObserver.disconnect();
       }
     };
-  }, []);
+  }, [elementID]);
   return dimensions;
 };
 export default useElementSize;

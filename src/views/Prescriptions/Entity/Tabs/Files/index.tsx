@@ -38,6 +38,7 @@ const PrescriptionFiles = () => {
   };
 
   const allRequestIds = getAllRequestIds();
+  const allRequestIdsAsString = JSON.stringify(allRequestIds);
 
   useEffect(() => {
     const fetchAllFiles = async () => {
@@ -61,7 +62,8 @@ const PrescriptionFiles = () => {
     if (allRequestIds.length) {
       fetchAllFiles();
     }
-  }, [JSON.stringify(allRequestIds)]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allRequestIdsAsString]);
 
   const initialColumnState = user.config.data_exploration?.tables?.prescriptionEntityFiles?.columns;
   const tableDict = getProTableDictionary();

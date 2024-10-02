@@ -6,10 +6,12 @@ const { strDate, strTime } = getDateTime();
 
 const getName = (url = '', parallel = '') => {
   if (url.includes('clin-') || url.includes('presc-') || url.includes('clice-')) {
-      return url.replace('https://', '').split('.')[0].split('-').splice(2, 4).join('-')+'/'+parallel;
-    } else {
-      return 'QA/'+parallel;
-    }
+    return (
+      url.replace('https://', '').split('.')[0].split('-').splice(2, 4).join('-') + '/' + parallel
+    );
+  } else {
+    return 'QA/' + parallel;
+  }
 };
 
 export default defineConfig({
@@ -29,9 +31,18 @@ export default defineConfig({
     baseUrl: 'https://portail.qa.cqgc.hsj.rtss.qc.ca/',
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     slowTestThreshold: 60000,
-    downloadsFolder: `cypress/downloads/${getName(process.env.CYPRESS_BASE_URL, process.env.CYPRESS_PARALLEL)}`,
-    screenshotsFolder: `cypress/screenshots/${getName(process.env.CYPRESS_BASE_URL, process.env.CYPRESS_PARALLEL)}`,
-    videosFolder: `cypress/videos/${getName(process.env.CYPRESS_BASE_URL, process.env.CYPRESS_PARALLEL)}`,
+    downloadsFolder: `cypress/downloads/${getName(
+      process.env.CYPRESS_BASE_URL,
+      process.env.CYPRESS_PARALLEL,
+    )}`,
+    screenshotsFolder: `cypress/screenshots/${getName(
+      process.env.CYPRESS_BASE_URL,
+      process.env.CYPRESS_PARALLEL,
+    )}`,
+    videosFolder: `cypress/videos/${getName(
+      process.env.CYPRESS_BASE_URL,
+      process.env.CYPRESS_PARALLEL,
+    )}`,
   },
   retries: {
     runMode: 2,

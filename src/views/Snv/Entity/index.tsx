@@ -111,40 +111,43 @@ const VariantEntityPage = () => {
             history.push(`/variant/entity/${locus}/${key}`);
           }
         }}
-      >
-        <Tabs.TabPane
-          tab={
-            <span>
-              <BarChartOutlined height="16" width="16" />
-              {intl.get('screen.variantdetails.tab.summary')}
-            </span>
-          }
-          key={TAB_ID.SUMMARY}
-        >
-          <ScrollContentWithFooter container>
-            <ResumePanel
-              locus={locus}
-              data={{
-                loading,
-                variantData: data,
-              }}
-            />
-          </ScrollContentWithFooter>
-        </Tabs.TabPane>
-        <Tabs.TabPane
-          tab={
-            <span>
-              <TeamOutlined height="16" width="16" />
-              {intl.get('screen.variantdetails.tab.patients')}
-            </span>
-          }
-          key={TAB_ID.PATIENTS}
-        >
-          <ScrollContentWithFooter container>
-            <PatientPanel locus={locus} />
-          </ScrollContentWithFooter>
-        </Tabs.TabPane>
-      </Tabs>
+        items={[
+          {
+            key: TAB_ID.SUMMARY,
+            label: (
+              <span>
+                <BarChartOutlined height="16" width="16" />
+                {intl.get('screen.variantdetails.tab.summary')}
+              </span>
+            ),
+            children: (
+              <ScrollContentWithFooter container>
+                <ResumePanel
+                  locus={locus}
+                  data={{
+                    loading,
+                    variantData: data,
+                  }}
+                />
+              </ScrollContentWithFooter>
+            ),
+          },
+          {
+            key: TAB_ID.PATIENTS,
+            label: (
+              <span>
+                <TeamOutlined height="16" width="16" />
+                {intl.get('screen.variantdetails.tab.patients')}
+              </span>
+            ),
+            children: (
+              <ScrollContentWithFooter container>
+                <PatientPanel locus={locus} />
+              </ScrollContentWithFooter>
+            ),
+          },
+        ]}
+      />
     </ContentWithHeader>
   );
 };

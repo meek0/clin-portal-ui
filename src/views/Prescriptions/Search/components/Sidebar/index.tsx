@@ -75,7 +75,7 @@ const PrescriptionSidebar = ({
         }
       });
     }
-  }, [location, isLoading]);
+  }, [location, isLoading, aggregations, extendedMapping, queryBuilderId]);
 
   return (
     <Spin className={styles.loader} spinning={isLoading}>

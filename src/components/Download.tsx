@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { IQueryOperationsConfig } from '@ferlab/ui/core/graphql/types';
@@ -116,11 +116,9 @@ const DownloadTSVWrapper = ({
     setTriggered(false);
   };
 
-  useEffect(() => {
-    if (triggered) {
-      download();
-    }
-  }, [triggered]);
+  if (triggered) {
+    download();
+  }
 
   return (
     <>

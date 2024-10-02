@@ -11,7 +11,7 @@ import {
 import { DownOutlined } from '@ant-design/icons';
 import UserAvatar from '@ferlab/ui/core/components/UserAvatar';
 import { useKeycloak } from '@react-keycloak/web';
-import { Button, Dropdown, Menu, PageHeader, Space } from 'antd';
+import { Button, Dropdown, PageHeader, Space } from 'antd';
 import { PanelsApi } from 'api/panels';
 import { getUserFirstName } from 'auth/keycloak';
 
@@ -119,12 +119,10 @@ const Header = () => {
           <Dropdown
             key="user-menu"
             trigger={['click']}
-            overlay={
-              <Menu
-                onClick={async ({ key }) => (key === 'logout' ? await keycloak.logout() : null)}
-                items={[{ label: intl.get('logout'), key: 'logout' }]}
-              />
-            }
+            menu={{
+              onClick: async ({ key }) => (key === 'logout' ? await keycloak.logout() : null),
+              items: [{ label: intl.get('logout'), key: 'logout' }],
+            }}
           >
             <a className={styles.userMenuTrigger} onClick={(e) => e.preventDefault()} href="">
               <UserAvatar className={styles.userAvatar} userName={tokenParsed.name} size={24} />
