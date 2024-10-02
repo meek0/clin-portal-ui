@@ -3,8 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "react": ["node_modules/react"],
-      "react-dom": ["node_modules/react-dom"],
-      "~@ferlab/ui": ["../ferlab-ui/packages/ui"]
+      "react-dom": ["node_modules/react-dom"]
     }
   }
 }
