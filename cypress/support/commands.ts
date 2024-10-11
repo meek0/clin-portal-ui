@@ -119,7 +119,7 @@ Cypress.Commands.add('logout', () => {
     cy.visit('/');
     cy.waitWhileSpin(5*1000);
 
-    cy.get('div').then(($div) => {
+    cy.get('div [id="appContainer"]').then(($div) => {
         if ($div.hasClass('App')) {
             cy.get('span[class="anticon anticon-down"]').clickAndWait({force: true});
             cy.get('[data-menu-id*="logout"]').clickAndWait({force: true});
@@ -409,7 +409,7 @@ Cypress.Commands.add('validatePaging', (total: string|RegExp, eqSelect: number, 
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Précédent').parent('button').should('be.disabled');
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Début').parent('button').should('be.disabled');
 
-  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Suivant').clickAndWait({force: !!eqSelect});
+  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Suivant').clickAndWait();
   cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Résultats 21 - 40 de '+total.source));
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
@@ -480,7 +480,8 @@ Cypress.Commands.add('validateTableDataRowKeyContent', (dataRowKey: string, eq: 
 });
 
 Cypress.Commands.add('validateTableFirstRow', (expectedValue: string|RegExp, eq: number, hasCheckbox: boolean = false, selector: string = '') => {
-  cy.get('.ant-spin-container').should('not.have.class', 'ant-spin-blur', {timeout: 5*1000});
+  cy.waitWhileSpin(oneMinute);
+  cy.wait(3000);
   cy.get(selector+' tr[class*="ant-table-row"]').eq(0)
     .then(($firstRow) => {
       cy.wrap($firstRow).find('td').eq(eq).contains(expectedValue).should('exist');
