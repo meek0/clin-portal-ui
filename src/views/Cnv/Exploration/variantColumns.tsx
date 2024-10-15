@@ -1,12 +1,15 @@
+import { Key } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
-import { FlagOutlined } from '@ant-design/icons';
+import { FilterFilled, FlagOutlined } from '@ant-design/icons';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Button, Space, Tooltip } from 'antd';
 import cx from 'classnames';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 import { VariantType } from 'graphql/variants/models';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import FlagCell from 'views/Snv/Exploration/components/Flag/FlagCell';
+import FlagFilterDropdown from 'views/Snv/Exploration/components/Flag/FlagFilter';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
@@ -23,6 +26,9 @@ export const getVariantColumns = (
   igvModalCb?: (record: VariantEntity) => void,
   noData: boolean = false,
   isSameLDM?: boolean,
+  isClear?: boolean,
+  setFilterList?: (columnKeys: Key[]) => void,
+  filtersList?: string[],
 ): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -35,6 +41,23 @@ export const getVariantColumns = (
       tooltip: intl.get('flag.table.tooltip'),
       iconTitle: <FlagOutlined />,
       width: 85,
+      filterIcon: () => {
+        const isFilter = filtersList && filtersList?.length > 0 ? true : false;
+        return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
+      },
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+        <FlagFilterDropdown
+          confirm={() => {
+            confirm();
+          }}
+          selectedKeys={selectedKeys}
+          setFilterList={setFilterList}
+          setSelectedKeys={setSelectedKeys}
+          isClear={isClear}
+          variantSection={VariantSection.CNV}
+          selectedFilter={filtersList}
+        />
+      ),
       render: (flags: string[], entity: VariantEntity) => (
         <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="cnv" />
       ),

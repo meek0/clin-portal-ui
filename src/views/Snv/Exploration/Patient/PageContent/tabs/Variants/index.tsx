@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Key, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
@@ -40,6 +40,9 @@ type OwnProps = {
   setSelectedRows: (value: any[]) => void;
   variantSection?: VariantSection;
   isSameLDM?: boolean;
+  setFilterList: (columnKeys: Key[]) => void;
+  filtersList: string[];
+  isClear: boolean;
 };
 
 const VariantsTab = ({
@@ -55,6 +58,9 @@ const VariantsTab = ({
   setSelectedRows,
   variantSection,
   isSameLDM,
+  setFilterList,
+  filtersList,
+  isClear,
 }: OwnProps) => {
   const dispatch = useDispatch();
   const { user } = useUser();
@@ -66,27 +72,6 @@ const VariantsTab = ({
   const openDrawer = (record: VariantEntity) => {
     setSelectedVariant(record);
     toggleDrawer(true);
-  };
-
-  //TODO Filter
-  const [filtersList] = useState<string[]>([]);
-  const [, setIsClear] = useState<boolean>(false);
-  /* const handleFilterList = (columnKey: string | undefined) => {
-    if (columnKey) {
-      setIsClear(false);
-      if (filtersList.includes(columnKey)) {
-        setFilterList(filtersList.filter((s) => s !== columnKey));
-      } else {
-        setFilterList([...filtersList, columnKey]);
-      }
-    } else {
-      setFilterList([]);
-    }
-  }; 
-  */
-
-  const clearFilter = () => {
-    setIsClear(true);
   };
 
   const openIgvModal = (record: VariantEntity) => {
@@ -119,6 +104,9 @@ const VariantsTab = ({
     results?.data.length === 0,
     variantSection,
     isSameLDM,
+    isClear,
+    setFilterList,
+    filtersList,
   );
   return (
     <>
@@ -202,7 +190,9 @@ const VariantsTab = ({
                 );
               },
               hasFilter: filtersList.length > 0 ? true : false,
-              clearFilter: () => clearFilter(),
+              clearFilter: () => {
+                setFilterList([]);
+              },
             }}
             size="small"
             scroll={dimension}

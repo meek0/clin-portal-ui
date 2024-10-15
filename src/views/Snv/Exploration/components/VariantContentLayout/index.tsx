@@ -121,6 +121,7 @@ const VariantContentLayout = ({
           },
           defaultTitle: intl.get('querybuilder.variant.filter.defaultTitle'),
         }}
+        filterQueryToIgnore={['flags']}
         facetFilterConfig={{
           enable: true,
           onFacetClick: (filter) => {

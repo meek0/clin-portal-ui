@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { Key, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { resetSearchAfterQueryConfig, tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
-import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import useQueryBuilderState, {
+  updateQuery,
+} from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Tabs } from 'antd';
@@ -35,6 +37,8 @@ import {
   SNV_EXPLORATION_PATIENT_TO_FILTER_TAG,
 } from 'utils/queryBuilder';
 
+import { newQuery } from '../../components/Flag/FlagFilter';
+
 import VariantsTab from './tabs/Variants';
 
 type OwnProps = {
@@ -51,6 +55,9 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     ...DEFAULT_QUERY_CONFIG,
     size: DEFAULT_PAGE_SIZE,
   });
+  const [filtersList, setFilterList] = useState<string[]>([]);
+  const [isClear, setIsClear] = useState<boolean>(false);
+
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
@@ -114,11 +121,48 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       firstPageFlag: variantQueryConfig.searchAfter,
     });
   }, [variantQueryConfig]);
+  const handleFilterList = (columnKeys: Key[]) => {
+    if (columnKeys.length > 0) {
+      setIsClear(true);
+      const keytoString: string[] = columnKeys.map((key) => key.toString());
+      setFilterList(keytoString);
+    } else {
+      setFilterList([]);
+      setIsClear(false);
+    }
+  };
 
   const activeQuerySnapshot = JSON.stringify(activeQuery);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [downloadTriggered, setDownloadTriggered] = useState(false);
   const { prescription } = usePrescriptionEntityContext();
+  //Reset flags filter on resfresh
+  useEffect(() => {
+    setFilterList([]);
+    updateQuery({
+      query: {
+        content: newQuery(activeQuery, []),
+        id: activeQuery.id,
+        op: 'and',
+      },
+      queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
+    });
+  }, []);
+
+  //Reset Flag filter on clearFilter
+  useEffect(() => {
+    if (filtersList.length === 0) {
+      setIsClear(false);
+      updateQuery({
+        query: {
+          content: newQuery(activeQuery, []),
+          id: activeQuery.id,
+          op: 'and',
+        },
+        queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
+      });
+    }
+  }, [filtersList]);
 
   useEffect(() => {
     setVariantQueryConfig({
@@ -127,6 +171,17 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     });
 
     setPageIndex(DEFAULT_PAGE_INDEX);
+  }, [activeQuerySnapshot]);
+
+  useEffect(() => {
+    updateQuery({
+      query: {
+        content: newQuery(activeQuery, filtersList),
+        id: activeQuery.id,
+        op: 'and',
+      },
+      queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
+    });
   }, [activeQuerySnapshot]);
 
   useEffect(() => {
@@ -190,6 +245,9 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
             setSelectedRows={setSelectedRows}
             variantSection={variantSection}
             isSameLDM={isSameLDM()}
+            setFilterList={handleFilterList}
+            filtersList={filtersList}
+            isClear={isClear}
           />
           <DownloadTSVWrapper
             queryVariables={queryVariables}
