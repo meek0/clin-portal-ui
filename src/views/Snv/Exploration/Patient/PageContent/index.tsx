@@ -143,7 +143,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       query: {
         content: newQuery(activeQuery, []),
         id: activeQuery.id,
-        op: 'and',
+        op: activeQuery.op,
       },
       queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
     });
@@ -157,7 +157,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
         query: {
           content: newQuery(activeQuery, []),
           id: activeQuery.id,
-          op: 'and',
+          op: activeQuery.op,
         },
         queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
       });
@@ -178,7 +178,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       query: {
         content: newQuery(activeQuery, filtersList),
         id: activeQuery.id,
-        op: 'and',
+        op: filtersList.length > 0 ? 'and' : activeQuery.op,
       },
       queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
     });
