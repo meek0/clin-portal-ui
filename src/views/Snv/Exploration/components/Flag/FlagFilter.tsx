@@ -58,7 +58,7 @@ export const newQuery = (activeQuery: ISyntheticSqon, values: string[]) => {
   activeQuery.content.forEach((c: any) => {
     if (c.content) {
       if (Array.isArray(c.content)) {
-        asFlag = c.content[0].content.field === 'flags';
+        asFlag = c.content.lenght > 0 && c.content[0].content.field === 'flags';
       } else {
         asFlag = c.content.field === 'flags';
       }
