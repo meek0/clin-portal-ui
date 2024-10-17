@@ -57,7 +57,11 @@ export const newQuery = (activeQuery: ISyntheticSqon, values: string[]) => {
   let asFlag = false;
   activeQuery.content.forEach((c: any) => {
     if (c.content) {
-      asFlag = c.content.field === 'flags';
+      if (Array.isArray(c.content)) {
+        asFlag = c.content[0].content.field === 'flags';
+      } else {
+        asFlag = c.content.field === 'flags';
+      }
     }
   });
   const queriesNew: any =
