@@ -37,7 +37,7 @@ import {
   SNV_EXPLORATION_PATIENT_TO_FILTER_TAG,
 } from 'utils/queryBuilder';
 
-import { newQuery } from '../../components/Flag/FlagFilter';
+import { newQuery, hasFlags } from '../../components/Flag/FlagFilter';
 
 import VariantsTab from './tabs/Variants';
 
@@ -60,13 +60,28 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
 
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
 
-  const getVariantResolvedSqon = (query: ISyntheticSqon) =>
-    wrapSqonWithDonorIdAndSrId(
+  const getVariantResolvedSqon = (query: ISyntheticSqon) => {
+    const res = wrapSqonWithDonorIdAndSrId(
       cloneDeep(resolveSyntheticSqonWithReferences(queryList, query, variantMapping)),
       patientId,
       prescriptionId,
       variantSection,
     );
+
+    if (query.id === activeQuery.id) return res;
+
+    console.log('000- getVariantResolvedSqon not active query before filter', res, hasFlags(res), JSON.stringify(res))
+
+    res.content.forEach((c: ISyntheticSqon) => {
+      if (Array.isArray(c.content)) {
+        c.content = c.content.filter((o: any) => o.content.field !== 'flags');
+      }
+    });
+
+    console.log('000- getVariantResolvedSqon not active query', res, hasFlags(res), JSON.stringify(res))
+
+    return res;
+  };
 
   const queryVariables = {
     first: variantQueryConfig.size,
@@ -182,6 +197,8 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       },
       queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
     });
+
+    console.log('002- useEffect updateQuery add and', filtersList.length)
   }, [activeQuerySnapshot]);
 
   useEffect(() => {

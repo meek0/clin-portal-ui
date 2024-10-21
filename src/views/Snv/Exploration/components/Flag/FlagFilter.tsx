@@ -46,6 +46,20 @@ const activeQueryContent = (activeQuery: any) => ({
   op: 'and',
 });
 
+export const hasFlags = (activeQuery: ISyntheticSqon) => {
+  return activeQuery.content.some((c: any) => {
+    if (c.content) {
+      if (Array.isArray(c.content)) {
+        return c.content.length > 0 && c.content[0].content.field === 'flags';
+      } else {
+        return c.content.field === 'flags';
+      }
+    } else {
+      return false;
+    }
+  });
+}
+
 export const newQuery = (activeQuery: ISyntheticSqon, values: string[]) => {
   const filteredValues = values.filter((v) => v !== 'none');
   const activeQueryWithoutFilter =
@@ -54,16 +68,7 @@ export const newQuery = (activeQuery: ISyntheticSqon, values: string[]) => {
       : activeQuery;
 
   const queries = [...activeQueryWithoutFilter.content];
-  let asFlag = false;
-  activeQuery.content.forEach((c: any) => {
-    if (c.content) {
-      if (Array.isArray(c.content)) {
-        asFlag = c.content.lenght > 0 && c.content[0].content.field === 'flags';
-      } else {
-        asFlag = c.content.field === 'flags';
-      }
-    }
-  });
+  let asFlag = hasFlags(activeQuery);
   const queriesNew: any =
     values.length > 0 && !asFlag
       ? [activeQueryContent(activeQueryWithoutFilter)]
@@ -88,6 +93,8 @@ export const newQuery = (activeQuery: ISyntheticSqon, values: string[]) => {
       uniqueArray.push(item);
     }
   });
+
+  console.log('001- FlagFilter newQuery', activeQuery, values, uniqueArray) // too many ands?
   return uniqueArray;
 };
 
