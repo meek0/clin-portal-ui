@@ -141,7 +141,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     sort: tieBreaker({
       sort: variantQueryConfig.sort,
       defaultSort: DEFAULT_SORT_QUERY,
-      field: 'hgvsg',
+      field: 'start',
       order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
     }),
   };
@@ -183,17 +183,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
       setVariantQueryConfig,
     );
     setPageIndex(DEFAULT_PAGE_INDEX);
-  }, [activeQuerySnapshot]);
-
-  useEffect(() => {
-    updateQuery({
-      query: {
-        content: newQuery(activeQuery, filtersList),
-        id: activeQuery.id,
-        op: 'and',
-      },
-      queryBuilderId: getQueryBuilderID(VariantSection.CNV),
-    });
   }, [activeQuerySnapshot]);
 
   const isSameLDM = () => {
