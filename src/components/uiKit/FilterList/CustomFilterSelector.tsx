@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import FilterSelector, {
   FilterSelectorProps,
 } from '@ferlab/ui/core/components/filters/FilterSelector';
-import { removeIgnoreFieldFromQueryContent } from '@ferlab/ui/core/components/QueryBuilder/utils/helper';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { Spin } from 'antd';
 import { ExtendedMappingResults } from 'graphql/models';
@@ -45,7 +44,7 @@ const CustomFilterSelector = ({
     : resolveSyntheticSqonWithReferences(queryList, activeQuery);
   const results = useGetAggregations(
     {
-      sqon: removeIgnoreFieldFromQueryContent(resolvedSqon, ['flags']),
+      sqon: resolvedSqon,
     },
     AGGREGATION_QUERY(index, [filterKey], extendedMappingResults),
     index,

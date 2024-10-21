@@ -1,7 +1,6 @@
 import { Key, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { resetSearchAfterQueryConfig, tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
-import { removeIgnoreFieldFromQueryContent } from '@ferlab/ui/core/components/QueryBuilder/utils/helper';
 import useQueryBuilderState, {
   updateQuery,
 } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
@@ -60,11 +59,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   const [isClear, setIsClear] = useState<boolean>(false);
 
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
-
-  const queryListWithoutFilter: ISyntheticSqon[] = [];
-  queryList.forEach((q) => {
-    queryListWithoutFilter.push(removeIgnoreFieldFromQueryContent(q));
-  });
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) =>
     wrapSqonWithDonorIdAndSrId(
