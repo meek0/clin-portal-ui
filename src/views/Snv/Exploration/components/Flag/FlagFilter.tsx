@@ -102,14 +102,6 @@ const FlagFilterDropdown = ({
   <FlagFilter
     dictionary={getFlagDictionary()}
     confirm={() => {
-      /*         updateQuery({
-          query: {
-            content: newQuery(activeQuery, selectedKeys as string[]),
-            id: activeQuery.id,
-            op: 'and',
-          },
-          queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
-        }); */
       setFilterList && setFilterList(selectedKeys);
       confirm();
     }}

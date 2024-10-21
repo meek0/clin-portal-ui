@@ -27,7 +27,11 @@ import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
 import { usePrescriptionEntityContext } from 'views/Prescriptions/Entity/context';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { MAX_VARIANTS_DOWNLOAD } from 'views/Prescriptions/utils/export';
-import { newQuery } from 'views/Snv/Exploration/components/Flag/FlagFilter';
+import {
+  flagFilterQuery,
+  newQuery,
+  noFlagQuery,
+} from 'views/Snv/Exploration/components/Flag/FlagFilter';
 import { getQueryBuilderID } from 'views/Snv/utils/constant';
 
 import DownloadTSVWrapper from 'components/Download';
@@ -117,7 +121,33 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     }),
   };
 
+  const sqonwithFlag = {
+    content:
+      getVariantResolvedSqon(activeQuery)!.content.length > 0
+        ? filtersList.length > 0
+          ? filtersList.includes('none')
+            ? [getVariantResolvedSqon(activeQuery), noFlagQuery(filtersList)]
+            : [getVariantResolvedSqon(activeQuery), flagFilterQuery(filtersList)]
+          : [getVariantResolvedSqon(activeQuery)]
+        : [],
+    op: 'and',
+  };
+
+  const queryVariablesFilter = {
+    first: variantQueryConfig.size,
+    offset: DEFAULT_OFFSET,
+    searchAfter: variantQueryConfig.searchAfter,
+    sqon: sqonwithFlag,
+    sort: tieBreaker({
+      sort: variantQueryConfig.sort,
+      defaultSort: DEFAULT_SORT_QUERY,
+      field: 'hgvsg',
+      order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
+    }),
+  };
+
   const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
+  const variantResultsWithFilter = useVariants(queryVariablesFilter, variantQueryConfig.operations);
 
   useEffect(() => {
     if (
@@ -189,7 +219,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
       >
         <Card>
           <VariantsTable
-            results={variantResults}
+            results={variantResultsWithFilter}
             setQueryConfig={setVariantQueryConfig}
             queryConfig={variantQueryConfig}
             pageIndex={pageIndex}
@@ -224,7 +254,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
         }}
         triggered={downloadTriggered}
         setTriggered={setDownloadTriggered}
-        total={variantResults.total}
+        total={variantResultsWithFilter.total}
         queryKey={'cnv'}
         data={selectedRows}
       />

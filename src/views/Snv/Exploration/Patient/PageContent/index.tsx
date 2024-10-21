@@ -210,17 +210,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     setPageIndex(DEFAULT_PAGE_INDEX);
   }, [activeQuerySnapshot]);
 
-  /*   useEffect(() => {
-    updateQuery({
-      query: {
-        content: newQuery(activeQuery, filtersList),
-        id: activeQuery.id,
-        op: filtersList.length > 0 ? 'and' : activeQuery.op,
-      },
-      queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
-    });
-  }, [activeQuerySnapshot]);
- */
   useEffect(() => {
     resetSearchAfterQueryConfig(
       {
@@ -290,7 +279,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
             queryVariables={queryVariables}
             triggered={downloadTriggered}
             setTriggered={setDownloadTriggered}
-            total={variantResultsWithDonors.total}
+            total={variantResultsWithDonorsWithFilter.total}
             prefix={'SNV'}
             operations={variantQueryConfig.operations}
             query={VARIANT_QUERY}
