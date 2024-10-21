@@ -142,16 +142,18 @@ const Index = ({ downloadFile }: any) => {
   };
   const dispatch = useDispatch();
 
-  if (pageIndex === 1) {
-    resetSearchAfterQueryConfig(
-      {
-        ...DEFAULT_QUERY_CONFIG,
-        sort: DEFAULT_COVERAGE_SORT,
-        size: queryConfig.size,
-      },
-      setQueryConfig,
-    );
-  }
+  useEffect(() => {
+    if (pageIndex === 1) {
+      resetSearchAfterQueryConfig(
+        {
+          ...DEFAULT_QUERY_CONFIG,
+          sort: DEFAULT_COVERAGE_SORT,
+          size: queryConfig.size,
+        },
+        setQueryConfig,
+      );
+    }
+  }, [pageIndex, queryConfig.size]);
 
   const { user } = useUser();
   const [downloadReady, setDownloadReady] = useState(false);
