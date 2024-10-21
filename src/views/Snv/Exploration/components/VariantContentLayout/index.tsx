@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import intl from 'react-intl-universal';
 import { useHistory } from 'react-router-dom';
 import QueryBuilder from '@ferlab/ui/core/components/QueryBuilder';
+import { removeIgnoreFieldFromQueryContent } from '@ferlab/ui/core/components/QueryBuilder/utils/helper';
 import { dotToUnderscore } from '@ferlab/ui/core/data/arranger/formatting';
 import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { isEmptySqon } from '@ferlab/ui/core/data/sqon/utils';
@@ -145,15 +146,19 @@ const VariantContentLayout = ({
         currentQuery={isEmptySqon(activeQuery) ? {} : activeQuery}
         total={variantResults.total}
         dictionary={getQueryBuilderDictionary(facetTransResolver, getAnalysisNameByCode)}
-        getResolvedQueryForCount={(sqon) => getVariantResolvedSqon(sqon)}
+        getResolvedQueryForCount={(sqon) =>
+          getVariantResolvedSqon(removeIgnoreFieldFromQueryContent(sqon, ['flags']))
+        }
         fetchQueryCount={async (sqon) => {
+          //console.log('sqon simple ', sqon);
+          //console.log('sqon', getVariantResolvedSqon(sqon));
+          //console.log('sqon 2 ', removeIgnoreFieldFromQueryContent(getVariantResolvedSqon(sqon)));
           const { data } = await ArrangerApi.graphqlRequest<{ data: IVariantResultTree }>({
             query: GET_VARIANT_COUNT.loc?.source.body,
             variables: {
-              sqon: getVariantResolvedSqon(sqon),
+              sqon: removeIgnoreFieldFromQueryContent(getVariantResolvedSqon(sqon), ['flags']),
             },
           });
-
           return data?.data?.Variants.hits.total ?? 0;
         }}
       />

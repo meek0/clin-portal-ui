@@ -1,6 +1,7 @@
 import { Key, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { resetSearchAfterQueryConfig, tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
+import { removeIgnoreFieldFromQueryContent } from '@ferlab/ui/core/components/QueryBuilder/utils/helper';
 import useQueryBuilderState, {
   updateQuery,
 } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
@@ -37,7 +38,7 @@ import {
   SNV_EXPLORATION_PATIENT_TO_FILTER_TAG,
 } from 'utils/queryBuilder';
 
-import { newQuery, hasFlags } from '../../components/Flag/FlagFilter';
+import { flagFilterQuery, newQuery, noFlagQuery } from '../../components/Flag/FlagFilter';
 
 import VariantsTab from './tabs/Variants';
 
@@ -60,27 +61,29 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
 
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
 
-  const getVariantResolvedSqon = (query: ISyntheticSqon) => {
-    const res = wrapSqonWithDonorIdAndSrId(
+  const queryListWithoutFilter: ISyntheticSqon[] = [];
+  queryList.forEach((q) => {
+    queryListWithoutFilter.push(removeIgnoreFieldFromQueryContent(q));
+  });
+
+  const getVariantResolvedSqon = (query: ISyntheticSqon) =>
+    wrapSqonWithDonorIdAndSrId(
       cloneDeep(resolveSyntheticSqonWithReferences(queryList, query, variantMapping)),
       patientId,
       prescriptionId,
       variantSection,
     );
 
-    if (query.id === activeQuery.id) return res;
-
-    console.log('000- getVariantResolvedSqon not active query before filter', res, hasFlags(res), JSON.stringify(res))
-
-    res.content.forEach((c: ISyntheticSqon) => {
-      if (Array.isArray(c.content)) {
-        c.content = c.content.filter((o: any) => o.content.field !== 'flags');
-      }
-    });
-
-    console.log('000- getVariantResolvedSqon not active query', res, hasFlags(res), JSON.stringify(res))
-
-    return res;
+  const sqonwithFlag = {
+    content:
+      getVariantResolvedSqon(activeQuery)!.content.length > 0
+        ? filtersList.length > 0
+          ? filtersList.includes('none')
+            ? [getVariantResolvedSqon(activeQuery), noFlagQuery(filtersList)]
+            : [getVariantResolvedSqon(activeQuery), flagFilterQuery(filtersList)]
+          : [getVariantResolvedSqon(activeQuery)]
+        : [],
+    op: 'and',
   };
 
   const queryVariables = {
@@ -96,10 +99,29 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     }),
   };
 
+  const queryVariablesFilter = {
+    first: variantQueryConfig.size,
+    offset: DEFAULT_OFFSET,
+    searchAfter: variantQueryConfig.searchAfter,
+    sqon: sqonwithFlag,
+    sort: tieBreaker({
+      sort: variantQueryConfig.sort,
+      defaultSort: DEFAULT_SORT_QUERY,
+      field: 'hgvsg',
+      order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
+    }),
+  };
+
   const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
+  const variantResultsWithFilter = useVariants(queryVariablesFilter, variantQueryConfig.operations);
   const variantResultsWithDonors = {
     ...variantResults,
     data: variantResults?.data?.filter((v) => (v.donors?.hits?.edges || []).length > 0),
+  };
+
+  const variantResultsWithDonorsWithFilter = {
+    ...variantResultsWithFilter,
+    data: variantResultsWithFilter?.data?.filter((v) => (v.donors?.hits?.edges || []).length > 0),
   };
 
   useEffect(() => {
@@ -188,7 +210,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     setPageIndex(DEFAULT_PAGE_INDEX);
   }, [activeQuerySnapshot]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     updateQuery({
       query: {
         content: newQuery(activeQuery, filtersList),
@@ -197,10 +219,8 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       },
       queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
     });
-
-    console.log('002- useEffect updateQuery add and', filtersList.length)
   }, [activeQuerySnapshot]);
-
+ */
   useEffect(() => {
     resetSearchAfterQueryConfig(
       {
@@ -251,7 +271,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
         >
           <VariantsTab
             queryBuilderId={getQueryBuilderID(variantSection)}
-            results={variantResultsWithDonors}
+            results={variantResultsWithDonorsWithFilter}
             setQueryConfig={setVariantQueryConfig}
             queryConfig={variantQueryConfig}
             patientId={patientId!}

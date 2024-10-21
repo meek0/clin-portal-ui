@@ -108,6 +108,7 @@ const VariantsTab = ({
     setFilterList,
     filtersList,
   );
+
   return (
     <>
       {donor && selectedVariant && (

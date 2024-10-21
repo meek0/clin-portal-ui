@@ -1,12 +1,7 @@
 import FlagFilter from '@ferlab/ui/core/components/Flag/FlagFilter';
 import { removeIgnoreFieldFromQueryContent } from '@ferlab/ui/core/components/QueryBuilder/utils/helper';
-import useQueryBuilderState, {
-  updateQuery,
-} from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISyntheticSqon, TSyntheticSqonContentValue } from '@ferlab/ui/core/data/sqon/types';
 import { FilterConfirmProps, Key } from 'antd/lib/table/interface';
-import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
-import { getQueryBuilderID } from 'views/Snv/utils/constant';
 
 import { getFlagDictionary } from 'utils/translation';
 interface OwnProps {
@@ -19,7 +14,7 @@ interface OwnProps {
   variantSection?: string;
 }
 
-const flagFilterQuery = (filteredValues: string[]) => ({
+export const flagFilterQuery = (filteredValues: string[]) => ({
   content: {
     field: 'flags',
     value: filteredValues,
@@ -27,7 +22,7 @@ const flagFilterQuery = (filteredValues: string[]) => ({
   op: 'in',
 });
 
-const noFlagQuery = (filteredValues: string[]) => ({
+export const noFlagQuery = (filteredValues: string[]) => ({
   content: [
     {
       content: {
@@ -41,13 +36,13 @@ const noFlagQuery = (filteredValues: string[]) => ({
   op: 'or',
 });
 
-const activeQueryContent = (activeQuery: any) => ({
+const activeQueryContent = (activeQuery: ISyntheticSqon) => ({
   content: activeQuery!.content.length > 0 ? [activeQuery] : [],
   op: 'and',
 });
 
-export const hasFlags = (activeQuery: ISyntheticSqon) => {
-  return activeQuery.content.some((c: any) => {
+export const hasFlags = (activeQuery: ISyntheticSqon) =>
+  activeQuery.content.some((c: any) => {
     if (c.content) {
       if (Array.isArray(c.content)) {
         return c.content.length > 0 && c.content[0].content.field === 'flags';
@@ -58,7 +53,6 @@ export const hasFlags = (activeQuery: ISyntheticSqon) => {
       return false;
     }
   });
-}
 
 export const newQuery = (activeQuery: ISyntheticSqon, values: string[]) => {
   const filteredValues = values.filter((v) => v !== 'none');
@@ -68,7 +62,7 @@ export const newQuery = (activeQuery: ISyntheticSqon, values: string[]) => {
       : activeQuery;
 
   const queries = [...activeQueryWithoutFilter.content];
-  let asFlag = hasFlags(activeQuery);
+  const asFlag = hasFlags(activeQuery);
   const queriesNew: any =
     values.length > 0 && !asFlag
       ? [activeQueryContent(activeQueryWithoutFilter)]
@@ -94,7 +88,6 @@ export const newQuery = (activeQuery: ISyntheticSqon, values: string[]) => {
     }
   });
 
-  console.log('001- FlagFilter newQuery', activeQuery, values, uniqueArray) // too many ands?
   return uniqueArray;
 };
 
@@ -105,30 +98,26 @@ const FlagFilterDropdown = ({
   setFilterList,
   selectedFilter,
   isClear = false,
-  variantSection,
-}: OwnProps) => {
-  const { activeQuery } = useQueryBuilderState(getQueryBuilderID(variantSection as VariantSection));
-  return (
-    <FlagFilter
-      dictionary={getFlagDictionary()}
-      confirm={() => {
-        updateQuery({
+}: OwnProps) => (
+  <FlagFilter
+    dictionary={getFlagDictionary()}
+    confirm={() => {
+      /*         updateQuery({
           query: {
             content: newQuery(activeQuery, selectedKeys as string[]),
             id: activeQuery.id,
             op: 'and',
           },
           queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
-        });
-        setFilterList && setFilterList(selectedKeys);
-        confirm();
-      }}
-      selectedFilter={selectedFilter}
-      selectedKeys={selectedKeys}
-      setSelectedKeys={setSelectedKeys}
-      isClear={isClear}
-    />
-  );
-};
+        }); */
+      setFilterList && setFilterList(selectedKeys);
+      confirm();
+    }}
+    selectedFilter={selectedFilter}
+    selectedKeys={selectedKeys}
+    setSelectedKeys={setSelectedKeys}
+    isClear={isClear}
+  />
+);
 
 export default FlagFilterDropdown;
