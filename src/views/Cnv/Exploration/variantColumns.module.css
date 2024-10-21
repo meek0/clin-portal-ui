@@ -24,6 +24,11 @@ th.userAffectedBtnCell {
   left: 0 !important;
 }
 
+
+:global(.ant-table-filter-trigger):hover  .unActiveFilter
+{
+  color: var(--gray-8);
+}
 .activeFilter {
   color: var(--blue-8);
 }

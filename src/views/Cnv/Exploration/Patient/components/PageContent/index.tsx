@@ -2,7 +2,7 @@ import { Key, useEffect, useState } from 'react';
 import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import { resetSearchAfterQueryConfig } from '@ferlab/ui/core/components/ProTable/utils';
 import useQueryBuilderState, {
-  updateQuery,
+  updateQueryByTableFilter,
 } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
@@ -27,11 +27,7 @@ import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
 import { usePrescriptionEntityContext } from 'views/Prescriptions/Entity/context';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { MAX_VARIANTS_DOWNLOAD } from 'views/Prescriptions/utils/export';
-import {
-  flagFilterQuery,
-  newQuery,
-  noFlagQuery,
-} from 'views/Snv/Exploration/components/Flag/FlagFilter';
+import { flagFilterQuery, noFlagQuery } from 'views/Snv/Exploration/components/Flag/FlagFilter';
 import { getQueryBuilderID } from 'views/Snv/utils/constant';
 
 import DownloadTSVWrapper from 'components/Download';
@@ -74,13 +70,10 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
   //Reset flags filter on resfresh
   useEffect(() => {
     setFilterList([]);
-    updateQuery({
-      query: {
-        content: newQuery(activeQuery, []),
-        id: activeQuery.id,
-        op: 'and',
-      },
+    updateQueryByTableFilter({
       queryBuilderId: getQueryBuilderID(VariantSection.CNV),
+      field: 'flags',
+      selectedFilters: [],
     });
   }, []);
 
@@ -88,13 +81,17 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
   useEffect(() => {
     if (filtersList.length === 0) {
       setIsClear(false);
-      updateQuery({
-        query: {
-          content: newQuery(activeQuery, []),
-          id: activeQuery.id,
-          op: 'and',
+      resetSearchAfterQueryConfig(
+        {
+          ...DEFAULT_QUERY_CONFIG,
+          size: variantQueryConfig.size || DEFAULT_PAGE_SIZE,
         },
+        setVariantQueryConfig,
+      );
+      updateQueryByTableFilter({
         queryBuilderId: getQueryBuilderID(VariantSection.CNV),
+        field: 'flags',
+        selectedFilters: [],
       });
     }
   }, [filtersList]);

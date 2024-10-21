@@ -2,7 +2,7 @@ import { Key, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { resetSearchAfterQueryConfig, tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import useQueryBuilderState, {
-  updateQuery,
+  updateQueryByTableFilter,
 } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
@@ -37,7 +37,7 @@ import {
   SNV_EXPLORATION_PATIENT_TO_FILTER_TAG,
 } from 'utils/queryBuilder';
 
-import { flagFilterQuery, newQuery, noFlagQuery } from '../../components/Flag/FlagFilter';
+import { flagFilterQuery, noFlagQuery } from '../../components/Flag/FlagFilter';
 
 import VariantsTab from './tabs/Variants';
 
@@ -170,13 +170,10 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   //Reset flags filter on resfresh
   useEffect(() => {
     setFilterList([]);
-    updateQuery({
-      query: {
-        content: newQuery(activeQuery, []),
-        id: activeQuery.id,
-        op: activeQuery.op,
-      },
+    updateQueryByTableFilter({
       queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
+      field: 'flags',
+      selectedFilters: [],
     });
   }, []);
 
@@ -184,13 +181,17 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   useEffect(() => {
     if (filtersList.length === 0) {
       setIsClear(false);
-      updateQuery({
-        query: {
-          content: newQuery(activeQuery, []),
-          id: activeQuery.id,
-          op: activeQuery.op,
+      resetSearchAfterQueryConfig(
+        {
+          ...DEFAULT_QUERY_CONFIG,
+          size: variantQueryConfig.size || DEFAULT_PAGE_SIZE,
         },
+        setVariantQueryConfig,
+      );
+      updateQueryByTableFilter({
         queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
+        field: 'flags',
+        selectedFilters: [],
       });
     }
   }, [filtersList]);
