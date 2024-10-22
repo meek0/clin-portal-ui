@@ -245,6 +245,9 @@
   "filters.group.variant_class": "Variant Type",
   "filters.group.donors.all_analyses": "Bioinformatic Analysis",
   "filters.group.variant_external_reference": "External Reference",
+  "filters.options.clinvar.clin_sig.Conflicting_classifications_of_pathogenicity": "Conflicting Classifications of Pathogenicity",
+  "filters.options.clinvar.clin_sig.Conflicting_interpretations_of_pathogenicity": "Conflicting Interpretations of Pathogenicity",
+  "filters.options.clinvar.clin_sig.no_classification_for_the_single_variant": "No Classification for the Single Variant",
   "filters.options.consequences.predictions.fathmm_pred.D": "Deleterious",
   "filters.options.consequences.predictions.fathmm_pred.T": "Tolerated",
   "filters.options.consequences.predictions.lrt_pred.D": "Deleterious",
@@ -1304,6 +1307,7 @@
   "clinvar": {
     "abrv": {
       "conflicting_interpretations_of_pathogenicity": "CI",
+      "conflicting_classifications_of_pathogenicity": "CC",
       "benign": "B",
       "likely_benign": "LB",
       "uncertain_significance": "VUS",
@@ -1315,6 +1319,7 @@
       "association": "AS",
       "other": "O",
       "affects": "AF",
+      "no_classification_for_the_single_variant": "NC",
       "protective": "PV",
       "confers_sensitivity": "CS",
       "uncertain_risk_allele": "URA",
