@@ -69,14 +69,13 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     );
 
   const sqonwithFlag = {
-    content:
-      getVariantResolvedSqon(activeQuery)!.content.length > 0
-        ? filtersList.length > 0
-          ? filtersList.includes('none')
-            ? [getVariantResolvedSqon(activeQuery), noFlagQuery(filtersList)]
-            : [getVariantResolvedSqon(activeQuery), flagFilterQuery(filtersList)]
-          : [getVariantResolvedSqon(activeQuery)]
-        : [],
+    content: getVariantResolvedSqon(activeQuery)
+      ? filtersList.length > 0
+        ? filtersList.includes('none')
+          ? [getVariantResolvedSqon(activeQuery), noFlagQuery(filtersList)]
+          : [getVariantResolvedSqon(activeQuery), flagFilterQuery(filtersList)]
+        : [getVariantResolvedSqon(activeQuery)]
+      : [],
     op: 'and',
   };
 

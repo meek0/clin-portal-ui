@@ -1,6 +1,5 @@
 import FlagFilter from '@ferlab/ui/core/components/Flag/FlagFilter';
-import { removeIgnoreFieldFromQueryContent } from '@ferlab/ui/core/components/QueryBuilder/utils/helper';
-import { ISyntheticSqon, TSyntheticSqonContentValue } from '@ferlab/ui/core/data/sqon/types';
+import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { FilterConfirmProps, Key } from 'antd/lib/table/interface';
 
 import { getFlagDictionary } from 'utils/translation';
@@ -36,11 +35,6 @@ export const noFlagQuery = (filteredValues: string[]) => ({
   op: 'or',
 });
 
-const activeQueryContent = (activeQuery: ISyntheticSqon) => ({
-  content: activeQuery!.content.length > 0 ? [activeQuery] : [],
-  op: 'and',
-});
-
 export const hasFlags = (activeQuery: ISyntheticSqon) =>
   activeQuery.content.some((c: any) => {
     if (c.content) {
@@ -53,43 +47,6 @@ export const hasFlags = (activeQuery: ISyntheticSqon) =>
       return false;
     }
   });
-
-export const newQuery = (activeQuery: ISyntheticSqon, values: string[]) => {
-  const filteredValues = values.filter((v) => v !== 'none');
-  const activeQueryWithoutFilter =
-    activeQuery.content.length > 0
-      ? removeIgnoreFieldFromQueryContent(activeQuery, ['flags'])
-      : activeQuery;
-
-  const queries = [...activeQueryWithoutFilter.content];
-  const asFlag = hasFlags(activeQuery);
-  const queriesNew: any =
-    values.length > 0 && !asFlag
-      ? [activeQueryContent(activeQueryWithoutFilter)]
-      : [...activeQueryWithoutFilter.content];
-
-  values.length > 0 &&
-    queries.push(
-      values.includes('none') ? noFlagQuery(filteredValues) : flagFilterQuery(filteredValues),
-    );
-
-  values.length > 0 &&
-    queriesNew.push(
-      values.includes('none') ? noFlagQuery(filteredValues) : flagFilterQuery(filteredValues),
-    );
-
-  const isDuplicate = (obj: TSyntheticSqonContentValue, array: any[]) =>
-    array.some((item: any) => JSON.stringify(item) === JSON.stringify(obj));
-  const uniqueArray: any = [];
-
-  queriesNew.forEach((item: any) => {
-    if (!isDuplicate(item, uniqueArray)) {
-      uniqueArray.push(item);
-    }
-  });
-
-  return uniqueArray;
-};
 
 const FlagFilterDropdown = ({
   confirm,

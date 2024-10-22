@@ -343,9 +343,7 @@ export const getVariantColumns = (
         },
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
           <FlagFilterDropdown
-            confirm={() => {
-              confirm();
-            }}
+            confirm={confirm}
             selectedKeys={selectedKeys}
             setFilterList={setFilterList}
             setSelectedKeys={setSelectedKeys}

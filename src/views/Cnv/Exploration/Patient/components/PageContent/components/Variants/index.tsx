@@ -150,7 +150,7 @@ const VariantsTable = ({
                   }),
                 );
               },
-              hasFilter: filtersList.length > 0 ? true : false,
+              hasFilter: filtersList.length > 0,
               clearFilter: () => {
                 setFilterList([]);
               },
