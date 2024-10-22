@@ -310,7 +310,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     const dictionnary = ['Benign',
                          'Likely Benign',
                          'Uncertain Significance',
-                         'Conflicting Interpretations Of Pathogenicity',
+                         'Conflicting Interpretations of Pathogenicity',
                          'Pathogenic',
                          'Not Provided',
                          'Drug Response',
@@ -325,6 +325,8 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Association Not Found',
                          'Likely Risk Allele',
                          'Low Penetrance',
+                         'Conflicting Classifications of Pathogenicity',
+                         'No Classification for the Single Variant',
                          'No Data'];
 
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd3eefb82-edcc-42f1-a4e6-28808bd06f34');
