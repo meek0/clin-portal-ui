@@ -63,7 +63,7 @@ const ClinvarColorMap: Record<any, string> = {
   association_not_found: 'default',
   benign: 'green',
   confers_sensitivity: 'default',
-  Conflicting_classifications_of_pathogenicity: 'volcano',
+  conflicting_classifications_of_pathogenicity: 'volcano',
   conflicting_interpretations_of_pathogenicity: 'orange',
   drug_response: 'default',
   likely_benign: 'lime',
