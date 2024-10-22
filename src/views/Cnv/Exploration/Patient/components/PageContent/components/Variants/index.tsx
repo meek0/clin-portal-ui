@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Key, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
@@ -32,6 +32,9 @@ type OwnProps = {
   setVariantType: any;
   setSelectedRows: any;
   isSameLDM?: boolean;
+  setFilterList: (columnKeys: Key[]) => void;
+  filtersList: string[];
+  isClear: boolean;
 };
 
 const VariantsTable = ({
@@ -44,6 +47,9 @@ const VariantsTable = ({
   setVariantType,
   setSelectedRows,
   isSameLDM,
+  setFilterList,
+  filtersList,
+  isClear,
 }: OwnProps) => {
   const dispatch = useDispatch();
   const { user } = useUser();
@@ -93,6 +99,9 @@ const VariantsTable = ({
               openIgvModal,
               results?.data.length === 0,
               isSameLDM,
+              isClear,
+              setFilterList,
+              filtersList,
             )}
             initialColumnState={initialColumnState}
             dataSource={results?.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
@@ -140,6 +149,10 @@ const VariantsTable = ({
                     },
                   }),
                 );
+              },
+              hasFilter: filtersList.length > 0,
+              clearFilter: () => {
+                setFilterList([]);
               },
             }}
             size="small"

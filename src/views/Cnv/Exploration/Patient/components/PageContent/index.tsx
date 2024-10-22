@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { Key, useEffect, useState } from 'react';
 import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import { resetSearchAfterQueryConfig } from '@ferlab/ui/core/components/ProTable/utils';
-import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import useQueryBuilderState, {
+  updateQueryByTableFilter,
+} from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Card } from 'antd';
@@ -23,7 +25,10 @@ import {
 } from 'views/Cnv/utils/constant';
 import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
 import { usePrescriptionEntityContext } from 'views/Prescriptions/Entity/context';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { MAX_VARIANTS_DOWNLOAD } from 'views/Prescriptions/utils/export';
+import { flagFilterQuery, noFlagQuery } from 'views/Snv/Exploration/components/Flag/FlagFilter';
+import { getQueryBuilderID } from 'views/Snv/utils/constant';
 
 import DownloadTSVWrapper from 'components/Download';
 import { useRpt } from 'hooks/useRpt';
@@ -42,12 +47,54 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
   const { queryList, activeQuery } = useQueryBuilderState(CNV_VARIANT_PATIENT_QB_ID);
   const { decodedRpt } = useRpt();
   const { prescription } = usePrescriptionEntityContext();
+  const [filtersList, setFilterList] = useState<string[]>([]);
+  const [isClear, setIsClear] = useState<boolean>(false);
 
   const [variantQueryConfig, setVariantQueryConfig] = useState({
     ...DEFAULT_QUERY_CONFIG,
     size: DEFAULT_PAGE_SIZE,
   });
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
+
+  const handleFilterList = (columnKeys: Key[]) => {
+    if (columnKeys.length > 0) {
+      setIsClear(true);
+      const keytoString: string[] = columnKeys.map((key) => key.toString());
+      setFilterList(keytoString);
+    } else {
+      setFilterList([]);
+      setIsClear(false);
+    }
+  };
+
+  //Reset flags filter on resfresh
+  useEffect(() => {
+    setFilterList([]);
+    updateQueryByTableFilter({
+      queryBuilderId: getQueryBuilderID(VariantSection.CNV),
+      field: 'flags',
+      selectedFilters: [],
+    });
+  }, []);
+
+  //Reset Flag filter on clearFilter
+  useEffect(() => {
+    if (filtersList.length === 0) {
+      setIsClear(false);
+      resetSearchAfterQueryConfig(
+        {
+          ...DEFAULT_QUERY_CONFIG,
+          size: variantQueryConfig.size || DEFAULT_PAGE_SIZE,
+        },
+        setVariantQueryConfig,
+      );
+      updateQueryByTableFilter({
+        queryBuilderId: getQueryBuilderID(VariantSection.CNV),
+        field: 'flags',
+        selectedFilters: [],
+      });
+    }
+  }, [filtersList]);
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) => {
     const wrappedQuery = wrapSqonWithPatientIdAndRequestId(
@@ -71,7 +118,33 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     }),
   };
 
+  const sqonwithFlag = {
+    content:
+      getVariantResolvedSqon(activeQuery)!.content.length > 0
+        ? filtersList.length > 0
+          ? filtersList.includes('none')
+            ? [getVariantResolvedSqon(activeQuery), noFlagQuery(filtersList)]
+            : [getVariantResolvedSqon(activeQuery), flagFilterQuery(filtersList)]
+          : [getVariantResolvedSqon(activeQuery)]
+        : [],
+    op: 'and',
+  };
+
+  const queryVariablesFilter = {
+    first: variantQueryConfig.size,
+    offset: DEFAULT_OFFSET,
+    searchAfter: variantQueryConfig.searchAfter,
+    sqon: sqonwithFlag,
+    sort: tieBreaker({
+      sort: variantQueryConfig.sort,
+      defaultSort: DEFAULT_SORT_QUERY,
+      field: 'start',
+      order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
+    }),
+  };
+
   const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
+  const variantResultsWithFilter = useVariants(queryVariablesFilter, variantQueryConfig.operations);
 
   useEffect(() => {
     if (
@@ -132,7 +205,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
       >
         <Card>
           <VariantsTable
-            results={variantResults}
+            results={variantResultsWithFilter}
             setQueryConfig={setVariantQueryConfig}
             queryConfig={variantQueryConfig}
             pageIndex={pageIndex}
@@ -141,6 +214,9 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
             setSelectedRows={setSelectedRows}
             setDownloadTriggered={setDownloadTriggered}
             isSameLDM={isSameLDM()}
+            setFilterList={handleFilterList}
+            filtersList={filtersList}
+            isClear={isClear}
           />
         </Card>
       </VariantContentLayout>
@@ -164,7 +240,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
         }}
         triggered={downloadTriggered}
         setTriggered={setDownloadTriggered}
-        total={variantResults.total}
+        total={variantResultsWithFilter.total}
         queryKey={'cnv'}
         data={selectedRows}
       />

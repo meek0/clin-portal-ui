@@ -104,6 +104,7 @@ const VariantContentLayout = ({
           selectedFilterContent: selectedFilterContent,
           blacklistedFacets: ['genes.symbol'],
         }}
+        filterQueryToIgnore={['flags']}
         enableCombine
         enableShowHideLabels
         IconTotal={<LineStyleIcon width="18" height="18" />}

@@ -1,8 +1,15 @@
 /* eslint-disable complexity */
+import { Key } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
-import { FireFilled, FireOutlined, FlagOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+  FilterFilled,
+  FireFilled,
+  FireOutlined,
+  FlagOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
@@ -43,6 +50,7 @@ import { TAB_ID } from '../Entity';
 import { ZygosityValue } from '../utils/constant';
 
 import FlagCell from './components/Flag/FlagCell';
+import FlagFilterDropdown from './components/Flag/FlagFilter';
 import GnomadCell from './components/Gnomad/GnomadCell';
 import ManeCell from './components/ManeCell';
 import { OtherActions } from './components/OtherActions';
@@ -314,6 +322,9 @@ export const getVariantColumns = (
   noData: boolean = false,
   variantSection?: string,
   isSameLDM?: boolean,
+  isClear?: boolean,
+  setFilterList?: (columnKeys: Key[]) => void,
+  filtersList?: string[],
 ): ProColumnType<ITableVariantEntity>[] => {
   let columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -326,25 +337,21 @@ export const getVariantColumns = (
         dataIndex: 'flags',
         tooltip: intl.get('flag.table.tooltip'),
         iconTitle: <FlagOutlined />,
-        // TODO: Ajouter Filter plus tard
-        /* onFilter: (value, record) => {
-            if (value === 'none') {
-              return record.flags.length === 0;
-            }
-            return record.flags.includes(value.toString());
-          },
-          filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-            <FlagFilterDropdown
-              confirm={() => {
-                setFilterList && setFilterList(selectedKeys.length > 0 ? 'flag' : undefined);
-                confirm();
-              }}
-              selectedKeys={selectedKeys}
-              setSelectedKeys={setSelectedKeys}
-              setFilterList={setFilterList}
-              isClear={isClear}
-            />
-          ), */
+        filterIcon: () => {
+          const isFilter = filtersList && filtersList?.length > 0 ? true : false;
+          return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
+        },
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <FlagFilterDropdown
+            confirm={confirm}
+            selectedKeys={selectedKeys}
+            setFilterList={setFilterList}
+            setSelectedKeys={setSelectedKeys}
+            isClear={isClear}
+            variantSection={variantSection}
+            selectedFilter={filtersList}
+          />
+        ),
         width: 85,
         render: (flags: string[], entity: VariantEntity) => (
           <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="snv" />

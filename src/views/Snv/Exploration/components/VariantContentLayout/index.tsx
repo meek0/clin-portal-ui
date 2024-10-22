@@ -121,6 +121,7 @@ const VariantContentLayout = ({
           },
           defaultTitle: intl.get('querybuilder.variant.filter.defaultTitle'),
         }}
+        filterQueryToIgnore={['flags']}
         facetFilterConfig={{
           enable: true,
           onFacetClick: (filter) => {
@@ -152,7 +153,6 @@ const VariantContentLayout = ({
               sqon: getVariantResolvedSqon(sqon),
             },
           });
-
           return data?.data?.Variants.hits.total ?? 0;
         }}
       />
