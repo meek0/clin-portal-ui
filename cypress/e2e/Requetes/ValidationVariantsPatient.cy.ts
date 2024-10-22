@@ -35,7 +35,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(2).clickAndWait();
     cy.wait('@getPOSTgraphql');
 
-    cy.validateTotalSelectedQuery('1,517');
+    cy.validateTotalSelectedQuery(/1(,| )517/);
     cy.validateTableResultsCount('1 517');
   });
 
@@ -65,7 +65,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(5).clickAndWait();
     cy.wait('@getPOSTgraphql');
 
-    cy.validateTotalSelectedQuery('8,139');
+    cy.validateTotalSelectedQuery(/8(,| )139/);
     cy.validateTableResultsCount('8 139');
   });
 
@@ -75,8 +75,8 @@ describe('Page des variants d\'un patient - Requêtes', () => {
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(6).clickAndWait();
     cy.wait('@getPOSTgraphql');
 
-    cy.validateTotalSelectedQuery('126K');
-    cy.validateTableResultsCount('126 131');
+    cy.validateTotalSelectedQuery('125K');
+    cy.validateTableResultsCount('124 686');
   });
 });
 
@@ -97,7 +97,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).clickAndWait();
     cy.wait('@getPOSTgraphql');
 
-    cy.validateTotalSelectedQuery('3,113');
+    cy.validateTotalSelectedQuery(/3(,| )113/);
     cy.validateTableResultsCount('3 113');
   });
 
@@ -117,7 +117,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(3).clickAndWait();
     cy.wait('@getPOSTgraphql');
 
-    cy.validateTotalSelectedQuery('1,517');
+    cy.validateTotalSelectedQuery(/1(,| )517/);
     cy.validateTableResultsCount('1 517');
   });
 

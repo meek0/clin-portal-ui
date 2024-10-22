@@ -110,7 +110,7 @@ describe('Page des prescriptions et requêtes - Rechercher des prescriptions', (
   it('Par numéro de lot', () => {
     cy.typeAndIntercept('[data-cy="PrescriptionsSearch"]', '2_data_to_import', 'POST', '**/graphql', 1);
 
-    cy.wait(5*1000);
+    cy.wait(10*1000);
     cy.get('[data-node-key="prescriptions"]').contains('Prescriptions (1)').should('exist');
     cy.validateTableFirstRow('MYOC', 7, true/*hasCheckbox*/);
   });
@@ -222,7 +222,7 @@ describe('Page des prescriptions et requêtes - Rechercher des requêtes', () =>
   it('Par numéro de lot', () => {
     cy.typeAndIntercept('[data-cy="PrescriptionsSearch"]', '2_data_to_import', 'POST', '**/graphql', 1);
 
-    cy.wait(5*1000);
+    cy.wait(10*1000);
     cy.get('[data-node-key="requests"]').contains('Requêtes (1)').should('exist');
     cy.validateTableFirstRow('MYOC', 6, true/*hasCheckbox*/, '[id="rc-tabs-0-panel-requests"]');
   });

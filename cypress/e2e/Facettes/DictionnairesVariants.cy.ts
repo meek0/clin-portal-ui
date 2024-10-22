@@ -372,7 +372,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Gène', 'OMIM (transmission)', dictionnary);
   });
 
-  it('Pathogénicité - ClinVar', () => {
+  it('Pathogénicité - ClinVar [CLIN-3315]', () => {
     const dictionnary = ['Benign',
                          'Likely Benign',
                          'Uncertain Significance',
