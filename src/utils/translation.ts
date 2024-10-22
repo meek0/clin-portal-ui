@@ -255,6 +255,17 @@ export const getQueryBuilderDictionary = (
           U: intl.get('filters.options.consequences.predictions.lrt_pred.U'),
           D: intl.get('filters.options.consequences.predictions.lrt_pred.D'),
         },
+        'clinvar.clin_sig': {
+          Conflicting_classifications_of_pathogenicity: intl.get(
+            'filters.options.clinvar.clin_sig.Conflicting_classifications_of_pathogenicity',
+          ),
+          Conflicting_interpretations_of_pathogenicity: intl.get(
+            'filters.options.clinvar.clin_sig.Conflicting_interpretations_of_pathogenicity',
+          ),
+          no_classification_for_the_single_variant: intl.get(
+            'filters.options.clinvar.clin_sig.no_classification_for_the_single_variant',
+          ),
+        },
         chromosome: {
           true: '1',
         },
