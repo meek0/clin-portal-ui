@@ -1014,11 +1014,7 @@ const renderClinvar = (clinVar: ClinVar, locus?: string) => {
     });
   return clinVar?.clin_sig && clinVar.clinvar_id ? (
     clinVarSigKey.map((clinvarKey) => (
-      <Tooltip
-        key={clinvarKey}
-        placement="topLeft"
-        title={removeUnderscoreAndCapitalize(clinvarKey)}
-      >
+      <Tooltip key={clinvarKey} placement="topLeft" title={intl.get(`clinvar.${clinvarKey}`)}>
         <Tag color={ClinvarColorMap[clinvarKey]}>
           <ExternalLink
             href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
