@@ -21,7 +21,7 @@ export const transformNameIfNeeded = (field: string, fkey: string, name: string)
     return getAnalysisNameByCodeFromLocal(fkey, fkey, true);
   }
 
-  if (fkey.includes('_variant')) {
+  if (fkey !== 'no_classification_for_the_single_variant' && fkey.includes('_variant')) {
     return name.replace('Variant', '');
   }
 

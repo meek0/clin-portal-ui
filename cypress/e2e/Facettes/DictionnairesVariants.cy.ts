@@ -372,11 +372,11 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Gène', 'OMIM (transmission)', dictionnary);
   });
 
-  it('Pathogénicité - ClinVar [CLIN-3315]', () => {
+  it('Pathogénicité - ClinVar', () => {
     const dictionnary = ['Benign',
                          'Likely Benign',
                          'Uncertain Significance',
-                         'Conflicting Interpretations Of Pathogenicity',
+                         'Conflicting Interpretations of Pathogenicity',
                          'Pathogenic',
                          'Not Provided',
                          'Drug Response',
@@ -391,6 +391,8 @@ describe('Page des variants - Dictionnaire', () => {
                          'Association Not Found',
                          'Likely Risk Allele',
                          'Low Penetrance',
+                         'Conflicting Classifications of Pathogenicity',
+                         'No Classification for the Single Variant',
                          'No Data'];
 
     cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
