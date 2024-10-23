@@ -64,85 +64,151 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   });
   
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {
-    cy.sortTableAndIntercept('Variant', 1);
+    cy.sortTableAndWait('Variant');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('GAIN:chr10:104353843-104454535', 4, true);
-    cy.sortTableAndIntercept('Variant', 1);
+    cy.sortTableAndWait('Variant');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('LOSS:chrX:624329-13938568', 4, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Chr.', () => {
-    cy.sortTableAndIntercept('Chr.', 1);
+    cy.sortTableAndWait('Chr.');
+    cy.wait(30*1000);
     cy.validateTableFirstRow(/^1$/, 5, true);
-    cy.sortTableAndIntercept('Chr.', 1);
+    cy.sortTableAndWait('Chr.');
+    cy.wait(30*1000);
     cy.validateTableFirstRow(/^X$/, 5, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Début', () => {
-    cy.sortTableAndIntercept('Début', 1);
+    cy.sortTableAndWait('Début');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('66 872', 6, true);
-    cy.sortTableAndIntercept('Début', 1);
+    cy.sortTableAndWait('Début');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('228 007 104', 6, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Fin', () => {
-    cy.sortTableAndIntercept('Fin', 1);
+    cy.sortTableAndWait('Fin');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('465 288', 7, true);
-    cy.sortTableAndIntercept('Fin', 1);
+    cy.sortTableAndWait('Fin');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('228 511 965', 7, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Événement', () => {
-    cy.sortTableAndIntercept('Événement', 1);
+    cy.sortTableAndWait('Événement');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('GAIN', 8, true);
-    cy.sortTableAndIntercept('Événement', 1);
+    cy.sortTableAndWait('Événement');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('LOSS', 8, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Longueur', () => {
-    cy.sortTableAndIntercept('Longueur', 1);
+    cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
+
+    cy.sortTableAndWait('Longueur');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('3.1 kb', 9, true);
-    cy.sortTableAndIntercept('Longueur', 1);
+    cy.sortTableAndWait('Longueur');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('92.4 Mb', 9, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri MS', () => {
-    cy.sortTableAndIntercept('MS', 1);
+    cy.sortTableAndWait('MS');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('0.0347309', 10, true);
-    cy.sortTableAndIntercept('MS', 1);
+    cy.sortTableAndWait('MS');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('1.83177', 10, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri # Gènes', () => {
-    cy.sortTableAndIntercept('# Gènes', 1);
+    cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
+
+    cy.sortTableAndWait('# Gènes');
+    cy.wait(30*1000);
     cy.validateTableFirstRow(/^0$/, 11, true);
-    cy.sortTableAndIntercept('# Gènes', 1);
+    cy.sortTableAndWait('# Gènes');
+    cy.wait(30*1000);
     cy.validateTableFirstRow(/^670$/, 11, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Qual.', () => {
-    cy.sortTableAndIntercept('Qual.', 1);
+    cy.sortTableAndWait('Qual.');
+    cy.wait(30*1000);
     cy.validateTableFirstRow(/^90$/, 14, true);
-    cy.sortTableAndIntercept('Qual.', 1);
+    cy.sortTableAndWait('Qual.');
+    cy.wait(30*1000);
     cy.validateTableFirstRow(/^200$/, 14, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri BC', () => {
-    cy.sortTableAndIntercept('BC', 1);
+    cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
+
+    cy.sortTableAndWait('BC');
+    cy.wait(30*1000);
     cy.validateTableFirstRow(/^6$/, 15, true);
-    cy.sortTableAndIntercept('BC', 1);
+    cy.sortTableAndWait('BC');
+    cy.wait(30*1000);
     cy.validateTableFirstRow(/^7553$/, 15, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
-    cy.sortTableAndIntercept('Chr.', 1);
-    cy.sortTableAndIntercept('Chr.', 1);
+    cy.sortTableAndWait('Chr.');
+    cy.wait(30*1000);
+    cy.sortTableAndWait('Chr.');
+    cy.wait(30*1000);
     cy.sortTableAndWait('Début');
-    cy.sortTableAndIntercept('Début', 1);
+    cy.sortTableAndWait('Début');
+    cy.wait(30*1000);
     cy.validateTableFirstRow('154 144 278', 6, true);
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
-    cy.validatePaging('304', 1);
+    cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
+    cy.wait(30*1000);
+    cy.validateTableResultsCount(new RegExp('Résultats 1 - 100 de 304'));
+  
+    cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('div[class*="ant-select-item-option-content"]').contains('20 ').clickAndWait({force: true});
+    cy.wait(30*1000);
+    cy.validateTableResultsCount(new RegExp('Résultats 1 - 20 de 304'));
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').parent('button').should('be.disabled');
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').parent('button').should('be.disabled');
+  
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Suivant').clickAndWait();
+    cy.wait(30*1000);
+    cy.validateTableResultsCount(new RegExp('Résultats 21 - 40 de 304'));
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
+  
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Suivant').clickAndWait({force: true});
+    cy.wait(30*1000);
+    cy.validateTableResultsCount(new RegExp('Résultats 41 - 60 de 304'));
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
+  
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').clickAndWait({force: true});
+    cy.wait(30*1000);
+    cy.validateTableResultsCount(new RegExp('Résultats 21 - 40 de 304'));
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
+  
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').clickAndWait({force: true});
+    cy.wait(30*1000);
+    cy.validateTableResultsCount(new RegExp('Résultats 1 - 20 de 304'));
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').parent('button').should('be.disabled');
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').parent('button').should('be.disabled');
   });
 });
   
