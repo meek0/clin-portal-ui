@@ -3,48 +3,62 @@ import '../../support/commands';
 
 let presc_SOMATIC: any;
 
-beforeEach(() => {
-  presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
-
-  cy.showColumn('GT', 0);
-  cy.showColumn('Filtre', 0);
-  cy.showColumn('Qual.', 0);
-  cy.showColumn('BC', 0);
-  cy.showColumn('PE', 0);
-});
-
 describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () => {
-  it('Vérifier les informations affichées', () => {
-    cy.validateTableDataRowKeyClass('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 1, 'FlagDropdown');
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 3, /^[^,]+,[^,]+,[^,]+...$/);
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 4, 'LOSS:chr1:450731-7249626');
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 5, /^1$/);
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 6, '450 730');
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 7, '7 249 625');
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 8, /^LOSS$/);
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 9, '6.8 Mb');
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 10, '1.04404');
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 11, /^191$/);
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 12, '0/1');
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 13, 'CnvCopyRatio, LoDFail');
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 14, /^128$/);
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 15, '1979');
-    cy.validateTableDataRowKeyContent('10d77ed5670191a6f0e0f0ef999cda88910a4d7c', 16, '25, 7');
+  beforeEach(() => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3, '?sharedFilterId=7159fa28-876c-4a46-9a0d-c1e7b88ba5e2');
+  
+    cy.showColumn('GT', 0);
+    cy.showColumn('Filtre', 0);
+    cy.showColumn('Qual.', 0);
+    cy.showColumn('BC', 0);
+    cy.showColumn('PE', 0);
   });
+  
+  it('Vérifier les informations affichées', () => {
+    cy.validateTableDataRowKeyClass('*', 1, 'FlagDropdown');
+    cy.validateTableDataRowKeyContent('*', 3, /^[^,]+,[^,]+,[^,]+...$/);
+    cy.validateTableDataRowKeyContent('*', 4, 'LOSS:chr1:450731-7249626');
+    cy.validateTableDataRowKeyContent('*', 5, /^1$/);
+    cy.validateTableDataRowKeyContent('*', 6, '450 730');
+    cy.validateTableDataRowKeyContent('*', 7, '7 249 625');
+    cy.validateTableDataRowKeyContent('*', 8, /^LOSS$/);
+    cy.validateTableDataRowKeyContent('*', 9, '6.8 Mb');
+    cy.validateTableDataRowKeyContent('*', 10, '1.04404');
+    cy.validateTableDataRowKeyContent('*', 11, /^191$/);
+    cy.validateTableDataRowKeyContent('*', 12, '0/1');
+    cy.validateTableDataRowKeyContent('*', 13, 'CnvCopyRatio, LoDFail');
+    cy.validateTableDataRowKeyContent('*', 14, /^128$/);
+    cy.validateTableDataRowKeyContent('*', 15, '1979');
+    cy.validateTableDataRowKeyContent('*', 16, '25, 7');
+  });
+});
  
+describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () => {
+  beforeEach(() => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+  
+    cy.showColumn('GT', 0);
+    cy.showColumn('Filtre', 0);
+    cy.showColumn('Qual.', 0);
+    cy.showColumn('BC', 0);
+    cy.showColumn('PE', 0);
+  });
+
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'GAIN');
     cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
   });
  
   it('Valider les liens disponibles', () => {
-    cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"]').contains(/^191$/).clickAndWait({force: true});
+    cy.get('tr').contains(/^191$/).clickAndWait({force: true});
     cy.contains('LOSS:chr1:450731-7249626').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
 
-    cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"]').contains(/^[^,]+,[^,]+,[^,]+...$/).clickAndWait({force: true});
+    cy.get('tr').contains(/^[^,]+,[^,]+,[^,]+...$/).clickAndWait({force: true});
     cy.contains('LOSS:chr1:450731-7249626').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
   });

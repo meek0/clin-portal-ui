@@ -6,12 +6,12 @@ let presc_SOMATIC: any;
 beforeEach(() => {
   presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+  cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3, '?sharedFilterId=7159fa28-876c-4a46-9a0d-c1e7b88ba5e2');
 });
 
 describe('Page des CNVs d\'un patient (somatic) - IGV à partir du tableau', () => {
   beforeEach(() => {
-    cy.get('tr[data-row-key="10d77ed5670191a6f0e0f0ef999cda88910a4d7c"] svg[class="anticon"]').clickAndWait({force: true});
+    cy.get('tr svg[class="anticon"]').clickAndWait({force: true});
     cy.contains('Alignement et variant').should('exist');
   });
 

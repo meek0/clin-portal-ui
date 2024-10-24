@@ -3,53 +3,68 @@ import '../../support/commands';
 
 let epCHUSJ_ldmCHUSJ: any;
 
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
+  beforeEach(() => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=5747ace3-449a-46bf-9ae9-08842b88bcb5');
+  
+    cy.showColumn('GT', 0);
+    cy.showColumn('Filtre', 0);
+    cy.showColumn('Qual.', 0);
+    cy.showColumn('MS', 0);
+    cy.showColumn('BC', 0);
+    cy.showColumn('PE', 0);
+  });
 
-  cy.showColumn('GT', 0);
-  cy.showColumn('Filtre', 0);
-  cy.showColumn('Qual.', 0);
-  cy.showColumn('MS', 0);
-  cy.showColumn('BC', 0);
-  cy.showColumn('PE', 0);
+  it('Vérifier les informations affichées', () => {
+    cy.validateTableDataRowKeyClass('*', 1, 'FlagDropdown');
+    cy.validateTableDataRowKeyContent('*', 3, 'CFHR1');
+    cy.validateTableDataRowKeyContent('*', 3, 'CFHR3');
+    cy.validateTableDataRowKeyContent('*', 4, 'GAIN:chr1:196774873-196832007');
+    cy.validateTableDataRowKeyContent('*', 5, /^1$/);
+    cy.validateTableDataRowKeyContent('*', 6, '196 774 872');
+    cy.validateTableDataRowKeyContent('*', 7, '196 832 006');
+    cy.validateTableDataRowKeyContent('*', 8, /^GAIN$/);
+    cy.validateTableDataRowKeyContent('*', 9, '57.1 kb');
+    cy.validateTableDataRowKeyContent('*', 10, '1.38788');
+    cy.validateTableDataRowKeyContent('*', 11, /^3$/);
+    cy.validateTableDataRowKeyContent('*', 12, /^2$/);
+    cy.validateTableDataRowKeyContent('*', 13, './1');
+    cy.validateTableDataRowKeyContent('*', 14, 'PASS');
+    cy.validateTableDataRowKeyContent('*', 15, /^75$/);
+    cy.validateTableDataRowKeyContent('*', 16, /^22$/);
+    cy.validateTableDataRowKeyContent('*', 17, '3, 0');
+  });
+ 
+  it('Valider les liens disponibles', () => {
+    cy.get('tr').contains(/^2$/).clickAndWait({force: true});
+    cy.contains('GAIN:chr1:196774873-196832007').should('exist');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
+
+    cy.get('tr').contains('CFHR1').clickAndWait({force: true});
+    cy.contains('GAIN:chr1:196774873-196832007').should('exist');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
+  });
 });
 
 describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
-  it('Vérifier les informations affichées', () => {
-    cy.validateTableDataRowKeyClass('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 1, 'FlagDropdown');
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 3, 'CFHR1');
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 3, 'CFHR3');
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 4, 'GAIN:chr1:196774873-196832007');
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 5, /^1$/);
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 6, '196 774 872');
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 7, '196 832 006');
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 8, /^GAIN$/);
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 9, '57.1 kb');
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 10, '1.38788');
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 11, /^3$/);
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 12, /^2$/);
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 13, './1');
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 14, 'PASS');
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 15, /^75$/);
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 16, /^22$/);
-    cy.validateTableDataRowKeyContent('c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c', 17, '3, 0');
+  beforeEach(() => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+  
+    cy.showColumn('GT', 0);
+    cy.showColumn('Filtre', 0);
+    cy.showColumn('Qual.', 0);
+    cy.showColumn('MS', 0);
+    cy.showColumn('BC', 0);
+    cy.showColumn('PE', 0);
   });
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'GAIN');
     cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
-  });
- 
-  it('Valider les liens disponibles', () => {
-    cy.get('tr[data-row-key="c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c"]').contains(/^2$/).clickAndWait({force: true});
-    cy.contains('GAIN:chr1:196774873-196832007').should('exist');
-    cy.get('button[class="ant-modal-close"]').invoke('click');
-
-    cy.get('tr[data-row-key="c2dab14eafa15ebf65ead73a8a8e729fd3b11a9c"]').contains('CFHR1').clickAndWait({force: true});
-    cy.contains('GAIN:chr1:196774873-196832007').should('exist');
-    cy.get('button[class="ant-modal-close"]').invoke('click');
   });
   
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {

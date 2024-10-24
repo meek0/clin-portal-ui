@@ -453,15 +453,30 @@ Cypress.Commands.add('validateSelectedFilterInDropdown', (filterName: string) =>
 });
 
 Cypress.Commands.add('validateTableDataRowKeyAttr', (dataRowKey: string, eq: number, expectedAttr: string, expectedValue: string) => {
-  cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).find('['+expectedAttr+'="'+expectedValue+'"]').should('exist');
+  if (dataRowKey !== "*") {
+    cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).find('['+expectedAttr+'="'+expectedValue+'"]').should('exist');
+  }
+  else {
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(eq).find('['+expectedAttr+'="'+expectedValue+'"]').should('exist');
+  };
 });
 
 Cypress.Commands.add('validateTableDataRowKeyClass', (dataRowKey: string, eq: number, expectedClass: string) => {
-  cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).find('[class*="'+expectedClass+'"]').should('exist');
+  if (dataRowKey !== "*") {
+    cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).find('[class*="'+expectedClass+'"]').should('exist');
+  }
+  else {
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(eq).find('[class*="'+expectedClass+'"]').should('exist');
+  };
 });
 
 Cypress.Commands.add('validateTableDataRowKeyContent', (dataRowKey: string, eq: number, expectedContent: string|RegExp) => {
-  cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).contains(expectedContent).should('exist');
+  if (dataRowKey !== "*") {
+    cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).contains(expectedContent).should('exist');
+  }
+  else {
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(eq).contains(expectedContent).should('exist');
+  };
 });
 
 Cypress.Commands.add('validateTableFirstRow', (expectedValue: string|RegExp, eq: number, hasCheckbox: boolean = false, selector: string = '') => {
