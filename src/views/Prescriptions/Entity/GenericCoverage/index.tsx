@@ -153,7 +153,7 @@ const Index = ({ downloadFile }: any) => {
         setQueryConfig,
       );
     }
-  }, [pageIndex]);
+  }, [pageIndex, queryConfig.size]);
 
   const { user } = useUser();
   const [downloadReady, setDownloadReady] = useState(false);

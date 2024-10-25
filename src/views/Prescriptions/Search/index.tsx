@@ -201,6 +201,7 @@ const PrescriptionSearch = (): React.ReactElement => {
       operations: undefined,
     });
     setSequencingPageIndex(DEFAULT_PAGE_INDEX);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
   useEffect(() => {
@@ -297,48 +298,55 @@ const PrescriptionSearch = (): React.ReactElement => {
               value={searchValue}
             />
           </div>
-          <Tabs type="card" activeKey={activeTab} onTabClick={changeTab}>
-            <Tabs.TabPane
-              key={TableTabs.Prescriptions}
-              tab={
-                <>
-                  <MedicineBoxOutlined />
-                  {intl.get('screen.patient.tab.prescriptions')}{' '}
-                  {prescriptions?.total && ` (${prescriptions?.total})`}
-                </>
-              }
-            >
-              <PrescriptionsTable
-                results={prescriptions}
-                queryConfig={prescriptionQueryConfig}
-                setQueryConfig={setPrescriptionQueryConfig}
-                setDownloadKeys={setDownloadPrescriptionKeys}
-                loading={prescriptions.loading}
-                pageIndex={prescriptionPageIndex}
-                setPageIndex={setPrescriptionPageIndex}
-              />
-            </Tabs.TabPane>
-            <Tabs.TabPane
-              key={TableTabs.Requests}
-              tab={
-                <>
-                  <SolutionOutlined />
-                  {intl.get('screen.patient.tab.requests')}{' '}
-                  {sequencings?.total && ` (${sequencings?.total})`}
-                </>
-              }
-            >
-              <SequencingsTable
-                results={sequencings}
-                queryConfig={sequencingQueryConfig}
-                setQueryConfig={setSequencingQueryConfig}
-                setDownloadKeys={setDownloadSequencingKeys}
-                loading={sequencings.loading}
-                pageIndex={sequencingPageIndex}
-                setPageIndex={setSequencingPageIndex}
-              />
-            </Tabs.TabPane>
-          </Tabs>
+          <Tabs
+            type="card"
+            activeKey={activeTab}
+            onTabClick={changeTab}
+            items={[
+              {
+                key: TableTabs.Prescriptions,
+                label: (
+                  <>
+                    <MedicineBoxOutlined />
+                    {intl.get('screen.patient.tab.prescriptions')}{' '}
+                    {prescriptions?.total && ` (${prescriptions?.total})`}
+                  </>
+                ),
+                children: (
+                  <PrescriptionsTable
+                    results={prescriptions}
+                    queryConfig={prescriptionQueryConfig}
+                    setQueryConfig={setPrescriptionQueryConfig}
+                    setDownloadKeys={setDownloadPrescriptionKeys}
+                    loading={prescriptions.loading}
+                    pageIndex={prescriptionPageIndex}
+                    setPageIndex={setPrescriptionPageIndex}
+                  />
+                ),
+              },
+              {
+                key: TableTabs.Requests,
+                label: (
+                  <>
+                    <SolutionOutlined />
+                    {intl.get('screen.patient.tab.requests')}{' '}
+                    {sequencings?.total && ` (${sequencings?.total})`}
+                  </>
+                ),
+                children: (
+                  <SequencingsTable
+                    results={sequencings}
+                    queryConfig={sequencingQueryConfig}
+                    setQueryConfig={setSequencingQueryConfig}
+                    setDownloadKeys={setDownloadSequencingKeys}
+                    loading={sequencings.loading}
+                    pageIndex={sequencingPageIndex}
+                    setPageIndex={setSequencingPageIndex}
+                  />
+                ),
+              },
+            ]}
+          />
         </Space>
       </ScrollContentWithFooter>
     </ContentWithHeader>

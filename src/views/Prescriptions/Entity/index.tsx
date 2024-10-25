@@ -115,29 +115,29 @@ const PrescriptionEntity = () => {
           ),
         }}
         className={styles.prescriptionEntityContainer}
-      >
-        <Tabs.TabPane
-          key={PrescriptionEntityTabs.DETAILS}
-          tab={intl.get('prescription.tabs.title.details')}
-        >
-          <PrescriptionDetails />
-        </Tabs.TabPane>
-        <Tabs.TabPane key={PrescriptionEntityTabs.QC} tab={intl.get('prescription.tabs.title.qc')}>
-          <PrescriptionQC />
-        </Tabs.TabPane>
-        <Tabs.TabPane
-          key={PrescriptionEntityTabs.VARIANTS}
-          tab={intl.get('prescription.tabs.title.variants')}
-        >
-          <PrescriptionVariants />
-        </Tabs.TabPane>
-        <Tabs.TabPane
-          key={PrescriptionEntityTabs.FILES}
-          tab={intl.get('prescription.tabs.title.files')}
-        >
-          <PrescriptionFiles />
-        </Tabs.TabPane>
-      </Tabs>
+        items={[
+          {
+            key: PrescriptionEntityTabs.DETAILS,
+            label: intl.get('prescription.tabs.title.details'),
+            children: <PrescriptionDetails />,
+          },
+          {
+            key: PrescriptionEntityTabs.QC,
+            label: intl.get('prescription.tabs.title.qc'),
+            children: <PrescriptionQC />,
+          },
+          {
+            key: PrescriptionEntityTabs.VARIANTS,
+            label: intl.get('prescription.tabs.title.variants'),
+            children: <PrescriptionVariants />,
+          },
+          {
+            key: PrescriptionEntityTabs.FILES,
+            label: intl.get('prescription.tabs.title.files'),
+            children: <PrescriptionFiles />,
+          },
+        ]}
+      />
     </PrescriptionEntityContext.Provider>
   );
 };

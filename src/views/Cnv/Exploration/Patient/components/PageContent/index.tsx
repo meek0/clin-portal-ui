@@ -169,6 +169,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     });
 
     setPageIndex(DEFAULT_PAGE_INDEX);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeQuerySnapshot]);
 
   useEffect(() => {
@@ -180,6 +181,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
       setVariantQueryConfig,
     );
     setPageIndex(DEFAULT_PAGE_INDEX);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeQuerySnapshot]);
 
   const isSameLDM = () => {

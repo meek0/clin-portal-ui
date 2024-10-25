@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { IQueryOperationsConfig } from '@ferlab/ui/core/graphql/types';
@@ -120,6 +120,7 @@ const DownloadTSVWrapper = ({
     if (triggered) {
       download();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggered]);
 
   return (

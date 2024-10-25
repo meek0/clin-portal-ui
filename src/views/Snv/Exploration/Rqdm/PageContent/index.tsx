@@ -107,23 +107,28 @@ const PageContent = ({ variantMapping }: OwnProps) => {
         variantResults={variantResults}
         getVariantResolvedSqon={getVariantResolvedSqon}
       >
-        <Tabs type="card" activeKey={'variants'}>
-          <Tabs.TabPane
-            tab={intl.get('screen.patientsnv.results.table.variants') || 'Variants'}
-            key="variants"
-          >
-            <VariantsTab
-              queryBuilderId={VARIANT_RQDM_QB_ID}
-              results={variantResults}
-              setQueryConfig={setVariantQueryConfig}
-              queryConfig={variantQueryConfig}
-              pageIndex={pageIndex}
-              setPageIndex={setPageIndex}
-              setDownloadTriggered={setDownloadTriggered}
-              setSelectedRows={setSelectedRows}
-            />
-          </Tabs.TabPane>
-        </Tabs>
+        <Tabs
+          type="card"
+          activeKey={'variants'}
+          items={[
+            {
+              label: intl.get('screen.patientsnv.results.table.variants') || 'Variants',
+              key: 'variants',
+              children: (
+                <VariantsTab
+                  queryBuilderId={VARIANT_RQDM_QB_ID}
+                  results={variantResults}
+                  setQueryConfig={setVariantQueryConfig}
+                  queryConfig={variantQueryConfig}
+                  pageIndex={pageIndex}
+                  setPageIndex={setPageIndex}
+                  setDownloadTriggered={setDownloadTriggered}
+                  setSelectedRows={setSelectedRows}
+                />
+              ),
+            },
+          ]}
+        />
       </VariantContentLayout>
       <DownloadTSVWrapper
         maxAllowed={MAX_VARIANTS_DOWNLOAD}

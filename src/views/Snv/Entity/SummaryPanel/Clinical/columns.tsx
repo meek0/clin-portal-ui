@@ -72,7 +72,8 @@ export const columnsPhenotypes = [
               data-cy={`ClinicalCard_GenePhenotype_Omim_${omimId}_ExternalLink`}
             >
               {omimId}
-            </ExternalLink>)
+            </ExternalLink>
+            )
           </>
         );
       }

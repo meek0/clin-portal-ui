@@ -4,9 +4,8 @@
 // import 'utils/wdyr';
 import 'clin-portal-theme/themes/clin/main.css';
 
-import React from 'react';
 import './prototypes/number';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import * as Sentry from '@sentry/react';
 import { ContextLines } from '@sentry/integrations';
 import LocalStorageIntegrations from 'utils/sentry/localStorageIntergretions';
@@ -34,12 +33,9 @@ Sentry.init({
   tracesSampleRate: 1.0, // Capture 100% of the transactions
 });
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('clin-ui'),
-);
+const container = document.getElementById('clin-ui');
+const root = createRoot(container);
+root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
