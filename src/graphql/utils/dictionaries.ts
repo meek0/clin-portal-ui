@@ -34,6 +34,7 @@ export const dictionaries: Record<string, string[]> = {
     'POLYM',
     'TUPED',
     'TUHEM',
+    'SCID',
     'EXTUM',
     ArrangerValues.missing,
   ],

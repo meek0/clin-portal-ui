@@ -155,6 +155,7 @@ export const getQueryBuilderDictionary = (
     MYASC: getAnalysisNameByCode('MYASC'),
     MMG: getAnalysisNameByCode('MMG'),
     HYPM: getAnalysisNameByCode('HYPM'),
+    SCID: getAnalysisNameByCode('SCID'),
   };
 
   return {
