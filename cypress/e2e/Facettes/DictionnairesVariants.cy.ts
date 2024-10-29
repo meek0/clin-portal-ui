@@ -22,6 +22,7 @@ describe('Page des variants - Dictionnaire', () => {
                          'Polymalformation (POLYM)',
                          'Rhabdomyolysis (RHAB)',
                          'Tumoral Exome (EXTUM)',
+                         'Severe Combined Immune Deficiency (SCID)',
                          'No Data'];
 
     cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
