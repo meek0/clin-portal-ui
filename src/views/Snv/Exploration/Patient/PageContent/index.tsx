@@ -9,7 +9,7 @@ import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Tabs } from 'antd';
 import { extractOrganizationId } from 'api/fhir/helper';
 import { ExtendedMappingResults } from 'graphql/models';
-import { useVariants, useVariantsCount } from 'graphql/variants/actions';
+import { useVariants } from 'graphql/variants/actions';
 import { VariantType } from 'graphql/variants/models';
 import { VARIANT_QUERY } from 'graphql/variants/queries';
 import { cloneDeep } from 'lodash';
@@ -107,8 +107,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
     }),
   };
-
-  const variantsCountWithoutFilter = useVariantsCount(queryVariables);
   const variantResultsWithFilter = useVariants(queryVariablesFilter, variantQueryConfig.operations);
   const variantResultsWithDonorsWithFilter = {
     ...variantResultsWithFilter,
@@ -243,7 +241,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       savedFilterTag={getSavedFilterID()}
       variantMapping={variantMapping}
       activeQuery={activeQuery}
-      total={variantsCountWithoutFilter.total}
+      variantResults={variantResultsWithDonorsWithFilter}
       getVariantResolvedSqon={getVariantResolvedSqon}
       variantSection={variantSection}
     >

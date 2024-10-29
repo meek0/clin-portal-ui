@@ -104,7 +104,7 @@ const PageContent = ({ variantMapping }: OwnProps) => {
         savedFilterTag={VARIANT_RQDM_QB_ID_FILTER_TAG}
         variantMapping={variantMapping}
         activeQuery={activeQuery}
-        total={variantResults.total}
+        variantResults={variantResults}
         getVariantResolvedSqon={getVariantResolvedSqon}
       >
         <Tabs

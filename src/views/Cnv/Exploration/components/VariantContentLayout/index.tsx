@@ -6,10 +6,10 @@ import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/type
 import { isEmptySqon } from '@ferlab/ui/core/data/sqon/utils';
 import { Space } from 'antd';
 import { ArrangerApi } from 'api/arranger';
-import { IVariantResultTree } from 'graphql/cnv/models';
+import { IVariantResultTree, VariantEntity } from 'graphql/cnv/models';
 import { GET_VARIANT_COUNT } from 'graphql/cnv/queries';
 import { INDEXES } from 'graphql/constants';
-import { ExtendedMapping, ExtendedMappingResults } from 'graphql/models';
+import { ExtendedMapping, ExtendedMappingResults, IQueryResults } from 'graphql/models';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import GenericFilters from 'components/uiKit/FilterList/GenericFilters';
@@ -24,7 +24,7 @@ interface OwnProps {
   queryBuilderId: string;
   savedFilterTag: string;
   activeQuery: ISyntheticSqon;
-  total: number;
+  variantResults: IQueryResults<VariantEntity[]>;
   variantMapping: ExtendedMappingResults;
   children: React.ReactElement;
   getVariantResolvedSqon: (query: ISyntheticSqon) => ISqonGroupFilter;
@@ -34,7 +34,7 @@ const VariantContentLayout = ({
   queryBuilderId,
   savedFilterTag,
   activeQuery,
-  total,
+  variantResults,
   variantMapping,
   getVariantResolvedSqon,
   children,
@@ -109,7 +109,7 @@ const VariantContentLayout = ({
         enableShowHideLabels
         IconTotal={<LineStyleIcon width="18" height="18" />}
         currentQuery={isEmptySqon(activeQuery) ? {} : activeQuery}
-        total={total}
+        total={variantResults.total}
         dictionary={getQueryBuilderDictionary(facetTransResolver, getAnalysisNameByCode)}
         getResolvedQueryForCount={(sqon) => getVariantResolvedSqon(sqon)}
         fetchQueryCount={async (sqon) => {
