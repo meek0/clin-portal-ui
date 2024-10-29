@@ -8,7 +8,7 @@ import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Card } from 'antd';
 import { extractOrganizationId } from 'api/fhir/helper';
-import { useVariants } from 'graphql/cnv/actions';
+import { useVariants, useVariantsCount } from 'graphql/cnv/actions';
 import { VARIANT_QUERY } from 'graphql/cnv/queries';
 import { ExtendedMappingResults } from 'graphql/models';
 import { VariantType } from 'graphql/variants/models';
@@ -105,6 +105,9 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     return wrappedQuery;
   };
 
+  const sqon = getVariantResolvedSqon(activeQuery);
+  const hasFlags = filtersList.length > 0; // contains only flags for now, to update if more filters
+
   const queryVariables = {
     first: variantQueryConfig.size,
     offset: DEFAULT_OFFSET,
@@ -120,12 +123,12 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
 
   const sqonwithFlag = {
     content:
-      getVariantResolvedSqon(activeQuery)!.content.length > 0
-        ? filtersList.length > 0
+      sqon!.content.length > 0
+        ? hasFlags
           ? filtersList.includes('none')
-            ? [getVariantResolvedSqon(activeQuery), noFlagQuery(filtersList)]
-            : [getVariantResolvedSqon(activeQuery), flagFilterQuery(filtersList)]
-          : [getVariantResolvedSqon(activeQuery)]
+            ? [sqon, noFlagQuery(filtersList)]
+            : [sqon, flagFilterQuery(filtersList)]
+          : [sqon]
         : [],
     op: 'and',
   };
@@ -143,7 +146,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     }),
   };
 
-  const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
+  const variantsCountWithoutFilter = useVariantsCount(queryVariables);
   const variantResultsWithFilter = useVariants(queryVariablesFilter, variantQueryConfig.operations);
 
   useEffect(() => {
@@ -202,7 +205,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
         savedFilterTag={CNV_EXPLORATION_PATIENT_FILTER_TAG}
         variantMapping={variantMapping}
         activeQuery={activeQuery}
-        variantResults={variantResults}
+        total={variantsCountWithoutFilter.total}
         getVariantResolvedSqon={getVariantResolvedSqon}
       >
         <Card>

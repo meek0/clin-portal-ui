@@ -9,7 +9,7 @@ import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Tabs } from 'antd';
 import { extractOrganizationId } from 'api/fhir/helper';
 import { ExtendedMappingResults } from 'graphql/models';
-import { useVariants } from 'graphql/variants/actions';
+import { useVariants, useVariantsCount } from 'graphql/variants/actions';
 import { VariantType } from 'graphql/variants/models';
 import { VARIANT_QUERY } from 'graphql/variants/queries';
 import { cloneDeep } from 'lodash';
@@ -68,13 +68,16 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       variantSection,
     );
 
+  const sqon = getVariantResolvedSqon(activeQuery);
+  const hasFlags = filtersList.length > 0; // contains only flags for now, to update if more filters
+
   const sqonwithFlag = {
-    content: getVariantResolvedSqon(activeQuery)
-      ? filtersList.length > 0
+    content: sqon
+      ? hasFlags
         ? filtersList.includes('none')
-          ? [getVariantResolvedSqon(activeQuery), noFlagQuery(filtersList)]
-          : [getVariantResolvedSqon(activeQuery), flagFilterQuery(filtersList)]
-        : [getVariantResolvedSqon(activeQuery)]
+          ? [sqon, noFlagQuery(filtersList)]
+          : [sqon, flagFilterQuery(filtersList)]
+        : [sqon]
       : [],
     op: 'and',
   };
@@ -83,7 +86,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     first: variantQueryConfig.size,
     offset: DEFAULT_OFFSET,
     searchAfter: variantQueryConfig.searchAfter,
-    sqon: getVariantResolvedSqon(activeQuery),
+    sqon: sqon,
     sort: tieBreaker({
       sort: variantQueryConfig.sort,
       defaultSort: DEFAULT_SORT_QUERY,
@@ -105,13 +108,8 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     }),
   };
 
-  const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
+  const variantsCountWithoutFilter = useVariantsCount(queryVariables);
   const variantResultsWithFilter = useVariants(queryVariablesFilter, variantQueryConfig.operations);
-  const variantResultsWithDonors = {
-    ...variantResults,
-    data: variantResults?.data?.filter((v) => (v.donors?.hits?.edges || []).length > 0),
-  };
-
   const variantResultsWithDonorsWithFilter = {
     ...variantResultsWithFilter,
     data: variantResultsWithFilter?.data?.filter((v) => (v.donors?.hits?.edges || []).length > 0),
@@ -245,7 +243,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       savedFilterTag={getSavedFilterID()}
       variantMapping={variantMapping}
       activeQuery={activeQuery}
-      variantResults={variantResultsWithDonors}
+      total={variantsCountWithoutFilter.total}
       getVariantResolvedSqon={getVariantResolvedSqon}
       variantSection={variantSection}
     >

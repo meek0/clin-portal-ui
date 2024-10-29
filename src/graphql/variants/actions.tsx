@@ -7,7 +7,7 @@ import { QueryVariable } from 'graphql/queries';
 import useLazyResultQuery from 'hooks/graphql/useLazyResultQuery';
 
 import { IVariantResultTree, VariantEntity } from './models';
-import { VARIANT_QUERY } from './queries';
+import { GET_VARIANT_COUNT, VARIANT_QUERY } from './queries';
 
 export const useVariants = (
   variables?: QueryVariable,
@@ -24,5 +24,21 @@ export const useVariants = (
     data: hydrateResults(result?.Variants?.hits?.edges || [], operations?.previous),
     total: result?.Variants?.hits?.total || 0,
     searchAfter: computeSearchAfter(result?.Variants?.hits?.edges || [], operations),
+  };
+};
+
+export const useVariantsCount = (
+  variables?: QueryVariable,
+  query: DocumentNode = GET_VARIANT_COUNT,
+): IQueryResults<VariantEntity[]> => {
+  const { error, loading, result } = useLazyResultQuery<IVariantResultTree>(query, {
+    variables,
+  });
+
+  return {
+    error,
+    loading,
+    data: [],
+    total: result?.Variants.hits.total ?? 0,
   };
 };

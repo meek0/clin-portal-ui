@@ -10,8 +10,8 @@ import { ArrangerApi } from 'api/arranger';
 import { CustomPillApi } from 'api/customPill';
 import { fetchFiltersByCustomPill, fetchSavedFilterById } from 'api/customPill/customPill.utils';
 import { INDEXES } from 'graphql/constants';
-import { ExtendedMapping, ExtendedMappingResults, IQueryResults } from 'graphql/models';
-import { IVariantResultTree, VariantEntity } from 'graphql/variants/models';
+import { ExtendedMapping, ExtendedMappingResults } from 'graphql/models';
+import { IVariantResultTree } from 'graphql/variants/models';
 import { GET_VARIANT_COUNT } from 'graphql/variants/queries';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { getMenuItemsEditionPill } from 'views/Snv/Exploration/Rqdm/facets';
@@ -32,7 +32,7 @@ interface OwnProps {
   queryBuilderId: string;
   savedFilterTag: string;
   activeQuery: ISyntheticSqon;
-  variantResults: IQueryResults<VariantEntity[]>;
+  total: number;
   variantMapping: ExtendedMappingResults;
   children: React.ReactElement;
   getVariantResolvedSqon: (query: ISyntheticSqon) => ISqonGroupFilter;
@@ -43,7 +43,7 @@ const VariantContentLayout = ({
   queryBuilderId,
   savedFilterTag,
   activeQuery,
-  variantResults,
+  total,
   variantMapping,
   getVariantResolvedSqon,
   variantSection,
@@ -143,7 +143,7 @@ const VariantContentLayout = ({
         enableShowHideLabels
         IconTotal={<LineStyleIcon width="18" height="18" />}
         currentQuery={isEmptySqon(activeQuery) ? {} : activeQuery}
-        total={variantResults.total}
+        total={total}
         dictionary={getQueryBuilderDictionary(facetTransResolver, getAnalysisNameByCode)}
         getResolvedQueryForCount={(sqon) => getVariantResolvedSqon(sqon)}
         fetchQueryCount={async (sqon) => {
