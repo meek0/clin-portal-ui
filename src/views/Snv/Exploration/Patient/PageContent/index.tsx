@@ -68,13 +68,16 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       variantSection,
     );
 
+  const sqon = getVariantResolvedSqon(activeQuery);
+  const hasFlags = filtersList.length > 0; // contains only flags for now, to update if more filters
+
   const sqonwithFlag = {
-    content: getVariantResolvedSqon(activeQuery)
-      ? filtersList.length > 0
+    content: sqon
+      ? hasFlags
         ? filtersList.includes('none')
-          ? [getVariantResolvedSqon(activeQuery), noFlagQuery(filtersList)]
-          : [getVariantResolvedSqon(activeQuery), flagFilterQuery(filtersList)]
-        : [getVariantResolvedSqon(activeQuery)]
+          ? [sqon, noFlagQuery(filtersList)]
+          : [sqon, flagFilterQuery(filtersList)]
+        : [sqon]
       : [],
     op: 'and',
   };
@@ -83,7 +86,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     first: variantQueryConfig.size,
     offset: DEFAULT_OFFSET,
     searchAfter: variantQueryConfig.searchAfter,
-    sqon: getVariantResolvedSqon(activeQuery),
+    sqon: sqon,
     sort: tieBreaker({
       sort: variantQueryConfig.sort,
       defaultSort: DEFAULT_SORT_QUERY,
@@ -104,14 +107,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       order: variantQueryConfig.operations?.previous ? SortDirection.Desc : SortDirection.Asc,
     }),
   };
-
-  const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
   const variantResultsWithFilter = useVariants(queryVariablesFilter, variantQueryConfig.operations);
-  const variantResultsWithDonors = {
-    ...variantResults,
-    data: variantResults?.data?.filter((v) => (v.donors?.hits?.edges || []).length > 0),
-  };
-
   const variantResultsWithDonorsWithFilter = {
     ...variantResultsWithFilter,
     data: variantResultsWithFilter?.data?.filter((v) => (v.donors?.hits?.edges || []).length > 0),
@@ -245,7 +241,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       savedFilterTag={getSavedFilterID()}
       variantMapping={variantMapping}
       activeQuery={activeQuery}
-      variantResults={variantResultsWithDonors}
+      variantResults={variantResultsWithDonorsWithFilter}
       getVariantResolvedSqon={getVariantResolvedSqon}
       variantSection={variantSection}
     >

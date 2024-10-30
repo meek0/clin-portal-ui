@@ -105,6 +105,9 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     return wrappedQuery;
   };
 
+  const sqon = getVariantResolvedSqon(activeQuery);
+  const hasFlags = filtersList.length > 0; // contains only flags for now, to update if more filters
+
   const queryVariables = {
     first: variantQueryConfig.size,
     offset: DEFAULT_OFFSET,
@@ -120,12 +123,12 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
 
   const sqonwithFlag = {
     content:
-      getVariantResolvedSqon(activeQuery)!.content.length > 0
-        ? filtersList.length > 0
+      sqon!.content.length > 0
+        ? hasFlags
           ? filtersList.includes('none')
-            ? [getVariantResolvedSqon(activeQuery), noFlagQuery(filtersList)]
-            : [getVariantResolvedSqon(activeQuery), flagFilterQuery(filtersList)]
-          : [getVariantResolvedSqon(activeQuery)]
+            ? [sqon, noFlagQuery(filtersList)]
+            : [sqon, flagFilterQuery(filtersList)]
+          : [sqon]
         : [],
     op: 'and',
   };
@@ -143,7 +146,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
     }),
   };
 
-  const variantResults = useVariants(queryVariables, variantQueryConfig.operations);
   const variantResultsWithFilter = useVariants(queryVariablesFilter, variantQueryConfig.operations);
 
   useEffect(() => {
@@ -202,7 +204,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
         savedFilterTag={CNV_EXPLORATION_PATIENT_FILTER_TAG}
         variantMapping={variantMapping}
         activeQuery={activeQuery}
-        variantResults={variantResults}
+        variantResults={variantResultsWithFilter}
         getVariantResolvedSqon={getVariantResolvedSqon}
       >
         <Card>
