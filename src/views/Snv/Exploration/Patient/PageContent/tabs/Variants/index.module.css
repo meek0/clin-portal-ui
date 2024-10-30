@@ -46,3 +46,22 @@
 .variantSearchTable div[class$=-card-bordered] > div {
   padding: 8px 24px 8px 24px !important;
 }
+
+:global(.ant-table-row-expand-icon){
+  border-color: var(--gray-5);
+  transform: none;
+  border-radius: 0;
+  transition: none;
+}
+
+.extendButton{
+  padding: 0;
+  border: 0;
+  background-color: inherit;
+  width: 24px;
+  height: 24px;
+}
+
+:global(.ant-table-row-expand-icon:active), :global(.ant-table-row-expand-icon:hover) {
+  border-color: var(--blue-8);
+}

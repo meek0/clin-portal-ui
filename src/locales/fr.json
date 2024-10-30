@@ -1424,5 +1424,14 @@
       "unknown_mother_genotype": "UMG",
       "unknown_proband_genotype": "UPBG"
     }
+  },
+  "occurence": {
+    "zygosity": {
+      "HOM": "Homozygote",
+      "HEM": "Hémizygote",
+      "HET":"Hétérozygote"
   }
+  },
+  "litvar": "LitVAR",
+  "ucsc": "UCSC"
 }
