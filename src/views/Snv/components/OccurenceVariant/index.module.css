@@ -1,74 +1,74 @@
-.card {
+.occurenceVariant .card {
   border-top: 1px solid var(--gray-4);
 }
 
-:global(.ant-card) {
+.occurenceVariant :global(.ant-card) {
   border-top: 1px solid var(--gray-4) !important;
 }
 
-:global(.ant-table-expanded-row-fixed) {
+.occurenceVariant :global(.ant-table-expanded-row-fixed) {
   background-color: var(--gray-3);
 }
 
-.linkButton {
+.occurenceVariant .linkButton {
   padding-left: 0;
   padding-right: 0;
 }
 
-:global(.ant-divider) {
+.occurenceVariant :global(.ant-divider) {
   height: 24px;
   border-color: var(--gray-5);
 }
 
-.basicBordered {
+.occurenceVariant .basicBordered {
   width: 100%;
 }
 
-.basicBordered :global(.ant-descriptions-view) {
+.occurenceVariant .basicBordered :global(.ant-descriptions-view) {
   border: none;
 }
 
-.basicBordered :global(.ant-descriptions-item-label) {
+.occurenceVariant .basicBordered :global(.ant-descriptions-item-label) {
   background: none;
   border-right: none;
   padding: 4px 0 !important;
 }
 
-.parentStatusTitle,
-.parentStatusIconWrapper {
+.occurenceVariant .parentStatusTitle,
+.occurenceVariant .parentStatusIconWrapper {
   display: flex;
   align-items: center;
 }
-.parentStatusTitle .parentStatusIcon,
-.parentStatusIconWrapper .parentStatusIcon {
+.occurenceVariant .parentStatusTitle .parentStatusIcon,
+.occurenceVariant .parentStatusIconWrapper .parentStatusIcon {
   margin-left: 4px;
 }
 
-:global(.ant-descriptions-header){
+.occurenceVariant :global(.ant-descriptions-header){
     margin-bottom: 4px;
 }
 
-:global(.ant-descriptions-row){
+.occurenceVariant :global(.ant-descriptions-row){
   height: 10px !important;
 }
 
-:global(.ant-descriptions-title){
+.occurenceVariant :global(.ant-descriptions-title){
     font-size: 12px;
     line-height: 20px;
     color: var(--blue-9);
     padding: 0;
 }
 
-:global(.ant-descriptions-item-label){
+.occurenceVariant :global(.ant-descriptions-item-label){
     color: var(--gray-7) !important ;
     padding: 0 !important;
 }
 
-:global(.ant-descriptions-item-content){
+.occurenceVariant :global(.ant-descriptions-item-content){
   padding: 0 !important;
 }
 
-.detailButton{
+.occurenceVariant .detailButton{
   padding: 0;
 }
 
