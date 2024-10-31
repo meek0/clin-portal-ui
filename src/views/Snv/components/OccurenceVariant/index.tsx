@@ -80,7 +80,7 @@ const OccurenceVariant = ({ record, rpt, loadingRpt, igvModalCb, patientId }: Ow
   return (
     <>
       <Card
-        className={style.occurenceVariant}
+        className={`${style.occurenceVariant} ${style.card}`}
         title={
           <Space size={24}>
             <Link target="_blank" to={`/variant/entity/${record?.locus}/${TAB_ID.SUMMARY}`}>
@@ -134,7 +134,7 @@ const OccurenceVariant = ({ record, rpt, loadingRpt, igvModalCb, patientId }: Ow
         }
         bordered={true}
       >
-        <Card>
+        <Card className={style.card}>
           <Row wrap={false} gutter={24}>
             <Col>
               <Descriptions

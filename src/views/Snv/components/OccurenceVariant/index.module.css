@@ -2,9 +2,6 @@
   border-top: 1px solid var(--gray-4);
 }
 
-.occurenceVariant :global(.ant-card) {
-  border-top: 1px solid var(--gray-4) !important;
-}
 
 .occurenceVariant :global(.ant-table-expanded-row-fixed) {
   background-color: var(--gray-3);
@@ -46,10 +43,6 @@
 
 .occurenceVariant :global(.ant-descriptions-header){
     margin-bottom: 4px;
-}
-
-.occurenceVariant :global(.ant-descriptions-row){
-  height: 10px !important;
 }
 
 .occurenceVariant :global(.ant-descriptions-title){
