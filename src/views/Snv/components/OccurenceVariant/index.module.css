@@ -63,6 +63,10 @@
     padding: 0 ;
 }
 
+.occurenceVariant :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-label) > span{
+  display: inline-block;
+}
+
 .occurenceVariant :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-content){
   padding: 0;
 }
