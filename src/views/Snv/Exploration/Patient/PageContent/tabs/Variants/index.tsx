@@ -146,6 +146,7 @@ const VariantsTab = ({
                           igvModalCb={openIgvModal}
                         />
                       ),
+                    expandedRowClassName: () => style.expendableTable,
                   }
                 : undefined
             }

@@ -12,6 +12,10 @@
   padding-right: 0;
 }
 
+.occurenceVariant .hgvsgLink {
+  text-decoration: underline;
+}
+
 .occurenceVariant :global(.ant-divider) {
   height: 24px;
   border-color: var(--gray-5);
@@ -19,6 +23,8 @@
 
 .occurenceVariant .basicBordered {
   width: 100%;
+  min-width: 260px;
+  max-width: 460px;
 }
 
 .occurenceVariant .basicBordered :global(.ant-descriptions-view) {
@@ -29,8 +35,6 @@
   background: none;
   border-right: none;
   padding: 4px 0;
-  min-width: 260px;
-  max-width: 460px;
 }
 
 .occurenceVariant .parentStatusTitle,
@@ -64,10 +68,19 @@
 }
 
 .occurenceVariant :global(.ant-descriptions-item-content){
+  text-align: right;
   padding: 0 ;
+}
+
+.occurenceVariant :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-label)::after {
+  content: ':' ;
+  display: inline;
+}
+
+.occurenceVariant .basicBordered :global(.ant-descriptions-view) table tbody tr  :global(.ant-descriptions-item-content) {
+  background-color: inherit !important;
 }
 
 .occurenceVariant .detailButton{
   padding: 0;
 }
-

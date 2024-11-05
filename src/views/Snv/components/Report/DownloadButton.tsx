@@ -13,7 +13,7 @@ type Props = {
   variantId: string;
   name: ReportNames;
   iconOnly?: boolean;
-  tooltipTitle: string;
+  tooltipTitle?: string;
   icon: React.ReactElement;
   size: SizeType;
 };
