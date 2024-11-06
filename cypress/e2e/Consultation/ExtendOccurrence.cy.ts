@@ -15,8 +15,8 @@ describe('Ligne extensible d\'une occurrence', () => {
   it('Vérifier les informations affichées - En-tête', () => {
     cy.get('[class="ant-card-head-title"]').contains('chr10:g.113623545C>T').should('exist');
     cy.get('[class="ant-card-head-title"]').find('svg[class*="anticon"]').should('exist');
-    cy.get('[class="ant-card-head-title"] button').eq(0).contains('Ouvrir IGV').should('exist');
-    cy.get('[class="ant-card-head-title"] button').eq(1).contains('Télécharger le rapport').should('exist');
+    cy.get('[class="ant-card-head-title"] button').eq(0).contains('Télécharger rapport').should('exist');
+    cy.get('[class="ant-card-head-title"] button').eq(1).contains('Ouvrir IGV').should('exist');
     cy.get('[class="ant-card-head-title"]').contains('UCSC').should('exist');
     cy.get('[class="ant-card-head-title"]').contains('LitVAR').should('exist');
   });
@@ -67,11 +67,11 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(1).contains('124').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-label"]').eq(2).contains('Profondeur totale ALT + REF').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(2).contains('246').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-label"]').eq(4).contains('Qualité du génotype').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(4).find('polygon[points="0,0 5,10 -5,10"]').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(4).contains('48').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-label"]').eq(5).contains('Filtre (Dragen)').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(5).contains('PASS').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-label"]').eq(3).contains('Qualité du génotype').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(3).find('polygon[points="0,0 5,10 -5,10"]').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(3).contains('48').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-label"]').eq(4).contains('Filtre (Dragen)').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(4).contains('PASS').should('exist');
   });
  
   it('Valider les liens disponibles - Hét. composé', () => {

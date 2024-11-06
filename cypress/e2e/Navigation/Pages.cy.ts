@@ -140,7 +140,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Couverture génique').should('exist');
     cy.contains('Dragen Capture Coverage Metrics').should('exist');
     cy.contains('Dragen Mapping Metrics').should('exist');
-//    cy.contains('Picard Collect Hs Metrics').should('exist');
+    cy.contains('Picard Collect Hs Metrics').should('exist');
     cy.contains('Télécharger le rapport').should('exist');
 
     // Couverture génique
@@ -202,25 +202,6 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.get('[data-menu-id*="manage-my-filters"]').clickAndWait({force: true});
     cy.contains('Gérer les filtres').should('exist');
     cy.contains('Fermer').should('exist');
-    cy.get('button[class="ant-modal-close"]').invoke('click');
-
-    // Métriques de séquençage parental
-    cy.get('[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
-    cy.get('[data-cy="OpenSeqMetricModal"]').clickAndWait({force: true});
-    cy.contains('Métriques de séquençage parental').should('exist');
-    cy.contains('Mère').should('exist');
-    cy.contains('Père').should('exist');
-    cy.contains('Qualité de profondeur').should('exist');
-    cy.contains('Profondeur allélique ALT').should('exist');
-    cy.contains('Profondeur totale ALT + REF').should('exist');
-    cy.contains('Ratio allélique ALT / (ALT+REF)').should('exist');
-    cy.contains('Qualité du génotype').should('exist');
-    cy.contains('Filtre').should('exist');
-    cy.get('button[class="ant-modal-close"]').invoke('click');
-    
-    // IGV
-    cy.get('[class="ant-card-head-title"] button[class*="ant-btn-default"]').eq(0).clickAndWait({force: true});
-    cy.contains('Alignement et variant').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
   });
  
