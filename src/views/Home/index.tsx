@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { HomeOutlined } from '@ant-design/icons';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
-import { Col, Row } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { getUserFullName } from 'auth/keycloak';
+import InterpretationModal from 'views/Snv/components/InterpretationModal';
 
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
@@ -42,7 +44,19 @@ const Home = () => (
         />
       </div>
     </ScrollContentWithFooter>
+    <VariantInterpretationButton />
   </ContentWithHeader>
 );
+
+const VariantInterpretationButton = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div>
+      <Button onClick={() => setIsOpen(true)}>Interpretation</Button>
+      <InterpretationModal isOpen={isOpen} toggleModal={setIsOpen} />
+    </div>
+  );
+};
 
 export default Home;
