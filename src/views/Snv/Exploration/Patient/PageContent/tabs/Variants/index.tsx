@@ -109,7 +109,7 @@ const VariantsTab = ({
     setFilterList,
     filtersList,
   );
-
+  const canExtend = [VariantSection.SNV, VariantSection.SNVTN, VariantSection.SNVTO];
   return (
     <>
       {donor && selectedVariant && (
@@ -134,18 +134,18 @@ const VariantsTab = ({
             loading={results?.loading}
             dictionary={getProTableDictionary()}
             expandable={
-              variantSection === VariantSection.SNV
+              variantSection && canExtend.includes(variantSection)
                 ? {
-                    expandedRowRender: (record) =>
-                      variantSection === VariantSection.SNV && (
-                        <OccurenceVariant
-                          record={record}
-                          rpt={rpt}
-                          loadingRpt={loadingRpt}
-                          patientId={patientId}
-                          igvModalCb={openIgvModal}
-                        />
-                      ),
+                    expandedRowRender: (record) => (
+                      <OccurenceVariant
+                        record={record}
+                        rpt={rpt}
+                        loadingRpt={loadingRpt}
+                        patientId={patientId}
+                        igvModalCb={openIgvModal}
+                        variantSection={variantSection}
+                      />
+                    ),
                     expandedRowClassName: () => style.expendableTable,
                   }
                 : undefined

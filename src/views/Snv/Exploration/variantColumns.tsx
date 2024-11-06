@@ -16,7 +16,7 @@ import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQuery
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
-import { Button, Space, Tag, Tooltip, Typography } from 'antd';
+import { Space, Tag, Tooltip, Typography } from 'antd';
 import { INDEXES } from 'graphql/constants';
 import { ArrangerResultsTree } from 'graphql/models';
 import {
@@ -36,8 +36,6 @@ import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/compone
 import ConsequencesCell from 'views/Snv/components/ConsequencesCell';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
-import LineStyleIcon from 'components/icons/LineStyleIcon';
-import UserAffectedIcon from 'components/icons/UserAffectedIcon';
 import { TABLE_EMPTY_PLACE_HOLDER, TABLE_ND_PLACE_HOLDER } from 'utils/constants';
 import EnvironmentVariables from 'utils/EnvVariables';
 import { formatFilters } from 'utils/formatFilters';
@@ -53,7 +51,6 @@ import FlagCell from './components/Flag/FlagCell';
 import FlagFilterDropdown from './components/Flag/FlagFilter';
 import GnomadCell from './components/Gnomad/GnomadCell';
 import ManeCell from './components/ManeCell';
-import { OtherActions } from './components/OtherActions';
 
 import style from './variantColumns.module.css';
 
@@ -358,41 +355,6 @@ export const getVariantColumns = (
         render: (flags: string[], entity: VariantEntity) => (
           <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="snv" />
         ),
-      });
-    }
-    if (variantSection !== VariantSection.SNV) {
-      columns.push({
-        className: noData
-          ? `${style.fixedVariantTableCellNoData} ${style.userAffectedBtnCell}`
-          : style.userAffectedBtnCell,
-        key: 'actions',
-        width: 110,
-        title: intl.get('screen.patientsnv.results.table.actions'),
-        fixed: 'left',
-        render: (record: VariantEntity) => (
-          <Space align={'center'}>
-            <Tooltip title={intl.get('occurrence.patient')}>
-              <Button
-                type={'link'}
-                onClick={() => drawerCb && drawerCb(record)}
-                icon={<UserAffectedIcon width={'100%'} height={'16px'} />}
-                size={'small'}
-                data-cy={`drawerCb_${record.hgvsg}`}
-              />
-            </Tooltip>
-            <Tooltip title={intl.get('open.in.igv')}>
-              <Button
-                onClick={() => igvModalCb && igvModalCb(record)}
-                icon={<LineStyleIcon width={'100%'} height={'16px'} />}
-                type={'link'}
-                size={'small'}
-                data-cy={`igvModalCb_${record.hgvsg}`}
-              />
-            </Tooltip>
-            <OtherActions patientId={patientId} record={record} />
-          </Space>
-        ),
-        align: 'center',
       });
     }
   }
