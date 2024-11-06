@@ -986,6 +986,7 @@
   "screen.patientsnv.drawer.alltotal": "Total Depth ALT + REF",
   "screen.patientsnv.drawer.depth.quality": "Quality Depth",
   "screen.patientsnv.drawer.detail": "details",
+  "screen.patientsnv.drawer.download.report": "Download report",
   "screen.patientsnv.drawer.download.report.tooltip": "Download the variant's interpretation report for this patient (xlsx format)",
   "screen.patientsnv.drawer.father.genotype": "Father's Genotype",
   "screen.patientsnv.drawer.filter": "Filter (Dragen)",

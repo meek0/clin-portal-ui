@@ -89,6 +89,7 @@ const OccurenceVariant = ({ record, rpt, loadingRpt, igvModalCb, patientId }: Ow
                 variantId={record?.hgvsg}
                 name={ReportNames.transcript}
                 size={'small'}
+                buttonText={intl.get('screen.patientsnv.drawer.download.report')}
               />
               <Button
                 loading={loadingRpt}

@@ -16,6 +16,10 @@
   text-decoration: underline;
 }
 
+.occurenceVariant .hgvsgLink:hover {
+  text-decoration: none;
+}
+
 .occurenceVariant :global(.ant-divider) {
   height: 24px;
   border-color: var(--gray-5);

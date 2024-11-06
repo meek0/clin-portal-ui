@@ -16,6 +16,7 @@ type Props = {
   tooltipTitle?: string;
   icon: React.ReactElement;
   size: SizeType;
+  buttonText?: string;
 };
 
 const DownloadButton = ({
@@ -26,6 +27,7 @@ const DownloadButton = ({
   iconOnly = false,
   tooltipTitle,
   icon,
+  buttonText = intl.get('download.report'),
 }: Props) => {
   const dispatch = useDispatch();
   const { loadingIds } = useSelector(reportSelector);
@@ -47,7 +49,7 @@ const DownloadButton = ({
       {iconOnly ? (
         <Button type={'text'} {...commonProps} />
       ) : (
-        <Button {...commonProps}>{intl.get('download.report')}</Button>
+        <Button {...commonProps}>{buttonText}</Button>
       )}
     </Tooltip>
   );
