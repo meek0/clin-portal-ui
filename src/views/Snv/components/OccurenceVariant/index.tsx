@@ -48,7 +48,7 @@ const OccurenceVariant = ({
 }: OwnProps) => {
   const [modalOpened, setModalVisible] = useState(false);
 
-  const donor = findDonorById(record.donors, patientId);
+  const donor = findDonorById(record?.donors, patientId);
 
   const getParentTitle = (who: 'mother' | 'father', id: string, affected: boolean) => {
     let AffectedIcon = null;
@@ -118,11 +118,11 @@ const OccurenceVariant = ({
                 type="link"
                 target="_blank"
                 size="small"
-                href={`https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr${record.chromosome}%3A${record.start}-${record.end}`}
+                href={`https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr${record?.chromosome}%3A${record?.start}-${record?.end}`}
               >
                 {intl.get('ucsc')}
               </Button>
-              {record.rsnumber && (
+              {record?.rsnumber && (
                 <Button
                   className={style.linkButton}
                   type="link"
@@ -161,7 +161,7 @@ const OccurenceVariant = ({
                       <HcComplementDescription
                         hcComplements={donor?.hc_complement}
                         defaultText={TABLE_EMPTY_PLACE_HOLDER}
-                        locus={record.locus}
+                        locus={record?.locus}
                       />
                     </Descriptions.Item>
                     <Descriptions.Item
@@ -192,79 +192,80 @@ const OccurenceVariant = ({
             </Col>
             <Col>
               <Space direction="vertical">
-                {variantSection === VariantSection.SNV && (
-                  <Descriptions
-                    className={style.basicBordered}
-                    bordered
-                    size="small"
-                    title={capitalize(intl.get('family'))}
-                    column={1}
-                  >
-                    {donor?.father_id && (
-                      <Descriptions.Item
-                        label={getParentTitle(
-                          'father',
-                          donor?.father_id!,
-                          donor?.father_affected_status!,
-                        )}
-                      >
-                        {donor?.father_calls ? (
-                          <Space size={4}>
-                            <>
-                              <span>{donor?.father_calls.join('/')}</span>
-                              <span>
-                                (
-                                <Button
-                                  className={style.detailButton}
-                                  size="small"
-                                  onClick={() => setModalVisible(true)}
-                                  type="link"
-                                >
-                                  {intl.get('screen.patientsnv.drawer.detail')}
-                                </Button>
-                                )
-                              </span>
-                            </>
-                          </Space>
-                        ) : (
-                          TABLE_EMPTY_PLACE_HOLDER
-                        )}
-                      </Descriptions.Item>
-                    )}
-                    {donor?.mother_id && (
-                      <Descriptions.Item
-                        label={getParentTitle(
-                          'mother',
-                          donor?.mother_id!,
-                          donor?.mother_affected_status!,
-                        )}
-                      >
-                        {donor?.mother_calls ? (
-                          <Space size={4}>
-                            <>
-                              <span>{donor?.mother_calls.join('/')}</span>
-                              <span>
-                                (
-                                <Button
-                                  size="small"
-                                  className={style.detailButton}
-                                  onClick={() => setModalVisible(true)}
-                                  type="link"
-                                  data-cy="OpenSeqMetricModal"
-                                >
-                                  {intl.get('screen.patientsnv.drawer.detail')}
-                                </Button>
-                                )
-                              </span>
-                            </>
-                          </Space>
-                        ) : (
-                          TABLE_EMPTY_PLACE_HOLDER
-                        )}
-                      </Descriptions.Item>
-                    )}
-                  </Descriptions>
-                )}
+                {variantSection === VariantSection.SNV &&
+                  (donor?.father_id || donor?.mother_id) && (
+                    <Descriptions
+                      className={style.basicBordered}
+                      bordered
+                      size="small"
+                      title={capitalize(intl.get('family'))}
+                      column={1}
+                    >
+                      {donor?.father_id && (
+                        <Descriptions.Item
+                          label={getParentTitle(
+                            'father',
+                            donor?.father_id!,
+                            donor?.father_affected_status!,
+                          )}
+                        >
+                          {donor?.father_calls ? (
+                            <Space size={4}>
+                              <>
+                                <span>{donor?.father_calls.join('/')}</span>
+                                <span>
+                                  (
+                                  <Button
+                                    className={style.detailButton}
+                                    size="small"
+                                    onClick={() => setModalVisible(true)}
+                                    type="link"
+                                  >
+                                    {intl.get('screen.patientsnv.drawer.detail')}
+                                  </Button>
+                                  )
+                                </span>
+                              </>
+                            </Space>
+                          ) : (
+                            TABLE_EMPTY_PLACE_HOLDER
+                          )}
+                        </Descriptions.Item>
+                      )}
+                      {donor?.mother_id && (
+                        <Descriptions.Item
+                          label={getParentTitle(
+                            'mother',
+                            donor?.mother_id!,
+                            donor?.mother_affected_status!,
+                          )}
+                        >
+                          {donor?.mother_calls ? (
+                            <Space size={4}>
+                              <>
+                                <span>{donor?.mother_calls.join('/')}</span>
+                                <span>
+                                  (
+                                  <Button
+                                    size="small"
+                                    className={style.detailButton}
+                                    onClick={() => setModalVisible(true)}
+                                    type="link"
+                                    data-cy="OpenSeqMetricModal"
+                                  >
+                                    {intl.get('screen.patientsnv.drawer.detail')}
+                                  </Button>
+                                  )
+                                </span>
+                              </>
+                            </Space>
+                          ) : (
+                            TABLE_EMPTY_PLACE_HOLDER
+                          )}
+                        </Descriptions.Item>
+                      )}
+                    </Descriptions>
+                  )}
                 <Descriptions
                   className={style.basicBordered}
                   bordered
@@ -281,13 +282,13 @@ const OccurenceVariant = ({
                   <Descriptions.Item label={intl.get('screen.patientsnv.drawer.alltotal')}>
                     {donor?.ad_total ?? TABLE_EMPTY_PLACE_HOLDER}
                   </Descriptions.Item>
-                  {record.variant_type.includes(VariantType.SOMATIC) && (
+                  {record?.variant_type.includes(VariantType.SOMATIC) && (
                     <Descriptions.Item label={intl.get('filters.group.donors.sq')}>
                       {donor?.sq ? donor?.sq : TABLE_EMPTY_PLACE_HOLDER}
                     </Descriptions.Item>
                   )}
 
-                  {record.variant_type.includes(VariantType.GERMLINE) && (
+                  {record?.variant_type.includes(VariantType.GERMLINE) && (
                     <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
                       {<GqLine value={donor?.gq} />}
                     </Descriptions.Item>

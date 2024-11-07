@@ -35,6 +35,11 @@
   border: none;
 }
 
+.occurenceVariant .basicBordered :global(.ant-descriptions-view) :global(.ant-descriptions-row:last-child ) {
+  border-bottom: 1px solid var(--gray-4)
+}
+
+
 .occurenceVariant .basicBordered :global(.ant-descriptions-view .ant-descriptions-row .ant-descriptions-item-label) {
   background: none;
   border-right: none;

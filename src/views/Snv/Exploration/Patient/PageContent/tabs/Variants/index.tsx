@@ -109,7 +109,8 @@ const VariantsTab = ({
     setFilterList,
     filtersList,
   );
-  const canExtend = [VariantSection.SNV, VariantSection.SNVTN, VariantSection.SNVTO];
+  const canExtend = (section: VariantSection) =>
+    [VariantSection.SNV, VariantSection.SNVTN, VariantSection.SNVTO].includes(section);
   return (
     <>
       {donor && selectedVariant && (
@@ -134,7 +135,7 @@ const VariantsTab = ({
             loading={results?.loading}
             dictionary={getProTableDictionary()}
             expandable={
-              variantSection && canExtend.includes(variantSection)
+              variantSection && canExtend(variantSection)
                 ? {
                     expandedRowRender: (record) => (
                       <OccurenceVariant
