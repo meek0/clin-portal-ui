@@ -21,6 +21,20 @@ import { formatDnaLength, formatNumber } from 'utils/formatNumber';
 
 import style from './variantColumns.module.css';
 
+export const renderTransmissionToString = (variant: VariantEntity) => {
+  const { transmission } = variant;
+  return transmission
+    ? intl.get(`transmission.abbrev.${transmission}`).defaultMessage(transmission)
+    : TABLE_EMPTY_PLACE_HOLDER;
+};
+
+export const renderPOToString = (variant: VariantEntity) => {
+  const { parental_origin } = variant;
+  return parental_origin
+    ? intl.get(`filters.options.donors.parental_origin.${parental_origin}.abrv`)
+    : TABLE_EMPTY_PLACE_HOLDER;
+};
+
 export const getVariantColumns = (
   variantType: VariantType,
   openGenesModal: (record: VariantEntity) => void,
