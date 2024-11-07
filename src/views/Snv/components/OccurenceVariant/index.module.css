@@ -1,0 +1,95 @@
+.occurenceVariant .card {
+  border-top: 1px solid var(--gray-4);
+}
+
+
+.occurenceVariant :global(.ant-table-expanded-row-fixed) {
+  background-color: var(--gray-3);
+}
+
+.occurenceVariant .linkButton {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.occurenceVariant .hgvsgLink {
+  text-decoration: underline;
+}
+
+.occurenceVariant .hgvsgLink:hover {
+  text-decoration: none;
+}
+
+.occurenceVariant :global(.ant-divider) {
+  height: 24px;
+  border-color: var(--gray-5);
+}
+
+.occurenceVariant .basicBordered {
+  width: 100%;
+  min-width: 260px;
+  max-width: 460px;
+}
+
+.occurenceVariant .basicBordered :global(.ant-descriptions-view) {
+  border: none;
+}
+
+.occurenceVariant .basicBordered :global(.ant-descriptions-view .ant-descriptions-row .ant-descriptions-item-label) {
+  background: none;
+  border-right: none;
+  padding: 4px 0;
+}
+
+.occurenceVariant .parentStatusTitle,
+.occurenceVariant .parentStatusIconWrapper {
+  display: flex;
+  align-items: center;
+}
+.occurenceVariant .parentStatusTitle .parentStatusIcon,
+.occurenceVariant .parentStatusIconWrapper .parentStatusIcon {
+  margin-left: 4px;
+}
+
+.occurenceVariant :global(.ant-descriptions-header){
+    margin-bottom: 4px;
+}
+
+.occurenceVariant :global(.ant-descriptions-title){
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--blue-9);
+    padding: 0;
+}
+
+.occurenceVariant :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-label){
+    color: var(--gray-7) ;
+    padding: 0 ;
+}
+
+.occurenceVariant :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-label) > span{
+  display: inline-block;
+}
+
+.occurenceVariant :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-content){
+  padding: 0;
+}
+
+.occurenceVariant :global(.ant-descriptions-item-content){
+  text-align: right;
+  padding: 0 ;
+}
+
+.occurenceVariant :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-label)::after {
+  content: ':' ;
+  display: inline;
+  margin-left: 4px;
+}
+
+.occurenceVariant .basicBordered :global(.ant-descriptions-view) table tbody tr  :global(.ant-descriptions-item-content) {
+  background-color: inherit !important;
+}
+
+.occurenceVariant .detailButton{
+  padding: 0;
+}

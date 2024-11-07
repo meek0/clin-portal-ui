@@ -986,6 +986,7 @@
   "screen.patientsnv.drawer.alltotal": "Total Depth ALT + REF",
   "screen.patientsnv.drawer.depth.quality": "Quality Depth",
   "screen.patientsnv.drawer.detail": "details",
+  "screen.patientsnv.drawer.download.report": "Download report",
   "screen.patientsnv.drawer.download.report.tooltip": "Download the variant's interpretation report for this patient (xlsx format)",
   "screen.patientsnv.drawer.father.genotype": "Father's Genotype",
   "screen.patientsnv.drawer.filter": "Filter (Dragen)",
@@ -996,9 +997,30 @@
   "screen.patientsnv.drawer.mother.genotype": "Mother's Genotype",
   "screen.patientsnv.drawer.notaffected": "Not affected",
   "screen.patientsnv.drawer.parental.origin": "Parental Origin",
+  "screen.patientsnv.drawer.parental.origin.denovo": "None (de novo)",
+  "screen.patientsnv.drawer.parental.origin.possible_denovo": "Possible de novo",
+  "screen.patientsnv.drawer.parental.origin.both": "Father and Mother",
+  "screen.patientsnv.drawer.parental.origin.mother": "Mother",
+  "screen.patientsnv.drawer.parental.origin.father": "Father",
+  "screen.patientsnv.drawer.parental.origin.possible_father": "Possible Father",
+  "screen.patientsnv.drawer.parental.origin.possible_mother": "Possible Mother",
+  "screen.patientsnv.drawer.parental.origin.ambiguous": "Ambiguous",
+  "screen.patientsnv.drawer.parental.origin.unknown": "Unknown",
   "screen.patientsnv.drawer.seq.method": "Sequencing Metrics",
   "screen.patientsnv.drawer.seq.method.parent": "Parent sequencing metrics",
-  "screen.patientsnv.drawer.transmission": "Transmission",
+  "screen.patientsnv.drawer.transmission": "Inheritance",
+  "screen.patientsnv.drawer.transmission.autosomal_dominant_de_novo": "Autosomal Dominant De Novo",
+  "screen.patientsnv.drawer.transmission.autosomal_dominant": "Autosomal Dominant",
+  "screen.patientsnv.drawer.transmission.autosomal_recessive": "Autosomal Recessivef",
+  "screen.patientsnv.drawer.transmission.x_linked_dominant_de_novo": "X Linked Dominant De Novo",
+  "screen.patientsnv.drawer.transmission.x_linked_recessive_de_novo": "X Linked Recessive De Novo",
+  "screen.patientsnv.drawer.transmission.x_linked_dominant": "X Linked Dominant",
+  "screen.patientsnv.drawer.transmission.x_linked_recessive": "X Linked Recessive",
+  "screen.patientsnv.drawer.transmission.non_carrier_proband": "Non Carrier Proband",
+  "screen.patientsnv.drawer.transmission.unknown_parents_genotype": "Unknown Parents Genotype",
+  "screen.patientsnv.drawer.transmission.unknown_father_genotype": "Unknown Father Genotype",
+  "screen.patientsnv.drawer.transmission.unknown_mother_genotype": "Unknown Mother Genotype",
+  "screen.patientsnv.drawer.transmission.unknown_proband_genotype": "Unknown Proband Genotype",
   "screen.patientsnv.filter.expand.all": "Expand all",
   "screen.patientsnv.filter.grouptitle.genepanel": "Gene panels",
   "screen.patientsnv.filter.grouptitle.publiccohorts": "Public Cohorts",
@@ -1239,7 +1261,7 @@
   "upload.gene.ids.modal.tooltip.info.limit": "1500 items allowed per upload",
   "x.weeks": "{weeks, plural, =1 {# week} other {# weeks}}",
   "yes": "Yes",
-  "zygosity": "zygozity",
+  "zygosity": "zygosity",
   "api.savedFilter.error.title": "Error",
   "api.savedFilter.error.messageUpdate": "Unable to update filter",
   "api.savedFilter.error.messageDelete": "Unable to delete filter",
@@ -1420,5 +1442,14 @@
       "unknown_mother_genotype": "UMG",
       "unknown_proband_genotype": "UPBG"
     }
-  }
+  },
+  "occurence": {
+    "zygosity": {
+      "HOM": "Homozygous",
+      "HEM": "Hemizygous",
+      "HET":"Heterozygous"
+    }
+  },
+  "litvar": "LitVAR",
+  "ucsc": "UCSC"
 }

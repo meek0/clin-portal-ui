@@ -994,6 +994,7 @@
   "screen.patientsnv.drawer.alltotal": "Profondeur totale ALT + REF",
   "screen.patientsnv.drawer.depth.quality": "Qualité de profondeur",
   "screen.patientsnv.drawer.detail": "détails",
+  "screen.patientsnv.drawer.download.report": "Télécharger rapport",
   "screen.patientsnv.drawer.download.report.tooltip": "Télécharger le rapport d'interprétation (format xlsx) du variant chez ce patient",
   "screen.patientsnv.drawer.father.genotype": "Génotype Père",
   "screen.patientsnv.drawer.filter": "Filtre (Dragen)",
@@ -1004,9 +1005,30 @@
   "screen.patientsnv.drawer.mother.genotype": "Génotype Mère",
   "screen.patientsnv.drawer.notaffected": "Pas atteint",
   "screen.patientsnv.drawer.parental.origin": "Origine parentale",
+  "screen.patientsnv.drawer.parental.origin.denovo": "Aucune (de novo)",
+  "screen.patientsnv.drawer.parental.origin.possible_denovo": "De novo potentiel",
+  "screen.patientsnv.drawer.parental.origin.both": "Père et mère",
+  "screen.patientsnv.drawer.parental.origin.mother": "Mère",
+  "screen.patientsnv.drawer.parental.origin.father": "Père",
+  "screen.patientsnv.drawer.parental.origin.possible_father": "Père potentiel",
+  "screen.patientsnv.drawer.parental.origin.possible_mother": "Mère potentiel",
+  "screen.patientsnv.drawer.parental.origin.ambiguous": "Ambiguë",
+  "screen.patientsnv.drawer.parental.origin.unknown": "Inconnue",
   "screen.patientsnv.drawer.seq.method": "Métriques de séquençage",
   "screen.patientsnv.drawer.seq.method.parent": "Métriques de séquençage parental",
   "screen.patientsnv.drawer.transmission": "Transmission",
+  "screen.patientsnv.drawer.transmission.autosomal_dominant_de_novo": "Autosomal dominant de novo",
+  "screen.patientsnv.drawer.transmission.autosomal_dominant": "Autosomique dominant",
+  "screen.patientsnv.drawer.transmission.autosomal_recessive": "Autosomique récessif",
+  "screen.patientsnv.drawer.transmission.x_linked_dominant_de_novo": "Lié à l'X dominant de novo",
+  "screen.patientsnv.drawer.transmission.x_linked_recessive_de_novo": "Lié à l'X récessif de novo",
+  "screen.patientsnv.drawer.transmission.x_linked_dominant": "Lié à l'X dominant",
+  "screen.patientsnv.drawer.transmission.x_linked_recessive": "Lié à l'X récessif",
+  "screen.patientsnv.drawer.transmission.non_carrier_proband": "Probant non porteur",
+  "screen.patientsnv.drawer.transmission.unknown_parents_genotype": "Génotype parental inconnu",
+  "screen.patientsnv.drawer.transmission.unknown_father_genotype": "Génotype paternel inconnu",
+  "screen.patientsnv.drawer.transmission.unknown_mother_genotype": "Génotype maternel inconnu",
+  "screen.patientsnv.drawer.transmission.unknown_proband_genotype": "Génotype du probant inconnu",
   "screen.patientsnv.filter.expand.all": "Tout ouvrir",
   "screen.patientsnv.filter.grouptitle.genepanel": "Panels de gènes",
   "screen.patientsnv.filter.grouptitle.publiccohorts": "Cohortes publiques",
@@ -1424,5 +1446,14 @@
       "unknown_mother_genotype": "UMG",
       "unknown_proband_genotype": "UPBG"
     }
+  },
+  "occurence": {
+    "zygosity": {
+      "HOM": "Homozygote",
+      "HEM": "Hémizygote",
+      "HET":"Hétérozygote"
   }
+  },
+  "litvar": "LitVAR",
+  "ucsc": "UCSC"
 }

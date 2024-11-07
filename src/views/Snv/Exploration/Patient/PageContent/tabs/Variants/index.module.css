@@ -46,3 +46,20 @@
 .variantSearchTable div[class$=-card-bordered] > div {
   padding: 8px 24px 8px 24px !important;
 }
+
+:global(.ant-table-row-expand-icon),  :global(.ant-table-row-expand-icon:hover), :global(.ant-table-row-expand-icon:focus) , :global(.ant-table-row-expand-icon:active){
+  border-color: var(--gray-5);
+  transform: none;
+  border-radius: 0;
+}
+
+:global(.ant-table-row-selected .ant-table-row-expand-icon ), :global(.ant-table-row-selected .ant-table-row-expand-icon:hover ) {
+  border-color: var(--blue-4);
+}
+
+:global(tr.ant-table-expanded-row > td),
+:global(tr.ant-table-expanded-row > td):hover, 
+:global(.ant-table-tbody) .expendableTable:nth-child(even):not(.ant-table-row-selected) td , 
+:global(.ant-table-tbody) .expendableTable:nth-child(even):not(.ant-table-row-selected):hover td{
+  background-color: var(--gray-3);
+}

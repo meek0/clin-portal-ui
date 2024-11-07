@@ -28,14 +28,14 @@ beforeEach(() => {
 
 describe('Page des variants d\'un patient - Consultation du tableau', () => {
    it('Valider les liens disponibles Lien UCSC', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
-    cy.get('[data-menu-id*="UCSC"] a[href]')
+    cy.get('[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
+    cy.get('[class="ant-card-head-title"] [class*="OccurenceVariant_linkButton"]').eq(0)
       .should('have.attr', 'href', 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chrX%3A123403094-123403095');
   });
  
   it('Valider les liens disponibles Lien LitVar', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
-    cy.get('[data-menu-id*="LitVAR"] a[href]')
+    cy.get('[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
+    cy.get('[class="ant-card-head-title"] [class*="OccurenceVariant_linkButton"]').eq(1)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/research/litvar2/docsum?text=rs138817389');
   });
  

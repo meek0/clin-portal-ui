@@ -360,39 +360,41 @@ export const getVariantColumns = (
         ),
       });
     }
-    columns.push({
-      className: noData
-        ? `${style.fixedVariantTableCellNoData} ${style.userAffectedBtnCell}`
-        : style.userAffectedBtnCell,
-      key: 'actions',
-      width: 110,
-      title: intl.get('screen.patientsnv.results.table.actions'),
-      fixed: 'left',
-      render: (record: VariantEntity) => (
-        <Space align={'center'}>
-          <Tooltip title={intl.get('occurrence.patient')}>
-            <Button
-              type={'link'}
-              onClick={() => drawerCb && drawerCb(record)}
-              icon={<UserAffectedIcon width={'100%'} height={'16px'} />}
-              size={'small'}
-              data-cy={`drawerCb_${record.hgvsg}`}
-            />
-          </Tooltip>
-          <Tooltip title={intl.get('open.in.igv')}>
-            <Button
-              onClick={() => igvModalCb && igvModalCb(record)}
-              icon={<LineStyleIcon width={'100%'} height={'16px'} />}
-              type={'link'}
-              size={'small'}
-              data-cy={`igvModalCb_${record.hgvsg}`}
-            />
-          </Tooltip>
-          <OtherActions patientId={patientId} record={record} />
-        </Space>
-      ),
-      align: 'center',
-    });
+    if (variantSection !== VariantSection.SNV) {
+      columns.push({
+        className: noData
+          ? `${style.fixedVariantTableCellNoData} ${style.userAffectedBtnCell}`
+          : style.userAffectedBtnCell,
+        key: 'actions',
+        width: 110,
+        title: intl.get('screen.patientsnv.results.table.actions'),
+        fixed: 'left',
+        render: (record: VariantEntity) => (
+          <Space align={'center'}>
+            <Tooltip title={intl.get('occurrence.patient')}>
+              <Button
+                type={'link'}
+                onClick={() => drawerCb && drawerCb(record)}
+                icon={<UserAffectedIcon width={'100%'} height={'16px'} />}
+                size={'small'}
+                data-cy={`drawerCb_${record.hgvsg}`}
+              />
+            </Tooltip>
+            <Tooltip title={intl.get('open.in.igv')}>
+              <Button
+                onClick={() => igvModalCb && igvModalCb(record)}
+                icon={<LineStyleIcon width={'100%'} height={'16px'} />}
+                type={'link'}
+                size={'small'}
+                data-cy={`igvModalCb_${record.hgvsg}`}
+              />
+            </Tooltip>
+            <OtherActions patientId={patientId} record={record} />
+          </Space>
+        ),
+        align: 'center',
+      });
+    }
   }
 
   columns = [

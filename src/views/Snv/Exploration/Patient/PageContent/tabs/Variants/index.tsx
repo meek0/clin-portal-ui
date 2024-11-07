@@ -10,6 +10,7 @@ import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/compone
 import { getVariantTypeFromSNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import IGVModal from 'views/Snv/components//IGVModal';
+import OccurenceVariant from 'views/Snv/components/OccurenceVariant';
 import OccurrenceDrawer from 'views/Snv/components/OccurrenceDrawer';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
 import {
@@ -132,6 +133,23 @@ const VariantsTab = ({
             dataSource={results?.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
             loading={results?.loading}
             dictionary={getProTableDictionary()}
+            expandable={
+              variantSection === VariantSection.SNV
+                ? {
+                    expandedRowRender: (record) =>
+                      variantSection === VariantSection.SNV && (
+                        <OccurenceVariant
+                          record={record}
+                          rpt={rpt}
+                          loadingRpt={loadingRpt}
+                          patientId={patientId}
+                          igvModalCb={openIgvModal}
+                        />
+                      ),
+                    expandedRowClassName: () => style.expendableTable,
+                  }
+                : undefined
+            }
             showSorterTooltip={false}
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             onChange={(_, __, sorter) => {

@@ -63,6 +63,7 @@ export const HcComplementDescription = ({
         <Space key={index} wrap={wrap} size={3}>
           <Text>{e.symbol}</Text>
           <Tooltip title={intl.get('screen.patientsnv.drawer.hc.tooltip', { num: getCount(e) })}>
+            {'('}
             <Button
               type="link"
               size="small"
@@ -120,9 +121,9 @@ export const HcComplementDescription = ({
                 })
               }
             >
-              {' '}
-              <Text>( {getCount(e)} )</Text>
+              {getCount(e)}
             </Button>
+            {')'}
             {!isLastItem(index, nOfSymbols) && ','}
           </Tooltip>
         </Space>

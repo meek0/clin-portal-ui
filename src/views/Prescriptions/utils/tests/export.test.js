@@ -218,7 +218,7 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'ch', row, 'p1')).toEqual('s1 ( 2 )');
+    expect(customMapping('SNV', 'ch', row, 'p1')).toEqual('s1(2)');
   });
   test('should map pch', () => {
     const row = {
@@ -246,7 +246,7 @@ describe('customMapping SNV', () => {
         },
       },
     };
-    expect(customMapping('SNV', 'pch', row, 'p1')).toEqual('s2 ( 10 )');
+    expect(customMapping('SNV', 'pch', row, 'p1')).toEqual('s2(10)');
   });
   test('should map transmission', () => {
     const row = {

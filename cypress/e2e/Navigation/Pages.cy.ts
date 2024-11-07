@@ -140,7 +140,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Couverture génique').should('exist');
     cy.contains('Dragen Capture Coverage Metrics').should('exist');
     cy.contains('Dragen Mapping Metrics').should('exist');
-//    cy.contains('Picard Collect Hs Metrics').should('exist');
+    cy.contains('Picard Collect Hs Metrics').should('exist');
     cy.contains('Télécharger le rapport').should('exist');
 
     // Couverture génique
@@ -202,48 +202,6 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.get('[data-menu-id*="manage-my-filters"]').clickAndWait({force: true});
     cy.contains('Gérer les filtres').should('exist');
     cy.contains('Fermer').should('exist');
-    cy.get('button[class="ant-modal-close"]').invoke('click');
-
-    // Tiroir d'occurrence
-    cy.get('[data-cy="drawerCb_chr10:g.1096268T>C"]').clickAndWait({force: true});
-    cy.contains('Occurrence').should('exist');
-    cy.contains('Variant').should('exist');
-    cy.contains('Patient').should('exist');
-    cy.contains('Zygosité').should('exist');
-    cy.contains('Hét. composé').should('exist');
-    cy.contains('Hét. composé potentiel').should('exist');
-    cy.contains('Famille').should('exist');
-    cy.contains('Génotype Mère ('+epCHUSJ_ldmCHUSJ.patientMthId+')').should('exist');
-    cy.contains('Génotype Père ('+epCHUSJ_ldmCHUSJ.patientFthId+')').should('exist');
-    cy.contains('(détails)').should('exist');
-    cy.contains('Transmission').should('exist');
-    cy.contains('Origine parentale').should('exist');
-    cy.contains('Métriques de séquençage').should('exist');
-    cy.contains('Qualité de profondeur').should('exist');
-    cy.contains('Profondeur allélique ALT').should('exist');
-    cy.contains('Profondeur totale ALT + REF').should('exist');
-    cy.contains('Ratio allélique ALT / (ALT+REF)').should('exist');
-    cy.contains('Qualité du génotype').should('exist');
-    cy.contains('Filtre').should('exist');
-
-    // Métriques de séquençage parental
-    cy.get('[data-cy="OpenSeqMetricModal"]').clickAndWait({force: true});
-    cy.contains('Métriques de séquençage parental').should('exist');
-    cy.contains('Mère').should('exist');
-    cy.contains('Père').should('exist');
-    cy.contains('Qualité de profondeur').should('exist');
-    cy.contains('Profondeur allélique ALT').should('exist');
-    cy.contains('Profondeur totale ALT + REF').should('exist');
-    cy.contains('Ratio allélique ALT / (ALT+REF)').should('exist');
-    cy.contains('Qualité du génotype').should('exist');
-    cy.contains('Filtre').should('exist');
-    cy.get('button[class="ant-modal-close"]').invoke('click');
-    
-    cy.get('button[class="ant-drawer-close"]').invoke('click');
-
-    // IGV
-    cy.get('[data-cy="igvModalCb_chr10:g.1096268T>C"]').clickAndWait({force: true});
-    cy.contains('Alignement et variant').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
   });
  
