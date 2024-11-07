@@ -3,7 +3,8 @@ import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
 import { FilterFilled, FlagOutlined } from '@ant-design/icons';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
-import { Button, Space, Tooltip } from 'antd';
+import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
+import { Button, Space, Tag, Tooltip } from 'antd';
 import cx from 'classnames';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 import { VariantType } from 'graphql/variants/models';
@@ -262,6 +263,50 @@ export const getVariantColumns = (
       defaultHidden: true,
       render: (pe: string[]) => pe?.join(', ') || TABLE_EMPTY_PLACE_HOLDER,
       width: 50,
+    },
+    {
+      title: intl.get('screen.patientcnv.results.table.transmission'),
+      tooltip: intl.get('screen.patientcnv.results.table.transmission.tooltip'),
+      key: 'transmission',
+      dataIndex: 'transmission',
+      defaultHidden: true,
+      sorter: { multiple: 1 },
+      render: (transmission: string) => {
+        const value = transmission ? removeUnderscoreAndCapitalize(transmission) : '';
+        return transmission ? (
+          <Tooltip title={value}>
+            <Tag color="blue">
+              {intl.get(`transmission.abbrev.${transmission}`).defaultMessage(value)}
+            </Tag>
+          </Tooltip>
+        ) : (
+          TABLE_EMPTY_PLACE_HOLDER
+        );
+      },
+      width: 70,
+    },
+    {
+      title: intl.get('screen.patientcnv.results.table.parental_origin'),
+      tooltip: intl.get('screen.patientcnv.results.table.parental_origin.tooltip'),
+      key: 'parental_origin',
+      sorter: { multiple: 1 },
+      dataIndex: 'parental_origin',
+      defaultHidden: true,
+      render: (parental_origin: string) =>
+        parental_origin ? (
+          <Tooltip
+            title={intl
+              .get(`filters.options.donors.parental_origin.${parental_origin}`)
+              .defaultMessage(removeUnderscoreAndCapitalize(parental_origin || ''))}
+          >
+            <Tag color="blue">
+              {intl.get(`filters.options.donors.parental_origin.${parental_origin}.abrv`)}
+            </Tag>
+          </Tooltip>
+        ) : (
+          TABLE_EMPTY_PLACE_HOLDER
+        ),
+      width: 70,
     },
   );
   return columns;
