@@ -109,6 +109,47 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Gène', 'Panel RQDM', dictionnary);
   });
 
+  it('Occurrence - Origine parentale', () => {
+    const dictionnary = ['Ambiguous',
+                         'Both',
+                         'Denovo',
+                         'Father',
+                         'Mother',
+                         'Possible Denovo',
+                         'Possible Father',
+                         'Possible Mother',
+                         'Unknown',
+                         'No Data'];
+
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
+    cy.validateDictionnaryPresetValues('Occurrence', 'Origine parentale', dictionnary);
+
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=f5d9e3d5-6970-49c3-860c-d3ab00a06cdb');
+    cy.validateDictionnaryNewValues('Occurrence', 'Origine parentale', dictionnary);
+  });
+
+  it('Occurrence - Transmission', () => {
+    const dictionnary = ['Autosomal Dominant De Novo',
+                         'Autosomal Dominant',
+                         'Autosomal Recessive',
+                         'X Linked Dominant De Novo',
+                         'X Linked Recessive De Novo',
+                         'X Linked Dominant',
+                         'X Linked Recessive',
+                         'Non Carrier Proband',
+                         'Unknown Parents Genotype',
+                         'Unknown Father Genotype',
+                         'Unknown Mother Genotype',
+                         'Unknown Proband Genotype',
+                         'No Data'];
+
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
+    cy.validateDictionnaryPresetValues('Occurrence', 'Transmission', dictionnary);
+
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=f5d9e3d5-6970-49c3-860c-d3ab00a06cdb');
+    cy.validateDictionnaryNewValues('Occurrence', 'Transmission', dictionnary);
+  });
+
   it('Occurrence - Filtre (Dragen)', () => {
     const dictionnary = ['PASS',
                          'CnvQual',

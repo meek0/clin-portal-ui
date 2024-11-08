@@ -13,7 +13,9 @@
               "filter",
               "qual",
               "bc",
-              "pe"],
+              "pe",
+              "transmission",
+              "parental_origin"],
   "content": ["HNRNPCL3",
               "PRAMEF9",
               "PRAMEF18",
@@ -34,5 +36,6 @@
               "PASS",
               "96",
               "33",
-              "31 18"]
+              "31 18",
+              "--"]
 }
