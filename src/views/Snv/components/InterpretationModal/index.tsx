@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Alert, Col, Modal, Row, Space } from 'antd';
 
@@ -12,7 +13,7 @@ const InterpretationModal = ({ isOpen, toggleModal }: TInterpretationModalProps)
   <Modal
     open={isOpen}
     onCancel={() => toggleModal(false)}
-    title="Interprétation clinique"
+    title={intl.get('modal.variant.interpretation.title')}
     centered
     width={1200}
     style={{ maxHeight: '95vh' }}
@@ -20,8 +21,8 @@ const InterpretationModal = ({ isOpen, toggleModal }: TInterpretationModalProps)
       maxHeight: 'calc(95vh - 120px)',
       overflowY: 'auto',
     }}
-    cancelText="Annuler"
-    okText="Sauvegarder"
+    cancelText={intl.get('modal.variant.interpretation.cancelText')}
+    okText={intl.get('modal.variant.interpretation.okText')}
   >
     <Space
       size="large"
@@ -33,8 +34,12 @@ const InterpretationModal = ({ isOpen, toggleModal }: TInterpretationModalProps)
       <Alert
         message={
           <div>
-            Dernière mise à jour : <span style={{ fontWeight: 500 }}>Jean-François Soucy</span>{' '}
-            (LDM-CHUSJ) 1er février 2024, 13h01
+            {intl.getHTML('modal.variant.interpretation.lastUpdate', {
+              name: 'Jean-François Soucy',
+              origin: 'LDM-CHUSJ',
+              date: new Date(),
+              time: new Date(),
+            })}
           </div>
         }
         type="info"

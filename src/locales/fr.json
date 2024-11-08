@@ -1543,6 +1543,38 @@
       "HET": "Hétérozygote"
     }
   },
+  "modal": {
+    "variant": {
+      "interpretation": {
+        "title": "Interprétation clinique",
+        "cancelText": "Annuler",
+        "okText": "Sauvegarder",
+        "lastUpdate": "Dernière mise à jour : <span style='font-weight:500;'>{name}</span> ({origin}) {date, date, long}, {time, time, medium}",
+        "germline": {
+          "condition": "Condition",
+          "condition-placeholder": "Rechercher une condition",
+          "classification": "Classification",
+          "classificationOptions": {
+            "pathogenic": "Pathogénique",
+            "likelyPathogenic": "Prob. pathogénique",
+            "likelyPathogenic-tooltip": "Probablement pathogénique",
+            "vus": "VSI",
+            "vus-tooltip": "Variant de signification incertaine",
+            "likelyBenign": "Prob. bénigne",
+            "likelyBenign-tooltip": "Probablement bénigne",
+            "benign": "Bénigne"
+          },
+          "classificationCriteria-placeholder": "Critères de classification",
+          "modeOfTransmission": "Mode de transmission",
+          "modeOfTransmission-placeholder": "Sélectionner",
+          "interpretation": "Interprétation",
+          "pubMedPublication": "Publication PubMed",
+          "addCitation": "Ajouter une citation"
+        },
+        "somatic": {}
+      }
+    }
+  },
   "litvar": "LitVAR",
   "ucsc": "UCSC",
   "consequences": {
