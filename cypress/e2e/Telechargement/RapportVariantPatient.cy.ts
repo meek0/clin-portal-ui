@@ -16,7 +16,7 @@ beforeEach(() => {
 describe('Télécharger le rapport d\'un variant d\'un patient', () => {
   beforeEach(() => {
     cy.get('[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
-    cy.get('[class="ant-card-head-title"] button[class*="ant-btn-default"]').eq(1).clickAndWait({force: true});
+    cy.get('[class="ant-card-head-title"] button[class*="ant-btn-default"]').eq(0).clickAndWait({force: true});
     cy.waitUntilFile(oneMinute);
   });
 
