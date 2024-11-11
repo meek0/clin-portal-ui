@@ -1,23 +1,11 @@
-import intl from 'react-intl-universal';
-import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
-import { AutoComplete, Button, Form, Radio, Select, Tooltip } from 'antd';
-import TextArea from 'antd/lib/input/TextArea';
+import { AutoComplete, Form, Radio, Select, Tooltip } from 'antd';
+import React from 'react';
+import intl from 'react-intl-universal';
+import { GermlineInterpFormFields } from './types';
 
-import RichTextEditor from 'components/uiKit/RichTextEditor';
-
-import styles from './form.module.css';
-import { GenericInterpFormFields, GermlineInterpFormFields } from './types';
-import { VariantType } from 'graphql/variants/models';
-
-type TInterpretationFormProps = {
-  variantType: VariantType;
-};
-
-const InterpretationForm = ({ variantType }: TInterpretationFormProps) => {
+const GermlineInterpretationForm = () => {
   const form = Form.useFormInstance();
-
-  const isGermline = variantType === VariantType.GERMLINE;
 
   return (
     <>
@@ -117,4 +105,4 @@ const InterpretationForm = ({ variantType }: TInterpretationFormProps) => {
   );
 };
 
-export default InterpretationForm;
+export default GermlineInterpretationForm;

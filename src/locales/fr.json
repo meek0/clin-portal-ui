@@ -1550,11 +1550,17 @@
         "cancelText": "Annuler",
         "okText": "Sauvegarder",
         "lastUpdate": "Dernière mise à jour : <span style='font-weight:500;'>{name}</span> ({origin}) {date, date, long}, {time, time, medium}",
+        "generic": {
+          "interpretation": "Interprétation",
+          "pubMedPublication": "Publication PubMed",
+          "citation-placeholder": "Citation",
+          "addCitation": "Ajouter une citation"
+        },
         "germline": {
           "condition": "Condition",
           "condition-placeholder": "Rechercher une condition",
           "classification": "Classification",
-          "classificationOptions": {
+          "classification-options": {
             "pathogenic": "Pathogénique",
             "likelyPathogenic": "Prob. pathogénique",
             "likelyPathogenic-tooltip": "Probablement pathogénique",
@@ -1566,12 +1572,17 @@
           },
           "classificationCriteria-placeholder": "Critères de classification",
           "modeOfTransmission": "Mode de transmission",
-          "modeOfTransmission-placeholder": "Sélectionner",
-          "interpretation": "Interprétation",
-          "pubMedPublication": "Publication PubMed",
-          "addCitation": "Ajouter une citation"
+          "modeOfTransmission-placeholder": "Sélectionner"
         },
-        "somatic": {}
+        "somatic": {
+          "tumoralType": "Type tumoral",
+          "tumoralType-placeholder": "Selectionner",
+          "oncogenicity": "Oncogénicité",
+          "oncogenicity-options": {},
+          "classificationCriteria-placeholder": "Critères de classification",
+          "clinicalUtility": "Utilité clinique",
+          "clinicalUtility-placeholder": "Selectionner"
+        }
       }
     }
   },
