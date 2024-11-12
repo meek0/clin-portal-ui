@@ -29,6 +29,8 @@ export type VariantEntity = {
   aliquot_id: string;
   hash: string;
   type: string;
+  transmission: string;
+  parental_origin: string;
   qual: number;
   chromosome: string;
   sort_chromosome: number;

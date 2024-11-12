@@ -104,6 +104,18 @@ describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(15)
       .contains('PE').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .contains('Trans.').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(16)
+      .contains('Trans.').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .contains('OP').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(17)
+      .contains('OP').should('exist');
   });
 
   it('Masquer une colonne affichée', () => {

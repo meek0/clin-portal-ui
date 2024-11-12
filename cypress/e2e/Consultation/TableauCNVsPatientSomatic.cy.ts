@@ -14,6 +14,8 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.showColumn('Qual.', 0);
     cy.showColumn('BC', 0);
     cy.showColumn('PE', 0);
+    cy.showColumn('Trans.', 0);
+    cy.showColumn('OP', 0);
   });
   
   it('Vérifier les informations affichées', () => {
@@ -32,6 +34,8 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableDataRowKeyContent('*', 14, /^128$/);
     cy.validateTableDataRowKeyContent('*', 15, '1979');
     cy.validateTableDataRowKeyContent('*', 16, '25, 7');
+    cy.validateTableDataRowKeyContent('*', 17, '-');
+    cy.validateTableDataRowKeyContent('*', 18, '-');
   });
 });
  
@@ -46,6 +50,8 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.showColumn('Qual.', 0);
     cy.showColumn('BC', 0);
     cy.showColumn('PE', 0);
+    cy.showColumn('Trans.', 0);
+    cy.showColumn('OP', 0);
   });
 
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
@@ -160,6 +166,24 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.sortTableAndWait('BC');
     cy.wait(30*1000);
     cy.validateTableFirstRow(/^7553$/, 15, true);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri Trans.', () => {
+    cy.sortTableAndWait('Trans.');
+    cy.wait(30*1000);
+    cy.validateTableFirstRow('-', 17, true);
+    cy.sortTableAndWait('Trans.');
+    cy.wait(30*1000);
+    cy.validateTableFirstRow('-', 17, true);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri OP', () => {
+    cy.sortTableAndWait('OP');
+    cy.wait(30*1000);
+    cy.validateTableFirstRow('-', 18, true);
+    cy.sortTableAndWait('OP');
+    cy.wait(30*1000);
+    cy.validateTableFirstRow('-', 18, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

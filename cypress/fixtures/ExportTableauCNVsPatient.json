@@ -14,7 +14,9 @@
               "qual",
               "sm",
               "bc",
-              "pe"],
+              "pe",
+              "transmission",
+              "parental_origin"],
   "content": ["AMY2A",
               "AMY1C",
               "LOC105378878",
@@ -33,5 +35,6 @@
               "102",
               "1.64034",
               "68",
-              "23 5"]
+              "23 5",
+              "--"]
 }

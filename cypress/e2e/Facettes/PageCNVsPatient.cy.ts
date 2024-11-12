@@ -149,13 +149,23 @@ describe('Page des CNVs d\'un patient - Filtrer avec les facettes', () => {
     cy.validateExpandCollapse('Occurrence');
   });
 
+  it('Occurrence - Origine parentale', () => {
+    cy.validateFacetFilter('Occurrence', 'Origine parentale', 'No Data', '__missing__', /^196$/);
+    cy.validateFacetRank(0, 'Origine parentale');
+  });
+
+  it('Occurrence - Transmission', () => {
+    cy.validateFacetFilter('Occurrence', 'Transmission', 'No Data', '__missing__', /^196$/);
+    cy.validateFacetRank(1, 'Transmission');
+  });
+
   it('Occurrence - Filtre (Dragen)', () => {
     cy.validateFacetFilter('Occurrence', 'Filtre (Dragen)', 'CnvQual', 'cnvQual', /^98$/);
-    cy.validateFacetRank(0, 'Filtre (Dragen)');
+    cy.validateFacetRank(2, 'Filtre (Dragen)');
   });
 
   it('Occurrence - Qualité du CNV', () => {
     cy.validateFacetNumFilter('Occurrence', 'Qualité du CNV', '5', /^12$/);
-    cy.validateFacetRank(1, 'Qualité du CNV');
+    cy.validateFacetRank(3, 'Qualité du CNV');
   });
 });

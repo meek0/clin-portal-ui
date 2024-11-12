@@ -662,4 +662,9 @@ export const getFacetsDictionaryCNV = () => ({
   reflen: intl.get('cnv.filters.group.reflen'),
   start: intl.get('cnv.filters.group.start'),
   type: intl.get('cnv.filters.group.type'),
+  transmission: intl.get('cnv.filters.group.transmission'),
+  parental_origin: intl.get('cnv.filters.group.parental_origin'),
+  tooltips: {
+    transmission: intl.get('filters.group.donors.transmission.tooltip'),
+  },
 });

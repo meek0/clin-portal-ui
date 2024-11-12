@@ -5,7 +5,11 @@ import { Practitioner, PractitionerBundleType, PractitionerRole } from 'api/fhir
 import { findDonorById } from 'graphql/variants/selector';
 import get from 'lodash/get';
 import orderBy from 'lodash/orderBy';
-import { renderCNVToString } from 'views/Cnv/Exploration/variantColumns';
+import {
+  renderCNVToString,
+  renderPOToString,
+  renderTransmissionToString,
+} from 'views/Cnv/Exploration/variantColumns';
 import { renderToString as renderConsequencesToString } from 'views/Snv/components/ConsequencesCell/index';
 import {
   renderAllAnalysisToString,
@@ -163,6 +167,10 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return renderCNVToString(key, row);
     } else if (key === 'flags') {
       return convertToPlain(renderFlagToString(row));
+    } else if (key === 'transmission') {
+      return convertToPlain(renderTransmissionToString(row));
+    } else if (key === 'parental_origin') {
+      return convertToPlain(renderPOToString(row));
     }
   } else if (prefix === 'PR' || prefix === 'RQ') {
     if (key === 'tasks') {

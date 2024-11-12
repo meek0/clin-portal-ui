@@ -15,6 +15,8 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.showColumn('MS', 0);
     cy.showColumn('BC', 0);
     cy.showColumn('PE', 0);
+    cy.showColumn('Trans.', 0);
+    cy.showColumn('OP', 0);
   });
 
   it('Vérifier les informations affichées', () => {
@@ -35,6 +37,8 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('*', 15, /^75$/);
     cy.validateTableDataRowKeyContent('*', 16, /^22$/);
     cy.validateTableDataRowKeyContent('*', 17, '3, 0');
+    cy.validateTableDataRowKeyContent('*', 18, '-');
+    cy.validateTableDataRowKeyContent('*', 19, '-');
   });
  
   it('Valider les liens disponibles', () => {
@@ -60,6 +64,8 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.showColumn('MS', 0);
     cy.showColumn('BC', 0);
     cy.showColumn('PE', 0);
+    cy.showColumn('Trans.', 0);
+    cy.showColumn('OP', 0);
   });
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
@@ -142,6 +148,20 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow(/^1$/, 16, true);
     cy.sortTableAndIntercept('BC', 1);
     cy.validateTableFirstRow('119', 16, true);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri Trans.', () => {
+    cy.sortTableAndIntercept('Trans.', 1);
+    cy.validateTableFirstRow('-', 18, true);
+    cy.sortTableAndIntercept('Trans.', 1);
+    cy.validateTableFirstRow('-', 18, true);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri OP', () => {
+    cy.sortTableAndIntercept('OP', 1);
+    cy.validateTableFirstRow('-', 19, true);
+    cy.sortTableAndIntercept('OP', 1);
+    cy.validateTableFirstRow('-', 19, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

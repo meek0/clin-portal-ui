@@ -71,6 +71,11 @@ const filterGroups: {
   [FilterTypes.Occurrence]: {
     groups: [
       {
+        title: intl.get('screen.patientsnv.category_parental_analysis'),
+        facets: ['parental_origin', 'transmission'],
+        tooltips: ['transmission'],
+      },
+      {
         facets: ['filters', 'qual'],
       },
     ],
