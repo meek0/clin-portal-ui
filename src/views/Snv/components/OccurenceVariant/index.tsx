@@ -282,12 +282,12 @@ const OccurenceVariant = ({
                   <Descriptions.Item label={intl.get('screen.patientsnv.drawer.alltotal')}>
                     {donor?.ad_total ?? TABLE_EMPTY_PLACE_HOLDER}
                   </Descriptions.Item>
-                  {variantSection === VariantSection.SNVTN ||
-                    (variantSection === VariantSection.SNVTO && (
-                      <Descriptions.Item label={intl.get('filters.group.donors.sq')}>
-                        {donor?.sq ? donor?.sq : TABLE_EMPTY_PLACE_HOLDER}
-                      </Descriptions.Item>
-                    ))}
+                  {(variantSection === VariantSection.SNVTN ||
+                    variantSection === VariantSection.SNVTO) && (
+                    <Descriptions.Item label={intl.get('filters.group.donors.sq')}>
+                      {donor?.sq ? donor?.sq : TABLE_EMPTY_PLACE_HOLDER}
+                    </Descriptions.Item>
+                  )}
 
                   {variantSection === VariantSection.SNV && (
                     <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
