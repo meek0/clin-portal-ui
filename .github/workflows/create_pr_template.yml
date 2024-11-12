@@ -1,7 +1,7 @@
 name: Update Pull Request Template
 on:
   pull_request:
-    types: [opened, edited]
+    types: [opened]
 
 jobs:
   update-pr-template:
@@ -58,19 +58,12 @@ jobs:
           ${TICKET:+- Closes ${TICKET}}
 
           ## Description
-
           <!-- Add a description of the changes proposed in the pull request -->
 
           ## Links
           ${TICKET:+- [JIRA](https://ferlab-crsj.atlassian.net/browse/${TICKET})}
           - [Design](https://)
           - [Ferlease](https://)
-
-          ## Changes
-          <!-- List the main changes in this PR -->
-
-          ## Acceptance Criterias
-          <!-- List all acceptance criteria from the ticket -->
 
           ## Extra Validation
           - [ ] Dev QA on ferlease
@@ -91,11 +84,6 @@ jobs:
           1. 
           2. 
           3. 
-
-          ### Environment
-          <!-- Add links to relevant environments -->
-          - Url: 
-          - Storybook: 
 
           ## Mention
           <!-- @ mention any relevant teammates -->
