@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { DownloadOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Descriptions, Divider, Row, Space, Tooltip } from 'antd';
 import { Rpt } from 'auth/types';
-import { ITableVariantEntity, VariantEntity, VariantType } from 'graphql/variants/models';
+import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
 import capitalize from 'lodash/capitalize';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
@@ -282,13 +282,14 @@ const OccurenceVariant = ({
                   <Descriptions.Item label={intl.get('screen.patientsnv.drawer.alltotal')}>
                     {donor?.ad_total ?? TABLE_EMPTY_PLACE_HOLDER}
                   </Descriptions.Item>
-                  {record?.variant_type.includes(VariantType.SOMATIC) && (
-                    <Descriptions.Item label={intl.get('filters.group.donors.sq')}>
-                      {donor?.sq ? donor?.sq : TABLE_EMPTY_PLACE_HOLDER}
-                    </Descriptions.Item>
-                  )}
+                  {variantSection === VariantSection.SNVTN ||
+                    (variantSection === VariantSection.SNVTO && (
+                      <Descriptions.Item label={intl.get('filters.group.donors.sq')}>
+                        {donor?.sq ? donor?.sq : TABLE_EMPTY_PLACE_HOLDER}
+                      </Descriptions.Item>
+                    ))}
 
-                  {record?.variant_type.includes(VariantType.GERMLINE) && (
+                  {variantSection === VariantSection.SNV && (
                     <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
                       {<GqLine value={donor?.gq} />}
                     </Descriptions.Item>
