@@ -7,8 +7,8 @@ export enum GenericInterpFormFields {
 export enum GermlineInterpFormFields {
   CONDITION = 'condition',
   CLASSIFICATION = 'classification',
-  CLASSIFICATION_CRITERIA = 'classification_criteria',
-  TRANSMISSION_MODE = 'transmission_mode',
+  CLASSIFICATION_CRITERIAS = 'classification_criterias',
+  TRANSMISSION_MODES = 'transmission_modes',
 }
 
 export enum SomaticInterpFormFields {

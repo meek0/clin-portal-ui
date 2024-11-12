@@ -1,7 +1,6 @@
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Button, Form, Input } from 'antd';
 import RichTextEditor from 'components/uiKit/RichTextEditor';
-import React from 'react';
 import intl from 'react-intl-universal';
 import { GenericInterpFormFields } from './types';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
