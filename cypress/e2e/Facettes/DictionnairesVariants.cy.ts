@@ -425,7 +425,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Pathogénicité', 'ACMG de Exomiser (max)', dictionnary_tmp);
   });
 
-  it('Pathogénicité - Critères ACMG de Exomiser (max)', () => {
+  it('Pathogénicité - Critères ACMG de Exomiser (max) [CLIN-2597]', () => {
     const dictionnary = ['PVS1',
                          'PS2',
                          'PM2',

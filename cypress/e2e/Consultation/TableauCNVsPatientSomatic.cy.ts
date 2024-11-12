@@ -18,7 +18,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.showColumn('OP', 0);
   });
   
-  it('Vérifier les informations affichées', () => {
+  it('Vérifier les informations affichées [CLIN-3463]', () => {
     cy.validateTableDataRowKeyClass('*', 1, 'FlagDropdown');
     cy.validateTableDataRowKeyContent('*', 3, /^[^,]+,[^,]+,[^,]+...$/);
     cy.validateTableDataRowKeyContent('*', 4, 'LOSS:chr1:450731-7249626');
@@ -59,7 +59,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
   });
  
-  it('Valider les liens disponibles', () => {
+  it('Valider les liens disponibles [CLIN-3463]', () => {
     cy.get('tr').contains(/^191$/).clickAndWait({force: true});
     cy.contains('LOSS:chr1:450731-7249626').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
@@ -69,7 +69,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('button[class="ant-modal-close"]').invoke('click');
   });
   
-  it('Valider les fonctionnalités du tableau - Tri Variant', () => {
+  it('Valider les fonctionnalités du tableau - Tri Variant [CLIN-3463]', () => {
     cy.sortTableAndWait('Variant');
     cy.wait(30*1000);
     cy.validateTableFirstRow('GAIN:chr10:104353843-104454535', 4, true);
@@ -87,7 +87,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow(/^X$/, 5, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Début', () => {
+  it('Valider les fonctionnalités du tableau - Tri Début [CLIN-3463]', () => {
     cy.sortTableAndWait('Début');
     cy.wait(30*1000);
     cy.validateTableFirstRow('66 872', 6, true);
@@ -96,7 +96,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow('228 007 104', 6, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Fin', () => {
+  it('Valider les fonctionnalités du tableau - Tri Fin [CLIN-3463]', () => {
     cy.sortTableAndWait('Fin');
     cy.wait(30*1000);
     cy.validateTableFirstRow('465 288', 7, true);
@@ -114,7 +114,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow('LOSS', 8, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Longueur', () => {
+  it('Valider les fonctionnalités du tableau - Tri Longueur [CLIN-3463]', () => {
     cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
 
@@ -126,7 +126,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow('92.4 Mb', 9, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri MS', () => {
+  it('Valider les fonctionnalités du tableau - Tri MS [CLIN-3463]', () => {
     cy.sortTableAndWait('MS');
     cy.wait(30*1000);
     cy.validateTableFirstRow('0.0347309', 10, true);
@@ -135,7 +135,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow('1.83177', 10, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri # Gènes', () => {
+  it('Valider les fonctionnalités du tableau - Tri # Gènes [CLIN-3463]', () => {
     cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
 
@@ -147,7 +147,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow(/^670$/, 11, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Qual.', () => {
+  it('Valider les fonctionnalités du tableau - Tri Qual. [CLIN-3463]', () => {
     cy.sortTableAndWait('Qual.');
     cy.wait(30*1000);
     cy.validateTableFirstRow(/^90$/, 14, true);
@@ -156,7 +156,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow(/^200$/, 14, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri BC', () => {
+  it('Valider les fonctionnalités du tableau - Tri BC [CLIN-3463]', () => {
     cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
 
@@ -197,7 +197,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow('154 144 278', 6, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Pagination', () => {
+  it('Valider les fonctionnalités du tableau - Pagination [CLIN-3463]', () => {
     cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
     cy.wait(30*1000);
