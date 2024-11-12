@@ -20,7 +20,7 @@ beforeEach(() => {
 
 describe('Page des variants d\'un patient (paired) - Consultation du tableau', () => {
   it('Vérifier les informations affichées', () => {
-    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 1, 'FlagDropdown');
+    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 2, 'FlagDropdown');
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 3, 'chr10:g.17617338A>C');
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 4, 'SNV');
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 5, 'TN');

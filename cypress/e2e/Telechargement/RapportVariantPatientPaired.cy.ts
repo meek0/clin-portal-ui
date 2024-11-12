@@ -15,28 +15,8 @@ beforeEach(() => {
 
 describe('Télécharger le rapport d\'un variant d\'un patient (paired)', () => {
   beforeEach(() => {
-    cy.get('div[role="tabpanel"] tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
-    cy.get('[data-menu-id*="downloadReport"]').clickAndWait({force: true});
-    cy.waitUntilFile(oneMinute);
-  });
-
-  it('Valider le nom du fichier', () => {
-    cy.validateFileName(`${presc_PAIRED.patientProbId}_${presc_PAIRED.requestProbId.TEBA}_${strDate}*.xlsx`);
-  });
-
-  it('Valider le contenu du fichier', () => {
-    const replacements: Replacement[] = [
-      { placeholder: '{{requestProbId}}', value: presc_PAIRED.requestProbId.TEBA },
-      { placeholder: '{{sampleProbId}}', value: presc_PAIRED.sampleProbId.TEBA },
-    ];
-    cy.validateXlsxFileContent('DownloadVariantPatientPaired.json', replacements);
-  });
-});
-
-describe('Télécharger le rapport d\'un variant d\'un patient du tiroir (paired)', () => {
-  beforeEach(() => {
-    cy.get('[data-cy="drawerCb_chr10:g.17617338A>C"]').clickAndWait({force: true});
-    cy.get('[class="ant-drawer-content-wrapper"] button[class*="ant-btn-default"]').clickAndWait({force: true});
+    cy.get('[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
+    cy.get('[class="ant-card-head-title"] button[class*="ant-btn-default"]').eq(0).clickAndWait({force: true});
     cy.waitUntilFile(oneMinute);
   });
 

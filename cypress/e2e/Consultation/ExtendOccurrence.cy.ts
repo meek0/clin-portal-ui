@@ -72,6 +72,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(3).contains('48').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-label"]').eq(4).contains('Filtre (Dragen)').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(4).contains('PASS').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(1).find('[class="ant-descriptions-item-label"]').contains('Qualité somatique').should('not.exist');
   });
  
   it('Valider les liens disponibles - Hét. composé', () => {
