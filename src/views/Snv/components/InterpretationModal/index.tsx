@@ -1,10 +1,10 @@
 import intl from 'react-intl-universal';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Alert, Col, Form, Modal, Row, Space } from 'antd';
+import { VariantType } from 'graphql/variants/models';
 
 import InterpretationForm from './InterpretationForm';
 import { getGermlineInterpFormInitialValues } from './utils';
-import { VariantType } from 'graphql/variants/models';
 
 type TInterpretationModalProps = {
   isOpen: boolean;
@@ -17,7 +17,7 @@ const InterpretationModal = ({ isOpen, toggleModal }: TInterpretationModalProps)
   // TODO Fetch interpretation ??
 
   // TODO check if Germline or Somatic
-  const variantType = VariantType.GERMLINE; // VariantType.SOMATIC
+  const variantType = VariantType.SOMATIC; // VariantType.SOMATIC
 
   return (
     <Modal
@@ -47,7 +47,6 @@ const InterpretationModal = ({ isOpen, toggleModal }: TInterpretationModalProps)
             <div>
               {intl.getHTML('modal.variant.interpretation.lastUpdate', {
                 name: 'Jean-François Soucy',
-                origin: 'LDM-CHUSJ',
                 date: new Date(),
                 time: new Date(),
               })}
@@ -66,7 +65,6 @@ const InterpretationModal = ({ isOpen, toggleModal }: TInterpretationModalProps)
                   form={form}
                   layout="vertical"
                   initialValues={getGermlineInterpFormInitialValues()}
-                  onFinish={console.log}
                 >
                   <InterpretationForm variantType={variantType} />
                 </Form>

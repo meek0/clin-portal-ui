@@ -1,12 +1,13 @@
+import intl from 'react-intl-universal';
+import { CloseOutlined } from '@ant-design/icons';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { AutoComplete, Form, Radio, Select, Tag, Tooltip } from 'antd';
-import intl from 'react-intl-universal';
-import { GermlineInterpFormFields } from './types';
-import GenericInterpretationForm from './GenericInterpretationForm';
-import { classificationCriterias, getClassificationCriteriaColor, transmissionModes } from './data';
-import { CloseOutlined } from '@ant-design/icons';
 
-import styles from './GermlineInterpretationForm.module.css';
+import { classificationCriterias, getClassificationCriteriaColor, transmissionModes } from './data';
+import GenericInterpretationForm from './GenericInterpretationForm';
+import { GermlineInterpFormFields } from './types';
+
+import styles from './index.module.css';
 
 const GermlineInterpretationForm = () => {
   const form = Form.useFormInstance();
@@ -41,7 +42,7 @@ const GermlineInterpretationForm = () => {
           >
             <Radio.Group
               disabled={!form.getFieldValue(GermlineInterpFormFields.CONDITION)}
-              className={styles.classification}
+              className={styles.radioButton}
             >
               <Radio.Button value="LA6668-3" className={styles.red}>
                 {intl.get(
@@ -100,7 +101,11 @@ const GermlineInterpretationForm = () => {
 
                 return (
                   <Tag
-                    closeIcon={<CloseOutlined style={{ color: `var(--${tagColor}-9)` }} />}
+                    closeIcon={
+                      <CloseOutlined
+                        style={tagColor ? { color: `var(--${tagColor}-9)` } : undefined}
+                      />
+                    }
                     color={tagColor}
                     style={{ marginLeft: 4 }}
                     {...props}

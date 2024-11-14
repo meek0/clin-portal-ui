@@ -14,5 +14,6 @@ export enum GermlineInterpFormFields {
 export enum SomaticInterpFormFields {
   TUMORAL_TYPE = 'tumoral_type',
   ONCOGENICITY = 'oncogenicity',
+  ONCOGENICITY_CLASSIFICATION_CRITERIAS = 'oncogenicity_classification_criterias',
   CLINICAL_UTILITY = 'clinical_utility',
 }

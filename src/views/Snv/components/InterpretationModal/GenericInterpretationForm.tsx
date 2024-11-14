@@ -1,9 +1,11 @@
+import intl from 'react-intl-universal';
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Button, Form, Input } from 'antd';
+
 import RichTextEditor from 'components/uiKit/RichTextEditor';
-import intl from 'react-intl-universal';
+
 import { GenericInterpFormFields } from './types';
-import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 
 import styles from './GenericInterpretationForm.module.css';
 
@@ -48,6 +50,7 @@ const GenericInterpretationForm = () => {
                   >
                     <Input.TextArea
                       autoSize={{ minRows: 0, maxRows: 6 }}
+                      defaultValue=""
                       placeholder={intl.get(
                         'modal.variant.interpretation.generic.citation-placeholder',
                       )}
@@ -69,7 +72,7 @@ const GenericInterpretationForm = () => {
                     onClick={() => add()}
                     disabled={
                       form.getFieldValue(GenericInterpFormFields.PUBMED).length &&
-                      !form.getFieldValue(GenericInterpFormFields.PUBMED)[0][
+                      !form.getFieldValue(GenericInterpFormFields.PUBMED)[0]?.[
                         GenericInterpFormFields.PUBMUD_CITATION
                       ]
                     }
