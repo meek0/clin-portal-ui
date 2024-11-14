@@ -43,7 +43,7 @@ import { formatGenotype } from 'utils/formatGenotype';
 import { formatNumber } from 'utils/formatNumber';
 
 import GqLine from '../components/GQLine';
-import { HcComplementDescription } from '../components/OccurrenceDrawer/HcDescription';
+import { HcComplementDescription } from '../components/OccurenceVariant/HcDescription';
 import { TAB_ID } from '../Entity';
 import { ZygosityValue } from '../utils/constant';
 
@@ -315,8 +315,6 @@ export const getVariantColumns = (
   queryBuilderId: string,
   variantType: VariantType,
   patientId?: string,
-  drawerCb?: (record: VariantEntity) => void,
-  igvModalCb?: (record: VariantEntity) => void,
   onlyExportTSV: boolean = false,
   noData: boolean = false,
   variantSection?: string,

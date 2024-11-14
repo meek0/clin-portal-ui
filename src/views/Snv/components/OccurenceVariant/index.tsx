@@ -23,9 +23,10 @@ import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatFilters } from 'utils/formatFilters';
 
 import GqLine from '../GQLine';
-import { HcComplementDescription } from '../OccurrenceDrawer/HcDescription';
-import SequencingMetricModal from '../OccurrenceDrawer/SequencingMetricModal';
 import ReportButton from '../Report/DownloadButton';
+
+import { HcComplementDescription } from './HcDescription';
+import SequencingMetricModal from './SequencingMetricModal';
 
 import style from './index.module.css';
 

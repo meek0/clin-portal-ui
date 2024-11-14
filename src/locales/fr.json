@@ -1001,7 +1001,6 @@
   "screen.patientsnv.drawer.depth.quality": "Qualité de profondeur",
   "screen.patientsnv.drawer.detail": "détails",
   "screen.patientsnv.drawer.download.report": "Télécharger rapport",
-  "screen.patientsnv.drawer.download.report.tooltip": "Télécharger le rapport d'interprétation (format xlsx) du variant chez ce patient",
   "screen.patientsnv.drawer.father.genotype": "Génotype Père",
   "screen.patientsnv.drawer.filter": "Filtre (Dragen)",
   "screen.patientsnv.drawer.gq": "Qualité du génotype",
