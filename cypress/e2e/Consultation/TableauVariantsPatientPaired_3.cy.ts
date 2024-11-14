@@ -42,14 +42,14 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
 
   it('Valider les fonctionnalités du tableau - Tri Hotspot', () => {
     cy.clickAndIntercept('thead[class="ant-table-thead"] [data-icon="fire"]', 'POST', '**/graphql', 1);
-    cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(12).find('[class*="hotspotOutlined"]').should('exist');
-    cy.get('[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').check({force: true});
-    cy.get('[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').should('be.checked');
-    cy.get('[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').uncheck({force: true});
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(12).find('[class*="hotspotOutlined"]').should('exist');
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').check({force: true});
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').should('be.checked');
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').uncheck({force: true});
     cy.clickAndIntercept('thead[class="ant-table-thead"] [data-icon="fire"]', 'POST', '**/graphql', 1);
-    cy.get('[class*="ant-table-row"]').eq(0).find('td').eq(12).find('[class*="hotspotFilled"]').should('exist');
-    cy.get('[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').check({force: true});
-    cy.get('[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').should('be.checked');
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(12).find('[class*="hotspotFilled"]').should('exist');
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').check({force: true});
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').should('be.checked');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Tier', () => {

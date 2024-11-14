@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /* eslint-disable max-len */
 import { useState } from 'react';
 import intl from 'react-intl-universal';
@@ -5,9 +6,10 @@ import { Link } from 'react-router-dom';
 import { DownloadOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Descriptions, Divider, Row, Space, Tooltip } from 'antd';
 import { Rpt } from 'auth/types';
-import { ITableVariantEntity, VariantEntity, VariantType } from 'graphql/variants/models';
+import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
 import capitalize from 'lodash/capitalize';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { TAB_ID } from 'views/Snv/Entity';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
@@ -33,12 +35,20 @@ interface OwnProps {
   rpt: Rpt;
   patientId: string;
   igvModalCb?: (record: VariantEntity) => void;
+  variantSection?: VariantSection;
 }
 
-const OccurenceVariant = ({ record, rpt, loadingRpt, igvModalCb, patientId }: OwnProps) => {
+const OccurenceVariant = ({
+  record,
+  rpt,
+  loadingRpt,
+  igvModalCb,
+  patientId,
+  variantSection,
+}: OwnProps) => {
   const [modalOpened, setModalVisible] = useState(false);
 
-  const donor = findDonorById(record.donors, patientId);
+  const donor = findDonorById(record?.donors, patientId);
 
   const getParentTitle = (who: 'mother' | 'father', id: string, affected: boolean) => {
     let AffectedIcon = null;
@@ -69,7 +79,6 @@ const OccurenceVariant = ({ record, rpt, loadingRpt, igvModalCb, patientId }: Ow
       </span>
     );
   };
-
   return (
     <>
       <Card
@@ -109,19 +118,21 @@ const OccurenceVariant = ({ record, rpt, loadingRpt, igvModalCb, patientId }: Ow
                 type="link"
                 target="_blank"
                 size="small"
-                href={`https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr${record.chromosome}%3A${record.start}-${record.end}`}
+                href={`https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr${record?.chromosome}%3A${record?.start}-${record?.end}`}
               >
                 {intl.get('ucsc')}
               </Button>
-              <Button
-                className={style.linkButton}
-                type="link"
-                target="_blank"
-                size="small"
-                href={`https://www.ncbi.nlm.nih.gov/research/litvar2/docsum?text=${record.rsnumber}`}
-              >
-                {intl.get('litvar')}
-              </Button>
+              {record?.rsnumber && (
+                <Button
+                  className={style.linkButton}
+                  type="link"
+                  target="_blank"
+                  size="small"
+                  href={`https://www.ncbi.nlm.nih.gov/research/litvar2/docsum?text=${record.rsnumber}`}
+                >
+                  {intl.get('litvar')}
+                </Button>
+              )}
             </Space>
           </Space>
         }
@@ -142,108 +153,119 @@ const OccurenceVariant = ({ record, rpt, loadingRpt, igvModalCb, patientId }: Ow
                     ? intl.get(`occurence.zygosity.${donor.zygosity}`)
                     : TABLE_EMPTY_PLACE_HOLDER}
                 </Descriptions.Item>
-                <Descriptions.Item
-                  label={capitalize(intl.get('compound.heterozygous.abbrev', { num: 0 }))}
-                >
-                  <HcComplementDescription
-                    hcComplements={donor?.hc_complement}
-                    defaultText={TABLE_EMPTY_PLACE_HOLDER}
-                    locus={record.locus}
-                  />
-                </Descriptions.Item>
-                <Descriptions.Item
-                  label={capitalize(intl.get('potential.compound.heterozygous.abbrev', { num: 0 }))}
-                >
-                  <HcComplementDescription
-                    hcComplements={donor?.possibly_hc_complement}
-                    defaultText={TABLE_EMPTY_PLACE_HOLDER}
-                  />
-                </Descriptions.Item>
-                <Descriptions.Item label={intl.get('screen.patientsnv.drawer.transmission')}>
-                  {donor?.transmission
-                    ? intl.get(`screen.patientsnv.drawer.transmission.${donor.transmission}`)
-                    : TABLE_EMPTY_PLACE_HOLDER}
-                </Descriptions.Item>
-                <Descriptions.Item label={intl.get('screen.patientsnv.drawer.parental.origin')}>
-                  {donor?.parental_origin
-                    ? intl.get(`screen.patientsnv.drawer.parental.origin.${donor.parental_origin}`)
-                    : TABLE_EMPTY_PLACE_HOLDER}
-                </Descriptions.Item>
+                {variantSection === VariantSection.SNV && (
+                  <>
+                    <Descriptions.Item
+                      label={capitalize(intl.get('compound.heterozygous.abbrev', { num: 0 }))}
+                    >
+                      <HcComplementDescription
+                        hcComplements={donor?.hc_complement}
+                        defaultText={TABLE_EMPTY_PLACE_HOLDER}
+                        locus={record?.locus}
+                      />
+                    </Descriptions.Item>
+                    <Descriptions.Item
+                      label={capitalize(
+                        intl.get('potential.compound.heterozygous.abbrev', { num: 0 }),
+                      )}
+                    >
+                      <HcComplementDescription
+                        hcComplements={donor?.possibly_hc_complement}
+                        defaultText={TABLE_EMPTY_PLACE_HOLDER}
+                      />
+                    </Descriptions.Item>
+                    <Descriptions.Item label={intl.get('screen.patientsnv.drawer.transmission')}>
+                      {donor?.transmission
+                        ? intl.get(`screen.patientsnv.drawer.transmission.${donor.transmission}`)
+                        : TABLE_EMPTY_PLACE_HOLDER}
+                    </Descriptions.Item>
+                    <Descriptions.Item label={intl.get('screen.patientsnv.drawer.parental.origin')}>
+                      {donor?.parental_origin
+                        ? intl.get(
+                            `screen.patientsnv.drawer.parental.origin.${donor.parental_origin}`,
+                          )
+                        : TABLE_EMPTY_PLACE_HOLDER}
+                    </Descriptions.Item>
+                  </>
+                )}
               </Descriptions>
             </Col>
             <Col>
               <Space direction="vertical">
-                <Descriptions
-                  className={style.basicBordered}
-                  bordered
-                  size="small"
-                  title={capitalize(intl.get('family'))}
-                  column={1}
-                >
-                  {donor?.father_id && (
-                    <Descriptions.Item
-                      label={getParentTitle(
-                        'father',
-                        donor?.father_id!,
-                        donor?.father_affected_status!,
-                      )}
+                {variantSection === VariantSection.SNV &&
+                  (donor?.father_id || donor?.mother_id) && (
+                    <Descriptions
+                      className={style.basicBordered}
+                      bordered
+                      size="small"
+                      title={capitalize(intl.get('family'))}
+                      column={1}
                     >
-                      {donor?.father_calls ? (
-                        <Space size={4}>
-                          <>
-                            <span>{donor?.father_calls.join('/')}</span>
-                            <span>
-                              (
-                              <Button
-                                className={style.detailButton}
-                                size="small"
-                                onClick={() => setModalVisible(true)}
-                                type="link"
-                              >
-                                {intl.get('screen.patientsnv.drawer.detail')}
-                              </Button>
-                              )
-                            </span>
-                          </>
-                        </Space>
-                      ) : (
-                        TABLE_EMPTY_PLACE_HOLDER
+                      {donor?.father_id && (
+                        <Descriptions.Item
+                          label={getParentTitle(
+                            'father',
+                            donor?.father_id!,
+                            donor?.father_affected_status!,
+                          )}
+                        >
+                          {donor?.father_calls ? (
+                            <Space size={4}>
+                              <>
+                                <span>{donor?.father_calls.join('/')}</span>
+                                <span>
+                                  (
+                                  <Button
+                                    className={style.detailButton}
+                                    size="small"
+                                    onClick={() => setModalVisible(true)}
+                                    type="link"
+                                  >
+                                    {intl.get('screen.patientsnv.drawer.detail')}
+                                  </Button>
+                                  )
+                                </span>
+                              </>
+                            </Space>
+                          ) : (
+                            TABLE_EMPTY_PLACE_HOLDER
+                          )}
+                        </Descriptions.Item>
                       )}
-                    </Descriptions.Item>
+                      {donor?.mother_id && (
+                        <Descriptions.Item
+                          label={getParentTitle(
+                            'mother',
+                            donor?.mother_id!,
+                            donor?.mother_affected_status!,
+                          )}
+                        >
+                          {donor?.mother_calls ? (
+                            <Space size={4}>
+                              <>
+                                <span>{donor?.mother_calls.join('/')}</span>
+                                <span>
+                                  (
+                                  <Button
+                                    size="small"
+                                    className={style.detailButton}
+                                    onClick={() => setModalVisible(true)}
+                                    type="link"
+                                    data-cy="OpenSeqMetricModal"
+                                  >
+                                    {intl.get('screen.patientsnv.drawer.detail')}
+                                  </Button>
+                                  )
+                                </span>
+                              </>
+                            </Space>
+                          ) : (
+                            TABLE_EMPTY_PLACE_HOLDER
+                          )}
+                        </Descriptions.Item>
+                      )}
+                    </Descriptions>
                   )}
-                  {donor?.mother_id && (
-                    <Descriptions.Item
-                      label={getParentTitle(
-                        'mother',
-                        donor?.mother_id!,
-                        donor?.mother_affected_status!,
-                      )}
-                    >
-                      {donor?.mother_calls ? (
-                        <Space size={4}>
-                          <>
-                            <span>{donor?.mother_calls.join('/')}</span>
-                            <span>
-                              (
-                              <Button
-                                size="small"
-                                className={style.detailButton}
-                                onClick={() => setModalVisible(true)}
-                                type="link"
-                                data-cy="OpenSeqMetricModal"
-                              >
-                                {intl.get('screen.patientsnv.drawer.detail')}
-                              </Button>
-                              )
-                            </span>
-                          </>
-                        </Space>
-                      ) : (
-                        TABLE_EMPTY_PLACE_HOLDER
-                      )}
-                    </Descriptions.Item>
-                  )}
-                </Descriptions>
                 <Descriptions
                   className={style.basicBordered}
                   bordered
@@ -260,10 +282,14 @@ const OccurenceVariant = ({ record, rpt, loadingRpt, igvModalCb, patientId }: Ow
                   <Descriptions.Item label={intl.get('screen.patientsnv.drawer.alltotal')}>
                     {donor?.ad_total ?? TABLE_EMPTY_PLACE_HOLDER}
                   </Descriptions.Item>
-                  {/*                   <Descriptions.Item label={intl.get('screen.patientsnv.drawer.allratio')}>
-                    {donor?.ad_ratio ? donor?.ad_ratio.toFixed(2) : TABLE_EMPTY_PLACE_HOLDER}
-                  </Descriptions.Item> */}
-                  {record.variant_type.includes(VariantType.GERMLINE) && (
+                  {(variantSection === VariantSection.SNVTN ||
+                    variantSection === VariantSection.SNVTO) && (
+                    <Descriptions.Item label={intl.get('filters.group.donors.sq')}>
+                      {donor?.sq ? donor?.sq : TABLE_EMPTY_PLACE_HOLDER}
+                    </Descriptions.Item>
+                  )}
+
+                  {variantSection === VariantSection.SNV && (
                     <Descriptions.Item label={intl.get('screen.patientsnv.drawer.gq')}>
                       {<GqLine value={donor?.gq} />}
                     </Descriptions.Item>

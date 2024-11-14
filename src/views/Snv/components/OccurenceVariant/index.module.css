@@ -35,6 +35,11 @@
   border: none;
 }
 
+.occurenceVariant .basicBordered :global(.ant-descriptions-view) :global(.ant-descriptions-row:last-child ) {
+  border-bottom: 1px solid var(--gray-4)
+}
+
+
 .occurenceVariant .basicBordered :global(.ant-descriptions-view .ant-descriptions-row .ant-descriptions-item-label) {
   background: none;
   border-right: none;
@@ -86,8 +91,8 @@
   margin-left: 4px;
 }
 
-.occurenceVariant .basicBordered :global(.ant-descriptions-view) table tbody tr  :global(.ant-descriptions-item-content) {
-  background-color: inherit !important;
+:global(tr.ant-table-expanded-row) .occurenceVariant .basicBordered :global(.ant-descriptions-view) tr :global(.ant-descriptions-item-content) {
+  background-color: inherit;
 }
 
 .occurenceVariant .detailButton{

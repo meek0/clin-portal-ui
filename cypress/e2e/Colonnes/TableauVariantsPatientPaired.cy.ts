@@ -16,14 +16,9 @@ describe('Page des variants d\'un patient (paired) - Colonnes du tableau', () =>
 
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(1)
-      .should('not.have.class', 'ant-table-column-has-sorters')
-      .find('[data-icon="flag"]').should('exist');
-    
-    cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(2)
       .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('Actions').should('exist');
+      .find('[data-icon="flag"]').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(3)

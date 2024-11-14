@@ -20,7 +20,7 @@ beforeEach(() => {
 
 describe('Page des variants d\'un patient (somatic) - Consultation du tableau', () => {
   it('Vérifier les informations affichées', () => {
-    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 1, 'FlagDropdown');
+    cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 2, 'FlagDropdown');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 3, 'chr10:g.1096268T>C');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 4, 'SNV');
     cy.validateTableDataRowKeyContent('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 5, 'TO');

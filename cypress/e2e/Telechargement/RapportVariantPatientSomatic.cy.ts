@@ -15,28 +15,8 @@ beforeEach(() => {
 
 describe('Télécharger le rapport d\'un variant d\'un patient (somatic)', () => {
   beforeEach(() => {
-    cy.get('div[role="tabpanel"] tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
-    cy.get('[data-menu-id*="downloadReport"]').clickAndWait({force: true});
-    cy.waitUntilFile(oneMinute);
-  });
-
-  it('Valider le nom du fichier', () => {
-    cy.validateFileName(`${presc_SOMATIC.patientProbId}_${presc_SOMATIC.requestProbId}_rs10794716_${strDate}*.xlsx`);
-  });
-
-  it('Valider le contenu du fichier', () => {
-    const replacements: Replacement[] = [
-      { placeholder: '{{requestProbId}}', value: presc_SOMATIC.requestProbId },
-      { placeholder: '{{sampleProbId}}', value: presc_SOMATIC.sampleProbId },
-    ];
-    cy.validateXlsxFileContent('DownloadVariantPatientSomatic.json', replacements);
-  });
-});
-
-describe('Télécharger le rapport d\'un variant d\'un patient du tiroir (somatic)', () => {
-  beforeEach(() => {
-    cy.get('[data-cy="drawerCb_chr10:g.1096268T>C"]').clickAndWait({force: true});
-    cy.get('[class="ant-drawer-content-wrapper"] button[class*="ant-btn-default"]').clickAndWait({force: true});
+    cy.get('[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
+    cy.get('[class="ant-card-head-title"] button[class*="ant-btn-default"]').eq(0).clickAndWait({force: true});
     cy.waitUntilFile(oneMinute);
   });
 
