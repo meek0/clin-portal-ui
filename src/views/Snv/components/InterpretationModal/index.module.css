@@ -12,8 +12,8 @@
 
 .radioButton :global(.ant-radio-button-wrapper-checked).volcano {
     color: var(--volcano-9);
-    border-color: var(--volcano-3) !important;
-    border-right-color: var(--volcano-3) !important;
+    border-color: var(--volcano-4) !important;
+    border-right-color: var(--volcano-4) !important;
     background-color: var(--volcano-2);
 }
 
@@ -22,13 +22,13 @@
 }
 
 :global(.ant-radio-button-wrapper-checked).volcano:not(:global(.ant-radio-button-wrapper-disabled))::before {
-    background-color: var(--volcano-9);
+    background-color: var(--volcano-4);
 }
 
 .radioButton :global(.ant-radio-button-wrapper-checked).orange {
     color: var(--orange-9);
-    border-color: var(--orange-3) !important;
-    border-right-color: var(--orange-3) !important;
+    border-color: var(--orange-4) !important;
+    border-right-color: var(--orange-4) !important;
     background-color: var(--orange-2);
 }
 
@@ -37,13 +37,13 @@
 }
 
 :global(.ant-radio-button-wrapper-checked).orange:not(:global(.ant-radio-button-wrapper-disabled))::before {
-    background-color: var(--orange-9);
+    background-color: var(--orange-4);
 }
 
 .radioButton :global(.ant-radio-button-wrapper-checked).lime {
     color: var(--lime-9);
-    border-color: var(--lime-3) !important;
-    border-right-color: var(--lime-3) !important;
+    border-color: var(--lime-5) !important;
+    border-right-color: var(--lime-5) !important;
     background-color: var(--lime-2);
 }
 
@@ -52,13 +52,13 @@
 }
 
 :global(.ant-radio-button-wrapper-checked).lime:not(:global(.ant-radio-button-wrapper-disabled))::before {
-    background-color: var(--lime-9);
+    background-color: var(--lime-5);
 }
 
 .radioButton :global(.ant-radio-button-wrapper-checked).green {
     color: var(--green-9);
-    border-color: var(--green-3) !important;
-    border-right-color: var(--green-3) !important;
+    border-color: var(--green-4) !important;
+    border-right-color: var(--green-4) !important;
     background-color: var(--green-2);
 }
 
@@ -67,7 +67,7 @@
 }
 
 :global(.ant-radio-button-wrapper-checked).green:not(:global(.ant-radio-button-wrapper-disabled))::before {
-    background-color: var(--green-9);
+    background-color: var(--green-4);
 }
 
 .filledBlueTag  {
