@@ -252,6 +252,11 @@ export const GET_VARIANT_COUNT = gql`
     Variants {
       hits(filters: $sqon) {
         total
+        edges {
+          node {
+            id
+          }
+        }
       }
     }
   }
