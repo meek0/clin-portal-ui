@@ -5,6 +5,11 @@ export const GET_VARIANT_COUNT = gql`
     cnv {
       hits(filters: $sqon) {
         total
+        edges {
+          node {
+            id
+          }
+        }
       }
     }
   }
