@@ -3,13 +3,8 @@ import { gql } from '@apollo/client';
 export const GET_VARIANT_COUNT = gql`
   query CnvCount($sqon: JSON) {
     cnv {
-      hits(filters: $sqon) {
+      hits(filters: $sqon, first: 0) {
         total
-        edges {
-          node {
-            id
-          }
-        }
       }
     }
   }
