@@ -63,7 +63,7 @@ jobs:
           ## Links
           ${TICKET:+- [JIRA](https://ferlab-crsj.atlassian.net/browse/${TICKET})}
           - [Design](https://)
-          - [Ferlease](https://)
+          - [Ferlease](https://portal-ui-${TICKET}.qa.cqgc.hsj.rtss.qc.ca/)
 
           ## Extra Validation
           - [ ] Dev QA on ferlease
