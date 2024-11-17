@@ -3,7 +3,7 @@ import { GenericInterpFormFields } from './types';
 const getGenericInterpFormInitialValues = () => ({
   [GenericInterpFormFields.PUBMED]: [
     {
-      [GenericInterpFormFields.PUBMUD_CITATION]: '',
+      [GenericInterpFormFields.PUBMED_CITATION]: '',
     },
   ],
 });

@@ -8,15 +8,85 @@ import RichTextEditor from 'components/uiKit/RichTextEditor';
 import { GenericInterpFormFields } from './types';
 
 import styles from './GenericInterpretationForm.module.css';
+import { debounce } from 'lodash';
+import { useCallback, useRef, useState } from 'react';
+import { PubmedApi, TPubmedCitationPayload } from 'api/pubmed';
 
 const GenericInterpretationForm = () => {
   const form = Form.useFormInstance();
+
+  const cacheRef = useRef(new Map()); // Cache for storing API results
+  const [loading, setLoading] = useState(false);
+
+  const fetchCitation = async (value: string, pubmedIndex: number) => {
+    if (!value) return;
+
+    // Check cache first
+    if (cacheRef.current.has(value)) {
+      const cachedData = cacheRef.current.get(value);
+      updateCitationField(cachedData, pubmedIndex);
+      return;
+    }
+
+    // Fetch from API if not in cache
+    setLoading(true);
+    try {
+      const response = await PubmedApi.validatePubmedId(value);
+      cacheRef.current.set(value, response); // Cache the result
+      updateCitationField(response.data, pubmedIndex);
+    } catch (error) {
+      console.error('API Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const debouncedFetchCitation = useCallback(
+    debounce((value, index: number) => fetchCitation(value, index), 500), // Debounce delay of 500ms
+    [],
+  );
+
+  const updateCitationField = (data: TPubmedCitationPayload | undefined, pubmedIndex: number) => {
+    if (data) {
+      form.setFieldsValue({
+        [GenericInterpFormFields.PUBMED]: form
+          .getFieldValue(GenericInterpFormFields.PUBMED)
+          .map((item: any, idx: any) =>
+            idx === pubmedIndex
+              ? {
+                  ...item,
+                  [GenericInterpFormFields.PUBMED_CITATION]: data.nlm,
+                  [GenericInterpFormFields.PUBMED_CITATION_ID]: data.id,
+                }
+              : item,
+          ),
+      });
+    } else {
+      form.setFields([
+        {
+          name: [
+            GenericInterpFormFields.PUBMED,
+            pubmedIndex,
+            GenericInterpFormFields.PUBMED_CITATION,
+          ],
+          errors: [intl.get('modal.variant.interpretation.generic.pubMedIdNotFound')],
+        },
+      ]);
+    }
+  };
 
   return (
     <>
       <Form.Item
         label={intl.get('modal.variant.interpretation.generic.interpretation')}
         name={GenericInterpFormFields.INTERPRETATION}
+        rules={[
+          {
+            required: true,
+            type: 'string',
+            min: 1,
+          },
+        ]}
       >
         <RichTextEditor />
       </Form.Item>
@@ -29,7 +99,25 @@ const GenericInterpretationForm = () => {
         }
         style={{ marginBottom: 0 }}
       >
-        <Form.List name={GenericInterpFormFields.PUBMED}>
+        <Form.List
+          name={GenericInterpFormFields.PUBMED}
+          rules={[
+            {
+              validator: (rule, value) => {
+                const hasPubmedErrors = form
+                  .getFieldsError()
+                  .filter((error) => error.name.includes(GenericInterpFormFields.PUBMED))
+                  .some((error) => error.errors.length > 0);
+
+                if (hasPubmedErrors) {
+                  return Promise.reject(new Error('Pubmed Error'));
+                }
+
+                return Promise.resolve();
+              },
+            },
+          ]}
+        >
           {(fields, { add, remove }) => (
             <>
               {fields.map(({ key, name, ...restField }) => (
@@ -43,9 +131,12 @@ const GenericInterpretationForm = () => {
                     gap: 8,
                   }}
                 >
+                  <Form.Item hidden name={[name, GenericInterpFormFields.PUBMED_CITATION_ID]}>
+                    <Input />
+                  </Form.Item>
                   <Form.Item
                     {...restField}
-                    name={[name, GenericInterpFormFields.PUBMUD_CITATION]}
+                    name={[name, GenericInterpFormFields.PUBMED_CITATION]}
                     style={{ flex: 1, marginBottom: 0 }}
                   >
                     <Input.TextArea
@@ -54,6 +145,7 @@ const GenericInterpretationForm = () => {
                       placeholder={intl.get(
                         'modal.variant.interpretation.generic.citation-placeholder',
                       )}
+                      onChange={(e) => debouncedFetchCitation(e.target.value, name)}
                     />
                   </Form.Item>
                   {fields.length > 1 ? (
@@ -73,7 +165,7 @@ const GenericInterpretationForm = () => {
                     disabled={
                       form.getFieldValue(GenericInterpFormFields.PUBMED).length &&
                       !form.getFieldValue(GenericInterpFormFields.PUBMED)[0]?.[
-                        GenericInterpFormFields.PUBMUD_CITATION
+                        GenericInterpFormFields.PUBMED_CITATION
                       ]
                     }
                   >

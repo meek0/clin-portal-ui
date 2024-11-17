@@ -9,6 +9,31 @@ import { GermlineInterpFormFields } from './types';
 
 import styles from './index.module.css';
 
+/**
+ * Payload sample: 
+ * 
+ * {
+    "condition": "Une condition",
+    "classification": "LA26332-9",
+    "classification_criterias": [
+        "PS1",
+        "PS2",
+        "PM3"
+    ],
+    "transmission_modes": [
+        "autosomal_dominant",
+        "autosomal_recessive"
+    ],
+    "interpretation": "<p>Une description de l'interprétation</p>",
+    "pubmed": [
+        {
+            "citation_id": "123456",
+            "citation": "Hart ML, Kaupp M, Brun J, Aicher WK. Comparative phenotypic transcriptional characterization of human full-term placenta-derived mesenchymal stromal cells compared to bone marrow-derived mesenchymal stromal cells after differentiation in myogenic medium. Placenta. 2017 Jan;49:64-67. doi: 10.1016/j.placenta.2016.11.007. Epub 2016 Nov 16. PMID: 28012456."
+        }
+    ]
+}
+ */
+
 const GermlineInterpretationForm = () => {
   const form = Form.useFormInstance();
 
@@ -19,6 +44,11 @@ const GermlineInterpretationForm = () => {
           <ProLabel title={intl.get('modal.variant.interpretation.germline.condition')} colon />
         }
         name={GermlineInterpFormFields.CONDITION}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
       >
         <AutoComplete
           placeholder={intl.get('modal.variant.interpretation.germline.condition-placeholder')}
@@ -35,6 +65,11 @@ const GermlineInterpretationForm = () => {
               />
             }
             name={GermlineInterpFormFields.CLASSIFICATION}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
             style={{
               marginBottom: 12,
             }}
@@ -122,6 +157,11 @@ const GermlineInterpretationForm = () => {
       <Form.Item
         label={intl.get('modal.variant.interpretation.germline.modeOfTransmission')}
         name={GermlineInterpFormFields.TRANSMISSION_MODES}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
       >
         <Select
           placeholder={intl.get(

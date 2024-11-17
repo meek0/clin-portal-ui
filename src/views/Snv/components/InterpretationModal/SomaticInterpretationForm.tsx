@@ -14,6 +14,28 @@ import { SomaticInterpFormFields } from './types';
 
 import styles from './index.module.css';
 
+/**
+ * Payload sample:
+ *
+ * {
+    "tumoral_type": "Un type tumoral",
+    "oncogenicity": "LA6668-3",
+    "oncogenicity_classification_criterias": [
+        "OS1",
+        "OS3",
+        "OP4"
+    ],
+    "clinical_utility": "category_ia",
+    "interpretation": "<p>Une description de l'interprétation</p>",
+    "pubmed": [
+        {
+            "citation_id": "123456",
+            "citation": "Hart ML, Kaupp M, Brun J, Aicher WK. Comparative phenotypic transcriptional characterization of human full-term placenta-derived mesenchymal stromal cells compared to bone marrow-derived mesenchymal stromal cells after differentiation in myogenic medium. Placenta. 2017 Jan;49:64-67. doi: 10.1016/j.placenta.2016.11.007. Epub 2016 Nov 16. PMID: 28012456."
+        }
+    ]
+}
+ */
+
 const SomaticInterpretationForm = () => {
   const form = Form.useFormInstance();
 
@@ -24,6 +46,11 @@ const SomaticInterpretationForm = () => {
           <ProLabel title={intl.get('modal.variant.interpretation.somatic.tumoralType')} colon />
         }
         name={SomaticInterpFormFields.TUMORAL_TYPE}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
       >
         <AutoComplete
           placeholder={intl.get('modal.variant.interpretation.somatic.tumoralType-placeholder')}
@@ -40,6 +67,11 @@ const SomaticInterpretationForm = () => {
               />
             }
             name={SomaticInterpFormFields.ONCOGENICITY}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
             style={{
               marginBottom: 12,
             }}
@@ -126,6 +158,11 @@ const SomaticInterpretationForm = () => {
       <Form.Item
         label={intl.get('modal.variant.interpretation.somatic.clinicalUtility')}
         name={SomaticInterpFormFields.CLINICAL_UTILITY}
+        rules={[
+          {
+            required: true,
+          },
+        ]}
       >
         <Select
           placeholder={intl.get('modal.variant.interpretation.somatic.clinicalUtility-placeholder')}

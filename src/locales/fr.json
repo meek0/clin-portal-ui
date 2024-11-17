@@ -1553,6 +1553,7 @@
         "generic": {
           "interpretation": "Interprétation",
           "pubMedPublication": "Publication PubMed",
+          "pubMedIdNotFound": "PMID invalide ou inconnu",
           "citation-placeholder": "Citation",
           "addCitation": "Ajouter une citation"
         },

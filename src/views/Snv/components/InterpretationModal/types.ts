@@ -1,7 +1,8 @@
 export enum GenericInterpFormFields {
   INTERPRETATION = 'interpretation',
   PUBMED = 'pubmed',
-  PUBMUD_CITATION = 'citation',
+  PUBMED_CITATION_ID = 'citation_id',
+  PUBMED_CITATION = 'citation',
 }
 
 export enum GermlineInterpFormFields {
