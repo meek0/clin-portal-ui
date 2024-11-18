@@ -174,12 +174,6 @@
   .clinicalAssociations
   :global(.ant-descriptions-view)
   :global(.ant-descriptions-row)
-  :global(.ant-descriptions-item-label) {
-}
-.occurenceVariant
-  .clinicalAssociations
-  :global(.ant-descriptions-view)
-  :global(.ant-descriptions-row)
   :global(.ant-descriptions-item-label)::after {
   content: '';
   display: block;

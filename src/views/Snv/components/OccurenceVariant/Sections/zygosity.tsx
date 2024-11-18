@@ -1,5 +1,5 @@
 import intl from 'react-intl-universal';
-import { Descriptions } from 'antd';
+import { Descriptions, Space } from 'antd';
 import { ITableVariantEntity } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
 import { capitalize } from 'lodash';
@@ -7,7 +7,7 @@ import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/compone
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
-import { HcComplementDescription } from '../../OccurrenceDrawer/HcDescription';
+import { HcComplementDescription } from '../HcDescription';
 
 import style from '../index.module.css';
 
@@ -36,20 +36,25 @@ const ZygositySection = ({ record, patientId, variantSection }: OwnProps) => {
         <>
           <Descriptions.Item
             label={capitalize(intl.get('compound.heterozygous.abbrev', { num: 0 }))}
+            className={style.hc}
           >
-            <HcComplementDescription
-              hcComplements={donor?.hc_complement}
-              defaultText={TABLE_EMPTY_PLACE_HOLDER}
-              locus={record?.locus}
-            />
+            <Space className={style.alignRigthSpace}>
+              <HcComplementDescription
+                hcComplements={donor?.hc_complement}
+                defaultText={TABLE_EMPTY_PLACE_HOLDER}
+                locus={record?.locus}
+              />
+            </Space>
           </Descriptions.Item>
           <Descriptions.Item
             label={capitalize(intl.get('potential.compound.heterozygous.abbrev', { num: 0 }))}
           >
-            <HcComplementDescription
-              hcComplements={donor?.possibly_hc_complement}
-              defaultText={TABLE_EMPTY_PLACE_HOLDER}
-            />
+            <Space className={style.alignRigthSpace}>
+              <HcComplementDescription
+                hcComplements={donor?.possibly_hc_complement}
+                defaultText={TABLE_EMPTY_PLACE_HOLDER}
+              />
+            </Space>
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.patientsnv.drawer.transmission')}>
             {donor?.transmission

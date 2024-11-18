@@ -11,7 +11,7 @@ import MaleAffectedIcon from 'components/icons/MaleAffectedIcon';
 import MaleNotAffectedIcon from 'components/icons/MaleNotAffectedIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 
-import SequencingMetricModal from '../../OccurrenceDrawer/SequencingMetricModal';
+import SequencingMetricModal from '../SequencingMetricModal';
 
 import style from '../index.module.css';
 
