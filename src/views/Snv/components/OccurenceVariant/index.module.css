@@ -2,6 +2,13 @@
   border-top: 1px solid var(--gray-4);
 }
 
+.occurenceVariant > :nth-child(2) {
+  display: flex;
+}
+
+.occurenceVariant > :nth-child(2) :global(.ant-space) {
+  width: 100%;
+}
 
 .occurenceVariant :global(.ant-table-expanded-row-fixed) {
   background-color: var(--gray-3);
@@ -12,8 +19,12 @@
   padding-right: 0;
 }
 
+.occurenceVariant .hgvsg :global(.ant-space-item):nth-child(1) {
+  line-height: 26px;
+}
 .occurenceVariant .hgvsgLink {
   text-decoration: underline;
+  font-size: 20px;
 }
 
 .occurenceVariant .hgvsgLink:hover {
@@ -35,12 +46,16 @@
   border: none;
 }
 
-.occurenceVariant .basicBordered :global(.ant-descriptions-view) :global(.ant-descriptions-row:last-child ) {
-  border-bottom: 1px solid var(--gray-4)
+.occurenceVariant
+  .basicBordered
+  :global(.ant-descriptions-view)
+  :global(.ant-descriptions-row:last-child) {
+  border-bottom: 1px solid var(--gray-4);
 }
 
-
-.occurenceVariant .basicBordered :global(.ant-descriptions-view .ant-descriptions-row .ant-descriptions-item-label) {
+.occurenceVariant
+  .basicBordered
+  :global(.ant-descriptions-view .ant-descriptions-row .ant-descriptions-item-label) {
   background: none;
   border-right: none;
   padding: 4px 0;
@@ -56,45 +71,140 @@
   margin-left: 4px;
 }
 
-.occurenceVariant :global(.ant-descriptions-header){
-    margin-bottom: 4px;
+.occurenceVariant :global(.ant-descriptions-header) {
+  margin-bottom: 4px;
 }
 
-.occurenceVariant :global(.ant-descriptions-title){
-    font-size: 12px;
-    line-height: 20px;
-    color: var(--blue-9);
-    padding: 0;
-}
-
-.occurenceVariant :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-label){
-    color: var(--gray-7) ;
-    padding: 0 ;
-}
-
-.occurenceVariant :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-label) > span{
-  display: inline-block;
-}
-
-.occurenceVariant :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-content){
+.occurenceVariant :global(.ant-descriptions-title) {
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--blue-9);
   padding: 0;
 }
 
-.occurenceVariant :global(.ant-descriptions-item-content){
-  text-align: right;
-  padding: 0 ;
+.occurenceVariant
+  :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-label) {
+  color: var(--gray-7);
+  padding: 0;
 }
 
-.occurenceVariant :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-label)::after {
-  content: ':' ;
+.occurenceVariant
+  :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-label)
+  > span {
+  display: inline-block;
+}
+
+.occurenceVariant
+  :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-content) {
+  padding: 0;
+}
+
+.occurenceVariant :global(.ant-descriptions-item-content) {
+  text-align: right;
+  padding: 0;
+}
+
+.occurenceVariant
+  :global(.ant-descriptions-bordered.ant-descriptions-small .ant-descriptions-item-label)::after {
+  content: ':';
   display: inline;
   margin-left: 4px;
 }
 
-:global(tr.ant-table-expanded-row) .occurenceVariant .basicBordered :global(.ant-descriptions-view) tr :global(.ant-descriptions-item-content) {
+:global(tr.ant-table-expanded-row)
+  .occurenceVariant
+  .basicBordered
+  :global(.ant-descriptions-view)
+  tr
+  :global(.ant-descriptions-item-content) {
   background-color: inherit;
 }
 
-.occurenceVariant .detailButton{
+.occurenceVariant .detailButton {
   padding: 0;
+}
+
+/* Section Transcript */
+
+.occurenceVariant .ominIdLink {
+  text-decoration: underline;
+}
+
+.canonicalIcon {
+  fill: var(--blue-8);
+}
+
+.mane :global(.ant-space-item):nth-child(2) {
+  line-height: 12px;
+}
+.exonTitle {
+  color: var(--gray-7);
+}
+
+.occurenceVariant .transcript :global(.ant-card-body) {
+  padding: 12px;
+}
+
+.occurenceVariant .transcript :global(.ant-divider) {
+  height: 22px;
+}
+
+/*Gene section */
+
+.gene > div,
+.alignRigthSpace,
+.gnomad > div {
+  justify-content: right;
+}
+
+/* Frequencies Section*/
+
+.rqdmLabel :nth-child(2) {
+  display: flex;
+}
+.affected path {
+  fill: var(--red-7);
+}
+
+.unaffected path {
+  fill: var(--green-7);
+}
+
+.occurenceVariant
+  .clinicalAssociations
+  :global(.ant-descriptions-view)
+  :global(.ant-descriptions-row)
+  :global(.ant-descriptions-item-label) {
+}
+.occurenceVariant
+  .clinicalAssociations
+  :global(.ant-descriptions-view)
+  :global(.ant-descriptions-row)
+  :global(.ant-descriptions-item-label)::after {
+  content: '';
+  display: block;
+}
+
+.omimEllipsis :global(.ant-space-item) div {
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.occurenceVariant
+  .clinicalAssociations
+  :global(.ant-descriptions-view)
+  :global(.ant-descriptions-row)
+  :global(.ant-descriptions-item-label)::after {
+  display: none;
+}
+
+.seeAll{
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.seeAll:hover{
+  text-decoration: none;
 }

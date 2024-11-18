@@ -104,6 +104,7 @@
   "view.ucsc": "View UCSC",
   "view.litvar": "View LitVAR",
   "duplication": "Duplication",
+  "ensembl": "Ensembl",
   "ensemblID": "Ensembl ID",
   "exomiser": "Exomiser",
   "family": "family",
@@ -206,12 +207,12 @@
   "filters.group.franklin_max.acmg_classification": "Franklin ACMG",
   "filters.group.franklin_max.acmg_evidence": "Franklin ACMG Rules",
   "filters.group.franklin_max.combined_score": "Score Franklin (Max)",
-  "filters.group.freq_rqdm_tumor_only.pf":"Freq. TO All Patients",
-  "filters.group.freq_rqdm_tumor_only.pf.query":"TO Freq.",
-  "filters.group.freq_rqdm_tumor_only.pf.tooltip":"Values between [0-1]. The rarest variants within the cohort of all patients with a TO analysis will have a frequency close to 0.",
-  "filters.group.freq_rqdm_tumor_normal.pf":"Freq. TN All Patients",
-  "filters.group.freq_rqdm_tumor_normal.pf.query":"TN Freq.",
-  "filters.group.freq_rqdm_tumor_normal.pf.tooltip":"Values between [0-1]. The rarest variants within the cohort of all patients with a TN analysis will have a frequency close to 0.",
+  "filters.group.freq_rqdm_tumor_only.pf": "Freq. TO All Patients",
+  "filters.group.freq_rqdm_tumor_only.pf.query": "TO Freq.",
+  "filters.group.freq_rqdm_tumor_only.pf.tooltip": "Values between [0-1]. The rarest variants within the cohort of all patients with a TO analysis will have a frequency close to 0.",
+  "filters.group.freq_rqdm_tumor_normal.pf": "Freq. TN All Patients",
+  "filters.group.freq_rqdm_tumor_normal.pf.query": "TN Freq.",
+  "filters.group.freq_rqdm_tumor_normal.pf.tooltip": "Values between [0-1]. The rarest variants within the cohort of all patients with a TN analysis will have a frequency close to 0.",
   "filters.group.frequency_RQDM.affected.af": "All. Freq. Affected Patients",
   "filters.group.frequency_RQDM.affected.af.tooltip": "Values between [0-1]. A score close to 1 indicates a frequent variant in the cohort of affected patients for analysis.",
   "filters.group.frequency_RQDM.non_affected.af": "All Freq. Not affected Patients",
@@ -416,7 +417,7 @@
   "first.name": "First name",
   "flag": {
     "table": {
-      "tooltip":"Use flags to mark important items"
+      "tooltip": "Use flags to mark important items"
     },
     "options": {
       "flag": "Flag",
@@ -428,40 +429,40 @@
       "title": "Flagging error",
       "description": "Sorry, we couldn't update the flag status for this item. Please try again."
     },
-    "date":{
+    "date": {
       "now": "Now",
       "today": "Today at {hour}{ampm}",
       "yesteday": "Yesterday at {hour}{ampm}",
       "completeDate": "{month} {day}th at {time}{ampm}",
       "completeDatePastYear": "{month} {day}th {year}",
       "month": {
-        "january":"January",
-        "february":"February",
-        "march":"March",
-        "april":"April",
-        "may":"May",
-        "june":"June",
-        "july":"July",
-        "august":"August",
-        "september":"September",
-        "october":"October",
-        "november":"November",
-        "december":"December"
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
       }
     },
     "modal": {
       "title": "History",
       "close": "Close",
-      "tooltip":"View history"
+      "tooltip": "View history"
     }
   },
   "folder": "MRN",
   "footer.navigation.fhir": "Fhir",
   "footer.navigation.zepplin": "Zeppelin",
-  "exomiser_max":{
+  "exomiser_max": {
     "table": {
-      "title":"Exo. (Var)",
-      "tooltip":"Score calculated by Exomiser based on variant characteristics only (without patient phenotypes)"
+      "title": "Exo. (Var)",
+      "tooltip": "Score calculated by Exomiser based on variant characteristics only (without patient phenotypes)"
     },
     "combined_score": {
       "title": "Max Exo.",
@@ -475,7 +476,7 @@
         "LIKELY_BENIGN": "LB",
         "BENIGN": "B"
       },
-      "value":{
+      "value": {
         "PATHOGENIC": "Pathogenic",
         "LIKELY_PATHOGENIC": "Likely Pathogenic",
         "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
@@ -487,7 +488,7 @@
     }
   },
   "franklin": {
-    "filter":{
+    "filter": {
       "groupTitle": "Franklin",
       "acmg_classification": "Franklin ACMG",
       "acmg_evidence": "Franklin ACMG Rules",
@@ -499,13 +500,39 @@
       }
     },
     "donors": {
-      "combined_score":{
-        "title":"Fra.",
+      "combined_score": {
+        "title": "Fra.",
         "tooltip": "Franklin score based on variant properties and patient phenotypes"
       }
     },
+    "expendableTable": {
+      "abrv": {
+        "PATHOGENIC": "P",
+        "LIKELY_PATHOGENIC": "LP",
+        "UNCERTAIN_SIGNIFICANCE": "VUS",
+        "LIKELY_BENIGN": "LB",
+        "BENIGN": "B",
+        "null": "ND",
+        "POSSIBLY_PATHOGENIC_MODERATE": "VUS",
+        "POSSIBLY_PATHOGENIC_BENIGN": "VUS",
+        "POSSIBLY_PATHOGENIC_LOW": "VUS",
+        "POSSIBLY_BENIGN": "VUS"
+      },
+      "tooltip": {
+        "PATHOGENIC": "Pathogenic",
+        "LIKELY_PATHOGENIC": "Likely Pathogenic",
+        "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+        "LIKELY_BENIGN": "Likely Benign",
+        "BENIGN": "Benign",
+        "null": "No Data",
+        "POSSIBLY_PATHOGENIC_MODERATE": "VUS, Possibly Pathogenic Moderate",
+        "POSSIBLY_PATHOGENIC_BENIGN": "VUS, Possibly Pathogenic Benign",
+        "POSSIBLY_PATHOGENIC_LOW": "VUS, Possibly Pathogenic Low",
+        "POSSIBLY_BENIGN": "VUS, Possibly Benign"
+      }
+    },
     "acmg_classification": {
-      "title":"ACMG F.",
+      "title": "ACMG F.",
       "tooltip": "Franklin ACMG",
       "abrv": {
         "PATHOGENIC": "P",
@@ -513,29 +540,29 @@
         "UNCERTAIN_SIGNIFICANCE": "VUS",
         "LIKELY_BENIGN": "LB",
         "BENIGN": "B",
-        "POSSIBLY_PATHOGENIC_MODERATE":"VUS",
+        "POSSIBLY_PATHOGENIC_MODERATE": "VUS",
         "POSSIBLY_PATHOGENIC_BENIGN": "VUS",
         "POSSIBLY_PATHOGENIC_LOW": "VUS",
         "POSSIBLY_BENIGN": "VUS"
       },
-      "value":{
+      "value": {
         "PATHOGENIC": "Pathogenic",
         "LIKELY_PATHOGENIC": "Likely Pathogenic",
         "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
         "LIKELY_BENIGN": "Likely Benign",
         "BENIGN": "Benign",
-        "POSSIBLY_PATHOGENIC_MODERATE":"VUS, Possibly Pathogenic Moderate",
+        "POSSIBLY_PATHOGENIC_MODERATE": "VUS, Possibly Pathogenic Moderate",
         "POSSIBLY_PATHOGENIC_BENIGN": "VUS, Possibly Pathogenic Benign",
         "POSSIBLY_PATHOGENIC_LOW": "VUS, Possibly Pathogenic Low",
         "POSSIBLY_BENIGN": "VUS, Possibly Benign"
       }
-    } ,
+    },
     "acmg_evidence": {
-      "title":"Fra. Rules",
+      "title": "Fra. Rules",
       "tooltip": "Franklin ACMG Rules"
     },
-    "combined_score":{
-      "title":"Max Fra.",
+    "combined_score": {
+      "title": "Max Fra.",
       "tooltip": "Highest Franklin score among all patients for this variant"
     }
   },
@@ -1079,6 +1106,7 @@
   "screen.patientsnv.results.table.rqdm.TO": "RQDM TO",
   "screen.patientsnv.results.table.rqdm.TO.tooltip": "Number of somatic-only exomes containing the variant. Only occurrences meeting the criterion ALT > 2 are considered for frequency calculation.",
   "screen.patientsnv.results.table.rqdm.TN": "RQDM TN",
+  "screen.patientsnv.results.table.spliceAI": "SpliceAI",
   "screen.patientsnv.results.table.rqdm.TN.tooltip": "Number of tumor-normal exomes containing this variant. Only occurrences meeting the criterion ALT > 2 are considered for frequency calculation.",
   "screen.patientsnv.results.table.transmission": "Inh.",
   "screen.patientsnv.results.table.transmission.tooltip": "Inheritrance",
@@ -1217,6 +1245,7 @@
   "screen.variantsearch.title": "Variants",
   "see.less": "See less",
   "see.more": "See more",
+  "see.all": "Voir all",
   "sex": {
     "title": "Sex",
     "female": "Female",
@@ -1452,9 +1481,54 @@
     "zygosity": {
       "HOM": "Homozygous",
       "HEM": "Hemizygous",
-      "HET":"Heterozygous"
+      "HET": "Heterozygous"
     }
   },
   "litvar": "LitVAR",
-  "ucsc": "UCSC"
+  "ucsc": "UCSC",
+  "consequences": {
+    "transcript_ablation": "Transcript Ablation",
+    "splice_acceptor_variant": "Splice Acceptor",
+    "splice_donor_variant": "Splice Donor",
+    "stop_gained": "Stop Gained",
+    "frameshift_variant": "Frameshift",
+    "stop_lost": "Stop Lost",
+    "start_lost": "Start Lost",
+    "transcript_amplification": "Transcript Amplification",
+    "inframe_insertion": "Inframe Insertion",
+    "inframe_deletion": "Inframe Deletion",
+    "missense_variant": "Missense",
+    "protein_altering_variant": "Protein Altering",
+    "splice_region_variant": "Splice Region",
+    "splice_donor_5th_base_variant": "Splice Donor 5th Base",
+    "splice_donor_region_variant": "Splice Donor Region",
+    "splice_polypyrimidine_tract_variant": "Splice Polypyrimidine Tract",
+    "incomplete_terminal_codon_variant": "Incomplete Terminal Codon",
+    "start_retained_variant": "Start Retained",
+    "stop_retained_variant": "Stop Retained",
+    "synonymous_variant": "Synonymous",
+    "coding_sequence_variant": "Coding Sequence",
+    "mature_miRNA_variant": "Mature MiRna",
+    "5_prime_UTR_variant": "5 Prime Utr",
+    "3_prime_UTR_variant": "3 Prime Utr",
+    "non_coding_transcript_exon_variant": "Non Coding Transcript Exon",
+    "intron_variant": "Intron",
+    "NMD_transcript_variant": "Nmd Transcript",
+    "non_coding_transcript_variant": "Non Coding Transcript",
+    "upstream_gene_variant": "Upstream Gene",
+    "downstream_gene_variant": "Downstream Gene",
+    "TFBS_ablation": "Tfbs Ablation",
+    "TFBS_amplification": "Tfbs Amplification",
+    "TF_binding_site_variant": "Tf Binding Site",
+    "regulatory_region_ablation": "Regulatory Region Ablation",
+    "regulatory_region_amplification": "Regulatory Region Amplification",
+    "feature_elongation": "Feature Elongation",
+    "regulatory_region_variant": "Regulatory Region",
+    "feature_truncation": "Feature Truncation",
+    "intergenic_variant": "Intergenic"
+  },
+  "exon": "Exon",
+  "classifications": "Classifications",
+  "functionalScores": "Functional Scores",
+  "cadd_phred": "CADD (Phred)"
 }

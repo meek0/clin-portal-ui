@@ -21,6 +21,8 @@ const VARIANT_QUERY_BASE_FIELDS = `
   variant_type
   max_impact_score
   rsnumber
+  reference
+  alternate
   chromosome
   start
   flags
@@ -52,11 +54,29 @@ const VARIANT_QUERY_BASE_FIELDS = `
           aa_change
           picked
           canonical
+          coding_dna_change
+          ensembl_gene_id
+          ensembl_transcript_id
           mane_select
           mane_plus
           predictions {
+            fathmm_pred
+            fathmm_score
+            cadd_score
             cadd_phred
+            dann_score
+            lrt_pred
+            lrt_score
             revel_score
+            sift_score
+            sift_pred
+            polyphen2_hvar_score
+            polyphen2_hvar_pred
+            phyloP100way_vertebrate
+          }
+          exon {
+            rank
+            total
           }
         }
       }
@@ -68,6 +88,16 @@ const VARIANT_QUERY_BASE_FIELDS = `
       pc
       pn
       pf
+    }
+    affected {
+      pn
+      pf
+      pc
+    }
+    non_affected {
+      pn
+      pf
+      pc
     }
   }
 
@@ -102,6 +132,10 @@ const VARIANT_QUERY_BASE_FIELDS = `
           biotype
           omim_gene_id
           ensembl_gene_id
+          spliceai {
+            ds
+            type
+          }
           gnomad {
             loeuf
             pli
@@ -111,6 +145,8 @@ const VARIANT_QUERY_BASE_FIELDS = `
               edges {
                 node {
                   inheritance_code
+                  name
+                  omim_id
                 }
               }
             }

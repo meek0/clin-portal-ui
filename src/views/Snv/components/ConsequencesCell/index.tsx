@@ -23,7 +23,7 @@ const impactToColorClassName = Object.freeze({
   [Impact.Modifier]: <ModifierBadgeIcon svgClass={`${style.bullet} ${style.modifierImpact}`} />,
 });
 
-const pickImpacBadge = (impact: Impact) => impactToColorClassName[impact];
+export const pickImpacBadge = (impact: Impact) => impactToColorClassName[impact];
 
 const removeVariantString = (value: string) => value.toLowerCase().replaceAll('variant', '');
 
