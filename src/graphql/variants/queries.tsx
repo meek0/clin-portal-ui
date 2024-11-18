@@ -250,7 +250,7 @@ export const VARIANT_QUERY_NO_DONORS = gql`
 export const GET_VARIANT_COUNT = gql`
   query getVariantCount($sqon: JSON) {
     Variants {
-      hits(filters: $sqon) {
+      hits(filters: $sqon, first: 0) {
         total
       }
     }
