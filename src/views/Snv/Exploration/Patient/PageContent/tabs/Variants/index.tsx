@@ -11,7 +11,6 @@ import { getVariantTypeFromSNVVariantEntity } from 'views/Prescriptions/Entity/T
 import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import IGVModal from 'views/Snv/components//IGVModal';
 import OccurenceVariant from 'views/Snv/components/OccurenceVariant';
-import OccurrenceDrawer from 'views/Snv/components/OccurrenceDrawer';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
 import {
   DEFAULT_PAGE_INDEX,
@@ -67,13 +66,8 @@ const VariantsTab = ({
   const { user } = useUser();
 
   const { loading: loadingRpt, rpt } = useRpt();
-  const [drawerOpened, toggleDrawer] = useState(false);
   const [modalOpened, toggleModal] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<VariantEntity | undefined>(undefined);
-  const openDrawer = (record: VariantEntity) => {
-    setSelectedVariant(record);
-    toggleDrawer(true);
-  };
 
   const openIgvModal = (record: VariantEntity) => {
     setSelectedVariant(record);
@@ -99,8 +93,6 @@ const VariantsTab = ({
     queryBuilderId,
     variantType,
     patientId,
-    openDrawer,
-    openIgvModal,
     undefined,
     results?.data.length === 0,
     variantSection,
@@ -266,21 +258,6 @@ const VariantsTab = ({
           />
         )}
       />
-      {results?.data.length > 0 && selectedVariant && (
-        <OccurrenceDrawer
-          patientId={patientId}
-          opened={drawerOpened}
-          toggle={toggleDrawer}
-          rpt={rpt}
-          donor={donor}
-          loadingRpt={loadingRpt}
-          toggleModal={toggleModal}
-          modalOpened={modalOpened}
-          variantId={selectedVariant?.hgvsg}
-          variantType={variantType}
-          locus={selectedVariant.locus}
-        />
-      )}
     </>
   );
 };

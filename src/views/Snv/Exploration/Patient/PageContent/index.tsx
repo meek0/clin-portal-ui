@@ -287,8 +287,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
                           getQueryBuilderID(variantSection),
                           variantType,
                           patientId,
-                          undefined,
-                          undefined,
                           true,
                           false,
                           variantSection,

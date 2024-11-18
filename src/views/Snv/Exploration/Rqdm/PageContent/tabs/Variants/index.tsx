@@ -57,8 +57,6 @@ const VariantsTab = ({
             VariantType.GERMLINE,
             undefined,
             undefined,
-            undefined,
-            undefined,
             results?.data.length === 0,
           )}
           initialColumnState={initialColumnState}
