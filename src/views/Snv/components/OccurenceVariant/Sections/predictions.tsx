@@ -1,4 +1,5 @@
 import intl from 'react-intl-universal';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { Descriptions, Space, Tag, Tooltip } from 'antd';
 import { ITableVariantEntity } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
@@ -47,7 +48,9 @@ const PredictionSection = ({ record, patientId }: OwnProps) => {
         {record.franklin_max ? (
           <Tooltip title={intl.get(`franklin.expendableTable.tooltip.${acmg}`)}>
             <Tag color={ACMGFranklinColorMap[acmg]}>
-              {intl.get(`franklin.expendableTable.abrv.${acmg}`)}
+              <ExternalLink className={style.ominGene} href={record.franklin_max.link}>
+                {intl.get(`franklin.expendableTable.abrv.${acmg}`)}
+              </ExternalLink>
             </Tag>
           </Tooltip>
         ) : (
