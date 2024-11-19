@@ -15,12 +15,10 @@ interface OwnProps {
 
 const ClassificationSection = ({ record }: OwnProps) => {
   const clinVar = record.clinvar;
-  const clinVarSigKey: string[] = [];
+  const clinVarSigKey: string[] = clinVar?.clin_sig
+    ? clinVar.clin_sig.map((c) => c.toLowerCase())
+    : [];
 
-  clinVar?.clin_sig &&
-    clinVar.clin_sig.map((c) => {
-      clinVarSigKey.push(c.toLowerCase());
-    });
   return (
     <Descriptions
       className={style.basicBordered}

@@ -130,14 +130,15 @@
   text-decoration: underline;
 }
 
-.canonicalIcon {
+.occurenceVariant .canonicalIcon {
   fill: var(--blue-8);
 }
 
-.mane :global(.ant-space-item):nth-child(2) {
+.occurenceVariant .mane :global(.ant-space-item):nth-child(2) {
   line-height: 12px;
 }
-.exonTitle {
+
+.occurenceVariant .exonTitle {
   color: var(--gray-7);
 }
 
@@ -151,22 +152,22 @@
 
 /*Gene section */
 
-.gene > div,
-.alignRigthSpace,
+.occurenceVariant .gene > div,
+.occurenceVariant .alignRigthSpace,
 .gnomad > div {
   justify-content: right;
 }
 
 /* Frequencies Section*/
 
-.rqdmLabel :nth-child(2) {
+.occurenceVariant .rqdmLabel :nth-child(2) {
   display: flex;
 }
-.affected path {
+.occurenceVariant .affected path {
   fill: var(--red-7);
 }
 
-.unaffected path {
+.occurenceVariant .unaffected path {
   fill: var(--green-7);
 }
 
@@ -179,7 +180,7 @@
   display: block;
 }
 
-.omimEllipsis :global(.ant-space-item) div {
+.occurenceVariant .omimEllipsis :global(.ant-space-item) div {
   max-width: 220px;
   white-space: nowrap;
   overflow: hidden;
@@ -194,11 +195,11 @@
   display: none;
 }
 
-.seeAll{
+.occurenceVariant .seeAll{
   font-size: 12px;
   text-decoration: underline;
 }
 
-.seeAll:hover{
+.occurenceVariant .seeAll:hover{
   text-decoration: none;
 }

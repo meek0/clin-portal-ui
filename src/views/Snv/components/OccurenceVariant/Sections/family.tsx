@@ -67,7 +67,7 @@ const FamilySection = ({ record, patientId }: OwnProps) => {
             label={getParentTitle('father', donor?.father_id!, donor?.father_affected_status!)}
           >
             {donor?.father_calls ? (
-              <Space size={4}>
+              <Space size={4} className={style.alignRigthSpace}>
                 <>
                   <span>{donor?.father_calls.join('/')}</span>
                   <span>
@@ -94,7 +94,7 @@ const FamilySection = ({ record, patientId }: OwnProps) => {
             label={getParentTitle('mother', donor?.mother_id!, donor?.mother_affected_status!)}
           >
             {donor?.mother_calls ? (
-              <Space size={4}>
+              <Space size={4} className={style.alignRigthSpace}>
                 <>
                   <span>{donor?.mother_calls.join('/')}</span>
                   <span>

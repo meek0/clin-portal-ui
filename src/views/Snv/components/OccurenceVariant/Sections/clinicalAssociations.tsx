@@ -18,9 +18,11 @@ interface OwnProps {
 const ClinicalAssociations = ({ record }: OwnProps) => {
   const genes = record.genes?.hits.edges;
   const omimList: OmimEntity[] = [];
-  genes?.map((g) => {
-    g.node?.omim?.hits.edges.map((o) => omimList.push(o.node));
+
+  genes?.forEach((g) => {
+    g.node?.omim?.hits.edges.forEach((o) => omimList.push(o.node));
   });
+
   const sortOminList = omimList.sort((a, b) => a.name.localeCompare(b.name));
   const omimsToShow = sortOminList.slice(0, 3);
   const noData = omimsToShow?.length === 0;
