@@ -40,9 +40,6 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
 });
  
 describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () => {
-/*  beforeEach(() => {
-  });*/
-
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));

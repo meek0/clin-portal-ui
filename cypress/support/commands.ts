@@ -7,6 +7,7 @@ export interface Replacement {
 }
 
 Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: string, value: string, isRqdmExpand: boolean = false) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
 
   if (isRqdmExpand) {
@@ -30,6 +31,7 @@ Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: st
 });
 
 Cypress.Commands.add('checkValueFacet', (facetTitle: string, valueBack: string) => {
+  cy.url().should('match', /\/prescription\/search/);
   cy.get(`[aria-expanded="true"] [data-cy="FilterContainer_${facetTitle}"]`).should('exist');
   cy.waitWhileSpin(1000);
   cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
@@ -71,6 +73,7 @@ Cypress.Commands.add('closePopup', () => {
 });
 
 Cypress.Commands.add('createFilterIfNotExists', (filterName: string) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
   cy.get('[class*="ant-dropdown-menu-root"]').invoke('text').then((invokeText) => {
     if (!invokeText.includes(filterName)) {
@@ -80,6 +83,7 @@ Cypress.Commands.add('createFilterIfNotExists', (filterName: string) => {
 });
 
 Cypress.Commands.add('deleteFilter', (filterName: string) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get('[class*="ant-dropdown-menu-title-content"]').contains(filterName).clickAndWait({force: true});
   cy.get('[id="query-builder-header-tools"] [class*="Header_togglerTitle"]').contains(filterName).should('exist');
   cy.get('[id="query-builder-header-tools"] [class*="anticon-delete"]').clickAndWait({force: true});
@@ -90,6 +94,7 @@ Cypress.Commands.add('deleteFilter', (filterName: string) => {
 });
 
 Cypress.Commands.add('deleteFilterIfExists', (filterName: string) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
   cy.get('[class*="ant-dropdown-menu-root"]').invoke('text').then((invokeText) => {
     if (invokeText.includes(filterName)) {
@@ -150,6 +155,7 @@ Cypress.Commands.add('resetColumns', (eq: number) => {
 });
 
 Cypress.Commands.add('saveFilterAs', (filterName: string) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get('[class*="Header_QBHActionContainer"] button').clickAndWait({force: true});
   cy.get('[class="ant-modal-content"] input').clear().type(filterName);
   cy.get(`[class="ant-modal-content"] input[value="`+filterName+`"]`).should('exist');
@@ -197,11 +203,13 @@ Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, method
 });
 
 Cypress.Commands.add('validateClearAllButton', (shouldExist: boolean) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   const strExist = shouldExist ? 'exist' : 'not.exist';
   cy.get('[id="query-builder-header-tools"]').contains('Tout effacer').should(strExist);
 });
 
 Cypress.Commands.add('validateDictionnaryNewValues', (section: string, facetTitle: string, dictionnary: (string|RegExp)[], moreButton: boolean = false) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get(`[data-cy="SidebarMenuItem_${section}"]`).click({force: true});
 
   if (section !== 'Panel RQDM') {
@@ -223,6 +231,7 @@ Cypress.Commands.add('validateDictionnaryNewValues', (section: string, facetTitl
 });
 
 Cypress.Commands.add('validateDictionnaryPresetValues', (section: string, facetTitle: string, dictionnary: (string|RegExp)[], moreButton: boolean = false) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get(`[data-cy="SidebarMenuItem_${section}"]`).click({force: true});
 
   if (section !== 'Panel RQDM') {
@@ -244,6 +253,7 @@ Cypress.Commands.add('validateDictionnaryPresetValues', (section: string, facetT
 });
 
 Cypress.Commands.add('validateExpandCollapse', (section: string, isRqdmExpand: boolean = false) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   const eq = isRqdmExpand ? 1 : 0;
 
   cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
@@ -263,6 +273,7 @@ Cypress.Commands.add('validateExpandCollapse', (section: string, isRqdmExpand: b
 });
 
 Cypress.Commands.add('validateFacetFilter', (section: string, facetTitle: string, valueFront: string|RegExp, valueBack: string, expectedCount: string|RegExp, isRqdmExpand: boolean = false) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.checkAndClickApplyFacet(section, facetTitle, valueBack, isRqdmExpand);
 
   cy.validatePillSelectedQuery(facetTitle, [valueFront]);
@@ -270,6 +281,7 @@ Cypress.Commands.add('validateFacetFilter', (section: string, facetTitle: string
 });
 
 Cypress.Commands.add('validateFacetNumFilter', (section: string, facetTitle: string, value: string, expectedCount: string|RegExp) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
   cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
@@ -285,6 +297,7 @@ Cypress.Commands.add('validateFacetNumFilter', (section: string, facetTitle: str
 });
 
 Cypress.Commands.add('validateFacetRank', (facetRank: number, facetTitle: string) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get('div[class*="Filters_customFilterContainer"]').eq(facetRank).contains(facetTitle).should('exist');
 });
 
@@ -331,6 +344,7 @@ Cypress.Commands.add('validateFileName', (namePattern: string) => {
 });
 
 Cypress.Commands.add('validateFilterInManager', (filterName: string, expect: string) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
   cy.get('[data-menu-id*="manage-my-filters"]').clickAndWait({force: true});
   cy.get('[class="ant-modal-content"]').contains(filterName).should(expect);
@@ -382,6 +396,7 @@ Cypress.Commands.add('validateXlsxFileContent', (fixture: string, replacements?:
 });
 
 Cypress.Commands.add('validateIconStates', (iconName: string, isDisable: boolean, isDirty: boolean) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   const strShouldDisable = isDisable ? 'be.disabled' : 'not.be.disabled';
   const strShouldDirty = isDirty ? 'have.class' : 'not.have.class';
   cy.get(`[id="query-builder-header-tools"] [data-icon="`+iconName+`"]`).parentsUntil('button').parent().should(strShouldDisable)
@@ -389,6 +404,7 @@ Cypress.Commands.add('validateIconStates', (iconName: string, isDisable: boolean
 });
 
 Cypress.Commands.add('validateOperatorSelectedQuery', (expectedOperator: string) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get('[class*="QueryBar_selected"] [class*="Combiner_operator"]').contains(expectedOperator).should('exist');
 });
 
@@ -435,6 +451,7 @@ Cypress.Commands.add('validatePaging', (total: string|RegExp, eqSelect: number, 
 });
 
 Cypress.Commands.add('validatePillSelectedQuery', (facetTitle: string, values: (string|RegExp)[], eq: number = 0) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   if (facetTitle == '') {
     cy.get('[class*="QueryBar_selected"] [class*="QueryPill_field"]').should('not.exist');
   }
@@ -448,11 +465,13 @@ Cypress.Commands.add('validatePillSelectedQuery', (facetTitle: string, values: (
 });
 
 Cypress.Commands.add('validateSelectedFilterInDropdown', (filterName: string) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
   cy.get('[class*="ant-dropdown-menu-item-selected"]').contains(filterName).should('exist');
 });
 
 Cypress.Commands.add('validateTableDataRowKeyAttr', (dataRowKey: string, eq: number, expectedAttr: string, expectedValue: string) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   if (dataRowKey !== "*") {
     cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).find('['+expectedAttr+'="'+expectedValue+'"]').should('exist');
   }
@@ -499,6 +518,7 @@ Cypress.Commands.add('validateTableResultsCount', (expectedCount: string|RegExp,
 });
 
 Cypress.Commands.add('validateTotalSelectedQuery', (expectedCount: string|RegExp) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get('[class*="QueryBar_selected"] [class*="QueryBar_total"]').contains(expectedCount).should('exist');
 });
 
