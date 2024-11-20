@@ -9,16 +9,17 @@ import { getGermlineInterpFormInitialValues } from './utils';
 type TInterpretationModalProps = {
   isOpen: boolean;
   toggleModal(visible: boolean): void;
+  isGermline: boolean;
 };
 
-const InterpretationModal = ({ isOpen, toggleModal }: TInterpretationModalProps) => {
+const InterpretationModal = ({ isOpen, toggleModal, isGermline }: TInterpretationModalProps) => {
   const [form] = Form.useForm();
 
   // TODO Fetch interpretation ??
 
   // TODO check if Germline or Somatic
   //const variantType: VariantType = VariantType.SOMATIC; // VariantType.SOMATIC;
-  const isGermline = false;
+  // const isGermline = true;
 
   return (
     <Modal
@@ -66,7 +67,6 @@ const InterpretationModal = ({ isOpen, toggleModal }: TInterpretationModalProps)
                   form={form}
                   layout="vertical"
                   initialValues={getGermlineInterpFormInitialValues()}
-                  onFinish={(values) => console.log(values)}
                 >
                   {isGermline ? <GermlineInterpretationForm /> : <SomaticInterpretationForm />}
                 </Form>

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { HomeOutlined } from '@ant-design/icons';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Button, Col, Row } from 'antd';
@@ -8,6 +7,8 @@ import InterpretationModal from 'views/Snv/components/InterpretationModal';
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import { LimitTo, Roles } from 'components/Roles/Rules';
+import useFeatureToggle from 'hooks/useFeatureToggle';
+import useQueryParams from 'hooks/useQueryParams';
 
 import PrescriptionSearchBox from './components/PrescriptionSearchBox';
 import VariantSearchBox from './components/VariantSearchBox';
@@ -44,17 +45,22 @@ const Home = () => (
         />
       </div>
     </ScrollContentWithFooter>
-    <VariantInterpretationButton />
+    <VariantInterpretationModal />
   </ContentWithHeader>
 );
 
-const VariantInterpretationButton = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const VariantInterpretationModal = () => {
+  const queryParams = useQueryParams();
+  const { isEnabled } = useFeatureToggle('interpretation');
 
   return (
     <div>
-      <Button onClick={() => setIsOpen(true)}>Interpretation</Button>
-      <InterpretationModal isOpen={isOpen} toggleModal={setIsOpen} />
+      <Button onClick={() => {}}>Interpretation</Button>
+      <InterpretationModal
+        isOpen={isEnabled}
+        toggleModal={() => {}}
+        isGermline={queryParams.get('interpretation') === 'germline'}
+      />
     </div>
   );
 };
