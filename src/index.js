@@ -7,8 +7,7 @@ import 'clin-portal-theme/themes/clin/main.css';
 import './prototypes/number';
 import { createRoot } from 'react-dom/client';
 import * as Sentry from '@sentry/react';
-import { ContextLines } from '@sentry/integrations';
-import LocalStorageIntegrations from 'utils/sentry/localStorageIntergretions';
+import { localStorageIntegration } from '@ferlab/ui/core/utils/sentry/localStorageIntegration';
 import EnvironmentVariables from 'utils/EnvVariables';
 
 // Import App after the style to make sure styles is apply correctly!
@@ -24,10 +23,10 @@ Sentry.init({
   // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
   tracePropagationTargets: ['localhost', reactAppWebRoot],
   integrations: [
-    new ContextLines(),
     Sentry.browserTracingIntegration(),
+    Sentry.contextLinesIntegration(),
     Sentry.browserProfilingIntegration(),
-    new LocalStorageIntegrations('LocalStorage'),
+    localStorageIntegration('LocalStorage'),
   ],
   // Performance Monitoring
   tracesSampleRate: 1.0, // Capture 100% of the transactions
