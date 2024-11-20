@@ -33,7 +33,10 @@ import { usePrescriptionEntityContext } from '../context';
 
 import { getGeneCoverageTableColumns } from './columns';
 
-const DEFAULT_COVERAGE_SORT = [{ field: 'size', order: SortDirection.Asc }] as ISort[];
+const DEFAULT_COVERAGE_SORT = [
+  { field: 'size', order: SortDirection.Asc },
+  { field: 'coverage15', order: SortDirection.Asc },
+] as ISort[];
 
 export type ITableGeneCoverage = GeneCoverage & {
   id?: string;

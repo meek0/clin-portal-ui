@@ -164,6 +164,7 @@ export const getGeneCoverageTableColumns = (
     width: 100,
     tooltip: intl.get('pages.coverage_genic.columns.tooltips.proportion', { value: 15 }),
     title: '15x',
+    defaultSortOrder: 'ascend',
     sorter: {
       compare: (a, b) => a.coverage15 - b.coverage15,
       multiple: 1,
