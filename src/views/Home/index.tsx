@@ -1,6 +1,6 @@
 import { HomeOutlined } from '@ant-design/icons';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
-import { Button, Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 import { getUserFullName } from 'auth/keycloak';
 import InterpretationModal from 'views/Snv/components/InterpretationModal';
 
@@ -54,14 +54,11 @@ const VariantInterpretationModal = () => {
   const { isEnabled } = useFeatureToggle('interpretation');
 
   return (
-    <div>
-      <Button onClick={() => {}}>Interpretation</Button>
-      <InterpretationModal
-        isOpen={isEnabled}
-        toggleModal={() => {}}
-        isGermline={queryParams.get('interpretation') === 'germline'}
-      />
-    </div>
+    <InterpretationModal
+      isOpen={isEnabled}
+      toggleModal={() => {}}
+      isGermline={queryParams.get('interpretation') === 'germline'}
+    />
   );
 };
 
