@@ -215,70 +215,87 @@ export const oncogenicityClassificationCriterias: (DefaultOptionType & {
   {
     label: 'OVS1',
     value: 'OVS1',
+    color: 'red',
   },
   {
     label: 'OS1',
     value: 'OS1',
+    color: 'volcano',
   },
   {
     label: 'OS2',
     value: 'OS2',
+    color: 'volcano',
   },
   {
     label: 'OS3',
     value: 'OS3',
+    color: 'volcano',
   },
   {
     label: 'OM1',
     value: 'OM1',
+    color: 'blue',
   },
   {
     label: 'OM2',
     value: 'OM2',
+    color: 'blue',
   },
   {
     label: 'OM3',
     value: 'OM3',
+    color: 'blue',
   },
   {
     label: 'OM4',
     value: 'OM4',
+    color: 'blue',
   },
   {
     label: 'OP1',
     value: 'OP1',
+    color: 'green',
   },
   {
     label: 'OP2',
     value: 'OP2',
+    color: 'green',
   },
   {
     label: 'OP3',
     value: 'OP3',
+    color: 'green',
   },
   {
     label: 'OP4',
     value: 'OP4',
+    color: 'green',
   },
   {
     label: 'SBVS1',
     value: 'SBVS1',
+    color: 'purple',
   },
   {
     label: 'SBS1',
     value: 'SBS1',
+    color: 'purple',
   },
   {
     label: 'SBS2',
     value: 'SBS2',
+    color: 'purple',
   },
   {
     label: 'SBP1',
     value: 'SBP1',
+    color: 'geekblue',
   },
   {
     label: 'SBP2',
     value: 'SBP2',
+    color: 'geekblue',
   },
 ];
 export const getOncogenicityClassificationCriteriaColor = (value: string) =>

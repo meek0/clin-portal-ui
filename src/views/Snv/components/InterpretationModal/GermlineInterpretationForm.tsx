@@ -34,151 +34,139 @@ import styles from './index.module.css';
 }
  */
 
-const GermlineInterpretationForm = () => {
-  const form = Form.useFormInstance();
-
-  return (
-    <>
-      <Form.Item
-        label={
-          <ProLabel title={intl.get('modal.variant.interpretation.germline.condition')} colon />
-        }
-        name={GermlineInterpFormFields.CONDITION}
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <AutoComplete
-          placeholder={intl.get('modal.variant.interpretation.germline.condition-placeholder')}
-          allowClear
-        />
-      </Form.Item>
-      <Form.Item noStyle shouldUpdate>
-        {() => (
-          <Form.Item
-            label={
-              <ProLabel
-                title={intl.get('modal.variant.interpretation.germline.classification')}
-                colon
-              />
-            }
-            name={GermlineInterpFormFields.CLASSIFICATION}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-            style={{
-              marginBottom: 12,
-            }}
-            shouldUpdate
-          >
-            <Radio.Group
-              disabled={!form.getFieldValue(GermlineInterpFormFields.CONDITION)}
-              className={styles.radioButton}
-            >
-              <Radio.Button value="LA6668-3" className={styles.red}>
-                {intl.get(
-                  'modal.variant.interpretation.germline.classification-options.pathogenic',
-                )}
-              </Radio.Button>
-              <Tooltip
-                title={intl.get(
-                  'modal.variant.interpretation.germline.classification-options.likelyPathogenic-tooltip',
-                )}
-              >
-                <Radio.Button value="LA26332-9" className={styles.volcano}>
-                  {intl.get(
-                    'modal.variant.interpretation.germline.classification-options.likelyPathogenic',
-                  )}
-                </Radio.Button>
-              </Tooltip>
-              <Tooltip
-                title={intl.get(
-                  'modal.variant.interpretation.germline.classification-options.vus-tooltip',
-                )}
-              >
-                <Radio.Button value="LA26333-7" className={styles.orange}>
-                  {intl.get('modal.variant.interpretation.germline.classification-options.vus')}
-                </Radio.Button>
-              </Tooltip>
-              <Tooltip
-                title={intl.get(
-                  'modal.variant.interpretation.germline.classification-options.likelyBenign-tooltip',
-                )}
-              >
-                <Radio.Button value="LA26334-5" className={styles.lime}>
-                  {intl.get(
-                    'modal.variant.interpretation.germline.classification-options.likelyBenign',
-                  )}
-                </Radio.Button>
-              </Tooltip>
-              <Radio.Button value="LA6675-8" className={styles.green}>
-                {intl.get('modal.variant.interpretation.germline.classification-options.benign')}
-              </Radio.Button>
-            </Radio.Group>
-          </Form.Item>
-        )}
-      </Form.Item>
-      <Form.Item noStyle shouldUpdate>
-        {() => (
-          <Form.Item name={GermlineInterpFormFields.CLASSIFICATION_CRITERIAS}>
-            <Select
-              placeholder={intl.get(
-                'modal.variant.interpretation.germline.classificationCriteria-placeholder',
-              )}
-              disabled={!form.getFieldValue(GermlineInterpFormFields.CLASSIFICATION)}
-              options={classificationCriterias}
-              tagRender={({ label, ...props }) => {
-                const tagColor = getClassificationCriteriaColor(props.value);
-
-                return (
-                  <Tag
-                    closeIcon={
-                      <CloseOutlined
-                        style={tagColor ? { color: `var(--${tagColor}-9)` } : undefined}
-                      />
-                    }
-                    color={tagColor}
-                    style={{ marginLeft: 4 }}
-                    {...props}
-                  >
-                    {label}
-                  </Tag>
-                );
-              }}
-              mode="multiple"
+const GermlineInterpretationForm = () => (
+  <>
+    <Form.Item
+      label={<ProLabel title={intl.get('modal.variant.interpretation.germline.condition')} colon />}
+      name={GermlineInterpFormFields.CONDITION}
+      rules={[
+        {
+          required: true,
+        },
+      ]}
+    >
+      <AutoComplete
+        placeholder={intl.get('modal.variant.interpretation.germline.condition-placeholder')}
+        allowClear
+      />
+    </Form.Item>
+    <Form.Item noStyle shouldUpdate>
+      {() => (
+        <Form.Item
+          label={
+            <ProLabel
+              title={intl.get('modal.variant.interpretation.germline.classification')}
+              colon
             />
-          </Form.Item>
+          }
+          name={GermlineInterpFormFields.CLASSIFICATION}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          style={{
+            marginBottom: 12,
+          }}
+          shouldUpdate
+        >
+          <Radio.Group className={styles.radioButton}>
+            <Radio.Button value="LA6668-3" className={styles.red}>
+              {intl.get('modal.variant.interpretation.germline.classification-options.pathogenic')}
+            </Radio.Button>
+            <Tooltip
+              title={intl.get(
+                'modal.variant.interpretation.germline.classification-options.likelyPathogenic-tooltip',
+              )}
+            >
+              <Radio.Button value="LA26332-9" className={styles.volcano}>
+                {intl.get(
+                  'modal.variant.interpretation.germline.classification-options.likelyPathogenic',
+                )}
+              </Radio.Button>
+            </Tooltip>
+            <Tooltip
+              title={intl.get(
+                'modal.variant.interpretation.germline.classification-options.vus-tooltip',
+              )}
+            >
+              <Radio.Button value="LA26333-7" className={styles.orange}>
+                {intl.get('modal.variant.interpretation.germline.classification-options.vus')}
+              </Radio.Button>
+            </Tooltip>
+            <Tooltip
+              title={intl.get(
+                'modal.variant.interpretation.germline.classification-options.likelyBenign-tooltip',
+              )}
+            >
+              <Radio.Button value="LA26334-5" className={styles.lime}>
+                {intl.get(
+                  'modal.variant.interpretation.germline.classification-options.likelyBenign',
+                )}
+              </Radio.Button>
+            </Tooltip>
+            <Radio.Button value="LA6675-8" className={styles.green}>
+              {intl.get('modal.variant.interpretation.germline.classification-options.benign')}
+            </Radio.Button>
+          </Radio.Group>
+        </Form.Item>
+      )}
+    </Form.Item>
+    <Form.Item noStyle shouldUpdate>
+      {() => (
+        <Form.Item name={GermlineInterpFormFields.CLASSIFICATION_CRITERIAS}>
+          <Select
+            placeholder={intl.get(
+              'modal.variant.interpretation.germline.classificationCriteria-placeholder',
+            )}
+            options={classificationCriterias}
+            tagRender={({ label, ...props }) => {
+              const tagColor = getClassificationCriteriaColor(props.value);
+
+              return (
+                <Tag
+                  closeIcon={
+                    <CloseOutlined
+                      style={tagColor ? { color: `var(--${tagColor}-9)` } : undefined}
+                    />
+                  }
+                  color={tagColor}
+                  style={{ marginLeft: 4 }}
+                  {...props}
+                >
+                  {label}
+                </Tag>
+              );
+            }}
+            mode="multiple"
+          />
+        </Form.Item>
+      )}
+    </Form.Item>
+    <Form.Item
+      label={intl.get('modal.variant.interpretation.germline.modeOfTransmission')}
+      name={GermlineInterpFormFields.TRANSMISSION_MODES}
+      rules={[
+        {
+          required: true,
+        },
+      ]}
+    >
+      <Select
+        placeholder={intl.get(
+          'modal.variant.interpretation.germline.modeOfTransmission-placeholder',
         )}
-      </Form.Item>
-      <Form.Item
-        label={intl.get('modal.variant.interpretation.germline.modeOfTransmission')}
-        name={GermlineInterpFormFields.TRANSMISSION_MODES}
-        rules={[
-          {
-            required: true,
-          },
-        ]}
-      >
-        <Select
-          placeholder={intl.get(
-            'modal.variant.interpretation.germline.modeOfTransmission-placeholder',
-          )}
-          options={transmissionModes}
-          tagRender={({ label, ...props }) => (
-            <Tag className={styles.filledBlueTag} style={{ marginLeft: 4 }} {...props}>
-              {label}
-            </Tag>
-          )}
-          mode="multiple"
-        />
-      </Form.Item>
-      <GenericInterpretationForm />
-    </>
-  );
-};
+        options={transmissionModes}
+        tagRender={({ label, ...props }) => (
+          <Tag className={styles.filledBlueTag} style={{ marginLeft: 4 }} {...props}>
+            {label}
+          </Tag>
+        )}
+        mode="multiple"
+      />
+    </Form.Item>
+    <GenericInterpretationForm />
+  </>
+);
 
 export default GermlineInterpretationForm;
