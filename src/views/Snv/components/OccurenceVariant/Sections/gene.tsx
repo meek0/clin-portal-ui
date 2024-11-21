@@ -25,7 +25,7 @@ const GeneSection = ({ record }: OwnProps) => {
       title={intl.get('screen.patientsnv.category_genomic')}
       column={1}
     >
-      <Descriptions.Item label={intl.get('screen.patientsnv.results.table.pli')}>
+      <Descriptions.Item label={intl.get('pli')}>
         {geneInfo?.gnomad.pli ? (
           <ExternalLink
             className={style.gene}
@@ -64,7 +64,12 @@ const GeneSection = ({ record }: OwnProps) => {
                 {geneInfo?.spliceai.ds}
               </ExternalLink>
             ) : (
-              TABLE_ND_PLACE_HOLDER
+              <ExternalLink
+                className={style.gene}
+                href={`https://spliceailookup.broadinstitute.org/#variant=${spliceAiLink}&hg=38&distance=50&mask=0&precomputed=0`}
+              >
+                {TABLE_ND_PLACE_HOLDER}
+              </ExternalLink>
             )}
             {geneInfo.spliceai.type && (
               <Space size={4}>
@@ -75,7 +80,12 @@ const GeneSection = ({ record }: OwnProps) => {
             )}
           </Space>
         ) : (
-          TABLE_ND_PLACE_HOLDER
+          <ExternalLink
+            className={style.gene}
+            href={`https://spliceailookup.broadinstitute.org/#variant=${spliceAiLink}&hg=38&distance=50&mask=0&precomputed=0`}
+          >
+            {TABLE_ND_PLACE_HOLDER}
+          </ExternalLink>
         )}
       </Descriptions.Item>
     </Descriptions>

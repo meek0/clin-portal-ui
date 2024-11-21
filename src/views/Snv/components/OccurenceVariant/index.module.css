@@ -126,6 +126,10 @@
 
 /* Section Transcript */
 
+.occurenceVariant .emsembl {
+  font-size: 12px;
+}
+
 .occurenceVariant .ominIdLink {
   text-decoration: underline;
 }

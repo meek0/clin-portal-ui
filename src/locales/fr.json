@@ -1533,5 +1533,6 @@
   "exon": "Exon",
   "classifications": "Classifications",
   "functionalScores": "Scores de prédictions",
-  "cadd_phred": "CADD (phred)"
+  "cadd_phred": "CADD (phred)",
+  "pli": "pLi"
 }

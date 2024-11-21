@@ -72,7 +72,7 @@ const ClinicalAssociations = ({ record }: OwnProps) => {
       {sortOminList.length > 3 && (
         <Link target="_blank" to={`/variant/entity/${record?.locus}/${TAB_ID.SUMMARY}`}>
           <Space size={4}>
-            <span className={style.seeAll}>{intl.get('see.all')}</span>
+            <span className={style.seeAll}>{intl.get('see.more')}</span>
             <ExternalLinkIcon height="14" width="14" className="anticon" />
           </Space>
         </Link>

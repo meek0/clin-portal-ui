@@ -51,7 +51,7 @@ const TranscriptSection = ({ record }: OwnProps) => {
             )}
             -{pickedConsequence?.node.aa_change}
           </Space>
-          <Space size={2}>
+          <Space size={2} className={style.emsembl}>
             (
             <ExternalLink
               href={`https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=${pickedConsequence?.node.ensembl_gene_id}`}
