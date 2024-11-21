@@ -1,0 +1,7 @@
+.highImpact {
+    fill: var(--red-5);
+}
+  
+.moderateImpact {
+    fill: var(--orange-5);
+}

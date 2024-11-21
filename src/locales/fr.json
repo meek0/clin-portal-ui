@@ -1467,7 +1467,23 @@
     "qc_report": {
       "no_data": "Aucune donnée"
     },
+    "quality_control_summary": {
+      "sex": "Sexe",
+      "contamination": "Contamination",
+      "exome_avg_coverage": "Couverture moy. de l'exome",
+      "exome_coverage_15x": "Couverture de l'exome > 15X",
+      "uniformity_coverage": "Uniformité de la couverture < 40%",
+      "total_cnvs": "# CNV total",
+      "male": "Homme",
+      "female": "Femme",
+      "undefined": "Indéfinie",
+      "insufficient_coverage": "Couverture insuffisante",
+      "insufficient_coverage_15x": "Couverture à 15X insuffisante",
+      "sex_undefined": "Impossibilité de déterminer le sexe",
+      "sex_not_equal": "Détermination du sexe inconsistant à la soumission"
+    },
     "coverage_genic": {
+      "summary": "Sommaire",
       "general": "Général",
       "coverage_genic": "Couverture génique",
       "gene_filter_placeholder": "Filtrer par gène ",

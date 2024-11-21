@@ -1464,7 +1464,16 @@
     "qc_report": {
       "no_data": "No Data"
     },
+    "quality_control_summary": {
+      "sex": "Sex",
+      "contamination": "Contamination",
+      "exome_avg_coverage": "Exome Avg. Coverage",
+      "exome_coverage_15x": "Exome Coverage > 15X",
+      "uniformity_coverage": "Uniformity of Coverage < 40%",
+      "total_cnvs": "# Total CNVs"
+    },
     "coverage_genic": {
+      "summary": "Summary",
       "general": "General",
       "coverage_genic": "Gene coverage",
       "gene_filter_placeholder": "Filter by gene ",

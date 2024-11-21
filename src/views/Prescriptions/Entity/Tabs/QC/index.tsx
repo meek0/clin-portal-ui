@@ -27,6 +27,8 @@ import Footer from 'components/Layout/Footer';
 import useQueryParams from 'hooks/useQueryParams';
 import { globalActions } from 'store/global';
 
+import QualityControlSummary from '../../QualityControlSummary';
+
 import styles from './index.module.css';
 enum QCTabs {
   DRAGEN_CAPTURE_COVERAGE_METRICS = 'DRAGEN_capture_coverage_metrics',
@@ -185,6 +187,21 @@ const PrescriptionQC = () => {
                   size="small"
                 >
                   <Radio.Button
+                    value={'Summary'}
+                    data-cy="RadioButton_Summary"
+                    onClick={() => {
+                      push({
+                        ...location,
+                        search: `?${new URLSearchParams({
+                          qcSection: 'Summary',
+                        }).toString()}`,
+                      });
+                      setActiveSection('Summary');
+                    }}
+                  >
+                    {intl.get('pages.coverage_genic.summary')}
+                  </Radio.Button>
+                  <Radio.Button
                     value={'General'}
                     data-cy="RadioButton_General"
                     onClick={() => {
@@ -223,6 +240,12 @@ const PrescriptionQC = () => {
       />
       <div className={styles.prescriptionEntityQCWrapper}>
         <div className={styles.content}>
+          {activeSection === 'Summary' && (
+            <QualityControlSummary
+              gcReports={reportFile.length > 0 ? [reportFile[0]] : []}
+              patientSex={prescription?.subject.resource.gender}
+            />
+          )}
           {activeSection === 'General' && (
             <Card
               loading={loadingCard}
@@ -246,7 +269,7 @@ const PrescriptionQC = () => {
               {!loadingCard ? getTabsContent(activeTabs, reportFile) : null}
             </Card>
           )}
-          {activeSection !== 'General' && (
+          {activeSection === 'CouvertureGenique' && (
             <ApolloProvider backend={GraphqlBackend.ARRANGER}>
               <GenericCoverage prescription={prescription} downloadFile={downloadFile} />
             </ApolloProvider>
