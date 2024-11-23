@@ -1444,6 +1444,7 @@
       "not_affected": "Non atteint"
     }
   },
+  "prescription.tabs.title.summary": "Sommaire",
   "prescription.tabs.title.details": "Détails",
   "prescription.tabs.title.qc": "CQ",
   "prescription.tabs.title.variants": "Variants",
@@ -1483,7 +1484,7 @@
       "sex_not_equal": "Détermination du sexe inconsistant à la soumission"
     },
     "coverage_genic": {
-      "summary": "Sommaire",
+      "summaryCQ": "Sommaire CQ",
       "general": "Général",
       "coverage_genic": "Couverture génique",
       "gene_filter_placeholder": "Filtrer par gène ",

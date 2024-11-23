@@ -1441,6 +1441,7 @@
       "not_affected": "Not Affected"
     }
   },
+  "prescription.tabs.title.summary": "Summary",
   "prescription.tabs.title.details": "Details",
   "prescription.tabs.title.qc": "QC",
   "prescription.tabs.title.variants": "Variants",
@@ -1473,7 +1474,7 @@
       "total_cnvs": "# Total CNVs"
     },
     "coverage_genic": {
-      "summary": "Summary",
+      "summaryCQ": "Summary CQ",
       "general": "General",
       "coverage_genic": "Gene coverage",
       "gene_filter_placeholder": "Filter by gene ",

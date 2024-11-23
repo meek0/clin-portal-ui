@@ -6,7 +6,8 @@ import { DownloadOutlined } from '@ant-design/icons';
 import Empty from '@ferlab/ui/core/components/Empty';
 import ScrollContent from '@ferlab/ui/core/layout/ScrollContent';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
-import { Button, Card, Descriptions, Radio, Select, Space, Typography } from 'antd';
+import { Button, Card, Descriptions, Radio, Select, Skeleton, Space, Typography } from 'antd';
+import Title from 'antd/lib/typography/Title';
 import { FhirApi } from 'api/fhir';
 import { isArray } from 'lodash';
 import { GraphqlBackend } from 'providers';
@@ -22,6 +23,7 @@ import {
   hasVariantInfo,
 } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 
+import CollapsePanel from 'components/containers/collapse';
 import ContentHeader from 'components/Layout/ContentWithHeader/Header';
 import Footer from 'components/Layout/Footer';
 import useQueryParams from 'hooks/useQueryParams';
@@ -159,6 +161,11 @@ const PrescriptionQC = () => {
       });
   };
 
+  const options = getRequestOptions(prescription);
+  const selectOptionLabel = options.find(
+    ({ value }) => value === formatOptionValue(variantInfo.patientId!, variantInfo.requestId!),
+  )?.label;
+
   return (
     <>
       <ContentHeader
@@ -174,10 +181,9 @@ const PrescriptionQC = () => {
                   size="small"
                   value={formatOptionValue(variantInfo.patientId!, variantInfo.requestId!)}
                   defaultValue={formatOptionValue(variantInfo.patientId!, variantInfo.requestId!)}
-                  options={getRequestOptions(prescription)}
+                  options={options}
                   onChange={(value) => setVariantInfo(extractOptionValue(value))}
                 />
-
                 <Radio.Group
                   key="variant-section"
                   defaultValue={'General'}
@@ -186,21 +192,6 @@ const PrescriptionQC = () => {
                   buttonStyle="solid"
                   size="small"
                 >
-                  <Radio.Button
-                    value={'Summary'}
-                    data-cy="RadioButton_Summary"
-                    onClick={() => {
-                      push({
-                        ...location,
-                        search: `?${new URLSearchParams({
-                          qcSection: 'Summary',
-                        }).toString()}`,
-                      });
-                      setActiveSection('Summary');
-                    }}
-                  >
-                    {intl.get('pages.coverage_genic.summary')}
-                  </Radio.Button>
                   <Radio.Button
                     value={'General'}
                     data-cy="RadioButton_General"
@@ -240,34 +231,54 @@ const PrescriptionQC = () => {
       />
       <div className={styles.prescriptionEntityQCWrapper}>
         <div className={styles.content}>
-          {activeSection === 'Summary' && (
-            <QualityControlSummary
-              gcReports={reportFile.length > 0 ? [reportFile[0]] : []}
-              patientSex={prescription?.subject.resource.gender}
-            />
-          )}
           {activeSection === 'General' && (
-            <Card
-              loading={loadingCard}
-              bordered
-              tabList={tabList}
-              activeTabKey={activeTabs}
-              onTabChange={(e) => setActiveTabs(e)}
-              tabBarExtraContent={
-                reportFile && Object.keys(reportFile).length !== 0 ? (
-                  <Button
-                    disabled={!!loadingCard}
-                    onClick={() => downloadFile()}
-                    size="small"
-                    icon={<DownloadOutlined width={'16'} height={'16'} />}
-                  >
-                    {intl.get('download.report')}
-                  </Button>
-                ) : null
-              }
-            >
-              {!loadingCard ? getTabsContent(activeTabs, reportFile) : null}
-            </Card>
+            <>
+              <CollapsePanel
+                header={
+                  <Skeleton title={{ width: 200 }} paragraph={false} loading={loading} active>
+                    <Title level={4}>
+                      {intl.get('pages.coverage_genic.summaryCQ')} : {selectOptionLabel}
+                    </Title>
+                  </Skeleton>
+                }
+                loading={loadingCard}
+              >
+                <QualityControlSummary
+                  summaryData={
+                    reportFile.length > 0
+                      ? [
+                          {
+                            gcReport: reportFile[0],
+                          },
+                        ]
+                      : []
+                  }
+                  patientSex={prescription?.subject.resource.gender}
+                />
+              </CollapsePanel>
+              <Card
+                loading={loadingCard}
+                bordered
+                tabList={tabList}
+                activeTabKey={activeTabs}
+                onTabChange={(e) => setActiveTabs(e)}
+                style={{ marginTop: 24 }}
+                tabBarExtraContent={
+                  reportFile && Object.keys(reportFile).length !== 0 ? (
+                    <Button
+                      disabled={!!loadingCard}
+                      onClick={() => downloadFile()}
+                      size="small"
+                      icon={<DownloadOutlined width={'16'} height={'16'} />}
+                    >
+                      {intl.get('download.report')}
+                    </Button>
+                  ) : null
+                }
+              >
+                {!loadingCard ? getTabsContent(activeTabs, reportFile) : null}
+              </Card>
+            </>
           )}
           {activeSection === 'CouvertureGenique' && (
             <ApolloProvider backend={GraphqlBackend.ARRANGER}>

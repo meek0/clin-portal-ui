@@ -15,6 +15,7 @@ import Forbidden from 'components/Results/Forbidden';
 import PrescriptionDetails from './Tabs/Details';
 import PrescriptionFiles from './Tabs/Files';
 import PrescriptionQC from './Tabs/QC';
+import Summary from './Tabs/Summary';
 import PrescriptionVariants from './Tabs/Variants';
 import { getPatientAndRequestId, getVariantTypeFromServiceRequest } from './Tabs/Variants/utils';
 import PrescriptionEntityContext, {
@@ -25,6 +26,7 @@ import PrescriptionEntityContext, {
 import styles from './index.module.css';
 
 export enum PrescriptionEntityTabs {
+  SUMMARY = '#summary',
   DETAILS = '#details',
   QC = '#qc',
   VARIANTS = '#variants',
@@ -116,6 +118,11 @@ const PrescriptionEntity = () => {
         }}
         className={styles.prescriptionEntityContainer}
         items={[
+          {
+            key: PrescriptionEntityTabs.SUMMARY,
+            label: intl.get('prescription.tabs.title.summary'),
+            children: <Summary />,
+          },
           {
             key: PrescriptionEntityTabs.DETAILS,
             label: intl.get('prescription.tabs.title.details'),
