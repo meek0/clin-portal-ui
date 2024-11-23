@@ -55,7 +55,21 @@ const GermlineInterpretationForm = () => (
         <Form.Item
           label={
             <ProLabel
-              title={intl.get('modal.variant.interpretation.germline.classification')}
+              title={
+                (
+                  <span>
+                    {intl.get('modal.variant.interpretation.germline.classification')} ACMG/AMP (
+                    <a
+                      href="https://pubmed.ncbi.nlm.nih.gov/25741868/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      PMID: 25741868
+                    </a>
+                    )
+                  </span>
+                ) as any
+              }
               colon
             />
           }

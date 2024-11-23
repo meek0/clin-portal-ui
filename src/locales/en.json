@@ -1540,6 +1540,80 @@
       "HET": "Heterozygous"
     }
   },
+  "modal": {
+    "variant": {
+      "interpretation": {
+        "title": "Clinical Interpretation",
+        "cancelText": "Cancel",
+        "okText": "Save",
+        "lastUpdate": "Last update: <span style='font-weight:500;'>{name}</span> ({date, date, long}, {time, time, medium})",
+        "generic": {
+          "interpretation": "Interpretation",
+          "pubMedPublication": "PubMed Publication",
+          "pubMedIdNotFound": "Invalid or unknown PMID",
+          "citation-placeholder": "Citation",
+          "addCitation": "Add a publication"
+        },
+        "germline": {
+          "condition": "Condition",
+          "condition-placeholder": "Find a condition",
+          "classification": "Classification",
+          "classification-options": {
+            "pathogenic": "Pathogenic",
+            "likelyPathogenic": "Likely Pathogenic",
+            "likelyPathogenic-tooltip": "Probably pathogenic",
+            "vus": "VUS",
+            "vus-tooltip": "Variant of Uncertain Significance",
+            "likelyBenign": "Likely Benign",
+            "likelyBenign-tooltip": "Probably benign",
+            "benign": "Benign"
+          },
+          "classificationCriteria-placeholder": "Classification criteria",
+          "modeOfTransmission": "Mode of transmission",
+          "modeOfTransmission-placeholder": "Select",
+          "modeOfTransmission-options": {
+            "autosomal_dominant_de_novo": "Autosomal Dominant De Novo",
+            "autosomal_dominant": "Autosomal Dominant",
+            "autosomal_recessive": "Autosomal Recessive",
+            "x_linked_dominant_de_novo": "X Linked Dominant De Novo",
+            "x_linked_recessive_de_novo": "X Linked Recessive De Novo",
+            "x_linked_dominant": "X Linked Dominant",
+            "x_linked_recessive": "X Linked Recessive",
+            "non_carrier_proband": "Non Carrier Proband",
+            "unknown_parents_genotype": "Unknown Parents Genotype",
+            "unknown_father_genotype": "Unknown Father Genotype",
+            "unknown_mother_genotype": "Unknown Mother Genotype",
+            "unknown_proband_genotype": "Unknown Proband Genotype"
+          }
+        },
+        "somatic": {
+          "tumoralType": "Tumor type",
+          "tumoralType-placeholder": "Select",
+          "oncogenicity": "Oncogenicity",
+          "oncogenicity-options": {
+            "oncogenic": "Oncogenic",
+            "likelyOncogenic": "Likely Oncogenic",
+            "likelyOncogenic-tooltip": "Probably oncogenic",
+            "vus": "VUS",
+            "vus-tooltip": "Variant of Uncertain Significance",
+            "likelyBenign": "Likely Benign",
+            "likelyBenign-tooltip": "Probably benign",
+            "benign": "Benign"
+          },
+          "classificationCriteria-placeholder": "Classification criteria",
+          "clinicalUtility": "Clinical utility",
+          "clinicalUtility-placeholder": "Select",
+          "clinicalUtility-options": {
+            "category_ia": "Category IA",
+            "category_ib": "Category IB",
+            "category_iic": "Category IIC",
+            "category_iid": "Category IID",
+            "category_iii": "Category III"
+          }
+        }
+      }
+    }
+  },
   "litvar": "LitVAR",
   "ucsc": "UCSC",
   "consequences": {

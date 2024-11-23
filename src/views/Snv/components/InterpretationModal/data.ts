@@ -1,54 +1,79 @@
+import intl from 'react-intl-universal';
 import { DefaultOptionType } from 'antd/lib/select';
 
 export const transmissionModes: (DefaultOptionType & {
   color?: string;
 })[] = [
   {
-    label: 'Autosomal Dominant De Novo',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.autosomal_dominant_de_novo',
+    ),
     value: 'autosomal_dominant_de_novo',
   },
   {
-    label: 'Autosomal Dominant',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.autosomal_dominant',
+    ),
     value: 'autosomal_dominant',
   },
   {
-    label: 'Autosomal Recessive',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.autosomal_recessive',
+    ),
     value: 'autosomal_recessive',
   },
   {
-    label: 'X Linked Dominant De Novo',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.x_linked_dominant_de_novo',
+    ),
     value: 'x_linked_dominant_de_novo',
   },
   {
-    label: 'X Linked Recessive De Novo',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.x_linked_recessive_de_novo',
+    ),
     value: 'x_linked_recessive_de_novo',
   },
   {
-    label: 'X Linked Dominant',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.x_linked_dominant',
+    ),
     value: 'x_linked_dominant',
   },
   {
-    label: 'X Linked Recessive',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.x_linked_recessive',
+    ),
     value: 'x_linked_recessive',
   },
   {
-    label: 'Non Carrier Proband',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.non_carrier_proband',
+    ),
     value: 'non_carrier_proband',
   },
   {
-    label: 'Unknown Parents Genotype',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.unknown_parents_genotype',
+    ),
     value: 'unknown_parents_genotype',
   },
   {
-    label: 'Unknown Father Genotype',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.unknown_father_genotype',
+    ),
     value: 'unknown_father_genotype',
   },
   {
-    label: 'Unknown Mother Genotype',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.unknown_mother_genotype',
+    ),
     value: 'unknown_mother_genotype',
   },
   {
-    label: 'Unknown Proband Genotype',
+    label: intl.get(
+      'modal.variant.interpretation.germline.modeOfTransmission-options.unknown_proband_genotype',
+    ),
     value: 'unknown_proband_genotype',
   },
   {
@@ -306,23 +331,23 @@ export const clinicalUtilitys: (DefaultOptionType & {
   color?: string;
 })[] = [
   {
-    label: 'Catégorie IA',
+    label: intl.get('modal.variant.interpretation.somatic.clinicalUtility-options.category_ia'),
     value: 'category_ia',
   },
   {
-    label: 'Catégorie IB',
+    label: intl.get('modal.variant.interpretation.somatic.clinicalUtility-options.category_ib'),
     value: 'category_ib',
   },
   {
-    label: 'Catégorie IIC',
+    label: intl.get('modal.variant.interpretation.somatic.clinicalUtility-options.category_iic'),
     value: 'category_iic',
   },
   {
-    label: 'Catégorie IID',
+    label: intl.get('modal.variant.interpretation.somatic.clinicalUtility-options.category_iid'),
     value: 'category_iid',
   },
   {
-    label: 'Catégorie III',
+    label: intl.get('modal.variant.interpretation.somatic.clinicalUtility-options.category_iii'),
     value: 'category_iii',
   },
 ];

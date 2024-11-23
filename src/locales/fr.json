@@ -1555,7 +1555,7 @@
           "pubMedPublication": "Publication PubMed",
           "pubMedIdNotFound": "PMID invalide ou inconnu",
           "citation-placeholder": "Citation",
-          "addCitation": "Ajouter une citation"
+          "addCitation": "Ajouter une publication"
         },
         "germline": {
           "condition": "Condition",
@@ -1573,7 +1573,21 @@
           },
           "classificationCriteria-placeholder": "Critères de classification",
           "modeOfTransmission": "Mode de transmission",
-          "modeOfTransmission-placeholder": "Sélectionner"
+          "modeOfTransmission-placeholder": "Sélectionner",
+          "modeOfTransmission-options": {
+            "autosomal_dominant_de_novo": "Autosomal dominant de novo",
+            "autosomal_dominant": "Autosomique dominant",
+            "autosomal_recessive": "Autosomique récessif",
+            "x_linked_dominant_de_novo": "Lié à l'X dominant de novo",
+            "x_linked_recessive_de_novo": "Lié à l'X récessif de novo",
+            "x_linked_dominant": "Lié à l'X dominant",
+            "x_linked_recessive": "Lié à l'X récessif",
+            "non_carrier_proband": "Probant non porteur",
+            "unknown_parents_genotype": "Génotype parental inconnu",
+            "unknown_father_genotype": "Génotype paternel inconnu",
+            "unknown_mother_genotype": "Génotype maternel inconnu",
+            "unknown_proband_genotype": "Génotype du probant inconnu"
+          }
         },
         "somatic": {
           "tumoralType": "Type tumoral",
@@ -1591,7 +1605,14 @@
           },
           "classificationCriteria-placeholder": "Critères de classification",
           "clinicalUtility": "Utilité clinique",
-          "clinicalUtility-placeholder": "Selectionner"
+          "clinicalUtility-placeholder": "Selectionner",
+          "clinicalUtility-options": {
+            "category_ia": "Catégorie IA",
+            "category_ib": "Catégorie IB",
+            "category_iic": "Catégorie IIC",
+            "category_iid": "Catégorie IID",
+            "category_iii": "Catégorie III"
+          }
         }
       }
     }

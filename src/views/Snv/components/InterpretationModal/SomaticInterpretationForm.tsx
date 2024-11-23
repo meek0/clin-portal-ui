@@ -58,7 +58,25 @@ const SomaticInterpretationForm = () => (
       {() => (
         <Form.Item
           label={
-            <ProLabel title={intl.get('modal.variant.interpretation.somatic.oncogenicity')} colon />
+            <ProLabel
+              title={
+                (
+                  <span>
+                    {intl.get('modal.variant.interpretation.somatic.oncogenicity')} ClinGen/CGC/VICC
+                    (
+                    <a
+                      href="https://pubmed.ncbi.nlm.nih.gov/35101336/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      PMID: 35101336
+                    </a>
+                    )
+                  </span>
+                ) as any
+              }
+              colon
+            />
           }
           name={SomaticInterpFormFields.ONCOGENICITY}
           rules={[
