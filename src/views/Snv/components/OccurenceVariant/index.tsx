@@ -54,9 +54,9 @@ const OccurenceVariant = ({
       <Space size={12} direction="vertical">
         <TranscriptSection record={record} />
         <Card className={style.card}>
-          <Row wrap={false} gutter={24}>
+          <Row gutter={24}>
             <>
-              <Col>
+              <Col flex={1}>
                 <Space size={8} direction="vertical">
                   <ClassificationSection record={record} />
                   {variantSection === VariantSection.SNV && (
@@ -65,7 +65,7 @@ const OccurenceVariant = ({
                   <GeneSection record={record} />
                 </Space>
               </Col>
-              <Col>
+              <Col flex={1}>
                 <Space size={8} direction="vertical">
                   {variantSection === VariantSection.SNV ? (
                     <FrequenciesGermlineSection record={record} />
@@ -77,7 +77,7 @@ const OccurenceVariant = ({
               </Col>
             </>
 
-            <Col>
+            <Col flex={1}>
               <Space size={8} direction="vertical">
                 <ZygositySection
                   record={record}
@@ -87,7 +87,7 @@ const OccurenceVariant = ({
                 <ClinicalAssociations record={record} />
               </Space>
             </Col>
-            <Col>
+            <Col flex={1}>
               <Space direction="vertical">
                 {variantSection === VariantSection.SNV && (
                   <FamilySection record={record} patientId={patientId} />

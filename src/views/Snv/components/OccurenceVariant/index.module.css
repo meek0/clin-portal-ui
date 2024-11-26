@@ -37,9 +37,8 @@
 }
 
 .occurenceVariant .basicBordered {
-  width: 100%;
   min-width: 260px;
-  max-width: 460px;
+  max-width: 460px; 
 }
 
 .occurenceVariant .basicBordered :global(.ant-descriptions-view) {
