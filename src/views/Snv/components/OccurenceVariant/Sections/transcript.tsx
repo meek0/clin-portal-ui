@@ -16,11 +16,10 @@ interface OwnProps {
   record: ITableVariantEntity;
 }
 
-const TranscriptSection = ({ record }: OwnProps) => {
-  const genes = record.genes?.hits.edges;
-  const pickedConsequence = record.consequences?.hits?.edges.find(({ node }) => !!node.picked);
+const TranscriptSection = ({ record: { genes, consequences, rsnumber } }: OwnProps) => {
+  const pickedConsequence = consequences?.hits?.edges.find(({ node }) => !!node.picked);
   const geneSymbol = pickedConsequence?.node.symbol;
-  const geneInfo = genes?.find(({ node }) => node.symbol === geneSymbol)?.node;
+  const geneInfo = genes?.hits.edges?.find(({ node }) => node.symbol === geneSymbol)?.node;
   const haveResult =
     pickedConsequence?.node.mane_select ||
     pickedConsequence?.node.canonical ||
@@ -107,8 +106,8 @@ const TranscriptSection = ({ record }: OwnProps) => {
           </>
         )}
 
-        <ExternalLink href={`https://www.ncbi.nlm.nih.gov/snp/${record.rsnumber}`}>
-          {record.rsnumber}
+        <ExternalLink href={`https://www.ncbi.nlm.nih.gov/snp/${rsnumber}`}>
+          {rsnumber}
         </ExternalLink>
       </Space>
     </Card>

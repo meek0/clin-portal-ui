@@ -17,8 +17,8 @@ interface OwnProps {
   variantSection?: VariantSection;
 }
 
-const MetricSection = ({ record, patientId, variantSection }: OwnProps) => {
-  const donor = findDonorById(record?.donors, patientId);
+const MetricSection = ({ record: { donors }, patientId, variantSection }: OwnProps) => {
+  const donor = findDonorById(donors, patientId);
   return (
     <Descriptions
       className={style.basicBordered}

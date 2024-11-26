@@ -13,10 +13,9 @@ interface OwnProps {
   record: ITableVariantEntity;
 }
 
-const ClassificationSection = ({ record }: OwnProps) => {
-  const clinVar = record.clinvar;
-  const clinVarSigKey: string[] = clinVar?.clin_sig
-    ? clinVar.clin_sig.map((c) => c.toLowerCase())
+const ClassificationSection = ({ record: { clinvar } }: OwnProps) => {
+  const clinVarSigKey: string[] = clinvar?.clin_sig
+    ? clinvar.clin_sig.map((c) => c.toLowerCase())
     : [];
 
   return (
@@ -28,7 +27,7 @@ const ClassificationSection = ({ record }: OwnProps) => {
       column={1}
     >
       <Descriptions.Item label={intl.get('screen.patientsnv.results.table.clinvar')}>
-        {clinVar
+        {clinvar
           ? clinVarSigKey.map((clinvarKey) => (
               <Tooltip
                 key={clinvarKey}
@@ -37,7 +36,7 @@ const ClassificationSection = ({ record }: OwnProps) => {
               >
                 <Tag color={ClinvarColorMap[clinvarKey]}>
                   <ExternalLink
-                    href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinVar.clinvar_id}`}
+                    href={`https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvar.clinvar_id}`}
                   >
                     {intl.get(`clinvar.abrv.${clinvarKey}`)}
                   </ExternalLink>
