@@ -230,6 +230,12 @@ export type ConsequenceEntity = {
   predictions: PredictionEntity;
   conservations: ConservationsEntity;
   picked: null | boolean;
+  exon: ExonEntity;
+};
+
+export type ExonEntity = {
+  rank: string;
+  total: number;
 };
 
 export type ConservationsEntity = {
@@ -275,6 +281,13 @@ export type Gene = {
     biotype: string;
   };
 };
+
+export type omim = ArrangerResultsTree<{
+  id: string;
+  omim_id: string;
+  name: string;
+  inheritance_code: string[] | null;
+}>;
 
 export type ClinVarData = string[] | undefined;
 

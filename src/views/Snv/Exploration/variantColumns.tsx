@@ -54,7 +54,7 @@ import ManeCell from './components/ManeCell';
 
 import style from './variantColumns.module.css';
 
-const ClinvarColorMap: Record<any, string> = {
+export const ClinvarColorMap: Record<any, string> = {
   affects: 'default',
   association: 'default',
   association_not_found: 'default',
@@ -77,7 +77,7 @@ const ClinvarColorMap: Record<any, string> = {
   uncertain_significance: 'orange',
 };
 
-const ACMGExoColorMap: Record<any, string> = {
+export const ACMGExoColorMap: Record<any, string> = {
   BENIGN: 'green',
   LIKELY_BENIGN: 'lime',
   UNCERTAIN_SIGNIFICANCE: 'orange',
@@ -85,7 +85,7 @@ const ACMGExoColorMap: Record<any, string> = {
   LIKELY_PATHOGENIC: 'volcano',
 };
 
-const ACMGFranklinColorMap: Record<any, string> = {
+export const ACMGFranklinColorMap: Record<any, string> = {
   BENIGN: 'green',
   LIKELY_BENIGN: 'lime',
   UNCERTAIN_SIGNIFICANCE: 'orange',
