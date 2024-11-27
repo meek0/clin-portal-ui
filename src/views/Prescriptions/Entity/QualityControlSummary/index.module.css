@@ -5,3 +5,11 @@
 .moderateImpact {
     fill: var(--orange-5);
 }
+
+.qualityControlSummary .link>div {
+    text-decoration: underline;
+  }
+  
+.qualityControlSummary .link>div:hover {
+  text-decoration: none;
+}

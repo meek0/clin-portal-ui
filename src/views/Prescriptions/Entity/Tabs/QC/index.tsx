@@ -13,7 +13,6 @@ import { isArray } from 'lodash';
 import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
 import { DocsWithTaskInfo } from 'views/Archives';
-import { extractDocsFromTask } from 'views/Archives/helper';
 import PrescriptionEntityContext from 'views/Prescriptions/Entity/context';
 import GenericCoverage from 'views/Prescriptions/Entity/GenericCoverage';
 import {
@@ -30,6 +29,7 @@ import useQueryParams from 'hooks/useQueryParams';
 import { globalActions } from 'store/global';
 
 import QualityControlSummary from '../../QualityControlSummary';
+import { fetchDocsForRequestId, fetchSamplesQCReport } from '../../utils';
 
 import styles from './index.module.css';
 enum QCTabs {
@@ -55,7 +55,7 @@ const tabList = [
 
 const getTabsContent = (activeTabs: string, reportFile: any) => {
   if (reportFile && Object.keys(reportFile).length !== 0) {
-    const sample: { [key: string]: any } = reportFile[0];
+    const sample: { [key: string]: any } = reportFile;
     let info = sample[activeTabs];
     if (!info) return <Empty description={intl.get('pages.qc_report.no_data')} />;
     info = isArray(info) ? info[0] : info;
@@ -76,66 +76,37 @@ const getTabsContent = (activeTabs: string, reportFile: any) => {
 };
 
 const PrescriptionQC = () => {
+  const dispatch = useDispatch();
+  const queryParams = useQueryParams();
+  const { push, location } = useHistory();
   const [activeTabs, setActiveTabs] = useState<string>(QCTabs.DRAGEN_CAPTURE_COVERAGE_METRICS);
   const [loadingCard, setLoadingCard] = useState(true);
   const [docs, setDocs] = useState<DocsWithTaskInfo[]>([]);
-  const [reportFile, setReportFile] = useState<any>({});
+  const [reportFile, setReportFile] = useState<any>(null);
   const { prescription, variantInfo, setVariantInfo, loading } =
     useContext(PrescriptionEntityContext);
-  const dispatch = useDispatch();
-  const queryParams = useQueryParams();
-  const [activeSection, setActiveSection] = useState(queryParams.get('qcSection') || 'General');
-  const [requestID, setRequestID] = useState<string>();
-  const { push, location } = useHistory();
+  const queryParamQcSection = queryParams.get('qcSection');
+  const [activeSection, setActiveSection] = useState(queryParamQcSection || 'General');
 
   useEffect(() => {
-    if (variantInfo) {
-      setRequestID(variantInfo.requestId);
+    if (queryParamQcSection) {
+      setActiveSection(queryParamQcSection);
     }
-  }, [variantInfo]);
+  }, [queryParamQcSection]);
 
   useEffect(() => {
-    if (requestID) {
-      const fetchAllFiles = () => {
-        setLoadingCard(true);
-        FhirApi.searchPatientFiles(requestID).then(({ data }) => {
-          if (data?.data.taskList) {
-            return setDocs(extractDocsFromTask(data.data.taskList));
-          } else {
-            return setDocs([]);
+    if (variantInfo.requestId) {
+      fetchDocsForRequestId(variantInfo.requestId)
+        .then((docs) => {
+          setDocs(docs);
+
+          if (docs.length > 0) {
+            return fetchSamplesQCReport(docs).then((report) => setReportFile(report));
           }
-        });
-      };
-
-      fetchAllFiles();
+        })
+        .finally(() => setLoadingCard(false));
     }
-  }, [requestID]);
-
-  useEffect(() => {
-    if (docs) {
-      const file = docs.find((f) => f.format === 'JSON' && f.type === 'QCRUN');
-      if (file) {
-        FhirApi.getFileURL(file?.url).then(({ data }) => {
-          fetch(data?.url ? data.url : '', {
-            method: 'GET',
-            headers: {
-              Accept: 'application/json',
-            },
-          })
-            .then((response) => response.json())
-            .then((json) => {
-              const allFile = json;
-              setReportFile(allFile.SamplesQC);
-            })
-            .finally(() => {
-              setLoadingCard(false);
-            });
-        });
-      } else {
-        setLoadingCard(false);
-      }
-    }
-  }, [docs]);
+  }, [variantInfo.requestId]);
 
   const downloadFile = async (format = 'JSON', type = 'QCRUN') => {
     const file = docs.find((f) => f.format === format && f.type === type);
@@ -245,15 +216,16 @@ const PrescriptionQC = () => {
               >
                 <QualityControlSummary
                   summaryData={
-                    reportFile.length > 0
+                    reportFile
                       ? [
                           {
-                            gcReport: reportFile[0],
+                            sampleQcReport: reportFile,
+                            gender: prescription?.subject.resource.gender,
+                            requestId: variantInfo.requestId!,
                           },
                         ]
                       : []
                   }
-                  patientSex={prescription?.subject.resource.gender}
                 />
               </CollapsePanel>
               <Card
@@ -276,7 +248,7 @@ const PrescriptionQC = () => {
                   ) : null
                 }
               >
-                {!loadingCard ? getTabsContent(activeTabs, reportFile) : null}
+                {loadingCard ? null : getTabsContent(activeTabs, reportFile)}
               </Card>
             </>
           )}

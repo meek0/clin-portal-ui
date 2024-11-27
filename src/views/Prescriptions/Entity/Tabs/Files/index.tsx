@@ -13,7 +13,7 @@ import { updateConfig } from 'store/user/thunks';
 import { getProTableDictionary } from 'utils/translation';
 
 import PrescriptionEntityContext from '../../context';
-import { getPatientAndRequestId } from '../Variants/utils';
+import { getAllRequestIds } from '../../utils';
 
 import { getFileTableColumns } from './columns';
 
@@ -26,18 +26,7 @@ const PrescriptionFiles = () => {
   const { prescription } = useContext(PrescriptionEntityContext);
   const [docs, setDocs] = useState<DocsWithTaskInfo[]>([]);
 
-  const getAllRequestIds = () => {
-    const { requestId } = getPatientAndRequestId(prescription?.subject.resource);
-    const otherRequestIds = (prescription?.extensions || []).map((ext) => {
-      const extensionValueRef = ext?.extension?.[1];
-      const { requestId } = getPatientAndRequestId(extensionValueRef?.valueReference?.resource);
-      return requestId;
-    });
-
-    return [requestId, ...otherRequestIds].filter((e) => !!e?.trim());
-  };
-
-  const allRequestIds = getAllRequestIds();
+  const allRequestIds = getAllRequestIds(prescription);
   const allRequestIdsAsString = JSON.stringify(allRequestIds);
 
   useEffect(() => {

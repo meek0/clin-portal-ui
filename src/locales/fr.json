@@ -532,7 +532,7 @@
         "POSSIBLY_PATHOGENIC_BENIGN": "Variant de signification incertaine",
         "POSSIBLY_PATHOGENIC_LOW": "Variant de signification incertaine",
         "POSSIBLY_BENIGN": "Variant de signification incertaine"
-      }      
+      }
     },
     "acmg_classification": {
       "title": "ACMG F.",
@@ -1481,7 +1481,9 @@
       "insufficient_coverage": "Couverture insuffisante",
       "insufficient_coverage_15x": "Couverture à 15X insuffisante",
       "sex_undefined": "Impossibilité de déterminer le sexe",
-      "sex_not_equal": "Détermination du sexe inconsistant à la soumission"
+      "sex_not_equal": "Détermination du sexe inconsistant à la soumission",
+      "suboptimal_coverage_40": "Uniformité de couverture sous-optimale, certaines régions pourraient être mal couvertes",
+      "high_number_of_cnvs": "Nombre élevé de CNVs, possibilité de fragmentation et de basse qualité des appels "
     },
     "coverage_genic": {
       "summaryCQ": "Sommaire CQ",

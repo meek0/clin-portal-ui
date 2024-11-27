@@ -48,10 +48,10 @@ const getSexMeta = (
   };
 };
 
-const getSexDetail = (averageChrY: number, averageChrX: number, patientSex: string | undefined) => {
+const getSexDetail = (averageChrY: number, averageChrX: number, gender: string | undefined) => {
   const meta = getSexMeta(averageChrY, averageChrX);
   const isSexUndefined = meta.sex === 'undefined';
-  const isSexNotEqual = meta.sex !== patientSex;
+  const isSexNotEqual = meta.sex !== gender;
 
   return (
     <ConditionalWrapper
@@ -138,7 +138,7 @@ const getUniformityCoverage40PercDetail = (uniformityCoverage: number) => {
     <ConditionalWrapper
       condition={isInsufficient}
       wrapper={(children) => (
-        <Tooltip title={intl.get('pages.quality_control_summary.insufficient_coverage_15x')}>
+        <Tooltip title={intl.get('pages.quality_control_summary.suboptimal_coverage_40')}>
           {children}
         </Tooltip>
       )}

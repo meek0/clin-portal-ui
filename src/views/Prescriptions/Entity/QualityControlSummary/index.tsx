@@ -1,31 +1,39 @@
 import { CSSProperties, PropsWithChildren, ReactNode } from 'react';
 import intl from 'react-intl-universal';
+import { Link } from 'react-router-dom';
 import Empty from '@ferlab/ui/core/components/Empty';
 
 import { QualityControlUtils } from './utils';
 
+import styles from './index.module.css';
+
+export type TQualityControlSummaryData = {
+  header?: ReactNode;
+  sampleQcReport: Record<string, any>;
+  gender: string | undefined;
+  requestId: string;
+}[];
+
 type TQualityControlSummaryProps = {
-  summaryData: {
-    header?: ReactNode;
-    gcReport: any;
-  }[];
+  summaryData: TQualityControlSummaryData;
   showHeader?: boolean;
-  patientSex: string | undefined;
 };
 
 const QualityControlSummary = ({
   summaryData,
-  patientSex,
   showHeader = false,
 }: TQualityControlSummaryProps) => (
-  <>
+  <div className={styles.qualityControlSummary}>
     {summaryData.length > 0 ? (
       <CustomDescription>
         {showHeader ? (
           <CustomDescriptionRow>
             <CustomDescriptionLabel></CustomDescriptionLabel>
             {summaryData.map(({ header }, index) => (
-              <CustomDescriptionLabel key={`request-${index}-header`} style={{ width: 'unset' }}>
+              <CustomDescriptionLabel
+                key={`request-${index}-header`}
+                style={{ width: 'unset', fontWeight: 500 }}
+              >
                 {header}
               </CustomDescriptionLabel>
             ))}
@@ -35,16 +43,16 @@ const QualityControlSummary = ({
           <CustomDescriptionLabel>
             {intl.get('pages.quality_control_summary.sex')}
           </CustomDescriptionLabel>
-          {summaryData.map(({ gcReport }, index) => (
+          {summaryData.map(({ sampleQcReport, gender }, index) => (
             <CustomDescriptionItemContent key={`request-${index}-sex`}>
               {QualityControlUtils.getSexDetail(
-                gcReport['DRAGEN_capture_coverage_metrics'][
+                sampleQcReport['DRAGEN_capture_coverage_metrics'][
                   'Average chr Y coverage over QC coverage region'
                 ],
-                gcReport['DRAGEN_capture_coverage_metrics'][
+                sampleQcReport['DRAGEN_capture_coverage_metrics'][
                   'Average chr X coverage over QC coverage region'
                 ],
-                patientSex,
+                gender,
               )}
             </CustomDescriptionItemContent>
           ))}
@@ -53,10 +61,10 @@ const QualityControlSummary = ({
           <CustomDescriptionLabel>
             {intl.get('pages.quality_control_summary.contamination')}
           </CustomDescriptionLabel>
-          {summaryData.map(({ gcReport }, index) => (
+          {summaryData.map(({ sampleQcReport }, index) => (
             <CustomDescriptionItemContent key={`request-${index}-contamination`}>
               {QualityControlUtils.getContaminationDetail(
-                gcReport['DRAGEN_mapping_metrics']['Estimated sample contamination'],
+                sampleQcReport['DRAGEN_mapping_metrics']['Estimated sample contamination'],
               )}
             </CustomDescriptionItemContent>
           ))}
@@ -65,10 +73,10 @@ const QualityControlSummary = ({
           <CustomDescriptionLabel>
             {intl.get('pages.quality_control_summary.exome_avg_coverage')}
           </CustomDescriptionLabel>
-          {summaryData.map(({ gcReport }, index) => (
+          {summaryData.map(({ sampleQcReport }, index) => (
             <CustomDescriptionItemContent key={`request-${index}-exome-avg-coverage`}>
               {QualityControlUtils.getExomeAvgCoverageDetail(
-                gcReport['DRAGEN_capture_coverage_metrics'][
+                sampleQcReport['DRAGEN_capture_coverage_metrics'][
                   'Average alignment coverage over QC coverage region'
                 ],
               )}
@@ -79,13 +87,18 @@ const QualityControlSummary = ({
           <CustomDescriptionLabel>
             {intl.get('pages.quality_control_summary.exome_coverage_15x')}
           </CustomDescriptionLabel>
-          {summaryData.map(({ gcReport }, index) => (
+          {summaryData.map(({ sampleQcReport, requestId }, index) => (
             <CustomDescriptionItemContent key={`request-${index}-exome-coverage-15x`}>
-              {QualityControlUtils.getExomeCoverage15xDetail(
-                gcReport['DRAGEN_capture_coverage_metrics'][
-                  'PCT of QC coverage region with coverage [  15x: inf)'
-                ],
-              )}
+              <Link
+                to={`/prescription/entity/${requestId}?qcSection=CouvertureGenique#qc`}
+                className={styles.link}
+              >
+                {QualityControlUtils.getExomeCoverage15xDetail(
+                  sampleQcReport['DRAGEN_capture_coverage_metrics'][
+                    'PCT of QC coverage region with coverage [  15x: inf)'
+                  ],
+                )}
+              </Link>
             </CustomDescriptionItemContent>
           ))}
         </CustomDescriptionRow>
@@ -93,10 +106,10 @@ const QualityControlSummary = ({
           <CustomDescriptionLabel>
             {intl.get('pages.quality_control_summary.uniformity_coverage')}
           </CustomDescriptionLabel>
-          {summaryData.map(({ gcReport }, index) => (
+          {summaryData.map(({ sampleQcReport }, index) => (
             <CustomDescriptionItemContent key={`request-${index}-uniformity-coverage`}>
               {QualityControlUtils.getUniformityCoverage40PercDetail(
-                gcReport['DRAGEN_capture_coverage_metrics'][
+                sampleQcReport['DRAGEN_capture_coverage_metrics'][
                   'Uniformity of coverage (PCT > 0.4*mean) over QC coverage region'
                 ],
               )}
@@ -115,9 +128,9 @@ const QualityControlSummary = ({
         </CustomDescriptionRow>
       </CustomDescription>
     ) : (
-      <Empty description={intl.get('pages.qc_report.no_data')} />
+      <Empty description={intl.get('no.results.found')} />
     )}
-  </>
+  </div>
 );
 
 const CustomDescription = ({ children }: PropsWithChildren) => (

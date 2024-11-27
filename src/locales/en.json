@@ -1471,7 +1471,16 @@
       "exome_avg_coverage": "Exome Avg. Coverage",
       "exome_coverage_15x": "Exome Coverage > 15X",
       "uniformity_coverage": "Uniformity of Coverage < 40%",
-      "total_cnvs": "# Total CNVs"
+      "total_cnvs": "# Total CNVs",
+      "male": "Male",
+      "female": "Femelle",
+      "undefined": "Undefined",
+      "insufficient_coverage": "Insufficient coverage",
+      "insufficient_coverage_15x": "Insufficient 15X coverage",
+      "sex_undefined": "Unable to determine sex",
+      "sex_not_equal": "Sex determination inconsistent with submission",
+      "suboptimal_coverage_40": "Suboptimal coverage uniformity, some regions may be poorly covered",
+      "high_number_of_cnvs": "High number of CNVs, possibility of fragmentation and low quality calls"
     },
     "coverage_genic": {
       "summaryCQ": "Summary CQ",
