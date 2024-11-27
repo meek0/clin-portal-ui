@@ -19,18 +19,6 @@ beforeEach(() => {
 });
 
 describe('Page des variants d\'un patient (somatic) - Consultation du tableau', () => {  
-  it('Valider les liens disponibles Lien UCSC', () => {
-    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
-    cy.get('[class="ant-card-head-title"] [class*="OccurenceVariant_linkButton"]').eq(0)
-      .should('have.attr', 'href', 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr10%3A1096268-1096269');
-  });
- 
-  it('Valider les liens disponibles Lien LitVar', () => {
-    cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
-    cy.get('[class="ant-card-head-title"] [class*="OccurenceVariant_linkButton"]').eq(1)
-      .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/research/litvar2/docsum?text=rs10794716');
-  });
- 
   it('Valider les liens disponibles Lien Variant', () => {
     cy.get('tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"]').contains('chr10:g.1096268T>C').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.get('[data-cy="Summary_Start"]').contains('1 096 268').should('exist');

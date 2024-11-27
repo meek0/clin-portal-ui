@@ -11,7 +11,7 @@ beforeEach(() => {
   cy.get('[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
 });
 
-describe('Ligne extensible d\'une occurrence', () => {
+describe('Ligne extensible d\'une occurrence (paired)', () => {
   it('Vérifier les informations affichées - En-tête', () => {
     cy.get('[class="ant-card-head-title"]').contains('chr10:g.17617338A>C').should('exist');
     cy.get('[class="ant-card-head-title"]').find('svg[class*="anticon"]').should('exist');
