@@ -13,6 +13,7 @@ import { useVariants } from 'graphql/variants/actions';
 import { VariantType } from 'graphql/variants/models';
 import { VARIANT_QUERY } from 'graphql/variants/queries';
 import { cloneDeep } from 'lodash';
+import { TVariantFilter } from 'views/Cnv/Exploration/variantColumns';
 import { usePrescriptionEntityContext } from 'views/Prescriptions/Entity/context';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { MAX_VARIANTS_WITH_DONORS_DOWNLOAD, VARIANT_KEY } from 'views/Prescriptions/utils/export';
@@ -38,6 +39,7 @@ import {
 } from 'utils/queryBuilder';
 
 import { flagFilterQuery, noFlagQuery } from '../../components/Flag/FlagFilter';
+import { getNoteQuery } from '../../components/Note/NoteFilter';
 
 import VariantsTab from './tabs/Variants';
 
@@ -55,7 +57,10 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     ...DEFAULT_QUERY_CONFIG,
     size: DEFAULT_PAGE_SIZE,
   });
-  const [filtersList, setFilterList] = useState<string[]>([]);
+  const [filtersList, setFilterList] = useState<TVariantFilter>({
+    flags: [],
+    note: [],
+  });
   const [isClear, setIsClear] = useState<boolean>(false);
 
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
@@ -69,17 +74,30 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     );
 
   const sqon = getVariantResolvedSqon(activeQuery);
-  const hasFlags = filtersList.length > 0; // contains only flags for now, to update if more filters
+  const hasFlags = filtersList.flags.length > 0;
+  const hasNote = filtersList.note.length > 0;
 
-  const sqonwithFlag = {
-    content: sqon
-      ? hasFlags
-        ? filtersList.includes('none')
-          ? [sqon, noFlagQuery(filtersList)]
-          : [sqon, flagFilterQuery(filtersList)]
-        : [sqon]
-      : [],
-    op: 'and',
+  const getFilterSqon = () => {
+    const sqonList: any[] = [];
+    if (sqon) {
+      sqonList.push(sqon);
+      if (hasFlags) {
+        filtersList.flags.includes('none')
+          ? sqonList.push(noFlagQuery(filtersList.flags))
+          : sqonList.push(flagFilterQuery(filtersList.flags));
+      }
+      if (hasNote) {
+        sqonList.push(getNoteQuery(filtersList.note));
+      }
+      return {
+        content: sqonList,
+        op: 'and',
+      };
+    } else
+      return {
+        content: [],
+        op: 'and',
+      };
   };
 
   const queryVariables = {
@@ -99,7 +117,8 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
     first: variantQueryConfig.size,
     offset: DEFAULT_OFFSET,
     searchAfter: variantQueryConfig.searchAfter,
-    sqon: sqonwithFlag,
+    //sqon: sqonwithFlag,
+    sqon: getFilterSqon(),
     sort: tieBreaker({
       sort: variantQueryConfig.sort,
       defaultSort: DEFAULT_SORT_QUERY,
@@ -148,14 +167,27 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       firstPageFlag: variantQueryConfig.searchAfter,
     });
   }, [variantQueryConfig]);
-  const handleFilterList = (columnKeys: Key[]) => {
+
+  const handleFilterList = (columnKeys: Key[], filter?: string) => {
     if (columnKeys.length > 0) {
       setIsClear(true);
       const keytoString: string[] = columnKeys.map((key) => key.toString());
-      setFilterList(keytoString);
+      if (filter === 'flags') {
+        setFilterList({ flags: keytoString, note: filtersList.note });
+      } else {
+        setFilterList({ flags: filtersList.flags, note: keytoString });
+      }
     } else {
-      setFilterList([]);
-      setIsClear(false);
+      if (filter) {
+        if (filter === 'flags') {
+          setFilterList({ flags: [], note: filtersList.note });
+        } else {
+          setFilterList({ flags: filtersList.flags, note: [] });
+        }
+      } else {
+        setFilterList({ flags: [], note: [] });
+        setIsClear(false);
+      }
     }
   };
 
@@ -165,7 +197,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   const { prescription } = usePrescriptionEntityContext();
   //Reset flags filter on resfresh
   useEffect(() => {
-    setFilterList([]);
+    setFilterList({ flags: [], note: [] });
     updateQueryByTableFilter({
       queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
       field: 'flags',
@@ -175,7 +207,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
 
   //Reset Flag filter on clearFilter
   useEffect(() => {
-    if (filtersList.length === 0) {
+    if (filtersList.flags.length === 0) {
       setIsClear(false);
       resetSearchAfterQueryConfig(
         {

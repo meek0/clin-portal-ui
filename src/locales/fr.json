@@ -617,6 +617,27 @@
   "no.ramq.or.new.born": "Aucun numéro de RAMQ ou nouveau-né",
   "no.results.found": "Aucun résultat",
   "normal": "Normal",
+  "note": {
+    "table": {
+      "tooltip": "Note privée"
+    },
+    "options": {
+      "hasNote": "Ouvrir la note",
+      "noNote": "Ajouter une note"
+    },
+    "modal": {
+      "title": "Note sur le variant",
+      "label": "Ajouter une note",
+      "save": "Sauvegarder",
+      "cancel": "Annuler"
+    },
+    "filter": {
+      "options": {
+        "hasNote": "Note",
+        "noNote": "Aucun"
+      }
+    }
+  },
   "not_affected": "Non atteint",
   "not_done": "Non effectué",
   "notification.error": "Erreur",
@@ -1090,6 +1111,7 @@
   "screen.patientsnv.results.table.dbsnp": "dbSNP",
   "screen.patientsnv.results.table.filter": "Filtre",
   "screen.patientsnv.results.table.flag": "Drapeau",
+  "screen.patientsnv.results.table.note": "Note",
   "screen.patientsnv.results.table.gene_combined_score": "Exo.",
   "screen.patientsnv.results.table.gene_combined_score.tooltip": "Score Exomiser calculé en fonction des caractéristiques du variant et des phénotypes du patient",
   "screen.patientsnv.results.table.acmg_classification": "ACMG E.",

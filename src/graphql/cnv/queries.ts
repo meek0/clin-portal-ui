@@ -30,6 +30,7 @@ export const VARIANT_QUERY = gql`
             sort_chromosome
             type
             flags
+            note
             qual
             start
             end

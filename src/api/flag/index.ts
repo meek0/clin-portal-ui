@@ -14,7 +14,7 @@ const update = (
   patient_id: string,
   organization: string,
   variantType: string,
-  body: { flags: string[] },
+  body: { flags: string[] } | { note: string | null },
 ) =>
   sendRequestWithRpt<any>({
     method: 'POST',
