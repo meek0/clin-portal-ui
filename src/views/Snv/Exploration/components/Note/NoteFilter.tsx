@@ -41,8 +41,8 @@ export const allNoteQuery = () => ({
   content: [
     {
       content: {
-        field: 'flags',
-        value: ['flag', 'pin', 'star'],
+        field: 'note',
+        value: ['true'],
       },
       op: 'not-in',
     },
