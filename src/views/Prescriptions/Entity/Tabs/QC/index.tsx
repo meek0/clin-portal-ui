@@ -96,6 +96,7 @@ const PrescriptionQC = () => {
 
   useEffect(() => {
     if (variantInfo.requestId) {
+      setLoadingCard(true);
       fetchDocsForRequestId(variantInfo.requestId)
         .then((docs) => {
           setDocs(docs);

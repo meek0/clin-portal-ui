@@ -11,6 +11,7 @@ import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
 
 import Forbidden from 'components/Results/Forbidden';
+import useFeatureToggle from 'hooks/useFeatureToggle';
 
 import PrescriptionDetails from './Tabs/Details';
 import PrescriptionFiles from './Tabs/Files';
@@ -39,6 +40,7 @@ const PrescriptionEntity = () => {
   const { id: prescriptionId } = useParams<{ id: string }>();
   const [requestLoading, setRequestLoading] = useState(true);
   const { prescription, loading } = useServiceRequestEntity(prescriptionId);
+  const summaryTabFeatureToggle = useFeatureToggle('summaryTab');
 
   const [selectedRequest, setSelectedRequest] = useState<ServiceRequestEntity>();
   const [selectedBasedOnRequest, setBasedOnRequest] = useState<ServiceRequestEntity>();
@@ -98,6 +100,41 @@ const PrescriptionEntity = () => {
     setVariantInfo,
   ]);
 
+  const memoedTabsItems = useMemo(() => {
+    const items = [
+      {
+        key: PrescriptionEntityTabs.DETAILS,
+        label: intl.get('prescription.tabs.title.details'),
+        children: <PrescriptionDetails />,
+      },
+      {
+        key: PrescriptionEntityTabs.QC,
+        label: intl.get('prescription.tabs.title.qc'),
+        children: <PrescriptionQC />,
+      },
+      {
+        key: PrescriptionEntityTabs.VARIANTS,
+        label: intl.get('prescription.tabs.title.variants'),
+        children: <PrescriptionVariants />,
+      },
+      {
+        key: PrescriptionEntityTabs.FILES,
+        label: intl.get('prescription.tabs.title.files'),
+        children: <PrescriptionFiles />,
+      },
+    ];
+
+    if (summaryTabFeatureToggle.isEnabled) {
+      items.unshift({
+        key: PrescriptionEntityTabs.SUMMARY,
+        label: intl.get('prescription.tabs.title.summary'),
+        children: <Summary />,
+      });
+    }
+
+    return items;
+  }, [summaryTabFeatureToggle.isEnabled]);
+
   if (!loading && !prescription) {
     return <Forbidden />;
   }
@@ -117,33 +154,7 @@ const PrescriptionEntity = () => {
           ),
         }}
         className={styles.prescriptionEntityContainer}
-        items={[
-          {
-            key: PrescriptionEntityTabs.SUMMARY,
-            label: intl.get('prescription.tabs.title.summary'),
-            children: <Summary />,
-          },
-          {
-            key: PrescriptionEntityTabs.DETAILS,
-            label: intl.get('prescription.tabs.title.details'),
-            children: <PrescriptionDetails />,
-          },
-          {
-            key: PrescriptionEntityTabs.QC,
-            label: intl.get('prescription.tabs.title.qc'),
-            children: <PrescriptionQC />,
-          },
-          {
-            key: PrescriptionEntityTabs.VARIANTS,
-            label: intl.get('prescription.tabs.title.variants'),
-            children: <PrescriptionVariants />,
-          },
-          {
-            key: PrescriptionEntityTabs.FILES,
-            label: intl.get('prescription.tabs.title.files'),
-            children: <PrescriptionFiles />,
-          },
-        ]}
+        items={memoedTabsItems}
       />
     </PrescriptionEntityContext.Provider>
   );

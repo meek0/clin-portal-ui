@@ -1,9 +1,10 @@
 import { FhirApi } from 'api/fhir';
 import { ServiceRequestEntity } from 'api/fhir/models';
+import { getFamilyCode } from 'graphql/prescriptions/helper';
 import { DocsWithTaskInfo } from 'views/Archives';
 import { extractDocsFromTask } from 'views/Archives/helper';
 
-import { getPatientAndRequestId } from './Tabs/Variants/utils';
+import { formatOptionValue, getPatientAndRequestId } from './Tabs/Variants/utils';
 
 export const fetchDocsForRequestId = async (requestId: string) =>
   FhirApi.searchPatientFiles(requestId).then(({ data }) => {
@@ -46,4 +47,31 @@ export const getAllRequestIds = (prescription: ServiceRequestEntity | undefined)
   });
 
   return [requestId, ...otherRequestIds].filter((e) => !!e?.trim());
+};
+
+export const getRequestCodeAndValue = (
+  serviceRequest: ServiceRequestEntity | undefined,
+): { code: string; value: string }[] => {
+  const { patientId, requestId } = getPatientAndRequestId(serviceRequest?.subject.resource);
+  const familyCode = getFamilyCode(serviceRequest, patientId!);
+
+  return [
+    {
+      code: familyCode ? familyCode : 'proband',
+      value: formatOptionValue(patientId, requestId),
+    },
+    ...(serviceRequest?.extensions || []).map((ext) => {
+      const code = ext?.extension?.[0]?.valueCoding?.coding?.[0].code;
+      const extensionValueRef = ext?.extension?.[1];
+
+      const { patientId, requestId } = getPatientAndRequestId(
+        extensionValueRef?.valueReference?.resource,
+      );
+
+      return {
+        code: code || '',
+        value: formatOptionValue(patientId, requestId),
+      };
+    }),
+  ];
 };

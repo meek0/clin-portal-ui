@@ -7,12 +7,12 @@ import { QualityControlUtils } from './utils';
 
 import styles from './index.module.css';
 
-export type TQualityControlSummaryData = {
+export type TQualityControlSummaryData<T = {}> = ({
   header?: ReactNode;
   sampleQcReport: Record<string, any>;
   gender: string | undefined;
   requestId: string;
-}[];
+} & T)[];
 
 type TQualityControlSummaryProps = {
   summaryData: TQualityControlSummaryData;

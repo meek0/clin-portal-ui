@@ -8,21 +8,25 @@ import CollapsePanel from 'components/containers/collapse';
 
 import PrescriptionEntityContext from '../../context';
 import QualityControlSummary, { TQualityControlSummaryData } from '../../QualityControlSummary';
-import { fetchDocsForRequestId, fetchSamplesQCReport } from '../../utils';
-import { formatOptionValue, getPatientAndRequestId, getRequestOptions } from '../Variants/utils';
+import { fetchDocsForRequestId, fetchSamplesQCReport, getRequestCodeAndValue } from '../../utils';
+import { formatOptionValue, getPatientAndRequestId } from '../Variants/utils';
+
+type TQualityControlSummaryDataWithCode = TQualityControlSummaryData<{ code: string }>;
 
 export const getSummaryDataForAllRequestIds = async (
   prescription: ServiceRequestEntity | undefined,
-): Promise<TQualityControlSummaryData> => {
-  const requestOptions = getRequestOptions(prescription);
+): Promise<TQualityControlSummaryDataWithCode> => {
+  const requestOptions = getRequestCodeAndValue(prescription);
   const { requestId, patientId } = getPatientAndRequestId(prescription?.subject.resource);
+  const code = requestOptions.find(
+    ({ value }) => value === formatOptionValue(patientId, requestId),
+  )?.code;
 
-  const summaryData: TQualityControlSummaryData = [
+  const summaryData: TQualityControlSummaryDataWithCode = [
     {
       requestId,
       gender: prescription?.subject.resource.gender,
-      header: requestOptions.find(({ value }) => value === formatOptionValue(patientId, requestId))
-        ?.label,
+      code: code || 'unknown',
       sampleQcReport: {},
     },
   ];
@@ -32,11 +36,14 @@ export const getSummaryDataForAllRequestIds = async (
     const { requestId, patientId } = getPatientAndRequestId(
       extensionValueRef?.valueReference?.resource,
     );
+    const code = requestOptions.find(
+      ({ value }) => value === formatOptionValue(patientId, requestId),
+    )?.code;
+
     summaryData.push({
       requestId,
       gender: extensionValueRef?.valueReference?.resource.gender,
-      header: requestOptions.find(({ value }) => value === formatOptionValue(patientId, requestId))
-        ?.label,
+      code: code || 'unknown',
       sampleQcReport: {},
     });
   });
@@ -58,7 +65,7 @@ export const getSummaryDataForAllRequestIds = async (
 
 const Summary = () => {
   const [loadingCard, setLoadingCard] = useState(true);
-  const [summaryData, setSummaryData] = useState<TQualityControlSummaryData>([]);
+  const [summaryData, setSummaryData] = useState<TQualityControlSummaryDataWithCode>([]);
   const { prescription, loading } = useContext(PrescriptionEntityContext);
 
   useEffect(() => {
@@ -79,7 +86,13 @@ const Summary = () => {
         }
         loading={loadingCard}
       >
-        <QualityControlSummary summaryData={summaryData} showHeader />
+        <QualityControlSummary
+          summaryData={summaryData.map(({ code, ...data }) => ({
+            ...data,
+            header: intl.get(code),
+          }))}
+          showHeader
+        />
       </CollapsePanel>
     </div>
   );
