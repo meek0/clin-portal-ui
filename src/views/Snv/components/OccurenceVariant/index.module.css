@@ -149,6 +149,11 @@
   padding: 12px;
 }
 
+.occurenceVariant .transcript .transcriptSpace{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .occurenceVariant .transcript :global(.ant-divider) {
   height: 22px;
 }

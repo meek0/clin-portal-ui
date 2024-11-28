@@ -26,7 +26,7 @@ const TranscriptSection = ({ record: { genes, consequences, rsnumber } }: OwnPro
     pickedConsequence?.node.mane_plus;
   return (
     <Card size="small" className={`${style.transcript} ${style.card}`}>
-      <Space size={16}>
+      <Space size={16} className={style.transcriptSpace}>
         <Space>
           <ExternalLink
             href={

@@ -52,8 +52,9 @@ const FrequenciesSomaticSection = ({ record }: OwnProps) => {
           <Link target="_blank" to={`/variant/entity/${record.locus}/${TAB_ID.PATIENTS}`}>
             {freqTN.pn}
           </Link>
-
-          {`(${freqTN.pf.toExponential(2)})`}
+          <Tooltip title={intl.get('filters.group.freq_rqdm_tumor_normal.pf.tooltip')}>
+            {`(${freqTN.pf.toExponential(2)})`}
+          </Tooltip>
         </Space>
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('filters.group.genes.cosmic.tumour_types_germline')}>

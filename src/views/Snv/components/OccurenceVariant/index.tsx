@@ -58,7 +58,7 @@ const OccurenceVariant = ({
             <>
               <Col flex={1}>
                 <Space size={8} direction="vertical">
-                  <ClassificationSection record={record} />
+                  <ClassificationSection record={record} variantSection={variantSection} />
                   {variantSection === VariantSection.SNV && (
                     <PredictionSection record={record} patientId={patientId} />
                   )}
