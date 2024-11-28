@@ -7,12 +7,14 @@ import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeI
 
 import styles from './index.module.css';
 
+type TIndicatorColor = 'red' | 'yellow';
+
 const getSexMeta = (
   averageChrY: number,
   averageChrX: number,
 ): {
   sex: 'male' | 'female' | 'undefined';
-  color: 'yellow' | 'red';
+  color: TIndicatorColor;
 } => {
   if (averageChrY > 0.2102 || averageChrX < 0.8496) {
     return {
@@ -80,23 +82,42 @@ const getSexDetail = (averageChrY: number, averageChrX: number, gender: string |
   );
 };
 
-const getContaminationDetail = (estimatedSampleContamination: number) => (
-  <Space>
-    {estimatedSampleContamination > 0.02 && estimatedSampleContamination <= 0.05 ? (
-      <ModerateBadgeIcon svgClass={styles.moderateImpact} />
-    ) : estimatedSampleContamination > 0.05 ? (
-      <HighBadgeIcon svgClass={styles.highImpact} />
-    ) : null}
-    {estimatedSampleContamination}
-  </Space>
-);
+const getContaminationIndicatorColor = (
+  estimatedSampleContamination: number,
+): TIndicatorColor | null => {
+  if (estimatedSampleContamination > 0.02 && estimatedSampleContamination <= 0.05) return 'yellow';
+  if (estimatedSampleContamination > 0.05) return 'red';
+  return null;
+};
+
+const getContaminationDetail = (estimatedSampleContamination: number) => {
+  const indicatorColor = getContaminationIndicatorColor(estimatedSampleContamination);
+
+  return (
+    <Space>
+      {indicatorColor === 'yellow' ? (
+        <ModerateBadgeIcon svgClass={styles.moderateImpact} />
+      ) : indicatorColor === 'red' ? (
+        <HighBadgeIcon svgClass={styles.highImpact} />
+      ) : null}
+      {estimatedSampleContamination}
+    </Space>
+  );
+};
+
+const getExomeAvgCoverageIndicatorColor = (
+  avgAlignmentCoverage: number,
+): TIndicatorColor | null => {
+  const isInsufficient = avgAlignmentCoverage < 100;
+  return isInsufficient ? 'red' : null;
+};
 
 const getExomeAvgCoverageDetail = (avgAlignmentCoverage: number) => {
-  const isInsufficient = avgAlignmentCoverage < 100;
+  const indicatorColor = getExomeAvgCoverageIndicatorColor(avgAlignmentCoverage);
 
   return (
     <ConditionalWrapper
-      condition={isInsufficient}
+      condition={indicatorColor === 'red'}
       wrapper={(children) => (
         <Tooltip title={intl.get('pages.quality_control_summary.insufficient_coverage')}>
           {children}
@@ -104,19 +125,24 @@ const getExomeAvgCoverageDetail = (avgAlignmentCoverage: number) => {
       )}
     >
       <Space>
-        {isInsufficient ? <HighBadgeIcon svgClass={styles.highImpact} /> : null}
+        {indicatorColor === 'red' ? <HighBadgeIcon svgClass={styles.highImpact} /> : null}
         {avgAlignmentCoverage}
       </Space>
     </ConditionalWrapper>
   );
 };
 
-const getExomeCoverage15xDetail = (exomeCoverage15x: number) => {
+const getExomeCoverage15xIndicatorColor = (exomeCoverage15x: number): TIndicatorColor | null => {
   const isInsufficient = exomeCoverage15x < 95;
+  return isInsufficient ? 'red' : null;
+};
+
+const getExomeCoverage15xDetail = (exomeCoverage15x: number) => {
+  const indicatorColor = getExomeCoverage15xIndicatorColor(exomeCoverage15x);
 
   return (
     <ConditionalWrapper
-      condition={isInsufficient}
+      condition={indicatorColor === 'red'}
       wrapper={(children) => (
         <Tooltip title={intl.get('pages.quality_control_summary.insufficient_coverage_15x')}>
           {children}
@@ -124,19 +150,26 @@ const getExomeCoverage15xDetail = (exomeCoverage15x: number) => {
       )}
     >
       <Space>
-        {isInsufficient ? <HighBadgeIcon svgClass={styles.highImpact} /> : null}
+        {indicatorColor === 'red' ? <HighBadgeIcon svgClass={styles.highImpact} /> : null}
         {exomeCoverage15x}
       </Space>
     </ConditionalWrapper>
   );
 };
 
-const getUniformityCoverage40PercDetail = (uniformityCoverage: number) => {
+const getUniformityCoverage40PercIndicatorColor = (
+  uniformityCoverage: number,
+): TIndicatorColor | null => {
   const isInsufficient = uniformityCoverage < 93.91;
+  return isInsufficient ? 'yellow' : null;
+};
+
+const getUniformityCoverage40PercDetail = (uniformityCoverage: number) => {
+  const indicatorColor = getUniformityCoverage40PercIndicatorColor(uniformityCoverage);
 
   return (
     <ConditionalWrapper
-      condition={isInsufficient}
+      condition={indicatorColor === 'yellow'}
       wrapper={(children) => (
         <Tooltip title={intl.get('pages.quality_control_summary.suboptimal_coverage_40')}>
           {children}
@@ -144,7 +177,9 @@ const getUniformityCoverage40PercDetail = (uniformityCoverage: number) => {
       )}
     >
       <Space>
-        {isInsufficient ? <ModerateBadgeIcon svgClass={styles.moderateImpact} /> : null}
+        {indicatorColor === 'yellow' ? (
+          <ModerateBadgeIcon svgClass={styles.moderateImpact} />
+        ) : null}
         {uniformityCoverage}
       </Space>
     </ConditionalWrapper>
@@ -152,9 +187,14 @@ const getUniformityCoverage40PercDetail = (uniformityCoverage: number) => {
 };
 
 export const QualityControlUtils = {
+  getSexMeta,
   getSexDetail,
+  getContaminationIndicatorColor,
   getContaminationDetail,
+  getExomeAvgCoverageIndicatorColor,
   getExomeAvgCoverageDetail,
+  getExomeCoverage15xIndicatorColor,
   getExomeCoverage15xDetail,
+  getUniformityCoverage40PercIndicatorColor,
   getUniformityCoverage40PercDetail,
 };

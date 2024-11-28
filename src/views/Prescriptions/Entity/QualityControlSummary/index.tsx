@@ -11,7 +11,9 @@ export type TQualityControlSummaryData<T = {}> = ({
   header?: ReactNode;
   sampleQcReport: Record<string, any>;
   gender: string | undefined;
+  patientId: string;
   requestId: string;
+  cnvCount: number;
 } & T)[];
 
 type TQualityControlSummaryProps = {
@@ -120,9 +122,14 @@ const QualityControlSummary = ({
           <CustomDescriptionLabel>
             {intl.get('pages.quality_control_summary.total_cnvs')}
           </CustomDescriptionLabel>
-          {summaryData.map((_, index) => (
+          {summaryData.map(({ cnvCount, requestId }, index) => (
             <CustomDescriptionItemContent key={`request-${index}-total-cnvs`}>
-              -
+              <Link
+                to={`/prescription/entity/${requestId}?variantSection=cnv#variants`}
+                className={styles.link}
+              >
+                {cnvCount}
+              </Link>
             </CustomDescriptionItemContent>
           ))}
         </CustomDescriptionRow>

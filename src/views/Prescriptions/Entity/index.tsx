@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { MedicineBoxOutlined } from '@ant-design/icons';
-import { Space, Tabs } from 'antd';
+import { Badge, Space, Tabs } from 'antd';
 import { FhirApi } from 'api/fhir';
 import { extractPatientId, extractServiceRequestId } from 'api/fhir/helper';
 import { ServiceRequestEntity } from 'api/fhir/models';
@@ -109,7 +109,7 @@ const PrescriptionEntity = () => {
       },
       {
         key: PrescriptionEntityTabs.QC,
-        label: intl.get('prescription.tabs.title.qc'),
+        label: <Badge dot>{intl.get('prescription.tabs.title.qc')}</Badge>,
         children: <PrescriptionQC />,
       },
       {

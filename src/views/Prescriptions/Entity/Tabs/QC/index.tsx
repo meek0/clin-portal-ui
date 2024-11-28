@@ -29,9 +29,15 @@ import useQueryParams from 'hooks/useQueryParams';
 import { globalActions } from 'store/global';
 
 import QualityControlSummary from '../../QualityControlSummary';
-import { fetchDocsForRequestId, fetchSamplesQCReport } from '../../utils';
+import {
+  fetchDocsForRequestId,
+  fetchRequestTotalCnvs,
+  fetchSamplesQCReport,
+  getGenderForRequestId,
+} from '../../utils';
 
 import styles from './index.module.css';
+
 enum QCTabs {
   DRAGEN_CAPTURE_COVERAGE_METRICS = 'DRAGEN_capture_coverage_metrics',
   DRAGEN_MAPPING_METRICS = 'DRAGEN_mapping_metrics',
@@ -83,6 +89,7 @@ const PrescriptionQC = () => {
   const [loadingCard, setLoadingCard] = useState(true);
   const [docs, setDocs] = useState<DocsWithTaskInfo[]>([]);
   const [reportFile, setReportFile] = useState<any>(null);
+  const [totalCnvs, setTotalCnvs] = useState(0);
   const { prescription, variantInfo, setVariantInfo, loading } =
     useContext(PrescriptionEntityContext);
   const queryParamQcSection = queryParams.get('qcSection');
@@ -95,8 +102,9 @@ const PrescriptionQC = () => {
   }, [queryParamQcSection]);
 
   useEffect(() => {
-    if (variantInfo.requestId) {
+    if (variantInfo.patientId && variantInfo.requestId) {
       setLoadingCard(true);
+
       fetchDocsForRequestId(variantInfo.requestId)
         .then((docs) => {
           setDocs(docs);
@@ -105,6 +113,11 @@ const PrescriptionQC = () => {
             return fetchSamplesQCReport(docs).then((report) => setReportFile(report));
           }
         })
+        .then(() =>
+          fetchRequestTotalCnvs(variantInfo.patientId!, variantInfo.requestId!).then((value) =>
+            setTotalCnvs(value),
+          ),
+        )
         .finally(() => setLoadingCard(false));
     }
   }, [variantInfo.requestId]);
@@ -221,8 +234,10 @@ const PrescriptionQC = () => {
                       ? [
                           {
                             sampleQcReport: reportFile,
-                            gender: prescription?.subject.resource.gender,
+                            gender: getGenderForRequestId(prescription, variantInfo.requestId!),
+                            patientId: variantInfo.patientId!,
                             requestId: variantInfo.requestId!,
+                            cnvCount: totalCnvs,
                           },
                         ]
                       : []

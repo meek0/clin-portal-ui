@@ -1,10 +1,16 @@
+import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
+import { ArrangerApi } from 'api/arranger';
 import { FhirApi } from 'api/fhir';
 import { ServiceRequestEntity } from 'api/fhir/models';
+import { IVariantResultTree } from 'graphql/cnv/models';
+import { GET_VARIANT_COUNT } from 'graphql/cnv/queries';
 import { getFamilyCode } from 'graphql/prescriptions/helper';
 import { DocsWithTaskInfo } from 'views/Archives';
 import { extractDocsFromTask } from 'views/Archives/helper';
+import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
 
 import { formatOptionValue, getPatientAndRequestId } from './Tabs/Variants/utils';
+import { TQualityControlSummaryData } from './QualityControlSummary';
 
 export const fetchDocsForRequestId = async (requestId: string) =>
   FhirApi.searchPatientFiles(requestId).then(({ data }) => {
@@ -74,4 +80,106 @@ export const getRequestCodeAndValue = (
       };
     }),
   ];
+};
+
+export const fetchRequestTotalCnvs = async (patientId: string, requestId: string) => {
+  const { data } = await ArrangerApi.graphqlRequest<{ data: IVariantResultTree }>({
+    query: GET_VARIANT_COUNT.loc?.source.body,
+    variables: {
+      sqon: wrapSqonWithPatientIdAndRequestId(
+        {
+          op: BooleanOperators.and,
+          content: [],
+        },
+        patientId,
+        requestId,
+      ),
+    },
+  });
+  return data?.data?.cnv.hits.total ?? 0;
+};
+
+export const getGenderForRequestId = (
+  prescription: ServiceRequestEntity | undefined,
+  requestId: string,
+): string | undefined => {
+  const resource = getPatientAndRequestId(prescription?.subject.resource);
+
+  if (resource.requestId === requestId) {
+    return prescription?.subject.resource.gender;
+  }
+
+  return (prescription?.extensions || []).find((ext) => {
+    const extensionValueRef = ext?.extension?.[1];
+    const resource = getPatientAndRequestId(extensionValueRef?.valueReference?.resource);
+    return resource.requestId === requestId;
+  })?.extension?.[1].valueReference?.resource.gender;
+};
+
+export type TQualityControlSummaryDataWithCode = TQualityControlSummaryData<{ code: string }>;
+
+export const getSummaryDataForAllRequestIds = async (
+  prescription: ServiceRequestEntity | undefined,
+): Promise<TQualityControlSummaryDataWithCode> => {
+  const requestOptions = getRequestCodeAndValue(prescription);
+  const { requestId, patientId } = getPatientAndRequestId(prescription?.subject.resource);
+  const code = requestOptions.find(
+    ({ value }) => value === formatOptionValue(patientId, requestId),
+  )?.code;
+
+  const summaryData: TQualityControlSummaryDataWithCode = [
+    {
+      patientId,
+      requestId,
+      gender: prescription?.subject.resource.gender,
+      code: code || 'unknown',
+      sampleQcReport: {},
+      cnvCount: 0,
+    },
+  ];
+
+  (prescription?.extensions || []).forEach((ext) => {
+    const extensionValueRef = ext?.extension?.[1];
+    const { requestId, patientId } = getPatientAndRequestId(
+      extensionValueRef?.valueReference?.resource,
+    );
+    const code = requestOptions.find(
+      ({ value }) => value === formatOptionValue(patientId, requestId),
+    )?.code;
+
+    summaryData.push({
+      patientId,
+      requestId,
+      gender: extensionValueRef?.valueReference?.resource.gender,
+      code: code || 'unknown',
+      sampleQcReport: {},
+      cnvCount: 0,
+    });
+  });
+
+  await Promise.all(
+    summaryData.map<Promise<void>>(({ requestId, patientId }, index) =>
+      fetchDocsForRequestId(requestId)
+        .then((docs) => {
+          if (docs.length > 0) {
+            return fetchSamplesQCReport(docs).then((report) => {
+              summaryData[index].sampleQcReport = report;
+            });
+          }
+        })
+        .then(() =>
+          fetchRequestTotalCnvs(patientId, requestId).then((value) => {
+            summaryData[index].cnvCount = value;
+          }),
+        ),
+    ),
+  );
+
+  return summaryData;
+};
+
+const getSequencageIndicatorForRequests = async (prescription: ServiceRequestEntity) => {
+  const summaryData = await getSummaryDataForAllRequestIds(prescription);
+
+  // Loop and get find the worst metric for each request and also the worst metric across requests
 };
