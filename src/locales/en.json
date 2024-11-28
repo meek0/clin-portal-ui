@@ -618,7 +618,7 @@
   "normal": "Normal",
   "note": {
     "table": {
-      "tooltip": "Private note"
+      "tooltip": "Note"
     },
     "options": {
       "hasNote": "Open note",

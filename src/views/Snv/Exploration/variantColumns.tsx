@@ -329,8 +329,8 @@ export const getVariantColumns = (
 ): ProColumnType<ITableVariantEntity>[] => {
   let columns: ProColumnType<ITableVariantEntity>[] = [];
 
-  if (patientId) {
-    if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true' && isSameLDM) {
+  if (patientId && isSameLDM) {
+    if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true') {
       columns.push({
         key: 'flags',
         fixed: 'left',
