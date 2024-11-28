@@ -38,6 +38,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUSJ
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
@@ -46,6 +48,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
     cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
@@ -54,6 +58,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
     cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CHUS
     cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
@@ -62,6 +68,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUS
     cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Les liens de la footer sont visibles
     cy.contains('Zeppelin').should('exist');
@@ -93,6 +101,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUSJ
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
@@ -101,6 +111,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
     cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
@@ -109,6 +121,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
     cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CHUS
     cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
@@ -117,6 +131,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUS
     cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Les liens de la footer sont visibles
     cy.contains('Zeppelin').should('not.exist');
@@ -148,6 +164,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUSJ
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
@@ -156,6 +174,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
     cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
@@ -165,6 +185,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
     cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Accéder à la page Prescription d'un patient du CHUS
     cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
@@ -174,6 +196,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUS
     cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Les liens de la footer ne sont pas visibles
     cy.contains('Zeppelin').should('not.exist');
@@ -205,6 +229,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUSJ
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
@@ -213,6 +239,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
     cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
@@ -222,6 +250,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
     cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Accéder à la page Prescription d'un patient du CHUS
     cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
@@ -231,6 +261,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUS
     cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Les liens de la footer ne sont pas visibles
     cy.contains('Zeppelin').should('not.exist');
@@ -263,6 +295,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUSJ
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
@@ -272,6 +306,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
     cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
@@ -280,6 +316,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
     cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CHUS
     cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
@@ -289,6 +327,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUS
     cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Les liens de la footer ne sont pas visibles
     cy.contains('Zeppelin').should('not.exist');
@@ -321,6 +361,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUSJ
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
@@ -330,6 +372,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
     cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
@@ -339,6 +383,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
     cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Accéder à la page Prescription d'un patient du CHUS
     cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
@@ -347,6 +393,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUS
     cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Les liens de la footer ne sont pas visibles
     cy.contains('Zeppelin').should('not.exist');
@@ -379,6 +427,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUSJ
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
@@ -388,6 +438,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ)
     cy.visitVariantsPatientPage(epCUSM_ldmCHUSJ.patientProbId, epCUSM_ldmCHUSJ.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
@@ -397,6 +449,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM)
     cy.visitVariantsPatientPage(epCUSM_ldmCUSM.patientProbId, epCUSM_ldmCUSM.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('not.exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('not.exist');
 
     // Accéder à la page Prescription d'un patient du CHUS
     cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
@@ -405,6 +459,8 @@ describe('Accès des utilisateurs', () => {
     // Accéder aux variants d'un patient du CHUS
     cy.visitVariantsPatientPage(epCHUS_ldmCHUS.patientProbId, epCHUS_ldmCHUS.prescriptionId, 6);
     cy.contains('Résultats').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
 
     // Les liens de la footer ne sont pas visibles
     cy.contains('Zeppelin').should('not.exist');
