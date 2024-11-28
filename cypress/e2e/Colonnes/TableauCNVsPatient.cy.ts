@@ -22,40 +22,45 @@ describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(2)
       .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('Actions').should('exist');
+      .find('[data-icon="message"]').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(3)
       .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('Gènes').should('exist');
+      .contains('Actions').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(4)
+      .should('not.have.class', 'ant-table-column-has-sorters')
+      .contains('Gènes').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .find('th[class*="ant-table-cell"]').eq(5)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Variant').should('exist');
     
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(5)
+      .find('th[class*="ant-table-cell"]').eq(6)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Chr.').should('exist');
   
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(6)
+      .find('th[class*="ant-table-cell"]').eq(7)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Début').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(7)
+      .find('th[class*="ant-table-cell"]').eq(8)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Fin').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(8)
+      .find('th[class*="ant-table-cell"]').eq(9)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Événement').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(9)
+      .find('th[class*="ant-table-cell"]').eq(10)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Longueur').should('exist');
 
@@ -66,12 +71,12 @@ describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
       .contains('MS').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(10)
+      .find('th[class*="ant-table-cell"]').eq(11)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('CN').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(11)
+      .find('th[class*="ant-table-cell"]').eq(12)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('# Gènes').should('exist');
 

@@ -6,6 +6,7 @@ import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { IQueryResults } from 'graphql/models';
 import { ITableVariantEntity, VariantEntity, VariantType } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
+import { TVariantFilter } from 'views/Cnv/Exploration/variantColumns';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { getVariantTypeFromSNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
@@ -41,7 +42,7 @@ type OwnProps = {
   variantSection?: VariantSection;
   isSameLDM?: boolean;
   setFilterList: (columnKeys: Key[]) => void;
-  filtersList: string[];
+  filtersList: TVariantFilter;
   isClear: boolean;
 };
 
@@ -103,6 +104,7 @@ const VariantsTab = ({
   );
   const canExtend = (section: VariantSection) =>
     [VariantSection.SNV, VariantSection.SNVTN, VariantSection.SNVTO].includes(section);
+
   return (
     <>
       {donor && selectedVariant && (
@@ -201,7 +203,7 @@ const VariantsTab = ({
                       }),
                 );
               },
-              hasFilter: filtersList.length > 0 ? true : false,
+              hasFilter: filtersList.flags.length > 0 || filtersList.note.length > 0 ? true : false,
               clearFilter: () => {
                 setFilterList([]);
               },

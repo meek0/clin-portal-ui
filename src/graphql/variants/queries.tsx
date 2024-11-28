@@ -25,6 +25,7 @@ const VARIANT_QUERY_BASE_FIELDS = `
   alternate
   chromosome
   start
+  note
   flags
   end
   hotspot

@@ -21,41 +21,42 @@ beforeEach(() => {
 describe('Page des variants d\'un patient (paired) - Consultation du tableau', () => {
   it('Vérifier les informations affichées', () => {
     cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 2, 'FlagDropdown');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 3, 'chr10:g.17617338A>C');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 4, 'SNV');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 5, 'TN');
-    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 5, 'ant-tag-red');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 6, '-');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 7, 'HACD1');
-    cy.validateTableDataRowKeyAttr('2f53f2ed574a720853172ff224c608efc5e3b623', 7, 'data-icon', 'plus');
-    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 8, 'ConsequencesCell_highImpact');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 8, 'Start Lost p.Met1Arg');
-    cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(9).find('path[d*="M16.7732"]').should('exist'); // C
-    cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(9).find('path[d*="M8.98279"]').should('exist'); // M
-    cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(9).find('path[d*="M10.9335"]').should('not.exist'); // P
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 10, 'AR');
-    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 10, 'ant-tag-blue');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 11, /^VUS$/);
-    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 11, 'ant-tag-orange');
-    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 12, 'hotspotOutlined');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 13, 'ND');
-    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 13, 'ant-tag-default');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 14, '-');
+    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 3, 'NoteCell');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 4, 'chr10:g.17617338A>C');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 5, 'SNV');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 6, 'TN');
+    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 6, 'ant-tag-red');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 7, '-');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 8, 'HACD1');
+    cy.validateTableDataRowKeyAttr('2f53f2ed574a720853172ff224c608efc5e3b623', 8, 'data-icon', 'plus');
+    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 9, 'ConsequencesCell_highImpact');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 9, 'Start Lost p.Met1Arg');
+    cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(10).find('path[d*="M16.7732"]').should('exist'); // C
+    cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(10).find('path[d*="M8.98279"]').should('exist'); // M
+    cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(10).find('path[d*="M10.9335"]').should('not.exist'); // P
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 11, 'AR');
+    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 11, 'ant-tag-blue');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 12, /^VUS$/);
+    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 12, 'ant-tag-orange');
+    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 13, 'hotspotOutlined');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 14, 'ND');
+    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 14, 'ant-tag-default');
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 15, '-');
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 16, '-');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 17, /^0$/);
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 17, '(0.00e+0)');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 18, /^1$/);
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 18, '(1.00e+0)');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 19, '14.62');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 20, '0/1');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 21, '-');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 22, '9');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 23, '136');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 24, '0.07');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 25, 'Weak Evidence');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 26, '2.25e+1');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 27, '2.30e-1');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 17, '-');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 18, /^0$/);
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 18, '(0.00e+0)');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 19, /^1$/);
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 19, '(1.00e+0)');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 20, '14.62');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 21, '0/1');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 22, '-');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 23, '9');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 24, '136');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 25, '0.07');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 26, 'Weak Evidence');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 27, '2.25e+1');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 28, '2.30e-1');
   });
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {

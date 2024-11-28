@@ -8,6 +8,7 @@ import {
   FireFilled,
   FireOutlined,
   FlagOutlined,
+  MessageOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
@@ -31,6 +32,7 @@ import {
 } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
 import { capitalize } from 'lodash';
+import { TVariantFilter } from 'views/Cnv/Exploration/variantColumns';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import ConsequencesCell from 'views/Snv/components/ConsequencesCell';
@@ -51,6 +53,8 @@ import FlagCell from './components/Flag/FlagCell';
 import FlagFilterDropdown from './components/Flag/FlagFilter';
 import GnomadCell from './components/Gnomad/GnomadCell';
 import ManeCell from './components/ManeCell';
+import NoteCell from './components/Note/NoteCell';
+import NoteFilter from './components/Note/NoteFilter';
 
 import style from './variantColumns.module.css';
 
@@ -321,12 +325,12 @@ export const getVariantColumns = (
   isSameLDM?: boolean,
   isClear?: boolean,
   setFilterList?: (columnKeys: Key[]) => void,
-  filtersList?: string[],
+  filtersList?: TVariantFilter,
 ): ProColumnType<ITableVariantEntity>[] => {
   let columns: ProColumnType<ITableVariantEntity>[] = [];
 
-  if (patientId) {
-    if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true' && isSameLDM) {
+  if (patientId && isSameLDM) {
+    if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true') {
       columns.push({
         key: 'flags',
         fixed: 'left',
@@ -335,7 +339,7 @@ export const getVariantColumns = (
         tooltip: intl.get('flag.table.tooltip'),
         iconTitle: <FlagOutlined />,
         filterIcon: () => {
-          const isFilter = filtersList && filtersList?.length > 0 ? true : false;
+          const isFilter = filtersList && filtersList.flags.length > 0 ? true : false;
           return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
         },
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
@@ -345,8 +349,7 @@ export const getVariantColumns = (
             setFilterList={setFilterList}
             setSelectedKeys={setSelectedKeys}
             isClear={isClear}
-            variantSection={variantSection}
-            selectedFilter={filtersList}
+            selectedFilter={filtersList?.flags}
           />
         ),
         width: 85,
@@ -355,6 +358,32 @@ export const getVariantColumns = (
         ),
       });
     }
+    columns.push({
+      key: 'note',
+      fixed: 'left',
+      title: intl.get('screen.patientsnv.results.table.note'),
+      dataIndex: 'note',
+      tooltip: intl.get('note.table.tooltip'),
+      iconTitle: <MessageOutlined />,
+      filterIcon: () => {
+        const isFilter = filtersList && filtersList.note.length > 0 ? true : false;
+        return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
+      },
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+        <NoteFilter
+          confirm={confirm}
+          selectedKeys={selectedKeys}
+          setFilterList={setFilterList}
+          setSelectedKeys={setSelectedKeys}
+          isClear={isClear}
+          selectedFilter={filtersList?.note}
+        />
+      ),
+      width: 55,
+      render: (note: string, entity: VariantEntity) => (
+        <NoteCell note={note} hash={entity.hash} variantType="snv" />
+      ),
+    });
   }
 
   columns = [

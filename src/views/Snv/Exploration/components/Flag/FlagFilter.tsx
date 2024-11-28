@@ -7,10 +7,9 @@ interface OwnProps {
   confirm: (param?: FilterConfirmProps) => void;
   selectedKeys: React.Key[];
   setSelectedKeys: (selectedKeys: React.Key[]) => void;
-  setFilterList?: (columnKeys: Key[]) => void;
+  setFilterList?: (columnKeys: Key[], filter: string) => void;
   selectedFilter?: string[];
   isClear?: boolean;
-  variantSection?: string;
 }
 
 export const flagFilterQuery = (filteredValues: string[]) => ({
@@ -59,7 +58,7 @@ const FlagFilterDropdown = ({
   <FlagFilter
     dictionary={getFlagDictionary()}
     confirm={() => {
-      setFilterList && setFilterList(selectedKeys);
+      setFilterList && setFilterList(selectedKeys, 'flags');
       confirm();
     }}
     selectedFilter={selectedFilter}

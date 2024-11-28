@@ -47,13 +47,13 @@ const DownloadTSVWrapper = ({
 }: OwnProps) => {
   const [showModalLimit, setShowModalLimit] = useState(false);
   const dispatch = useDispatch();
-
+  const noShowColumnsKey = ['actions', 'note'];
   const dataIntoTSV = (data: any) => {
     downloadAsTSV(
       data,
       [],
       columnKey,
-      columns.filter((col: any) => col.key !== 'actions'),
+      columns.filter((col: any) => !noShowColumnsKey.includes(col.key)),
       prefix,
       mapping,
       patientId ? patientId : undefined,

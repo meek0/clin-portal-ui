@@ -1,16 +1,17 @@
 import { Key } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
-import { FilterFilled, FlagOutlined } from '@ant-design/icons';
+import { FilterFilled, FlagOutlined, MessageOutlined } from '@ant-design/icons';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Button, Space, Tag, Tooltip } from 'antd';
 import cx from 'classnames';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 import { VariantType } from 'graphql/variants/models';
-import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import FlagCell from 'views/Snv/Exploration/components/Flag/FlagCell';
 import FlagFilterDropdown from 'views/Snv/Exploration/components/Flag/FlagFilter';
+import NoteCell from 'views/Snv/Exploration/components/Note/NoteCell';
+import NoteFilter from 'views/Snv/Exploration/components/Note/NoteFilter';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
@@ -31,6 +32,8 @@ export const renderPOToString = ({ parental_origin }: VariantEntity) =>
     ? intl.get(`filters.options.donors.parental_origin.${parental_origin}.abrv`)
     : TABLE_EMPTY_PLACE_HOLDER;
 
+export type TVariantFilter = { flags: string[]; note: string[] };
+
 export const getVariantColumns = (
   variantType: VariantType,
   openGenesModal: (record: VariantEntity) => void,
@@ -38,8 +41,8 @@ export const getVariantColumns = (
   noData: boolean = false,
   isSameLDM?: boolean,
   isClear?: boolean,
-  setFilterList?: (columnKeys: Key[]) => void,
-  filtersList?: string[],
+  setFilterList?: (columnKeys: Key[], filter: string) => void,
+  filtersList?: TVariantFilter,
 ): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -53,7 +56,7 @@ export const getVariantColumns = (
       iconTitle: <FlagOutlined />,
       width: 85,
       filterIcon: () => {
-        const isFilter = filtersList && filtersList?.length > 0 ? true : false;
+        const isFilter = filtersList && filtersList.flags.length > 0 ? true : false;
         return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
       },
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
@@ -63,12 +66,37 @@ export const getVariantColumns = (
           setFilterList={setFilterList}
           setSelectedKeys={setSelectedKeys}
           isClear={isClear}
-          variantSection={VariantSection.CNV}
-          selectedFilter={filtersList}
+          selectedFilter={filtersList?.flags}
         />
       ),
       render: (flags: string[], entity: VariantEntity) => (
         <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="cnv" />
+      ),
+    });
+    columns.push({
+      key: 'note',
+      fixed: 'left',
+      title: intl.get('screen.patientsnv.results.table.note'),
+      dataIndex: 'note',
+      tooltip: intl.get('note.table.tooltip'),
+      iconTitle: <MessageOutlined />,
+      filterIcon: () => {
+        const isFilter = filtersList && filtersList.note.length > 0 ? true : false;
+        return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
+      },
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+        <NoteFilter
+          confirm={confirm}
+          selectedKeys={selectedKeys}
+          setFilterList={setFilterList}
+          setSelectedKeys={setSelectedKeys}
+          isClear={isClear}
+          selectedFilter={filtersList?.note}
+        />
+      ),
+      width: 55,
+      render: (note: string, entity: VariantEntity) => (
+        <NoteCell note={note} hash={entity.hash} variantType="cnv" />
       ),
     });
   }

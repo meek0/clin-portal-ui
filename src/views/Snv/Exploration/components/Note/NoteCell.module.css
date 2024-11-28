@@ -1,0 +1,42 @@
+.hasNote {
+  color: var(--blue-8);
+}
+
+.noNote {
+  color: var(--gray-6);
+}
+
+.noteCell .noteButton {
+  background-color: inherit;
+  border: none;
+  padding: 0;
+  width: fit-content;
+  height: 16px;
+}
+
+.noteCell .noteButton:focus {
+  background-color: inherit;
+}
+
+/*Filter */
+
+.noteFilterContainer {
+  width: 184px;
+  padding: 8px 12px;
+}
+
+.optionNote :global(.anticon) {
+  font-size: 16px;
+}
+
+.filterFooter {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid var(--gray-4);
+  padding: 8px;
+}
+
+.tagContainer {
+  height: 24px;
+}
