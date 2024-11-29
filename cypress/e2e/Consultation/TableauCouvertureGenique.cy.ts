@@ -9,6 +9,8 @@ beforeEach(() => {
   cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
   cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
   cy.resetColumns(0);
+  cy.sortTableAndIntercept('15x', 1);
+  cy.sortTableAndIntercept('15x', 1);
 });
 
 describe('Page de la couverture génique d\'un patient - Consultation du tableau', () => {

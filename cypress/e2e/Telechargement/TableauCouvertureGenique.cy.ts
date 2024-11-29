@@ -11,6 +11,8 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
   cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
+  cy.sortTableAndIntercept('15x', 1);
+  cy.sortTableAndIntercept('15x', 1);
 
   cy.get('div[role="tabpanel"] tr[data-row-key]').eq(6).find('[type="checkbox"]').check({force: true});
   cy.get('div[id="content"] svg[data-icon="download"]').eq(1).clickAndWait({force:true});
