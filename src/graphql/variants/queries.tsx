@@ -104,11 +104,13 @@ const VARIANT_QUERY_BASE_FIELDS = `
 
   freq_rqdm_tumor_normal {
     pc
+    pn
     pf
   }
 
   freq_rqdm_tumor_only {
     pc
+    pn
     pf
   }
 

@@ -40,8 +40,8 @@ describe('Ligne extensible d\'une occurrence', () => {
   it('Vérifier les informations affichées - Section Classifications', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(0).contains('Classifications').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-label"]').eq(0).contains('ClinVar').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(0).contains(/B/).should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(0).contains(/LB/).should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(0).contains(/^B$/).should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(0).contains(/^LB$/).should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(0).find('[class*="ant-tag-green"]').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(0).find('[class*="ant-tag-lime"]').should('exist');
   });
@@ -77,12 +77,12 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(3).contains('Fréquences').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(0).contains('RQDM').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(0).find('[class*="OccurenceVariant_affected"]').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(0).contains(/5/).should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(0).contains(/^5$/).should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(0).contains('238').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(0).contains('(2.10e-2)').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(1).contains('RQDM').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(1).find('[class*="OccurenceVariant_unaffected"]').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).contains(/2/).should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).contains(/^2$/).should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).contains('10').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).contains('(2.00e-1)').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(2).contains('gnomAD').should('exist');
@@ -292,7 +292,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-label"]').eq(0).contains('Qualité de profondeur').should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(0).contains('0.34').should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-label"]').eq(1).contains('Profondeur allélique ALT').should('exist');
-    cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(1).contains('0').should('exist');
+    cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(1).contains(/^0$/).should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-label"]').eq(2).contains('Profondeur totale ALT + REF').should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(2).contains('157').should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-label"]').eq(3).contains('Ratio allélique ALT / (ALT+REF)').should('exist');

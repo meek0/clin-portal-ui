@@ -8,7 +8,8 @@ import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/compone
 import ClassificationSection from './Sections/classifications';
 import ClinicalAssociations from './Sections/clinicalAssociations';
 import FamilySection from './Sections/family';
-import FrequenciesSection from './Sections/frequencies';
+import FrequenciesGermlineSection from './Sections/frequenciesGermline';
+import FrequenciesSomaticSection from './Sections/frequenciesSomatic';
 import FunctionalScoresSection from './Sections/functionalScores';
 import GeneSection from './Sections/gene';
 import Header from './Sections/header';
@@ -51,38 +52,42 @@ const OccurenceVariant = ({
       bordered={true}
     >
       <Space size={12} direction="vertical">
-        {variantSection === VariantSection.SNV && <TranscriptSection record={record} />}
-
+        <TranscriptSection record={record} />
         <Card className={style.card}>
-          <Row wrap={false} gutter={24}>
-            {variantSection === VariantSection.SNV && (
-              <>
-                <Col>
-                  <Space size={8} direction="vertical">
-                    <ClassificationSection record={record} />
+          <Row gutter={24}>
+            <>
+              <Col flex={1}>
+                <Space size={8} direction="vertical">
+                  <ClassificationSection record={record} variantSection={variantSection} />
+                  {variantSection === VariantSection.SNV && (
                     <PredictionSection record={record} patientId={patientId} />
-                    <GeneSection record={record} />
-                  </Space>
-                </Col>
-                <Col>
-                  <Space size={8} direction="vertical">
-                    <FrequenciesSection record={record} />
-                    <FunctionalScoresSection record={record} />
-                  </Space>
-                </Col>
-              </>
-            )}
-            <Col>
+                  )}
+                  <GeneSection record={record} />
+                </Space>
+              </Col>
+              <Col flex={1}>
+                <Space size={8} direction="vertical">
+                  {variantSection === VariantSection.SNV ? (
+                    <FrequenciesGermlineSection record={record} />
+                  ) : (
+                    <FrequenciesSomaticSection record={record} />
+                  )}
+                  <FunctionalScoresSection record={record} variantSection={variantSection} />
+                </Space>
+              </Col>
+            </>
+
+            <Col flex={1}>
               <Space size={8} direction="vertical">
                 <ZygositySection
                   record={record}
                   patientId={patientId}
                   variantSection={variantSection}
                 />
-                {variantSection === VariantSection.SNV && <ClinicalAssociations record={record} />}
+                <ClinicalAssociations record={record} />
               </Space>
             </Col>
-            <Col>
+            <Col flex={1}>
               <Space direction="vertical">
                 {variantSection === VariantSection.SNV && (
                   <FamilySection record={record} patientId={patientId} />

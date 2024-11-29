@@ -32,9 +32,9 @@ export const ACMGEvidenceExoColorMap: Record<any, string> = {
   BP7: 'blue',
 };
 
-const PredictionSection = ({ record, patientId }: OwnProps) => {
-  const acmg = record?.franklin_max?.acmg_classification;
-  const donor = findDonorById(record?.donors, patientId);
+const PredictionSection = ({ record: { donors, franklin_max }, patientId }: OwnProps) => {
+  const acmg = franklin_max?.acmg_classification;
+  const donor = findDonorById(donors, patientId);
   const exomiser = donor?.exomiser;
   return (
     <Descriptions
@@ -45,10 +45,10 @@ const PredictionSection = ({ record, patientId }: OwnProps) => {
       column={1}
     >
       <Descriptions.Item label={intl.get('franklin.filter.groupTitle')}>
-        {record.franklin_max ? (
+        {franklin_max ? (
           <Tooltip title={intl.get(`franklin.expendableTable.tooltip.${acmg}`)}>
             <Tag color={ACMGFranklinColorMap[acmg]}>
-              <ExternalLink className={style.ominGene} href={record.franklin_max.link}>
+              <ExternalLink className={style.ominGene} href={franklin_max.link}>
                 {intl.get(`franklin.expendableTable.abrv.${acmg}`)}
               </ExternalLink>
             </Tag>

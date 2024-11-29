@@ -15,11 +15,10 @@ interface OwnProps {
   record: ITableVariantEntity;
 }
 
-const ClinicalAssociations = ({ record }: OwnProps) => {
-  const genes = record.genes?.hits.edges;
+const ClinicalAssociations = ({ record: { genes, locus } }: OwnProps) => {
   const omimList: OmimEntity[] = [];
 
-  genes?.forEach((g) => {
+  genes?.hits.edges.forEach((g) => {
     g.node?.omim?.hits.edges.forEach((o) => omimList.push(o.node));
   });
 
@@ -70,7 +69,7 @@ const ClinicalAssociations = ({ record }: OwnProps) => {
         )}
       </div>
       {sortOminList.length > 3 && (
-        <Link target="_blank" to={`/variant/entity/${record?.locus}/${TAB_ID.SUMMARY}`}>
+        <Link target="_blank" to={`/variant/entity/${locus}/${TAB_ID.SUMMARY}`}>
           <Space size={4}>
             <span className={style.seeAll}>{intl.get('see.more')}</span>
             <ExternalLinkIcon height="14" width="14" className="anticon" />

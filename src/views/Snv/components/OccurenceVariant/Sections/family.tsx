@@ -20,8 +20,8 @@ interface OwnProps {
   patientId: string;
 }
 
-const FamilySection = ({ record, patientId }: OwnProps) => {
-  const donor = findDonorById(record?.donors, patientId);
+const FamilySection = ({ record: { donors }, patientId }: OwnProps) => {
+  const donor = findDonorById(donors, patientId);
   const [modalOpened, setModalVisible] = useState(false);
 
   const getParentTitle = (who: 'mother' | 'father', id: string, affected: boolean) => {

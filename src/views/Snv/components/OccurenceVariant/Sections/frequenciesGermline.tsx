@@ -16,7 +16,7 @@ interface OwnProps {
   record: ITableVariantEntity;
 }
 
-const FrequenciesSection = ({ record }: OwnProps) => {
+const FrequenciesGermlineSection = ({ record }: OwnProps) => {
   const affected = record.frequency_RQDM.affected;
   const unAffected = record.frequency_RQDM.non_affected;
   return (
@@ -81,4 +81,4 @@ const FrequenciesSection = ({ record }: OwnProps) => {
   );
 };
 
-export default FrequenciesSection;
+export default FrequenciesGermlineSection;

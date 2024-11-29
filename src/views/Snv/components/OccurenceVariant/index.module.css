@@ -37,9 +37,8 @@
 }
 
 .occurenceVariant .basicBordered {
-  width: 100%;
   min-width: 260px;
-  max-width: 460px;
+  max-width: 460px; 
 }
 
 .occurenceVariant .basicBordered :global(.ant-descriptions-view) {
@@ -151,6 +150,11 @@
   padding: 12px;
 }
 
+.occurenceVariant .transcript .transcriptSpace{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .occurenceVariant .transcript :global(.ant-divider) {
   height: 22px;
 }
@@ -207,4 +211,12 @@
 
 .occurenceVariant .seeAll:hover{
   text-decoration: none;
+}
+
+.occurenceVariant .hotspotFilled {
+  color: var(--red-7);
+}
+
+.occurenceVariant .hotspotOutlined {
+  color: var(--gray-6);
 }

@@ -17,8 +17,8 @@ interface OwnProps {
   variantSection?: VariantSection;
 }
 
-const ZygositySection = ({ record, patientId, variantSection }: OwnProps) => {
-  const donor = findDonorById(record?.donors, patientId);
+const ZygositySection = ({ record: { locus, donors }, patientId, variantSection }: OwnProps) => {
+  const donor = findDonorById(donors, patientId);
   return (
     <Descriptions
       className={style.basicBordered}
@@ -42,7 +42,7 @@ const ZygositySection = ({ record, patientId, variantSection }: OwnProps) => {
               <HcComplementDescription
                 hcComplements={donor?.hc_complement}
                 defaultText={TABLE_EMPTY_PLACE_HOLDER}
-                locus={record?.locus}
+                locus={locus}
               />
             </Space>
           </Descriptions.Item>
