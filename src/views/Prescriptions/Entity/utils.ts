@@ -192,7 +192,7 @@ export const getSequencageIndicatorForRequests = async (
   let overallIndicator: TSequencageIndicatorForRequests['overallIndicator'] = null;
   const metricIndicatorByRequest: TSequencageIndicatorForRequests['metricIndicatorByRequest'] = {};
 
-  summaryData.forEach(({ requestId, sampleQcReport }) => {
+  summaryData.forEach(({ requestId, sampleQcReport, cnvCount }) => {
     const sexIndicator = QualityControlUtils.getSexMeta(
       sampleQcReport['DRAGEN_capture_coverage_metrics'][
         'Average chr Y coverage over QC coverage region'
@@ -225,12 +225,15 @@ export const getSequencageIndicatorForRequests = async (
         ],
       );
 
+    const cnvsIndicator = QualityControlUtils.getCnvCountIndicatorColor(cnvCount);
+
     const indicators = [
       sexIndicator,
       contaminationIndicator,
       exomeAvgCoverageIndicator,
       exomeAvgCoverage15xIndicator,
       exomeAvgCoverage40PercIndicator,
+      cnvsIndicator,
     ];
 
     const worstIndicator = indicators.reduce<TQualityControlIndicatorColor | null>(

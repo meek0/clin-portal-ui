@@ -71,7 +71,7 @@ const getSexDetail = (averageChrY: number, averageChrX: number, gender: string |
       )}
     >
       <Space>
-        {meta.color === 'orange' ? (
+        {meta.color === 'orange' || isSexNotEqual ? (
           <ModerateBadgeIcon svgClass={styles.moderateImpact} />
         ) : (
           <HighBadgeIcon svgClass={styles.highImpact} />
@@ -188,6 +188,33 @@ const getUniformityCoverage40PercDetail = (uniformityCoverage: number) => {
   );
 };
 
+const getCnvCountIndicatorColor = (cnvCount: number): TQualityControlIndicatorColor | null => {
+  if (cnvCount > 504) return 'orange';
+  return null;
+};
+
+const getCnvCountDetail = (cnvCount: number) => {
+  const indicatorColor = getCnvCountIndicatorColor(cnvCount);
+
+  return (
+    <ConditionalWrapper
+      condition={indicatorColor === 'orange'}
+      wrapper={(children) => (
+        <Tooltip title={intl.get('pages.quality_control_summary.high_number_of_cnvs')}>
+          {children}
+        </Tooltip>
+      )}
+    >
+      <Space>
+        {indicatorColor === 'orange' ? (
+          <ModerateBadgeIcon svgClass={styles.moderateImpact} />
+        ) : null}
+        {cnvCount}
+      </Space>
+    </ConditionalWrapper>
+  );
+};
+
 export const QualityControlUtils = {
   getSexMeta,
   getSexDetail,
@@ -199,4 +226,6 @@ export const QualityControlUtils = {
   getExomeCoverage15xDetail,
   getUniformityCoverage40PercIndicatorColor,
   getUniformityCoverage40PercDetail,
+  getCnvCountIndicatorColor,
+  getCnvCountDetail,
 };

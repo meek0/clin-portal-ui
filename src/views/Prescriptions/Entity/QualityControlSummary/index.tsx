@@ -128,7 +128,7 @@ const QualityControlSummary = ({
                 to={`/prescription/entity/${requestId}?variantSection=cnv#variants`}
                 className={styles.link}
               >
-                {cnvCount}
+                {QualityControlUtils.getCnvCountDetail(cnvCount)}
               </Link>
             </CustomDescriptionItemContent>
           ))}
