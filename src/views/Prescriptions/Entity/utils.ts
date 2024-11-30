@@ -9,6 +9,7 @@ import { DocsWithTaskInfo } from 'views/Archives';
 import { extractDocsFromTask } from 'views/Archives/helper';
 import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
 
+import { QualityControlUtils, TQualityControlIndicatorColor } from './QualityControlSummary/utils';
 import { formatOptionValue, getPatientAndRequestId } from './Tabs/Variants/utils';
 import { TQualityControlSummaryData } from './QualityControlSummary';
 
@@ -178,8 +179,82 @@ export const getSummaryDataForAllRequestIds = async (
   return summaryData;
 };
 
-const getSequencageIndicatorForRequests = async (prescription: ServiceRequestEntity) => {
+export type TSequencageIndicatorForRequests = {
+  overallIndicator: TQualityControlIndicatorColor | null;
+  metricIndicatorByRequest: Record<string, TQualityControlIndicatorColor | null>;
+};
+
+export const getSequencageIndicatorForRequests = async (
+  prescription: ServiceRequestEntity,
+): Promise<TSequencageIndicatorForRequests> => {
   const summaryData = await getSummaryDataForAllRequestIds(prescription);
 
-  // Loop and get find the worst metric for each request and also the worst metric across requests
+  let overallIndicator: TSequencageIndicatorForRequests['overallIndicator'] = null;
+  const metricIndicatorByRequest: TSequencageIndicatorForRequests['metricIndicatorByRequest'] = {};
+
+  summaryData.forEach(({ requestId, sampleQcReport }) => {
+    const sexIndicator = QualityControlUtils.getSexMeta(
+      sampleQcReport['DRAGEN_capture_coverage_metrics'][
+        'Average chr Y coverage over QC coverage region'
+      ],
+      sampleQcReport['DRAGEN_capture_coverage_metrics'][
+        'Average chr X coverage over QC coverage region'
+      ],
+    ).color;
+
+    const contaminationIndicator = QualityControlUtils.getContaminationIndicatorColor(
+      sampleQcReport['DRAGEN_mapping_metrics']['Estimated sample contamination'],
+    );
+
+    const exomeAvgCoverageIndicator = QualityControlUtils.getExomeAvgCoverageIndicatorColor(
+      sampleQcReport['DRAGEN_capture_coverage_metrics'][
+        'Average alignment coverage over QC coverage region'
+      ],
+    );
+
+    const exomeAvgCoverage15xIndicator = QualityControlUtils.getExomeCoverage15xIndicatorColor(
+      sampleQcReport['DRAGEN_capture_coverage_metrics'][
+        'PCT of QC coverage region with coverage [  15x: inf)'
+      ],
+    );
+
+    const exomeAvgCoverage40PercIndicator =
+      QualityControlUtils.getUniformityCoverage40PercIndicatorColor(
+        sampleQcReport['DRAGEN_capture_coverage_metrics'][
+          'Uniformity of coverage (PCT > 0.4*mean) over QC coverage region'
+        ],
+      );
+
+    const indicators = [
+      sexIndicator,
+      contaminationIndicator,
+      exomeAvgCoverageIndicator,
+      exomeAvgCoverage15xIndicator,
+      exomeAvgCoverage40PercIndicator,
+    ];
+
+    const worstIndicator = indicators.reduce<TQualityControlIndicatorColor | null>(
+      (currentWorst, indicator) => {
+        if (currentWorst === 'red' || indicator === 'red') return 'red';
+        if (currentWorst === 'orange' || indicator === 'orange') return 'orange';
+        return null;
+      },
+      null,
+    );
+
+    metricIndicatorByRequest[requestId] = worstIndicator;
+
+    if (overallIndicator !== 'red') {
+      if (worstIndicator === 'red') {
+        overallIndicator = 'red';
+      } else if (worstIndicator === 'orange' && overallIndicator !== 'orange') {
+        overallIndicator = 'orange';
+      }
+    }
+  });
+
+  return {
+    metricIndicatorByRequest,
+    overallIndicator,
+  };
 };

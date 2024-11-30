@@ -23,3 +23,10 @@
 .prescriptionEntityQCWrapper :global(.ant-card-body) {
   height: calc(100vh - var(--main-header-height) - var(--page-header-height) - var(--main-footer-height) - var(--page-header-height) - 48px);
 }
+.highImpact {
+  fill: var(--red-5);
+}
+
+.moderateImpact {
+  fill: var(--orange-5);
+}

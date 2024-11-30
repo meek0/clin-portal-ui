@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { MedicineBoxOutlined } from '@ant-design/icons';
+import ConditionalWrapper from '@ferlab/ui/core/components/utils/ConditionalWrapper';
 import { Badge, Space, Tabs } from 'antd';
 import { FhirApi } from 'api/fhir';
 import { extractPatientId, extractServiceRequestId } from 'api/fhir/helper';
@@ -23,6 +24,7 @@ import PrescriptionEntityContext, {
   PrescriptionEntityContextType,
   PrescriptionEntityVariantInfo,
 } from './context';
+import { getSequencageIndicatorForRequests, TSequencageIndicatorForRequests } from './utils';
 
 import styles from './index.module.css';
 
@@ -45,6 +47,14 @@ const PrescriptionEntity = () => {
   const [selectedRequest, setSelectedRequest] = useState<ServiceRequestEntity>();
   const [selectedBasedOnRequest, setBasedOnRequest] = useState<ServiceRequestEntity>();
   const [variantInfo, setVariantInfo] = useState<PrescriptionEntityVariantInfo>();
+  const [sequencageIndicators, setSequencageIndicators] =
+    useState<TSequencageIndicatorForRequests>();
+
+  useEffect(() => {
+    if (prescription) {
+      getSequencageIndicatorForRequests(prescription).then(setSequencageIndicators);
+    }
+  }, [prescription]);
 
   useEffect(() => {
     const subjectRequestId = prescription?.subject?.resource?.requests?.[0]?.id;
@@ -109,8 +119,23 @@ const PrescriptionEntity = () => {
       },
       {
         key: PrescriptionEntityTabs.QC,
-        label: <Badge dot>{intl.get('prescription.tabs.title.qc')}</Badge>,
-        children: <PrescriptionQC />,
+        label: (
+          <ConditionalWrapper
+            condition={!!sequencageIndicators?.overallIndicator}
+            wrapper={(children) => (
+              <Badge dot color={sequencageIndicators?.overallIndicator!} offset={[0, 4]}>
+                {children}
+              </Badge>
+            )}
+          >
+            <>{intl.get('prescription.tabs.title.qc')}</>
+          </ConditionalWrapper>
+        ),
+        children: (
+          <PrescriptionQC
+            metricIndicatorByRequest={sequencageIndicators?.metricIndicatorByRequest}
+          />
+        ),
       },
       {
         key: PrescriptionEntityTabs.VARIANTS,
@@ -133,7 +158,7 @@ const PrescriptionEntity = () => {
     }
 
     return items;
-  }, [summaryTabFeatureToggle.isEnabled]);
+  }, [summaryTabFeatureToggle.isEnabled, sequencageIndicators?.overallIndicator]);
 
   if (!loading && !prescription) {
     return <Forbidden />;

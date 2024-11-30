@@ -7,19 +7,19 @@ import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeI
 
 import styles from './index.module.css';
 
-type TIndicatorColor = 'red' | 'yellow';
+export type TQualityControlIndicatorColor = 'red' | 'orange';
 
 const getSexMeta = (
   averageChrY: number,
   averageChrX: number,
 ): {
   sex: 'male' | 'female' | 'undefined';
-  color: TIndicatorColor;
+  color: TQualityControlIndicatorColor;
 } => {
   if (averageChrY > 0.2102 || averageChrX < 0.8496) {
     return {
       sex: 'female',
-      color: 'yellow',
+      color: 'orange',
     };
   }
 
@@ -33,7 +33,7 @@ const getSexMeta = (
   if (averageChrY < 0.2456 || averageChrX > 0.7451) {
     return {
       sex: 'male',
-      color: 'yellow',
+      color: 'orange',
     };
   }
 
@@ -46,7 +46,7 @@ const getSexMeta = (
 
   return {
     sex: 'undefined',
-    color: 'yellow',
+    color: 'orange',
   };
 };
 
@@ -71,7 +71,7 @@ const getSexDetail = (averageChrY: number, averageChrX: number, gender: string |
       )}
     >
       <Space>
-        {meta.color === 'yellow' ? (
+        {meta.color === 'orange' ? (
           <ModerateBadgeIcon svgClass={styles.moderateImpact} />
         ) : (
           <HighBadgeIcon svgClass={styles.highImpact} />
@@ -84,8 +84,8 @@ const getSexDetail = (averageChrY: number, averageChrX: number, gender: string |
 
 const getContaminationIndicatorColor = (
   estimatedSampleContamination: number,
-): TIndicatorColor | null => {
-  if (estimatedSampleContamination > 0.02 && estimatedSampleContamination <= 0.05) return 'yellow';
+): TQualityControlIndicatorColor | null => {
+  if (estimatedSampleContamination > 0.02 && estimatedSampleContamination <= 0.05) return 'orange';
   if (estimatedSampleContamination > 0.05) return 'red';
   return null;
 };
@@ -95,7 +95,7 @@ const getContaminationDetail = (estimatedSampleContamination: number) => {
 
   return (
     <Space>
-      {indicatorColor === 'yellow' ? (
+      {indicatorColor === 'orange' ? (
         <ModerateBadgeIcon svgClass={styles.moderateImpact} />
       ) : indicatorColor === 'red' ? (
         <HighBadgeIcon svgClass={styles.highImpact} />
@@ -107,7 +107,7 @@ const getContaminationDetail = (estimatedSampleContamination: number) => {
 
 const getExomeAvgCoverageIndicatorColor = (
   avgAlignmentCoverage: number,
-): TIndicatorColor | null => {
+): TQualityControlIndicatorColor | null => {
   const isInsufficient = avgAlignmentCoverage < 100;
   return isInsufficient ? 'red' : null;
 };
@@ -132,7 +132,9 @@ const getExomeAvgCoverageDetail = (avgAlignmentCoverage: number) => {
   );
 };
 
-const getExomeCoverage15xIndicatorColor = (exomeCoverage15x: number): TIndicatorColor | null => {
+const getExomeCoverage15xIndicatorColor = (
+  exomeCoverage15x: number,
+): TQualityControlIndicatorColor | null => {
   const isInsufficient = exomeCoverage15x < 95;
   return isInsufficient ? 'red' : null;
 };
@@ -159,9 +161,9 @@ const getExomeCoverage15xDetail = (exomeCoverage15x: number) => {
 
 const getUniformityCoverage40PercIndicatorColor = (
   uniformityCoverage: number,
-): TIndicatorColor | null => {
+): TQualityControlIndicatorColor | null => {
   const isInsufficient = uniformityCoverage < 93.91;
-  return isInsufficient ? 'yellow' : null;
+  return isInsufficient ? 'orange' : null;
 };
 
 const getUniformityCoverage40PercDetail = (uniformityCoverage: number) => {
@@ -169,7 +171,7 @@ const getUniformityCoverage40PercDetail = (uniformityCoverage: number) => {
 
   return (
     <ConditionalWrapper
-      condition={indicatorColor === 'yellow'}
+      condition={indicatorColor === 'orange'}
       wrapper={(children) => (
         <Tooltip title={intl.get('pages.quality_control_summary.suboptimal_coverage_40')}>
           {children}
@@ -177,7 +179,7 @@ const getUniformityCoverage40PercDetail = (uniformityCoverage: number) => {
       )}
     >
       <Space>
-        {indicatorColor === 'yellow' ? (
+        {indicatorColor === 'orange' ? (
           <ModerateBadgeIcon svgClass={styles.moderateImpact} />
         ) : null}
         {uniformityCoverage}

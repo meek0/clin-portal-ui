@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { DownloadOutlined } from '@ant-design/icons';
 import Empty from '@ferlab/ui/core/components/Empty';
 import ScrollContent from '@ferlab/ui/core/layout/ScrollContent';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Button, Card, Descriptions, Radio, Select, Skeleton, Space, Typography } from 'antd';
+import { DefaultOptionType } from 'antd/lib/select';
 import Title from 'antd/lib/typography/Title';
 import { FhirApi } from 'api/fhir';
 import { isArray } from 'lodash';
@@ -23,9 +24,10 @@ import {
 } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 
 import CollapsePanel from 'components/containers/collapse';
+import HighBadgeIcon from 'components/icons/variantBadgeIcons/HighBadgeIcon';
+import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeIcon';
 import ContentHeader from 'components/Layout/ContentWithHeader/Header';
 import Footer from 'components/Layout/Footer';
-import useQueryParams from 'hooks/useQueryParams';
 import { globalActions } from 'store/global';
 
 import QualityControlSummary from '../../QualityControlSummary';
@@ -34,9 +36,14 @@ import {
   fetchRequestTotalCnvs,
   fetchSamplesQCReport,
   getGenderForRequestId,
+  TSequencageIndicatorForRequests,
 } from '../../utils';
 
 import styles from './index.module.css';
+
+interface OwnProps {
+  metricIndicatorByRequest: TSequencageIndicatorForRequests['metricIndicatorByRequest'] | undefined;
+}
 
 enum QCTabs {
   DRAGEN_CAPTURE_COVERAGE_METRICS = 'DRAGEN_capture_coverage_metrics',
@@ -81,9 +88,39 @@ const getTabsContent = (activeTabs: string, reportFile: any) => {
   return <Empty description={intl.get('no.results.found')} />;
 };
 
-const PrescriptionQC = () => {
+const addColorIndicatorToOptions = (
+  metricIndicatorByRequest: TSequencageIndicatorForRequests['metricIndicatorByRequest'] | undefined,
+  options: DefaultOptionType[],
+) =>
+  options.map((optionItem) => {
+    const ids = optionItem.value?.toString().split(',') || [];
+    const matchingId = ids.find((id) => metricIndicatorByRequest?.[id] !== null);
+
+    if (matchingId) {
+      const color = metricIndicatorByRequest?.[matchingId];
+      return {
+        ...optionItem,
+        label: (
+          <Space size={3}>
+            {color === 'red' ? (
+              <HighBadgeIcon svgClass={styles.highImpact} />
+            ) : (
+              <ModerateBadgeIcon svgClass={styles.moderateImpact} />
+            )}{' '}
+            {optionItem.label}
+          </Space>
+        ),
+      };
+    }
+
+    return optionItem;
+  });
+
+const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
   const dispatch = useDispatch();
-  const queryParams = useQueryParams();
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const qcSectionParam = searchParams.get('qcSection');
   const { push, location } = useHistory();
   const [activeTabs, setActiveTabs] = useState<string>(QCTabs.DRAGEN_CAPTURE_COVERAGE_METRICS);
   const [loadingCard, setLoadingCard] = useState(true);
@@ -92,14 +129,11 @@ const PrescriptionQC = () => {
   const [totalCnvs, setTotalCnvs] = useState(0);
   const { prescription, variantInfo, setVariantInfo, loading } =
     useContext(PrescriptionEntityContext);
-  const queryParamQcSection = queryParams.get('qcSection');
-  const [activeSection, setActiveSection] = useState(queryParamQcSection || 'General');
+  const [activeSection, setActiveSection] = useState(qcSectionParam || 'General');
 
   useEffect(() => {
-    if (queryParamQcSection) {
-      setActiveSection(queryParamQcSection);
-    }
-  }, [queryParamQcSection]);
+    if (qcSectionParam) setActiveSection(qcSectionParam);
+  }, [qcSectionParam]);
 
   useEffect(() => {
     if (variantInfo.patientId && variantInfo.requestId) {
@@ -150,13 +184,14 @@ const PrescriptionQC = () => {
   const selectOptionLabel = options.find(
     ({ value }) => value === formatOptionValue(variantInfo.patientId!, variantInfo.requestId!),
   )?.label;
+  const optionsWithIndicator = addColorIndicatorToOptions(metricIndicatorByRequest, options);
 
   return (
     <>
       <ContentHeader
         title=""
         extra={[
-          <>
+          <div key="pres-qc-header">
             {hasVariantInfo(variantInfo) && (
               <Space key="request">
                 <Typography.Text strong>
@@ -166,7 +201,7 @@ const PrescriptionQC = () => {
                   size="small"
                   value={formatOptionValue(variantInfo.patientId!, variantInfo.requestId!)}
                   defaultValue={formatOptionValue(variantInfo.patientId!, variantInfo.requestId!)}
-                  options={options}
+                  options={optionsWithIndicator}
                   onChange={(value) => setVariantInfo(extractOptionValue(value))}
                 />
                 <Radio.Group
@@ -210,7 +245,7 @@ const PrescriptionQC = () => {
                 </Radio.Group>
               </Space>
             )}
-          </>,
+          </div>,
         ]}
         loading={loading}
       />
