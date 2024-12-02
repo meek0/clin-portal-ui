@@ -16,6 +16,7 @@ export enum VariantType {
   SNVTO = 'snv-to',
   SNVTN = 'snv-tn',
   CNV = 'cnv',
+  CNVTO = 'cnv-to',
 }
 
 export interface OwnProps {

@@ -9,6 +9,7 @@ import GenesModal from 'views/Cnv/Exploration/components/GenesModal';
 import IGVModal from 'views/Cnv/Exploration/components/IGVModal';
 import { getVariantColumns, TVariantFilter } from 'views/Cnv/Exploration/variantColumns';
 import { DEFAULT_PAGE_INDEX, DEFAULT_SORT_QUERY } from 'views/Cnv/utils/constant';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { getVariantTypeFromCNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import { SCROLL_WRAPPER_ID } from 'views/Snv/utils/constant';
@@ -31,6 +32,7 @@ type OwnProps = {
   setDownloadTriggered: any;
   setVariantType: any;
   setSelectedRows: any;
+  variantSection?: VariantSection;
   isSameLDM?: boolean;
   setFilterList: (columnKeys: Key[], filter?: string) => void;
   filtersList: TVariantFilter;
@@ -46,6 +48,7 @@ const VariantsTable = ({
   setDownloadTriggered,
   setVariantType,
   setSelectedRows,
+  variantSection,
   isSameLDM,
   setFilterList,
   filtersList,
@@ -98,6 +101,7 @@ const VariantsTable = ({
               openGenesModal,
               openIgvModal,
               results?.data.length === 0,
+              variantSection,
               isSameLDM,
               isClear,
               setFilterList,

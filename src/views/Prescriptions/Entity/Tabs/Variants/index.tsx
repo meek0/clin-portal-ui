@@ -46,7 +46,9 @@ const PrescriptionVariants = () => {
       case VariantSection.SNVTN:
         return <SnvTNPatient variantSection={variantSection} />;
       case VariantSection.CNV:
-        return <CnvPatient />;
+      case VariantSection.CNVTO:
+        return <CnvPatient variantSection={variantSection} />;
+
       default:
         break;
     }

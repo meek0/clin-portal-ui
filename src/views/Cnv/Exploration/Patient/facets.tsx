@@ -5,6 +5,7 @@ import { ExtendedMappingResults } from 'graphql/models';
 import { CNV_VARIANT_PATIENT_QB_ID, FilterTypes } from 'views/Cnv/utils/constant';
 
 import GenesUploadIds from 'components/GeneUploadIds';
+import FrequencyIcon from 'components/icons/FrequencyIcon';
 import GeneIcon from 'components/icons/GeneIcon';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import OccurenceIcon from 'components/icons/OccurenceIcon';
@@ -68,6 +69,15 @@ const filterGroups: {
     ],
     defaultOpenFacets: ['genes__panels'],
   },
+  [FilterTypes.Frequency]: {
+    groups: [
+      {
+        title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
+        facets: ['frequency_RQDM__pf'],
+        tooltips: ['transmission'],
+      },
+    ],
+  },
   [FilterTypes.Occurrence]: {
     groups: [
       {
@@ -119,6 +129,18 @@ export const getMenuItems = (
       INDEXES.CNV,
       CNV_VARIANT_PATIENT_QB_ID,
       filterGroups[FilterTypes.Gene],
+      filterMapper,
+    ),
+  },
+  {
+    key: 'category_cohort',
+    title: intl.get('screen.patientsnv.category_cohort'),
+    icon: <FrequencyIcon className={styles.sideMenuIcon} />,
+    panelContent: filtersContainer(
+      variantMappingResults,
+      INDEXES.CNV,
+      CNV_VARIANT_PATIENT_QB_ID,
+      filterGroups[FilterTypes.Frequency],
       filterMapper,
     ),
   },

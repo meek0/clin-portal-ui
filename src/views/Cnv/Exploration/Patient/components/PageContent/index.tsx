@@ -42,9 +42,10 @@ type OwnProps = {
   variantMapping: ExtendedMappingResults;
   patientId?: string;
   prescriptionId?: string;
+  variantSection?: VariantSection;
 };
 
-const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) => {
+const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection }: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(CNV_VARIANT_PATIENT_QB_ID);
   const { decodedRpt } = useRpt();
   const { prescription } = usePrescriptionEntityContext();
@@ -249,6 +250,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
             setFilterList={handleFilterList}
             filtersList={filtersList}
             isClear={isClear}
+            variantSection={variantSection}
           />
         </Card>
       </VariantContentLayout>
@@ -262,7 +264,12 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
           () => {},
           () => {},
           false,
+          variantSection,
           isSameLDM(),
+          undefined,
+          undefined,
+          undefined,
+          true,
         )}
         query={VARIANT_QUERY}
         mapping={{

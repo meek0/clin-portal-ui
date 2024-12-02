@@ -12,9 +12,15 @@ import { usePrescriptionEntityContext } from 'views/Prescriptions/Entity/context
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import useGetExtendedMappings from 'hooks/graphql/useGetExtendedMappings';
 
+import { VariantSection } from '../components/VariantSectionNav';
+
 import styles from './index.module.css';
 
-const CnvPatient = () => {
+interface OwnProps {
+  variantSection?: VariantSection;
+}
+
+const CnvPatient = ({ variantSection }: OwnProps) => {
   const { prescriptionId, variantInfo } = usePrescriptionEntityContext();
   const variantMappingResults = useGetExtendedMappings(INDEXES.CNV);
   const filterMapper = (filters: ISqonGroupFilter) =>
@@ -31,15 +37,16 @@ const CnvPatient = () => {
           variantMapping={variantMappingResults}
           patientId={variantInfo.patientId}
           prescriptionId={prescriptionId}
+          variantSection={variantSection}
         />
       </ScrollContentWithFooter>
     </div>
   );
 };
 
-const CnvPatientWrapper = () => (
+const CnvPatientWrapper = (props: OwnProps) => (
   <ApolloProvider backend={GraphqlBackend.ARRANGER}>
-    <CnvPatient />
+    <CnvPatient {...props} />
   </ApolloProvider>
 );
 
