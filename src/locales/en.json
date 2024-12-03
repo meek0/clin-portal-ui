@@ -959,7 +959,7 @@
   "screen.patientcnv.results.table.end": "End",
   "screen.patientcnv.results.table.event": "Event",
   "screen.patientcnv.results.table.rqdm": "RQDM",
-  "screen.patientcnv.results.table.rqdm.tooltip": "Fréq. CNV tous les patients",
+  "screen.patientcnv.results.table.rqdm.tooltip": "CNV Freq. All Patients",
   "screen.patientcnv.results.table.genes": "Genes",
   "screen.patientcnv.results.table.genes.tooltip": "List of genes overlapped by CNV",
   "screen.patientcnv.results.table.genotype": "GT",
