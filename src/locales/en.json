@@ -176,7 +176,7 @@
   "filters.group.ep": "Prescribing Institution",
   "filters.group.sequencing_requests.patient_relationship": "Relationship",
   "cnv.filters.group.type": "Variant Type",
-  "cnv.filters.group.freq": "CNV Freq. All Patients",
+  "cnv.filters.group.frequency_RQDM.pf": "CNV Freq. All Patients",
   "cnv.filters.group.filters": "Filter (Dragen)",
   "cnv.filters.group.reflen": "CNV Size",
   "cnv.filters.group.start": "CNV Start",
