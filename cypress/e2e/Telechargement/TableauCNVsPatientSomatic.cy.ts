@@ -9,7 +9,7 @@ beforeEach(() => {
   cy.removeFilesFromFolder(Cypress.config('downloadsFolder'));
 
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3, '?sharedFilterId=2ff2f3d3-24a5-49ef-ac6c-233c1f01c211');
+  cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3, '?sharedFilterId=2ff2f3d3-24a5-49ef-ac6c-233c1f01c211');
 
   cy.get('div[id="content"] svg[data-icon="download"]').clickAndWait({force: true});
   cy.waitUntilFile(oneMinute);
