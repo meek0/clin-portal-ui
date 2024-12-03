@@ -24,7 +24,7 @@ const NoteCell = ({ note, hash, variantType }: OwnProps) => {
   const [newNote, setNewNote] = useState(note);
   const [text, setText] = useState(newNote);
   const [open, setOpen] = useState(false);
-  const getOrganizationReference = prescription?.performer.find((r) =>
+  const getOrganizationReference = prescription?.performer?.find((r) =>
     r.reference.includes('Organization'),
   );
 

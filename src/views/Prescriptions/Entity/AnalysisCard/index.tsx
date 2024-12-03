@@ -73,7 +73,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
 
   useEffect(() => {
     if (!loading && prescription?.performer) {
-      const performerPactitionerRoles = prescription?.performer.filter((r) =>
+      const performerPactitionerRoles = prescription?.performer?.filter((r) =>
         r.reference.includes('PractitionerRole'),
       );
 
@@ -124,7 +124,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
         });
     }
   };
-  const getOrganizationReference = prescription?.performer.find((r) =>
+  const getOrganizationReference = prescription?.performer?.find((r) =>
     r.reference.includes('Organization'),
   );
 

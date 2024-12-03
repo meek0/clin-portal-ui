@@ -216,7 +216,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId }: OwnProps) =>
 
   const isSameLDM = () => {
     const org = decodedRpt?.fhir_organization_id;
-    const getOrganizationReference = prescription?.performer.find((r) =>
+    const getOrganizationReference = prescription?.performer?.find((r) =>
       r.reference.includes('Organization'),
     )?.reference;
     return org?.includes(extractOrganizationId(getOrganizationReference!));

@@ -34,7 +34,7 @@ const FlagCell = ({ options, hash, variantType }: OwnProps) => {
   const [history, setHistory] = useState<THistory[]>([]);
   const { prescription, prescriptionId, patientId } = usePrescriptionEntityContext();
 
-  const getOrganizationReference = prescription?.performer.find((r) =>
+  const getOrganizationReference = prescription?.performer?.find((r) =>
     r.reference.includes('Organization'),
   );
   const dispatch = useDispatch();
