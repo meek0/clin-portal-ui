@@ -8,6 +8,7 @@ import orderBy from 'lodash/orderBy';
 import {
   renderCNVToString,
   renderPOToString,
+  renderRQDMPfToString,
   renderTransmissionToString,
 } from 'views/Cnv/Exploration/variantColumns';
 import { renderToString as renderConsequencesToString } from 'views/Snv/components/ConsequencesCell/index';
@@ -171,6 +172,8 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderTransmissionToString(row));
     } else if (key === 'parental_origin') {
       return convertToPlain(renderPOToString(row));
+    } else if (key === 'frequency_RQDM.pf') {
+      return convertToPlain(renderRQDMPfToString(row));
     }
   } else if (prefix === 'PR' || prefix === 'RQ') {
     if (key === 'tasks') {

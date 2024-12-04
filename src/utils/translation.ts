@@ -657,6 +657,9 @@ export const getFacetsDictionaryCNV = () => ({
     },
     panels: intl.get('filters.group.genes.panels'),
   },
+  frequency_RQDM: {
+    pf: intl.get('cnv.filters.group.frequency_RQDM.pf'),
+  },
   filters: intl.get('cnv.filters.group.filters'),
   qual: intl.get('cnv.filters.group.qual'),
   reflen: intl.get('cnv.filters.group.reflen'),

@@ -145,6 +145,11 @@ describe('Page des CNVs d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(5, 'COSMIC');
   });
 
+  it('Fréquence - Fréq. CNV tous les patients', () => {
+    cy.validateFacetNumFilter('Fréquence', 'Fréq. CNV tous les patients', '0.8', /^194$/);
+    cy.validateFacetRank(0, 'Fréq. CNV tous les patients');
+  });
+
   it('Occurrence - Expand all/Collapse all', () => {
     cy.validateExpandCollapse('Occurrence');
   });

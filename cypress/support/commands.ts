@@ -559,6 +559,15 @@ Cypress.Commands.add('visitCNVsPatientPage', (patientId: string, prescriptionId:
   cy.resetColumns(0);
 });
 
+Cypress.Commands.add('visitCNVsSomaticPatientPage', (patientId: string, prescriptionId: string, nbGraphqlCalls: number, sharedFilterOption?: string) => {
+  const strSharedFilterOption = sharedFilterOption !== undefined ? sharedFilterOption+'&variantSection=cnv-to#variants' : '?variantSection=cnv-to#variants';
+  cy.visitAndIntercept(`/prescription/entity/${prescriptionId}${strSharedFilterOption}`,
+                       'POST',
+                       '**/graphql',
+                       nbGraphqlCalls);
+  cy.resetColumns(0);
+});
+
 Cypress.Commands.add('visitCQPatientPage', (prescriptionId: string) => {
   cy.visitAndIntercept(`/prescription/entity/${prescriptionId}#qc`,
                        'POST',

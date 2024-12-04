@@ -12,6 +12,7 @@ import styles from './index.module.css';
 export enum VariantSection {
   SNV = 'snv',
   CNV = 'cnv',
+  CNVTO = 'cnv-to',
   SNVTO = 'snv-to',
   SNVTN = 'snv-tn',
 }
@@ -87,15 +88,16 @@ const VariantSectionNav = ({ extum, requestID }: OwnProps) => {
       )}
       <Tooltip title={extum ? 'CNV (tumor-only)' : null}>
         <Radio.Button
-          value={VariantType.CNV}
-          onClick={() =>
+          value={extum ? VariantType.CNVTO : VariantType.CNV}
+          onClick={() => {
+            const variantSection = extum ? VariantSection.CNVTO : VariantSection.CNV;
             push({
               ...location,
               search: `?${new URLSearchParams({
-                [VariantSectionKey]: VariantSection.CNV,
+                [VariantSectionKey]: variantSection,
               }).toString()}`,
-            })
-          }
+            });
+          }}
         >
           {extum ? 'CNV (TO)' : 'CNV'}
         </Radio.Button>

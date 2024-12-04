@@ -50,7 +50,13 @@ export type VariantEntity = {
   mother_aliquot_id?: string;
   is_proband: string;
   gender: string;
+  frequency_RQDM: FrequencyEntity;
   genes: ArrangerResultsTree<GeneEntity>;
+};
+
+export type FrequencyEntity = {
+  pc: number;
+  pf: number;
 };
 
 export type GeneEntity = {

@@ -33,5 +33,6 @@ export enum FilterTypes {
   Variant,
   Gene,
   Rqdm,
+  Frequency,
   Occurrence,
 }

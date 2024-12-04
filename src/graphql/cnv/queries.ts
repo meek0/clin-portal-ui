@@ -51,6 +51,10 @@ export const VARIANT_QUERY = gql`
             transmission
             is_proband
             gender
+            frequency_RQDM {
+              pc
+              pf
+            }
             genes {
               hits {
                 edges {

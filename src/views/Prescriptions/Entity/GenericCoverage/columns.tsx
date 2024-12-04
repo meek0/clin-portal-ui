@@ -92,7 +92,16 @@ export const getGeneCoverageTableColumns = (
         </Tooltip>
         <Tooltip>
           <Typography.Link>
-            <a id={'cnv'} onClick={() => handleRedirection(record, VariantSection.CNV, history)}>
+            <a
+              id={'cnv'}
+              onClick={() =>
+                handleRedirection(
+                  record,
+                  variantType === VariantType.GERMLINE ? VariantSection.CNV : VariantSection.CNVTO,
+                  history,
+                )
+              }
+            >
               {VariantSection.CNV.toUpperCase()}
             </a>
           </Typography.Link>

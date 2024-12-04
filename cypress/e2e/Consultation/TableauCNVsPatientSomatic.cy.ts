@@ -7,7 +7,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   beforeEach(() => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3, '?sharedFilterId=7159fa28-876c-4a46-9a0d-c1e7b88ba5e2');
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3, '?sharedFilterId=7159fa28-876c-4a46-9a0d-c1e7b88ba5e2');
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -28,14 +28,15 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableDataRowKeyContent('*', 9, /^LOSS$/);
     cy.validateTableDataRowKeyContent('*', 10, '6.8 Mb');
     cy.validateTableDataRowKeyContent('*', 11, '1.04404');
-    cy.validateTableDataRowKeyContent('*', 12, /^191$/);
-    cy.validateTableDataRowKeyContent('*', 13, '0/1');
-    cy.validateTableDataRowKeyContent('*', 14, 'CnvCopyRatio, LoDFail');
-    cy.validateTableDataRowKeyContent('*', 15, /^128$/);
-    cy.validateTableDataRowKeyContent('*', 16, '1979');
-    cy.validateTableDataRowKeyContent('*', 17, '25, 7');
-    cy.validateTableDataRowKeyContent('*', 18, '-');
+    cy.validateTableDataRowKeyContent('*', 12, '-');
+    cy.validateTableDataRowKeyContent('*', 13, /^191$/);
+    cy.validateTableDataRowKeyContent('*', 14, '0/1');
+    cy.validateTableDataRowKeyContent('*', 15, 'CnvCopyRatio, LoDFail');
+    cy.validateTableDataRowKeyContent('*', 16, /^128$/);
+    cy.validateTableDataRowKeyContent('*', 17, '1979');
+    cy.validateTableDataRowKeyContent('*', 18, '25, 7');
     cy.validateTableDataRowKeyContent('*', 19, '-');
+    cy.validateTableDataRowKeyContent('*', 20, '-');
   });
 });
  
@@ -43,7 +44,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -62,7 +63,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   it('Valider les liens disponibles', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -86,7 +87,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -109,7 +110,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   it('Valider les fonctionnalités du tableau - Tri Chr.', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -132,7 +133,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   it('Valider les fonctionnalités du tableau - Tri Début', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -155,7 +156,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   it('Valider les fonctionnalités du tableau - Tri Fin', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -178,7 +179,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   it('Valider les fonctionnalités du tableau - Tri Événement', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -201,7 +202,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   it('Valider les fonctionnalités du tableau - Tri Longueur', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -224,7 +225,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   it('Valider les fonctionnalités du tableau - Tri MS', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -244,10 +245,33 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow('1.83177', 11, true);
   });
 
+  it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+  
+    cy.showColumn('GT', 0);
+    cy.showColumn('Filtre', 0);
+    cy.showColumn('Qual.', 0);
+    cy.showColumn('BC', 0);
+    cy.showColumn('PE', 0);
+    cy.showColumn('Trans.', 0);
+    cy.showColumn('OP', 0);
+    cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
+    
+    cy.sortTableAndWait('RQDM');
+    cy.wait(30*1000);
+    cy.validateTableFirstRow('-', 12, true);
+    cy.sortTableAndWait('RQDM');
+    cy.wait(30*1000);
+    cy.validateTableFirstRow('25', 12, true);
+  });
+
   it('Valider les fonctionnalités du tableau - Tri # Gènes', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -261,16 +285,16 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     
     cy.sortTableAndWait('# Gènes');
     cy.wait(30*1000);
-    cy.validateTableFirstRow(/^0$/, 12, true);
+    cy.validateTableFirstRow(/^0$/, 13, true);
     cy.sortTableAndWait('# Gènes');
     cy.wait(30*1000);
-    cy.validateTableFirstRow(/^670$/, 12, true);
+    cy.validateTableFirstRow(/^670$/, 13, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Qual.', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -284,16 +308,16 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     
     cy.sortTableAndWait('Qual.');
     cy.wait(30*1000);
-    cy.validateTableFirstRow(/^90$/, 15, true);
+    cy.validateTableFirstRow(/^90$/, 16, true);
     cy.sortTableAndWait('Qual.');
     cy.wait(30*1000);
-    cy.validateTableFirstRow(/^200$/, 15, true);
+    cy.validateTableFirstRow(/^200$/, 16, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri BC', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -307,16 +331,16 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     
     cy.sortTableAndWait('BC');
     cy.wait(30*1000);
-    cy.validateTableFirstRow(/^6$/, 16, true);
+    cy.validateTableFirstRow(/^6$/, 17, true);
     cy.sortTableAndWait('BC');
     cy.wait(30*1000);
-    cy.validateTableFirstRow(/^7553$/, 16, true);
+    cy.validateTableFirstRow(/^7553$/, 17, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Trans.', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -330,16 +354,16 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     
     cy.sortTableAndWait('Trans.');
     cy.wait(30*1000);
-    cy.validateTableFirstRow('-', 18, true);
+    cy.validateTableFirstRow('-', 19, true);
     cy.sortTableAndWait('Trans.');
     cy.wait(30*1000);
-    cy.validateTableFirstRow('-', 18, true);
+    cy.validateTableFirstRow('-', 19, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri OP', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -353,16 +377,16 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     
     cy.sortTableAndWait('OP');
     cy.wait(30*1000);
-    cy.validateTableFirstRow('-', 19, true);
+    cy.validateTableFirstRow('-', 20, true);
     cy.sortTableAndWait('OP');
     cy.wait(30*1000);
-    cy.validateTableFirstRow('-', 19, true);
+    cy.validateTableFirstRow('-', 20, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);
@@ -387,7 +411,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   it('Valider les fonctionnalités du tableau - Pagination', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-    cy.visitCNVsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
   
     cy.showColumn('GT', 0);
     cy.showColumn('Filtre', 0);

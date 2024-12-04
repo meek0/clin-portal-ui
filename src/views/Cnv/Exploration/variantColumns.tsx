@@ -4,10 +4,11 @@ import intl from 'react-intl-universal';
 import { FilterFilled, FlagOutlined, MessageOutlined } from '@ant-design/icons';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
-import { Button, Space, Tag, Tooltip } from 'antd';
+import { Button, Space, Tag, Tooltip, Typography } from 'antd';
 import cx from 'classnames';
-import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
+import { FrequencyEntity, ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 import { VariantType } from 'graphql/variants/models';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import FlagCell from 'views/Snv/Exploration/components/Flag/FlagCell';
 import FlagFilterDropdown from 'views/Snv/Exploration/components/Flag/FlagFilter';
 import NoteCell from 'views/Snv/Exploration/components/Note/NoteCell';
@@ -33,16 +34,20 @@ export const renderPOToString = ({ parental_origin }: VariantEntity) =>
     : TABLE_EMPTY_PLACE_HOLDER;
 
 export type TVariantFilter = { flags: string[]; note: string[] };
+export const renderRQDMPfToString = ({ frequency_RQDM }: VariantEntity) =>
+  frequency_RQDM ? frequency_RQDM.pf.toExponential(2) : TABLE_EMPTY_PLACE_HOLDER;
 
 export const getVariantColumns = (
   variantType: VariantType,
   openGenesModal: (record: VariantEntity) => void,
   igvModalCb?: (record: VariantEntity) => void,
   noData: boolean = false,
+  variantSection?: string,
   isSameLDM?: boolean,
   isClear?: boolean,
   setFilterList?: (columnKeys: Key[], filter: string) => void,
   filtersList?: TVariantFilter,
+  onlyExportTSV: boolean = false,
 ): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -215,13 +220,13 @@ export const getVariantColumns = (
       key: 'sm',
       dataIndex: 'sm',
       sorter: { multiple: 1 },
-      defaultHidden: variantType === VariantType.GERMLINE,
+      defaultHidden: variantSection === VariantSection.CNV,
       render: (sm: string) => sm,
       width: 75,
     },
   );
 
-  if (variantType === VariantType.GERMLINE) {
+  if (variantSection === VariantSection.CNV) {
     columns.push({
       title: intl.get('screen.patientcnv.results.table.copy_number'),
       tooltip: intl.get('screen.patientcnv.results.table.copy_number.tooltip'),
@@ -233,7 +238,31 @@ export const getVariantColumns = (
     });
   }
 
+  if (onlyExportTSV) {
+    columns.push({
+      key: 'frequency_RQDM.pc',
+      title: intl.get('screen.patientsnv.results.table.rqdm'),
+      defaultHidden: true,
+    });
+  }
   columns.push(
+    {
+      title: intl.get('screen.patientcnv.results.table.rqdm'),
+      tooltip: intl.get('screen.patientcnv.results.table.rqdm.tooltip'),
+      key: 'frequency_RQDM.pf',
+      sorter: { multiple: 1 },
+      dataIndex: 'frequency_RQDM',
+      render: (frequency_RQDM: FrequencyEntity) =>
+        frequency_RQDM?.pc ? (
+          <Space size={4}>
+            {frequency_RQDM.pc}
+            <Typography.Text>({frequency_RQDM.pf.toExponential(2)})</Typography.Text>
+          </Space>
+        ) : (
+          TABLE_EMPTY_PLACE_HOLDER
+        ),
+      width: 100,
+    },
     {
       title: intl.get('screen.patientcnv.results.table.number_genes'),
       tooltip: intl.get('screen.patientcnv.results.table.number_genes.tooltip'),
