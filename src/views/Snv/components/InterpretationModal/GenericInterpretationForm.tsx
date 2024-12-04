@@ -7,10 +7,11 @@ import RichTextEditor from 'components/uiKit/RichTextEditor';
 
 import { GenericInterpFormFields } from './types';
 
-import styles from './GenericInterpretationForm.module.css';
 import { debounce } from 'lodash';
 import { useCallback, useRef, useState } from 'react';
 import { PubmedApi, TPubmedCitationPayload } from 'api/pubmed';
+
+import styles from './index.module.css';
 
 const GenericInterpretationForm = () => {
   const form = Form.useFormInstance();

@@ -47,6 +47,7 @@ const OccurenceVariant = ({
           rpt={rpt}
           loadingRpt={loadingRpt}
           igvModalCb={igvModalCb}
+          variantSection={variantSection}
         />
       }
       bordered={true}

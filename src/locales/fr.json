@@ -1550,6 +1550,10 @@
         "cancelText": "Annuler",
         "okText": "Sauvegarder",
         "lastUpdate": "Dernière mise à jour : <span style='font-weight:500;'>{name}</span> ({date, date, long}, {time, time, medium})",
+        "header": {
+          "germline": "Germline",
+          "somatic": "Somatic"
+        },
         "generic": {
           "interpretation": "Interprétation",
           "pubMedPublication": "Publication PubMed",
@@ -1617,6 +1621,7 @@
       }
     }
   },
+  "interpret": "Interpréter",
   "litvar": "LitVAR",
   "ucsc": "UCSC",
   "consequences": {

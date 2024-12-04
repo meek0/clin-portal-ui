@@ -45,21 +45,7 @@ const Home = () => (
         />
       </div>
     </ScrollContentWithFooter>
-    <VariantInterpretationModal />
   </ContentWithHeader>
 );
-
-const VariantInterpretationModal = () => {
-  const queryParams = useQueryParams();
-  const { isEnabled } = useFeatureToggle('interpretation');
-
-  return (
-    <InterpretationModal
-      isOpen={isEnabled}
-      toggleModal={() => {}}
-      isGermline={queryParams.get('interpretation') === 'germline'}
-    />
-  );
-};
 
 export default Home;
