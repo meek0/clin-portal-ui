@@ -209,13 +209,11 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   useEffect(() => {
     if (filtersList.flags.length === 0) {
       setIsClear(false);
-      resetSearchAfterQueryConfig(
-        {
-          ...DEFAULT_QUERY_CONFIG,
-          size: variantQueryConfig.size || DEFAULT_PAGE_SIZE,
-        },
-        setVariantQueryConfig,
-      );
+      setVariantQueryConfig({
+        ...variantQueryConfig,
+        searchAfter: undefined,
+      });
+      setPageIndex(DEFAULT_PAGE_INDEX);
       updateQueryByTableFilter({
         queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
         field: 'flags',
