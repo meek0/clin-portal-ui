@@ -133,7 +133,7 @@ export const prescriptionsColumns = (
     {
       key: 'ldm',
       dataIndex: ['ldm'],
-      render: (labo: string) => extractOrganizationId(labo),
+      render: (labo: string) => extractOrganizationId(labo) || TABLE_EMPTY_PLACE_HOLDER,
       title: intl.get('screen.patientsearch.table.ldm'),
       tooltip: intl.get('screen.patientsearch.table.ldm.tooltip'),
       sorter: { multiple: 1 },
