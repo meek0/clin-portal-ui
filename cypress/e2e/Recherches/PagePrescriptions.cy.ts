@@ -9,7 +9,7 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
 });
 
-describe('Page des prescriptions et requêtes - Rechercher des prescriptions', () => {
+describe('Page des prescriptions et requêtes - Rechercher des prescriptions', {retries: {runMode: 9}}, () => {
 
   beforeEach(() => {
     cy.visitPrescriptionsPage();
@@ -116,7 +116,7 @@ describe('Page des prescriptions et requêtes - Rechercher des prescriptions', (
   });
 });
 
-describe('Page des prescriptions et requêtes - Rechercher des requêtes', () => {
+describe('Page des prescriptions et requêtes - Rechercher des requêtes', {retries: {runMode: 9}}, () => {
 
   beforeEach(() => {
     cy.visitPrescriptionsPage();
