@@ -85,7 +85,7 @@ const FlagCell = ({ options, hash, variantType }: OwnProps) => {
   const handlePopOverHover = (open: boolean) => {
     if (open) {
       FlagApi.get(hash, prescriptionId!, patientId!, variantType).then(({ data }) => {
-        setHistory(data);
+        setHistory(data.filter((d: THistory) => Array.isArray(d?.properties?.flags)));
       });
     } else {
       setIsPopOverOpen(false);
