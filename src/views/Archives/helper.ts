@@ -27,7 +27,7 @@ export const extractDocsFromTask = (tasks: PatientTaskResults) => {
   tasks?.forEach((task) => {
     const docs = Array.isArray(task.docs) ? [...task.docs] : [task.docs];
     docs.forEach((doc) => {
-      doc.content.forEach((content) => {
+      doc?.content?.forEach((content) => {
         // ignore index files
         if (!INDEXES_FORMAT.includes(content.format)) {
           docsList.push({
