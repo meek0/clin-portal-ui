@@ -280,6 +280,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
         total={variantResultsWithFilter.total}
         queryKey={'cnv'}
         data={selectedRows}
+        getFilterSqon={getFilterSqon}
       />
     </>
   );

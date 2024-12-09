@@ -327,6 +327,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
                   queryKey={'Variants'}
                   columnKey={VARIANT_KEY}
                   patientId={patientId}
+                  getFilterSqon={getFilterSqon}
                 />
               </>
             ),
