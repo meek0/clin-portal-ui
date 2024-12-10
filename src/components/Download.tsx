@@ -27,6 +27,10 @@ type OwnProps = {
   operations?: IQueryOperationsConfig;
   patientId?: string;
   queryKey: string;
+  getFilterSqon?: () => {
+    content: any[];
+    op: string;
+  };
 };
 
 const DownloadTSVWrapper = ({
@@ -44,6 +48,7 @@ const DownloadTSVWrapper = ({
   patientId,
   data,
   queryKey,
+  getFilterSqon,
 }: OwnProps) => {
   const [showModalLimit, setShowModalLimit] = useState(false);
   const dispatch = useDispatch();
@@ -58,6 +63,20 @@ const DownloadTSVWrapper = ({
       mapping,
       patientId ? patientId : undefined,
     );
+  };
+  const selectedHash = data.map((item: any) => item.hash);
+  const newSqon = {
+    content: [
+      getFilterSqon ? getFilterSqon() : queryVariables.sqon,
+      {
+        content: {
+          field: 'hash',
+          value: selectedHash,
+        },
+        op: 'in',
+      },
+    ],
+    op: 'and',
   };
 
   const fetchDataFromAPI = () => {
@@ -77,7 +96,8 @@ const DownloadTSVWrapper = ({
         variables: {
           ...queryVariables,
           searchAfter: undefined,
-          first: total,
+          first: data.length > 0 ? data.length : total,
+          sqon: data.length > 0 ? newSqon : getFilterSqon ? getFilterSqon() : queryVariables.sqon,
         },
       },
     })
@@ -99,18 +119,18 @@ const DownloadTSVWrapper = ({
     const selectedData = cloneDeep(data || []);
     const downloadAll = selectedData.length === 0;
 
+    const downloaded = await fetchDataFromAPI();
     if (downloadAll) {
       if (total > maxAllowed) {
         setShowModalLimit(true);
       } else {
-        const downloaded = await fetchDataFromAPI();
         dataIntoTSV(downloaded);
       }
     } else if (selectedData.length > 0) {
       if (selectedData.length > maxAllowed) {
         setShowModalLimit(true);
       } else {
-        dataIntoTSV(selectedData);
+        dataIntoTSV(selectedData.length === downloaded?.length ? downloaded : selectedData);
       }
     }
     setTriggered(false);
