@@ -8,10 +8,6 @@ COPY cypress /code/cypress
 COPY .env tsconfig.json tsconfig.paths.json craco.config.js cypress.config.ts /code/
 
 RUN npm install
-RUN npm install cypress@13.13.3
 RUN npx update-browserslist-db@latest
 
 ENV PATH=./node_modules/.bin:$PATH
-
-ENTRYPOINT [""]
-CMD ["cypress"]
