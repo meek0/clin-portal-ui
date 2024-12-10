@@ -32,13 +32,16 @@ const Summary = () => {
         }
         loading={loadingCard}
       >
-        <QualityControlSummary
-          summaryData={summaryData.map(({ code, ...data }) => ({
-            ...data,
-            header: `${intl.get(code)} (${data.requestId})`,
-          }))}
-          showHeader
-        />
+        {prescription && (
+          <QualityControlSummary
+            prescriptionId={prescription.id}
+            summaryData={summaryData.map(({ code, ...data }) => ({
+              ...data,
+              header: `${intl.get(code)} (${data.requestId})`,
+            }))}
+            showHeader
+          />
+        )}
       </CollapsePanel>
     </div>
   );

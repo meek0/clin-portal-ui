@@ -1466,15 +1466,13 @@
       "no_data": "No Data"
     },
     "quality_control_summary": {
+      "metric": "Metric",
       "sex": "Sex",
       "contamination": "Contamination",
       "exome_avg_coverage": "Exome Avg. Coverage",
       "exome_coverage_15x": "Exome Coverage > 15X",
       "uniformity_coverage": "Uniformity of Coverage < 40%",
       "total_cnvs": "# Total CNVs",
-      "male": "Male",
-      "female": "Femelle",
-      "undefined": "Undefined",
       "insufficient_coverage": "Insufficient coverage",
       "insufficient_coverage_15x": "Insufficient 15X coverage",
       "sex_undefined": "Unable to determine sex",
@@ -1483,7 +1481,8 @@
       "high_number_of_cnvs": "High number of CNVs, possibility of fragmentation and low quality calls"
     },
     "coverage_genic": {
-      "summaryCQ": "Summary CQ",
+      "summaryCQ": "Summary QC",
+      "summary": "Summary",
       "general": "General",
       "coverage_genic": "Gene coverage",
       "gene_filter_placeholder": "Filter by gene ",

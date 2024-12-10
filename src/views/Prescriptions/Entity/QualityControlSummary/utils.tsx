@@ -13,13 +13,13 @@ const getSexMeta = (
   averageChrY: number,
   averageChrX: number,
 ): {
-  sex: 'male' | 'female' | 'undefined';
+  sex: 'male' | 'female' | 'unknown';
   color: TQualityControlIndicatorColor;
 } => {
-  if (averageChrY > 0.2102 || averageChrX < 0.8496) {
+  if (averageChrY < 0.2456 && averageChrX > 0.7451) {
     return {
-      sex: 'female',
-      color: 'orange',
+      sex: 'male',
+      color: 'red',
     };
   }
 
@@ -37,22 +37,22 @@ const getSexMeta = (
     };
   }
 
-  if (averageChrY < 0.2456 && averageChrX > 0.7451) {
+  if (averageChrY > 0.2102 || averageChrX < 0.8496) {
     return {
-      sex: 'male',
-      color: 'red',
+      sex: 'female',
+      color: 'orange',
     };
   }
 
   return {
-    sex: 'undefined',
+    sex: 'unknown',
     color: 'orange',
   };
 };
 
 const getSexDetail = (averageChrY: number, averageChrX: number, gender: string | undefined) => {
   const meta = getSexMeta(averageChrY, averageChrX);
-  const isSexUndefined = meta.sex === 'undefined';
+  const isSexUndefined = meta.sex === 'unknown';
   const isSexNotEqual = meta.sex !== gender;
 
   return (
@@ -76,7 +76,7 @@ const getSexDetail = (averageChrY: number, averageChrX: number, gender: string |
         ) : (
           <HighBadgeIcon svgClass={styles.highImpact} />
         )}
-        {intl.get(`pages.quality_control_summary.${meta.sex}`)}
+        {intl.get(`sex.${meta.sex}`)}
       </Space>
     </ConditionalWrapper>
   );

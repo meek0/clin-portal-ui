@@ -10,6 +10,7 @@ import { Button, Card, Descriptions, Radio, Select, Skeleton, Space, Typography 
 import { DefaultOptionType } from 'antd/lib/select';
 import Title from 'antd/lib/typography/Title';
 import { FhirApi } from 'api/fhir';
+import { extractServiceRequestId } from 'api/fhir/helper';
 import { isArray } from 'lodash';
 import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
@@ -30,7 +31,7 @@ import ContentHeader from 'components/Layout/ContentWithHeader/Header';
 import Footer from 'components/Layout/Footer';
 import { globalActions } from 'store/global';
 
-import QualityControlSummary from '../../QualityControlSummary';
+import { QualityControlSummarySingle } from '../../QualityControlSummary';
 import {
   fetchDocsForRequestId,
   fetchRequestTotalCnvs,
@@ -94,19 +95,20 @@ const addColorIndicatorToOptions = (
 ) =>
   options.map((optionItem) => {
     const ids = optionItem.value?.toString().split(',') || [];
-    const matchingId = ids.find((id) => metricIndicatorByRequest?.[id] !== null);
+    const matchingId = ids.find((id) => !!metricIndicatorByRequest?.[parseInt(id)]);
 
     if (matchingId) {
       const color = metricIndicatorByRequest?.[matchingId];
+
       return {
         ...optionItem,
         label: (
-          <Space size={3}>
+          <Space size={6}>
             {color === 'red' ? (
               <HighBadgeIcon svgClass={styles.highImpact} />
-            ) : (
+            ) : color === 'orange' ? (
               <ModerateBadgeIcon svgClass={styles.moderateImpact} />
-            )}{' '}
+            ) : null}
             {optionItem.label}
           </Space>
         ),
@@ -123,7 +125,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
   const qcSectionParam = searchParams.get('qcSection');
   const { push, location } = useHistory();
   const [activeTabs, setActiveTabs] = useState<string>(QCTabs.DRAGEN_CAPTURE_COVERAGE_METRICS);
-  const [loadingCard, setLoadingCard] = useState(true);
+  const [loadingCard, setLoadingCard] = useState(false);
   const [docs, setDocs] = useState<DocsWithTaskInfo[]>([]);
   const [reportFile, setReportFile] = useState<any>(null);
   const [totalCnvs, setTotalCnvs] = useState(0);
@@ -138,7 +140,6 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
   useEffect(() => {
     if (variantInfo.patientId && variantInfo.requestId) {
       setLoadingCard(true);
-
       fetchDocsForRequestId(variantInfo.requestId)
         .then((docs) => {
           setDocs(docs);
@@ -148,13 +149,14 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
           }
         })
         .then(() =>
-          fetchRequestTotalCnvs(variantInfo.patientId!, variantInfo.requestId!).then((value) =>
-            setTotalCnvs(value),
-          ),
+          fetchRequestTotalCnvs(
+            variantInfo.patientId!,
+            extractServiceRequestId(prescription?.id!),
+          ).then((value) => setTotalCnvs(value)),
         )
         .finally(() => setLoadingCard(false));
     }
-  }, [variantInfo.requestId]);
+  }, [variantInfo.requestId, loading]);
 
   const downloadFile = async (format = 'JSON', type = 'QCRUN') => {
     const file = docs.find((f) => f.format === format && f.type === type);
@@ -257,27 +259,28 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
                 header={
                   <Skeleton title={{ width: 200 }} paragraph={false} loading={loading} active>
                     <Title level={4}>
-                      {intl.get('pages.coverage_genic.summaryCQ')} : {selectOptionLabel}
+                      {intl.get('pages.coverage_genic.summary')} : {selectOptionLabel}
                     </Title>
                   </Skeleton>
                 }
                 loading={loadingCard}
               >
-                <QualityControlSummary
-                  summaryData={
-                    reportFile
-                      ? [
-                          {
+                {prescription && (
+                  <QualityControlSummarySingle
+                    prescriptionId={prescription.id}
+                    summaryDataItem={
+                      reportFile
+                        ? {
                             sampleQcReport: reportFile,
                             gender: getGenderForRequestId(prescription, variantInfo.requestId!),
                             patientId: variantInfo.patientId!,
                             requestId: variantInfo.requestId!,
                             cnvCount: totalCnvs,
-                          },
-                        ]
-                      : []
-                  }
-                />
+                          }
+                        : null
+                    }
+                  />
+                )}
               </CollapsePanel>
               <Card
                 loading={loadingCard}

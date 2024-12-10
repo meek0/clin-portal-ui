@@ -1,6 +1,7 @@
 import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { ArrangerApi } from 'api/arranger';
 import { FhirApi } from 'api/fhir';
+import { extractServiceRequestId } from 'api/fhir/helper';
 import { ServiceRequestEntity } from 'api/fhir/models';
 import { IVariantResultTree } from 'graphql/cnv/models';
 import { GET_VARIANT_COUNT } from 'graphql/cnv/queries';
@@ -169,9 +170,11 @@ export const getSummaryDataForAllRequestIds = async (
           }
         })
         .then(() =>
-          fetchRequestTotalCnvs(patientId, requestId).then((value) => {
-            summaryData[index].cnvCount = value;
-          }),
+          fetchRequestTotalCnvs(patientId, extractServiceRequestId(prescription!.id)).then(
+            (value) => {
+              summaryData[index].cnvCount = value;
+            },
+          ),
         ),
     ),
   );
@@ -193,6 +196,10 @@ export const getSequencageIndicatorForRequests = async (
   const metricIndicatorByRequest: TSequencageIndicatorForRequests['metricIndicatorByRequest'] = {};
 
   summaryData.forEach(({ requestId, sampleQcReport, cnvCount }) => {
+    if (Object.keys(sampleQcReport).length === 0) {
+      return false;
+    }
+
     const sexIndicator = QualityControlUtils.getSexMeta(
       sampleQcReport['DRAGEN_capture_coverage_metrics'][
         'Average chr Y coverage over QC coverage region'
