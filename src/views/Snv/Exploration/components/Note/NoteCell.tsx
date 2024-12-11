@@ -30,7 +30,7 @@ const NoteCell = ({ note, hash, variantType }: OwnProps) => {
 
   useEffect(() => {
     if (!open) {
-      setText(note);
+      setText(newNote);
     }
   }, [open]);
 
