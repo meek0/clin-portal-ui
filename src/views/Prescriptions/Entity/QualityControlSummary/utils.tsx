@@ -4,56 +4,62 @@ import { Space, Tooltip } from 'antd';
 
 import HighBadgeIcon from 'components/icons/variantBadgeIcons/HighBadgeIcon';
 import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeIcon';
+import { SexValue } from 'utils/commonTypes';
 
 import styles from './index.module.css';
 
-export type TQualityControlIndicatorColor = 'red' | 'orange';
+export type TQualityControlIndicatorColor = 'red' | 'orange' | null;
 
 const getSexMeta = (
   averageChrY: number,
   averageChrX: number,
+  patientSex: SexValue | undefined,
 ): {
-  sex: 'male' | 'female' | 'unknown';
+  sex: SexValue;
   color: TQualityControlIndicatorColor;
 } => {
   if (averageChrY < 0.2456 && averageChrX > 0.7451) {
     return {
-      sex: 'male',
-      color: 'red',
+      sex: SexValue.MALE,
+      color: patientSex !== SexValue.MALE ? 'red' : null,
     };
   }
 
   if (averageChrY > 0.2102 && averageChrX < 0.8496) {
     return {
-      sex: 'female',
-      color: 'red',
+      sex: SexValue.FEMALE,
+      color: patientSex !== SexValue.FEMALE ? 'red' : null,
     };
   }
 
   if (averageChrY < 0.2456 || averageChrX > 0.7451) {
     return {
-      sex: 'male',
-      color: 'orange',
+      sex: SexValue.MALE,
+      color: patientSex !== SexValue.MALE ? 'orange' : null,
     };
   }
 
   if (averageChrY > 0.2102 || averageChrX < 0.8496) {
     return {
-      sex: 'female',
-      color: 'orange',
+      sex: SexValue.FEMALE,
+      color: patientSex !== SexValue.FEMALE ? 'orange' : null,
     };
   }
 
   return {
-    sex: 'unknown',
-    color: 'orange',
+    sex: SexValue.UNKNOWN,
+    color: patientSex !== SexValue.UNKNOWN && patientSex !== undefined ? 'orange' : null,
   };
 };
 
-const getSexDetail = (averageChrY: number, averageChrX: number, gender: string | undefined) => {
-  const meta = getSexMeta(averageChrY, averageChrX);
-  const isSexUndefined = meta.sex === 'unknown';
-  const isSexNotEqual = meta.sex !== gender;
+const getSexDetail = (
+  averageChrY: number,
+  averageChrX: number,
+  patientSex: SexValue | undefined,
+) => {
+  const meta = getSexMeta(averageChrY, averageChrX, patientSex);
+  const isSexUndefined = meta.sex === SexValue.UNKNOWN;
+  const isSexNotEqual = meta.sex !== patientSex;
 
   return (
     <ConditionalWrapper
@@ -71,11 +77,11 @@ const getSexDetail = (averageChrY: number, averageChrX: number, gender: string |
       )}
     >
       <Space>
-        {meta.color === 'orange' || isSexNotEqual ? (
+        {meta.color === 'orange' ? (
           <ModerateBadgeIcon svgClass={styles.moderateImpact} />
-        ) : (
+        ) : meta.color === 'red' ? (
           <HighBadgeIcon svgClass={styles.highImpact} />
-        )}
+        ) : null}
         {intl.get(`sex.${meta.sex}`)}
       </Space>
     </ConditionalWrapper>

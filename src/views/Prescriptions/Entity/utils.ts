@@ -10,6 +10,8 @@ import { DocsWithTaskInfo } from 'views/Archives';
 import { extractDocsFromTask } from 'views/Archives/helper';
 import { wrapSqonWithPatientIdAndRequestId } from 'views/Cnv/utils/helper';
 
+import { SexValue } from 'utils/commonTypes';
+
 import { QualityControlUtils, TQualityControlIndicatorColor } from './QualityControlSummary/utils';
 import { formatOptionValue, getPatientAndRequestId } from './Tabs/Variants/utils';
 import { TQualityControlSummaryData } from './QualityControlSummary';
@@ -133,7 +135,7 @@ export const getSummaryDataForAllRequestIds = async (
     {
       patientId,
       requestId,
-      gender: prescription?.subject.resource.gender,
+      patientSex: prescription?.subject.resource.gender as SexValue,
       code: code || 'unknown',
       sampleQcReport: {},
       cnvCount: 0,
@@ -152,7 +154,7 @@ export const getSummaryDataForAllRequestIds = async (
     summaryData.push({
       patientId,
       requestId,
-      gender: extensionValueRef?.valueReference?.resource.gender,
+      patientSex: extensionValueRef?.valueReference?.resource.gender as SexValue,
       code: code || 'unknown',
       sampleQcReport: {},
       cnvCount: 0,
@@ -195,7 +197,7 @@ export const getSequencageIndicatorForRequests = async (
   let overallIndicator: TSequencageIndicatorForRequests['overallIndicator'] = null;
   const metricIndicatorByRequest: TSequencageIndicatorForRequests['metricIndicatorByRequest'] = {};
 
-  summaryData.forEach(({ requestId, sampleQcReport, cnvCount }) => {
+  summaryData.forEach(({ requestId, sampleQcReport, cnvCount, patientSex }) => {
     if (Object.keys(sampleQcReport).length === 0) {
       return false;
     }
@@ -207,6 +209,7 @@ export const getSequencageIndicatorForRequests = async (
       sampleQcReport['DRAGEN_capture_coverage_metrics'][
         'Average chr X coverage over QC coverage region'
       ],
+      patientSex,
     ).color;
 
     const contaminationIndicator = QualityControlUtils.getContaminationIndicatorColor(

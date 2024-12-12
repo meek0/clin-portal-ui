@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import Empty from '@ferlab/ui/core/components/Empty';
 import { extractServiceRequestId } from 'api/fhir/helper';
 
+import { SexValue } from 'utils/commonTypes';
+
 import { QualityControlUtils } from './utils';
 
 import styles from './index.module.css';
@@ -11,7 +13,7 @@ import styles from './index.module.css';
 export type TQualityControlSummaryDataItem<T = {}> = {
   header?: ReactNode;
   sampleQcReport: Record<string, any>;
-  gender: string | undefined;
+  patientSex: SexValue | undefined;
   patientId: string;
   requestId: string;
   cnvCount: number;
@@ -57,7 +59,7 @@ const QualityControlSummary = ({
           <CustomDescriptionLabel>
             {intl.get('pages.quality_control_summary.sex')}
           </CustomDescriptionLabel>
-          {summaryData.map(({ sampleQcReport, gender }, index) => (
+          {summaryData.map(({ sampleQcReport, patientSex }, index) => (
             <CustomDescriptionItemContent key={`request-${index}-sex`}>
               {QualityControlUtils.getSexDetail(
                 sampleQcReport['DRAGEN_capture_coverage_metrics'][
@@ -66,7 +68,7 @@ const QualityControlSummary = ({
                 sampleQcReport['DRAGEN_capture_coverage_metrics'][
                   'Average chr X coverage over QC coverage region'
                 ],
-                gender,
+                patientSex,
               )}
             </CustomDescriptionItemContent>
           ))}
@@ -175,7 +177,7 @@ export const QualityControlSummarySingle = ({
               summaryDataItem.sampleQcReport['DRAGEN_capture_coverage_metrics'][
                 'Average chr X coverage over QC coverage region'
               ],
-              summaryDataItem.gender,
+              summaryDataItem.patientSex,
             )}
           </CustomDescriptionItemContent>
           <CustomDescriptionLabel>

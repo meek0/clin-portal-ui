@@ -30,6 +30,7 @@ import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeI
 import ContentHeader from 'components/Layout/ContentWithHeader/Header';
 import Footer from 'components/Layout/Footer';
 import { globalActions } from 'store/global';
+import { SexValue } from 'utils/commonTypes';
 
 import { QualityControlSummarySingle } from '../../QualityControlSummary';
 import {
@@ -139,6 +140,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
 
   useEffect(() => {
     if (variantInfo.patientId && variantInfo.requestId) {
+      setReportFile(null);
       setLoadingCard(true);
       fetchDocsForRequestId(variantInfo.requestId)
         .then((docs) => {
@@ -156,7 +158,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
         )
         .finally(() => setLoadingCard(false));
     }
-  }, [variantInfo.requestId, loading]);
+  }, [variantInfo.requestId]);
 
   const downloadFile = async (format = 'JSON', type = 'QCRUN') => {
     const file = docs.find((f) => f.format === format && f.type === type);
@@ -272,7 +274,10 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
                       reportFile
                         ? {
                             sampleQcReport: reportFile,
-                            gender: getGenderForRequestId(prescription, variantInfo.requestId!),
+                            patientSex: getGenderForRequestId(
+                              prescription,
+                              variantInfo.requestId!,
+                            ) as SexValue,
                             patientId: variantInfo.patientId!,
                             requestId: variantInfo.requestId!,
                             cnvCount: totalCnvs,
