@@ -24,13 +24,13 @@ js_hard_clean_install: js_hard_clean js_install
 
 # Docker
 start:
-	docker-compose up -d
+	docker compose up -d
 
 start_cypress:
 	docker compose --profile cypress up -d --build
 
-stop:
-	docker-compose down
+stop: 
+	docker compose down
 
 # Work with local ferlab-ui
 ferlab_local:

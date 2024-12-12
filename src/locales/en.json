@@ -362,6 +362,7 @@
   "filters.options.status.on-hold": "Submitted",
   "filters.options.status.revoked": "Revoked",
   "filters.options.status.submitted": "Submitted",
+  "filters.options.status.unknown": "Unknown",
   "filters.options.variant_class.SNV": "SNV",
   "filters.options.variant_class.deletion": "Deletion",
   "filters.options.variant_class.insertion": "Insertion",

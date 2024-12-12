@@ -363,6 +363,7 @@
   "filters.options.status.on-hold": "Soumise",
   "filters.options.status.revoked": "Refusée",
   "filters.options.status.submitted": "Soumise",
+  "filters.options.status.unknown": "Inconnu",
   "filters.options.variant_class.SNV": "SNV",
   "filters.options.variant_class.deletion": "Délétion",
   "filters.options.variant_class.insertion": "Insertion",
