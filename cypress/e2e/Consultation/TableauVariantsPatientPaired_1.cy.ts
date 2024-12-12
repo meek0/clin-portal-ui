@@ -64,4 +64,14 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
     cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
     cy.get('[class*="QueryBar_selected"] [class*="anticon-copy"]').should('exist');
   });
+ 
+  it('Valider la fonctionnalité du radio bouton SNV (TO)-SNV (TN)-CNV (TO)', () => {
+    cy.get('[class*="VariantSectionNav"] [class*="ant-radio-button-wrapper-checked"]').contains('SNV (TN)').should('exist');
+
+    cy.get('[class*="VariantSectionNav"]').contains('SNV (TO)').clickAndWait({force: true});
+    cy.get('[class*="VariantSectionNav"] [class*="ant-radio-button-wrapper-checked"]').contains('SNV (TO)').should('exist');
+
+    cy.get('[class*="VariantSectionNav"]').contains('CNV (TO)').clickAndWait({force: true});
+    cy.get('[class*="VariantSectionNav"] [class*="ant-radio-button-wrapper-checked"]').contains('CNV (TO)').should('exist');
+  });
 });

@@ -17,8 +17,8 @@ describe('Page du rapport général d\'un patient (somatic) - Consultation des t
   it('Dragen Capture Coverage Metrics - Vérifier les informations affichées', () => {
     cy.fixture('ExportTableauDragenCaptureCoverageMetrics.json').then((expectedData) => {
       for (let i = 0; i < expectedData.headers.length; i++) {
-        cy.get('tr[class="ant-descriptions-row"]').eq(i).find('th').contains(expectedData.headers[i].replace(/\s+/g, ' ').trim()).should('exist');
-        cy.get('tr[class="ant-descriptions-row"]').eq(i).find('td').contains(expectedData.contentSomatic[i]).should('exist');
+        cy.get('[class*="ant-card-bordered"] tr[class="ant-descriptions-row"]').eq(i).find('th').contains(expectedData.headers[i].replace(/\s+/g, ' ').trim()).should('exist');
+        cy.get('[class*="ant-card-bordered"] tr[class="ant-descriptions-row"]').eq(i).find('td').contains(expectedData.contentSomatic[i]).should('exist');
       }
     });
   });
@@ -27,8 +27,8 @@ describe('Page du rapport général d\'un patient (somatic) - Consultation des t
     cy.get('[data-node-key="DRAGEN_mapping_metrics"]').clickAndWait({force: true});
     cy.fixture('ExportTableauDragenMappingMetrics.json').then((expectedData) => {
       for (let i = 0; i < expectedData.headers.length; i++) {
-        cy.get('tr[class="ant-descriptions-row"]').eq(i).find('th').contains(expectedData.headers[i]).should('exist');
-        cy.get('tr[class="ant-descriptions-row"]').eq(i).find('td').contains(expectedData.contentSomatic[i]).should('exist');
+        cy.get('[class*="ant-card-bordered"] tr[class="ant-descriptions-row"]').eq(i).find('th').contains(expectedData.headers[i]).should('exist');
+        cy.get('[class*="ant-card-bordered"] tr[class="ant-descriptions-row"]').eq(i).find('td').contains(expectedData.contentSomatic[i]).should('exist');
       }
     });
   });
