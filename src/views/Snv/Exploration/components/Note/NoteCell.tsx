@@ -70,7 +70,7 @@ const NoteCell = ({ note, hash, variantType }: OwnProps) => {
         title={intl.get('note.modal.title')}
         open={open}
         destroyOnClose={true}
-        width={752}
+        width={800}
         footer={[
           <Button
             key="back"
