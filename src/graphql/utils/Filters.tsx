@@ -88,7 +88,9 @@ export const GenerateFilters = ({
               headerBorderOnly: true,
             }}
             onChange={(fg, f) => {
-              history.replace({ search: '' });
+              if (queryBuilderId.includes('prescription')) {
+                history.replace({ search: '' });
+              }
               updateActiveQueryFilters({
                 queryBuilderId,
                 filterGroup: fg,

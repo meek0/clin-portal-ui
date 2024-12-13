@@ -23,7 +23,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
     cy.validateClearAllButton(false);
   });
 
-  it('Éditer une pilule via son popup [CLIN-3538]', () => {
+  it('Éditer une pilule via son popup', () => {
     cy.get('[class*="QueryValues_queryValuesContainer"]').contains('SNV').clickAndWait({force:true});
     cy.get('[class*="filtersDropdown"] input[id="input-insertion"]').check({force: true});
     cy.clickAndIntercept('[class*="filtersDropdown"] [data-cy="Apply_Type de variant"]', 'POST', '**/graphql', 3);
