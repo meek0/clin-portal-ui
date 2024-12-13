@@ -110,7 +110,7 @@ const PrescriptionEntity = () => {
     setVariantInfo,
   ]);
 
-  const memoedTabsItems = useMemo(() => {
+  const getTabs = () => {
     const items = [
       {
         key: PrescriptionEntityTabs.DETAILS,
@@ -158,7 +158,7 @@ const PrescriptionEntity = () => {
     }
 
     return items;
-  }, [summaryTabFeatureToggle.isEnabled, sequencageIndicators?.overallIndicator]);
+  };
 
   if (!loading && !prescription) {
     return <Forbidden />;
@@ -179,7 +179,7 @@ const PrescriptionEntity = () => {
           ),
         }}
         className={styles.prescriptionEntityContainer}
-        items={memoedTabsItems}
+        items={getTabs()}
       />
     </PrescriptionEntityContext.Provider>
   );

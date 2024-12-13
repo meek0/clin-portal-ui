@@ -35,10 +35,12 @@ const Summary = () => {
         {prescription && (
           <QualityControlSummary
             prescriptionId={prescription.id}
-            summaryData={summaryData.map(({ code, ...data }) => ({
-              ...data,
-              header: `${intl.get(code)} (${data.requestId})`,
-            }))}
+            summaryData={summaryData
+              .filter((data) => data.sampleQcReport && Object.keys(data.sampleQcReport).length)
+              .map(({ code, ...data }) => ({
+                ...data,
+                header: `${intl.get(code)} (${data.requestId})`,
+              }))}
             showHeader
           />
         )}

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory } from 'react-router';
 import { DownloadOutlined } from '@ant-design/icons';
 import Empty from '@ferlab/ui/core/components/Empty';
 import ScrollContent from '@ferlab/ui/core/layout/ScrollContent';
@@ -29,6 +29,7 @@ import HighBadgeIcon from 'components/icons/variantBadgeIcons/HighBadgeIcon';
 import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeIcon';
 import ContentHeader from 'components/Layout/ContentWithHeader/Header';
 import Footer from 'components/Layout/Footer';
+import useQueryParams from 'hooks/useQueryParams';
 import { globalActions } from 'store/global';
 import { SexValue } from 'utils/commonTypes';
 
@@ -121,9 +122,6 @@ const addColorIndicatorToOptions = (
 
 const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
   const dispatch = useDispatch();
-  const { search } = useLocation();
-  const searchParams = new URLSearchParams(search);
-  const qcSectionParam = searchParams.get('qcSection');
   const { push, location } = useHistory();
   const [activeTabs, setActiveTabs] = useState<string>(QCTabs.DRAGEN_CAPTURE_COVERAGE_METRICS);
   const [loadingCard, setLoadingCard] = useState(false);
@@ -132,11 +130,8 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
   const [totalCnvs, setTotalCnvs] = useState(0);
   const { prescription, variantInfo, setVariantInfo, loading } =
     useContext(PrescriptionEntityContext);
-  const [activeSection, setActiveSection] = useState(qcSectionParam || 'General');
-
-  useEffect(() => {
-    if (qcSectionParam) setActiveSection(qcSectionParam);
-  }, [qcSectionParam]);
+  const queryParams = useQueryParams();
+  const [activeSection, setActiveSection] = useState(queryParams.get('qcSection') || 'General');
 
   useEffect(() => {
     if (variantInfo.patientId && variantInfo.requestId) {
