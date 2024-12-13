@@ -69,6 +69,8 @@ const NoteCell = ({ note, hash, variantType }: OwnProps) => {
       <Modal
         title={intl.get('note.modal.title')}
         open={open}
+        destroyOnClose={true}
+        width={800}
         footer={[
           <Button
             key="back"
@@ -100,7 +102,7 @@ const NoteCell = ({ note, hash, variantType }: OwnProps) => {
             onChange={(e) => {
               setText(e.target.value);
             }}
-            rows={3}
+            rows={10}
           />
         </Space>
       </Modal>
