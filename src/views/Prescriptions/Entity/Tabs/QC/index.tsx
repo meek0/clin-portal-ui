@@ -77,7 +77,7 @@ const getTabsContent = (activeTabs: string, reportFile: any) => {
     info = isArray(info) ? info[0] : info;
     const keys = Object.keys(info);
     return (
-      <ScrollContent className={styles.scrollWrapper}>
+      <ScrollContent>
         <Descriptions bordered column={1} size="small" className="label-35">
           {keys.map((k, index) => (
             <Descriptions.Item label={k} key={index}>
@@ -282,28 +282,30 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
                   />
                 )}
               </CollapsePanel>
-              <Card
-                loading={loadingCard}
-                bordered
-                tabList={tabList}
-                activeTabKey={activeTabs}
-                onTabChange={(e) => setActiveTabs(e)}
-                style={{ marginTop: 24 }}
-                tabBarExtraContent={
-                  reportFile && Object.keys(reportFile).length !== 0 ? (
-                    <Button
-                      disabled={!!loadingCard}
-                      onClick={() => downloadFile()}
-                      size="small"
-                      icon={<DownloadOutlined width={'16'} height={'16'} />}
-                    >
-                      {intl.get('download.report')}
-                    </Button>
-                  ) : null
-                }
-              >
-                {loadingCard ? null : getTabsContent(activeTabs, reportFile)}
-              </Card>
+              <div className={styles.cardWrapper}>
+                <Card
+                  loading={loadingCard}
+                  bordered
+                  tabList={tabList}
+                  activeTabKey={activeTabs}
+                  onTabChange={(e) => setActiveTabs(e)}
+                  style={{ flex: 1 }}
+                  tabBarExtraContent={
+                    reportFile && Object.keys(reportFile).length !== 0 ? (
+                      <Button
+                        disabled={!!loadingCard}
+                        onClick={() => downloadFile()}
+                        size="small"
+                        icon={<DownloadOutlined width={'16'} height={'16'} />}
+                      >
+                        {intl.get('download.report')}
+                      </Button>
+                    ) : null
+                  }
+                >
+                  {loadingCard ? null : getTabsContent(activeTabs, reportFile)}
+                </Card>
+              </div>
             </>
           )}
           {activeSection === 'CouvertureGenique' && (
