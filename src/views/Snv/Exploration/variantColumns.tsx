@@ -352,7 +352,7 @@ export const getVariantColumns = (
             selectedFilter={filtersList?.flags}
           />
         ),
-        width: 85,
+        width: 65,
         render: (flags: string[], entity: VariantEntity) => (
           <FlagCell options={!flags ? [] : flags} hash={entity.hash} variantType="snv" />
         ),
