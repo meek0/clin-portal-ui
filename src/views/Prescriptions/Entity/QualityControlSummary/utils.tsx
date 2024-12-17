@@ -18,31 +18,31 @@ const getSexMeta = (
   sex: SexValue;
   color: TQualityControlIndicatorColor;
 } => {
-  if (averageChrY < 0.2456 && averageChrX > 0.7451) {
-    return {
-      sex: SexValue.MALE,
-      color: patientSex !== SexValue.MALE ? 'red' : null,
-    };
-  }
-
-  if (averageChrY > 0.2102 && averageChrX < 0.8496) {
+  if (patientSex === SexValue.FEMALE && (averageChrY > 0.2102 || averageChrX < 0.8496)) {
     return {
       sex: SexValue.FEMALE,
-      color: patientSex !== SexValue.FEMALE ? 'red' : null,
+      color: 'orange',
     };
   }
 
-  if (averageChrY < 0.2456 || averageChrX > 0.7451) {
+  if (patientSex === SexValue.MALE && (averageChrY < 0.2456 || averageChrX > 0.7451)) {
     return {
       sex: SexValue.MALE,
-      color: patientSex !== SexValue.MALE ? 'orange' : null,
+      color: 'orange',
     };
   }
 
-  if (averageChrY > 0.2102 || averageChrX < 0.8496) {
+  if (patientSex === SexValue.FEMALE && averageChrY > 0.2102 && averageChrX < 0.8496) {
     return {
       sex: SexValue.FEMALE,
-      color: patientSex !== SexValue.FEMALE ? 'orange' : null,
+      color: 'red',
+    };
+  }
+
+  if (patientSex === SexValue.MALE && averageChrY < 0.2456 && averageChrX > 0.7451) {
+    return {
+      sex: SexValue.FEMALE,
+      color: 'red',
     };
   }
 
