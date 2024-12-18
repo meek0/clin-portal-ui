@@ -59,7 +59,7 @@ export const getVariantColumns = (
       dataIndex: 'flags',
       tooltip: intl.get('flag.table.tooltip'),
       iconTitle: <FlagOutlined />,
-      width: 85,
+      width: 62,
       filterIcon: () => {
         const isFilter = filtersList && filtersList.flags.length > 0 ? true : false;
         return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
