@@ -1,8 +1,7 @@
-import React from 'react';
 import intl from 'react-intl-universal';
 import { CloseOutlined } from '@ant-design/icons';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
-import { AutoComplete, Form, Radio, Select, Tag, Tooltip } from 'antd';
+import { Form, Input, Radio, Select, Tag, Tooltip } from 'antd';
 
 import {
   clinicalUtilitys,
@@ -13,28 +12,7 @@ import GenericInterpretationForm from './GenericInterpretationForm';
 import { SomaticInterpFormFields } from './types';
 
 import styles from './index.module.css';
-
-/**
- * Payload sample:
- *
- * {
-    "tumoral_type": "Un type tumoral",
-    "oncogenicity": "LA6668-3",
-    "oncogenicity_classification_criterias": [
-        "OS1",
-        "OS3",
-        "OP4"
-    ],
-    "clinical_utility": "category_ia",
-    "interpretation": "<p>Une description de l'interprétation</p>",
-    "pubmed": [
-        {
-            "citation_id": "123456",
-            "citation": "Hart ML, Kaupp M, Brun J, Aicher WK. Comparative phenotypic transcriptional characterization of human full-term placenta-derived mesenchymal stromal cells compared to bone marrow-derived mesenchymal stromal cells after differentiation in myogenic medium. Placenta. 2017 Jan;49:64-67. doi: 10.1016/j.placenta.2016.11.007. Epub 2016 Nov 16. PMID: 28012456."
-        }
-    ]
-}
- */
+import { requiredRule } from './utils';
 
 const SomaticInterpretationForm = () => (
   <>
@@ -43,15 +21,10 @@ const SomaticInterpretationForm = () => (
         <ProLabel title={intl.get('modal.variant.interpretation.somatic.tumoralType')} colon />
       }
       name={SomaticInterpFormFields.TUMORAL_TYPE}
-      rules={[
-        {
-          required: true,
-        },
-      ]}
+      rules={[requiredRule]}
     >
-      <AutoComplete
+      <Input
         placeholder={intl.get('modal.variant.interpretation.somatic.tumoralType-placeholder')}
-        allowClear
       />
     </Form.Item>
     <Form.Item noStyle shouldUpdate>
@@ -79,11 +52,7 @@ const SomaticInterpretationForm = () => (
             />
           }
           name={SomaticInterpFormFields.ONCOGENICITY}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
+          rules={[requiredRule]}
           style={{
             marginBottom: 12,
           }}
@@ -162,13 +131,11 @@ const SomaticInterpretationForm = () => (
       )}
     </Form.Item>
     <Form.Item
-      label={intl.get('modal.variant.interpretation.somatic.clinicalUtility')}
+      label={
+        <ProLabel title={intl.get('modal.variant.interpretation.somatic.clinicalUtility')} colon />
+      }
       name={SomaticInterpFormFields.CLINICAL_UTILITY}
-      rules={[
-        {
-          required: true,
-        },
-      ]}
+      rules={[requiredRule]}
     >
       <Select
         placeholder={intl.get('modal.variant.interpretation.somatic.clinicalUtility-placeholder')}

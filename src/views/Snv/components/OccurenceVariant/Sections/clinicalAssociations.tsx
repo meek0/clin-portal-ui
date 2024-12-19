@@ -26,7 +26,7 @@ const ClinicalAssociations = ({ record: { genes, locus } }: OwnProps) => {
   const omimsToShow = sortOminList.slice(0, 3);
   const noData = omimsToShow?.length === 0;
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" style={{ width: '100%' }}>
       <div>
         <Descriptions
           className={`${style.basicBordered} ${style.clinicalAssociations}`}

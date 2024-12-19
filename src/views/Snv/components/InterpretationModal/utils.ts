@@ -1,23 +1,109 @@
-import { GenericInterpFormFields } from './types';
+import {
+  TInterpretationGermline,
+  TInterpretationGermlineOutput,
+  TInterpretationInput,
+  TInterpretationOutput,
+  TInterpretationSomatic,
+  TInterpretationSomaticOutput,
+} from 'api/interpretation/model';
+import {
+  GenericInterpFormFields,
+  GermlineInterpFormFields,
+  SomaticInterpFormFields,
+} from './types';
 
-const getGenericInterpFormInitialValues = () => ({
-  [GenericInterpFormFields.PUBMED]: [
-    {
-      [GenericInterpFormFields.PUBMED_CITATION]: '',
-    },
-  ],
-});
+const getGenericInterpFormInitialValues = (interpretation: TInterpretationOutput | null) => {
+  if (interpretation) {
+    return {
+      [GenericInterpFormFields.INTERPRETATION]: interpretation.interpretation,
+      [GenericInterpFormFields.PUBMED]: (interpretation.pubmed || []).map((pubmed) => ({
+        [GenericInterpFormFields.PUBMED_CITATION_ID]: pubmed.citation_id,
+        [GenericInterpFormFields.PUBMED_CITATION]: pubmed.citation,
+      })),
+    };
+  }
 
-// TODO add correct type and fill initial form values
-export const getGermlineInterpFormInitialValues = (interpretation?: any) => {
   return {
-    ...getGenericInterpFormInitialValues(),
+    [GenericInterpFormFields.INTERPRETATION]: '',
+    [GenericInterpFormFields.PUBMED]: [],
   };
 };
 
 // TODO add correct type and fill initial form values
-export const getSimaticInterpFormInitialValues = (interpretation?: any) => {
+export const getGermlineInterpFormInitialValues = (
+  interpretation: TInterpretationGermlineOutput | null,
+): TInterpretationGermline => {
   return {
-    ...getGenericInterpFormInitialValues(),
+    [GermlineInterpFormFields.CLASSIFICATION]: interpretation?.classification || '',
+    [GermlineInterpFormFields.CLASSIFICATION_CRITERIAS]:
+      interpretation?.classification_criterias || [],
+    [GermlineInterpFormFields.CONDITION]: interpretation?.condition || '',
+    [GermlineInterpFormFields.TRANSMISSION_MODES]: interpretation?.transmission_modes || [],
+    ...getGenericInterpFormInitialValues(interpretation),
+  };
+};
+
+// TODO add correct type and fill initial form values
+export const getSimaticInterpFormInitialValues = (
+  interpretation: TInterpretationSomaticOutput | null,
+): TInterpretationSomatic => {
+  return {
+    [SomaticInterpFormFields.TUMORAL_TYPE]: interpretation?.tumoral_type || '',
+    [SomaticInterpFormFields.ONCOGENICITY]: interpretation?.oncogenicity || '',
+    [SomaticInterpFormFields.ONCOGENICITY_CLASSIFICATION_CRITERIAS]:
+      interpretation?.oncogenicity_classification_criterias || [],
+    [SomaticInterpFormFields.CLINICAL_UTILITY]: interpretation?.clinical_utility || '',
+    ...getGenericInterpFormInitialValues(interpretation),
+  };
+};
+
+export const getInterpretationFormInitialValues = (
+  isSomatic: boolean,
+  interpretation: TInterpretationOutput | null,
+) => {
+  return {
+    ...(isSomatic
+      ? getSimaticInterpFormInitialValues(interpretation as TInterpretationSomaticOutput)
+      : getGermlineInterpFormInitialValues(interpretation as TInterpretationGermlineOutput)),
+    ...getGenericInterpFormInitialValues(interpretation),
+  };
+};
+
+export const requiredRule = {
+  required: true,
+};
+
+export const isSubsetEqual = (obj1: any, obj2: any) => {
+  for (let key in obj2) {
+    if (typeof obj2[key] === 'object' && obj2[key] !== null) {
+      // Check if array or nested object
+      if (Array.isArray(obj2[key])) {
+        if (!Array.isArray(obj1[key]) || JSON.stringify(obj1[key]) !== JSON.stringify(obj2[key])) {
+          return false;
+        }
+      } else {
+        if (!isSubsetEqual(obj1[key], obj2[key])) {
+          return false;
+        }
+      }
+    } else {
+      if (obj1[key] !== obj2[key]) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
+export const cleanInterpretationPayload = (input: TInterpretationInput): TInterpretationInput => {
+  const cleanedPubmed = input.pubmed
+    ? input.pubmed.filter((pubmed) => {
+        return pubmed?.citation_id || pubmed?.citation;
+      })
+    : undefined;
+
+  return {
+    ...input,
+    pubmed: cleanedPubmed && cleanedPubmed.length ? cleanedPubmed : [],
   };
 };

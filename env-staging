@@ -10,6 +10,7 @@ REACT_APP_FILTER_BOOLEAN_TO_DICTIONARY_EXCEPTIONS=prenatal
 REACT_APP_SHOW_ASSIGNMENT=true
 REACT_APP_SHOW_FLAGS=true
 REACT_APP_SHOW_ONLY_NEW_INFO_POPUP=true
+
 # AUTH
 REACT_APP_KEYCLOAK_CONFIG={"realm": "clin", "url": "https://auth.staging.cqgc.hsj.rtss.qc.ca/", "clientId": "clin-client", "authClientId": "clin-acl"}
 # API
@@ -23,6 +24,7 @@ REACT_APP_WEB_ROOT=https://portail.staging.cqgc.hsj.rtss.qc.ca
 REACT_APP_USERS_API_URL=https://users.staging.cqgc.hsj.rtss.qc.ca
 REACT_APP_FORM_API_URL=https://forms.staging.cqgc.hsj.rtss.qc.ca
 REACT_APP_PANELS_FILE=https://s3.cqgc.hsj.rtss.qc.ca/cqgc-staging-app-public/panels/panels.xlsx
+REACT_APP_RADIANT_API_URL=https://radiant-api.qa.cqgc.hsj.rtss.qc.ca
 
 # SENTRY
 REACT_APP_SENTRY_API=https://28b0458e254a87f018579f3c31997f37@o4505959323860992.ingest.sentry.io/4506400661962752

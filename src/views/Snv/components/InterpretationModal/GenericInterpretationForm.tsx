@@ -8,37 +8,35 @@ import RichTextEditor from 'components/uiKit/RichTextEditor';
 import { GenericInterpFormFields } from './types';
 
 import { debounce } from 'lodash';
-import { useCallback, useRef, useState } from 'react';
-import { PubmedApi, TPubmedCitationPayload } from 'api/pubmed';
+import { useCallback, useRef } from 'react';
 
 import styles from './index.module.css';
+import { requiredRule } from './utils';
+import { InterpretationApi } from 'api/interpretation';
+import { TPubmedOutput } from 'api/interpretation/model';
 
 const GenericInterpretationForm = () => {
   const form = Form.useFormInstance();
 
-  const cacheRef = useRef(new Map()); // Cache for storing API results
-  const [loading, setLoading] = useState(false);
+  const cacheRef = useRef(new Map());
 
   const fetchCitation = async (value: string, pubmedIndex: number) => {
     if (!value) return;
 
-    // Check cache first
     if (cacheRef.current.has(value)) {
       const cachedData = cacheRef.current.get(value);
       updateCitationField(cachedData, pubmedIndex);
       return;
     }
 
-    // Fetch from API if not in cache
-    setLoading(true);
-    try {
-      const response = await PubmedApi.validatePubmedId(value);
-      cacheRef.current.set(value, response); // Cache the result
-      updateCitationField(response.data, pubmedIndex);
-    } catch (error) {
+    const { data, error } = await InterpretationApi.fetchPubmed(value);
+
+    updateCitationField(data, pubmedIndex);
+
+    if (error) {
       console.error('API Error:', error);
-    } finally {
-      setLoading(false);
+    } else {
+      cacheRef.current.set(value, data); // Cache the result
     }
   };
 
@@ -47,7 +45,7 @@ const GenericInterpretationForm = () => {
     [],
   );
 
-  const updateCitationField = (data: TPubmedCitationPayload | undefined, pubmedIndex: number) => {
+  const updateCitationField = (data: TPubmedOutput | undefined, pubmedIndex: number) => {
     if (data) {
       form.setFieldsValue({
         [GenericInterpFormFields.PUBMED]: form
@@ -56,8 +54,8 @@ const GenericInterpretationForm = () => {
             idx === pubmedIndex
               ? {
                   ...item,
-                  [GenericInterpFormFields.PUBMED_CITATION]: data.nlm,
-                  [GenericInterpFormFields.PUBMED_CITATION_ID]: data.id,
+                  [GenericInterpFormFields.PUBMED_CITATION]: data.nlm.format,
+                  [GenericInterpFormFields.PUBMED_CITATION_ID]: data.id.replace('pmid:', ''),
                 }
               : item,
           ),
@@ -79,15 +77,11 @@ const GenericInterpretationForm = () => {
   return (
     <>
       <Form.Item
-        label={intl.get('modal.variant.interpretation.generic.interpretation')}
+        label={
+          <ProLabel title={intl.get('modal.variant.interpretation.generic.interpretation')} colon />
+        }
         name={GenericInterpFormFields.INTERPRETATION}
-        rules={[
-          {
-            required: true,
-            type: 'string',
-            min: 1,
-          },
-        ]}
+        rules={[requiredRule]}
       >
         <RichTextEditor />
       </Form.Item>
@@ -132,7 +126,11 @@ const GenericInterpretationForm = () => {
                     gap: 8,
                   }}
                 >
-                  <Form.Item hidden name={[name, GenericInterpFormFields.PUBMED_CITATION_ID]}>
+                  <Form.Item
+                    {...restField}
+                    hidden
+                    name={[name, GenericInterpFormFields.PUBMED_CITATION_ID]}
+                  >
                     <Input />
                   </Form.Item>
                   <Form.Item

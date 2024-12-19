@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
-import { DownloadOutlined, EditFilled, EditOutlined } from '@ant-design/icons';
+import { DownloadOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, Divider, Space } from 'antd';
 import { Rpt } from 'auth/types';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
@@ -15,7 +15,6 @@ import ReportButton from '../../Report/DownloadButton';
 
 import style from '../index.module.css';
 import InterpretationModal from '../../InterpretationModal';
-import useFeatureToggle from 'hooks/useFeatureToggle';
 import { useState } from 'react';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 
@@ -30,7 +29,6 @@ interface OwnProps {
 
 const Header = ({ record, patientId, loadingRpt, rpt, igvModalCb, variantSection }: OwnProps) => {
   const [isInterpretationModalOpen, toggleInterpretationModal] = useState(false);
-  const { isEnabled } = useFeatureToggle('interpretation');
 
   return (
     <>
@@ -42,16 +40,14 @@ const Header = ({ record, patientId, loadingRpt, rpt, igvModalCb, variantSection
           </Space>
         </Link>
         <Space>
-          {isEnabled && (
-            <Button
-              type="primary"
-              size="small"
-              icon={<EditOutlined size={16} />}
-              onClick={() => toggleInterpretationModal(true)}
-            >
-              {intl.get('interpret')}
-            </Button>
-          )}
+          <Button
+            type="primary"
+            size="small"
+            icon={<EditOutlined size={16} />}
+            onClick={() => toggleInterpretationModal(true)}
+          >
+            {intl.get('interpret')}
+          </Button>
           <ReportButton
             icon={<DownloadOutlined width={'16'} height={'16'} />}
             patientId={patientId!}

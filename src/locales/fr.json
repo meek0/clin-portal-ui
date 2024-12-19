@@ -1616,6 +1616,18 @@
             "category_iic": "Catégorie IIC",
             "category_iid": "Catégorie IID",
             "category_iii": "Catégorie III"
+          },
+          "sections": {
+            "cancer": {
+              "title": "Cancer Hotspot",
+              "hotspot": "Hotspot"
+            },
+            "annotationsVariant": {
+              "title": "Annotations variant"
+            },
+            "annotationsGene": {
+              "title": "Annotations gène"
+            }
           }
         }
       }
@@ -1669,5 +1681,6 @@
   "classifications": "Classifications",
   "functionalScores": "Scores de prédictions",
   "cadd_phred": "CADD (phred)",
+  "tier": "Tier",
   "pli": "pLi"
 }

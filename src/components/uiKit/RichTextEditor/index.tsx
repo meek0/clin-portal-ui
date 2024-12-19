@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactQuill from 'react-quill';
 
 import 'react-quill/dist/quill.snow.css';
@@ -44,7 +43,19 @@ const RichTextEditor = ({ value, onChange, placeholder }: Props) => (
       value={value || ''}
       modules={modules}
       formats={formats}
-      onChange={onChange}
+      onChange={(e) => {
+        if (
+          e
+            .toString()
+            .trim()
+            .replace(/<(.|\n)*?>/g, '')
+            .trim().length === 0
+        ) {
+          onChange?.('');
+        } else {
+          onChange?.(e.toString().trim());
+        }
+      }}
       placeholder={placeholder}
       className={styles.richTextEditor}
     />
