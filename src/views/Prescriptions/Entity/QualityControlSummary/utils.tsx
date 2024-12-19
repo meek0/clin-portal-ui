@@ -41,7 +41,7 @@ const getSexMeta = (
 
   if (patientSex === SexValue.MALE && averageChrY < 0.2456 && averageChrX > 0.7451) {
     return {
-      sex: SexValue.FEMALE,
+      sex: SexValue.MALE,
       color: 'red',
     };
   }
