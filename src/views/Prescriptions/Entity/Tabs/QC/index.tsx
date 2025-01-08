@@ -134,6 +134,10 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
   const [activeSection, setActiveSection] = useState(queryParams.get('qcSection') || 'General');
 
   useEffect(() => {
+    setActiveSection(queryParams.get('qcSection') || 'General');
+  }, [queryParams.get('qcSection')]);
+
+  useEffect(() => {
     if (variantInfo.patientId && variantInfo.requestId) {
       setReportFile(null);
       setLoadingCard(true);
