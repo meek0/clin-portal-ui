@@ -18,6 +18,7 @@ export const VARIANT_QUERY = gql`
         edges {
           searchAfter
           node {
+            genome_build
             service_request_id
             analysis_service_request_id
             id
