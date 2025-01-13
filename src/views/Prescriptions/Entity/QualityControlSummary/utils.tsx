@@ -100,14 +100,22 @@ const getContaminationDetail = (estimatedSampleContamination: number) => {
   const indicatorColor = getContaminationIndicatorColor(estimatedSampleContamination);
 
   return (
-    <Space>
-      {indicatorColor === 'orange' ? (
-        <ModerateBadgeIcon svgClass={styles.moderateImpact} />
-      ) : indicatorColor === 'red' ? (
-        <HighBadgeIcon svgClass={styles.highImpact} />
-      ) : null}
-      {estimatedSampleContamination}
-    </Space>
+    <Tooltip
+      title={
+        indicatorColor === 'orange'
+          ? intl.get('pages.quality_control_summary.light_contamination')
+          : intl.get('pages.quality_control_summary.strong_contamination')
+      }
+    >
+      <Space>
+        {indicatorColor === 'orange' ? (
+          <ModerateBadgeIcon svgClass={styles.moderateImpact} />
+        ) : indicatorColor === 'red' ? (
+          <HighBadgeIcon svgClass={styles.highImpact} />
+        ) : null}
+        {estimatedSampleContamination}
+      </Space>
+    </Tooltip>
   );
 };
 
@@ -123,7 +131,7 @@ const getExomeAvgCoverageDetail = (avgAlignmentCoverage: number) => {
 
   return (
     <ConditionalWrapper
-      condition={indicatorColor === 'red'}
+      condition={indicatorColor === 'orange'}
       wrapper={(children) => (
         <Tooltip title={intl.get('pages.quality_control_summary.insufficient_coverage')}>
           {children}

@@ -1475,6 +1475,8 @@
       "total_cnvs": "# Total CNVs",
       "insufficient_coverage": "Insufficient coverage",
       "insufficient_coverage_15x": "Insufficient 15X coverage",
+      "light_contamination": "Light contamination between 2% and 5 %",
+      "strong_contamination": "Strong contamination > 5%",
       "sex_undefined": "Unable to determine sex",
       "sex_not_equal": "Sex determination inconsistent with submission",
       "suboptimal_coverage_40": "Suboptimal coverage uniformity, some regions may be poorly covered",
