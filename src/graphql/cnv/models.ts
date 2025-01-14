@@ -30,6 +30,7 @@ export type VariantEntity = {
   hash: string;
   type: string;
   transmission: string;
+  genome_build: string;
   parental_origin: string;
   qual: number;
   chromosome: string;

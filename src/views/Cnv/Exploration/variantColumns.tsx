@@ -2,6 +2,7 @@ import { Key } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
 import { FilterFilled, FlagOutlined, MessageOutlined } from '@ant-design/icons';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Button, Space, Tag, Tooltip, Typography } from 'antd';
@@ -162,11 +163,15 @@ export const getVariantColumns = (
       dataIndex: 'name',
       sorter: { multiple: 1 },
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
-      render: (name: string) => {
+      render: (name: string, variant: VariantEntity) => {
         const value = name.split(':').slice(1).join(':');
+        const type = name.split(':').slice(1)[0];
+        const link = `https://franklin.genoox.com/clinical-db/variant/sv/chr${variant.chromosome}-${
+          variant.start
+        }-${variant.end}-${variant.type === 'GAIN' ? 'DUP' : 'DEL'}-HG38`;
         return (
           <Tooltip placement="topLeft" title={value}>
-            {value}
+            {type}:<ExternalLink href={link}>{name.split(':').slice(2).join(':')}</ExternalLink>
           </Tooltip>
         );
       },

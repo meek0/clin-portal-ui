@@ -43,7 +43,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('*', 21, '-');
   });
  
-  it('Valider les liens disponibles', () => {
+  it('Valider les liens disponibles Lien Gènes', () => {
     cy.get('tr').contains(/^2$/).clickAndWait({force: true});
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
@@ -51,6 +51,11 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.get('tr').contains('CFHR1').clickAndWait({force: true});
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
+  });
+ 
+  it('Valider les liens disponibles Lien Variant', () => {
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(5).find('a[href]')
+      .should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/sv/chr1-196774872-196832006-DUP-HG38');
   });
 });
 
