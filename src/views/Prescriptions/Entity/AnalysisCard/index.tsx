@@ -124,6 +124,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
         });
     }
   };
+
   const getOrganizationReference = prescription?.performer?.find((r) =>
     r.reference.includes('Organization'),
   );

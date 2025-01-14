@@ -38,6 +38,13 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableDataRowKeyContent('*', 19, '-');
     cy.validateTableDataRowKeyContent('*', 20, '-');
   });
+ 
+  it('Valider la fonctionnalité du radio bouton SNV (TO)-CNV (TO)', () => {
+    cy.get('[class*="VariantSectionNav"] [class*="ant-radio-button-wrapper-checked"]').contains('CNV (TO)').should('exist');
+
+    cy.get('[class*="VariantSectionNav"]').contains('SNV (TO)').clickAndWait({force: true});
+    cy.get('[class*="VariantSectionNav"] [class*="ant-radio-button-wrapper-checked"]').contains('SNV (TO)').should('exist');
+  });
 });
  
 describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () => {

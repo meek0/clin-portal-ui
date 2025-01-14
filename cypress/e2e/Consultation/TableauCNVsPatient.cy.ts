@@ -43,7 +43,18 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('*', 21, '-');
   });
  
+<<<<<<< HEAD
   it('Valider les liens disponibles Lien Gènes', () => {
+=======
+  it('Valider la fonctionnalité du radio bouton SNV-CNV', () => {
+    cy.get('[class*="VariantSectionNav"] [class*="ant-radio-button-wrapper-checked"]').contains('CNV').should('exist');
+
+    cy.get('[class*="VariantSectionNav"]').contains('SNV').clickAndWait({force: true});
+    cy.get('[class*="VariantSectionNav"] [class*="ant-radio-button-wrapper-checked"]').contains('SNV').should('exist');
+  });
+ 
+  it('Valider les liens disponibles', () => {
+>>>>>>> f0e329a9 (feat: CLIN-3102 Adjust Cypress tests)
     cy.get('tr').contains(/^2$/).clickAndWait({force: true});
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');

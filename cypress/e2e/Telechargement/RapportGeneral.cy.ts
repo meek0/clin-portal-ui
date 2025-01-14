@@ -10,7 +10,7 @@ beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
 
-  cy.get('[class="ant-card-head"] button[class*="ant-btn-default"]').clickAndWait({force: true});
+  cy.get('[class*="QC_cardWrapper"] button[class*="ant-btn-default"]').clickAndWait();
   cy.waitUntilFile(oneMinute);
 });
 

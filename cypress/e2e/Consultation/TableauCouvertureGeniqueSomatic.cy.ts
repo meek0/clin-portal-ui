@@ -30,4 +30,11 @@ describe('Page de la couverture génique d\'un patient (somatic) - Consultation 
 
     cy.get('[data-cy="AverageCoverage"]').contains('378.89').should('exist');
   });
+ 
+  it('Valider la fonctionnalité du radio bouton Général-Couverture génique', () => {
+    cy.get('[id*="panel-#qc"] [class*="ant-radio-button-wrapper-checked"]').contains('Couverture génique').should('exist');
+  
+    cy.get('[id*="panel-#qc"]').contains('Général').clickAndWait({force: true});
+    cy.get('[id*="panel-#qc"] [class*="ant-radio-button-wrapper-checked"]').contains('Général').should('exist');
+  });
 });

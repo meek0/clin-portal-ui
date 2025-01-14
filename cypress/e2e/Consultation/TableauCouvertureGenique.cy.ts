@@ -31,6 +31,13 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
     cy.get('[data-cy="AverageCoverage"]').contains('442.02').should('exist');
   });
  
+  it('Valider la fonctionnalité du radio bouton Général-Couverture génique', () => {
+    cy.get('[id*="panel-#qc"] [class*="ant-radio-button-wrapper-checked"]').contains('Couverture génique').should('exist');
+  
+    cy.get('[id*="panel-#qc"]').contains('Général').clickAndWait({force: true});
+    cy.get('[id*="panel-#qc"] [class*="ant-radio-button-wrapper-checked"]').contains('Général').should('exist');
+  });
+ 
   it('Valider les liens disponibles Lien SNV', () => {
     cy.get('tr[data-row-key]').eq(6).find('td').eq(1).find('[id="snv"]').clickAndWait({force: true});
     cy.get('[class*="ant-radio-button-wrapper-checked"]').contains('SNV').should('exist');

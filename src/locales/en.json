@@ -1441,6 +1441,7 @@
       "not_affected": "Not Affected"
     }
   },
+  "prescription.tabs.title.summary": "Summary",
   "prescription.tabs.title.details": "Details",
   "prescription.tabs.title.qc": "QC",
   "prescription.tabs.title.variants": "Variants",
@@ -1464,7 +1465,30 @@
     "qc_report": {
       "no_data": "No Data"
     },
+    "quality_control_summary": {
+      "metric": "Metric",
+      "sex": "Sex",
+      "contamination": "Contamination",
+      "exome_avg_coverage": "Exome Avg. Coverage",
+      "exome_coverage_15x": "Exome Coverage > 15X",
+      "uniformity_coverage": "Uniformity of Coverage < 40%",
+      "total_cnvs": "# Total CNVs",
+      "insufficient_coverage": "Insufficient coverage",
+      "insufficient_coverage_15x": "Insufficient 15X coverage",
+      "light_contamination": "Light contamination between 2% and 5 %",
+      "strong_contamination": "Strong contamination > 5%",
+      "sex_undefined": "Unable to determine sex",
+      "sex_not_equal": "Sex determination inconsistent with submission",
+      "xy_coverage_highly_inconsistant_with_patient_sex_female": "The coverage of the X and Y genes is strongly inconsistent with the patient's reported sex: Reported sex = female, cov(Y) > 0.2102 AND cov(X) < 0.8496",
+      "xy_coverage_highly_inconsistant_with_patient_sex_male": "The coverage of the X and Y genes is strongly inconsistent with the patient's reported sex: Reported sex = male, cov(Y) < 0.2456 AND cov(X) > 0.7451",
+      "xy_coverage_moderately_inconsistant_with_patient_sex_female": "The coverage of the X and Y genes is moderately inconsistent with the patient's reported sex: Reported sex = female, cov(Y) > 0.2102 OR cov(X) < 0.8496",
+      "xy_coverage_moderately_inconsistant_with_patient_sex_male": "The coverage of the X and Y genes is moderately inconsistent with the patient's reported sex: Reported sex = male, cov(Y) < 0.2456 OR cov(X) < 0.7451",
+      "suboptimal_coverage_40": "Suboptimal coverage uniformity, some regions may be poorly covered",
+      "high_number_of_cnvs": "High number of CNVs, possibility of fragmentation and low quality calls"
+    },
     "coverage_genic": {
+      "summaryCQ": "Summary QC",
+      "summary": "Summary",
       "general": "General",
       "coverage_genic": "Gene coverage",
       "gene_filter_placeholder": "Filter by gene ",
