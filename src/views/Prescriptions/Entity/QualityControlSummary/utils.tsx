@@ -75,7 +75,9 @@ const getSexDetail = (
 
   return (
     <ConditionalWrapper
-      condition={meta.tooltip !== null}
+      // tmp disabled will fix after release
+      condition={false}
+      //condition={meta.tooltip !== null}
       wrapper={(children) => <Tooltip title={meta.tooltip}>{children}</Tooltip>}
     >
       <Space>
@@ -103,7 +105,9 @@ const getContaminationDetail = (estimatedSampleContamination: number) => {
 
   return (
     <ConditionalWrapper
-      condition={indicatorColor !== null}
+      // tmp disabled will fix after release
+      condition={false}
+      //condition={meta.tooltip !== null}
       wrapper={(children) => (
         <Tooltip
           title={
@@ -140,7 +144,9 @@ const getExomeAvgCoverageDetail = (avgAlignmentCoverage: number) => {
 
   return (
     <ConditionalWrapper
-      condition={indicatorColor === 'orange'}
+      // tmp disabled will fix after release
+      condition={false}
+      //condition={indicatorColor === 'orange'}
       wrapper={(children) => (
         <Tooltip title={intl.get('pages.quality_control_summary.insufficient_coverage')}>
           {children}
