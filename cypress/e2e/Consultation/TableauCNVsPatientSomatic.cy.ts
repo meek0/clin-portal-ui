@@ -297,7 +297,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow('-', 12, true);
     cy.sortTableAndWait('RQDM');
     cy.wait(30*1000);
-    cy.validateTableFirstRow('25', 12, true);
+    cy.validateTableFirstRow('22', 12, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri # Gènes', () => {

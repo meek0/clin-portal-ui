@@ -146,7 +146,7 @@ describe('Page des CNVs d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Fréquence - Fréq. CNV tous les patients', () => {
-    cy.validateFacetNumFilter('Fréquence', 'Fréq. CNV tous les patients', '0.8', /^194$/);
+    cy.validateFacetNumFilter('Fréquence', 'Fréq. CNV tous les patients', '0.5', /^98$/);
     cy.validateFacetRank(0, 'Fréq. CNV tous les patients');
   });
 
