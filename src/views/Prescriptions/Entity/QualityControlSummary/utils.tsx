@@ -17,11 +17,15 @@ const getSexMeta = (
 ): {
   sex: SexValue;
   color: TQualityControlIndicatorColor;
+  tooltip: string | null;
 } => {
   if (patientSex === SexValue.FEMALE && (averageChrY > 0.2102 || averageChrX < 0.8496)) {
     return {
       sex: SexValue.FEMALE,
       color: 'orange',
+      tooltip: intl.get(
+        'pages.quality_control_summary.xy_coverage_moderately_inconsistant_with_patient_sex_female',
+      ),
     };
   }
 
@@ -29,6 +33,9 @@ const getSexMeta = (
     return {
       sex: SexValue.MALE,
       color: 'orange',
+      tooltip: intl.get(
+        'pages.quality_control_summary.xy_coverage_moderately_inconsistant_with_patient_sex_male',
+      ),
     };
   }
 
@@ -36,6 +43,9 @@ const getSexMeta = (
     return {
       sex: SexValue.FEMALE,
       color: 'red',
+      tooltip: intl.get(
+        'pages.quality_control_summary.xy_coverage_highly_inconsistant_with_patient_sex_female',
+      ),
     };
   }
 
@@ -43,12 +53,16 @@ const getSexMeta = (
     return {
       sex: SexValue.MALE,
       color: 'red',
+      tooltip: intl.get(
+        'pages.quality_control_summary.xy_coverage_highly_inconsistant_with_patient_sex_male',
+      ),
     };
   }
 
   return {
     sex: SexValue.UNKNOWN,
     color: patientSex !== SexValue.UNKNOWN && patientSex !== undefined ? 'orange' : null,
+    tooltip: null,
   };
 };
 
@@ -58,23 +72,11 @@ const getSexDetail = (
   patientSex: SexValue | undefined,
 ) => {
   const meta = getSexMeta(averageChrY, averageChrX, patientSex);
-  const isSexUndefined = meta.sex === SexValue.UNKNOWN;
-  const isSexNotEqual = meta.sex !== patientSex;
 
   return (
     <ConditionalWrapper
-      condition={isSexUndefined || isSexNotEqual}
-      wrapper={(children) => (
-        <Tooltip
-          title={
-            isSexNotEqual
-              ? intl.get(`pages.quality_control_summary.sex_not_equal`)
-              : intl.get(`pages.quality_control_summary.sex_undefined`)
-          }
-        >
-          {children}
-        </Tooltip>
-      )}
+      condition={meta.tooltip !== null}
+      wrapper={(children) => <Tooltip title={meta.tooltip}>{children}</Tooltip>}
     >
       <Space>
         {meta.color === 'orange' ? (
@@ -100,12 +102,19 @@ const getContaminationDetail = (estimatedSampleContamination: number) => {
   const indicatorColor = getContaminationIndicatorColor(estimatedSampleContamination);
 
   return (
-    <Tooltip
-      title={
-        indicatorColor === 'orange'
-          ? intl.get('pages.quality_control_summary.light_contamination')
-          : intl.get('pages.quality_control_summary.strong_contamination')
-      }
+    <ConditionalWrapper
+      condition={indicatorColor !== null}
+      wrapper={(children) => (
+        <Tooltip
+          title={
+            indicatorColor === 'orange'
+              ? intl.get('pages.quality_control_summary.light_contamination')
+              : intl.get('pages.quality_control_summary.strong_contamination')
+          }
+        >
+          {children}
+        </Tooltip>
+      )}
     >
       <Space>
         {indicatorColor === 'orange' ? (
@@ -115,7 +124,7 @@ const getContaminationDetail = (estimatedSampleContamination: number) => {
         ) : null}
         {estimatedSampleContamination}
       </Space>
-    </Tooltip>
+    </ConditionalWrapper>
   );
 };
 
