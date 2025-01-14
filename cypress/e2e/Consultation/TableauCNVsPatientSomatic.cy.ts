@@ -60,7 +60,36 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
   });
  
-  it('Valider les liens disponibles', () => {
+  it('Valider les liens disponibles Lien Gènes', () => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+  
+    cy.showColumn('GT', 0);
+    cy.showColumn('Filtre', 0);
+    cy.showColumn('Qual.', 0);
+    cy.showColumn('BC', 0);
+    cy.showColumn('PE', 0);
+    cy.showColumn('Trans.', 0);
+    cy.showColumn('OP', 0);
+    cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
+
+    cy.get('tr').contains(/^[^,]+,[^,]+,[^,]+...$/).clickAndWait({force: true});
+    cy.contains('LOSS:chr1:450731-7249626').should('exist');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
+  });
+ 
+  it('Valider les liens disponibles Lien Variant', () => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3, '?sharedFilterId=7159fa28-876c-4a46-9a0d-c1e7b88ba5e2');
+    
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(5).find('a[href]')
+      .should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/sv/chr1-450730-7249625-DEL-HG38');
+  });
+ 
+  it('Valider les liens disponibles Lien #Gènes', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
     cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
@@ -76,10 +105,6 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.get('tr').contains(/^191$/).clickAndWait({force: true});
-    cy.contains('LOSS:chr1:450731-7249626').should('exist');
-    cy.get('button[class="ant-modal-close"]').invoke('click');
-
-    cy.get('tr').contains(/^[^,]+,[^,]+,[^,]+...$/).clickAndWait({force: true});
     cy.contains('LOSS:chr1:450731-7249626').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
   });
