@@ -76,7 +76,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
     cy.wait('@getPOSTgraphql');
 
     cy.validateTotalSelectedQuery('125K');
-    cy.validateTableResultsCount('124 685');
+    cy.validateTableResultsCount('124 680');
   });
 });
 
