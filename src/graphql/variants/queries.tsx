@@ -58,6 +58,7 @@ const VARIANT_QUERY_BASE_FIELDS = `
           coding_dna_change
           ensembl_gene_id
           ensembl_transcript_id
+          refseq_mrna_id
           mane_select
           mane_plus
           predictions {

@@ -26,7 +26,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class*="OccurenceVariant_transcript"]').contains('Missense').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').contains('p.Ile2319Thr').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').contains('Ensembl').should('exist');
-    cy.get('[class*="OccurenceVariant_transcript"]').contains('ENST00000295956').should('exist');
+    cy.get('[class*="OccurenceVariant_transcript"]').contains('NM_001457.4').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').find('path[d*="M16.7732"]').should('exist'); // C
     cy.get('[class*="OccurenceVariant_transcript"]').find('path[d*="M8.98279"]').should('exist'); // M
     cy.get('[class*="OccurenceVariant_transcript"]').find('path[d*="M10.9335"]').should('not.exist'); // P
@@ -200,7 +200,7 @@ describe('Ligne extensible d\'une occurrence', () => {
 
   it('Valider les liens disponibles - Ensembl Transcrit', () => {
     cy.get('[class*="OccurenceVariant_transcript"]').find('a[href]').eq(2)
-      .should('have.attr', 'href', 'https://www.ensembl.org/id/ENST00000295956');
+      .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/nuccore/NM_001457.4');
   });
  
   it('Valider les liens disponibles - rsnumber', () => {

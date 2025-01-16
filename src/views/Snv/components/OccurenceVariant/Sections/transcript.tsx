@@ -1,8 +1,11 @@
 import intl from 'react-intl-universal';
+import { Link } from 'react-router-dom';
 /* eslint-disable max-len */
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
-import { Card, Divider, Space, Typography } from 'antd';
+import { Card, Divider, Space, Tooltip, Typography } from 'antd';
 import { ITableVariantEntity } from 'graphql/variants/models';
+import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
+import { TAB_ID } from 'views/Snv/Entity';
 
 import CanonicalIcon from 'components/icons/CanonicalIcon';
 import ManePlusIcon from 'components/icons/ManePlusIcon';
@@ -16,7 +19,7 @@ interface OwnProps {
   record: ITableVariantEntity;
 }
 
-const TranscriptSection = ({ record: { genes, consequences, rsnumber } }: OwnProps) => {
+const TranscriptSection = ({ record: { genes, consequences, rsnumber, locus } }: OwnProps) => {
   const pickedConsequence = consequences?.hits?.edges.find(({ node }) => !!node.picked);
   const geneSymbol = pickedConsequence?.node.symbol;
   const geneInfo = genes?.hits.edges?.find(({ node }) => node.symbol === geneSymbol)?.node;
@@ -24,6 +27,34 @@ const TranscriptSection = ({ record: { genes, consequences, rsnumber } }: OwnPro
     pickedConsequence?.node.mane_select ||
     pickedConsequence?.node.canonical ||
     pickedConsequence?.node.mane_plus;
+  const refseqToShow = pickedConsequence?.node?.refseq_mrna_id?.slice(0, 4);
+
+  const refseqInfo = () => {
+    if (pickedConsequence?.node?.refseq_mrna_id) {
+      const info = refseqToShow?.map((r, i) => (
+        <Space size={2} key={r}>
+          <ExternalLink href={`https://www.ncbi.nlm.nih.gov/nuccore/${r}`}>{r}</ExternalLink>
+          {i !== refseqToShow.length - 1 && ','}
+          {i === refseqToShow.length - 1 &&
+            i + 1 < pickedConsequence?.node?.refseq_mrna_id.length &&
+            ','}
+        </Space>
+      ));
+      return (
+        <Space>
+          {info}
+          {pickedConsequence?.node?.refseq_mrna_id.length > 4 && (
+            <Tooltip title={intl.get('see.more')}>
+              <Link target="_blank" to={`/variant/entity/${locus}/${TAB_ID.SUMMARY}`}>
+                ...
+              </Link>
+            </Tooltip>
+          )}
+        </Space>
+      );
+    }
+    return EMPTY_FIELD;
+  };
   return (
     <Card size="small" className={`${style.transcript} ${style.card}`}>
       <Space size={16} className={style.transcriptSpace}>
@@ -62,11 +93,7 @@ const TranscriptSection = ({ record: { genes, consequences, rsnumber } }: OwnPro
         </Space>
         <Divider type="vertical" />
         <Space className={style.mane}>
-          <ExternalLink
-            href={`https://www.ensembl.org/id/${pickedConsequence?.node.ensembl_transcript_id}`}
-          >
-            {pickedConsequence?.node.ensembl_transcript_id}
-          </ExternalLink>
+          {refseqInfo()}
           {haveResult ? (
             <Space size={4} className={style.maneIcons}>
               {pickedConsequence?.node.canonical && (
