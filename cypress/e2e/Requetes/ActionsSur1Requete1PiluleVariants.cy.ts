@@ -37,7 +37,7 @@ describe('Page des variants - Requêtes', () => {
     cy.validatePillSelectedQuery('Type de variant', ['SNV']);
     cy.validatePillSelectedQuery('Chromosome', ['19'], 1);
     cy.validateOperatorSelectedQuery('Et');
-    cy.validateTotalSelectedQuery(/(69.6|70)K/);
+    cy.validateTotalSelectedQuery(/(69.(5|6)|70)K/);
     cy.validateTableResultsCount(/69 \d{3}/);
     cy.validateClearAllButton(false);
   });

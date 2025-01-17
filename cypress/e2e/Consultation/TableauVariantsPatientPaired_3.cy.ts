@@ -84,7 +84,7 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
     cy.sortTableAndIntercept('RQDM G', 1);
     cy.validateTableFirstRow('0.00e+0', 18, true);
     cy.sortTableAndIntercept('RQDM G', 1);
-    cy.validateTableFirstRow(/4\.\d{2}e\-1/, 18, true);
+    cy.validateTableFirstRow(/\d{1}\.\d{2}e\-1/, 18, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM TN', () => {

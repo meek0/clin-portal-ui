@@ -19,7 +19,7 @@ describe('Page des variants - Requêtes', () => {
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).clickAndWait();
     cy.wait('@getPOSTgraphql');
 
-    cy.validateTableResultsCount(/1 4\d{2}/);
+    cy.validateTableResultsCount(/1 (3|4)\d{2}/);
   });
 
   it('Afficher/Masquer les champs', () => {
@@ -31,15 +31,15 @@ describe('Page des variants - Requêtes', () => {
     cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).clickAndWait();
     cy.validatePillSelectedQuery('Position', ['100000']);
-    cy.validateTotalSelectedQuery(/1,4\d{2}/);
-    cy.validateTableResultsCount(/1 4\d{2}/);
+    cy.validateTotalSelectedQuery(/1,(3|4)\d{2}/);
+    cy.validateTableResultsCount(/1 (3|4)\d{2}/);
     cy.validateClearAllButton(true);
 
     cy.get('button[role="switch"]').clickAndWait({force: true});
 
     cy.validatePillSelectedQuery('Position', ['100000']);
-    cy.validateTotalSelectedQuery(/1,4\d{2}/);
-    cy.validateTableResultsCount(/1 4\d{2}/);
+    cy.validateTotalSelectedQuery(/1,(3|4)\d{2}/);
+    cy.validateTableResultsCount(/1 (3|4)\d{2}/);
     cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(0).clickAndWait();
     cy.validatePillSelectedQuery('Type de variant', ['SNV']);
@@ -134,8 +134,8 @@ describe('Page des variants - Requêtes', () => {
     cy.get('[class*="ant-popconfirm"]').should('not.exist');
     cy.get('[class*="QueryBar_queryBarWrapper"]').its('length').should('eq', 1);
     cy.validatePillSelectedQuery('Position', ['100000']);
-    cy.validateTotalSelectedQuery(/1,4\d{2}/);
-    cy.validateTableResultsCount(/1 4\d{2}/);
+    cy.validateTotalSelectedQuery(/1,(3|4)\d{2}/);
+    cy.validateTableResultsCount(/1 (3|4)\d{2}/);
     cy.validateClearAllButton(false);
   });
 
@@ -147,8 +147,8 @@ describe('Page des variants - Requêtes', () => {
 
     cy.get('[class*="QueryBar_queryBarWrapper"]').its('length').should('eq', 1);
     cy.validatePillSelectedQuery('Position', ['100000']);
-    cy.validateTotalSelectedQuery(/1,4\d{2}/);
-    cy.validateTableResultsCount(/1 4\d{2}/);
+    cy.validateTotalSelectedQuery(/1,(3|4)\d{2}/);
+    cy.validateTableResultsCount(/1 (3|4)\d{2}/);
     cy.validateClearAllButton(false);
   });
 

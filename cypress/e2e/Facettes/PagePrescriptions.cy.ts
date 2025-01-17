@@ -18,7 +18,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
     cy.get('div[class="Filter_facetCollapse__8Ofdg"]').eq(0).contains('Priorité').should('exist');
     cy.checkValueFacet('Priorité', 'asap');
 
-    cy.validateTableResultsCount('Résultats');
+    cy.validateTableResultsCount('Résultat');
   });
   
   it('Analyse - Malignant Hyperthermia (HYPM)', () => {

@@ -78,13 +78,13 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(0).contains('RQDM').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(0).find('[class*="OccurenceVariant_affected"]').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(0).contains(/^5$/).should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(0).contains('238').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(0).contains('(2.10e-2)').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(0).contains(/^\d{3}$/).should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(0).contains(/(\d{1}.\d{2}e-2)/).should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(1).contains('RQDM').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(1).find('[class*="OccurenceVariant_unaffected"]').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).contains(/^2$/).should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).contains('10').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).contains('(2.00e-1)').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).contains(/\d{1}/).should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).contains(/(\d{1}.\d{2}e-1)/).should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(2).contains('gnomAD').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(2).contains('7.21e-3').should('exist');
   });

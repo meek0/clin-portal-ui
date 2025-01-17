@@ -29,7 +29,7 @@ describe('Page d\'une analyse bioinformatique - Vérifier les informations affic
   it('Panneau Séquençage', () => {
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('WXS').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('201106_A00516_0169_AHFM3HDSXY_16774').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('1_data_to_import').should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(3).contains('A00516_0169').should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(4).contains('Illumina NovaSeq').should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(5).contains('RocheKapaHyperExome').should('exist');

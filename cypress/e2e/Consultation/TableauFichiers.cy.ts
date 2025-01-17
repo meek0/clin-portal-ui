@@ -31,7 +31,7 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 7, 'Index');
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 8, '156.52 MB');
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 9, 'ZDgwMThjMjkxYjA2OTM1NzQzMzMxM2Q1ZTY1YmM4YjM=');
-    cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 10, 'A00516_0169_16776');
+    cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 10, 'A00516_0169');
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 11, 'SNV');
   });
  
@@ -116,9 +116,9 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Lot');
-    cy.validateTableFirstRow('A00516_0169_16774', 10);
+    cy.validateTableFirstRow('A00516_0169', 10);
     cy.sortTableAndWait('Lot');
-    cy.validateTableFirstRow('A00516_0169_16776', 10);
+    cy.validateTableFirstRow('A00516_0169', 10);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Type', () => {    

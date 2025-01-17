@@ -410,19 +410,12 @@ describe('Page des variants - Dictionnaire', () => {
                          'Likely Benign',
                          'Benign',
                          'No Data'];
-    const dictionnary_tmp = ['Pathogenic',
-                             'Likely Pathogenic',
-                             'Uncertain Significance',
-                             'Likely Benign',
-                             'Benign',
-                             'NOT AVAILABLE', // Données QA corrigées, à retirer lors du prochain reset
-                             'No Data'];
 
     cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
     cy.validateDictionnaryPresetValues('Pathogénicité', 'ACMG de Exomiser (max)', dictionnary);
 
     cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
-    cy.validateDictionnaryNewValues('Pathogénicité', 'ACMG de Exomiser (max)', dictionnary_tmp);
+    cy.validateDictionnaryNewValues('Pathogénicité', 'ACMG de Exomiser (max)', dictionnary);
   });
 
   it('Pathogénicité - Critères ACMG de Exomiser (max) [CLIN-2597]', () => {

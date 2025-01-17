@@ -29,8 +29,8 @@ describe('Page d\'une analyse bioinformatique (paired) - Vérifier les informati
   it('Panneau Séquençage', () => {
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains(presc_PAIRED.requestProbId.TEBA).should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('WXS').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('test_somatic_normal').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(3).contains('A00517_0410').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('3_data_to_import').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(3).contains('test_somatic_normal_part1').should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(4).contains('Illumina').should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(5).contains('RocheKapaHyperExome-1.0').should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(6).contains('A00516').should('exist');
@@ -52,13 +52,13 @@ describe('Page d\'une analyse bioinformatique (paired) - Vérifier les informati
   });
   
   it('Panneau Fichiers de données', () => {
-    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(0).contains(`T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz`).should('exist');
-    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(1).contains('SSNV').should('exist');
-    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(2).contains('VCF').should('exist');
-    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(3).contains(presc_PAIRED.sampleProbId.GEBA).should('exist');
-    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(4).contains('1.3 MB').should('exist');
-    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(5).contains('https://ferload').should('exist');
-    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="T-${presc_PAIRED.aliquotProbId.TEBA}.N-${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(6).contains(/^-$/).should('exist');
+    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(0).contains(`${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz`).should('exist');
+    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(1).contains('SSNV').should('exist');
+    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(2).contains('VCF').should('exist');
+    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(3).contains(presc_PAIRED.sampleProbId.GEBA).should('exist');
+    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(4).contains('1.3 MB').should('exist');
+    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(5).contains('https://ferload').should('exist');
+    cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(6).contains(/^-$/).should('exist');
   });
   
   it('Panneau Analyses connexes', () => {

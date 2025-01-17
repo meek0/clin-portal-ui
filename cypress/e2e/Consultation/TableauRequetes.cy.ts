@@ -45,7 +45,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 11, 'LDM-CHUSJ');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 12, 'CHUSJ');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 13, 'Atteint');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 14, '201106_A00516_0169_AHFM3HDSXY_16774');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 14, '1_data_to_import');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 15, 'Non');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 16, epCHUSJ_ldmCHUSJ.mrnProb);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 17, '-');
@@ -176,9 +176,9 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
 
   it('Valider les fonctionnalités du tableau - Tri Lot', () => {
     cy.sortTableAndIntercept('Lot', 3, 1);
-    cy.validateTableFirstRow('201106_A00516_0169_AHFM3HDSXY', 14, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('1_data_to_import', 14, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('Lot', 3, 1);
-    cy.validateTableFirstRow('201106_A00516_0169_AHFM3HDSXY', 14, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('1_data_to_import', 14, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Prénatal', () => {

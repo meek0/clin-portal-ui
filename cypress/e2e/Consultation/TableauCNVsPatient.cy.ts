@@ -182,7 +182,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.sortTableAndIntercept('OP', 1);
     cy.validateTableFirstRow('-', 21, true);
     cy.sortTableAndIntercept('OP', 1);
-    cy.validateTableFirstRow('-', 21, true);
+    cy.validateTableFirstRow('MF', 21, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

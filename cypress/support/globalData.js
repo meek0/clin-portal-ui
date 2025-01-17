@@ -55,7 +55,7 @@ const globalData = {
   presc_SOMATIC: {
     mrnProb: '03419540',
     prescriptionId: 'willBeSetByFetchFhirValues',
-    stampDate: '2024-04-03',
+    stampDate: '2025-01-16',
     patientProbId: 'willBeSetByFetchFhirValues',
     bioAnalProbId: 'willBeSetByFetchFhirValues',
     requestProbId: 'willBeSetByFetchFhirValues',

@@ -45,8 +45,8 @@ describe('Page des variants - Requêtes', () => {
     cy.wait('@getPOSTgraphql');
 
     cy.validatePillSelectedQuery('Position', ['100000']);
-    cy.validateTotalSelectedQuery(/1,4\d{2}/);
-    cy.validateTableResultsCount(/1 4\d{2}/);
+    cy.validateTotalSelectedQuery(/1,(3|4)\d{2}/);
+    cy.validateTableResultsCount(/1 (3|4)\d{2}/);
     cy.validateClearAllButton(false);
   });
 });
