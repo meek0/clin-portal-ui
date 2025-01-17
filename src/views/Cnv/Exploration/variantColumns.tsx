@@ -119,7 +119,8 @@ export const getVariantColumns = (
           <Tooltip title={intl.get('open.in.igv')}>
             <Button
               onClick={() => igvModalCb && igvModalCb(record)}
-              icon={<LineStyleIcon width={'100%'} height={'16px'} />}
+              className={style.actionButton}
+              icon={<LineStyleIcon />}
               type={'link'}
               size={'small'}
             />
