@@ -177,6 +177,7 @@ const Index = ({ downloadFile }: any) => {
               patient_id: variantInfo.patientId,
               id: selectedGene.id,
               variant_type: variantInfo.variantType,
+              is_proband: selectedGene.is_proband,
             } as any
           }
           isOpen={modalOpened}
