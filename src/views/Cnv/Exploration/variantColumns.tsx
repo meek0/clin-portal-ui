@@ -165,13 +165,12 @@ export const getVariantColumns = (
       className: cx(style.variantTableCell, style.variantTableCellElipsis),
       render: (name: string, variant: VariantEntity) => {
         const value = name.split(':').slice(1).join(':');
-        const type = name.split(':').slice(1)[0];
         const link = `https://franklin.genoox.com/clinical-db/variant/sv/chr${variant.chromosome}-${
           variant.start
         }-${variant.end}-${variant.type === 'GAIN' ? 'DUP' : 'DEL'}-HG38`;
         return (
           <Tooltip placement="topLeft" title={value}>
-            {type}:<ExternalLink href={link}>{name.split(':').slice(2).join(':')}</ExternalLink>
+            <ExternalLink href={link}>{value}</ExternalLink>
           </Tooltip>
         );
       },
