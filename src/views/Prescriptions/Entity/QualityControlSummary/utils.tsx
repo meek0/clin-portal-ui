@@ -19,43 +19,55 @@ const getSexMeta = (
   color: TQualityControlIndicatorColor;
   tooltip: string | null;
 } => {
-  if (patientSex === SexValue.FEMALE && (averageChrY > 0.2102 || averageChrX < 0.8496)) {
+  if (patientSex === SexValue.FEMALE) {
+    if (averageChrY > 0.2102 || averageChrX < 0.8496) {
+      return {
+        sex: SexValue.FEMALE,
+        color: 'orange',
+        tooltip: intl.get(
+          'pages.quality_control_summary.xy_coverage_moderately_inconsistant_with_patient_sex_female',
+        ),
+      };
+    }
+    if (averageChrY > 0.2102 && averageChrX < 0.8496) {
+      return {
+        sex: SexValue.FEMALE,
+        color: 'red',
+        tooltip: intl.get(
+          'pages.quality_control_summary.xy_coverage_highly_inconsistant_with_patient_sex_female',
+        ),
+      };
+    }
     return {
       sex: SexValue.FEMALE,
-      color: 'orange',
-      tooltip: intl.get(
-        'pages.quality_control_summary.xy_coverage_moderately_inconsistant_with_patient_sex_female',
-      ),
+      color: null,
+      tooltip: null,
     };
   }
 
-  if (patientSex === SexValue.MALE && (averageChrY < 0.2456 || averageChrX > 0.7451)) {
+  if (patientSex === SexValue.MALE) {
+    if (averageChrY < 0.2456 || averageChrX > 0.7451) {
+      return {
+        sex: SexValue.MALE,
+        color: 'orange',
+        tooltip: intl.get(
+          'pages.quality_control_summary.xy_coverage_moderately_inconsistant_with_patient_sex_male',
+        ),
+      };
+    }
+    if (averageChrY < 0.2456 && averageChrX > 0.7451) {
+      return {
+        sex: SexValue.MALE,
+        color: 'red',
+        tooltip: intl.get(
+          'pages.quality_control_summary.xy_coverage_highly_inconsistant_with_patient_sex_male',
+        ),
+      };
+    }
     return {
       sex: SexValue.MALE,
-      color: 'orange',
-      tooltip: intl.get(
-        'pages.quality_control_summary.xy_coverage_moderately_inconsistant_with_patient_sex_male',
-      ),
-    };
-  }
-
-  if (patientSex === SexValue.FEMALE && averageChrY > 0.2102 && averageChrX < 0.8496) {
-    return {
-      sex: SexValue.FEMALE,
-      color: 'red',
-      tooltip: intl.get(
-        'pages.quality_control_summary.xy_coverage_highly_inconsistant_with_patient_sex_female',
-      ),
-    };
-  }
-
-  if (patientSex === SexValue.MALE && averageChrY < 0.2456 && averageChrX > 0.7451) {
-    return {
-      sex: SexValue.MALE,
-      color: 'red',
-      tooltip: intl.get(
-        'pages.quality_control_summary.xy_coverage_highly_inconsistant_with_patient_sex_male',
-      ),
+      color: null,
+      tooltip: null,
     };
   }
 
