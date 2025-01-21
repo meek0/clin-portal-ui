@@ -86,7 +86,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).contains(/\d{1}/).should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).contains(/(\d{1}.\d{2}e-1)/).should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(2).contains('gnomAD').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(2).contains('7.21e-3').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(2).contains('7.20e-3').should('exist');
   });
 
   it('Vérifier les informations affichées - Section Scores de prédictions', () => {
@@ -240,7 +240,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   
   it('Valider les liens disponibles - gnomAD', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(2).find('a[href]')
-      .should('have.attr', 'href', 'https://gnomad.broadinstitute.org/variant/3-58159621-T-C?dataset=gnomad_r3 ');
+      .should('have.attr', 'href', 'https://gnomad.broadinstitute.org/variant/3-58159621-T-C?dataset=gnomad_r4');
   });
  
   it('Valider les liens disponibles - Hét. composé', () => {

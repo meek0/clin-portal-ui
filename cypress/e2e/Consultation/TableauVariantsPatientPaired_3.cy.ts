@@ -77,7 +77,7 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
     cy.sortTableAndIntercept('gnomAD ALT', 1);
     cy.validateTableFirstRow('-', 17, true);
     cy.sortTableAndIntercept('gnomAD ALT', 1);
-    cy.validateTableFirstRow('145 318', 17, true);
+    cy.validateTableFirstRow('145 385', 17, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM G', () => {

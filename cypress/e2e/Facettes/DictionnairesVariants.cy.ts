@@ -121,13 +121,13 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Variant', 'Conséquences', dictionnary);
   });
 
-  it('Variant - Référence externe [CLIN-3563]', () => {
+  it('Variant - Référence externe', () => {
     const dictionnary = ['DBSNP',
                          'Clinvar',
                          'PubMed',
                          'Cosmic',
                          'Franklin',
-                         'GnomADv4',
+                         'GnomAD',
                          'No Data'];
 
     cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');

@@ -279,6 +279,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('# Homozygotes').should('exist');
     cy.contains('Fréquence').should('exist');
     cy.contains('TopMed').should('exist');
+    cy.contains('gnomAD Genome (v4)').should('exist');
     cy.contains('gnomAD Genome (v3)').should('exist');
     cy.contains('gnomAD Genome (v2.1.1)').should('exist');
     cy.contains('gnomAD Exome (v2.1.1)').should('exist');
