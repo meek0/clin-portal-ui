@@ -126,6 +126,10 @@ const VARIANT_QUERY_BASE_FIELDS = `
       af
       ac
     }
+    gnomad_genomes_4 {
+      af
+      ac
+    }
   }
 
   genes {
@@ -366,6 +370,12 @@ export const TAB_FREQUENCIES_QUERY = gql`
                 hom
               }
               gnomad_genomes_3_0 {
+                ac
+                af
+                an
+                hom
+              }
+              gnomad_genomes_4 {
                 ac
                 af
                 an

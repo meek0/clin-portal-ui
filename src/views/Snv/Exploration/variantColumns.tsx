@@ -615,7 +615,7 @@ export const getVariantColumns = (
   }
   columns.push(
     {
-      key: 'external_frequencies.gnomad_genomes_3_1_1.af',
+      key: 'external_frequencies.gnomad_genomes_4.af',
       title: intl.get('screen.variantsearch.table.gnomAd'),
       tooltip: `${intl.get('screen.variantsearch.table.gnomAd.tooltip')}`,
       dataIndex: 'external_frequencies',
@@ -624,7 +624,7 @@ export const getVariantColumns = (
       },
       width: 98,
       render: (external_frequencies: ExternalFrequenciesEntity) => {
-        const af = external_frequencies.gnomad_genomes_3_1_1?.af;
+        const af = external_frequencies.gnomad_genomes_4?.af;
 
         if (!af && af !== 0) return TABLE_EMPTY_PLACE_HOLDER;
         return (
@@ -636,7 +636,7 @@ export const getVariantColumns = (
       },
     },
     {
-      key: 'external_frequencies.gnomad_genomes_3_1_1.ac',
+      key: 'external_frequencies.gnomad_genomes_4.ac',
       title: intl.get('screen.variantsearch.table.gnomAdAlt'),
       tooltip: `${intl.get('screen.variantsearch.table.gnomAdAlt.tooltip')}`,
       dataIndex: 'external_frequencies',
@@ -646,7 +646,7 @@ export const getVariantColumns = (
       },
       width: 120,
       render: (external_frequencies: ExternalFrequenciesEntity) => {
-        const ac = external_frequencies.gnomad_genomes_3_1_1?.ac;
+        const ac = external_frequencies.gnomad_genomes_4?.ac;
         return !ac && ac !== 0 ? TABLE_EMPTY_PLACE_HOLDER : formatNumber(ac);
       },
     },
@@ -1166,12 +1166,12 @@ export const renderHotspotToString = (variant: any) => {
 };
 
 export const renderGnomADAFToString = (variant: any) => {
-  const af = variant.external_frequencies.gnomad_genomes_3_1_1?.af;
+  const af = variant.external_frequencies.gnomad_genomes_4?.af;
   if (!af && af !== 0) return TABLE_EMPTY_PLACE_HOLDER;
   return af.toExponential(2).toString();
 };
 export const renderGnomADACToString = (variant: any) => {
-  const ac = variant.external_frequencies.gnomad_genomes_3_1_1?.ac;
+  const ac = variant.external_frequencies.gnomad_genomes_4?.ac;
   if (!ac && ac !== 0) return TABLE_EMPTY_PLACE_HOLDER;
   return ac.toString();
 };
