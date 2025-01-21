@@ -66,12 +66,12 @@ const FrequenciesGermlineSection = ({ record }: OwnProps) => {
         </Space>
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('screen.variantsearch.table.gnomAd')}>
-        {record.external_frequencies?.gnomad_genomes_3_1_1 ? (
+        {record.external_frequencies?.gnomad_genomes_4 ? (
           <ExternalLink
             className={style.gnomad}
-            href={`https://gnomad.broadinstitute.org/variant/${record.locus}?dataset=gnomad_r3 `}
+            href={`https://gnomad.broadinstitute.org/variant/${record.locus}?dataset=gnomad_r4`}
           >
-            {record.external_frequencies?.gnomad_genomes_3_1_1.af?.toExponential(2)}
+            {record.external_frequencies?.gnomad_genomes_4.af?.toExponential(2)}
           </ExternalLink>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
