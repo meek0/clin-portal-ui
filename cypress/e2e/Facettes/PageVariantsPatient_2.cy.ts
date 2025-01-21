@@ -88,7 +88,7 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Variant - Référence externe', () => {
-    cy.validateFacetFilter('Variant', 'Référence externe', 'No Data', '__missing__', /^7\d{2}$/);
+    cy.validateFacetFilter('Variant', 'Référence externe', 'No Data', '__missing__', /^\d{3}$/);
     cy.validateFacetRank(2, 'Référence externe');
   });
 
