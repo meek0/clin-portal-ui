@@ -33,7 +33,7 @@ describe('Ligne extensible d\'une occurrence (paired)', () => {
     cy.get('[class*="OccurenceVariant_transcript"]').find('path[d*="M10.9335"]').should('not.exist'); // P
     cy.get('[class*="OccurenceVariant_transcript"]').contains('Exon').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').contains('1 / 7').should('exist');
-    cy.get('[class*="OccurenceVariant_transcript"]').contains('c.2A>C').should('exist');
+    cy.get('[class*="OccurenceVariant_transcript"]').contains('c.2T>G').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').contains(/^rs/).should('not.exist');
   });
 
