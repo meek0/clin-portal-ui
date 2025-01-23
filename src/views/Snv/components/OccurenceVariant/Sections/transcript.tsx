@@ -28,7 +28,7 @@ const TranscriptSection = ({ record: { genes, consequences, rsnumber, locus } }:
     pickedConsequence?.node.canonical ||
     pickedConsequence?.node.mane_plus;
   const refseqToShow = pickedConsequence?.node?.refseq_mrna_id?.slice(0, 4);
-
+  const arn = pickedConsequence?.node.hgvsc.split(':')[1];
   const refseqInfo = () => {
     if (pickedConsequence?.node?.refseq_mrna_id) {
       const info = refseqToShow?.map((r, i) => (
@@ -128,7 +128,7 @@ const TranscriptSection = ({ record: { genes, consequences, rsnumber, locus } }:
         )}
         {pickedConsequence?.node.coding_dna_change && (
           <>
-            {pickedConsequence?.node.coding_dna_change}
+            {arn}
             <Divider type="vertical" />
           </>
         )}
