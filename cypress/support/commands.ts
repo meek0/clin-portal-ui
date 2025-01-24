@@ -275,6 +275,7 @@ Cypress.Commands.add('validateExpandCollapse', (section: string, isRqdmExpand: b
 Cypress.Commands.add('validateFacetFilter', (section: string, facetTitle: string, valueFront: string|RegExp, valueBack: string, expectedCount: string|RegExp, isRqdmExpand: boolean = false) => {
   cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.checkAndClickApplyFacet(section, facetTitle, valueBack, isRqdmExpand);
+  cy.waitWhileSpin(oneMinute);
 
   cy.validatePillSelectedQuery(facetTitle, [valueFront]);
   cy.get('body').contains(expectedCount).should('exist');
