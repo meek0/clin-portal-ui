@@ -29,6 +29,7 @@ export type ExternalFrequenciesEntity = {
   gnomad_genomes_2_1_1: BoundType;
   gnomad_genomes_3_0: BoundType;
   gnomad_genomes_3_1_1: BoundType;
+  gnomad_genomes_4: BoundType;
 };
 
 export type FrequencyByAnalysisEntity = {

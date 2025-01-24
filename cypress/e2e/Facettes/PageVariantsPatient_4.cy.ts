@@ -54,13 +54,23 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(7, 'gnomAD Genome 3.1.1 ALT');
   });
 
+  it('Fréquence - gnomAD Genome 4.1.0', () => {
+    cy.validateFacetNumFilter('Fréquence', 'gnomAD Genome 4.1.0', '0.01', /^8 850$/);
+    cy.validateFacetRank(8, 'gnomAD Genome 4.1.0');
+  });
+
+  it('Fréquence - gnomAD Genome 4.1.0 ALT', () => {
+    cy.validateFacetNumFilter('Fréquence', 'gnomAD Genome 4.1.0 ALT', '0.01', /^1 378$/);
+    cy.validateFacetRank(9, 'gnomAD Genome 4.1.0 ALT');
+  });
+
   it('Fréquence - TopMed Bravo', () => {
     cy.validateFacetNumFilter('Fréquence', 'TopMed Bravo', '0.01', /^8 881$/);
-    cy.validateFacetRank(8, 'TopMed Bravo');
+    cy.validateFacetRank(10, 'TopMed Bravo');
   });
 
   it('Fréquence - 1000 Genome', () => {
     cy.validateFacetNumFilter('Fréquence', '1000 Genome', '0.01', /^182 677$/);
-    cy.validateFacetRank(9, '1000 Genome');
+    cy.validateFacetRank(11, '1000 Genome');
   });
 });

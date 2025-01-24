@@ -489,6 +489,10 @@ export const getFacetsDictionarySNV = () => ({
       af: intl.get('filters.group.external_frequencies.gnomad_genomes_3_1_1.af'),
       ac: intl.get('filters.group.external_frequencies.gnomad_genomes_3_1_1.ac'),
     },
+    gnomad_genomes_4: {
+      af: intl.get('filters.group.external_frequencies.gnomad_genomes_4.af'),
+      ac: intl.get('filters.group.external_frequencies.gnomad_genomes_4.ac'),
+    },
     gnomad_exomes_2_1_1: {
       af: intl.get('filters.group.external_frequencies.gnomad_exomes_2_1_1.af'),
     },
@@ -593,6 +597,9 @@ export const getFacetsDictionarySNV = () => ({
       },
       gnomad_genomes_3_1_1: {
         af: intl.get('filters.group.external_frequencies.gnomad_genomes_3_1_1.af.tooltip'),
+      },
+      gnomad_genomes_4: {
+        af: intl.get('filters.group.external_frequencies.gnomad_genomes_4.af.tooltip'),
       },
       topmed_bravo: {
         af: intl.get('filters.group.external_frequencies.topmed_bravo.af.tooltip'),

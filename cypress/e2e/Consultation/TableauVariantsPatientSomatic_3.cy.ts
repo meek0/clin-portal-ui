@@ -77,7 +77,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.sortTableAndIntercept('gnomAD ALT', 1);
     cy.validateTableFirstRow('-', 17, true);
     cy.sortTableAndIntercept('gnomAD ALT', 1);
-    cy.validateTableFirstRow('152 312', 17, true);
+    cy.validateTableFirstRow('152 430', 17, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM G', () => {

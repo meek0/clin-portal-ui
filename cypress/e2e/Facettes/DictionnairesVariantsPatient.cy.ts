@@ -105,6 +105,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'PubMed',
                          'Cosmic',
                          'Franklin',
+                         'GnomAD',
                          'No Data'];
 
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd3eefb82-edcc-42f1-a4e6-28808bd06f34');

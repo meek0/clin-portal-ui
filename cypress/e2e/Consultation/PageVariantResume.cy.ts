@@ -108,6 +108,10 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-row-key="FrequencyCard_Cohort_TopMed"] td[class="ant-table-cell"]').eq(2).contains('125 568').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_TopMed"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_TopMed"] td[class="ant-table-cell"]').eq(4).contains('2.39e-5').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v4)"] td[class="ant-table-cell"]').eq(1).contains('6').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v4)"] td[class="ant-table-cell"]').eq(2).contains('152 148').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v4)"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v4)"] td[class="ant-table-cell"]').eq(4).contains('3.94e-5').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v3)"] td[class="ant-table-cell"]').eq(1).contains('9').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v3)"] td[class="ant-table-cell"]').eq(2).contains('143 248').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v3)"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
@@ -225,6 +229,11 @@ describe('Page d\'un variant (onglet Résumé) - Valider les liens disponibles',
   
   it('Lien TopMed de la section Cohortes publiques', () => {
     cy.get('[data-cy="FrequencyCard_Cohort_TopMed_ExternalLink"]').should('have.attr', 'href', 'https://bravo.sph.umich.edu/freeze8/hg38/variant/snv/1-45508847-C-T');
+  });
+  
+  it('Lien gnomAD Genome (v4) de la section Cohortes publiques', () => {
+    cy.get('[data-cy="FrequencyCard_Cohort_gnomAD Genome (v4)_ExternalLink"]')
+      .should('have.attr', 'href', 'https://gnomad.broadinstitute.org/variant/1-45508847-C-T?dataset=gnomad_r4');
   });
   
   it('Lien gnomAD Genome (v3) de la section Cohortes publiques', () => {

@@ -98,6 +98,7 @@ export const dictionaries: Record<string, string[]> = {
     'PubMed',
     'Cosmic',
     'Franklin',
+    'gnomAD',
     ArrangerValues.missing,
   ],
   chromosome: [
