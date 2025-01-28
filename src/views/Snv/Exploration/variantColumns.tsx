@@ -456,7 +456,10 @@ export const getVariantColumns = (
       width: 60,
       render: (rsNumber: string) =>
         rsNumber ? (
-          <ExternalLink href={`https://www.ncbi.nlm.nih.gov/snp/${rsNumber}`}>
+          <ExternalLink
+            className={style.dbsnpLink}
+            href={`https://www.ncbi.nlm.nih.gov/snp/${rsNumber}`}
+          >
             <ExternalLinkIcon />
           </ExternalLink>
         ) : (

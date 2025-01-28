@@ -31,6 +31,15 @@
   text-align: center;
 }
 
+.dbsnpLink{
+   padding: 0 4px;
+}
+
+.dbSnpTableCell  svg{
+  height: 14px;
+  width: 14px;
+}
+
 .variantSnvOmimCellItem {
   margin-bottom: 2px;
   flex-wrap: wrap;

@@ -110,6 +110,7 @@ const NoteCell = ({ note, hash, variantType }: OwnProps) => {
         <Tooltip title={intl.get('note.options.hasNote')}>
           <Button
             type="text"
+            size="small"
             onClick={() => setOpen(true)}
             className={styles.noteButton}
             icon={<MessageFilled className={styles.hasNote} />}

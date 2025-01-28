@@ -24,9 +24,18 @@ th.userAffectedBtnCell {
   left: 0 !important;
 }
 
+:global(.ant-space) .actionButton {
+  padding: 0 4px;
+  width: fit-content;
+  height: fit-content;
+}
 
-:global(.ant-table-filter-trigger):hover  .unActiveFilter
-{
+.actionButton svg {
+  width: 16px;
+  height: 16px;
+}
+
+:global(.ant-table-filter-trigger):hover .unActiveFilter {
   color: var(--gray-8);
 }
 .activeFilter {
