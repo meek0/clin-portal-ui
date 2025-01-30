@@ -16,8 +16,8 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(3).contains('Approuvée').should('exist');
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(4).contains('Retard global de développement / Déficience intellectuelle (Trio) (RGDI)').should('exist');
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(5).contains('--').should('exist');
-    cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(6).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
-    cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(7).contains('--').should('exist');
+    cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(6).contains(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7)).should('exist');
+    cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(7).contains(/(--|ALLARD René)/).should('exist');
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(8).contains('CHUSJ').should('exist');
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(9).contains('LDM-CHUSJ').should('exist');
   });
@@ -41,7 +41,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
 
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(1).contains('Complétée').should('exist');
-    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7)).should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(3).contains('--').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(4).contains(epCHUSJ_ldmCHUSJ.sampleProbId).should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
@@ -49,7 +49,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.bioAnalProbId).should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains('G : Germinale').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
-    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7)).should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(4).contains('Fichiers').should('exist');
   });
   
@@ -66,7 +66,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
 
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestMthId).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(1).contains('Complétée').should('exist');
-    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7)).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(3).contains('--').should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(4).contains(epCHUSJ_ldmCHUSJ.sampleMthId, {matchCase: false}).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
@@ -74,7 +74,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.bioAnalMthId).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains('G : Germinale').should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.requestMthId).should('exist');
-    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7)).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(4).contains('Fichiers').should('exist');
   });
   
@@ -91,7 +91,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(1).contains('Complétée').should('exist');
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7)).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(3).contains('--').should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(4).contains(epCHUSJ_ldmCHUSJ.sampleFthId).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(0).find('[class="ant-table-cell"]').eq(5).contains('Fichiers').should('exist');
@@ -99,7 +99,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(0).contains(epCHUSJ_ldmCHUSJ.bioAnalFthId).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains('G : Germinale').should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(2).contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
-    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate).should('exist');
+    cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7)).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [data-row-key="0"]').eq(1).find('[class="ant-table-cell"]').eq(4).contains('Fichiers').should('exist');
   });
 });

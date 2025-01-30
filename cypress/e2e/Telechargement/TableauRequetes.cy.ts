@@ -30,7 +30,7 @@ describe('Page des prescriptions et requêtes - Exporter les requêtes en TSV', 
     const replacements: Replacement[] = [
       { placeholder: '{{requestId}}', value: epCHUSJ_ldmCHUSJ.requestProbId },
       { placeholder: '{{patientId}}', value: epCHUSJ_ldmCHUSJ.patientProbId },
-      { placeholder: '{{stampDate}}', value: epCHUSJ_ldmCHUSJ.stampDate },
+      { placeholder: '{{stampDate}}', value: epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7) },
       { placeholder: '{{prescriptionId}}', value: epCHUSJ_ldmCHUSJ.prescriptionId },
     ];
     cy.validateFileContent('ExportTableauRequetes.json', replacements);

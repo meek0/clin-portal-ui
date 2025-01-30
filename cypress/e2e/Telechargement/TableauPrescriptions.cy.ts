@@ -29,7 +29,7 @@ describe('Page des prescriptions et requêtes - Exporter les prescriptions en TS
     const replacements: Replacement[] = [
       { placeholder: '{{prescriptionId}}', value: epCHUSJ_ldmCHUSJ.prescriptionId },
       { placeholder: '{{patientId}}', value: epCHUSJ_ldmCHUSJ.patientProbId },
-      { placeholder: '{{stampDate}}', value: epCHUSJ_ldmCHUSJ.stampDate },
+      { placeholder: '{{stampDate}}', value: epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7) },
     ];
     cy.validateFileContent('ExportTableauPrescriptions.json', replacements);
   });

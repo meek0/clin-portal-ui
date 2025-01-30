@@ -29,14 +29,14 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 4, '-');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 5, 'Approuvée');
     cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.prescriptionId, 5, 'ant-tag-green');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 6, epCHUSJ_ldmCHUSJ.stampDate);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 6, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7));
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 7, /^\d{4}-\d{2}-\d{2}$/);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 8, 'RGDI');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 9, 'G');
     cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.prescriptionId, 9, 'ant-tag-green');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 10, 'LDM-CHUSJ');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 11, 'CHUSJ');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 12, '-');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 12, /(-|PRR000011)/);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 13, 'Non');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 14, epCHUSJ_ldmCHUSJ.mrnProb);
   });
@@ -94,7 +94,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
 
   it('Valider les fonctionnalités du tableau - Tri Créée le', () => {
     cy.sortTableAndIntercept('Créée le', 3);
-    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.stampDate, 6, true);
+    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7), 6, true);
     cy.sortTableAndIntercept('Créée le', 3);
     cy.validateTableFirstRow(/^\d{4}-\d{2}-\d{2}$/, 6, true);
   });

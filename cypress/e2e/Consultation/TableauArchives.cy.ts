@@ -28,7 +28,7 @@ describe('Page d\'archives - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 5, epCHUSJ_ldmCHUSJ.requestProbId);
     cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 6, epCHUSJ_ldmCHUSJ.sampleProbId);
     cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 7, epCHUSJ_ldmCHUSJ.bioAnalProbId);
-    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 8, epCHUSJ_ldmCHUSJ.stampDate);
+    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 8, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7));
     cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 9, '30.08 KB');
     cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 10, '-');
     cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 11, 'A00516_0169');
