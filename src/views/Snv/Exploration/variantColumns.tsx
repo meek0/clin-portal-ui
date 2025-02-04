@@ -923,34 +923,6 @@ export const getVariantColumns = (
     columns.push({ ...getCmcTier(variantType) });
   }
 
-  columns.push({
-    key: 'cmc.tier',
-    title: intl.get('screen.patientsnv.results.table.cmc_tier'),
-    tooltip: intl.get('screen.patientsnv.results.table.cmc_tier.tooltip'),
-    width: 70,
-    defaultHidden: true,
-    sorter: {
-      multiple: 1,
-    },
-    render: (record: VariantEntity) => (
-      <Tag color={record.cmc.tier ? CmcTierColorMap[record.cmc.tier] : 'default'}>
-        <ExternalLink
-          href={`https://franklin.genoox.com/clinical-db/variant/snpTumor/chr${record.locus}-hg38`}
-        >
-          {intl.get(
-            record.cmc?.tier
-              ? `filters.options.cmc.tier.${record.cmc.tier}`
-              : 'filters.options.cmc.tier.null',
-          )}
-        </ExternalLink>
-        {intl.get(
-          record.cmc?.tier
-            ? `filters.options.cmc.tier.${record.cmc.tier}`
-            : 'filters.options.cmc.tier.null',
-        )}
-      </Tag>
-    ),
-  });
   if (!patientId) {
     columns.push(
       { ...getFranklinScore() },
