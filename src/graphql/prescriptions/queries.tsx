@@ -84,6 +84,8 @@ export const COVERAGES_QUERY = gql`
             ensembl_gene_id
             hash
             chromosome
+            mother_id
+            father_id
           }
         }
         total
