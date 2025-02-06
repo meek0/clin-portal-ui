@@ -80,10 +80,10 @@ const App = () => {
     if (keycloakIsReady && keycloak.authenticated) {
       const script = document.createElement('script');
       document.body.appendChild(script);
-      if (lang === LANG.FR) {
-        script.innerHTML = `
+      const idByLang = lang === LANG.FR ? 'pD6A3kMjCfERq52yyEZYg8' : '57UqYYjNEqnTnVV3qf97Yz';
+      script.innerHTML = `
         var releasecat = {
-          id: 'pD6A3kMjCfERq52yyEZYg8',
+          id: '${idByLang}',
           production: ${EnvironmentVariables.configFor(
             'SHOW_ONLY_NEW_INFO_POPUP',
           )} // Change to 'true' for production. keep false for QA
@@ -94,21 +94,6 @@ const App = () => {
         script.defer = true;
         document.head.appendChild(script);
       `;
-      } else {
-        script.innerHTML = `
-          var releasecat = {
-            id: '57UqYYjNEqnTnVV3qf97Yz',
-             production: ${EnvironmentVariables.configFor(
-               'SHOW_ONLY_NEW_INFO_POPUP',
-             )} // Change to 'true' for production. keep false for QA
-          };
-          var script = document.createElement('script');
-          script.type = 'text/javascript';
-          script.src = 'https://www.releasecat.io/embed/index.js';
-          script.defer = true;
-          document.head.appendChild(script);
-        `;
-      }
       // Nettoyer le script à la désinstallation du composant
       return () => {
         document.body.removeChild(script);
