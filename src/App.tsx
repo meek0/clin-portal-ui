@@ -31,6 +31,7 @@ import { fetchFhirServiceRequestCodes } from 'store/global/thunks';
 import { fetchSavedFilters, fetchSharedSavedFilter } from 'store/savedFilter/thunks';
 import { fetchConfig, fetchPractitionerRole, fetchPractitionerRoles } from 'store/user/thunks';
 import { LANG, SHARED_FILTER_ID_QUERY_PARAM_KEY } from 'utils/constants';
+import EnvironmentVariables from 'utils/EnvVariables';
 import { DYNAMIC_ROUTES, STATIC_ROUTES } from 'utils/routes';
 
 const loadableProps = { fallback: <Spinner size="large" /> };
@@ -74,6 +75,46 @@ const App = () => {
     }
     // eslint-disable-next-line
   }, [keycloakIsReady, keycloak]);
+
+  useEffect(() => {
+    if (keycloakIsReady && keycloak.authenticated) {
+      const script = document.createElement('script');
+      document.body.appendChild(script);
+      if (lang === LANG.FR) {
+        script.innerHTML = `
+        var releasecat = {
+          id: 'pD6A3kMjCfERq52yyEZYg8',
+          production: ${EnvironmentVariables.configFor(
+            'SHOW_ONLY_NEW_INFO_POPUP',
+          )} // Change to 'true' for production. keep false for QA
+        };
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://www.releasecat.io/embed/index.js';
+        script.defer = true;
+        document.head.appendChild(script);
+      `;
+      } else {
+        script.innerHTML = `
+          var releasecat = {
+            id: '57UqYYjNEqnTnVV3qf97Yz',
+             production: ${EnvironmentVariables.configFor(
+               'SHOW_ONLY_NEW_INFO_POPUP',
+             )} // Change to 'true' for production. keep false for QA
+          };
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = 'https://www.releasecat.io/embed/index.js';
+          script.defer = true;
+          document.head.appendChild(script);
+        `;
+      }
+      // Nettoyer le script à la désinstallation du composant
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+  }, [lang, keycloakIsReady, keycloak]);
 
   return (
     <ConfigProvider
