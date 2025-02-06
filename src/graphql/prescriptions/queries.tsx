@@ -64,6 +64,7 @@ export const COVERAGES_QUERY = gql`
           node {
             gene
             size
+            is_proband
             average_coverage
             coverage5
             coverage15
@@ -83,6 +84,8 @@ export const COVERAGES_QUERY = gql`
             ensembl_gene_id
             hash
             chromosome
+            mother_id
+            father_id
           }
         }
         total

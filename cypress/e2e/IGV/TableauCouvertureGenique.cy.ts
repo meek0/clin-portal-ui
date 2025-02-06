@@ -10,15 +10,15 @@ beforeEach(() => {
   cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
   cy.resetColumns(0);
 });
-// Réactiver l'exécution suite à CLIN-2871
-describe.skip('Page de la couverture génique d\'un patient - IGV à partir du tableau', () => {
+
+describe('Page de la couverture génique d\'un patient - IGV à partir du tableau', () => {
   beforeEach(() => {
     cy.typeAndIntercept('[data-cy="SearchBox"]', 'MTRNR2L7', 'POST', '*/graphql', 4);
     cy.get('tr[data-row-key]').eq(0).find('td').eq(1).find('button').clickAndWait({force: true});
     cy.contains('Alignement et variant').should('exist');
   });
 
-  it('Vérifier les informations affichées [CLIN-2871]', () => {
+  it('Vérifier les informations affichées [CLIN-3112]', () => {
     cy.get('[class="igv-track-label"]').eq(0).contains('Refseq Genes').should('exist');
     cy.get('[class="igv-track-label"]').eq(1).contains('HyperExome hg38').should('exist');
     cy.get('[class="igv-track-label"]').eq(2).contains(`CNVs: ${epCHUSJ_ldmCHUSJ.sampleProbId} proband`).should('exist');
@@ -40,7 +40,7 @@ describe.skip('Page de la couverture génique d\'un patient - IGV à partir du t
     cy.contains('ERROR').should('not.exist');
   });
 
-  it('Valider les fonctionnalités [CLIN-2871]', () => {
+  it('Valider les fonctionnalités [CLIN-3018]', () => {
     cy.get('[class="igv-windowsize-panel-container"]').should('have.attr', 'style', 'display: block;');
     cy.get('[class="igv-windowsize-panel-container"]').invoke('text').then((strBeforeZoom) => {
       cy.get('[class*="igv-zoom-widget"] path').eq(0).clickAndWait({force: true});
