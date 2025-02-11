@@ -65,6 +65,7 @@ const VariantContentLayout = ({
     <Space direction="vertical" size={24} className={styles.variantPageContent}>
       <QueryBuilder
         id={queryBuilderId}
+        scrollQueryContainer={true}
         className="variant-patient-repo__query-builder"
         headerConfig={{
           showHeader: true,
