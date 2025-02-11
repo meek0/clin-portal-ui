@@ -169,6 +169,7 @@ export const prescriptionsColumns = (
       title: intl.get('screen.patientsearch.table.mrn'),
       tooltip: intl.get('screen.patientsearch.table.mrn.tooltip'),
       sorter: { multiple: 1 },
+      render: (mrn: string) => mrn || TABLE_EMPTY_PLACE_HOLDER,
       defaultHidden: true,
     },
   ];
