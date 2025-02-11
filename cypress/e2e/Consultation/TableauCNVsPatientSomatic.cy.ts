@@ -132,10 +132,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('Variant');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('GAIN:chr10:104353843-104454535', 5, true);
     cy.sortTableAndWait('Variant');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('LOSS:chrX:624329-13938568', 5, true);
   });
 
@@ -155,10 +155,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('Chr.');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow(/^1$/, 6, true);
     cy.sortTableAndWait('Chr.');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow(/^X$/, 6, true);
   });
 
@@ -178,10 +178,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('Début');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('66 872', 7, true);
     cy.sortTableAndWait('Début');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('228 007 104', 7, true);
   });
 
@@ -201,10 +201,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('Fin');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('465 288', 8, true);
     cy.sortTableAndWait('Fin');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('228 511 965', 8, true);
   });
 
@@ -224,10 +224,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('Événement');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('GAIN', 9, true);
     cy.sortTableAndWait('Événement');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('LOSS', 9, true);
   });
 
@@ -247,10 +247,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('Longueur');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('3.1 kb', 10, true);
     cy.sortTableAndWait('Longueur');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('92.4 Mb', 10, true);
   });
 
@@ -270,10 +270,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('MS');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('0.0347309', 11, true);
     cy.sortTableAndWait('MS');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('1.83177', 11, true);
   });
 
@@ -293,10 +293,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('RQDM');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('-', 12, true);
     cy.sortTableAndWait('RQDM');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('22', 12, true);
   });
 
@@ -316,10 +316,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('# Gènes');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow(/^0$/, 13, true);
     cy.sortTableAndWait('# Gènes');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow(/^670$/, 13, true);
   });
 
@@ -339,10 +339,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('Qual.');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow(/^90$/, 16, true);
     cy.sortTableAndWait('Qual.');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow(/^200$/, 16, true);
   });
 
@@ -362,10 +362,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('BC');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow(/^6$/, 17, true);
     cy.sortTableAndWait('BC');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow(/^7553$/, 17, true);
   });
 
@@ -385,10 +385,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('Trans.');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('-', 19, true);
     cy.sortTableAndWait('Trans.');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('-', 19, true);
   });
 
@@ -408,10 +408,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('OP');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('-', 20, true);
     cy.sortTableAndWait('OP');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('-', 20, true);
   });
 
@@ -431,12 +431,12 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
     cy.sortTableAndWait('Chr.');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.sortTableAndWait('Chr.');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.sortTableAndWait('Début');
     cy.sortTableAndWait('Début');
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableFirstRow('154 144 278', 7, true);
   });
 
@@ -457,36 +457,37 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     
     cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableResultsCount(new RegExp('Résultats 1 - 100 de 304'));
   
     cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('20 ').clickAndWait({force: true});
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableResultsCount(new RegExp('Résultats 1 - 20 de 304'));
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').parent('button').should('be.disabled');
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').parent('button').should('be.disabled');
-  
-    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Suivant').clickAndWait();
-    cy.wait(30*1000);
+
+    cy.wait(15*1000);
+    cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Suivant').clickAndWait({force: true});
+    cy.wait(15*1000);
     cy.validateTableResultsCount(new RegExp('Résultats 21 - 40 de 304'));
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
   
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Suivant').clickAndWait({force: true});
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableResultsCount(new RegExp('Résultats 41 - 60 de 304'));
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
   
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').clickAndWait({force: true});
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableResultsCount(new RegExp('Résultats 21 - 40 de 304'));
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').parent('button').should('not.be.disabled');
   
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').clickAndWait({force: true});
-    cy.wait(30*1000);
+    cy.wait(15*1000);
     cy.validateTableResultsCount(new RegExp('Résultats 1 - 20 de 304'));
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Précédent').parent('button').should('be.disabled');
     cy.get('div[class*="Pagination"]').eq(0).find('button[type="button"]').contains('Début').parent('button').should('be.disabled');

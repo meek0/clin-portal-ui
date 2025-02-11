@@ -426,7 +426,8 @@ Cypress.Commands.add('validatePaging', (total: string|RegExp, eqSelect: number, 
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Précédent').parent('button').should('be.disabled');
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Début').parent('button').should('be.disabled');
 
-  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Suivant').clickAndWait();
+  cy.wait(2000);
+  cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Suivant').clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
   cy.validateTableResultsCount(new RegExp('Résultats 21 - 40 de '+total.source));
   cy.get('div[class*="Pagination"]').eq(eqTab).find('button[type="button"]').contains('Précédent').parent('button').should('not.be.disabled');
