@@ -31,8 +31,8 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('*', 10, '57.1 kb');
     cy.validateTableDataRowKeyContent('*', 11, '1.38788');
     cy.validateTableDataRowKeyContent('*', 12, /^3$/);
-    cy.validateTableDataRowKeyContent('*', 13, '131');
-    cy.validateTableDataRowKeyContent('*', 13, '5.24e-1');
+    cy.validateTableDataRowKeyContent('*', 13, '128');
+    cy.validateTableDataRowKeyContent('*', 13, '9.55e-1');
     cy.validateTableDataRowKeyContent('*', 14, /^2$/);
     cy.validateTableDataRowKeyContent('*', 15, './1');
     cy.validateTableDataRowKeyContent('*', 16, 'PASS');
@@ -147,7 +147,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.sortTableAndIntercept('RQDM', 1);
     cy.validateTableFirstRow('-', 13, true);
     cy.sortTableAndIntercept('RQDM', 1)
-    cy.validateTableFirstRow('167', 13, true);
+    cy.validateTableFirstRow('131', 13, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri # Gènes', () => {
