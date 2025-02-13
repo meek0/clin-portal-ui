@@ -140,6 +140,7 @@ const VariantContentLayout = ({
           blacklistedFacets: ['consequences.symbol', 'locus', 'consequences.symbol_id_1'],
         }}
         enableCombine
+        scrollQueryContainer={true}
         enableShowHideLabels
         IconTotal={<LineStyleIcon width="18" height="18" />}
         currentQuery={isEmptySqon(activeQuery) ? {} : activeQuery}
