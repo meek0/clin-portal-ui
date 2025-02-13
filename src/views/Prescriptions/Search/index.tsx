@@ -10,7 +10,9 @@ import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/type
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Input, Space, Tabs } from 'antd';
+import { GqlResults } from 'graphql/models';
 import { usePrescription, usePrescriptionMapping } from 'graphql/prescriptions/actions';
+import { AnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import {
   setPrescriptionStatusInActiveQuery,
   useSequencingRequests,
@@ -54,6 +56,23 @@ const adjustSqon = (sqon: ISyntheticSqon) => {
     'patient_disease_status',
   );
   return JSON.parse(replaced);
+};
+
+const removeDraftFromSqon = (sqon: ISyntheticSqon) => {
+  sqon.content?.push({ content: { field: 'status', value: ['draft'] }, op: 'not-in' });
+  return sqon;
+};
+
+const removeDraftFromAggregations = (results: GqlResults<AnalysisResult>) => {
+  for (const key of ['status', 'sequencing_requests__status']) {
+    if (!results.aggregations[key]) continue;
+    const satusBuckets = results.aggregations[key].buckets.filter(
+      (bucket) => bucket.key !== 'draft',
+    );
+    const aggregationsStatus = { ...results.aggregations[key], buckets: satusBuckets };
+    results.aggregations = { ...results.aggregations, [key]: aggregationsStatus };
+  }
+  return results;
 };
 
 const generateSearchFilter = (search: string) =>
@@ -123,9 +142,11 @@ const PrescriptionSearch = (): React.ReactElement => {
     first: prescriptionQueryConfig.size,
     offset: DEFAULT_OFFSET,
     searchAfter: prescriptionQueryConfig.searchAfter,
-    sqon: resolveSyntheticSqonWithReferences(
-      queryList,
-      searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
+    sqon: removeDraftFromSqon(
+      resolveSyntheticSqonWithReferences(
+        queryList,
+        searchValue.length === 0 ? activeQuery : generateMultipleQuery(searchValue, activeQuery),
+      ),
     ),
     sort: tieBreaker({
       sort: prescriptionQueryConfig.sort,
@@ -135,9 +156,8 @@ const PrescriptionSearch = (): React.ReactElement => {
     }),
   };
 
-  const prescriptions = usePrescription(
-    prescriptionsQueryVariables,
-    prescriptionQueryConfig.operations,
+  const prescriptions = removeDraftFromAggregations(
+    usePrescription(prescriptionsQueryVariables, prescriptionQueryConfig.operations),
   );
 
   // query is always done, unfortunately but response size is limited if nothing to download

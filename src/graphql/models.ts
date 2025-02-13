@@ -8,12 +8,10 @@ export interface ArrangerNodeData {
 }
 
 export type AggregationBuckets = {
-  buckets: [
-    {
-      key: string;
-      doc_count: number;
-    },
-  ];
+  buckets: {
+    key: string;
+    doc_count: number;
+  }[];
   stats: string;
 };
 
