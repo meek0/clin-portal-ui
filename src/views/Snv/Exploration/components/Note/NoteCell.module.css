@@ -10,7 +10,12 @@
   background-color: inherit;
   border: none;
   width: fit-content;
+  height: 1em;
   padding: 0 4px;
+}
+
+.noteCell {
+  height: 1em;
 }
 
 .noteCell .noteButton svg {

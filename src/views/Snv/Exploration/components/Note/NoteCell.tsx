@@ -32,6 +32,7 @@ const NoteCell = ({ note, hash, variantType }: OwnProps) => {
     if (!open) {
       setText(newNote);
     }
+    // eslint-disable-next-line
   }, [open]);
 
   useEffect(() => {
