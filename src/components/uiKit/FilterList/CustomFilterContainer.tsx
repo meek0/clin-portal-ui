@@ -7,7 +7,6 @@ import { getFilterGroup } from '@ferlab/ui/core/data/filters/utils';
 import { getSelectedFilters } from '@ferlab/ui/core/data/sqon/utils';
 import { ExtendedMapping, ExtendedMappingResults, GqlResults } from 'graphql/models';
 import { getDictionnairyInfo, getFilters } from 'graphql/utils/Filters';
-import isUndefined from 'lodash/isUndefined';
 
 import EnvironmentVariables from 'utils/EnvVariables';
 import {
@@ -52,11 +51,11 @@ const CustomFilterContainer = ({
   );
 
   useEffect(() => {
-    if (!isUndefined(filterOpen) && isOpen !== filterOpen) {
-      setIsOpen(filterOpen);
+    const boolFilterOpen = !!filterOpen;
+    if (isOpen !== boolFilterOpen) {
+      setIsOpen(boolFilterOpen);
     }
-    // eslint-disable-next-line
-  }, [filterOpen]);
+  }, [filterOpen, isOpen]);
 
   const onChange = (fg: IFilterGroup, f: IFilter[]) =>
     updateActiveQueryFilters({
