@@ -7,3 +7,7 @@
   fill: var(--gray-1);
   stroke: var(--gray-5);
 }
+
+.spaceRight {
+  justify-content: right;
+}
