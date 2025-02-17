@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { ISqonGroupFilter } from '@ferlab/ui/core/data/sqon/types';
 import { Button, Layout, Space, Typography } from 'antd';
@@ -47,6 +47,11 @@ const FilterList = ({
   const [filtersOpen, setFiltersOpen] = useState<boolean | undefined>(isAllFacetOpen(filterInfo));
   const customSearch =
     (filterInfo && filterInfo?.customSearches && filterInfo?.customSearches()) || [];
+
+  useEffect(() => {
+    setFiltersOpen(isAllFacetOpen(filterInfo));
+  }, [filterInfo]);
+
   return (
     <>
       {customSearch.length > 0 && (
