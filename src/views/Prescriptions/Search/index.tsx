@@ -55,7 +55,8 @@ const adjustSqon = (sqon: ISyntheticSqon) => {
     'sequencing_requests.patient_disease_status',
     'patient_disease_status',
   );
-  return JSON.parse(replaced);
+  const adjustedSqon = JSON.parse(replaced);
+  return removeDraftFromSqon(adjustedSqon);
 };
 
 const removeDraftFromSqon = (sqon: ISyntheticSqon) => {
