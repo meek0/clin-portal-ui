@@ -53,9 +53,9 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(6, 'Hét. composé potentiel');
   });
 
-  it('Occurrence - Filtre (Dragen)', () => {
-    cy.validateFacetFilter('Occurrence', 'Filtre (Dragen)', 'DRAGENIndelHardQUAL', 'DRAGENIndelHardQUAL', /^66$/);
-    cy.validateFacetRank(7, 'Filtre (Dragen)');
+  it('Occurrence - Filtre', () => {
+    cy.validateFacetFilter('Occurrence', 'Filtre', 'DRAGENIndelHardQUAL', 'DRAGENIndelHardQUAL', /^66$/);
+    cy.validateFacetRank(7, 'Filtre');
   });
 
   it('Occurrence - Qualité de profondeur', () => {

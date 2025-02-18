@@ -110,7 +110,7 @@ describe('Ligne extensible d\'une occurrence (paired)', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-content"]').eq(2).contains('136').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-label"]').eq(3).contains('Qualité somatique').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-content"]').eq(3).contains('14.62').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-label"]').eq(4).contains('Filtre (Dragen)').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-label"]').eq(4).contains(/^Filtre$/).should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-content"]').eq(4).contains('Weak Evidence').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-label"]').contains('Qualité du génotype').should('not.exist');
   });

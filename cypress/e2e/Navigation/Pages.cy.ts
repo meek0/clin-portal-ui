@@ -301,7 +301,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Patients').should('exist');
     cy.contains('Sexe').should('exist');
     cy.contains('Analyse').should('exist');
-    cy.contains('Filtre (Dragen)').should('exist');
+    cy.contains(/^Filtre$/).should('exist');
     cy.contains('Requête').should('exist');
     cy.contains('Analyse').should('exist');
     cy.contains('Sexe').should('exist');

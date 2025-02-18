@@ -38,7 +38,7 @@ describe('Page d\'un variant (onglet Patients) - Vérifier les informations affi
     cy.get('[data-cy="PieChart_Code"] div[style*="pointer-events"]').contains(/(RGDI|MYOC|EXTUM|HYPM)/).should('exist');
     cy.get('[data-cy="PieChart_Code"] div[style*="pointer-events"]').contains(/^(24|24|1|34)$/).should('exist');
 
-    cy.get('[data-cy="PieChart_Filter"]').contains('Filtre (Dragen)').should('exist');
+    cy.get('[data-cy="PieChart_Filter"]').contains(/^Filtre$/).should('exist');
     cy.get('[data-cy="PieChart_Filter"] path[opacity="1"]').eq(0).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
     cy.get('[data-cy="PieChart_Filter"] div[style*="pointer-events"]').contains('PASS').should('exist');
     cy.get('[data-cy="PieChart_Filter"] div[style*="pointer-events"]').contains(/^82$/).should('exist');

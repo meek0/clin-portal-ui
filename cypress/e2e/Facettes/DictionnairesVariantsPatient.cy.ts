@@ -585,7 +585,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Occurrence', 'Hét. composé potentiel', dictionnary);
   });
 
-  it('Occurrence - Filtre (Dragen)', () => {
+  it('Occurrence - Filtre', () => {
     const dictionnary = ['ALT Allele in Normal',
                          'Artifact in Normal',
                          'Base Quality',
@@ -620,9 +620,9 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'No Data'];
 
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd3eefb82-edcc-42f1-a4e6-28808bd06f34');
-    cy.validateDictionnaryPresetValues('Occurrence', 'Filtre \(Dragen\)', dictionnary);
+    cy.validateDictionnaryPresetValues('Occurrence', 'Filtre', dictionnary);
 
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=4ef31b53-6497-462b-ab09-414218bb057f');
-    cy.validateDictionnaryNewValues('Occurrence', 'Filtre \(Dragen\)', dictionnary);
+    cy.validateDictionnaryNewValues('Occurrence', 'Filtre', dictionnary);
   });
 });
