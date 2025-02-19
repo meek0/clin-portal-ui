@@ -83,7 +83,7 @@ const GenesUploadIds = ({ queryBuilderId, field }: OwnProps) => (
           offset: 0,
           sqon: generateQuery({
             operator: BooleanOperators.or,
-            newFilters: ['symbol', 'ensembl_gene_id'].map((field) =>
+            newFilters: ['symbol', 'ensembl_gene_id', 'alias'].map((field) =>
               generateValueFilter({
                 field,
                 value: ids,
@@ -98,9 +98,13 @@ const GenesUploadIds = ({ queryBuilderId, field }: OwnProps) => (
 
       const matchResults = ids.map((id, index) => {
         const upperCaseId = id.toUpperCase();
-        const gene = genes.find((gene) =>
-          [gene.symbol?.toUpperCase(), gene.ensembl_gene_id?.toUpperCase()].includes(upperCaseId),
-        );
+        const gene = genes.find((gene) => {
+          const checkArray = [gene.symbol?.toUpperCase(), gene.ensembl_gene_id?.toUpperCase()];
+          if (Array.isArray(gene.alias) && gene.alias.length > 0) {
+            checkArray.push(...gene.alias.map((a) => a.toUpperCase()));
+          }
+          return checkArray.includes(upperCaseId);
+        });
         return gene
           ? {
               key: index.toString(),

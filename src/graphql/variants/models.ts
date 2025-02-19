@@ -195,6 +195,7 @@ export type GeneEntity = {
   ensembl_gene_id: string;
   symbol: string;
   location: string;
+  alias: string[];
   orphanet: ArrangerResultsTree<OrphanetEntity>;
   omim: ArrangerResultsTree<OmimEntity>;
   hpo: ArrangerResultsTree<HpoEntity>;
