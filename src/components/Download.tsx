@@ -52,7 +52,7 @@ const DownloadTSVWrapper = ({
 }: OwnProps) => {
   const [showModalLimit, setShowModalLimit] = useState(false);
   const dispatch = useDispatch();
-  const noShowColumnsKey = ['actions', 'note'];
+  const noShowColumnsKey = ['actions', 'note', 'clinGen'];
   const dataIntoTSV = (data: any) => {
     downloadAsTSV(
       data,

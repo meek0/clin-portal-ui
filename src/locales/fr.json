@@ -958,6 +958,7 @@
   "screen.patientcnv.results.table.bins_count.tooltip": "Nombre de bins dans la région",
   "screen.patientcnv.results.table.chromosome": "Chr.",
   "screen.patientcnv.results.table.chromosome.tooltip": "Chromosome",
+  "screen.patientcnv.results.table.clingen": "ClinGen",
   "screen.patientcnv.results.table.copy_number": "CN",
   "screen.patientcnv.results.table.copy_number.tooltip": "Nombre de copies (estimation)",
   "screen.patientcnv.results.table.dragen_filter": "Filtre",
