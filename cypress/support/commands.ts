@@ -575,6 +575,7 @@ Cypress.Commands.add('visitCQPatientPage', (prescriptionId: string) => {
                        'POST',
                        '**/$graphql*',
                        3);
+  cy.wait(2000);
 });
 
 Cypress.Commands.add('visitFilesPatientPage', (prescriptionId: string) => {

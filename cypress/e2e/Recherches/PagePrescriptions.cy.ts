@@ -108,7 +108,7 @@ describe('Page des prescriptions et requêtes - Rechercher des prescriptions', {
   });
 
   it('Par numéro de lot', () => {
-    cy.get('[data-cy="PrescriptionsSearch"]').type('2_data_to_import', {force: true});
+    cy.get('[data-cy="PrescriptionsSearch"]').type('2_', {force: true});
 
     cy.wait(oneMinute);
     cy.get('[data-node-key="prescriptions"]').contains('Prescriptions (1)').should('exist');
@@ -220,7 +220,7 @@ describe('Page des prescriptions et requêtes - Rechercher des requêtes', {retr
   });
 
   it('Par numéro de lot', () => {
-    cy.get('[data-cy="PrescriptionsSearch"]').type('2_data_to_import', {force: true});
+    cy.get('[data-cy="PrescriptionsSearch"]').type('2_', {force: true});
 
     cy.wait(oneMinute);
     cy.get('[data-node-key="requests"]').contains('Requêtes (1)').should('exist');
