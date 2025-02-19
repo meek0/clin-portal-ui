@@ -40,7 +40,7 @@ describe('Page des variants - Téléverser une liste de gènes', () => {
     cy.get('body').contains('Utiliser les filtres pour créer une requête').should('exist');
   });
 
-  it('Valider les fonctionnalités de la modal - Section Résumé masquable [CLIN-2624]', () => {
+  it('Valider les fonctionnalités de la modal - Section Résumé masquable', () => {
     cy.get('[class*="UploadModal"] [class="ant-collapse-header-text"]').contains('Résumé (3 reconnus, 1 inconnus)').should('exist');
 
     cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
@@ -50,7 +50,7 @@ describe('Page des variants - Téléverser une liste de gènes', () => {
     cy.get('[class*="UploadModal"] div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
   });
 
-  it('Vérifier les informations affichées - Section Résumé (onglet Reconnus) [CLIN-2624]', () => {
+  it('Vérifier les informations affichées - Section Résumé (onglet Reconnus) [CLIN-2904]', () => {
     cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
 
     cy.get('[class*="UploadModal_tablesMessages"]').contains('4 identifiants soumis correspondant à 1 identifiants système uniques').should('exist');
@@ -70,7 +70,7 @@ describe('Page des variants - Téléverser une liste de gènes', () => {
     cy.get('[id*="panel-matched"] [data-row-key="2"] td').eq(2).contains('PRDX1').should('exist');
   });
 
-  it('Vérifier les informations affichées - Section Résumé (onglet Inconnus) [CLIN-2904, CLIN-2624]', () => {
+  it('Vérifier les informations affichées - Section Résumé (onglet Inconnus)', () => {
     cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-node-key="unmatched"]').clickAndWait({force: true});
 
