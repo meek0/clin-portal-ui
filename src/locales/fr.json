@@ -1484,7 +1484,7 @@
       "light_contamination": "Légère contamination entre 2% et 5%",
       "strong_contamination": "Forte contamination > 5%",
       "sex_undefined": "Impossibilité de déterminer le sexe",
-      "sex_not_equal": "Détermination du sexe inconsistant à la soumission",
+      "sex_not_equal": "Détermination du sexe inconsistant avec les données de la soumission",
       "xy_coverage_highly_inconsistant_with_patient_sex_female": "La couverture des gènes X et Y est fortement inconsistante avec le sexe déclaré du patient : Sexe déclaré = féminin, couv(Y) > 0.2102 ET couv(X) < 0.8496",
       "xy_coverage_highly_inconsistant_with_patient_sex_male": "La couverture des gènes X et Y est fortement inconsistante avec le sexe déclaré du patient : Sexe déclaré = masculin, couv(Y) < 0.2456 ET couv(X) > 0.7451",
       "xy_coverage_moderately_inconsistant_with_patient_sex_female": "La couverture des gènes X et Y est modérément inconsistante avec le sexe déclaré du patient : Sexe déclaré = féminin, couv(Y) > 0.2102 OU couv(X) < 0.8496",

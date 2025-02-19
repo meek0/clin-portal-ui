@@ -16,6 +16,7 @@ const getSexMeta = (
   patientSex: SexValue | undefined,
 ): {
   sex: SexValue;
+  sexTooltip: string | null;
   color: TQualityControlIndicatorColor;
   tooltip: string | null;
 } => {
@@ -27,6 +28,7 @@ const getSexMeta = (
         tooltip: intl.get(
           'pages.quality_control_summary.xy_coverage_moderately_inconsistant_with_patient_sex_female',
         ),
+        sexTooltip: null,
       };
     }
     if (averageChrY > 0.2102 && averageChrX < 0.8496) {
@@ -36,12 +38,14 @@ const getSexMeta = (
         tooltip: intl.get(
           'pages.quality_control_summary.xy_coverage_highly_inconsistant_with_patient_sex_female',
         ),
+        sexTooltip: null,
       };
     }
     return {
       sex: SexValue.FEMALE,
       color: null,
       tooltip: null,
+      sexTooltip: null,
     };
   }
 
@@ -53,6 +57,7 @@ const getSexMeta = (
         tooltip: intl.get(
           'pages.quality_control_summary.xy_coverage_moderately_inconsistant_with_patient_sex_male',
         ),
+        sexTooltip: null,
       };
     }
     if (averageChrY < 0.2456 && averageChrX > 0.7451) {
@@ -62,12 +67,14 @@ const getSexMeta = (
         tooltip: intl.get(
           'pages.quality_control_summary.xy_coverage_highly_inconsistant_with_patient_sex_male',
         ),
+        sexTooltip: null,
       };
     }
     return {
       sex: SexValue.MALE,
       color: null,
       tooltip: null,
+      sexTooltip: null,
     };
   }
 
@@ -75,6 +82,10 @@ const getSexMeta = (
     sex: SexValue.UNKNOWN,
     color: patientSex !== SexValue.UNKNOWN && patientSex !== undefined ? 'orange' : null,
     tooltip: null,
+    sexTooltip:
+      patientSex !== SexValue.UNKNOWN && patientSex !== undefined
+        ? intl.get('pages.quality_control_summary.sex_not_equal')
+        : intl.get('pages.quality_control_summary.sex_undefined'),
   };
 };
 
@@ -87,8 +98,12 @@ const getSexDetail = (
 
   return (
     <ConditionalWrapper
-      condition={meta.tooltip !== null}
-      wrapper={(children) => <Tooltip title={meta.tooltip}>{children}</Tooltip>}
+      condition={meta.tooltip !== null || meta.sexTooltip !== null}
+      wrapper={(children) => (
+        <Tooltip title={meta.sexTooltip !== null ? meta.sexTooltip : meta.tooltip}>
+          {children}
+        </Tooltip>
+      )}
     >
       <Space>
         {meta.color === 'orange' ? (
