@@ -30,7 +30,7 @@ import { IncludeKeycloakTokenParsed } from 'utils/tokenTypes';
 import styles from './index.module.css';
 
 export const getUserGuidelink = (lang: LANG) =>
-  `${EnvironmentVariables.configFor('USER_GUIDE_URL')}#${
+  `${EnvironmentVariables.configFor('USER_GUIDE_URL')}/#${
     lang === LANG.FR ? '/fr' : ''
   }/qlin_genetic/home`;
 
@@ -126,7 +126,6 @@ const Header = () => {
             icon={<QuestionCircleOutlined />}
             tooltip={intl.get('layout.main.menu.documentation.tooltip')}
             onClick={() => window.open(getUserGuidelink(lang), '_blank')}
-            loading={downloadPanelsFile.fetching}
           />
           <Dropdown
             key="user-menu"
