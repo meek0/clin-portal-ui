@@ -61,7 +61,7 @@ export const getPatientAndRequestId = (
   resource: PatientServiceRequestFragment | undefined,
 ): PrescriptionEntityVariantInfo => ({
   patientId: resource ? extractPatientId(resource.id) : '',
-  requestId: resource ? extractServiceRequestId(resource.requests?.[0].id) : '',
+  requestId: resource ? extractServiceRequestId(resource.requests?.[0]?.id) : '',
   variantType: VariantType.GERMLINE,
 });
 

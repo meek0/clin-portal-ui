@@ -125,7 +125,7 @@ const ClinicalInformation = ({ prescription, prescriptionFormConfig, loading }: 
             </Card.Grid>
           </div>
           <RequestTable data={prescription?.subject?.resource?.requests} />
-          <TaskTable requestId={prescription?.subject?.resource?.requests?.[0].id} />
+          <TaskTable requestId={prescription?.subject?.resource?.requests?.[0]?.id} />
         </Space>
       ) : (
         <></>
