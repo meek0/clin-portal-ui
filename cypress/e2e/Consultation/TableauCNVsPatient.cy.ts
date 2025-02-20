@@ -24,23 +24,24 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('*', 4, 'CFHR1');
     cy.validateTableDataRowKeyContent('*', 4, 'CFHR3');
     cy.validateTableDataRowKeyContent('*', 5, 'GAIN:chr1:196774873-196832007');
-    cy.validateTableDataRowKeyContent('*', 6, /^1$/);
-    cy.validateTableDataRowKeyContent('*', 7, '196 774 872');
-    cy.validateTableDataRowKeyContent('*', 8, '196 832 006');
-    cy.validateTableDataRowKeyContent('*', 9, /^GAIN$/);
-    cy.validateTableDataRowKeyContent('*', 10, '57.1 kb');
-    cy.validateTableDataRowKeyContent('*', 11, '1.38788');
-    cy.validateTableDataRowKeyContent('*', 12, /^3$/);
-    cy.validateTableDataRowKeyContent('*', 13, '128');
-    cy.validateTableDataRowKeyContent('*', 13, '9.55e-1');
-    cy.validateTableDataRowKeyContent('*', 14, /^2$/);
-    cy.validateTableDataRowKeyContent('*', 15, './1');
-    cy.validateTableDataRowKeyContent('*', 16, 'PASS');
-    cy.validateTableDataRowKeyContent('*', 17, /^75$/);
-    cy.validateTableDataRowKeyContent('*', 18, /^22$/);
-    cy.validateTableDataRowKeyContent('*', 19, '3, 0');
-    cy.validateTableDataRowKeyContent('*', 20, '-');
+    cy.validateTableDataRowKeyClass('*', 6, 'anticon');
+    cy.validateTableDataRowKeyContent('*', 7, /^1$/);
+    cy.validateTableDataRowKeyContent('*', 8, '196 774 872');
+    cy.validateTableDataRowKeyContent('*', 9, '196 832 006');
+    cy.validateTableDataRowKeyContent('*', 10, /^GAIN$/);
+    cy.validateTableDataRowKeyContent('*', 11, '57.1 kb');
+    cy.validateTableDataRowKeyContent('*', 12, '1.38788');
+    cy.validateTableDataRowKeyContent('*', 13, /^3$/);
+    cy.validateTableDataRowKeyContent('*', 14, '128');
+    cy.validateTableDataRowKeyContent('*', 14, '9.55e-1');
+    cy.validateTableDataRowKeyContent('*', 15, /^2$/);
+    cy.validateTableDataRowKeyContent('*', 16, './1');
+    cy.validateTableDataRowKeyContent('*', 17, 'PASS');
+    cy.validateTableDataRowKeyContent('*', 18, /^75$/);
+    cy.validateTableDataRowKeyContent('*', 19, /^22$/);
+    cy.validateTableDataRowKeyContent('*', 20, '3, 0');
     cy.validateTableDataRowKeyContent('*', 21, '-');
+    cy.validateTableDataRowKeyContent('*', 22, '-');
   });
  
   it('Valider la fonctionnalité du radio bouton SNV-CNV', () => {
@@ -63,6 +64,11 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   it('Valider les liens disponibles Lien Variant', () => {
     cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(5).find('a[href]')
       .should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/sv/chr1-196774872-196832006-DUP-HG38');
+  });
+ 
+  it('Valider les liens disponibles Lien ClinGen', () => {
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(6).find('a[href]')
+      .should('have.attr', 'href', 'https://search.clinicalgenome.org/kb/regions?page=1&type=GRCh38&region=chr1%3A196774872-196832006&size=25&search=');
   });
 });
 
@@ -96,100 +102,100 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   
   it('Valider les fonctionnalités du tableau - Tri Chr.', () => {
     cy.sortTableAndIntercept('Chr.', 1);
-    cy.validateTableFirstRow(/^1$/, 6, true);
+    cy.validateTableFirstRow(/^1$/, 7, true);
     cy.sortTableAndIntercept('Chr.', 1);
-    cy.validateTableFirstRow(/^Y$/, 6, true);
+    cy.validateTableFirstRow(/^Y$/, 7, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Début', () => {
     cy.sortTableAndIntercept('Début', 1);
-    cy.validateTableFirstRow('14 806', 7, true);
+    cy.validateTableFirstRow('14 806', 8, true);
     cy.sortTableAndIntercept('Début', 1);
-    cy.validateTableFirstRow('238 158 998', 7, true);
+    cy.validateTableFirstRow('238 158 998', 8, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Fin', () => {
     cy.sortTableAndIntercept('Fin', 1);
-    cy.validateTableFirstRow('14 939', 8, true);
+    cy.validateTableFirstRow('14 939', 9, true);
     cy.sortTableAndIntercept('Fin', 1);
-    cy.validateTableFirstRow('238 159 213', 8, true);
+    cy.validateTableFirstRow('238 159 213', 9, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Événement', () => {
     cy.sortTableAndIntercept('Événement', 1);
-    cy.validateTableFirstRow('GAIN', 9, true);
+    cy.validateTableFirstRow('GAIN', 10, true);
     cy.sortTableAndIntercept('Événement', 1);
-    cy.validateTableFirstRow('LOSS', 9, true);
+    cy.validateTableFirstRow('LOSS', 10, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Longueur', () => {
     cy.sortTableAndIntercept('Longueur', 1);
-    cy.validateTableFirstRow('2 bp', 10, true);
+    cy.validateTableFirstRow('2 bp', 11, true);
     cy.sortTableAndIntercept('Longueur', 1);
-    cy.validateTableFirstRow('1.5 Mb', 10, true);
+    cy.validateTableFirstRow('1.5 Mb', 11, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri MS', () => {
     cy.sortTableAndIntercept('MS', 1);
-    cy.validateTableFirstRow('0.00831442', 11, true);
+    cy.validateTableFirstRow('0.00831442', 12, true);
     cy.sortTableAndIntercept('MS', 1);
-    cy.validateTableFirstRow('2.7587', 11, true);
+    cy.validateTableFirstRow('2.7587', 12, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri CN', () => {
     cy.sortTableAndIntercept('CN', 1);
-    cy.validateTableFirstRow(/^0$/, 12, true);
+    cy.validateTableFirstRow(/^0$/, 13, true);
     cy.sortTableAndIntercept('CN', 1)
-    cy.validateTableFirstRow(/^6$/, 12, true);
+    cy.validateTableFirstRow(/^6$/, 13, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
     cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('-', 13, true);
+    cy.validateTableFirstRow('-', 14, true);
     cy.sortTableAndIntercept('RQDM', 1)
-    cy.validateTableFirstRow('131', 13, true);
+    cy.validateTableFirstRow('131', 14, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri # Gènes', () => {
     cy.sortTableAndIntercept('# Gènes', 1);
-    cy.validateTableFirstRow(/^0$/, 14, true);
+    cy.validateTableFirstRow(/^0$/, 15, true);
     cy.sortTableAndIntercept('# Gènes', 1);
-    cy.validateTableFirstRow('38', 14, true);
+    cy.validateTableFirstRow('38', 15, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Qual.', () => {
     cy.sortTableAndIntercept('Qual.', 1);
-    cy.validateTableFirstRow(/^3$/, 17, true);
+    cy.validateTableFirstRow(/^3$/, 18, true);
     cy.sortTableAndIntercept('Qual.', 1);
-    cy.validateTableFirstRow('150', 17, true);
+    cy.validateTableFirstRow('150', 18, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri BC', () => {
     cy.sortTableAndIntercept('BC', 1);
-    cy.validateTableFirstRow(/^1$/, 18, true);
+    cy.validateTableFirstRow(/^1$/, 19, true);
     cy.sortTableAndIntercept('BC', 1);
-    cy.validateTableFirstRow('119', 18, true);
+    cy.validateTableFirstRow('119', 19, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Trans.', () => {
     cy.sortTableAndIntercept('Trans.', 1);
-    cy.validateTableFirstRow('-', 20, true);
+    cy.validateTableFirstRow('-', 21, true);
     cy.sortTableAndIntercept('Trans.', 1);
-    cy.validateTableFirstRow('-', 20, true);
+    cy.validateTableFirstRow('-', 21, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri OP', () => {
     cy.sortTableAndIntercept('OP', 1);
-    cy.validateTableFirstRow('-', 21, true);
+    cy.validateTableFirstRow('-', 22, true);
     cy.sortTableAndIntercept('OP', 1);
-    cy.validateTableFirstRow('MF', 21, true);
+    cy.validateTableFirstRow('MF', 22, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
     cy.sortTableAndIntercept('Chr.', 1);
     cy.sortTableAndIntercept('Début', 0);
     cy.sortTableAndIntercept('Début', 1);
-    cy.validateTableFirstRow('207 526 712', 7, true);
+    cy.validateTableFirstRow('207 526 712', 8, true);
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
