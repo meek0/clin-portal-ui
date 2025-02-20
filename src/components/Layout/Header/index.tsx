@@ -7,6 +7,7 @@ import {
   FileTextOutlined,
   HomeOutlined,
   MedicineBoxOutlined,
+  QuestionCircleOutlined,
 } from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
 import UserAvatar from '@ferlab/ui/core/components/UserAvatar';
@@ -27,6 +28,11 @@ import { STATIC_ROUTES } from 'utils/routes';
 import { IncludeKeycloakTokenParsed } from 'utils/tokenTypes';
 
 import styles from './index.module.css';
+
+export const getUserGuidelink = (lang: LANG) =>
+  `${EnvironmentVariables.configFor('USER_GUIDE_URL')}#${
+    lang === LANG.FR ? '/fr' : ''
+  }/qlin_genetic/home`;
 
 const Header = () => {
   const { keycloak } = useKeycloak();
@@ -59,7 +65,6 @@ const Header = () => {
       setDownloadPanelsFile({ ...downloadPanelsFile, fetching: true });
     }
   };
-
   return (
     <PageHeader
       title={
@@ -114,6 +119,13 @@ const Header = () => {
             title={intl.get('layout.main.menu.panels')}
             tooltip={intl.get('layout.main.menu.panels.tooltip')}
             onClick={() => handlePanelsFileDownload()}
+            loading={downloadPanelsFile.fetching}
+          />
+          <HeaderButton
+            key="userGuide"
+            icon={<QuestionCircleOutlined />}
+            tooltip={intl.get('layout.main.menu.documentation.tooltip')}
+            onClick={() => window.open(getUserGuidelink(lang), '_blank')}
             loading={downloadPanelsFile.fetching}
           />
           <Dropdown
