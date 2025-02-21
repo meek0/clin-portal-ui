@@ -35,7 +35,7 @@ const ZygositySection = ({ record: { locus, donors }, patientId, variantSection 
       {variantSection === VariantSection.SNV && (
         <>
           <Descriptions.Item
-            label={capitalize(intl.get('compound.heterozygous.abbrev', { num: 0 }))}
+            label={intl.get('compound.heterozygous.abbrev', { num: 0 })}
             className={style.hc}
           >
             <Space className={style.alignRigthSpace}>
@@ -46,9 +46,7 @@ const ZygositySection = ({ record: { locus, donors }, patientId, variantSection 
               />
             </Space>
           </Descriptions.Item>
-          <Descriptions.Item
-            label={capitalize(intl.get('potential.compound.heterozygous.abbrev', { num: 0 }))}
-          >
+          <Descriptions.Item label={intl.get('potential.compound.heterozygous.abbrev', { num: 0 })}>
             <Space className={style.alignRigthSpace}>
               <HcComplementDescription
                 hcComplements={donor?.possibly_hc_complement}

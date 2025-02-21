@@ -37,7 +37,7 @@
   "components.filterList.collapseAll": "Tout fermer",
   "components.filterList.expandAll": "Tout ouvrir",
   "compound.heterozygous": "{num, plural, =0 {hétérozygote composé} other {hétérozygotes composés}}",
-  "compound.heterozygous.abbrev": "{num, plural, =0 {hét. composé} other {hét. composés}}",
+  "compound.heterozygous.abbrev": "{num, plural, =0 {Hét. composé} other {Hét. composés}}",
   "condition": "Condition",
   "customPill": {
     "delete": {
@@ -662,7 +662,7 @@
   "pch.tooltip": "Hétérozygote composé potentiel : seuls les variants dont les occurrences rencontrant les critères QG ≥ 20, gnomAD Genome 3.1.1 (fréquence allélique) ≤ 0.01 et Profondeur allélique ALT > 2 sont considérées",
   "po": "OP",
   "potential.compound.heterozygous": "{num, plural, =0 {hétérozygote composé potentiel} other {hétérozygotes composés potentiels}}",
-  "potential.compound.heterozygous.abbrev": "{num, plural, =0 {hét. composé potentiel} other {hét. composés potentiels}}",
+  "potential.compound.heterozygous.abbrev": "{num, plural, =0 {Hét. composé potentiel} other {Hét. composés potentiels}}",
   "prediction": "Prédiction",
   "predictions": "Prédictions",
   "prescribing.institution": "Établissement prescripteur",
