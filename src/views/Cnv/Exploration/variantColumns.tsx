@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Key } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
@@ -15,6 +16,7 @@ import FlagFilterDropdown from 'views/Snv/Exploration/components/Flag/FlagFilter
 import NoteCell from 'views/Snv/Exploration/components/Note/NoteCell';
 import NoteFilter from 'views/Snv/Exploration/components/Note/NoteFilter';
 
+import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import EnvironmentVariables from 'utils/EnvVariables';
@@ -176,6 +178,19 @@ export const getVariantColumns = (
         );
       },
       width: 200,
+    },
+    {
+      title: intl.get('screen.patientcnv.results.table.clingen'),
+      key: 'clinGen',
+      render: (variant: VariantEntity) => (
+        <ExternalLink
+          className={style.dbsnpLink}
+          href={`https://search.clinicalgenome.org/kb/regions?page=1&type=${variant.genome_build}&region=chr${variant.chromosome}%3A${variant.start}-${variant.end}&size=25&search=`}
+        >
+          <ExternalLinkIcon />
+        </ExternalLink>
+      ),
+      width: 70,
     },
     {
       title: intl.get('screen.patientcnv.results.table.chromosome'),

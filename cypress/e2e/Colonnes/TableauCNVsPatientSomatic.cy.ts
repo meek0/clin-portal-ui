@@ -39,87 +39,92 @@ describe('Page des CNVs d\'un patient (somatic) - Colonnes du tableau', () => {
       .find('th[class*="ant-table-cell"]').eq(5)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Variant').should('exist');
-    
+
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(6)
+      .should('not.have.class', 'ant-table-column-has-sorters')
+      .contains('ClinGen').should('exist');
+    
+    cy.get('thead[class="ant-table-thead"]')
+      .find('th[class*="ant-table-cell"]').eq(7)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Chr.').should('exist');
   
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(7)
+      .find('th[class*="ant-table-cell"]').eq(8)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Début').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(8)
+      .find('th[class*="ant-table-cell"]').eq(9)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Fin').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(9)
+      .find('th[class*="ant-table-cell"]').eq(10)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Événement').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(10)
+      .find('th[class*="ant-table-cell"]').eq(11)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Longueur').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(11)
+      .find('th[class*="ant-table-cell"]').eq(12)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('MS').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(12)
+      .find('th[class*="ant-table-cell"]').eq(13)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('RQDM').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(13)
+      .find('th[class*="ant-table-cell"]').eq(14)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('# Gènes').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('GT').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(11)
+      .find('div[class="ant-space-item"]').eq(12)
       .contains('GT').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('Filtre').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(12)
+      .find('div[class="ant-space-item"]').eq(13)
       .contains('Filtre').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('Qual.').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(13)
+      .find('div[class="ant-space-item"]').eq(14)
       .contains('Qual.').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('BC').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(14)
+      .find('div[class="ant-space-item"]').eq(15)
       .contains('BC').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('PE').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(15)
+      .find('div[class="ant-space-item"]').eq(16)
       .contains('PE').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('Trans.').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(16)
+      .find('div[class="ant-space-item"]').eq(17)
       .contains('Trans.').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('OP').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(17)
+      .find('div[class="ant-space-item"]').eq(18)
       .contains('OP').should('exist');
   });
 
