@@ -6,14 +6,10 @@ let presc_SOMATIC: any;
 beforeEach(() => {
   presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
 });
 
 describe('Page des variants d\'un patient (somatic) - Colonnes du tableau', () => {
-
-  beforeEach(() => {
-    cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
-  });
-
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(2)
@@ -181,24 +177,5 @@ describe('Page des variants d\'un patient (somatic) - Colonnes du tableau', () =
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('gnomAD ALT').should('exist');
-  });
-
-  it.skip('Déplacer une colonne', () => {
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class="ant-table-cell"]').eq(4)
-      .contains('dbSNP').should('exist');
-
-    // Le drag and drop ne fonctionne pas
-    cy.get('div[class="ant-popover-inner"]')
-      .find('span[aria-roledescription="sortable"]').eq(1).focus()
-      .trigger('mousedown', {which: 1, eventConstructor: 'MouseEvent', force: true});
-
-    cy.get('div[class*="ColumnSelector_ProTablePopoverColumn__gZAeY"]')
-      .trigger('mousemove', {eventConstructor: 'MouseEvent', force: true})
-      .trigger('mouseup', {which: 1, eventConstructor: 'MouseEvent', force: true});
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class="ant-table-cell"]').eq(3)
-      .contains('dbSNP').should('exist');
   });
 });

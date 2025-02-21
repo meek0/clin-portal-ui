@@ -1,6 +1,5 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
-import { oneMinute } from '../../support/utils';
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));

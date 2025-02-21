@@ -7,14 +7,10 @@ let epCHUSJ_ldmCHUSJ: any;
 beforeEach(() => {
   epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 });
 
 describe('Page des CNVs d\'un patient - Filtrer avec les facettes', () => {
-
-  beforeEach(() => {
-    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
-  });
-
   it('Panel RQDM - Expand all/Collapse all', () => {
     cy.validateExpandCollapse('Panel RQDM');
   });

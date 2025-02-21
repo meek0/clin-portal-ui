@@ -6,14 +6,10 @@ let epCHUSJ_ldmCHUSJ: any;
 beforeEach(() => {
   epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitFilesPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
 });
 
 describe('Page des fichiers d\'un patient - Colonnes du tableau', () => {
-
-  beforeEach(() => {
-    cy.visitFilesPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
-  });
-
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(0)
@@ -35,12 +31,7 @@ describe('Page des fichiers d\'un patient - Colonnes du tableau', () => {
       .find('th[class*="ant-table-cell"]').eq(3)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Requête').should('exist');
-/*
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(4)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Position').should('exist');
-*/
+      
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(4)
       .should('have.class', 'ant-table-column-has-sorters')
@@ -108,25 +99,5 @@ describe('Page des fichiers d\'un patient - Colonnes du tableau', () => {
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('Taille').should('exist');
-  });
-
-  it.skip('Déplacer une colonne', () => {
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class="ant-table-cell"]').eq(1)
-      .contains('Nom du fichier').should('exist');
-
-    // Le drag and drop ne fonctionne pas
-    cy.get('div[class="ant-popover-inner"]')
-      .find('span[aria-roledescription="sortable"]').eq(1).focus()
-      .trigger('mousedown', {which: 1, eventConstructor: 'MouseEvent', force: true});
-
-    cy.get('div[class*="ColumnSelector_ProTablePopoverColumn__gZAeY"]')
-      .trigger('mousemove', {eventConstructor: 'MouseEvent', force: true})
-      .trigger('mouseup', {which: 1, eventConstructor: 'MouseEvent', force: true});
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class="ant-table-cell"]').eq(0)
-      .contains('Nom du fichier').should('exist');
-
   });
 });

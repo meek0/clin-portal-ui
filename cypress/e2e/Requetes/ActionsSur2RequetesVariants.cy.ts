@@ -3,14 +3,10 @@ import '../../support/commands';
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitVariantsPage('?sharedFilterId=6adae5cd-36a9-49b6-833f-bbc656d516d6');
 });
 
 describe('Page des variants - Requêtes', () => {
-
-  beforeEach(() => {
-    cy.visitVariantsPage('?sharedFilterId=6adae5cd-36a9-49b6-833f-bbc656d516d6');
-  });
-
   it('Sélectionner une requête', () => {
     cy.validateTableResultsCount(/1 0\d{2} \d{3}/);
 

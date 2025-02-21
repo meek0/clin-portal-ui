@@ -531,7 +531,7 @@ Cypress.Commands.add('visitAndIntercept', (url: string, methodHTTP: string, rout
   cy.waitWhileSpin(oneMinute);
 
   for (let i = 0; i < nbCalls; i++) {
-    cy.wait('@getRouteMatcher');
+    cy.wait('@getRouteMatcher', {timeout: oneMinute});
   };
 
   cy.waitWhileSpin(oneMinute);
@@ -631,7 +631,8 @@ Cypress.Commands.add('visitVariantsPatientPage', (patientId: string, prescriptio
   cy.visitAndIntercept(`/prescription/entity/${prescriptionId}${strSharedFilterOption}#variants`,
                        'POST',
                        '**/graphql',
-                       nbGraphqlCalls,);
+                       nbGraphqlCalls);
+  cy.waitWhileSpin(oneMinute);
   cy.resetColumns(0);
 });
 

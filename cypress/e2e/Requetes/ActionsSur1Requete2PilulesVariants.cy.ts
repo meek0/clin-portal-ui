@@ -3,14 +3,10 @@ import '../../support/commands';
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitVariantsPage('?sharedFilterId=100c6b39-f4f6-48bb-bb83-d92f20562308');
 });
 
 describe('Page des variants - Requêtes', () => {
-
-  beforeEach(() => {
-    cy.visitVariantsPage('?sharedFilterId=100c6b39-f4f6-48bb-bb83-d92f20562308');
-  });
-
   it('Modifier l\'opérateur d\'une requête', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql1');
     cy.get('[class*="QueryBar_selected"] [class*="Combiner_operator"]').clickAndWait({force: true});

@@ -6,14 +6,10 @@ let epCHUSJ_ldmCHUSJ: any;
 beforeEach(() => {
   epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '7ca94b6e-887a-4031-994c-a11f6752f225');
 });
 
 describe('Page des variants d\'un patient - Requêtes', () => {
-
-  beforeEach(() => {
-    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '7ca94b6e-887a-4031-994c-a11f6752f225');
-  });
-
   it('Sélectionner une requête', () => {
     cy.validateTableResultsCount('157 594');
 

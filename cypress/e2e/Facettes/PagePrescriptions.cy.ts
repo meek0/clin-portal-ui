@@ -6,14 +6,10 @@ let epCHUSJ_ldmCHUSJ: any;
 beforeEach(() => {
   epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitPrescriptionsPage();
 });
 
 describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () => {
-
-  beforeEach(() => {
-    cy.visitPrescriptionsPage();
-  });
-
   it('Priorité - ASAP', () => {
     cy.get('div[class="Filter_facetCollapse__8Ofdg"]').eq(0).contains('Priorité').should('exist');
     cy.checkValueFacet('Priorité', 'asap');

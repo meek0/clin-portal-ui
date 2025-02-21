@@ -5,14 +5,10 @@ let epCHUSJ_ldmCHUSJ: any;
 beforeEach(() => {
   epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 });
 
 describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
-
-  beforeEach(() => {
-    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
-  });
-
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(1)
@@ -155,24 +151,5 @@ describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('GT').should('exist');
-  });
-
-  it.skip('Déplacer une colonne', () => {
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class="ant-table-cell"]').eq(3)
-      .contains('Début').should('exist');
-
-    // Le drag and drop ne fonctionne pas
-    cy.get('div[class="ant-popover-inner"]')
-      .find('span[aria-roledescription="sortable"]').eq(1).focus()
-      .trigger('mousedown', {which: 1, eventConstructor: 'MouseEvent', force: true});
-
-    cy.get('div[class*="ColumnSelector_ProTablePopoverColumn__gZAeY"]')
-      .trigger('mousemove', {eventConstructor: 'MouseEvent', force: true})
-      .trigger('mouseup', {which: 1, eventConstructor: 'MouseEvent', force: true});
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class="ant-table-cell"]').eq(2)
-      .contains('Début').should('exist');
   });
 });

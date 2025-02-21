@@ -7,14 +7,11 @@ beforeEach(() => {
   presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3, '?sharedFilterId=7159fa28-876c-4a46-9a0d-c1e7b88ba5e2');
+  cy.get('tr svg[class="anticon"]').eq(0).clickAndWait({force: true});
+  cy.contains('Alignement et variant').should('exist');
 });
 
 describe('Page des CNVs d\'un patient (somatic) - IGV à partir du tableau', () => {
-  beforeEach(() => {
-    cy.get('tr svg[class="anticon"]').clickAndWait({force: true});
-    cy.contains('Alignement et variant').should('exist');
-  });
-
   it('Vérifier les informations affichées [CLIN-3105]', () => {
     cy.get('[class="igv-track-label"]').eq(0).contains('Refseq Genes').should('exist');
     cy.get('[class="igv-track-label"]').eq(1).contains('HyperExome hg38').should('exist');

@@ -3,18 +3,15 @@ import '../../support/commands';
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitVariantsPage('?sharedFilterId=ed4de9bb-016e-4869-ac9d-40b11ac3102a');
+  cy.showColumn('Tier', 0);
+  cy.showColumn('Max Fra.', 0);
+  cy.showColumn('Max Exo.', 0);
+  cy.showColumn('CADD', 0);
+  cy.showColumn('REVEL', 0);
 });
 
 describe('Page des variants - Consultation du tableau', () => {
-  beforeEach(() => {
-    cy.visitVariantsPage('?sharedFilterId=ed4de9bb-016e-4869-ac9d-40b11ac3102a');
-    cy.showColumn('Tier', 0);
-    cy.showColumn('Max Fra.', 0);
-    cy.showColumn('Max Exo.', 0);
-    cy.showColumn('CADD', 0);
-    cy.showColumn('REVEL', 0);
-  });
-  
   it('Vérifier les informations affichées', () => {
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 1, 'chrX:g.123403094G>A');
     cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 2, 'SNV');

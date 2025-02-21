@@ -3,18 +3,15 @@ import '../../support/commands';
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+  cy.showColumn('Tier', 0);
+  cy.showColumn('Max Fra.', 0);
+  cy.showColumn('Max Exo.', 0);
+  cy.showColumn('CADD', 0);
+  cy.showColumn('REVEL', 0);
 });
 
-describe('Page des variants - Consultation du tableau', () => {
-  beforeEach(() => {
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
-    cy.showColumn('Tier', 0);
-    cy.showColumn('Max Fra.', 0);
-    cy.showColumn('Max Exo.', 0);
-    cy.showColumn('CADD', 0);
-    cy.showColumn('REVEL', 0);
-  });
-  
+describe('Page des variants - Consultation du tableau', () => {  
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {
     cy.sortTableAndIntercept('Variant', 1);
     cy.validateTableFirstRow('chr10:g.100018446C>T', 1, true);

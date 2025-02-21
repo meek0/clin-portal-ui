@@ -3,14 +3,10 @@ import '../../support/commands';
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitVariantsPage('?sharedFilterId=b07af6d5-dedc-4081-a218-b8893dba5dd4');
 });
 
 describe('Page des variants - Requêtes', () => {
-
-  beforeEach(() => {
-    cy.visitVariantsPage('?sharedFilterId=b07af6d5-dedc-4081-a218-b8893dba5dd4');
-  });
-
   it('Éditer une pilule via la facette', () => {
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'insertion');
 

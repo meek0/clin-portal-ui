@@ -6,19 +6,14 @@ let epCHUSJ_ldmCHUSJ: any;
 beforeEach(() => {
   epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitFilesPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+  cy.showColumn('Taille', 0);
+  cy.showColumn('Hash', 0);
+  cy.showColumn('Lot', 0);
+  cy.showColumn('Type', 0);
 });
 
 describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
-
-  beforeEach(() => {
-    cy.visitFilesPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
-
-    cy.showColumn('Taille', 0);
-    cy.showColumn('Hash', 0);
-    cy.showColumn('Lot', 0);
-    cy.showColumn('Type', 0);
-  });
-
   it('Vérifier les informations affichées', () => {
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 0, '16776.hard-filtered.gvcf.gz');
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 1, 'VCF');
@@ -138,32 +133,5 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
     cy.validateTableResultsCount('Résultats 1 - ', false);
-  });
-});
-
-describe.skip('Footer position on scroll', () => {
-  it('should keep the footer at the bottom when scrolling', () => {
-    cy.visitFilesPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
-
-    // Obtenez la position initiale du footer
-    cy.get('[id="footer"]').then(($footer) => {
-      const initialFooterPosition = $footer[0].getBoundingClientRect().bottom;
-    cy.log('initialFooterPosition: '+initialFooterPosition);
-
-    // Faites défiler vers le bas
-    cy.get('[id="footer"]').scrollIntoView();
-
-    // Attendre un peu pour que le défilement soit effectué
-    cy.wait(1000);
-
-    // Obtenez la nouvelle position du footer après le défilement
-    cy.get('[id="footer"]').then(($footerAfterScroll) => {
-      const footerAfterScrollPosition = $footerAfterScroll[0].getBoundingClientRect().bottom;
-      cy.log('footerAfterScrollPosition: '+footerAfterScrollPosition);
-
-        // Vérifiez que la position du footer après le défilement est la même qu'avant
-//        expect(footerAfterScrollPosition).to.equal(initialFooterPosition);
-      });
-    });
   });
 });

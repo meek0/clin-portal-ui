@@ -6,14 +6,10 @@ let presc_SOMATIC: any;
 beforeEach(() => {
   presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitCQPatientPage(presc_SOMATIC.prescriptionId);
 });
 
 describe('Page du rapport général d\'un patient (somatic) - Consultation des tableaux', () => {
-
-  beforeEach(() => {
-    cy.visitCQPatientPage(presc_SOMATIC.prescriptionId);
-  });
-
   it('Dragen Capture Coverage Metrics - Vérifier les informations affichées', () => {
     cy.fixture('ExportTableauDragenCaptureCoverageMetrics.json').then((expectedData) => {
       for (let i = 0; i < expectedData.headers.length; i++) {

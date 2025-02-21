@@ -6,14 +6,10 @@ let epCHUSJ_ldmCHUSJ: any;
 beforeEach(() => {
   epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '48bf4129-3e45-41d6-be4f-63a25c57b71e');
 });
 
 describe('Page des variants d\'un patient - Requêtes', () => {
-
-  beforeEach(() => {
-    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '48bf4129-3e45-41d6-be4f-63a25c57b71e');
-  });
-
   it('Éditer une pilule via la facette', () => {
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'insertion');
 

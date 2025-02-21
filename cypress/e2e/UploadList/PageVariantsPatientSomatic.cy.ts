@@ -1,6 +1,5 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
-import { oneMinute } from '../../support/utils';
 
 let presc_SOMATIC: any;
 

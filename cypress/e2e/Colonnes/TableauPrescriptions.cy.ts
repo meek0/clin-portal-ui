@@ -3,14 +3,10 @@ import '../../support/commands';
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitPrescriptionsPage();
 });
 
 describe('Page des prescriptions et requêtes - Colonnes du tableau des prescriptions', () => {
-
-  beforeEach(() => {
-    cy.visitPrescriptionsPage();
-  });
-
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .find('th[class*="ant-table-cell"]').eq(0)
@@ -113,25 +109,5 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des prescrip
 
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .contains('Modifiée le').should('exist');
-  });
-
-  it.skip('Déplacer une colonne', () => {
-    cy.get('thead[class="ant-table-thead"]').eq(0)
-      .find('th[class="ant-table-cell"]').eq(1)
-      .contains('Patient').should('exist');
-
-    // Le drag and drop ne fonctionne pas
-    cy.get('div[class="ant-popover-inner"]')
-      .find('span[aria-roledescription="sortable"]').eq(1).focus()
-      .trigger('mousedown', {which: 1, eventConstructor: 'MouseEvent', force: true});
-
-    cy.get('div[class*="ColumnSelector_ProTablePopoverColumn__gZAeY"]')
-      .trigger('mousemove', {eventConstructor: 'MouseEvent', force: true})
-      .trigger('mouseup', {which: 1, eventConstructor: 'MouseEvent', force: true});
-
-    cy.get('thead[class="ant-table-thead"]').eq(0)
-      .find('th[class="ant-table-cell"]').eq(0)
-      .contains('Patient').should('exist');
-
   });
 });
