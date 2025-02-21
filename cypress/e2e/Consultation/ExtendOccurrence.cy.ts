@@ -168,7 +168,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(8).find('[class="ant-descriptions-item-label"]').eq(3).contains('Qualité du génotype').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(8).find('[class="ant-descriptions-item-content"]').eq(3).find('polygon[points="0,0 5,10 -5,10"]').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(8).find('[class="ant-descriptions-item-content"]').eq(3).contains('48').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(8).find('[class="ant-descriptions-item-label"]').eq(4).contains('Filtre (Dragen)').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(8).find('[class="ant-descriptions-item-label"]').eq(4).contains(/^Filtre$/).should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(8).find('[class="ant-descriptions-item-content"]').eq(4).contains('PASS').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(8).find('[class="ant-descriptions-item-label"]').contains('Qualité somatique').should('not.exist');
   });
@@ -285,7 +285,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('div[class*="SequencingMetricModal_description"]').eq(0).find('[class="ant-descriptions-item-label"]').eq(4).contains('Qualité du génotype').should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(4).find('polygon[points="0,0 5,10 -5,10"]').should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(4).contains('48').should('exist');
-    cy.get('div[class*="SequencingMetricModal_description"]').eq(0).find('[class="ant-descriptions-item-label"]').eq(5).contains('Filtre (Dragen)').should('exist');
+    cy.get('div[class*="SequencingMetricModal_description"]').eq(0).find('[class="ant-descriptions-item-label"]').eq(5).contains(/^Filtre$/).should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(5).contains('PASS').should('exist');
 
     cy.get('[class="ant-modal-body"] [class="ant-descriptions-title"]').eq(1).contains('Père').should('exist');
@@ -300,7 +300,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-label"]').eq(4).contains('Qualité du génotype').should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(4).find('polygon[points="0,0 5,10 -5,10"]').should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(4).contains('81').should('exist');
-    cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-label"]').eq(5).contains('Filtre (Dragen)').should('exist');
+    cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-label"]').eq(5).contains(/^Filtre$/).should('exist');
     cy.get('div[class*="SequencingMetricModal_description"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(5).contains('PASS').should('exist');
   });
 });

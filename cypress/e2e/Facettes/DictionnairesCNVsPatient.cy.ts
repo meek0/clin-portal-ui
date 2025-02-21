@@ -150,7 +150,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Occurrence', 'Transmission', dictionnary);
   });
 
-  it('Occurrence - Filtre (Dragen)', () => {
+  it('Occurrence - Filtre', () => {
     const dictionnary = ['PASS',
                          'CnvQual',
                          'CnvCopyRatio',
@@ -160,9 +160,9 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                          'No Data'];
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
-    cy.validateDictionnaryPresetValues('Occurrence', 'Filtre \(Dragen\)', dictionnary);
+    cy.validateDictionnaryPresetValues('Occurrence', 'Filtre', dictionnary);
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=f5d9e3d5-6970-49c3-860c-d3ab00a06cdb');
-    cy.validateDictionnaryNewValues('Occurrence', 'Filtre \(Dragen\)', dictionnary);
+    cy.validateDictionnaryNewValues('Occurrence', 'Filtre', dictionnary);
   });
 });

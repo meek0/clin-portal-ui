@@ -164,9 +164,9 @@ describe('Page des CNVs d\'un patient - Filtrer avec les facettes', () => {
     cy.validateFacetRank(1, 'Transmission');
   });
 
-  it('Occurrence - Filtre (Dragen)', () => {
-    cy.validateFacetFilter('Occurrence', 'Filtre (Dragen)', 'CnvQual', 'cnvQual', /^98$/);
-    cy.validateFacetRank(2, 'Filtre (Dragen)');
+  it('Occurrence - Filtre', () => {
+    cy.validateFacetFilter('Occurrence', 'Filtre', 'CnvQual', 'cnvQual', /^98$/);
+    cy.validateFacetRank(2, 'Filtre');
   });
 
   it('Occurrence - Qualité du CNV', () => {
