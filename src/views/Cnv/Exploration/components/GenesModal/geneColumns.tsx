@@ -32,8 +32,7 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
       ),
     },
     {
-      title: intl.get('screen.patientcnv.modal.genes.table.panel'),
-      tooltip: intl.get('screen.patientcnv.modal.genes.table.panel.tooltip'),
+      title: intl.get('screen.patientcnv.results.table.clingen'),
       key: 'clinGen',
       dataIndex: 'symbol',
       render: (symbol: string) => (
