@@ -4,6 +4,7 @@ import { ProColumnsType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tooltip } from 'antd';
 import { GeneEntity, ITableGeneEntity } from 'graphql/cnv/models';
 
+import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import Type1Icon from 'components/icons/geneOverlapType/Type1Icon';
 import Type2Icon from 'components/icons/geneOverlapType/Type2Icon';
 import Type3Icon from 'components/icons/geneOverlapType/Type3Icon';
@@ -27,6 +28,20 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
           href={`https://www.omim.org/search?index=entry&start=1&limit=10&sort=score+desc%2C+prefix_sort+desc&search=${symbol}`}
         >
           {symbol}
+        </ExternalLink>
+      ),
+    },
+    {
+      title: intl.get('screen.patientcnv.modal.genes.table.panel'),
+      tooltip: intl.get('screen.patientcnv.modal.genes.table.panel.tooltip'),
+      key: 'clinGen',
+      dataIndex: 'symbol',
+      render: (symbol: string) => (
+        <ExternalLink
+          // eslint-disable-next-line max-len
+          href={`https://search.clinicalgenome.org/kb/genes?page=1&size=50&search=${symbol}`}
+        >
+          <ExternalLinkIcon />
         </ExternalLink>
       ),
     },
