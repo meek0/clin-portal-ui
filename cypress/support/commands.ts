@@ -281,15 +281,24 @@ Cypress.Commands.add('validateFacetFilter', (section: string, facetTitle: string
   cy.get('body').contains(expectedCount).should('exist');
 });
 
-Cypress.Commands.add('validateFacetNumFilter', (section: string, facetTitle: string, value: string, expectedCount: string|RegExp) => {
+Cypress.Commands.add('validateFacetNumFilter', (operator: string, section: string, facetTitle: string, value: string, expectedCount: string|RegExp) => {
   cy.url().should('match', /(#variants|\/snv\/exploration)/);
   cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
   cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
-  cy.get(`[data-cy="InputNumber_Max_${facetTitle}"]`).type(value, {force: true});
+
+  if (operator === 'MinMax') {
+    cy.get(`[data-cy="InputNumber_Min_${facetTitle}"]`).type(value, {force: true});
+    cy.get(`[data-cy="InputNumber_Max_${facetTitle}"]`).type(value, {force: true});
+  }
+  else {
+    cy.get(`[data-cy="InputNumber_${operator}_${facetTitle}"]`).type(value, {force: true});
+  };
   cy.waitWhileSpin(oneMinute);
+
   cy.get(`[data-cy="Checkbox_NoData_${facetTitle}"]`).check({force: true});
   cy.waitWhileSpin(oneMinute);
+
   cy.get(`[data-cy="Button_Apply_${facetTitle}"]`).clickAndWait({force: true});
   cy.waitWhileSpin(oneMinute);
 

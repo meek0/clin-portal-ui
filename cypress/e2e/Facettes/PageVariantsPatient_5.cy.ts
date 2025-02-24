@@ -29,7 +29,7 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Pathogénicité - Score Exomiser', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'Score Exomiser', '0.6', /^184 065$/);
+    cy.validateFacetNumFilter('Min', 'Pathogénicité', 'Score Exomiser', '0.6', /^184 075$/);
     cy.validateFacetRank(2, 'Score Exomiser');
   });
 
@@ -44,7 +44,7 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Pathogénicité - Score Franklin', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'Score Franklin', '0.05', /^184 077$/);
+    cy.validateFacetNumFilter('Min', 'Pathogénicité', 'Score Franklin', '0.05', /^184 077$/);
     cy.validateFacetRank(5, 'Score Franklin');
   });
 
@@ -59,17 +59,17 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Pathogénicité - CADD (Phred)', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'CADD (Phred)', '0.01', /^179 165$/);
+    cy.validateFacetNumFilter('Min', 'Pathogénicité', 'CADD (Phred)', '0.01', /^183 755$/);
     cy.validateFacetRank(8, 'CADD (Phred)');
   });
 
   it('Pathogénicité - CADD (raw)', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'CADD (raw)', '0.01', /^180 151$/);
+    cy.validateFacetNumFilter('Min', 'Pathogénicité', 'CADD (raw)', '0.01', /^182 769$/);
     cy.validateFacetRank(9, 'CADD (raw)');
   });
 
   it('Pathogénicité - DANN', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'DANN', '0.05', /^179 067$/);
+    cy.validateFacetNumFilter('Min', 'Pathogénicité', 'DANN', '0.05', /^184 051$/);
     cy.validateFacetRank(10, 'DANN');
   });
 
@@ -94,22 +94,22 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Pathogénicité - SpliceAI', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'SpliceAI', '0.01', /^159 046$/);
+    cy.validateFacetNumFilter('Min', 'Pathogénicité', 'SpliceAI', '0.01', /^123 409$/);
     cy.validateFacetRank(15, 'SpliceAI');
   });
 
   it('Pathogénicité - REVEL', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'REVEL', '0.01', /^180 624$/);
+    cy.validateFacetNumFilter('Min', 'Pathogénicité', 'REVEL', '0.01', /^183 946$/);
     cy.validateFacetRank(16, 'REVEL');
   });
 
   it('Pathogénicité - CMC', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'CMC', '5', /^177 160$/);
+    cy.validateFacetNumFilter('Min', 'Pathogénicité', 'CMC', '5', /^173 355$/);
     cy.validateFacetRank(17, 'CMC');
   });
 
   it('Pathogénicité - CMC (ratio)', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'CMC (ratio)', '0.01', /184 06\d{1}$/);
+    cy.validateFacetNumFilter('Min', 'Pathogénicité', 'CMC (ratio)', '0.01', /^16$/);
     cy.validateFacetRank(18, 'CMC (ratio)');
   });
 

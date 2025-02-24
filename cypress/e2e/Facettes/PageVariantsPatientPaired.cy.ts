@@ -29,7 +29,7 @@ describe('Page des variants d\'un patient (paired) - Filtrer avec les facettes',
   });
 
   it('Occurrence - Qualité somatique', () => {
-    cy.validateFacetNumFilter('Occurrence', 'Qualité somatique', '0.01', /^1 073$/);
+    cy.validateFacetNumFilter('Min', 'Occurrence', 'Qualité somatique', '0.01', /^5 951$/);
     cy.validateFacetRank(6, 'Qualité somatique');
   });
 });

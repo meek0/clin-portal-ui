@@ -98,7 +98,7 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Variant - Position', () => {
-    cy.validateFacetNumFilter('Variant', 'Position', '100000', /^242$/);
+    cy.validateFacetNumFilter('MinMax', 'Variant', 'Position', '123403094', /^1$/);
     cy.validateFacetRank(4, 'Position');
   });
 });
