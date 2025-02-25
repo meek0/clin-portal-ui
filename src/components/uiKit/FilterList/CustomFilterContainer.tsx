@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import FilterContainer from '@ferlab/ui/core/components/filters/FilterContainer';
-import { IFilter, IFilterGroup, VisualType } from '@ferlab/ui/core/components/filters/types';
+import {
+  IFilter,
+  IFilterGroup,
+  TFilterGroupDefaults,
+  VisualType,
+} from '@ferlab/ui/core/components/filters/types';
 import { updateActiveQueryFilters } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { underscoreToDot } from '@ferlab/ui/core/data/arranger/formatting';
 import { getFilterGroup } from '@ferlab/ui/core/data/filters/utils';
@@ -26,6 +31,7 @@ type OwnProps = {
   extendedMappingResults: ExtendedMappingResults;
   filterOpen?: boolean;
   defaultOpen?: boolean;
+  defaults?: TFilterGroupDefaults;
   headerTooltip?: boolean;
   filterMapper?: TCustomFilterMapper;
   intervalDecimal?: number;
@@ -38,6 +44,7 @@ const CustomFilterContainer = ({
   filterKey,
   filterOpen,
   defaultOpen,
+  defaults,
   extendedMappingResults,
   headerTooltip,
   filterMapper,
@@ -69,6 +76,7 @@ const CustomFilterContainer = ({
   const filterGroup = getFilterGroup({
     extendedMapping: found,
     aggregation: aggregations,
+    defaults,
     rangeTypes: [],
     filterFooter: true,
     headerTooltip,

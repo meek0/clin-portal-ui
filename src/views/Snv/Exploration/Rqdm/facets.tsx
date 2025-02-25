@@ -4,6 +4,7 @@ import QueriesSidebar from '@ferlab/ui/core/components/CustomPill/QueriesSidebar
 import { ISavedFilter } from '@ferlab/ui/core/components/QueryBuilder/types';
 import { IDictionary } from '@ferlab/ui/core/components/QueryBuilder/types';
 import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
+import { RangeOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { SuggestionType } from 'api/arranger/models';
 import { fetchFiltersByCustomPill } from 'api/customPill/customPill.utils';
 import { TUserSavedFilter } from 'api/savedFilter/models';
@@ -62,6 +63,11 @@ const filterGroups: {
           'donors__transmission',
           'donors__is_hc',
         ],
+        defaults: {
+          start: {
+            operator: RangeOperators.between,
+          },
+        },
         intervalDecimal: {
           start: 0,
         },
@@ -93,6 +99,11 @@ const filterGroups: {
           'genes__gnomad__loeuf',
           'genes__omim__inheritance_code',
         ],
+        defaults: {
+          genes__gnomad__pli: {
+            operator: RangeOperators['>='],
+          },
+        },
       },
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.genepanel'),
@@ -132,6 +143,11 @@ const filterGroups: {
           'franklin_max__acmg_evidence',
           'franklin_max__combined_score',
         ],
+        defaults: {
+          franklin_max__combined_score: {
+            operator: RangeOperators['>='],
+          },
+        },
         tooltips: ['franklin_max__combined_score'],
       },
       {
@@ -151,6 +167,26 @@ const filterGroups: {
           'genes__spliceai__ds',
           'consequences__predictions__revel_score',
         ],
+        defaults: {
+          exomiser_max__variant_score: {
+            operator: RangeOperators['>='],
+          },
+          consequences__predictions__cadd_phred: {
+            operator: RangeOperators['>='],
+          },
+          consequences__predictions__cadd_score: {
+            operator: RangeOperators['>='],
+          },
+          consequences__predictions__dann_score: {
+            operator: RangeOperators['>='],
+          },
+          genes__spliceai__ds: {
+            operator: RangeOperators['>='],
+          },
+          consequences__predictions__revel_score: {
+            operator: RangeOperators['>='],
+          },
+        },
         tooltips: [
           'exomiser_max__variant_score',
           'consequences__predictions__cadd_phred',
@@ -161,6 +197,14 @@ const filterGroups: {
       {
         title: intl.get('oncology'),
         facets: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier', 'hotspot'],
+        defaults: {
+          cmc__sample_mutated: {
+            operator: RangeOperators['>='],
+          },
+          cmc__sample_ratio: {
+            operator: RangeOperators['>='],
+          },
+        },
         tooltips: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier', 'hotspot'],
       },
     ],
@@ -174,6 +218,11 @@ const filterGroups: {
           'frequency_RQDM__affected__af',
           'frequency_RQDM__non_affected__af',
         ],
+        defaults: {
+          frequency_RQDM__affected__af: {
+            operator: RangeOperators['>='],
+          },
+        },
         tooltips: [
           'frequency_RQDM__total__af',
           'frequency_RQDM__affected__af',
@@ -193,6 +242,35 @@ const filterGroups: {
           'external_frequencies__topmed_bravo__af',
           'external_frequencies__thousand_genomes__af',
         ],
+        defaults: {
+          external_frequencies__gnomad_exomes_2_1_1__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_2_1_1__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_3_0__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_3_1_1__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_3_1_1__ac: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_4__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_4__ac: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__topmed_bravo__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__thousand_genomes__af: {
+            operator: RangeOperators['<='],
+          },
+        },
         tooltips: [
           'external_frequencies__gnomad_genomes_2_1_1__af',
           'external_frequencies__gnomad_genomes_3_0__af',
@@ -353,6 +431,11 @@ const filterGroupsEditionPill: {
           'donors__transmission',
           'donors__is_hc',
         ],
+        defaults: {
+          start: {
+            operator: RangeOperators.between,
+          },
+        },
         intervalDecimal: {
           start: 0,
         },
@@ -384,6 +467,11 @@ const filterGroupsEditionPill: {
           'genes__gnomad__loeuf',
           'genes__omim__inheritance_code',
         ],
+        defaults: {
+          genes__gnomad__pli: {
+            operator: RangeOperators['>='],
+          },
+        },
       },
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.genepanel'),
@@ -416,6 +504,23 @@ const filterGroupsEditionPill: {
           'genes__spliceai__ds',
           'consequences__predictions__revel_score',
         ],
+        defaults: {
+          consequences__predictions__cadd_phred: {
+            operator: RangeOperators['>='],
+          },
+          consequences__predictions__cadd_score: {
+            operator: RangeOperators['>='],
+          },
+          consequences__predictions__dann_score: {
+            operator: RangeOperators['>='],
+          },
+          genes__spliceai__ds: {
+            operator: RangeOperators['>='],
+          },
+          consequences__predictions__revel_score: {
+            operator: RangeOperators['>='],
+          },
+        },
         tooltips: [
           'consequences__predictions__cadd_phred',
           'consequences__predictions__cadd_score',
@@ -425,6 +530,14 @@ const filterGroupsEditionPill: {
       {
         title: intl.get('oncology'),
         facets: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier', 'hotspot'],
+        defaults: {
+          cmc__sample_mutated: {
+            operator: RangeOperators['>='],
+          },
+          cmc__sample_ratio: {
+            operator: RangeOperators['>='],
+          },
+        },
         tooltips: ['cmc__sample_mutated', 'cmc__sample_ratio', 'cmc__tier', 'hotspot'],
       },
     ],
@@ -438,6 +551,11 @@ const filterGroupsEditionPill: {
           'frequency_RQDM__affected__af',
           'frequency_RQDM__non_affected__af',
         ],
+        defaults: {
+          frequency_RQDM__affected__af: {
+            operator: RangeOperators['>='],
+          },
+        },
         tooltips: [
           'frequency_RQDM__total__af',
           'frequency_RQDM__affected__af',
@@ -457,6 +575,35 @@ const filterGroupsEditionPill: {
           'external_frequencies__topmed_bravo__af',
           'external_frequencies__thousand_genomes__af',
         ],
+        defaults: {
+          external_frequencies__gnomad_exomes_2_1_1__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_2_1_1__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_3_0__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_3_1_1__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_3_1_1__ac: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_4__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__gnomad_genomes_4__ac: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__topmed_bravo__af: {
+            operator: RangeOperators['<='],
+          },
+          external_frequencies__thousand_genomes__af: {
+            operator: RangeOperators['<='],
+          },
+        },
         tooltips: [
           'external_frequencies__gnomad_genomes_2_1_1__af',
           'external_frequencies__gnomad_genomes_3_0__af',
