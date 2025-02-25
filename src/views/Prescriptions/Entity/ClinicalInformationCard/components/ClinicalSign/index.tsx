@@ -10,7 +10,7 @@ import {
   useValueSet,
   useValueSetAgeOnset,
 } from 'graphql/prescriptions/actions';
-import { filter, find, map, some } from 'lodash';
+import { filter, find, map } from 'lodash';
 import { EMPTY_FIELD, panelReflexCode, valueSetID } from 'views/Prescriptions/Entity/constants';
 
 import { useLang } from 'store/global';
@@ -30,23 +30,15 @@ const Observation = ({ id }: IDOwnProps) => {
   return <>{generalObervationValue?.valueString}</>;
 };
 
-const addIfExist = (
-  list: IHpoNode[],
-  currentOption: IHpoNode,
-  setList: Dispatch<SetStateAction<IHpoNode[]>>,
-) => {
-  !some(list, currentOption) ? setList([...list, currentOption]) : null;
-};
-
 const handleHpoSearchTerm = (
   term: string,
-  setCurrentOptions: Dispatch<SetStateAction<IHpoNode | undefined>>,
+  setCurrentOptions: Dispatch<SetStateAction<IHpoNode[]>>,
 ) => {
   term
     ? HpoApi.searchHpos(term.toLowerCase().trim()).then(({ data, error }) => {
         if (!error) {
           const results = map(data?.hits, '_source');
-          setCurrentOptions(results[0]);
+          setCurrentOptions((prevList) => [...prevList, results[0] || {}]);
         }
       })
     : null;
@@ -64,8 +56,6 @@ export const ClinicalSign = ({
   generalObervationId,
   prescriptionCode,
 }: ClinicalSignOwnProps) => {
-  const [currentHPOOptions, setCurrentHPOOptions] = useState<IHpoNode>();
-  const [currentAgeOptions, setCurrentAgeOptions] = useState<IHpoNode>();
   const [hpoList, setHpoList] = useState<IHpoNode[]>([]);
   const [ageList, setAgeList] = useState<IHpoNode[]>([]);
   const { phenotypeValue } = useObservationPhenotypeEntity(phenotypeIds);
@@ -73,10 +63,8 @@ export const ClinicalSign = ({
   const { valueSet } = useValueSet(getAnalysisCode(prescriptionCode));
   const lang = useLang();
   const getHpoValue = (element: PhenotypeRequestEntity) => {
-    handleHpoSearchTerm(element.valueCodeableConcept?.coding?.code, setCurrentHPOOptions);
-    element.extension
-      ? handleHpoSearchTerm(element.extension.valueCoding?.code, setCurrentAgeOptions)
-      : null;
+    handleHpoSearchTerm(element.valueCodeableConcept?.coding?.code, setHpoList);
+    element.extension ? handleHpoSearchTerm(element.extension.valueCoding?.code, setAgeList) : null;
   };
 
   useEffect(() => {
@@ -90,18 +78,6 @@ export const ClinicalSign = ({
       }
     }
   }, [phenotypeValue]);
-
-  useEffect(() => {
-    if (currentHPOOptions) {
-      addIfExist(hpoList, currentHPOOptions, setHpoList);
-    }
-  }, [currentHPOOptions, hpoList]);
-
-  useEffect(() => {
-    if (currentAgeOptions) {
-      addIfExist(ageList, currentAgeOptions, setAgeList);
-    }
-  }, [currentAgeOptions, ageList]);
 
   let positive = [];
   let negative = [];
