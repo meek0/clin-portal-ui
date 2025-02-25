@@ -130,6 +130,11 @@ const filterGroups: {
           'exomiser_max__acmg_classification',
           'exomiser_max__acmg_evidence',
         ],
+        defaults: {
+          exomiser_max__gene_combined_score: {
+            operator: RangeOperators['>='],
+          },
+        },
         tooltips: [
           'exomiser_max__gene_combined_score',
           'exomiser_max__acmg_classification',

@@ -274,6 +274,11 @@ const filterGroups: {
           'donors__exomiser__acmg_classification',
           'donors__exomiser__acmg_evidence',
         ],
+        defaults: {
+          donors__exomiser__gene_combined_score: {
+            operator: RangeOperators['>='],
+          },
+        },
         tooltips: ['donors__exomiser__gene_combined_score'],
       },
       {
