@@ -1,0 +1,36 @@
+NODE_ENV=production
+REACT_APP_TITLE=CLIN-PORTAL-UI
+REACT_APP_RELEASE_ID=$npm_package_version
+REACT_APP_RELEASE_NAME=$npm_package_versionName
+REACT_APP_NOSCRIPT_CONTENT=JavaScript is required.
+REACT_APP_NAMESPACE=qa
+REACT_APP_SHOW_TRANSLATION_BTN=true
+REACT_APP_FORCE_FILTER_BOOLEAN_TO_DICTIONARY=true
+REACT_APP_FILTER_BOOLEAN_TO_DICTIONARY_EXCEPTIONS=prenatal
+REACT_APP_SHOW_ASSIGNMENT=true
+REACT_APP_SHOW_FLAGS=true
+REACT_APP_SHOW_ONLY_NEW_INFO_POPUP=false
+# AUTH
+REACT_APP_KEYCLOAK_CONFIG={"realm": "clin", "url": "http://keycloak:8081/", "clientId": "clin-client", "authClientId": "clin-acl"}
+# API
+REACT_APP_ARRANGER_API=http://localhost:5050
+REACT_APP_ARRANGER_PROJECT_ID=clin_localstack
+REACT_APP_FHIR_SERVICE_URL=http://localhost:8080/fhir
+REACT_APP_ZEPLIN_URL=https://notebook.qa.cqgc.hsj.rtss.qc.ca
+REACT_APP_FHIR_CONSOLE_URL=https://fhir-console.qa.cqgc.hsj.rtss.qc.ca/home
+REACT_APP_WEB_ROOT=http://localhost:3000
+REACT_APP_USERS_API_URL=http://localhost:1212
+REACT_APP_FORM_API_URL=http://localhost:8088
+REACT_APP_PANELS_FILE=https://s3.cqgc.hsj.rtss.qc.ca/cqgc-qa-app-public/panels/panels.xlsx
+
+# Cypress
+CYPRESS_USERNAME_DG_CHUSJ_CUSM_CHUS="cypress.test.pg@chusjcusmchus.org"
+CYPRESS_USERNAME_G_CHUSJ_CUSM_CHUS="jean.leblanc.g@chusjcusmchus.org"
+CYPRESS_USERNAME_DG_CHUSJ="genevieve.beauchamp.pg@chusj.org"
+CYPRESS_USERNAME_G_CHUSJ="delima.simard.g@chusj.org"
+CYPRESS_USERNAME_G_CUSM="suzanne.paquet.g@cusm.org"
+CYPRESS_USERNAME_DG_CHUS="josephine.poirier.pg@chus.org"
+CYPRESS_USERNAME_G_CHUS="paul.parent.g@chus.org"
+CYPRESS_USERNAME_D_CUSM="victor.robitaille.p@cusm.org"
+CYPRESS_USERNAME_R_CHUSJ="sophia.charron.r@chusj.org"
+CYPRESS_PASSWORD="Clin2019!"
