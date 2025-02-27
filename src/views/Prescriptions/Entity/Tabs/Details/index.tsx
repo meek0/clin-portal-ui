@@ -20,6 +20,8 @@ import Footer from 'components/Layout/Footer';
 import { globalActions, useLang } from 'store/global';
 import { MIME_TYPES } from 'utils/constants';
 
+import FoetusClinicalInformation from '../../FoetusClinicalInformationCard';
+
 import styles from '../index.module.css';
 
 const getRtp = async () => (await RptManager.readRpt()).access_token;
@@ -32,6 +34,8 @@ const PrescriptionDetails = () => {
   const [rptToken, setRptToken] = useState<string | undefined>();
   const dispatch = useDispatch();
   const lang = useLang();
+
+  const isFoetusPrescription = prescription?.category?.[0]?.coding?.[0]?.code === 'Prenatal';
 
   useEffect(() => {
     getRtp().then((token) => {
@@ -99,11 +103,20 @@ const PrescriptionDetails = () => {
               </Col>
             )}
             <Col span={24}>
-              <ClinicalInformation
-                prescription={prescription}
-                prescriptionFormConfig={perscriptionFormConfig}
-                loading={loading}
-              />
+              {isFoetusPrescription ? (
+                <FoetusClinicalInformation
+                  prescription={prescription}
+                  prescriptionId={id}
+                  prescriptionFormConfig={perscriptionFormConfig}
+                  loading={loading}
+                />
+              ) : (
+                <ClinicalInformation
+                  prescription={prescription}
+                  prescriptionFormConfig={perscriptionFormConfig}
+                  loading={loading}
+                />
+              )}
             </Col>
             {prescription?.extensions?.map((extension, index) => (
               <Col key={index} span={24}>
