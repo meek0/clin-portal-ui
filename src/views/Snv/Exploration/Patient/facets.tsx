@@ -288,6 +288,11 @@ const filterGroups: {
           'franklin_max__acmg_classification',
           'franklin_max__acmg_evidence',
         ],
+        defaults: {
+          donors__franklin_combined_score: {
+            operator: RangeOperators['>='],
+          },
+        },
         tooltips: ['donors__franklin_combined_score'],
       },
       {
