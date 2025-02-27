@@ -126,7 +126,9 @@ const TranscriptSection = ({ record: { genes, consequences, rsnumber, locus } }:
             <Divider type="vertical" />
           </>
         )}
-        {pickedConsequence?.node.coding_dna_change && (
+        {(pickedConsequence?.node.coding_dna_change ||
+          (Array.isArray(pickedConsequence?.node.consequences) &&
+            pickedConsequence?.node.consequences.length)) && (
           <>
             {arn}
             <Divider type="vertical" />
