@@ -605,6 +605,7 @@
   "layout.main.menu.panels": "Panels",
   "layout.main.menu.panels.tooltip": "Download the RQDM panels as Excel",
   "layout.main.menu.documentation.tooltip": "Documentation",
+  "layout.main.menu.releaseNote.tooltip": "Release notes",
   "links.file": "File",
   "links.files": "Files",
   "links.variants": "Variants",

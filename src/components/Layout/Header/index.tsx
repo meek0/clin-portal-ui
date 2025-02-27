@@ -3,6 +3,7 @@ import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
+  BulbOutlined,
   DownloadOutlined,
   FileTextOutlined,
   HomeOutlined,
@@ -28,6 +29,7 @@ import { STATIC_ROUTES } from 'utils/routes';
 import { IncludeKeycloakTokenParsed } from 'utils/tokenTypes';
 
 import styles from './index.module.css';
+declare const Releasecat: any;
 
 export const getUserGuidelink = (lang: LANG) =>
   `${EnvironmentVariables.configFor('USER_GUIDE_URL')}/#${
@@ -126,6 +128,12 @@ const Header = () => {
             icon={<QuestionCircleOutlined />}
             tooltip={intl.get('layout.main.menu.documentation.tooltip')}
             onClick={() => window.open(getUserGuidelink(lang), '_blank')}
+          />
+          <HeaderButton
+            key="releaseNote"
+            icon={<BulbOutlined />}
+            tooltip={intl.get('layout.main.menu.releaseNote.tooltip')}
+            onClick={() => Releasecat.showSidePanel()}
           />
           <Dropdown
             key="user-menu"
