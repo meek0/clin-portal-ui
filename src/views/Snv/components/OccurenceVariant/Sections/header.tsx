@@ -1,22 +1,23 @@
 /* eslint-disable max-len */
+import { useState } from 'react';
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
-import { DownloadOutlined, EditOutlined } from '@ant-design/icons';
+import { DownloadOutlined } from '@ant-design/icons';
 import { Button, Divider, Space } from 'antd';
 import { Rpt } from 'auth/types';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { TAB_ID } from 'views/Snv/Entity';
 
+import EditIcon from 'components/icons/EditIcon';
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { ReportNames } from 'store/reports/types';
 
+import InterpretationModal from '../../InterpretationModal';
 import ReportButton from '../../Report/DownloadButton';
 
 import style from '../index.module.css';
-import InterpretationModal from '../../InterpretationModal';
-import { useState } from 'react';
-import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 
 interface OwnProps {
   record: ITableVariantEntity;
@@ -36,14 +37,16 @@ const Header = ({ record, patientId, loadingRpt, rpt, igvModalCb, variantSection
         <Link target="_blank" to={`/variant/entity/${record?.locus}/${TAB_ID.SUMMARY}`}>
           <Space className={style.hgvsg}>
             <span className={style.hgvsgLink}>{record?.hgvsg}</span>
-            <ExternalLinkIcon height="16" width="16" className="anticon" />
+            <div style={{ display: 'flex' }}>
+              <ExternalLinkIcon height="24" width="24" className="anticon" />
+            </div>
           </Space>
         </Link>
         <Space>
           <Button
             type="primary"
             size="small"
-            icon={<EditOutlined size={16} />}
+            icon={<EditIcon height="14" width="14" className="anticon" />}
             onClick={() => toggleInterpretationModal(true)}
           >
             {intl.get('interpret')}

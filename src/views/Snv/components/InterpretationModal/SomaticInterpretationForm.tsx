@@ -4,15 +4,15 @@ import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Form, Input, Radio, Select, Tag, Tooltip } from 'antd';
 
 import {
-  clinicalUtilitys,
+  getClinicalUtilitys,
   getOncogenicityClassificationCriteriaColor,
   oncogenicityClassificationCriterias,
 } from './data';
 import GenericInterpretationForm from './GenericInterpretationForm';
 import { SomaticInterpFormFields } from './types';
+import { requiredRule } from './utils';
 
 import styles from './index.module.css';
-import { requiredRule } from './utils';
 
 const SomaticInterpretationForm = () => (
   <>
@@ -139,7 +139,7 @@ const SomaticInterpretationForm = () => (
     >
       <Select
         placeholder={intl.get('modal.variant.interpretation.somatic.clinicalUtility-placeholder')}
-        options={clinicalUtilitys}
+        options={getClinicalUtilitys()}
         tagRender={({ label, ...props }) => (
           <Tag className={styles.filledBlueTag} style={{ marginLeft: 4 }} {...props}>
             {label}

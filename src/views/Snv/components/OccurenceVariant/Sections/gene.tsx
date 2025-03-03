@@ -53,6 +53,13 @@ const GeneSection = ({ record }: OwnProps) => {
           TABLE_EMPTY_PLACE_HOLDER
         )}
       </Descriptions.Item>
+      <Descriptions.Item label={intl.get('screen.patientsnv.results.table.revel')}>
+        {pickedConsequence?.node?.predictions?.revel_score ? (
+          <div>{pickedConsequence?.node.predictions.revel_score}</div>
+        ) : (
+          TABLE_EMPTY_PLACE_HOLDER
+        )}
+      </Descriptions.Item>
       <Descriptions.Item label={intl.get('screen.patientsnv.results.table.spliceAI')}>
         {geneInfo?.spliceai ? (
           <Space className={style.alignRigthSpace}>

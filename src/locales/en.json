@@ -1100,6 +1100,7 @@
   "screen.patientsnv.results.table.pli": "pLI",
   "screen.patientsnv.results.table.pli.tooltip": "Probability of being loss-of-function intolerant (pLI) from gnomAD",
   "screen.patientsnv.results.table.loeuf": "LOEUF",
+  "screen.patientsnv.results.table.revel": "REVEL",
   "screen.patientsnv.results.table.loeuf.tooltip": "Loss-of-function observed/expected upper bound fraction (LOEUF) from gnomAD ",
   "screen.patientsnv.results.table.actions": "Actions",
   "screen.patientsnv.results.table.altprof": "A",
@@ -1546,7 +1547,7 @@
         "title": "Clinical Interpretation",
         "cancelText": "Cancel",
         "okText": "Save",
-        "lastUpdate": "Last update: <span style='font-weight:500;'>{name}</span> ({date, date, long}, {time, time, medium})",
+        "lastUpdate": "Last update: <span style='font-weight:500;'>{name}</span> ({date, date, long}, {updatedAtTime})",
         "header": {
           "germline": "Germline",
           "somatic": "Somatic"
@@ -1573,7 +1574,7 @@
             "benign": "Benign"
           },
           "classificationCriteria-placeholder": "Classification criteria",
-          "modeOfTransmission": "Mode of transmission",
+          "modeOfTransmission": "Mode of inheritance",
           "modeOfTransmission-placeholder": "Select",
           "modeOfTransmission-options": {
             "autosomal_dominant_de_novo": "Autosomal Dominant De Novo",

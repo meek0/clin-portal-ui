@@ -34,6 +34,17 @@
     border-color: var(--blue-7);
 }
 
+.richTextEditor :global(.ql-editor) {
+    min-height: 100px;
+    height: 150px;
+    overflow-y: scroll;
+    resize: vertical;
+}
+
+:global(.ql-tooltip.ql-editing) {
+    left: unset !important;
+}
+
 .richTextEditor :global(.ql-toolbar .ql-picker-label):hover,
 .richTextEditor :global(.ql-toolbar .ql-picker-label):hover :global(.ql-stroke),
 .richTextEditor :global(.ql-toolbar button):hover :global(.ql-stroke) {

@@ -1,6 +1,15 @@
+import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Alert, Col, Form, Modal, Row, Space, Spin } from 'antd';
+import { InterpretationApi } from 'api/interpretation';
+import {
+  TInterpretationGermline,
+  TInterpretationInput,
+  TInterpretationOutput,
+  TInterpretationSomatic,
+} from 'api/interpretation/model';
+import { format } from 'date-fns';
 import { ITableVariantEntity } from 'graphql/variants/models';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 
@@ -27,14 +36,6 @@ import {
 
 import occurenceStyles from '../OccurenceVariant/index.module.css';
 import styles from './index.module.css';
-import { useEffect, useState } from 'react';
-import { InterpretationApi } from 'api/interpretation';
-import {
-  TInterpretationGermline,
-  TInterpretationInput,
-  TInterpretationOutput,
-  TInterpretationSomatic,
-} from 'api/interpretation/model';
 
 type TInterpretationModalProps = {
   isOpen: boolean;
@@ -163,7 +164,7 @@ const InterpretationModal = ({
                   {intl.getHTML('modal.variant.interpretation.lastUpdate', {
                     name: interpretation.updated_by_name,
                     date: new Date(interpretation.updated_at),
-                    time: new Date(interpretation.updated_at),
+                    updatedAtTime: format(new Date(interpretation.updated_at), "H'h'mm"),
                   })}
                 </div>
               }

@@ -26,14 +26,14 @@
 }
 
 .interpretationModal .radioButton :global(.ant-radio-button-wrapper-checked).orange {
-    color: var(--orange-9);
+    color: var(--orange-10);
     border-color: var(--orange-4) !important;
     border-right-color: var(--orange-4) !important;
     background-color: var(--orange-2);
 }
 
 .interpretationModal .radioButton :global(.ant-radio-button-wrapper-checked).orange:hover {
-    color: var(--orange-9);
+    color: var(--orange-10);
 }
 
 .interpretationModal :global(.ant-radio-button-wrapper-checked).orange:not(:global(.ant-radio-button-wrapper-disabled))::before {
@@ -41,14 +41,14 @@
 }
 
 .interpretationModal .radioButton :global(.ant-radio-button-wrapper-checked).lime {
-    color: var(--lime-9);
+    color: var(--lime-10);
     border-color: var(--lime-5) !important;
     border-right-color: var(--lime-5) !important;
     background-color: var(--lime-2);
 }
 
 .interpretationModal .radioButton :global(.ant-radio-button-wrapper-checked).lime:hover {
-    color: var(--lime-9);
+    color: var(--lime-10);
 }
 
 .interpretationModal :global(.ant-radio-button-wrapper-checked).lime:not(:global(.ant-radio-button-wrapper-disabled))::before {
@@ -114,3 +114,8 @@
     align-items: center;
     height: 100%;
 }
+
+.selectSearchHighlight strong{
+    font-weight: normal;
+    background-color: var(--blue-2);
+  }

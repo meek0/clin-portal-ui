@@ -1,18 +1,22 @@
+import { useCallback, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { CloseOutlined } from '@ant-design/icons';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Form, Radio, Select, Tag, Tooltip } from 'antd';
-
-import { classificationCriterias, getClassificationCriteriaColor, transmissionModes } from './data';
-import GenericInterpretationForm from './GenericInterpretationForm';
-import { GermlineInterpFormFields } from './types';
-
-import styles from './index.module.css';
-import { useCallback, useEffect, useState } from 'react';
 import { InterpretationApi } from 'api/interpretation';
 import { TMondoAutocompleteHit } from 'api/interpretation/model';
 import { capitalize, debounce } from 'lodash';
+
+import {
+  classificationCriterias,
+  getClassificationCriteriaColor,
+  getTransmissionModes,
+} from './data';
+import GenericInterpretationForm from './GenericInterpretationForm';
+import { GermlineInterpFormFields } from './types';
 import { requiredRule } from './utils';
+
+import styles from './index.module.css';
 
 const GermlineInterpretationForm = () => {
   const form = Form.useFormInstance();
@@ -53,12 +57,34 @@ const GermlineInterpretationForm = () => {
           placeholder={intl.get('modal.variant.interpretation.germline.condition-placeholder')}
           showSearch
           allowClear
-          onSearch={debouncedSearch}
+          onSearch={(value) => {
+            if (value.length >= 3) {
+              debouncedSearch(value);
+            }
+          }}
           optionLabelProp="display"
           optionFilterProp="filter"
           options={results.map((mondo) => ({
             display: capitalize(mondo._source.name),
-            label: `${capitalize(mondo._source.name)} (${mondo._source.mondo_id})`,
+            label: (
+              <div>
+                {mondo.highlight.name ? (
+                  <span
+                    className={styles.selectSearchHighlight}
+                    dangerouslySetInnerHTML={{ __html: mondo.highlight.name }}
+                  />
+                ) : (
+                  <span>{mondo._source.name}</span>
+                )}{' '}
+                {mondo.highlight.mondo_id ? (
+                  <span className={styles.selectSearchHighlight}>
+                    (<span dangerouslySetInnerHTML={{ __html: mondo.highlight.mondo_id }} />)
+                  </span>
+                ) : (
+                  <span>({mondo._source.mondo_id})</span>
+                )}
+              </div>
+            ),
             filter: `${mondo._source.name}${mondo._source.mondo_id}`,
             value: mondo._source.mondo_id,
           }))}
@@ -183,7 +209,7 @@ const GermlineInterpretationForm = () => {
           placeholder={intl.get(
             'modal.variant.interpretation.germline.modeOfTransmission-placeholder',
           )}
-          options={transmissionModes}
+          options={getTransmissionModes()}
           tagRender={({ label, ...props }) => (
             <Tag className={styles.filledBlueTag} style={{ marginLeft: 4 }} {...props}>
               {label}

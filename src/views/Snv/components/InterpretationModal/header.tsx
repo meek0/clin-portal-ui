@@ -29,7 +29,9 @@ const Header = ({ record, isSomatic }: OwnProps) => {
       <Link target="_blank" to={`/variant/entity/${record?.locus}/${TAB_ID.SUMMARY}`}>
         <Space className={styles.hgvsg}>
           <span className={styles.hgvsgLink}>{record?.hgvsg}</span>
-          <ExternalLinkIcon height="16" width="16" className="anticon" />
+          <div style={{ display: 'flex' }}>
+            <ExternalLinkIcon height="24" width="24" className="anticon" />
+          </div>
         </Space>
       </Link>
       <Tag key="type" color={isSomatic ? 'gold' : 'purple'}>

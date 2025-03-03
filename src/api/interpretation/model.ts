@@ -51,6 +51,7 @@ export type TInterpretationInput = TInterpretationGermlineInput | TInterpretatio
 
 export type TMondoAutocompleteHit = {
   highlight: {
+    name: string[];
     mondo_id: string[];
   };
   _source: {
