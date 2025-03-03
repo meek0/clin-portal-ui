@@ -264,6 +264,7 @@ export interface AnalysisTaskExperiment {
   alias: string;
   experimentalStrategy: string;
   platform: string;
+  protocol: string;
   captureKit: string;
   sequencerId: string;
   runDate: string;

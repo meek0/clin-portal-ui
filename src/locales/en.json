@@ -895,6 +895,7 @@
   "screen.bioinfo.analysis.experiment.date": "Date",
   "screen.bioinfo.analysis.experiment.experimental.stategy": "Experimental Strategy",
   "screen.bioinfo.analysis.experiment.platform": "Plateform",
+  "screen.bioinfo.analysis.experiment.protocol": "Protocol",
   "screen.bioinfo.analysis.experiment.runAlias": "Run Alias",
   "screen.bioinfo.analysis.experiment.runName": "Run Name",
   "screen.bioinfo.analysis.experiment.sequencer": "Sequencer",

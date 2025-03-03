@@ -437,6 +437,9 @@ export const ANALYSIS_TASK_QUERY = (taskId: string) => gql`
         extension(url:"platform") @first @flatten{
             platform: value
         }
+        extension(url:"protocol") @first @flatten{
+            protocol: value
+        }
         extension(url:"captureKit") @first @flatten{
             captureKit: value
         }
