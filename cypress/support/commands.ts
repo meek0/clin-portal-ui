@@ -22,7 +22,7 @@ Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: st
   cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
     if ($button.hasClass('ant-btn-link')) {
       cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
-      cy.waitWhileSpin(1000);
+      cy.waitWhileSpin(oneMinute);
     };
   });
 
@@ -33,11 +33,11 @@ Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: st
 Cypress.Commands.add('checkValueFacet', (facetTitle: string, valueBack: string) => {
   cy.url().should('match', /\/prescription\/search/);
   cy.get(`[aria-expanded="true"] [data-cy="FilterContainer_${facetTitle}"]`).should('exist');
-  cy.waitWhileSpin(1000);
+  cy.waitWhileSpin(oneMinute);
   cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
     if ($button.hasClass('ant-btn-link')) {
       cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
-      cy.waitWhileSpin(1000);
+      cy.waitWhileSpin(oneMinute);
     };
   });
 
@@ -122,7 +122,7 @@ Cypress.Commands.add('login', (user: string, password: string, restoreSession: b
 
 Cypress.Commands.add('logout', () => {
     cy.visit('/');
-    cy.waitWhileSpin(5*1000);
+    cy.waitWhileSpin(oneMinute);
 
     cy.get('div [id="appContainer"]').then(($div) => {
         if ($div.hasClass('App')) {
@@ -194,6 +194,7 @@ Cypress.Commands.add('typeAndIntercept', (selector: string, text: string, method
   cy.intercept(methodHTTP, routeMatcher).as('getRouteMatcher');
 
   cy.get(selector).type(text, {force: true});
+  cy.waitWhileSpin(oneMinute);
 
   for (let i = 0; i < nbCalls; i++) {
     cy.wait('@getRouteMatcher', {timeout: oneMinute});
@@ -226,7 +227,7 @@ Cypress.Commands.add('validateDictionnaryNewValues', (section: string, facetTitl
     
   // Aucune nouvelle valeur n'est présente dans la facette
   cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').click({force: true});
-  cy.waitWhileSpin(2000);
+  cy.waitWhileSpin(oneMinute);
   cy.get(`[data-cy*="Checkbox_${facetTitle}_"]`).its('length').should('eq', dictionnary.length);
 });
 
@@ -678,7 +679,7 @@ Cypress.Commands.add('waitWhileSpin', (ms: number) => {
 
     return cy.get('body').then(($body) => {
       if ($body.find('.ant-spin-blur').length > 0) {
-        return cy.wait(500).then(checkForSpinners);
+        return cy.wait(1000).then(checkForSpinners);
       };
     });
   };
