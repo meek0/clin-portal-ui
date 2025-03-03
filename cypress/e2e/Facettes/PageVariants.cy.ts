@@ -27,7 +27,7 @@ describe('Page des variants - Filtrer avec les facettes', () => {
   });
 
   it('Pathogénicité - Score Exomiser (max)', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'Score Exomiser (max)', '0.01', /^1 3\d{2} \d{3}$/);
+    cy.validateFacetNumFilter('Min', 'Pathogénicité', 'Score Exomiser (max)', '0.01', /^1 3\d{2} \d{3}$/);
     cy.validateFacetRank(1, 'Score Exomiser (max)');
   });
 
@@ -42,7 +42,7 @@ describe('Page des variants - Filtrer avec les facettes', () => {
   });
 
   it('Pathogénicité - Score Franklin (max)', () => {
-    cy.validateFacetNumFilter('Pathogénicité', 'Score Franklin (max)', '0.01', /^1 3\d{2} \d{3}$/);
+    cy.validateFacetNumFilter('Min', 'Pathogénicité', 'Score Franklin (max)', '0.01', /^1 3\d{2} \d{3}$/);
     cy.validateFacetRank(6, 'Score Franklin (max)');
   });
 

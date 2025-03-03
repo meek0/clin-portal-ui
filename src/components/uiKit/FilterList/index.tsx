@@ -89,6 +89,7 @@ const FilterList = ({
                   extendedMappingResults={extendedMappingResults}
                   filterOpen={filtersOpen}
                   defaultOpen={filterInfo.defaultOpenFacets?.includes(facet) ? true : undefined}
+                  defaults={group.defaults?.[facet]}
                   filterMapper={filterMapper}
                   headerTooltip={group.tooltips?.includes(facet)}
                   intervalDecimal={

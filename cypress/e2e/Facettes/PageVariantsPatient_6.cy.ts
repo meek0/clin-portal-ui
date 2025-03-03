@@ -55,27 +55,27 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Occurrence - Qualité de profondeur', () => {
-    cy.validateFacetNumFilter('Occurrence', 'Qualité de profondeur', '0.01', /^12$/);
+    cy.validateFacetNumFilter('Min', 'Occurrence', 'Qualité de profondeur', '0.01', /^184 065$/);
     cy.validateFacetRank(8, 'Qualité de profondeur');
   });
 
   it('Occurrence - Profondeur allélique ALT', () => {
-    cy.validateFacetNumFilter('Occurrence', 'Profondeur allélique ALT', '5', /^23 324$/);
+    cy.validateFacetNumFilter('Min', 'Occurrence', 'Profondeur allélique ALT', '5', /^160 753$/);
     cy.validateFacetRank(9, 'Profondeur allélique ALT');
   });
 
   it('Occurrence - Profondeur totale ALT + REF', () => {
-    cy.validateFacetNumFilter('Occurrence', 'Profondeur totale ALT + REF', '5', /^11 586$/);
+    cy.validateFacetNumFilter('Min', 'Occurrence', 'Profondeur totale ALT + REF', '5', /^172 491$/);
     cy.validateFacetRank(10, 'Profondeur totale ALT + REF');
   });
 
   it('Occurrence - Ratio allélique ALT / (ALT+REF)', () => {
-    cy.validateFacetNumFilter('Occurrence', 'Ratio allélique ALT / (ALT+REF)', '0.05', /^1$/);
+    cy.validateFacetNumFilter('Min', 'Occurrence', 'Ratio allélique ALT / (ALT+REF)', '0.05', /^184 076$/);
     cy.validateFacetRank(11, 'Ratio allélique ALT / (ALT+REF)');
   });
 
   it('Occurrence - Qualité du génotype', () => {
-    cy.validateFacetNumFilter('Occurrence', 'Qualité du génotype', '5', /^3 025$/);
+    cy.validateFacetNumFilter('Min', 'Occurrence', 'Qualité du génotype', '5', /^181 052$/);
     cy.validateFacetRank(12, 'Qualité du génotype');
   });
 });
