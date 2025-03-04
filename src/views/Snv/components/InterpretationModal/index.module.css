@@ -114,8 +114,3 @@
     align-items: center;
     height: 100%;
 }
-
-.selectSearchHighlight strong{
-    font-weight: normal;
-    background-color: var(--blue-2);
-  }

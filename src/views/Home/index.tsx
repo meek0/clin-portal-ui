@@ -2,13 +2,10 @@ import { HomeOutlined } from '@ant-design/icons';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Col, Row } from 'antd';
 import { getUserFullName } from 'auth/keycloak';
-import InterpretationModal from 'views/Snv/components/InterpretationModal';
 
 import ContentWithHeader from 'components/Layout/ContentWithHeader';
 import ScrollContentWithFooter from 'components/Layout/ScrollContentWithFooter';
 import { LimitTo, Roles } from 'components/Roles/Rules';
-import useFeatureToggle from 'hooks/useFeatureToggle';
-import useQueryParams from 'hooks/useQueryParams';
 
 import PrescriptionSearchBox from './components/PrescriptionSearchBox';
 import VariantSearchBox from './components/VariantSearchBox';

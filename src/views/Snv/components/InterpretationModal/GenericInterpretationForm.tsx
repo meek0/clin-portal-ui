@@ -8,7 +8,7 @@ import RichTextEditor from 'components/uiKit/RichTextEditor';
 import { GenericInterpFormFields } from './types';
 
 import { debounce } from 'lodash';
-import { useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 
 import styles from './index.module.css';
 import { requiredRule } from './utils';
@@ -18,16 +18,8 @@ import { TPubmedOutput } from 'api/interpretation/model';
 const GenericInterpretationForm = () => {
   const form = Form.useFormInstance();
 
-  const cacheRef = useRef(new Map());
-
   const fetchCitation = async (value: string, pubmedIndex: number) => {
     if (!value) return;
-
-    if (cacheRef.current.has(value)) {
-      const cachedData = cacheRef.current.get(value);
-      updateCitationField(cachedData, pubmedIndex);
-      return;
-    }
 
     const { data, error } = await InterpretationApi.fetchPubmed(value);
 
@@ -35,8 +27,6 @@ const GenericInterpretationForm = () => {
 
     if (error) {
       console.error('API Error:', error);
-    } else {
-      cacheRef.current.set(value, data); // Cache the result
     }
   };
 
@@ -115,48 +105,48 @@ const GenericInterpretationForm = () => {
         >
           {(fields, { add, remove }) => (
             <>
-              {fields.map(({ key, name, ...restField }) => {
-                return (
-                  <div
-                    key={key}
-                    style={{
-                      display: 'flex',
-                      marginBottom: 12,
-                      width: '100%',
-                      alignItems: 'center',
-                      gap: 8,
-                    }}
+              {fields.map(({ key, name, ...restField }) => (
+                <div
+                  key={key}
+                  style={{
+                    display: 'flex',
+                    marginBottom: 12,
+                    width: '100%',
+                    alignItems: 'center',
+                    gap: 8,
+                  }}
+                >
+                  <Form.Item
+                    {...restField}
+                    hidden
+                    name={[name, GenericInterpFormFields.PUBMED_CITATION_ID]}
                   >
-                    <Form.Item
-                      {...restField}
-                      hidden
-                      name={[name, GenericInterpFormFields.PUBMED_CITATION_ID]}
-                    >
-                      <Input />
-                    </Form.Item>
-                    <Form.Item
-                      {...restField}
-                      name={[name, GenericInterpFormFields.PUBMED_CITATION]}
-                      style={{ flex: 1, marginBottom: 0 }}
-                    >
-                      <Input.TextArea
-                        autoSize={{ minRows: 0, maxRows: 6 }}
-                        defaultValue=""
-                        placeholder={intl.get(
-                          'modal.variant.interpretation.generic.citation-placeholder',
-                        )}
-                        onChange={(e) => debouncedFetchCitation(e.target.value, name)}
-                      />
-                    </Form.Item>
-                    {fields.length > 1 ? (
-                      <CloseOutlined
-                        className={styles.addCitationIcon}
-                        onClick={() => remove(name)}
-                      />
-                    ) : null}
-                  </div>
-                );
-              })}
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    {...restField}
+                    name={[name, GenericInterpFormFields.PUBMED_CITATION]}
+                    style={{ flex: 1, marginBottom: 0 }}
+                  >
+                    <Input.TextArea
+                      autoSize={{ minRows: 0, maxRows: 6 }}
+                      defaultValue=""
+                      disabled={
+                        !!form.getFieldValue([
+                          GenericInterpFormFields.PUBMED,
+                          name,
+                          GenericInterpFormFields.PUBMED_CITATION,
+                        ])
+                      }
+                      placeholder={intl.get(
+                        'modal.variant.interpretation.generic.citation-placeholder',
+                      )}
+                      onChange={(e) => debouncedFetchCitation(e.target.value, name)}
+                    />
+                  </Form.Item>
+                  <CloseOutlined className={styles.addCitationIcon} onClick={() => remove(name)} />
+                </div>
+              ))}
               <Form.Item style={{ marginBottom: 0 }} shouldUpdate>
                 {() => (
                   <Button

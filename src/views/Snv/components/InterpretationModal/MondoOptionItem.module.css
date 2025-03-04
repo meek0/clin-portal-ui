@@ -1,0 +1,4 @@
+.selectSearchHighlight strong{
+    font-weight: normal;
+    background-color: var(--blue-2);
+  }

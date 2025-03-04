@@ -17,6 +17,7 @@ import { GermlineInterpFormFields } from './types';
 import { requiredRule } from './utils';
 
 import styles from './index.module.css';
+import InterpretationMondoOptionItem from './MondoOptionItem';
 
 const GermlineInterpretationForm = () => {
   const form = Form.useFormInstance();
@@ -66,25 +67,7 @@ const GermlineInterpretationForm = () => {
           optionFilterProp="filter"
           options={results.map((mondo) => ({
             display: capitalize(mondo._source.name),
-            label: (
-              <div>
-                {mondo.highlight.name ? (
-                  <span
-                    className={styles.selectSearchHighlight}
-                    dangerouslySetInnerHTML={{ __html: mondo.highlight.name }}
-                  />
-                ) : (
-                  <span>{mondo._source.name}</span>
-                )}{' '}
-                {mondo.highlight.mondo_id ? (
-                  <span className={styles.selectSearchHighlight}>
-                    (<span dangerouslySetInnerHTML={{ __html: mondo.highlight.mondo_id }} />)
-                  </span>
-                ) : (
-                  <span>({mondo._source.mondo_id})</span>
-                )}
-              </div>
-            ),
+            label: <InterpretationMondoOptionItem mondo={mondo} />,
             filter: `${mondo._source.name}${mondo._source.mondo_id}`,
             value: mondo._source.mondo_id,
           }))}

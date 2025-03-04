@@ -14,24 +14,21 @@ import {
 } from './types';
 
 const getGenericInterpFormInitialValues = (interpretation: TInterpretationOutput | null) => {
-  if (interpretation && interpretation.pubmed?.length) {
+  if (interpretation) {
     return {
       [GenericInterpFormFields.INTERPRETATION]: interpretation.interpretation,
-      [GenericInterpFormFields.PUBMED]: (interpretation.pubmed || []).map((pubmed) => ({
-        [GenericInterpFormFields.PUBMED_CITATION_ID]: pubmed.citation_id,
-        [GenericInterpFormFields.PUBMED_CITATION]: pubmed.citation,
-      })),
+      [GenericInterpFormFields.PUBMED]: interpretation.pubmed?.length
+        ? (interpretation.pubmed || []).map((pubmed) => ({
+            [GenericInterpFormFields.PUBMED_CITATION_ID]: pubmed.citation_id,
+            [GenericInterpFormFields.PUBMED_CITATION]: pubmed.citation,
+          }))
+        : [],
     };
   }
 
   return {
     [GenericInterpFormFields.INTERPRETATION]: '',
-    [GenericInterpFormFields.PUBMED]: [
-      {
-        [GenericInterpFormFields.PUBMED_CITATION_ID]: '',
-        [GenericInterpFormFields.PUBMED_CITATION]: '',
-      },
-    ],
+    [GenericInterpFormFields.PUBMED]: [],
   };
 };
 
