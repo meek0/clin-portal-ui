@@ -1606,7 +1606,7 @@
             "likelyBenign-tooltip": "Probably benign",
             "benign": "Benign"
           },
-          "classificationCriteria": "Classification criteria e.g. PM1, PS2",
+          "classificationCriteria": "Interpretation",
           "classificationCriteria-placeholder": "Classification criteria",
           "clinicalUtility": "Clinical utility",
           "clinicalUtility-placeholder": "Select",
