@@ -15,6 +15,7 @@ describe('Ligne extensible d\'une occurrence (somatic)', () => {
   it('Vérifier les informations affichées - En-tête', () => {
     cy.get('[class="ant-card-head-title"]').contains('chr10:g.1096268T>C').should('exist');
     cy.get('[class="ant-card-head-title"]').find('svg[class*="anticon"]').should('exist');
+    cy.get('[class="ant-card-head-title"] button').eq(0).contains('Interpréter').should('exist');
     cy.get('[class="ant-card-head-title"] button').eq(0).contains('Télécharger rapport').should('exist');
     cy.get('[class="ant-card-head-title"] button').eq(1).contains('Ouvrir IGV').should('exist');
     cy.get('[class="ant-card-head-title"]').contains('UCSC').should('exist');
