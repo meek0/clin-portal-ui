@@ -59,7 +59,7 @@ const SomaticInterpretationForm = () => (
           shouldUpdate
         >
           <Radio.Group className={styles.radioButton}>
-            <Radio.Button value="LA6668-3" className={styles.red}>
+            <Radio.Button value="oncogenic" className={styles.red}>
               {intl.get('modal.variant.interpretation.somatic.oncogenicity-options.oncogenic')}
             </Radio.Button>
             <Tooltip
@@ -67,7 +67,7 @@ const SomaticInterpretationForm = () => (
                 'modal.variant.interpretation.somatic.oncogenicity-options.likelyOncogenic-tooltip',
               )}
             >
-              <Radio.Button value="LA26332-9" className={styles.volcano}>
+              <Radio.Button value="likely_oncogenic" className={styles.volcano}>
                 {intl.get(
                   'modal.variant.interpretation.somatic.oncogenicity-options.likelyOncogenic',
                 )}
@@ -78,7 +78,7 @@ const SomaticInterpretationForm = () => (
                 'modal.variant.interpretation.somatic.oncogenicity-options.vus-tooltip',
               )}
             >
-              <Radio.Button value="LA26333-7" className={styles.orange}>
+              <Radio.Button value="uncertain_significance" className={styles.orange}>
                 {intl.get('modal.variant.interpretation.somatic.oncogenicity-options.vus')}
               </Radio.Button>
             </Tooltip>
@@ -87,11 +87,11 @@ const SomaticInterpretationForm = () => (
                 'modal.variant.interpretation.somatic.oncogenicity-options.likelyBenign-tooltip',
               )}
             >
-              <Radio.Button value="LA26334-5" className={styles.lime}>
+              <Radio.Button value="likely_benign" className={styles.lime}>
                 {intl.get('modal.variant.interpretation.somatic.oncogenicity-options.likelyBenign')}
               </Radio.Button>
             </Tooltip>
-            <Radio.Button value="LA6675-8" className={styles.green}>
+            <Radio.Button value="benign" className={styles.green}>
               {intl.get('modal.variant.interpretation.somatic.oncogenicity-options.benign')}
             </Radio.Button>
           </Radio.Group>
