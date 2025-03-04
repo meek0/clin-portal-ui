@@ -19,6 +19,7 @@ export default class EnvironmentVariables {
     FILTER_BOOLEAN_TO_DICTIONARY_EXCEPTIONS:
       process.env.REACT_APP_FILTER_BOOLEAN_TO_DICTIONARY_EXCEPTIONS,
     SENTRY_API: process.env.REACT_APP_SENTRY_API,
+    RADIANT_API_URL: process.env.REACT_APP_RADIANT_API_URL,
     // URL
     USER_GUIDE_URL: process.env.REACT_APP_USER_GUIDE_URL,
 

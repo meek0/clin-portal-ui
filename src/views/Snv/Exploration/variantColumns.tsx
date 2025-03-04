@@ -109,7 +109,7 @@ const ACMGExomiserColorMap: Record<any, string> = {
   BENIGN: 'green',
 };
 
-const CmcTierColorMap: Record<any, string> = {
+export const CmcTierColorMap: Record<any, string> = {
   1: 'red',
   2: 'volcano',
   3: 'orange',

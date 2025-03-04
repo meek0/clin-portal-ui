@@ -1,0 +1,53 @@
+.richTextEditor {
+    background-color: white;
+    font-family: inherit;
+}
+
+.richTextEditor:focus-within {
+    box-shadow: 0px 0px 0px 2px var(--blue-4);
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+.richTextEditor :global(.ql-container.ql-snow),
+.richTextEditor :global(.ql-toolbar.ql-snow) {
+    border-color: var(--border);
+}
+
+.richTextEditor :global(.ql-container.ql-snow) {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.richTextEditor :global(.ql-toolbar.ql-snow) {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.richTextEditor:hover :global(.ql-toolbar.ql-snow) {
+    border-top-color: var(--blue-7);
+    border-left-color: var(--blue-7); 
+    border-right-color: var(--blue-7); 
+}
+
+.richTextEditor:hover :global(.ql-container.ql-snow) {
+    border-color: var(--blue-7);
+}
+
+.richTextEditor :global(.ql-editor) {
+    min-height: 100px;
+    height: 150px;
+    overflow-y: scroll;
+    resize: vertical;
+}
+
+:global(.ql-tooltip) {
+    left: unset !important;
+}
+
+.richTextEditor :global(.ql-toolbar .ql-picker-label):hover,
+.richTextEditor :global(.ql-toolbar .ql-picker-label):hover :global(.ql-stroke),
+.richTextEditor :global(.ql-toolbar button):hover :global(.ql-stroke) {
+    color: var(--blue-8) !important;
+    stroke: var(--blue-8) !important;
+}

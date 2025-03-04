@@ -1102,6 +1102,7 @@
   "screen.patientsnv.results.table.pli": "pLI",
   "screen.patientsnv.results.table.pli.tooltip": "Probability of being loss-of-function intolerant (pLI) de gnomAD",
   "screen.patientsnv.results.table.loeuf": "LOEUF",
+  "screen.patientsnv.results.table.revel": "REVEL",
   "screen.patientsnv.results.table.loeuf.tooltip": "Loss-of-function observed/expected upper bound fraction (LOEUF) de gnomAD",
   "screen.patientsnv.results.table.actions": "Actions",
   "screen.patientsnv.results.table.altprof": "A",
@@ -1543,6 +1544,99 @@
       "HET": "Hétérozygote"
     }
   },
+  "modal": {
+    "variant": {
+      "interpretation": {
+        "title": "Interprétation clinique",
+        "cancelText": "Annuler",
+        "okText": "Sauvegarder",
+        "lastUpdate": "Dernière mise à jour : <span style='font-weight:500;'>{name}</span> ({date, date, long}, {updatedAtTime})",
+        "header": {
+          "germline": "Germline",
+          "somatic": "Somatic"
+        },
+        "generic": {
+          "interpretation": "Interprétation",
+          "pubMedPublication": "Publication PubMed",
+          "pubMedIdNotFound": "PMID invalide ou inconnu",
+          "citation-placeholder": "Citation",
+          "addCitation": "Ajouter une publication"
+        },
+        "germline": {
+          "condition": "Condition",
+          "condition-placeholder": "Rechercher une condition",
+          "classification": "Classification",
+          "classification-options": {
+            "pathogenic": "Pathogénique",
+            "likelyPathogenic": "Prob. pathogénique",
+            "likelyPathogenic-tooltip": "Probablement pathogénique",
+            "vus": "VSI",
+            "vus-tooltip": "Variant de signification incertaine",
+            "likelyBenign": "Prob. bénigne",
+            "likelyBenign-tooltip": "Probablement bénigne",
+            "benign": "Bénigne"
+          },
+          "classificationCriteria": "Critères de classification Ex : PM1, PS2",
+          "classificationCriteria-placeholder": "Critères de classification",
+          "modeOfTransmission": "Mode de transmission",
+          "modeOfTransmission-placeholder": "Sélectionner",
+          "modeOfTransmission-options": {
+            "autosomal_dominant_de_novo": "Autosomal dominant de novo",
+            "autosomal_dominant": "Autosomique dominant",
+            "autosomal_recessive": "Autosomique récessif",
+            "x_linked_dominant_de_novo": "Lié à l'X dominant de novo",
+            "x_linked_recessive_de_novo": "Lié à l'X récessif de novo",
+            "x_linked_dominant": "Lié à l'X dominant",
+            "x_linked_recessive": "Lié à l'X récessif",
+            "non_carrier_proband": "Probant non porteur",
+            "unknown_parents_genotype": "Génotype parental inconnu",
+            "unknown_father_genotype": "Génotype paternel inconnu",
+            "unknown_mother_genotype": "Génotype maternel inconnu",
+            "unknown_proband_genotype": "Génotype du probant inconnu"
+          }
+        },
+        "somatic": {
+          "tumoralType": "Type tumoral",
+          "tumoralType-placeholder": "Selectionner",
+          "oncogenicity": "Oncogénicité",
+          "oncogenicity-options": {
+            "oncogenic": "Oncogénique",
+            "likelyOncogenic": "Prob. oncogénique",
+            "likelyOncogenic-tooltip": "Probablement oncogénique",
+            "vus": "VSI",
+            "vus-tooltip": "Variant de signification incertaine",
+            "likelyBenign": "Prob. bénigne",
+            "likelyBenign-tooltip": "Probablement bénigne",
+            "benign": "Bénigne"
+          },
+          "classificationCriteria": "Critères de classification Ex : PM1, PS2",
+          "classificationCriteria-placeholder": "Critères de classification",
+          "clinicalUtility": "Utilité clinique",
+          "clinicalUtility-placeholder": "Selectionner",
+          "clinicalUtility-options": {
+            "category_ia": "Catégorie IA",
+            "category_ib": "Catégorie IB",
+            "category_iic": "Catégorie IIC",
+            "category_iid": "Catégorie IID",
+            "category_iii": "Catégorie III"
+          },
+          "sections": {
+            "cancer": {
+              "title": "Cancer Hotspot",
+              "hotspot": "Hotspot"
+            },
+            "annotationsVariant": {
+              "title": "Annotations variant"
+            },
+            "annotationsGene": {
+              "title": "Annotations gène"
+            }
+          }
+        }
+      }
+    }
+  },
+  "interpret": "Interpréter",
   "litvar": "LitVAR",
   "ucsc": "UCSC",
   "consequences": {
@@ -1590,5 +1684,6 @@
   "classifications": "Classifications",
   "functionalScores": "Scores de prédictions",
   "cadd_phred": "CADD (phred)",
+  "tier": "Tier",
   "pli": "pLi"
 }
