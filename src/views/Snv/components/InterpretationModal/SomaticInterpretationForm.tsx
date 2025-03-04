@@ -99,9 +99,6 @@ const SomaticInterpretationForm = () => {
             }
             name={SomaticInterpFormFields.ONCOGENICITY}
             rules={[requiredRule]}
-            style={{
-              marginBottom: 12,
-            }}
             shouldUpdate
           >
             <Radio.Group className={styles.radioButton}>

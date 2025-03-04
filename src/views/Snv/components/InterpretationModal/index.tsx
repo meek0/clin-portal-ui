@@ -233,7 +233,7 @@ const InterpretationModal = ({
                           patientId={patientId}
                           variantSection={variantSection}
                         />
-                        <GeneSection record={record} />
+                        <GeneSection record={record} showRevel />
                         <ClinicalAssociations record={record} />
                       </>
                     )}

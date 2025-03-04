@@ -9,9 +9,10 @@ import style from '../index.module.css';
 
 interface OwnProps {
   record: ITableVariantEntity;
+  showRevel?: boolean;
 }
 
-const GeneSection = ({ record }: OwnProps) => {
+const GeneSection = ({ record, showRevel = false }: OwnProps) => {
   const gene = record.genes?.hits.edges;
   const pickedConsequence = record.consequences?.hits?.edges.find(({ node }) => !!node.picked);
   const geneSymbol = pickedConsequence?.node.symbol;
@@ -53,13 +54,15 @@ const GeneSection = ({ record }: OwnProps) => {
           TABLE_EMPTY_PLACE_HOLDER
         )}
       </Descriptions.Item>
-      <Descriptions.Item label={intl.get('screen.patientsnv.results.table.revel')}>
-        {pickedConsequence?.node?.predictions?.revel_score ? (
-          <div>{pickedConsequence?.node.predictions.revel_score}</div>
-        ) : (
-          TABLE_EMPTY_PLACE_HOLDER
-        )}
-      </Descriptions.Item>
+      {showRevel && (
+        <Descriptions.Item label={intl.get('screen.patientsnv.results.table.revel')}>
+          {pickedConsequence?.node?.predictions?.revel_score ? (
+            <div>{pickedConsequence?.node.predictions.revel_score}</div>
+          ) : (
+            TABLE_EMPTY_PLACE_HOLDER
+          )}
+        </Descriptions.Item>
+      )}
       <Descriptions.Item label={intl.get('screen.patientsnv.results.table.spliceAI')}>
         {geneInfo?.spliceai ? (
           <Space className={style.alignRigthSpace}>

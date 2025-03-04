@@ -98,9 +98,6 @@ const GermlineInterpretationForm = () => {
             }
             name={GermlineInterpFormFields.CLASSIFICATION}
             rules={[requiredRule]}
-            style={{
-              marginBottom: 12,
-            }}
             shouldUpdate
           >
             <Radio.Group className={styles.radioButton}>
