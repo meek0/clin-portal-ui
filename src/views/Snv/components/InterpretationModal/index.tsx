@@ -124,7 +124,7 @@ const InterpretationModal = ({
         toggleModal(false);
         setHasChanged(false);
         setInitLoading(true);
-        form.resetFields();
+        //  form.resetFields();
       }}
       title={intl.get('modal.variant.interpretation.title')}
       centered

@@ -98,7 +98,7 @@ const GenericInterpretationForm = () => {
           name={GenericInterpFormFields.PUBMED}
           rules={[
             {
-              validator: (rule, value) => {
+              validator: () => {
                 const hasPubmedErrors = form
                   .getFieldsError()
                   .filter((error) => error.name.includes(GenericInterpFormFields.PUBMED))
@@ -115,46 +115,48 @@ const GenericInterpretationForm = () => {
         >
           {(fields, { add, remove }) => (
             <>
-              {fields.map(({ key, name, ...restField }) => (
-                <div
-                  key={key}
-                  style={{
-                    display: 'flex',
-                    marginBottom: 12,
-                    width: '100%',
-                    alignItems: 'center',
-                    gap: 8,
-                  }}
-                >
-                  <Form.Item
-                    {...restField}
-                    hidden
-                    name={[name, GenericInterpFormFields.PUBMED_CITATION_ID]}
+              {fields.map(({ key, name, ...restField }) => {
+                return (
+                  <div
+                    key={key}
+                    style={{
+                      display: 'flex',
+                      marginBottom: 12,
+                      width: '100%',
+                      alignItems: 'center',
+                      gap: 8,
+                    }}
                   >
-                    <Input />
-                  </Form.Item>
-                  <Form.Item
-                    {...restField}
-                    name={[name, GenericInterpFormFields.PUBMED_CITATION]}
-                    style={{ flex: 1, marginBottom: 0 }}
-                  >
-                    <Input.TextArea
-                      autoSize={{ minRows: 0, maxRows: 6 }}
-                      defaultValue=""
-                      placeholder={intl.get(
-                        'modal.variant.interpretation.generic.citation-placeholder',
-                      )}
-                      onChange={(e) => debouncedFetchCitation(e.target.value, name)}
-                    />
-                  </Form.Item>
-                  {fields.length > 1 ? (
-                    <CloseOutlined
-                      className={styles.addCitationIcon}
-                      onClick={() => remove(name)}
-                    />
-                  ) : null}
-                </div>
-              ))}
+                    <Form.Item
+                      {...restField}
+                      hidden
+                      name={[name, GenericInterpFormFields.PUBMED_CITATION_ID]}
+                    >
+                      <Input />
+                    </Form.Item>
+                    <Form.Item
+                      {...restField}
+                      name={[name, GenericInterpFormFields.PUBMED_CITATION]}
+                      style={{ flex: 1, marginBottom: 0 }}
+                    >
+                      <Input.TextArea
+                        autoSize={{ minRows: 0, maxRows: 6 }}
+                        defaultValue=""
+                        placeholder={intl.get(
+                          'modal.variant.interpretation.generic.citation-placeholder',
+                        )}
+                        onChange={(e) => debouncedFetchCitation(e.target.value, name)}
+                      />
+                    </Form.Item>
+                    {fields.length > 1 ? (
+                      <CloseOutlined
+                        className={styles.addCitationIcon}
+                        onClick={() => remove(name)}
+                      />
+                    ) : null}
+                  </div>
+                );
+              })}
               <Form.Item style={{ marginBottom: 0 }} shouldUpdate>
                 {() => (
                   <Button

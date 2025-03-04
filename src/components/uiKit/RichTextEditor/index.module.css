@@ -41,7 +41,7 @@
     resize: vertical;
 }
 
-:global(.ql-tooltip.ql-editing) {
+:global(.ql-tooltip) {
     left: unset !important;
 }
 
