@@ -1573,7 +1573,7 @@
             "likelyBenign-tooltip": "Probably benign",
             "benign": "Benign"
           },
-          "classificationCriteria": "Interpretation",
+          "classificationCriteria": "Classification criteria e.g. PM1, PS2",
           "classificationCriteria-placeholder": "Classification criteria",
           "modeOfTransmission": "Mode of inheritance",
           "modeOfTransmission-placeholder": "Select",

@@ -1576,7 +1576,7 @@
             "likelyBenign-tooltip": "Probablement bénigne",
             "benign": "Bénigne"
           },
-          "classificationCriteria": "Interprétation",
+          "classificationCriteria": "Critères de classification Ex : PM1, PS2",
           "classificationCriteria-placeholder": "Critères de classification",
           "modeOfTransmission": "Mode de transmission",
           "modeOfTransmission-placeholder": "Sélectionner",
