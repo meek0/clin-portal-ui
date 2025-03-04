@@ -28,6 +28,7 @@ export type TUserConfig = {
       patientCnv?: TUserTableConfig;
       prescriptions?: TUserTableConfig;
       prescriptionEntityFiles?: TUserTableConfig;
+      prescriptionEntityRequest?: TUserTableConfig;
       requests?: TUserTableConfig;
       snv?: TUserTableConfig;
       genes?: TUserTableConfig;

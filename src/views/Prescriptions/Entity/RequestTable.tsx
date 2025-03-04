@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import intl from 'react-intl-universal';
+import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { ProColumnsType } from '@ferlab/ui/core/components/ProTable/types';
 import { extractServiceRequestId } from 'api/fhir/helper';
@@ -8,13 +8,14 @@ import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 
 import { Roles, validate } from 'components/Roles/Rules';
 import { useRpt } from 'hooks/useRpt';
+import { useUser } from 'store/user';
+import { updateConfig } from 'store/user/thunks';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
 import { getProTableDictionary } from 'utils/translation';
 
 import Links from '../components/Links';
 import StatusTag from '../components/StatusTag';
-import { DEFAULT_PAGE_SIZE } from '../Search/utils/contstant';
 import { getPrescriptionStatusDictionnary } from '../utils/constant';
 
 interface OwnProps {
@@ -102,9 +103,11 @@ export const getRequestColumns = (
 
 const RequestTable = ({ loading = false, data = [] }: OwnProps) => {
   const { decodedRpt } = useRpt();
+  const { user } = useUser();
+  const dispatch = useDispatch();
   const authorizedUser = validate([Roles.Download], decodedRpt, false);
-  const [pageIndex, setPageIndex] = useState(1);
-  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+  const initialColumnState =
+    user.config.data_exploration?.tables?.prescriptionEntityRequest?.columns;
 
   const datatest = data?.map((patient: any, index: number) => ({
     key: index,
@@ -117,29 +120,24 @@ const RequestTable = ({ loading = false, data = [] }: OwnProps) => {
       columns={getRequestColumns(authorizedUser)}
       dictionary={getProTableDictionary()}
       dataSource={datatest}
+      initialColumnState={initialColumnState}
       headerConfig={{
-        itemCount: {
-          pageIndex: pageIndex,
-          pageSize: pageSize,
-          total: data?.length || 0,
-        },
         hideItemsCount: true,
         enableColumnSort: true,
+        onColumnSortChange: (columns) => {
+          dispatch(
+            updateConfig({
+              data_exploration: {
+                tables: {
+                  prescriptionEntityRequest: { columns },
+                },
+              },
+            }),
+          );
+        },
       }}
-      pagination={{
-        current: pageIndex,
-        pageSize: pageSize,
-        defaultPageSize: pageSize,
-        total: data?.length,
-        hideOnSinglePage: true,
-        responsive: true,
-        size: 'small',
-      }}
+      pagination={undefined}
       showSorterTooltip={false}
-      onChange={({ current, pageSize }) => {
-        setPageIndex(current!);
-        setPageSize(pageSize!);
-      }}
       size="small"
       bordered
     />
