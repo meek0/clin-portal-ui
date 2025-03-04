@@ -166,7 +166,15 @@ const GermlineInterpretationForm = () => {
       </Form.Item>
       <Form.Item noStyle shouldUpdate>
         {() => (
-          <Form.Item name={GermlineInterpFormFields.CLASSIFICATION_CRITERIAS}>
+          <Form.Item
+            name={GermlineInterpFormFields.CLASSIFICATION_CRITERIAS}
+            label={
+              <ProLabel
+                title={intl.get('modal.variant.interpretation.germline.classificationCriteria')}
+                colon
+              />
+            }
+          >
             <Select
               placeholder={intl.get(
                 'modal.variant.interpretation.germline.classificationCriteria-placeholder',

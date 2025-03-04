@@ -1573,6 +1573,7 @@
             "likelyBenign-tooltip": "Probably benign",
             "benign": "Benign"
           },
+          "classificationCriteria": "Classification criteria e.g. PM1, PS2",
           "classificationCriteria-placeholder": "Classification criteria",
           "modeOfTransmission": "Mode of inheritance",
           "modeOfTransmission-placeholder": "Select",
@@ -1605,6 +1606,7 @@
             "likelyBenign-tooltip": "Probably benign",
             "benign": "Benign"
           },
+          "classificationCriteria": "Classification criteria e.g. PM1, PS2",
           "classificationCriteria-placeholder": "Classification criteria",
           "clinicalUtility": "Clinical utility",
           "clinicalUtility-placeholder": "Select",

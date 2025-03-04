@@ -100,7 +100,15 @@ const SomaticInterpretationForm = () => (
     </Form.Item>
     <Form.Item noStyle shouldUpdate>
       {() => (
-        <Form.Item name={SomaticInterpFormFields.ONCOGENICITY_CLASSIFICATION_CRITERIAS}>
+        <Form.Item
+          name={SomaticInterpFormFields.ONCOGENICITY_CLASSIFICATION_CRITERIAS}
+          label={
+            <ProLabel
+              title={intl.get('modal.variant.interpretation.somatic.classificationCriteria')}
+              colon
+            />
+          }
+        >
           <Select
             placeholder={intl.get(
               'modal.variant.interpretation.somatic.classificationCriteria-placeholder',
