@@ -1,17 +1,20 @@
+import { useState } from 'react';
 import intl from 'react-intl-universal';
-import Empty from '@ferlab/ui/core/components/Empty';
-import { Table, TableColumnType } from 'antd';
+import ProTable from '@ferlab/ui/core/components/ProTable';
+import { ProColumnsType } from '@ferlab/ui/core/components/ProTable/types';
 import { extractServiceRequestId } from 'api/fhir/helper';
-import { PatientRequest } from 'api/fhir/models';
+import { ITablePatientRequestResult, PatientRequest, PatientRequestEntity } from 'api/fhir/models';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 
 import { Roles, validate } from 'components/Roles/Rules';
 import { useRpt } from 'hooks/useRpt';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDate } from 'utils/date';
+import { getProTableDictionary } from 'utils/translation';
 
 import Links from '../components/Links';
 import StatusTag from '../components/StatusTag';
+import { DEFAULT_PAGE_SIZE } from '../Search/utils/contstant';
 import { getPrescriptionStatusDictionnary } from '../utils/constant';
 
 interface OwnProps {
@@ -19,13 +22,39 @@ interface OwnProps {
   loading?: boolean;
 }
 
-const getRequestColumns = (authorizedUser: boolean): TableColumnType<any>[] => {
-  const columns: TableColumnType<any>[] = [
+export const getRequestColumns = (
+  authorizedUser: boolean,
+): ProColumnsType<ITablePatientRequestResult> => {
+  const columns: ProColumnsType<ITablePatientRequestResult> = [
     {
       key: 'id',
       dataIndex: 'id',
       title: intl.get('screen.prescription.entity.request.id'),
       render: (id) => extractServiceRequestId(id),
+      fixed: 'left',
+    },
+    {
+      key: 'name',
+      defaultHidden: true,
+      title: intl.get('screen.prescription.entity.request.name'),
+      render: (record: PatientRequestEntity) => {
+        const requestCode = record.code.coding.find((c) =>
+          c.system.includes('sequencing-request-code'),
+        );
+        return requestCode
+          ? intl.get(`screen.prescription.entity.request.code.${requestCode?.code}`)
+          : TABLE_EMPTY_PLACE_HOLDER;
+      },
+    },
+    {
+      key: 'code',
+      title: intl.get('screen.prescription.entity.request.code'),
+      render: (record: PatientRequestEntity) => {
+        const requestCode = record.code.coding.find((c) =>
+          c.system.includes('sequencing-request-code'),
+        );
+        return requestCode ? requestCode.code : TABLE_EMPTY_PLACE_HOLDER;
+      },
     },
     {
       key: 'status',
@@ -43,6 +72,7 @@ const getRequestColumns = (authorizedUser: boolean): TableColumnType<any>[] => {
     {
       key: 'requester',
       dataIndex: 'requester',
+      defaultHidden: true,
       title: intl.get('screen.prescription.entity.request.requester'),
       render: (requester) =>
         requester
@@ -73,19 +103,45 @@ const getRequestColumns = (authorizedUser: boolean): TableColumnType<any>[] => {
 const RequestTable = ({ loading = false, data = [] }: OwnProps) => {
   const { decodedRpt } = useRpt();
   const authorizedUser = validate([Roles.Download], decodedRpt, false);
+  const [pageIndex, setPageIndex] = useState(1);
+  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+
+  const datatest = data?.map((patient: any, index: number) => ({
+    key: index,
+    ...patient,
+  }));
   return (
-    <Table
+    <ProTable<ITablePatientRequestResult>
+      tableId="request_table"
       loading={loading}
-      size="small"
       columns={getRequestColumns(authorizedUser)}
-      dataSource={data.map((data, index) => ({ ...data, key: index }))}
-      bordered
-      locale={{
-        emptyText: <Empty description="Aucune requêtes" />,
+      dictionary={getProTableDictionary()}
+      dataSource={datatest}
+      headerConfig={{
+        itemCount: {
+          pageIndex: pageIndex,
+          pageSize: pageSize,
+          total: data?.length || 0,
+        },
+        hideItemsCount: true,
+        enableColumnSort: true,
       }}
       pagination={{
+        current: pageIndex,
+        pageSize: pageSize,
+        defaultPageSize: pageSize,
+        total: data?.length,
         hideOnSinglePage: true,
+        responsive: true,
+        size: 'small',
       }}
+      showSorterTooltip={false}
+      onChange={({ current, pageSize }) => {
+        setPageIndex(current!);
+        setPageSize(pageSize!);
+      }}
+      size="small"
+      bordered
     />
   );
 };

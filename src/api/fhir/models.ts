@@ -394,11 +394,23 @@ export interface PatientRequest {
       code: string;
     }[];
   }[];
+  code: {
+    coding: {
+      code: string;
+      system: string;
+    }[];
+  };
   authoredOn: string;
   id: string;
   status: string;
   specimen: PatientRequestSpecimen[];
 }
+
+export type ITablePatientRequestResult = PatientRequestEntity & {
+  key: string;
+};
+
+export type PatientRequestEntity = PatientRequest;
 
 export interface PatientServiceRequestFragment {
   id: string;
