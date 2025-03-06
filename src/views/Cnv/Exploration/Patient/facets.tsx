@@ -1,4 +1,5 @@
 import intl from 'react-intl-universal';
+import { RangeOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { SuggestionType } from 'api/arranger/models';
 import { INDEXES } from 'graphql/constants';
 import { ExtendedMappingResults } from 'graphql/models';
@@ -33,6 +34,17 @@ const filterGroups: {
     groups: [
       {
         facets: ['type', 'reflen', 'chromosome', 'start', 'end'],
+        defaults: {
+          reflen: {
+            operator: RangeOperators['>='],
+          },
+          start: {
+            operator: RangeOperators['>='],
+          },
+          end: {
+            operator: RangeOperators['<='],
+          },
+        },
       },
     ],
   },
@@ -74,6 +86,11 @@ const filterGroups: {
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
         facets: ['frequency_RQDM__pf'],
+        defaults: {
+          frequency_RQDM__pf: {
+            operator: RangeOperators['<='],
+          },
+        },
         tooltips: ['transmission'],
       },
     ],
@@ -87,6 +104,11 @@ const filterGroups: {
       },
       {
         facets: ['filters', 'qual'],
+        defaults: {
+          qual: {
+            operator: RangeOperators['>='],
+          },
+        },
       },
     ],
   },
