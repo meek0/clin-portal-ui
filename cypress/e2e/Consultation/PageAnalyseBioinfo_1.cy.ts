@@ -29,13 +29,14 @@ describe('Page d\'une analyse bioinformatique - Vérifier les informations affic
   it('Panneau Séquençage', () => {
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('WXS').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('1_data_to_import').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(3).contains('A00516_0169').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(4).contains('Illumina NovaSeq').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(5).contains('RocheKapaHyperExome').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(6).contains('A00516').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(7).contains('2020-11-03').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(8).contains(epCHUSJ_ldmCHUSJ.aliquotProbId).should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('--').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(3).contains('1_data_to_import').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(4).contains('A00516_0169').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(5).contains('Illumina NovaSeq').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(6).contains('RocheKapaHyperExome').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(7).contains('A00516').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(8).contains('2020-11-03').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(9).contains(epCHUSJ_ldmCHUSJ.aliquotProbId).should('exist');
   });
   
   it('Panneau Échantillons', () => {

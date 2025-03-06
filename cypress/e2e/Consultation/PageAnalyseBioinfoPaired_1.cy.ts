@@ -29,13 +29,14 @@ describe('Page d\'une analyse bioinformatique (paired) - Vérifier les informati
   it('Panneau Séquençage', () => {
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains(presc_PAIRED.requestProbId.TEBA).should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('WXS').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('3_data_to_import').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(3).contains('test_somatic_normal_part1').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(4).contains('Illumina').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(5).contains('RocheKapaHyperExome-1.0').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(6).contains('A00516').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(7).contains('2023-04-27').should('exist');
-    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(8).contains(presc_PAIRED.aliquotProbId.TEBA).should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('--').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(3).contains('3_data_to_import').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(4).contains('test_somatic_normal_part1').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(5).contains('Illumina').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(6).contains('RocheKapaHyperExome-1.0').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(7).contains('A00516').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(8).contains('2023-04-27').should('exist');
+    cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(9).contains(presc_PAIRED.aliquotProbId.TEBA).should('exist');
   });
   
   it('Panneau Échantillons', () => {

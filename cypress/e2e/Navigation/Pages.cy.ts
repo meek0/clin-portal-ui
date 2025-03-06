@@ -107,6 +107,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Génome').should('exist');
     cy.contains('Séquençage').should('exist');
     cy.contains('Stratégie expérimentale').should('exist');
+    cy.contains('Protocole').should('exist');
     cy.contains('Nom du lot').should('exist');
     cy.contains('Alias du lot').should('exist');
     cy.contains('Plateforme').should('exist');
