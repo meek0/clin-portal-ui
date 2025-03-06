@@ -2,6 +2,7 @@ import intl from 'react-intl-universal';
 import { Card, Descriptions } from 'antd';
 import { extractServiceRequestId } from 'api/fhir/helper';
 import { AnalysisTaskEntity } from 'api/fhir/models';
+import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 
 import ParagraphLoader from 'components/uiKit/ParagraphLoader';
 import { formatDate } from 'utils/date';
@@ -23,6 +24,9 @@ const ExperimentCard = ({ task, loading }: OwnProps) => (
             label={intl.get('screen.bioinfo.analysis.experiment.experimental.stategy')}
           >
             {task.experiment.experimentalStrategy}
+          </Descriptions.Item>
+          <Descriptions.Item label={intl.get('screen.bioinfo.analysis.experiment.protocol')}>
+            {task.experiment.protocol || EMPTY_FIELD}
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.bioinfo.analysis.experiment.runName')}>
             {task.experiment.name}
