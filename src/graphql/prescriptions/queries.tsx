@@ -167,6 +167,12 @@ const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
           }
         }
       }
+      code{
+        coding{
+          code
+          system
+        }
+      }
       requester @flatten {
         requester: resource(type: PractitionerRole) {
           practitioner @flatten {

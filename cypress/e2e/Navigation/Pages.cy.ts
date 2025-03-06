@@ -78,9 +78,9 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Ethnicité').should('exist');
     cy.contains('Hypothèse diagnostique').should('exist');
     cy.contains('Requête').should('exist');
+    cy.contains('Type code').should('exist');
     cy.contains('Statut').should('exist');
     cy.contains('Créée le').should('exist');
-    cy.contains('Requérant').should('exist');
     cy.contains('Échantillon').should('exist');
     cy.contains('Liens').should('exist');
     cy.contains('Complétée').should('exist');
