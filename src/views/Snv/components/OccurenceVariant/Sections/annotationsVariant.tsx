@@ -16,6 +16,7 @@ interface OwnProps {
 const AnnotationsVariantSection = ({ record }: OwnProps) => {
   const freqTO = record.freq_rqdm_tumor_only;
   const freqTN = record.freq_rqdm_tumor_normal;
+  const freqG = record.frequency_RQDM.total;
   const pickedConsequence = record.consequences?.hits?.edges.find(
     ({ node }) => !!node.picked,
   )?.node;
@@ -62,6 +63,20 @@ const AnnotationsVariantSection = ({ record }: OwnProps) => {
           <Tooltip title={intl.get('filters.group.freq_rqdm_tumor_normal.pf.tooltip')}>
             {`(${freqTN.pf.toExponential(2)})`}
           </Tooltip>
+        </Space>
+      </Descriptions.Item>
+      <Descriptions.Item
+        label={`${intl.get('filters.group.panels')} (${intl.get(
+          'filters.options.tasks.GEBA.abrv',
+        )})`}
+      >
+        <Space className={style.alignRigthSpace} size={4}>
+          {freqG.pc}
+          {'/'}
+          <Link target="_blank" to={`/variant/entity/${record.locus}/${TAB_ID.PATIENTS}`}>
+            {freqG.pn}
+          </Link>
+          {`(${freqG.pf.toExponential(2)})`}
         </Space>
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('filters.group.genes.cosmic.tumour_types_germline')}>
