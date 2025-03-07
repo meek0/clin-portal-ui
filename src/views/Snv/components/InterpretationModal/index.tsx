@@ -61,12 +61,20 @@ const InterpretationModal = ({
   const isSomatic =
     variantSection === VariantSection.SNVTN || variantSection === VariantSection.SNVTO;
 
-  const sequencingId = record.donors?.hits.edges[0].node.service_request_id!;
+  const donorNode = record.donors?.hits.edges[0].node!;
+  const sequencingId = donorNode.service_request_id!;
   const transcriptId = record.consequences?.hits?.edges.find(({ node }) => !!node.picked)?.node
     .ensembl_transcript_id!;
+  const analysisId = donorNode.analysis_service_request_id!;
+  const variantHash = record.hash;
 
   const handleFinish = async (values: TInterpretationInput) => {
     setSaving(true);
+    values.metadata = {
+      analysis_id: analysisId,
+      patient_id: patientId,
+      variant_hash: variantHash,
+    };
     InterpretationApi.save(
       isSomatic
         ? {
