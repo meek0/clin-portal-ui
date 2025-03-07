@@ -12,6 +12,7 @@ declare namespace Cypress {
     deleteFilterIfExists(filterName: string): cy & CyEventEmitter;
     login(user: string, password: string, restoreSession: boolean = true): cy & CyEventEmitter;
     logout(): cy & CyEventEmitter;
+    openFacet(section: string, facetTitle: string, isRqdmExpand: boolean = false): cy & CyEventEmitter;
     removeFilesFromFolder(folder: string): cy & CyEventEmitter;
     resetColumns(eq: number): cy & CyEventEmitter;
     saveFilterAs(filterName: string): cy & CyEventEmitter;

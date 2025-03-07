@@ -7,25 +7,7 @@ export interface Replacement {
 }
 
 Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: string, value: string, isRqdmExpand: boolean = false) => {
-  cy.url().should('match', /(#variants|\/snv\/exploration)/);
-  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
-
-  if (isRqdmExpand) {
-    cy.get('[data-cy="FilterContainer_Panel RQDM"]').clickAndWait({force: true});
-  }
-
-  if (section !== 'Panel RQDM') {
-    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).clickAndWait({force: true});
-    cy.waitWhileSpin(oneMinute);
-  }
-
-  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
-    if ($button.hasClass('ant-btn-link')) {
-      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
-      cy.waitWhileSpin(oneMinute);
-    };
-  });
-
+  cy.openFacet(section, facetTitle, isRqdmExpand);
   cy.get(`[data-cy="Checkbox_${facetTitle}_${value}"]`).check({force: true});
   cy.clickAndIntercept(`[data-cy="Apply_${facetTitle}"]`, 'POST', '**/graphql', 4);
 });
@@ -133,6 +115,27 @@ Cypress.Commands.add('logout', () => {
 
   cy.exec('npm cache clear --force');
   cy.waitWhileSpin(oneMinute);
+});
+
+Cypress.Commands.add('openFacet', (section: string, facetTitle: string, isRqdmExpand: boolean = false) => {
+  cy.url().should('match', /(#variants|\/snv\/exploration)/);
+  cy.get(`[data-cy="SidebarMenuItem_${section}"]`).clickAndWait({force: true});
+
+  if (isRqdmExpand) {
+    cy.get('[data-cy="FilterContainer_Panel RQDM"]').clickAndWait({force: true});
+  }
+
+  if (section !== 'Panel RQDM') {
+    cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).clickAndWait({force: true});
+    cy.waitWhileSpin(oneMinute);
+  }
+
+  cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button').then(($button) => {
+    if ($button.hasClass('ant-btn-link')) {
+      cy.get(`[data-cy="FilterContainer_${facetTitle}"]`).parentsUntil('.FilterContainer_filterContainer__8Dsbs').find('button[class*="CheckboxFilter_filtersTypesFooter"]').click({force: true});
+      cy.waitWhileSpin(oneMinute);
+    };
+  });
 });
 
 Cypress.Commands.add('removeFilesFromFolder', (folder: string) => {
