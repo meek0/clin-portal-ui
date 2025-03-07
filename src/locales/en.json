@@ -1687,6 +1687,6 @@
   "classifications": "Classifications",
   "functionalScores": "Functional Scores",
   "cadd_phred": "CADD (Phred)",
-  "tier": "Tier",
+  "tier": "CMC tier",
   "pli": "pLi"
 }
