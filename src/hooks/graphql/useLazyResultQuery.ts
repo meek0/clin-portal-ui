@@ -9,14 +9,32 @@ import {
 
 import { IBaseQueryResults } from 'hooks/graphql/type';
 
-const useLazyResultQuery = <
+export const useLazyResultQuery = <
   TData = any,
   TVariables extends OperationVariables = OperationVariables,
 >(
   query: DocumentNode | TypedDocumentNode<TData, TVariables>,
   options?: QueryHookOptions<TData, TVariables>,
+  maxRetries: number = 3,
 ): IBaseQueryResults<TData> => {
-  const { data, error, loading, previousData } = useQuery<TData, TVariables>(query, options);
+  const [retryCount, setRetryCount] = useState(0);
+  const [skip, setSkip] = useState(false);
+
+  const { data, error, loading, previousData, refetch } = useQuery<TData, TVariables>(query, {
+    ...options,
+    skip,
+  });
+
+  useEffect(() => {
+    if (error && retryCount < maxRetries) {
+      setRetryCount(retryCount + 1);
+      refetch();
+      const queryName = (query?.definitions as any)?.[0]?.name?.value;
+      console.warn(`useLazyResultQuery (hooks) retrying query ${queryName} ${retryCount} times`);
+    } else if (retryCount >= maxRetries) {
+      setSkip(true);
+    }
+  }, [error, retryCount, maxRetries, refetch, query]);
 
   const result = data ?? previousData;
   return { error, loading, result };
