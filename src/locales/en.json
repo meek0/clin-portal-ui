@@ -210,7 +210,7 @@
   "filters.group.filters": "Filter",
   "filters.group.franklin_max.acmg_classification": "Franklin ACMG",
   "filters.group.franklin_max.acmg_evidence": "Franklin ACMG Rules",
-  "filters.group.franklin_max.combined_score": "Score Franklin (Max)",
+  "filters.group.franklin_max.combined_score": "Franklin Score (Max)",
   "filters.group.freq_rqdm_tumor_only.pf": "Freq. TO All Patients",
   "filters.group.freq_rqdm_tumor_only.pf.query": "TO Freq.",
   "filters.group.freq_rqdm_tumor_only.pf.tooltip": "Values between [0-1]. The rarest variants within the cohort of all patients with a TO analysis will have a frequency close to 0.",
@@ -498,7 +498,7 @@
       "acmg_classification": "Franklin ACMG",
       "acmg_evidence": "Franklin ACMG Rules",
       "donor_score": "Franklin Score",
-      "max_score": "Score Franklin (Max)",
+      "max_score": "Franklin Score (Max)",
       "tooltip": {
         "donor_score": "Franklin score based on variant properties and patient phenotypes",
         "max_score": "Highest Franklin score among all patients for this variant"
@@ -947,13 +947,11 @@
   "screen.patientcnv.modal.genes.table.percent_cnv.tooltip": "% overlapped CNV length",
   "screen.patientcnv.modal.genes.table.percent_gene": "% Gene",
   "screen.patientcnv.modal.genes.table.percent_gene.tooltip": "% overlapped gene length",
-
   "screen.patientcnv.modal.genes.table.overlap_type": "Type",
   "screen.patientcnv.modal.genes.table.overlap_type.tooltip": "Gene and CNV overlapping type",
   "screen.patientcnv.modal.genes.table.overlap_type.tooltip.type1": "Gene falls entirely within the CNV",
   "screen.patientcnv.modal.genes.table.overlap_type.tooltip.type2": "Gene overlaps the CNV",
   "screen.patientcnv.modal.genes.table.overlap_type.tooltip.type3": "Gene contains the CNV",
-
   "screen.patientcnv.modal.genes.title": "Overlapping Genes with CNV",
   "screen.patientcnv.results.table.bins_count": "BC",
   "screen.patientcnv.results.table.bins_count.tooltip": "Number of bins in the region",
