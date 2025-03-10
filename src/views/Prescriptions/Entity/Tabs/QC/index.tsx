@@ -183,7 +183,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
       });
   };
 
-  const options = getRequestOptions(prescription);
+  const options = getRequestOptions(prescription, false);
   const selectOptionLabel = options.find(
     ({ value }) => value === formatOptionValue(variantInfo.patientId!, variantInfo.requestId!),
   )?.label;

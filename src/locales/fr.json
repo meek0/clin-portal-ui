@@ -861,6 +861,7 @@
   "result.forbidden.error.title": "403",
   "result.notfound.error.description": "Ressource introuvable",
   "result.notfound.error.title": "Pas trouvé",
+  "result.notfound.request.variants.title": "Aucun variant pour cette requête",
   "result.server.error.description": "Une erreur s'est produite et nous ne sommes pas en mesure de charger le contenu pour le moment.",
   "result.server.error.title": "Erreur du serveur",
   "save": "Enregistrer",
