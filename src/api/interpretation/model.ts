@@ -10,6 +10,14 @@ export type TPubmedOutput = {
   };
 };
 
+export type TInterpretationMetadata = {
+  metadata?: {
+    analysis_id?: string;
+    patient_id?: string;
+    variant_hash?: string;
+  };
+};
+
 export type TInterpretationBase = {
   created_by: string;
   created_by_name: string;
@@ -43,9 +51,9 @@ export type TInterpretationSomaticOutput = TInterpretationBase & TInterpretation
 
 export type TInterpretationOutput = TInterpretationGermlineOutput | TInterpretationSomaticOutput;
 
-export type TInterpretationGermlineInput = TInterpretationGermline;
+export type TInterpretationGermlineInput = TInterpretationMetadata & TInterpretationGermline;
 
-export type TInterpretationSomaticInput = TInterpretationSomatic;
+export type TInterpretationSomaticInput = TInterpretationMetadata & TInterpretationSomatic;
 
 export type TInterpretationInput = TInterpretationGermlineInput | TInterpretationSomaticInput;
 
