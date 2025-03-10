@@ -71,6 +71,17 @@ Before going further, make sure that ```docker``` and ```docker-compose``` are i
 ```
 :warning: _With this setup, your host and the app's container share the project directory/volume._
 
+## test ferlease
+
+Cypress tests can be executed on a ferlease with the target:
+```sh
+# Execute all test
+  jira=clin-3825 make ferlease_test
+
+# Execute only some tests
+  jira=clin-3825 spec=cypress/e2e/Recherche/TableauPrescriptions.cy.ts make ferlease_test
+```
+
 
 ## Branches
 
