@@ -21,7 +21,7 @@ describe('Page des variants - Dictionnaire', () => {
                          'Pediatric Cancer Predisposition (TUPED)',
                          'Polymalformation (POLYM)',
                          'Rhabdomyolysis (RHAB)',
-                         'Tumoral Exome (EXTUM)',
+                         'Tumoral Analysis (EXTUM)',
                          'Severe Combined Immune Deficiency (SCID)',
                          'No Data'];
 
