@@ -1553,15 +1553,6 @@
   "modal": {
     "variant": {
       "interpretation": {
-        "cell": {
-          "filter": {
-            "options": {
-              "hasInterpretation": "Interprétation",
-              "none": "Aucun"
-            }
-          },
-          "tooltip": "Interprétation clinique"
-        },
         "title": "Interprétation clinique",
         "cancelText": "Annuler",
         "okText": "Sauvegarder",
