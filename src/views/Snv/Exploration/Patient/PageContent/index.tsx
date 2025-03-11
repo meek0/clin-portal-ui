@@ -39,6 +39,7 @@ import {
 } from 'utils/queryBuilder';
 
 import { flagFilterQuery, noFlagQuery } from '../../components/Flag/FlagFilter';
+import { getInterpretationQuery } from '../../components/InterpretationCell/InterpretationFilter';
 import { getNoteQuery } from '../../components/Note/NoteFilter';
 
 import VariantsTab from './tabs/Variants';
@@ -60,6 +61,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   const [filtersList, setFilterList] = useState<TVariantFilter>({
     flags: [],
     note: [],
+    interpretation: [],
   });
   const [isClear, setIsClear] = useState<boolean>(false);
 
@@ -76,6 +78,9 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   const sqon = getVariantResolvedSqon(activeQuery);
   const hasFlags = filtersList.flags.length > 0;
   const hasNote = filtersList.note.length > 0;
+  const hasInterpretation = filtersList.interpretation
+    ? filtersList.interpretation.length > 0
+    : false;
 
   const getFilterSqon = () => {
     const sqonList: any[] = [];
@@ -88,6 +93,9 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       }
       if (hasNote) {
         sqonList.push(getNoteQuery(filtersList.note));
+      }
+      if (filtersList.interpretation && hasInterpretation) {
+        sqonList.push(getInterpretationQuery(filtersList.interpretation));
       }
       return {
         content: sqonList,
@@ -173,19 +181,47 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       setIsClear(true);
       const keytoString: string[] = columnKeys.map((key) => key.toString());
       if (filter === 'flags') {
-        setFilterList({ flags: keytoString, note: filtersList.note });
-      } else {
-        setFilterList({ flags: filtersList.flags, note: keytoString });
+        setFilterList({
+          flags: keytoString,
+          note: filtersList.note,
+          interpretation: filtersList.interpretation,
+        });
+      } else if (filter === 'note') {
+        setFilterList({
+          flags: filtersList.flags,
+          note: keytoString,
+          interpretation: filtersList.interpretation,
+        });
+      } else if (filter === 'interpretation') {
+        setFilterList({
+          flags: filtersList.flags,
+          note: filtersList.note,
+          interpretation: keytoString,
+        });
       }
     } else {
       if (filter) {
         if (filter === 'flags') {
-          setFilterList({ flags: [], note: filtersList.note });
-        } else {
-          setFilterList({ flags: filtersList.flags, note: [] });
+          setFilterList({
+            flags: [],
+            note: filtersList.note,
+            interpretation: filtersList.interpretation,
+          });
+        } else if (filter === 'note') {
+          setFilterList({
+            flags: filtersList.flags,
+            note: [],
+            interpretation: filtersList.interpretation,
+          });
+        } else if (filter === 'interpretation') {
+          setFilterList({
+            flags: filtersList.flags,
+            note: filtersList.note,
+            interpretation: [],
+          });
         }
       } else {
-        setFilterList({ flags: [], note: [] });
+        setFilterList({ flags: [], note: [], interpretation: [] });
         setIsClear(false);
       }
     }
@@ -197,7 +233,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   const { prescription } = usePrescriptionEntityContext();
   //Reset flags filter on resfresh
   useEffect(() => {
-    setFilterList({ flags: [], note: [] });
+    setFilterList({ flags: [], note: [], interpretation: [] });
     updateQueryByTableFilter({
       queryBuilderId: getQueryBuilderID(variantSection as VariantSection),
       field: 'flags',

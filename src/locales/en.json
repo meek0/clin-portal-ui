@@ -1548,6 +1548,15 @@
   "modal": {
     "variant": {
       "interpretation": {
+        "cell":{
+          "filter":{
+            "options":{
+              "hasInterpretation":"Interpretation",
+              "none":"None"
+            }
+          },
+          "tooltip": "Clinical Interpretation"
+        },
         "title": "Clinical Interpretation",
         "cancelText": "Cancel",
         "okText": "Save",
@@ -1693,5 +1702,15 @@
   "functionalScores": "Functional Scores",
   "cadd_phred": "CADD (Phred)",
   "tier": "CMC tier",
-  "pli": "pLi"
+  "pli": "pLi",
+  "interpretation_Cell": {
+    "filter":{
+      "options":{
+        "hasInterpretation":"Interpretation",
+        "none":"None"
+      }
+    },
+    "tooltip_column": "Clinical Interpretation",
+    "tooltip_cell":"Open clinical interpretation"
+  }
 }
