@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
+import { useDispatch } from 'react-redux';
 import GridCard from '@ferlab/ui/core/view/v2/GridCard';
 import { Alert, Col, Form, Modal, Row, Space, Spin } from 'antd';
 import { InterpretationApi } from 'api/interpretation';
@@ -12,6 +13,8 @@ import {
 import { format } from 'date-fns';
 import { ITableVariantEntity } from 'graphql/variants/models';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
+
+import { globalActions } from 'store/global';
 
 import AnnotationsGeneSection from '../OccurenceVariant/Sections/annotationsGene';
 import AnnotationsVariantSection from '../OccurenceVariant/Sections/annotationsVariant';
@@ -57,6 +60,7 @@ const InterpretationModal = ({
   const [initLoading, setInitLoading] = useState(true);
   const [hasChanged, setHasChanged] = useState(false);
   const [interpretation, setInterpretation] = useState<TInterpretationOutput | null>(null);
+  const dispatch = useDispatch();
 
   const isSomatic =
     variantSection === VariantSection.SNVTN || variantSection === VariantSection.SNVTO;
@@ -93,12 +97,30 @@ const InterpretationModal = ({
           },
     )
       .then((response) => {
+        if (response.error) {
+          dispatch(
+            globalActions.displayNotification({
+              type: 'error',
+              message: intl.get('modal.variant.interpretation.notification.error.title'),
+              description: intl.get('modal.variant.interpretation.notification.error.text'),
+            }),
+          );
+        }
         if (response.data) {
+          dispatch(
+            globalActions.displayNotification({
+              type: 'success',
+              message: intl.get('modal.variant.interpretation.notification.success'),
+            }),
+          );
           setInterpretation(response.data);
           setHasChanged(false);
+          toggleModal(false);
         }
       })
-      .finally(() => setSaving(false));
+      .finally(() => {
+        setSaving(false);
+      });
   };
 
   useEffect(() => {

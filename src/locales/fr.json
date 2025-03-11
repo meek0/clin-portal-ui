@@ -1561,6 +1561,13 @@
           "germline": "Germline",
           "somatic": "Somatic"
         },
+        "notification":{
+          "success": "Interprétation sauvegardée avec succès",
+          "error": {
+            "title": "La sauvegarde d'interprétation a échouée",
+            "text": "Une erreur s'est produite et nous n'avons pas été en mesure de sauvegarder votre interprétation. Veuillez réessayer."
+          }
+        },
         "generic": {
           "interpretation": "Interprétation",
           "pubMedPublication": "Publication PubMed",
