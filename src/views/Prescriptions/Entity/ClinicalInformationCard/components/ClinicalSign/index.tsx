@@ -57,7 +57,14 @@ export const ClinicalSign = ({
   prescriptionCode,
 }: ClinicalSignOwnProps) => {
   const [hpoList, setHpoList] = useState<IHpoNode[]>([]);
-  const [ageList, setAgeList] = useState<IHpoNode[]>([]);
+  const [ageList, setAgeList] = useState<IHpoNode[]>([
+    {
+      hpo_id: 'unknown',
+      name: 'Unknown',
+      is_leaf: false,
+      parents: [],
+    },
+  ]);
   const { phenotypeValue } = useObservationPhenotypeEntity(phenotypeIds);
   const { ageAtOnsetValueSet } = useValueSetAgeOnset();
   const { valueSet } = useValueSet(getAnalysisCode(prescriptionCode));
