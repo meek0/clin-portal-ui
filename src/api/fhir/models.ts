@@ -394,7 +394,7 @@ export interface PatientRequest {
       code: string;
     }[];
   }[];
-  code: {
+  code?: {
     coding: {
       code: string;
       system: string;
