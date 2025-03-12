@@ -79,22 +79,19 @@ const InterpretationFilter = ({
   }, [selectedFilter]);
 
   useEffect(() => {
-    if (selectedKeys && setSelectedKeys) {
-      setSelectedKeys(selectedOption);
-    }
-  }, [selectedOption]);
-  useEffect(() => {
     if (isClear) {
-      setSelectedKeys && setSelectedKeys([]);
-      confirm && confirm();
+      setSelectedKeys?.([]);
+      confirm?.();
     }
   }, [isClear]);
 
   const handleSelect = (value: string) => {
     if (selectedOption?.includes(value)) {
       setSelectedOption(selectedOption.filter((item: React.Key) => item !== value));
+      setSelectedKeys(selectedOption.filter((item: React.Key) => item !== value));
     } else {
       setSelectedOption([value, ...selectedOption]);
+      setSelectedKeys([value, ...selectedOption]);
     }
   };
   return (

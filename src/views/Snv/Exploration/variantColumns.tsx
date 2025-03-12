@@ -409,7 +409,7 @@ export const getVariantColumns = (
             setFilterList={setFilterList}
             setSelectedKeys={setSelectedKeys}
             isClear={isClear}
-            selectedFilter={filtersList?.note}
+            selectedFilter={filtersList?.interpretation}
           />
         ),
         width: 55,
