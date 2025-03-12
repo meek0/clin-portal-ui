@@ -175,9 +175,10 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   }, [variantQueryConfig]);
 
   const handleFilterList = (columnKeys: Key[], filter?: string) => {
-    if (columnKeys.length > 0) {
-      setIsClear(true);
-      const keytoString: string[] = columnKeys.map((key) => key.toString());
+    setIsClear(true);
+    const keytoString: string[] =
+      columnKeys.length > 0 ? columnKeys.map((key) => key.toString()) : [];
+    if (filter) {
       if (filter === 'flags') {
         setFilterList({
           flags: keytoString,
@@ -198,30 +199,8 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
         });
       }
     } else {
-      if (filter) {
-        if (filter === 'flags') {
-          setFilterList({
-            flags: [],
-            note: filtersList.note,
-            interpretation: filtersList.interpretation,
-          });
-        } else if (filter === 'note') {
-          setFilterList({
-            flags: filtersList.flags,
-            note: [],
-            interpretation: filtersList.interpretation,
-          });
-        } else if (filter === 'interpretation') {
-          setFilterList({
-            flags: filtersList.flags,
-            note: filtersList.note,
-            interpretation: [],
-          });
-        }
-      } else {
-        setFilterList({ flags: [], note: [], interpretation: [] });
-        setIsClear(false);
-      }
+      setFilterList({ flags: [], note: [], interpretation: [] });
+      setIsClear(false);
     }
   };
 
