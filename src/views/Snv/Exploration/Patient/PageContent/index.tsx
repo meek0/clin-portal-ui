@@ -78,9 +78,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   const sqon = getVariantResolvedSqon(activeQuery);
   const hasFlags = filtersList.flags.length > 0;
   const hasNote = filtersList.note.length > 0;
-  const hasInterpretation = filtersList.interpretation
-    ? filtersList.interpretation.length > 0
-    : false;
+  const hasInterpretation = !!filtersList.interpretation?.length;
 
   const getFilterSqon = () => {
     const sqonList: any[] = [];
@@ -94,8 +92,8 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       if (hasNote) {
         sqonList.push(getNoteQuery(filtersList.note));
       }
-      if (filtersList.interpretation && hasInterpretation) {
-        sqonList.push(getInterpretationQuery(filtersList.interpretation));
+      if (hasInterpretation) {
+        sqonList.push(getInterpretationQuery(filtersList.interpretation!));
       }
       return {
         content: sqonList,

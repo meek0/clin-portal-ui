@@ -71,9 +71,7 @@ const NoteFilter = ({
   selectedFilter,
   isClear,
 }: OwnProps) => {
-  const [selectedOption, setSelectedOption] = useState<React.Key[]>(
-    selectedFilter ? selectedFilter : [],
-  );
+  const [selectedOption, setSelectedOption] = useState<React.Key[]>(selectedFilter || []);
   useEffect(() => {
     setSelectedOption(selectedFilter ? selectedFilter : []);
   }, [selectedFilter]);
@@ -103,7 +101,7 @@ const NoteFilter = ({
         <StackLayout vertical>
           <Space direction="vertical" size={8}>
             <Checkbox
-              checked={selectedOption.includes(NoteOption.HASNOTE) ? true : false}
+              checked={selectedOption.includes(NoteOption.HASNOTE)}
               key={NoteOption.HASNOTE}
               onChange={(e) => {
                 handleSelect(e.target.value);
@@ -118,7 +116,7 @@ const NoteFilter = ({
             </Checkbox>
             <Checkbox
               key={NoteOption.NONE}
-              checked={selectedOption.includes(NoteOption.NONE) ? true : false}
+              checked={selectedOption.includes(NoteOption.NONE)}
               onChange={(e) => {
                 handleSelect(e.target.value);
               }}
@@ -145,7 +143,7 @@ const NoteFilter = ({
         </Button>
         <Button
           onClick={() => {
-            setFilterList && setFilterList(selectedKeys, 'note');
+            setFilterList?.(selectedKeys, 'note');
             confirm();
           }}
           size="small"

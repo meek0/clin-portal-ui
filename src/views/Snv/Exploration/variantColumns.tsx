@@ -370,7 +370,7 @@ export const getVariantColumns = (
         tooltip: intl.get('note.table.tooltip'),
         iconTitle: <MessageOutlined />,
         filterIcon: () => {
-          const isFilter = filtersList && filtersList.note.length > 0 ? true : false;
+          const isFilter = filtersList && filtersList.note.length > 0;
           return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
         },
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
@@ -397,9 +397,7 @@ export const getVariantColumns = (
         iconTitle: <ThunderboltOutlined />,
         filterIcon: () => {
           const isFilter =
-            filtersList && filtersList.interpretation && filtersList.interpretation.length > 0
-              ? true
-              : false;
+            filtersList && filtersList.interpretation && filtersList.interpretation.length > 0;
           return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
         },
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (

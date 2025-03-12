@@ -71,11 +71,9 @@ const InterpretationFilter = ({
   selectedFilter,
   isClear,
 }: OwnProps) => {
-  const [selectedOption, setSelectedOption] = useState<React.Key[]>(
-    selectedFilter ? selectedFilter : [],
-  );
+  const [selectedOption, setSelectedOption] = useState<React.Key[]>(selectedFilter || []);
   useEffect(() => {
-    setSelectedOption(selectedFilter ? selectedFilter : []);
+    setSelectedOption(selectedFilter || []);
   }, [selectedFilter]);
 
   useEffect(() => {
@@ -100,9 +98,7 @@ const InterpretationFilter = ({
         <StackLayout vertical>
           <Space direction="vertical" size={8}>
             <Checkbox
-              checked={
-                selectedOption.includes(InterpretationOption.HASINTERPRETATION) ? true : false
-              }
+              checked={selectedOption.includes(InterpretationOption.HASINTERPRETATION)}
               key={InterpretationOption.HASINTERPRETATION}
               onChange={(e) => {
                 handleSelect(e.target.value);
@@ -117,7 +113,7 @@ const InterpretationFilter = ({
             </Checkbox>
             <Checkbox
               key={InterpretationOption.NONE}
-              checked={selectedOption.includes(InterpretationOption.NONE) ? true : false}
+              checked={selectedOption.includes(InterpretationOption.NONE)}
               onChange={(e) => {
                 handleSelect(e.target.value);
               }}
@@ -144,7 +140,7 @@ const InterpretationFilter = ({
         </Button>
         <Button
           onClick={() => {
-            setFilterList && setFilterList(selectedKeys, 'interpretation');
+            setFilterList?.(selectedKeys, 'interpretation');
             confirm();
           }}
           size="small"

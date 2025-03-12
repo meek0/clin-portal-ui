@@ -204,9 +204,9 @@ const VariantsTab = ({
                 );
               },
               hasFilter:
-                filtersList.flags.length > 0 ||
-                filtersList.note.length > 0 ||
-                (filtersList.interpretation && filtersList.interpretation.length > 0)
+                !!filtersList.flags.length ||
+                !!filtersList.note.length ||
+                (filtersList.interpretation && !!filtersList.interpretation.length)
                   ? true
                   : false,
               clearFilter: () => {
