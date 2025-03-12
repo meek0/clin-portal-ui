@@ -9,11 +9,7 @@ import { AnalysisResult, ITableAnalysisResult } from 'graphql/prescriptions/mode
 import PriorityTag from 'views/Prescriptions/components/PriorityTag';
 import StatusTag from 'views/Prescriptions/components/StatusTag';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
-import {
-  getPrescriptionStatusDictionnary,
-  prescriptionPriorityDictionnary,
-  TaskColorMap,
-} from 'views/Prescriptions/utils/constant';
+import { getPrescriptionStatusDictionnary, TaskColorMap } from 'views/Prescriptions/utils/constant';
 import { renderToString } from 'views/Snv/Exploration/variantColumns';
 
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
@@ -82,11 +78,7 @@ export const prescriptionsColumns = (
       dataIndex: ['priority'],
       width: '6em',
       render: (value: string) =>
-        value ? (
-          <PriorityTag dictionaries={prescriptionPriorityDictionnary()} priority={value} />
-        ) : (
-          TABLE_EMPTY_PLACE_HOLDER
-        ),
+        value ? <PriorityTag priority={value} /> : TABLE_EMPTY_PLACE_HOLDER,
       title: intl.get('screen.patientsearch.table.priority'),
       sorter: { multiple: 1 },
     },
