@@ -8,15 +8,11 @@ beforeEach(() => {
   epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+  cy.get(`[data-cy="SidebarMenuItem_Gène"]`).clickAndWait({force: true});
 });
 
-describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
-  it('Gène - Expand all/Collapse all', () => {
-    cy.validateExpandCollapse('Gène');
-  });
-
+describe('Page des variants d\'un patient - Gène', () => {
   it('Recherche par symbole - PRDX1', () => {
-    cy.get(`[data-cy="SidebarMenuItem_Gène"]`).clickAndWait({force: true});
     cy.get('[class*="SearchLabel_title"]').contains('Recherche par gène').should('exist'); //data-cy="SearchLabel_Title"
 
     cy.get('[class*="SearchLabel_tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent', force: true}); //data-cy="SearchLabel_InfoCircleOutlined"
@@ -40,8 +36,6 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Recherche par alias - NKEFA', () => {
-    cy.get(`[data-cy="SidebarMenuItem_Gène"]`).clickAndWait({force: true});
-
     cy.intercept('GET', '**/NKEFA').as('getRouteMatcher');
     cy.get('[class*="SearchAutocomplete_search"]').eq(0).find('input').type('nkefa', {force: true}); //data-cy="SearchAutocomplete_Select"
     cy.wait('@getRouteMatcher');
@@ -57,8 +51,6 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
   });
 
   it('Recherche par Ensembl ID - ENSG00000117450', () => {
-    cy.get(`[data-cy="SidebarMenuItem_Gène"]`).clickAndWait({force: true});
-
     cy.intercept('GET', '**/ENSG00000117450').as('getRouteMatcher');
     cy.get('[class*="SearchAutocomplete_search"]').eq(0).find('input').type('ensg00000117450', {force: true}); //data-cy="SearchAutocomplete_Select"
     cy.wait('@getRouteMatcher');
@@ -71,60 +63,5 @@ describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
     cy.get('[class*="QueryBar_selected"] [class*="QueryPill_field"]').contains('Gène').should('exist');
     cy.get('[class*="QueryBar_selected"] [class*="QueryValues_value"]').contains('PRDX1').should('exist');
     cy.validateTableResultsCount(/^13$/);
-  });
-
-  it('Gène - Type de gène', () => {
-    cy.validateFacetFilter('Gène', 'Type de gène', 'Protein Coding', 'protein_coding', /^154 040$/);
-    cy.validateFacetRank(0, 'Type de gène');
-  });
-
-  it('Gène - Référence externe', () => {
-    cy.validateFacetFilter('Gène', 'Référence externe', 'OMIM', 'OMIM', /^54 110$/);
-    cy.validateFacetRank(1, 'Référence externe');
-  });
-
-  it('Gène - gnomAD pLi [CLIN-3141]', () => {
-    cy.validateFacetNumFilter('Min', 'Gène', 'gnomAD pLi', '0.01', /^141 443$/);
-    cy.validateFacetRank(2, 'gnomAD pLi');
-  });
-
-  it('Gène - gnomAD LOEUF [CLIN-3141]', () => {
-    cy.validateFacetNumFilter('Max', 'Gène', 'gnomAD LOEUF', '0.01', /^59 125$/);
-    cy.validateFacetRank(3, 'gnomAD LOEUF');
-  });
-
-  it('Gène - OMIM (transmission)', () => {
-    cy.validateFacetFilter('Gène', 'OMIM (transmission)', 'Smu', 'Smu', /^683$/);
-    cy.validateFacetRank(4, 'OMIM (transmission)');
-  });
-
-  it('Gène - RQDM', () => {
-    cy.validateFacetFilter('Gène', 'RQDM', /^POLYM v1$/, 'POLYM', /^24 975$/);
-    cy.validateFacetRank(5, 'RQDM');
-  });
-
-  it('Gène - HPO [CLIN-3141]', () => {
-    cy.validateFacetFilter('Gène', 'HPO', 'Autosomal recessive inheritance (HP:0000007)', 'Autosomal recessive inheritance (HP:0000007)', /^31 726$/);
-    cy.validateFacetRank(6, 'HPO');
-  });
-
-  it('Gène - ORPHANET', () => {
-    cy.validateFacetFilter('Gène', 'ORPHANET', 'Autosomal recessive non-syndromic sensorineural deafness type DFNB', 'Autosomal recessive non-syndromic sensorineural deafness type DFNB', /^(1 271|1,271)$/);
-    cy.validateFacetRank(7, 'ORPHANET');
-  });
-
-  it('Gène - OMIM', () => {
-    cy.validateFacetFilter('Gène', 'OMIM', 'Celiac disease, susceptibility to', 'Celiac disease, susceptibility to', /^470$/);
-    cy.validateFacetRank(8, 'OMIM');
-  });
-
-  it('Gène - DDD', () => {
-    cy.validateFacetFilter('Gène', 'DDD', 'AUTOSOMAL RECESSIVE MENTAL RETARDATION', 'AUTOSOMAL RECESSIVE MENTAL RETARDATION', /^721$/);
-    cy.validateFacetRank(9, 'DDD');
-  });
-
-  it('Gène - COSMIC', () => {
-    cy.validateFacetFilter('Gène', 'COSMIC', 'Leukaemia', 'leukaemia', /^183$/);
-    cy.validateFacetRank(10, 'COSMIC');
   });
 });

@@ -9,13 +9,10 @@ beforeEach(() => {
   cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 });
 
-describe('Page des variants d\'un patient - Filtrer avec les facettes', () => {
-  it('Panel RQDM - Expand all/Collapse all', () => {
-    cy.validateExpandCollapse('Panel RQDM');
-  });
-
-  it('Panel RQDM - RQDM', () => {
-    cy.validateFacetFilter('Panel RQDM', 'RQDM', /^POLYM v1$/, 'POLYM', /^24 975$/);
-    cy.validateFacetRank(0, 'RQDM');
+describe('Page des variants d\'un patient - Opérateurs par défaut', () => {
+  it('Variant - Position', () => {
+    cy.openFacet('Variant', 'Position');
+    cy.get(`[data-cy="InputNumber_Min_Position"]`).should('exist');
+    cy.get(`[data-cy="InputNumber_Max_Position"]`).should('exist');
   });
 });
