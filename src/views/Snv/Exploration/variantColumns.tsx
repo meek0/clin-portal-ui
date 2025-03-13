@@ -10,6 +10,7 @@ import {
   FlagOutlined,
   MessageOutlined,
   PlusOutlined,
+  ThunderboltOutlined,
 } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
@@ -52,6 +53,8 @@ import { ZygosityValue } from '../utils/constant';
 import FlagCell from './components/Flag/FlagCell';
 import FlagFilterDropdown from './components/Flag/FlagFilter';
 import GnomadCell from './components/Gnomad/GnomadCell';
+import InterpretationCell from './components/InterpretationCell/InterpretationCell';
+import InterpretationFilter from './components/InterpretationCell/InterpretationFilter';
 import ManeCell from './components/ManeCell';
 import NoteCell from './components/Note/NoteCell';
 import NoteFilter from './components/Note/NoteFilter';
@@ -321,7 +324,7 @@ export const getVariantColumns = (
   patientId?: string,
   onlyExportTSV: boolean = false,
   noData: boolean = false,
-  variantSection?: string,
+  variantSection?: VariantSection,
   isSameLDM?: boolean,
   isClear?: boolean,
   setFilterList?: (columnKeys: Key[]) => void,
@@ -358,32 +361,65 @@ export const getVariantColumns = (
         ),
       });
     }
-    columns.push({
-      key: 'note',
-      fixed: 'left',
-      title: intl.get('screen.patientsnv.results.table.note'),
-      dataIndex: 'note',
-      tooltip: intl.get('note.table.tooltip'),
-      iconTitle: <MessageOutlined />,
-      filterIcon: () => {
-        const isFilter = filtersList && filtersList.note.length > 0 ? true : false;
-        return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
+    columns.push(
+      {
+        key: 'note',
+        fixed: 'left',
+        title: intl.get('screen.patientsnv.results.table.note'),
+        dataIndex: 'note',
+        tooltip: intl.get('note.table.tooltip'),
+        iconTitle: <MessageOutlined />,
+        filterIcon: () => {
+          const isFilter = filtersList && filtersList.note.length > 0;
+          return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
+        },
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <NoteFilter
+            confirm={confirm}
+            selectedKeys={selectedKeys}
+            setFilterList={setFilterList}
+            setSelectedKeys={setSelectedKeys}
+            isClear={isClear}
+            selectedFilter={filtersList?.note}
+          />
+        ),
+        width: 55,
+        render: (note: string, entity: VariantEntity) => (
+          <NoteCell note={note} hash={entity.hash} variantType="snv" />
+        ),
       },
-      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
-        <NoteFilter
-          confirm={confirm}
-          selectedKeys={selectedKeys}
-          setFilterList={setFilterList}
-          setSelectedKeys={setSelectedKeys}
-          isClear={isClear}
-          selectedFilter={filtersList?.note}
-        />
-      ),
-      width: 55,
-      render: (note: string, entity: VariantEntity) => (
-        <NoteCell note={note} hash={entity.hash} variantType="snv" />
-      ),
-    });
+      {
+        key: 'interpretation',
+        fixed: 'left',
+        title: intl.get('interpretation_Cell.tooltip_column'),
+        dataIndex: 'interpretation',
+        tooltip: intl.get('interpretation_Cell.tooltip_column'),
+        iconTitle: <ThunderboltOutlined />,
+        filterIcon: () => {
+          const isFilter =
+            filtersList && filtersList.interpretation && filtersList.interpretation.length > 0;
+          return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
+        },
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
+          <InterpretationFilter
+            confirm={confirm}
+            selectedKeys={selectedKeys}
+            setFilterList={setFilterList}
+            setSelectedKeys={setSelectedKeys}
+            isClear={isClear}
+            selectedFilter={filtersList?.interpretation}
+          />
+        ),
+        width: 55,
+        render: (interpretation: string, entity: VariantEntity) => (
+          <InterpretationCell
+            interpretation={interpretation}
+            record={entity}
+            variantSection={variantSection}
+          />
+        ),
+      },
+    );
   }
 
   columns = [

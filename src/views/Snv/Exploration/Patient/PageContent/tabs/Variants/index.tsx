@@ -203,7 +203,12 @@ const VariantsTab = ({
                       }),
                 );
               },
-              hasFilter: filtersList.flags.length > 0 || filtersList.note.length > 0 ? true : false,
+              hasFilter:
+                !!filtersList.flags.length ||
+                !!filtersList.note.length ||
+                (filtersList.interpretation && !!filtersList.interpretation.length)
+                  ? true
+                  : false,
               clearFilter: () => {
                 setFilterList([]);
               },

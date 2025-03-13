@@ -1,0 +1,50 @@
+.hasInterpretation {
+  color: var(--blue-8);
+}
+
+.noInterpretation {
+  color: var(--gray-6);
+}
+
+.interpretationCell .interpretationButton {
+  background-color: inherit;
+  border: none;
+  width: fit-content;
+  height: 1em;
+  padding: 0 4px;
+}
+
+.interpretationCell {
+  height: 1em;
+}
+
+.interpretationCell .interpretationButton svg {
+  font-size:  14px;
+}
+
+.interpretationCell .interpretationButton:focus {
+  background-color: inherit;
+}
+
+/*Filter */
+
+.interpretationFilterContainer {
+  width: 184px;
+  padding: 8px 12px;
+}
+
+.optionInterpretation :global(.anticon) {
+  font-size: 16px;
+}
+
+.filterFooter {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid var(--gray-4);
+  padding: 8px;
+}
+
+.tagContainer {
+  height: 24px;
+}

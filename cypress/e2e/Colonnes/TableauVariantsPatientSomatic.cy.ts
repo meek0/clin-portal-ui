@@ -23,66 +23,71 @@ describe('Page des variants d\'un patient (somatic) - Colonnes du tableau', () =
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(4)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Variant').should('exist');
+      .should('not.have.class', 'ant-table-column-has-sorters')
+      .find('[data-icon="thunderbolt"]').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(5)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Type').should('exist');
+      .contains('Variant').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(6)
+      .should('have.class', 'ant-table-column-has-sorters')
+      .contains('Type').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .find('th[class*="ant-table-cell"]').eq(7)
       .should('not.have.class', 'ant-table-column-has-sorters')
       .contains('Bioinfo').should('exist');
   
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(7)
+      .find('th[class*="ant-table-cell"]').eq(8)
       .should('not.have.class', 'ant-table-column-has-sorters')
       .contains('dbSNP').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(8)
+      .find('th[class*="ant-table-cell"]').eq(9)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Gène').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(9)
+      .find('th[class*="ant-table-cell"]').eq(10)
       .should('not.have.class', 'ant-table-column-has-sorters')
       .contains('Conséquence').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(10)
+      .find('th[class*="ant-table-cell"]').eq(11)
       .should('not.have.class', 'ant-table-column-has-sorters')
       .contains('MANE').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(11)
+      .find('th[class*="ant-table-cell"]').eq(12)
       .should('not.have.class', 'ant-table-column-has-sorters')
       .contains('OMIM').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(12)
+      .find('th[class*="ant-table-cell"]').eq(13)
       .should('not.have.class', 'ant-table-column-has-sorters')
       .contains('ClinVar').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(13)
+      .find('th[class*="ant-table-cell"]').eq(14)
       .should('have.class', 'ant-table-column-has-sorters')
       .find('[data-icon="fire"]').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(14)
+      .find('th[class*="ant-table-cell"]').eq(15)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Tier').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(15)
+      .find('th[class*="ant-table-cell"]').eq(16)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('CMC').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(16)
+      .find('th[class*="ant-table-cell"]').eq(17)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains(/^gnomAD $/).should('exist');
 
@@ -93,22 +98,22 @@ describe('Page des variants d\'un patient (somatic) - Colonnes du tableau', () =
       .contains('gnomAD ALT').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(17)
+      .find('th[class*="ant-table-cell"]').eq(18)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('RQDM G').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(18)
+      .find('th[class*="ant-table-cell"]').eq(19)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('RQDM TO').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(19)
+      .find('th[class*="ant-table-cell"]').eq(20)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('QS').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(20)
+      .find('th[class*="ant-table-cell"]').eq(21)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Zyg.').should('exist');
 

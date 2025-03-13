@@ -1698,5 +1698,15 @@
   "functionalScores": "Scores de prédictions",
   "cadd_phred": "CADD (phred)",
   "tier": "CMC tier",
-  "pli": "pLi"
+  "pli": "pLi",
+  "interpretation_Cell": {
+    "filter": {
+      "options": {
+        "hasInterpretation": "Interprétation",
+        "none": "Aucun"
+      }
+    },
+    "tooltip_column": "Interprétation clinique",
+    "tooltip_cell":"Ouvrir l’interprétation clinique"
+  }
 }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
-import { MessageFilled, MessageOutlined } from '@ant-design/icons';
+import { ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { Button, Checkbox, Space } from 'antd';
 import { FilterConfirmProps, Key } from 'antd/lib/table/interface';
 
-import styles from './NoteCell.module.css';
+import styles from './InterpretationCell.module.css';
 
 interface OwnProps {
   confirm: (param?: FilterConfirmProps) => void;
@@ -16,54 +16,54 @@ interface OwnProps {
   isClear?: boolean;
 }
 
-enum NoteOption {
-  NONE = 'noNote',
-  HASNOTE = 'hasNote',
+enum InterpretationOption {
+  NONE = 'noInterpretation',
+  HASINTERPRETATION = 'hasInterpretation',
 }
 
-export const noteFilterQuery = () => ({
+export const interpretationFilterQuery = () => ({
   content: {
-    field: 'note',
+    field: 'interpretation',
     value: ['true'],
   },
   op: 'in',
 });
 
-export const noNoteQuery = () => ({
+export const noInterpretationQuery = () => ({
   content: {
-    field: 'note',
+    field: 'interpretation',
     value: ['true'],
   },
   op: 'not-in',
 });
 
-export const allNoteQuery = () => ({
+export const allInterpretationQuery = () => ({
   content: [
     {
       content: {
-        field: 'note',
+        field: 'interpretation',
         value: ['true'],
       },
       op: 'not-in',
     },
-    noteFilterQuery(),
+    interpretationFilterQuery(),
   ],
   op: 'or',
 });
 
-export const getNoteQuery = (filteredValues: string[]) => {
+export const getInterpretationQuery = (filteredValues: string[]) => {
   if (filteredValues.length === 1) {
-    if (filteredValues.includes('hasNote')) {
-      return noteFilterQuery();
+    if (filteredValues.includes('hasInterpretation')) {
+      return interpretationFilterQuery();
     } else {
-      return noNoteQuery();
+      return noInterpretationQuery();
     }
   } else if (filteredValues.length > 1) {
-    return allNoteQuery();
+    return allInterpretationQuery();
   }
 };
 
-const NoteFilter = ({
+const InterpretationFilter = ({
   setFilterList,
   selectedKeys,
   confirm,
@@ -73,59 +73,56 @@ const NoteFilter = ({
 }: OwnProps) => {
   const [selectedOption, setSelectedOption] = useState<React.Key[]>(selectedFilter || []);
   useEffect(() => {
-    setSelectedOption(selectedFilter ? selectedFilter : []);
+    setSelectedOption(selectedFilter || []);
   }, [selectedFilter]);
 
   useEffect(() => {
-    if (selectedKeys && setSelectedKeys) {
-      setSelectedKeys(selectedOption);
-    }
-  }, [selectedOption]);
-  useEffect(() => {
     if (isClear) {
-      setSelectedKeys && setSelectedKeys([]);
-      confirm && confirm();
+      setSelectedKeys?.([]);
+      confirm?.();
     }
   }, [isClear]);
 
   const handleSelect = (value: string) => {
     if (selectedOption?.includes(value)) {
       setSelectedOption(selectedOption.filter((item: React.Key) => item !== value));
+      setSelectedKeys(selectedOption.filter((item: React.Key) => item !== value));
     } else {
       setSelectedOption([value, ...selectedOption]);
+      setSelectedKeys([value, ...selectedOption]);
     }
   };
   return (
     <>
-      <div className={styles.noteFilterContainer}>
+      <div className={styles.interpretationFilterContainer}>
         <StackLayout vertical>
           <Space direction="vertical" size={8}>
             <Checkbox
-              checked={selectedOption.includes(NoteOption.HASNOTE)}
-              key={NoteOption.HASNOTE}
+              checked={selectedOption.includes(InterpretationOption.HASINTERPRETATION)}
+              key={InterpretationOption.HASINTERPRETATION}
               onChange={(e) => {
                 handleSelect(e.target.value);
               }}
               type="checkbox"
-              value={NoteOption.HASNOTE}
+              value={InterpretationOption.HASINTERPRETATION}
             >
-              <Space className={styles.optionNote} size={8}>
-                <MessageFilled className={styles.hasNote} />
-                {intl.get('note.filter.options.hasNote')}
+              <Space className={styles.optionInterpretation} size={8}>
+                <ThunderboltFilled className={styles.hasInterpretation} />
+                {intl.get('interpretation_Cell.filter.options.hasInterpretation')}
               </Space>
             </Checkbox>
             <Checkbox
-              key={NoteOption.NONE}
-              checked={selectedOption.includes(NoteOption.NONE)}
+              key={InterpretationOption.NONE}
+              checked={selectedOption.includes(InterpretationOption.NONE)}
               onChange={(e) => {
                 handleSelect(e.target.value);
               }}
               type="checkbox"
-              value={NoteOption.NONE}
+              value={InterpretationOption.NONE}
             >
-              <Space className={styles.optionNote} size={8}>
-                <MessageOutlined className={styles.noNote} />
-                {intl.get('note.filter.options.noNote')}
+              <Space className={styles.optionInterpretation} size={8}>
+                <ThunderboltOutlined className={styles.noInterpretation} />
+                {intl.get('interpretation_Cell.filter.options.none')}
               </Space>
             </Checkbox>
           </Space>
@@ -143,7 +140,7 @@ const NoteFilter = ({
         </Button>
         <Button
           onClick={() => {
-            setFilterList?.(selectedKeys, 'note');
+            setFilterList?.(selectedKeys, 'interpretation');
             confirm();
           }}
           size="small"
@@ -156,4 +153,4 @@ const NoteFilter = ({
   );
 };
 
-export default NoteFilter;
+export default InterpretationFilter;

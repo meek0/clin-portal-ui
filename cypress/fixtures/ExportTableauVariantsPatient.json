@@ -1,5 +1,6 @@
 {
   "headers": ["flags",
+              "interpretation",
               "hgvsg",
               "variant_class",
               "rsnumber",

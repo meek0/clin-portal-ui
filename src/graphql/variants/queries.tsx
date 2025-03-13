@@ -27,6 +27,7 @@ const VARIANT_QUERY_BASE_FIELDS = `
   start
   note
   flags
+  interpretation
   end
   hotspot
   exomiser_max{

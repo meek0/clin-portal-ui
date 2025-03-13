@@ -40,6 +40,7 @@ describe('Accès des utilisateurs', () => {
     cy.contains('Résultats').should('exist');
     cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
     cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="thunderbolt"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCHUSJ.prescriptionId);
@@ -50,6 +51,7 @@ describe('Accès des utilisateurs', () => {
     cy.contains('Résultats').should('exist');
     cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
     cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="thunderbolt"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
     cy.visitPrescriptionEntityPage(epCUSM_ldmCUSM.prescriptionId);
@@ -60,6 +62,7 @@ describe('Accès des utilisateurs', () => {
     cy.contains('Résultats').should('exist');
     cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
     cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="thunderbolt"]').should('exist');
 
     // Accéder à la page Prescription d'un patient du CHUS
     cy.visitPrescriptionEntityPage(epCHUS_ldmCHUS.prescriptionId);
@@ -70,6 +73,7 @@ describe('Accès des utilisateurs', () => {
     cy.contains('Résultats').should('exist');
     cy.get('thead[class="ant-table-thead"]').find('[data-icon="flag"]').should('exist');
     cy.get('thead[class="ant-table-thead"]').find('[data-icon="message"]').should('exist');
+    cy.get('thead[class="ant-table-thead"]').find('[data-icon="thunderbolt"]').should('exist');
 
     // Les liens de la footer sont visibles
     cy.contains('Zeppelin').should('not.exist');

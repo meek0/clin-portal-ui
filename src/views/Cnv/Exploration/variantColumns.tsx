@@ -36,7 +36,7 @@ export const renderPOToString = ({ parental_origin }: VariantEntity) =>
     ? intl.get(`filters.options.donors.parental_origin.${parental_origin}.abrv`)
     : TABLE_EMPTY_PLACE_HOLDER;
 
-export type TVariantFilter = { flags: string[]; note: string[] };
+export type TVariantFilter = { flags: string[]; note: string[]; interpretation?: string[] };
 export const renderRQDMPfToString = ({ frequency_RQDM }: VariantEntity) =>
   frequency_RQDM ? frequency_RQDM.pf.toExponential(2) : TABLE_EMPTY_PLACE_HOLDER;
 
