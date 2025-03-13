@@ -72,15 +72,6 @@ const TranscriptSection = ({ record: { genes, consequences, rsnumber, locus } }:
               </Typography.Title>
             </Space>
           </ExternalLink>
-          <Space size={4}>
-            {pickedConsequence && (
-              <div>
-                {pickImpacBadge(pickedConsequence.node.vep_impact)}
-                {intl.get(`consequences.${pickedConsequence?.node.consequences}`)}
-              </div>
-            )}
-            -{pickedConsequence?.node.aa_change}
-          </Space>
           <Space size={2} className={style.emsembl}>
             (
             <ExternalLink
@@ -135,10 +126,23 @@ const TranscriptSection = ({ record: { genes, consequences, rsnumber, locus } }:
             <Divider type="vertical" />
           </>
         )}
-
-        <ExternalLink href={`https://www.ncbi.nlm.nih.gov/snp/${rsnumber}`}>
-          {rsnumber}
-        </ExternalLink>
+        <Space size={4}>
+          {pickedConsequence && (
+            <div>
+              {pickImpacBadge(pickedConsequence.node.vep_impact)}
+              {intl.get(`consequences.${pickedConsequence?.node.consequences}`)}
+            </div>
+          )}
+          -{pickedConsequence?.node.aa_change}
+        </Space>
+        {rsnumber && (
+          <>
+            <Divider type="vertical" />
+            <ExternalLink href={`https://www.ncbi.nlm.nih.gov/snp/${rsnumber}`}>
+              {rsnumber}
+            </ExternalLink>
+          </>
+        )}
       </Space>
     </Card>
   );
