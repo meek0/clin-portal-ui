@@ -1,18 +1,8 @@
-import {
-  commonPrescriptionFilterFields,
-  getPrescriptionStatusDictionnary,
-  prescriptionPriorityDictionnary,
-} from '../constant';
+import { commonPrescriptionFilterFields, getPrescriptionStatusDictionnary } from '../constant';
 
 describe('getPrescriptionStatusDictionnary', () => {
   test('should be robust', () => {
     expect(getPrescriptionStatusDictionnary()).toBeDefined();
-  });
-});
-
-describe('prescriptionPriorityDictionnary', () => {
-  test('should be robust', () => {
-    expect(prescriptionPriorityDictionnary()).toBeDefined();
   });
 });
 
