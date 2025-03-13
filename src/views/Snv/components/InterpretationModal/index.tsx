@@ -264,9 +264,9 @@ const InterpretationModal = ({
                           variantSection={variantSection}
                         />
                         <GeneSection record={record} showRevel />
-                        <ClinicalAssociations record={record} />
                       </>
                     )}
+                    <ClinicalAssociations record={record} />
                   </Space>
                 }
               />
