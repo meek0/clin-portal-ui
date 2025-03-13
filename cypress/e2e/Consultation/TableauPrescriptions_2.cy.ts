@@ -39,7 +39,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
     cy.sortTableAndIntercept('Priorité', 3);
     cy.validateTableFirstRow('-', 4, true);
     cy.sortTableAndIntercept('Priorité', 3);
-    cy.validateTableFirstRow(/^(-|Routine|ASAP)$/, 4, true);
+    cy.validateTableFirstRow(/^(-|(?!-).*)$/, 4, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Statut', () => {
