@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { CloseOutlined } from '@ant-design/icons';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Form, Radio, Select, Tag, Tooltip } from 'antd';
 import { InterpretationApi } from 'api/interpretation';
@@ -13,11 +14,11 @@ import {
   getTransmissionModes,
 } from './data';
 import GenericInterpretationForm from './GenericInterpretationForm';
+import InterpretationMondoOptionItem from './MondoOptionItem';
 import { GermlineInterpFormFields } from './types';
 import { requiredRule } from './utils';
 
 import styles from './index.module.css';
-import InterpretationMondoOptionItem from './MondoOptionItem';
 
 const GermlineInterpretationForm = () => {
   const form = Form.useFormInstance();
@@ -49,7 +50,21 @@ const GermlineInterpretationForm = () => {
     <>
       <Form.Item
         label={
-          <ProLabel title={intl.get('modal.variant.interpretation.germline.condition')} colon />
+          <ProLabel
+            popoverProps={{
+              content: (
+                <>
+                  {intl.get('modal.variant.interpretation.germline.condition-popover')}
+                  <ExternalLink href="https://www.ebi.ac.uk/ols4/ontologies/mondo">
+                    {intl.get('modal.variant.interpretation.germline.condition-popover-link')}
+                  </ExternalLink>
+                </>
+              ),
+              placement: 'right',
+            }}
+            title={intl.get('modal.variant.interpretation.germline.condition')}
+            colon
+          />
         }
         name={GermlineInterpFormFields.CONDITION}
         rules={[requiredRule]}
@@ -78,21 +93,27 @@ const GermlineInterpretationForm = () => {
           <Form.Item
             label={
               <ProLabel
-                title={
-                  (
-                    <span>
-                      {intl.get('modal.variant.interpretation.germline.classification')} ACMG/AMP (
-                      <a
-                        href="https://pubmed.ncbi.nlm.nih.gov/25741868/"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        PMID: 25741868
-                      </a>
-                      )
-                    </span>
-                  ) as any
-                }
+                title={`${intl.get(
+                  'modal.variant.interpretation.germline.classification',
+                )} ACMG/AMP`}
+                popoverProps={{
+                  content: (
+                    <>
+                      {intl.get(
+                        'modal.variant.interpretation.germline.classification-popover-first',
+                      )}
+                      <ExternalLink href="https://pubmed.ncbi.nlm.nih.gov/25741868/">
+                        {intl.get(
+                          'modal.variant.interpretation.germline.classification-popover-link',
+                        )}
+                      </ExternalLink>
+                      {intl.get(
+                        'modal.variant.interpretation.germline.classification-popover-last',
+                      )}
+                    </>
+                  ),
+                  placement: 'right',
+                }}
                 colon
               />
             }
