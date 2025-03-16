@@ -9,23 +9,19 @@ beforeEach(() => {
   cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
 });
 
-describe('Page des variants d\'un patient (paired) - Filtrer avec les facettes', () => {
-  it('Variant - Expand all/Collapse all', () => {
-    cy.validateExpandCollapse('Variant');
-  });
-
+describe('Page des variants d\'un patient (paired) - Ordre des facettes', () => {
   it('Variant - Analyse bioinformatique', () => {
-    cy.validateFacetFilter('Variant', 'Analyse bioinformatique', 'TO', 'TO', /^1 559$/);
+    cy.openFacet('Variant', 'Analyse bioinformatique');
     cy.validateFacetRank(1, 'Analyse bioinformatique');
   });
 
   it('Pathogénicité - Hotspot', () => {
-    cy.validateFacetFilter('Pathogénicité', 'Hotspot', 'True', 'true', /^8$/);
+    cy.openFacet('Pathogénicité', 'Hotspot');
     cy.validateFacetRank(14, 'Hotspot');
   });
 
   it('Occurrence - Qualité somatique', () => {
-    cy.validateFacetNumFilter('Min', 'Occurrence', 'Qualité somatique', '0.01', /^5 951$/);
+    cy.openFacet('Occurrence', 'Qualité somatique');
     cy.validateFacetRank(6, 'Qualité somatique');
   });
 });
