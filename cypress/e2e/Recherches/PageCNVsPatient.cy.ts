@@ -11,7 +11,7 @@ beforeEach(() => {
   cy.get(`[data-cy="SidebarMenuItem_Gène"]`).clickAndWait({force: true});
 });
 
-describe('Page des CNVs d\'un patient - Filtrer avec les facettes', () => {
+describe('Page des CNVs d\'un patient - Gène', () => {
   it('Recherche par symbole - CFHR1', () => {
     cy.get('[class*="SearchLabel_title"]').contains('Recherche par gène').should('exist'); //data-cy="SearchLabel_Title"
 
