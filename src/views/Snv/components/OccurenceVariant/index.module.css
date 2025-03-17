@@ -38,7 +38,7 @@
 
 .occurenceVariant .basicBordered {
   min-width: 260px;
-  max-width: 460px; 
+  max-width: 460px;
 }
 
 .occurenceVariant .basicBordered :global(.ant-descriptions-view) {
@@ -132,6 +132,7 @@
 
 .occurenceVariant .ominIdLink {
   text-decoration: underline;
+  color: var(--blue-8);
 }
 
 .occurenceVariant .canonicalIcon {
