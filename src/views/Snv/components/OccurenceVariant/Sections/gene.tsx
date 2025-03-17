@@ -27,28 +27,28 @@ const GeneSection = ({ record, showRevel = false }: OwnProps) => {
       column={1}
     >
       <Descriptions.Item label={intl.get('pli')}>
-        {geneInfo?.gnomad.pli ? (
+        {geneInfo?.gnomad?.pli ? (
           <ExternalLink
             className={style.gene}
             href={`https://gnomad.broadinstitute.org/gene/${geneInfo.ensembl_gene_id}?dataset=gnomad_r2_1`}
           >
-            {geneInfo.gnomad.pli < 0.001
+            {geneInfo?.gnomad.pli < 0.001
               ? geneInfo.gnomad?.pli?.toExponential(2)
-              : geneInfo.gnomad.pli}
+              : geneInfo.gnomad?.pli}
           </ExternalLink>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
         )}
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('screen.patientsnv.results.table.loeuf')}>
-        {geneInfo?.gnomad.loeuf ? (
+        {geneInfo?.gnomad?.loeuf ? (
           <ExternalLink
             className={style.gene}
             href={`https://gnomad.broadinstitute.org/gene/${geneInfo.ensembl_gene_id}?dataset=gnomad_r2_1`}
           >
-            {geneInfo.gnomad.loeuf < 0.001
+            {geneInfo.gnomad?.loeuf < 0.001
               ? geneInfo.gnomad?.loeuf?.toExponential(2)
-              : geneInfo.gnomad.loeuf}
+              : geneInfo.gnomad?.loeuf}
           </ExternalLink>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
