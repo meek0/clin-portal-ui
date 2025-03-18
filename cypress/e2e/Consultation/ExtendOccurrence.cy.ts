@@ -15,7 +15,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class="ant-card-head-title"]').contains('chr3:g.58159621T>C').should('exist');
     cy.get('[class="ant-card-head-title"]').find('svg[class*="anticon"]').should('exist');
     cy.get('[class="ant-card-head-title"] button').eq(0).contains('Interpréter').should('exist');
-    cy.get('[class="ant-card-head-title"] button').eq(1).contains('Télécharger rapport').should('exist');
+    cy.get('[class="ant-card-head-title"] button').eq(1).contains('Rapport CHUSJ').should('exist');
     cy.get('[class="ant-card-head-title"] button').eq(2).contains('Ouvrir IGV').should('exist');
     cy.get('[class="ant-card-head-title"]').contains('UCSC').should('exist');
     cy.get('[class="ant-card-head-title"]').contains('LitVAR').should('exist');
@@ -105,7 +105,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(4).find('[class="ant-descriptions-item-label"]').eq(4).contains('CADD (phred)').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(4).find('[class="ant-descriptions-item-content"]').eq(4).contains('2.80e+1').should('exist');
   });
-  
+
   it('Vérifier les informations affichées - Section Zygosité', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(5).contains('Zygosité').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-label"]').eq(0).contains('Zygosité').should('exist');
@@ -173,12 +173,12 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(8).find('[class="ant-descriptions-item-content"]').eq(4).contains('PASS').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(8).find('[class="ant-descriptions-item-label"]').contains('Qualité somatique').should('not.exist');
   });
- 
+
   it('Valider les liens disponibles - Variant', () => {
     cy.get('[class="ant-card-head-title"]').contains('chr3:g.58159621T>C').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.get('[data-cy="Summary_Start"]').contains('58 159 621').should('exist');
   });
-  
+
   it('Valider les liens disponibles - UCSC', () => {
    cy.get('[class="ant-card-head-title"] [class*="OccurenceVariant_linkButton"]').eq(0)
      .should('have.attr', 'href', 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr3%3A58159621-58159622');
@@ -188,7 +188,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class="ant-card-head-title"] [class*="OccurenceVariant_linkButton"]').eq(1)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/research/litvar2/docsum?text=rs116826041');
   });
- 
+
   it('Valider les liens disponibles - Gène', () => {
     cy.get('[class*="OccurenceVariant_transcript"]').find('a[href]').eq(0)
       .should('have.attr', 'href', 'https://www.omim.org/entry/603381');
@@ -203,47 +203,47 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class*="OccurenceVariant_transcript"]').find('a[href]').eq(2)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/nuccore/NM_001457.4');
   });
- 
+
   it('Valider les liens disponibles - rsnumber', () => {
     cy.get('[class*="OccurenceVariant_transcript"]').find('a[href]').eq(3)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/snp/rs116826041');
   });
- 
+
   it('Valider les liens disponibles - ClinVar', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(0).find('a[href]').eq(1)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/258120');
   });
-  
+
   it('Valider les liens disponibles - pLi', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(0).find('a[href]')
       .should('have.attr', 'href', 'https://gnomad.broadinstitute.org/gene/ENSG00000136068?dataset=gnomad_r2_1');
   });
-  
+
   it('Valider les liens disponibles - LOEUF', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(1).find('a[href]')
       .should('have.attr', 'href', 'https://gnomad.broadinstitute.org/gene/ENSG00000136068?dataset=gnomad_r2_1');
   });
-  
+
   it('Valider les liens disponibles - SpliceAI', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(2).find('a[href]')
       .should('have.attr', 'href', 'https://spliceailookup.broadinstitute.org/#variant=3-58159621-T-C&hg=38&distance=50&mask=0&precomputed=0');
   });
- 
+
   it('Valider les liens disponibles - RQDM Atteints', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(0).find('a[href]').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.validateTableResultsCount('7 Résultats');
   });
- 
+
   it('Valider les liens disponibles - RQDM Non atteints', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).find('a[href]').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.validateTableResultsCount('7 Résultats');
   });
-  
+
   it('Valider les liens disponibles - gnomAD', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(2).find('a[href]')
       .should('have.attr', 'href', 'https://gnomad.broadinstitute.org/variant/3-58159621-T-C?dataset=gnomad_r4');
   });
- 
+
   it('Valider les liens disponibles - Hét. composé', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql1');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-content"]').eq(1).contains('1').clickAndWait({force: true});
@@ -251,7 +251,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.wait('@getPOSTgraphql1');
     cy.contains('2 Résultats').should('exist');
   });
- 
+
   it('Valider les liens disponibles - Hét. composé potentiel', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql2');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-content"]').eq(2).contains('2').clickAndWait({force: true});
@@ -259,16 +259,16 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.wait('@getPOSTgraphql2');
     cy.contains('2 Résultats').should('exist');
   });
-  
+
   it('Valider les liens disponibles - OMIM', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-label"]').eq(0).find('a[href]')
       .should('have.attr', 'href', 'https://www.omim.org/entry/108720');
   });
- 
+
   it('Valider les liens disponibles - OMIM Voir plus', () => {
     cy.get('[class="ant-card-body"] a[href="/variant/entity/3-58159621-T-C/summary"]').should('exist');
   });
-  
+
   it('Vérifier les informations affichées des métriques de séquençage parental', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(7).find('[class="ant-descriptions-item-content"]').eq(0).contains('détails').clickAndWait({force: true});
 

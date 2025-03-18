@@ -16,7 +16,7 @@ describe('Ligne extensible d\'une occurrence (paired)', () => {
     cy.get('[class="ant-card-head-title"]').contains('chr10:g.17617338A>C').should('exist');
     cy.get('[class="ant-card-head-title"]').find('svg[class*="anticon"]').should('exist');
     cy.get('[class="ant-card-head-title"] button').eq(0).contains('Interpréter').should('exist');
-    cy.get('[class="ant-card-head-title"] button').eq(1).contains('Télécharger rapport').should('exist');
+    cy.get('[class="ant-card-head-title"] button').eq(1).contains('Rapport CHUSJ').should('exist');
     cy.get('[class="ant-card-head-title"] button').eq(2).contains('Ouvrir IGV').should('exist');
     cy.get('[class="ant-card-head-title"]').contains('UCSC').should('exist');
     cy.get('[class="ant-card-head-title"]').contains('LitVAR').should('not.exist');
@@ -115,17 +115,17 @@ describe('Ligne extensible d\'une occurrence (paired)', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-content"]').eq(4).contains('Weak Evidence').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-label"]').contains('Qualité du génotype').should('not.exist');
   });
- 
+
   it('Valider les liens disponibles - Variant', () => {
     cy.get('[class="ant-card-head-title"]').contains('chr10:g.17617338A>C').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.get('[data-cy="Summary_Start"]').contains('17 617 338').should('exist');
   });
-  
+
   it('Valider les liens disponibles - UCSC', () => {
    cy.get('[class="ant-card-head-title"] [class*="OccurenceVariant_linkButton"]').eq(0)
      .should('have.attr', 'href', 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr10%3A17617338-17617339');
   });
- 
+
   it('Valider les liens disponibles - Gène', () => {
     cy.get('[class*="OccurenceVariant_transcript"]').find('a[href]').eq(0)
       .should('have.attr', 'href', 'https://www.omim.org/entry/610467');
@@ -140,27 +140,27 @@ describe('Ligne extensible d\'une occurrence (paired)', () => {
     cy.get('[class*="OccurenceVariant_transcript"]').find('a[href]').eq(2)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/nuccore/NM_014241.4');
   });
- 
+
   it('Valider les liens disponibles - ClinVar', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(0).find('a[href]')
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/1507888');
   });
-  
+
   it('Valider les liens disponibles - SpliceAI', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(2).find('a[href]')
       .should('have.attr', 'href', 'https://spliceailookup.broadinstitute.org/#variant=10-17617338-A-C&hg=38&distance=50&mask=0&precomputed=0');
   });
- 
+
   it('Valider les liens disponibles - RQDM (TO)', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(0).find('a[href]').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.validateTableResultsCount('1 Résultat');
   });
- 
+
   it('Valider les liens disponibles - RQDM (TN)', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(1).find('a[href]').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.validateTableResultsCount('1 Résultat');
   });
-  
+
   it('Valider les liens disponibles - OMIM', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-label"]').eq(0).find('a[href]')
       .should('have.attr', 'href', 'https://www.omim.org/entry/619967');
