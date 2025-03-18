@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
@@ -10,15 +10,24 @@ import InterpretationModal from 'views/Snv/components/InterpretationModal';
 import styles from './InterpretationCell.module.css';
 
 interface OwnProps {
-  interpretation: string | null;
   record: VariantEntity | ITableVariantEntity;
   variantSection?: VariantSection;
+  interpretationList?: string[];
+  changeInterpretationList?: (hash: string) => void;
 }
 
-const InterpretationCell = ({ interpretation, record, variantSection }: OwnProps) => {
+const InterpretationCell = ({
+  record,
+  variantSection,
+  interpretationList,
+  changeInterpretationList,
+}: OwnProps) => {
   const { patientId } = usePrescriptionEntityContext();
   const [isInterpretationModalOpen, toggleInterpretationModal] = useState(false);
-
+  const [hasInterpretation, setHasInterpretation] = useState(false);
+  useEffect(() => {
+    setHasInterpretation(!!interpretationList?.includes(record.hash));
+  }, [interpretationList]);
   return (
     <div className={styles.interpretationCell}>
       {patientId && (
@@ -28,10 +37,11 @@ const InterpretationCell = ({ interpretation, record, variantSection }: OwnProps
           record={record as ITableVariantEntity}
           patientId={patientId}
           variantSection={variantSection}
+          changeInterpretationList={changeInterpretationList}
         />
       )}
 
-      {interpretation ? (
+      {hasInterpretation ? (
         <Tooltip title={intl.get('interpretation_Cell.tooltip_cell')}>
           <Button
             type="text"

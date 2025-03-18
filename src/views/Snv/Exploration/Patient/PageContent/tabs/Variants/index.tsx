@@ -1,4 +1,4 @@
-import { Key, useState } from 'react';
+import { Key, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
@@ -74,10 +74,23 @@ const VariantsTab = ({
     setSelectedVariant(record);
     toggleModal(true);
   };
+  const [interpretationList, setInterpretationList] = useState<any>([]);
+
+  const changeInterpretationList = (hash: string) => {
+    const newList = [...interpretationList, hash];
+
+    setInterpretationList([...new Set(newList)]);
+  };
 
   const donor = findDonorById(selectedVariant?.donors, patientId);
-
   const variantType = getVariantTypeFromSNVVariantEntity(results?.data?.[0]);
+
+  useEffect(() => {
+    const list = results.data
+      .filter((item) => item.interpretation !== undefined && item.interpretation !== null)
+      .map((item) => item.hash);
+    setInterpretationList([...new Set([...list, ...interpretationList])]);
+  }, [results]);
 
   const getSomaticColumns = () =>
     variantSection === VariantSection.SNVTO
@@ -101,6 +114,8 @@ const VariantsTab = ({
     isClear,
     setFilterList,
     filtersList,
+    interpretationList,
+    changeInterpretationList,
   );
   const canExtend = (section: VariantSection) =>
     [VariantSection.SNV, VariantSection.SNVTN, VariantSection.SNVTO].includes(section);
@@ -139,6 +154,7 @@ const VariantsTab = ({
                         patientId={patientId}
                         igvModalCb={openIgvModal}
                         variantSection={variantSection}
+                        changeInterpretationList={changeInterpretationList}
                       />
                     ),
                     expandedRowClassName: () => style.expendableTable,
