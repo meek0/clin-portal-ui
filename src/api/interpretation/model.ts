@@ -28,8 +28,8 @@ export type TInterpretationBase = {
 };
 
 export type TInterpretationGermline = {
-  condition: string;
-  classification: string;
+  condition: string | undefined;
+  classification: string | undefined;
   classification_criterias: string[];
   transmission_modes: string[];
   interpretation: string;
@@ -37,10 +37,10 @@ export type TInterpretationGermline = {
 };
 
 export type TInterpretationSomatic = {
-  tumoral_type: string;
-  oncogenicity: string;
+  tumoral_type: string | undefined;
+  oncogenicity: string | undefined;
   oncogenicity_classification_criterias: string[];
-  clinical_utility: string;
+  clinical_utility: string | undefined;
   interpretation: string;
   pubmed?: TInterpretationPubmed[];
 };

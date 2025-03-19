@@ -36,10 +36,10 @@ const getGenericInterpFormInitialValues = (interpretation: TInterpretationOutput
 export const getGermlineInterpFormInitialValues = (
   interpretation: TInterpretationGermlineOutput | null,
 ): TInterpretationGermline => ({
-  [GermlineInterpFormFields.CLASSIFICATION]: interpretation?.classification || '',
+  [GermlineInterpFormFields.CLASSIFICATION]: interpretation?.classification,
   [GermlineInterpFormFields.CLASSIFICATION_CRITERIAS]:
     interpretation?.classification_criterias || [],
-  [GermlineInterpFormFields.CONDITION]: interpretation?.condition || '',
+  [GermlineInterpFormFields.CONDITION]: interpretation?.condition,
   [GermlineInterpFormFields.TRANSMISSION_MODES]: interpretation?.transmission_modes || [],
   ...getGenericInterpFormInitialValues(interpretation),
 });
@@ -48,11 +48,11 @@ export const getGermlineInterpFormInitialValues = (
 export const getSimaticInterpFormInitialValues = (
   interpretation: TInterpretationSomaticOutput | null,
 ): TInterpretationSomatic => ({
-  [SomaticInterpFormFields.TUMORAL_TYPE]: interpretation?.tumoral_type || '',
-  [SomaticInterpFormFields.ONCOGENICITY]: interpretation?.oncogenicity || '',
+  [SomaticInterpFormFields.TUMORAL_TYPE]: interpretation?.tumoral_type,
+  [SomaticInterpFormFields.ONCOGENICITY]: interpretation?.oncogenicity,
   [SomaticInterpFormFields.ONCOGENICITY_CLASSIFICATION_CRITERIAS]:
     interpretation?.oncogenicity_classification_criterias || [],
-  [SomaticInterpFormFields.CLINICAL_UTILITY]: interpretation?.clinical_utility || '',
+  [SomaticInterpFormFields.CLINICAL_UTILITY]: interpretation?.clinical_utility,
   ...getGenericInterpFormInitialValues(interpretation),
 });
 

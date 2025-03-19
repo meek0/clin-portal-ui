@@ -102,7 +102,7 @@ const SomaticInterpretationForm = () => {
                       {intl.get(
                         'modal.variant.interpretation.germline.classification-popover-first',
                       )}
-                      <ExternalLink href="https://pubmed.ncbi.nlm.nih.gov/25741868/">
+                      <ExternalLink href="https://pubmed.ncbi.nlm.nih.gov/35101336/">
                         {intl.get(
                           'modal.variant.interpretation.germline.classification-popover-link',
                         )}

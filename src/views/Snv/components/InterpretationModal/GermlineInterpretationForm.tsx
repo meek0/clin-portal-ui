@@ -93,9 +93,7 @@ const GermlineInterpretationForm = () => {
           <Form.Item
             label={
               <ProLabel
-                title={`${intl.get(
-                  'modal.variant.interpretation.germline.classification',
-                )} ACMG/AMP`}
+                title={`${intl.get('modal.variant.interpretation.germline.classification')}`}
                 popoverProps={{
                   content: (
                     <>

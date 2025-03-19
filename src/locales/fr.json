@@ -1588,7 +1588,7 @@
           "condition-placeholder": "Ex: muscular dystrophy",
           "condition-popover": "Rechercher une condition médicale dans l'",
           "condition-popover-link": "ontologie MONDO",
-          "classification": "Classification",
+          "classification": "Classification ACMG/AMP",
           "classification-popover-first": "Consulter les ",
           "classification-popover-last": " pour l'interprétation des variants",
           "classification-popover-link": "normes et lignes directrices",
