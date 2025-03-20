@@ -22,7 +22,13 @@ const Header = ({ record, isSomatic }: OwnProps) => {
   const { prescription, selectedBasedOnRequest } = useContext(PrescriptionEntityContext);
   const analysisCode = prescription?.code?.[0];
   const { patientId, requestId } = getPatientAndRequestId(selectedBasedOnRequest?.subject.resource);
-  const familyCode = getFamilyCode(selectedBasedOnRequest, patientId);
+
+  const familyCode = getFamilyCode(
+    selectedBasedOnRequest,
+    record?.donors?.hits?.edges?.[0]?.node?.patient_id
+      ? record?.donors?.hits?.edges?.[0]?.node?.patient_id
+      : patientId,
+  );
 
   return (
     <Space size={16} className={styles.interpretationHeader}>
