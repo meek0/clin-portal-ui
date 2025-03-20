@@ -1585,7 +1585,7 @@
         },
         "germline": {
           "condition": "Condition MONDO",
-          "condition-placeholder": "Ex: muscular dystrophy",
+          "condition-placeholder": "Ex : muscular dystrophy",
           "condition-popover": "Rechercher une condition médicale dans l'",
           "condition-popover-link": "ontologie MONDO",
           "classification": "Classification ACMG/AMP",
