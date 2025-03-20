@@ -1628,11 +1628,11 @@
           "clinicalUtility": "Clinical utility",
           "clinicalUtility-placeholder": "Select",
           "clinicalUtility-options": {
-            "category_ia": "Category IA",
-            "category_ib": "Category IB",
-            "category_iic": "Category IIC",
-            "category_iid": "Category IID",
-            "category_iii": "Category III"
+            "category_ia": "Tier IA",
+            "category_ib": "Tier IB",
+            "category_iic": "Tier IIC",
+            "category_iid": "Tier IID",
+            "category_iii": "Tier III"
           },
           "sections": {
             "cancer": {
