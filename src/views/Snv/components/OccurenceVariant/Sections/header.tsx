@@ -26,9 +26,18 @@ interface OwnProps {
   rpt: Rpt;
   igvModalCb?: (record: VariantEntity) => void;
   variantSection?: VariantSection;
+  changeInterpretationList?: (hash: string) => void;
 }
 
-const Header = ({ record, patientId, loadingRpt, rpt, igvModalCb, variantSection }: OwnProps) => {
+const Header = ({
+  record,
+  patientId,
+  loadingRpt,
+  rpt,
+  igvModalCb,
+  variantSection,
+  changeInterpretationList,
+}: OwnProps) => {
   const [isInterpretationModalOpen, toggleInterpretationModal] = useState(false);
 
   return (
@@ -100,6 +109,7 @@ const Header = ({ record, patientId, loadingRpt, rpt, igvModalCb, variantSection
         record={record}
         patientId={patientId}
         variantSection={variantSection}
+        changeInterpretationList={changeInterpretationList}
       />
     </>
   );

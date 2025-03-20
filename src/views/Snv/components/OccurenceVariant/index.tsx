@@ -27,6 +27,7 @@ interface OwnProps {
   patientId: string;
   igvModalCb?: (record: VariantEntity) => void;
   variantSection?: VariantSection;
+  changeInterpretationList?: (hash: string) => void;
 }
 
 const OccurenceVariant = ({
@@ -36,6 +37,7 @@ const OccurenceVariant = ({
   igvModalCb,
   patientId,
   variantSection,
+  changeInterpretationList,
 }: OwnProps) => (
   <>
     <Card
@@ -48,6 +50,7 @@ const OccurenceVariant = ({
           loadingRpt={loadingRpt}
           igvModalCb={igvModalCb}
           variantSection={variantSection}
+          changeInterpretationList={changeInterpretationList}
         />
       }
       bordered={true}

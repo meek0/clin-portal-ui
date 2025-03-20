@@ -46,6 +46,7 @@ type TInterpretationModalProps = {
   record: ITableVariantEntity;
   patientId: string;
   variantSection?: VariantSection;
+  changeInterpretationList?: (hash: string) => void;
 };
 
 const InterpretationModal = ({
@@ -54,6 +55,7 @@ const InterpretationModal = ({
   record,
   patientId,
   variantSection,
+  changeInterpretationList,
 }: TInterpretationModalProps) => {
   const [form] = Form.useForm();
   const [saving, setSaving] = useState(false);
@@ -115,6 +117,7 @@ const InterpretationModal = ({
           );
           setInterpretation(response.data);
           setHasChanged(false);
+          changeInterpretationList?.(record.hash);
           toggleModal(false);
         }
       })

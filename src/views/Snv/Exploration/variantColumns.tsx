@@ -329,6 +329,8 @@ export const getVariantColumns = (
   isClear?: boolean,
   setFilterList?: (columnKeys: Key[]) => void,
   filtersList?: TVariantFilter,
+  interpretationList?: string[],
+  changeInterpretationList?: (hash: string) => void,
 ): ProColumnType<ITableVariantEntity>[] => {
   let columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -413,9 +415,10 @@ export const getVariantColumns = (
         width: 55,
         render: (interpretation: string, entity: VariantEntity) => (
           <InterpretationCell
-            interpretation={interpretation}
             record={entity}
             variantSection={variantSection}
+            interpretationList={interpretationList}
+            changeInterpretationList={changeInterpretationList}
           />
         ),
       },
