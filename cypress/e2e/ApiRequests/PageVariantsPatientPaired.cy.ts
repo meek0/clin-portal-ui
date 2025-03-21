@@ -9,7 +9,7 @@ beforeEach(() => {
   cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
 });
 
-describe('Page des variants d\'un patient (paired) - Valider la requête graphql pour les facettes', () => {
+describe('Page des variants d\'un patient (paired) - Valider la requête graphql', () => {
   it('Facette standard', () => {
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {

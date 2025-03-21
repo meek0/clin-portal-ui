@@ -9,7 +9,7 @@ beforeEach(() => {
   cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 });
 
-describe('Page des CNVs d\'un patient - Valider la requête graphql pour les facettes', () => {
+describe('Page des CNVs d\'un patient - Valider la requête graphql', () => {
   it('Facette standard', () => {
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query CnvCount')) {

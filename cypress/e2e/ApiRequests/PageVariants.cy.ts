@@ -6,7 +6,7 @@ beforeEach(() => {
   cy.visitVariantsPage();
 });
 
-describe('Page des variants - Valider la requête graphql pour les facettes', () => {
+describe('Page des variants - Valider la requête graphql', () => {
   it('Facette standard', () => {
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
