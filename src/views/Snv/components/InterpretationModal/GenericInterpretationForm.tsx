@@ -134,16 +134,7 @@ const GenericInterpretationForm = () => {
                 ]);
 
                 return (
-                  <div
-                    key={key}
-                    style={{
-                      display: 'flex',
-                      marginBottom: 12,
-                      width: '100%',
-                      alignItems: 'center',
-                      gap: 8,
-                    }}
-                  >
+                  <div key={key} className={styles.citationContainer}>
                     <Form.Item
                       {...restField}
                       hidden
@@ -152,7 +143,7 @@ const GenericInterpretationForm = () => {
                       <Input />
                     </Form.Item>
                     {citation && citationId ? (
-                      <div className={styles.citationContainer}>
+                      <div className={styles.citationWrapper}>
                         <div className={styles.citation}>{citation}</div>
                         <CloseOutlined
                           className={styles.addCitationIcon}

@@ -116,11 +116,19 @@
 }
 
 
-.interpretationModal .generic .citationContainer {
+.interpretationModal .generic .citationWrapper {
     display: flex;
     align-items: center;
     gap: 8px
 }
+
+.interpretationModal .generic .citationContainer {
+    display: flex;
+    margin-bottom: 12px;
+    width: 100%;
+    align-items: center;
+    gap: 8px
+  }
 
 .interpretationModal .generic .citation {
    border: 1px solid var(--gray-5);
