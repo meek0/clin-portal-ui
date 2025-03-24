@@ -1,7 +1,12 @@
+import { useCallback, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { CloseOutlined } from '@ant-design/icons';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Form, Radio, Select, Tag, Tooltip } from 'antd';
+import { InterpretationApi } from 'api/interpretation';
+import { TMondoAutocompleteHit } from 'api/interpretation/model';
+import { capitalize, debounce } from 'lodash';
 
 import {
   getClinicalUtilitys,
@@ -9,15 +14,11 @@ import {
   oncogenicityClassificationCriterias,
 } from './data';
 import GenericInterpretationForm from './GenericInterpretationForm';
+import InterpretationMondoOptionItem from './MondoOptionItem';
 import { SomaticInterpFormFields } from './types';
 import { requiredRule } from './utils';
 
 import styles from './index.module.css';
-import { TMondoAutocompleteHit } from 'api/interpretation/model';
-import { useCallback, useEffect, useState } from 'react';
-import { capitalize, debounce } from 'lodash';
-import { InterpretationApi } from 'api/interpretation';
-import InterpretationMondoOptionItem from './MondoOptionItem';
 
 const SomaticInterpretationForm = () => {
   const form = Form.useFormInstance();
@@ -49,7 +50,21 @@ const SomaticInterpretationForm = () => {
     <>
       <Form.Item
         label={
-          <ProLabel title={intl.get('modal.variant.interpretation.somatic.tumoralType')} colon />
+          <ProLabel
+            popoverProps={{
+              content: (
+                <>
+                  {intl.get('modal.variant.interpretation.germline.condition-popover')}
+                  <ExternalLink href="https://www.ebi.ac.uk/ols4/ontologies/mondo">
+                    {intl.get('modal.variant.interpretation.germline.condition-popover-link')}
+                  </ExternalLink>
+                </>
+              ),
+              placement: 'right',
+            }}
+            title={intl.get('modal.variant.interpretation.somatic.tumoralType')}
+            colon
+          />
         }
         name={SomaticInterpFormFields.TUMORAL_TYPE}
         rules={[requiredRule]}
@@ -78,22 +93,27 @@ const SomaticInterpretationForm = () => {
           <Form.Item
             label={
               <ProLabel
-                title={
-                  (
-                    <span>
-                      {intl.get('modal.variant.interpretation.somatic.oncogenicity')}{' '}
-                      ClinGen/CGC/VICC (
-                      <a
-                        href="https://pubmed.ncbi.nlm.nih.gov/35101336/"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        PMID: 35101336
-                      </a>
-                      )
-                    </span>
-                  ) as any
-                }
+                title={`${intl.get(
+                  'modal.variant.interpretation.somatic.oncogenicity',
+                )} ClinGen/CGC/VICC`}
+                popoverProps={{
+                  content: (
+                    <>
+                      {intl.get(
+                        'modal.variant.interpretation.germline.classification-popover-first',
+                      )}
+                      <ExternalLink href="https://pubmed.ncbi.nlm.nih.gov/35101336/">
+                        {intl.get(
+                          'modal.variant.interpretation.germline.classification-popover-link',
+                        )}
+                      </ExternalLink>
+                      {intl.get(
+                        'modal.variant.interpretation.germline.classification-popover-last',
+                      )}
+                    </>
+                  ),
+                  placement: 'right',
+                }}
                 colon
               />
             }
@@ -194,7 +214,6 @@ const SomaticInterpretationForm = () => {
         rules={[requiredRule]}
       >
         <Select
-          placeholder={intl.get('modal.variant.interpretation.somatic.clinicalUtility-placeholder')}
           options={getClinicalUtilitys()}
           tagRender={({ label, ...props }) => (
             <Tag className={styles.filledBlueTag} style={{ marginLeft: 4 }} {...props}>

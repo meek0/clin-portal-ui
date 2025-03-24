@@ -1,19 +1,19 @@
+import { useCallback } from 'react';
 import intl from 'react-intl-universal';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
+import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Button, Form, Input } from 'antd';
+import { InterpretationApi } from 'api/interpretation';
+import { TPubmedOutput } from 'api/interpretation/model';
+import { debounce } from 'lodash';
 
 import RichTextEditor from 'components/uiKit/RichTextEditor';
 
 import { GenericInterpFormFields } from './types';
-
-import { debounce } from 'lodash';
-import { useCallback } from 'react';
+import { requiredRule } from './utils';
 
 import styles from './index.module.css';
-import { requiredRule } from './utils';
-import { InterpretationApi } from 'api/interpretation';
-import { TPubmedOutput } from 'api/interpretation/model';
 
 const GenericInterpretationForm = () => {
   const form = Form.useFormInstance();
@@ -79,6 +79,19 @@ const GenericInterpretationForm = () => {
         label={
           <ProLabel
             title={intl.get('modal.variant.interpretation.generic.pubMedPublication')}
+            popoverProps={{
+              content: (
+                <>
+                  {intl.get('modal.variant.interpretation.generic.pubMedPublication-popover')}
+                  <ExternalLink href="https://pubmed.ncbi.nlm.nih.gov/">
+                    {intl.get(
+                      'modal.variant.interpretation.generic.pubMedPublication-popover-link',
+                    )}
+                  </ExternalLink>
+                </>
+              ),
+              placement: 'right',
+            }}
             colon
           />
         }

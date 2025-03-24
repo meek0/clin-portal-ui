@@ -1572,14 +1572,21 @@
         "generic": {
           "interpretation": "Interpretation",
           "pubMedPublication": "PubMed Publication",
+          "pubMedPublication-popover": "Enter a ",
+          "pubMedPublication-popover-link": "PMID",
           "pubMedIdNotFound": "Invalid or unknown PMID",
-          "citation-placeholder": "Citation",
+          "citation-placeholder": "e.g. 25741868",
           "addCitation": "Add a publication"
         },
         "germline": {
-          "condition": "Condition",
-          "condition-placeholder": "Find a condition",
-          "classification": "Classification",
+          "condition": "MONDO condition",
+          "condition-placeholder": "e.g. muscular dystrophy",
+          "condition-popover": "Search for a medical condition in ",
+          "condition-popover-link": "MONDO ontology",
+          "classification": "ACMG/AMP classification",
+          "classification-popover-first": "Consult ",
+          "classification-popover-last": " for variant interpretation",
+          "classification-popover-link": "standards and guidelines",
           "classification-options": {
             "pathogenic": "Pathogenic",
             "likelyPathogenic": "Likely Pathogenic",
@@ -1590,10 +1597,10 @@
             "likelyBenign-tooltip": "Probably benign",
             "benign": "Benign"
           },
-          "classificationCriteria": "Classification criteria e.g. PM1, PS2",
-          "classificationCriteria-placeholder": "Classification criteria",
+          "classificationCriteria": "Classification criteria",
+          "classificationCriteria-placeholder": "e.g. PM1, PS2",
           "modeOfTransmission": "Mode of inheritance",
-          "modeOfTransmission-placeholder": "Select",
+          "modeOfTransmission-placeholder": "e.g. Autosomal dominant de novo",
           "modeOfTransmission-options": {
             "autosomal_dominant_de_novo": "Autosomal Dominant De Novo",
             "autosomal_dominant": "Autosomal Dominant",
@@ -1611,7 +1618,7 @@
         },
         "somatic": {
           "tumoralType": "Tumor type",
-          "tumoralType-placeholder": "Select",
+          "tumoralType-placeholder": "e.g. colon sarcoma",
           "oncogenicity": "Oncogenicity",
           "oncogenicity-options": {
             "oncogenic": "Oncogenic",
@@ -1623,8 +1630,8 @@
             "likelyBenign-tooltip": "Probably benign",
             "benign": "Benign"
           },
-          "classificationCriteria": "Classification criteria e.g. PM1, PS2",
-          "classificationCriteria-placeholder": "Classification criteria",
+          "classificationCriteria": "Classification criteria",
+          "classificationCriteria-placeholder": "e.g. OS1, OM2",
           "clinicalUtility": "Clinical utility",
           "clinicalUtility-placeholder": "Select",
           "clinicalUtility-options": {

@@ -1577,14 +1577,21 @@
         "generic": {
           "interpretation": "Interprétation",
           "pubMedPublication": "Publication PubMed",
+          "pubMedPublication-popover": "Saisir un ",
+          "pubMedPublication-popover-link": "PMID",
           "pubMedIdNotFound": "PMID invalide ou inconnu",
-          "citation-placeholder": "Citation",
+          "citation-placeholder": "Ex : 25741868",
           "addCitation": "Ajouter une publication"
         },
         "germline": {
-          "condition": "Condition",
-          "condition-placeholder": "Rechercher une condition",
-          "classification": "Classification",
+          "condition": "Condition MONDO",
+          "condition-placeholder": "Ex : muscular dystrophy",
+          "condition-popover": "Rechercher une condition médicale dans l'",
+          "condition-popover-link": "ontologie MONDO",
+          "classification": "Classification ACMG/AMP",
+          "classification-popover-first": "Consulter les ",
+          "classification-popover-last": " pour l'interprétation des variants",
+          "classification-popover-link": "normes et lignes directrices",
           "classification-options": {
             "pathogenic": "Pathogénique",
             "likelyPathogenic": "Prob. pathogénique",
@@ -1595,10 +1602,10 @@
             "likelyBenign-tooltip": "Probablement bénigne",
             "benign": "Bénigne"
           },
-          "classificationCriteria": "Critères de classification Ex : PM1, PS2",
-          "classificationCriteria-placeholder": "Critères de classification",
+          "classificationCriteria": "Critères de classification",
+          "classificationCriteria-placeholder": "Ex : PM1, PS2",
           "modeOfTransmission": "Mode de transmission",
-          "modeOfTransmission-placeholder": "Sélectionner",
+          "modeOfTransmission-placeholder": "Ex : Autosomal dominant de novo",
           "modeOfTransmission-options": {
             "autosomal_dominant_de_novo": "Autosomal dominant de novo",
             "autosomal_dominant": "Autosomique dominant",
@@ -1616,7 +1623,7 @@
         },
         "somatic": {
           "tumoralType": "Type tumoral",
-          "tumoralType-placeholder": "Selectionner",
+          "tumoralType-placeholder": "Ex : colon sarcoma",
           "oncogenicity": "Oncogénicité",
           "oncogenicity-options": {
             "oncogenic": "Oncogénique",
@@ -1628,8 +1635,8 @@
             "likelyBenign-tooltip": "Probablement bénigne",
             "benign": "Bénigne"
           },
-          "classificationCriteria": "Critères de classification Ex : PM1, PS2",
-          "classificationCriteria-placeholder": "Critères de classification",
+          "classificationCriteria": "Critères de classification",
+          "classificationCriteria-placeholder": "Ex : OS1, OM2",
           "clinicalUtility": "Utilité clinique",
           "clinicalUtility-placeholder": "Selectionner",
           "clinicalUtility-options": {
