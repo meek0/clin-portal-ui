@@ -27,6 +27,7 @@ import {
   renderGnomADACToString,
   renderGnomADAFToString,
   renderHotspotToString,
+  renderInterpretationToString,
   renderManeToString,
   renderOmimToString,
   renderRevelScoreToString,
@@ -100,6 +101,8 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderClinvarToString(row));
     } else if (key === 'omim') {
       return convertToPlain(renderOmimToString(row));
+    } else if (key === 'interpretation') {
+      return convertToPlain(renderInterpretationToString(row));
     } else if (key === 'consequence') {
       return convertToPlain(renderConsequencesToString(row));
     } else if (key === 'consequences.predictions.cadd_phred') {

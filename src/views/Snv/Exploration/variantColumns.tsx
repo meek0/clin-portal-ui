@@ -1115,6 +1115,11 @@ export const renderOmimToString = (variant: any) => {
   return renderToString(renderOmim(variant, pickedConsequenceSymbol));
 };
 
+export const renderInterpretationToString = (variant: any) => {
+  const hasInterpretation = variant.interpretation;
+  return hasInterpretation ? 'true' : 'false';
+};
+
 export const renderFranklinScoreToString = (variant: any) => {
   const score = variant?.franklin_max?.combined_score;
   if (!score && score !== 0) return TABLE_EMPTY_PLACE_HOLDER;
