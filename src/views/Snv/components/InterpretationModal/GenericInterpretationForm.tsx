@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import intl from 'react-intl-universal';
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
@@ -6,7 +6,6 @@ import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { Button, Form, Input } from 'antd';
 import { InterpretationApi } from 'api/interpretation';
 import { TPubmedOutput } from 'api/interpretation/model';
-import { debounce } from 'lodash';
 
 import RichTextEditor from 'components/uiKit/RichTextEditor';
 
@@ -17,6 +16,7 @@ import styles from './index.module.css';
 
 const GenericInterpretationForm = () => {
   const form = Form.useFormInstance();
+  const [loadingPubmed, setLoadingPubmed] = useState(false);
 
   const fetchCitation = async (value: string, pubmedIndex: number) => {
     if (!value) return;
@@ -30,9 +30,12 @@ const GenericInterpretationForm = () => {
     }
   };
 
-  const debouncedFetchCitation = useCallback(
-    debounce((value, index: number) => fetchCitation(value, index), 500), // Debounce delay of 500ms
-    [],
+  const handleFetchCitation = useCallback(
+    (value: string, index: number) => {
+      setLoadingPubmed(true);
+      return fetchCitation(value, index).finally(() => setLoadingPubmed(false));
+    },
+    [fetchCitation],
   );
 
   const updateCitationField = (data: TPubmedOutput | undefined, pubmedIndex: number) => {
@@ -65,7 +68,7 @@ const GenericInterpretationForm = () => {
   };
 
   return (
-    <>
+    <div className={styles.generic}>
       <Form.Item
         label={
           <ProLabel title={intl.get('modal.variant.interpretation.generic.interpretation')} colon />
@@ -118,48 +121,56 @@ const GenericInterpretationForm = () => {
         >
           {(fields, { add, remove }) => (
             <>
-              {fields.map(({ key, name, ...restField }) => (
-                <div
-                  key={key}
-                  style={{
-                    display: 'flex',
-                    marginBottom: 12,
-                    width: '100%',
-                    alignItems: 'center',
-                    gap: 8,
-                  }}
-                >
-                  <Form.Item
-                    {...restField}
-                    hidden
-                    name={[name, GenericInterpFormFields.PUBMED_CITATION_ID]}
-                  >
-                    <Input />
-                  </Form.Item>
-                  <Form.Item
-                    {...restField}
-                    name={[name, GenericInterpFormFields.PUBMED_CITATION]}
-                    style={{ flex: 1, marginBottom: 0 }}
-                  >
-                    <Input.TextArea
-                      autoSize={{ minRows: 0, maxRows: 6 }}
-                      defaultValue=""
-                      disabled={
-                        !!form.getFieldValue([
-                          GenericInterpFormFields.PUBMED,
-                          name,
-                          GenericInterpFormFields.PUBMED_CITATION,
-                        ])
-                      }
-                      placeholder={intl.get(
-                        'modal.variant.interpretation.generic.citation-placeholder',
-                      )}
-                      onChange={(e) => debouncedFetchCitation(e.target.value, name)}
-                    />
-                  </Form.Item>
-                  <CloseOutlined className={styles.addCitationIcon} onClick={() => remove(name)} />
-                </div>
-              ))}
+              {fields.map(({ key, name, ...restField }) => {
+                const citation = form.getFieldValue([
+                  GenericInterpFormFields.PUBMED,
+                  name,
+                  GenericInterpFormFields.PUBMED_CITATION,
+                ]);
+                const citationId = form.getFieldValue([
+                  GenericInterpFormFields.PUBMED,
+                  name,
+                  GenericInterpFormFields.PUBMED_CITATION_ID,
+                ]);
+
+                return (
+                  <div key={key} className={styles.citationContainer}>
+                    <Form.Item
+                      {...restField}
+                      hidden
+                      name={[name, GenericInterpFormFields.PUBMED_CITATION_ID]}
+                    >
+                      <Input />
+                    </Form.Item>
+                    {citation && citationId ? (
+                      <div className={styles.citationWrapper}>
+                        <div className={styles.citation}>{citation}</div>
+                        <CloseOutlined
+                          className={styles.addCitationIcon}
+                          onClick={() => remove(name)}
+                        />
+                      </div>
+                    ) : (
+                      <Form.Item
+                        {...restField}
+                        name={[name, GenericInterpFormFields.PUBMED_CITATION]}
+                        style={{ flex: 1, marginBottom: 0 }}
+                      >
+                        <Input.Search
+                          defaultValue=""
+                          placeholder={intl.get(
+                            'modal.variant.interpretation.generic.citation-placeholder',
+                          )}
+                          onSearch={(value) => handleFetchCitation(value, name)}
+                          enterButton
+                          loading={loadingPubmed}
+                          autoFocus
+                        />
+                      </Form.Item>
+                    )}
+                  </div>
+                );
+              })}
               <Form.Item style={{ marginBottom: 0 }} shouldUpdate>
                 {() => (
                   <Button
@@ -181,7 +192,7 @@ const GenericInterpretationForm = () => {
           )}
         </Form.List>
       </Form.Item>
-    </>
+    </div>
   );
 };
 
