@@ -90,8 +90,8 @@ const AnnotationsVariantSection = ({ record }: OwnProps) => {
         )}
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('screen.variantsearch.table.gnomAd')}>
-        {record.external_frequencies?.gnomad_genomes_4?.af
-          ? record.external_frequencies.gnomad_genomes_4.af.toExponential(2)
+        {record.external_frequencies?.gnomad_joint_4?.af
+          ? record.external_frequencies.gnomad_joint_4.af.toExponential(2)
           : TABLE_EMPTY_PLACE_HOLDER}
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('filters.group.consequences.predictions.revel_score')}>

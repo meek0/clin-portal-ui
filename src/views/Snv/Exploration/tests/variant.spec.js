@@ -5,7 +5,7 @@ describe('variant: table', () => {
     const expected = {
       key: 'external_frequencies.gnomad_genomes_4.af',
       title: 'gnomAD ',
-      tooltip: 'gnomAD Genome 4.1.0 (fréquence)',
+      tooltip: 'gnomAD 4.1.0 (fréquence)',
       dataIndex: 'external_frequencies',
     };
     const gnomADVariant = getVariantColumns().find(
