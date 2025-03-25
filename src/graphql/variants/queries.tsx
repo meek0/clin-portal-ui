@@ -398,7 +398,7 @@ export const TAB_FREQUENCIES_QUERY = gql`
                 an
                 hom
               }
-              gnomad_exoomes_4 {
+              gnomad_exomes_4 {
                 ac
                 af
                 an
