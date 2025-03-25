@@ -58,16 +58,16 @@ describe('Page des variants d\'un patient - Opérateurs par défaut', () => {
     cy.get(`[data-cy="InputNumber_Max_gnomAD Genome 3.1.1 ALT"]`).should('exist');
   });
 
-  it('Fréquence - gnomAD Genome 4.1.0', () => {
-    cy.openFacet('Fréquence', 'gnomAD Genome 4.1.0');
-    cy.get(`[data-cy="InputNumber_Min_gnomAD Genome 4.1.0"]`).should('not.exist');
-    cy.get(`[data-cy="InputNumber_Max_gnomAD Genome 4.1.0"]`).should('exist');
+  it('Fréquence - gnomAD 4.1.0', () => {
+    cy.openFacet('Fréquence', 'gnomAD 4.1.0');
+    cy.get(`[data-cy="InputNumber_Min_gnomAD 4.1.0"]`).should('not.exist');
+    cy.get(`[data-cy="InputNumber_Max_gnomAD 4.1.0"]`).should('exist');
   });
 
-  it('Fréquence - gnomAD Genome 4.1.0 ALT', () => {
-    cy.openFacet('Fréquence', 'gnomAD Genome 4.1.0 ALT');
-    cy.get(`[data-cy="InputNumber_Min_gnomAD Genome 4.1.0 ALT"]`).should('not.exist');
-    cy.get(`[data-cy="InputNumber_Max_gnomAD Genome 4.1.0 ALT"]`).should('exist');
+  it('Fréquence - gnomAD 4.1.0 ALT', () => {
+    cy.openFacet('Fréquence', 'gnomAD 4.1.0 ALT');
+    cy.get(`[data-cy="InputNumber_Min_gnomAD 4.1.0 ALT"]`).should('not.exist');
+    cy.get(`[data-cy="InputNumber_Max_gnomAD 4.1.0 ALT"]`).should('exist');
   });
 
   it('Fréquence - TopMed Bravo', () => {

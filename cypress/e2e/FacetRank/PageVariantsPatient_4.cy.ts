@@ -50,14 +50,14 @@ describe('Page des variants d\'un patient - Ordre des facettes', () => {
     cy.validateFacetRank(7, 'gnomAD Genome 3.1.1 ALT');
   });
 
-  it('Fréquence - gnomAD Genome 4.1.0', () => {
-    cy.openFacet('Fréquence', 'gnomAD Genome 4.1.0');
-    cy.validateFacetRank(8, 'gnomAD Genome 4.1.0');
+  it('Fréquence - gnomAD 4.1.0', () => {
+    cy.openFacet('Fréquence', 'gnomAD 4.1.0');
+    cy.validateFacetRank(8, 'gnomAD 4.1.0');
   });
 
-  it('Fréquence - gnomAD Genome 4.1.0 ALT', () => {
-    cy.openFacet('Fréquence', 'gnomAD Genome 4.1.0 ALT');
-    cy.validateFacetRank(9, 'gnomAD Genome 4.1.0 ALT');
+  it('Fréquence - gnomAD 4.1.0 ALT', () => {
+    cy.openFacet('Fréquence', 'gnomAD 4.1.0 ALT');
+    cy.validateFacetRank(9, 'gnomAD 4.1.0 ALT');
   });
 
   it('Fréquence - TopMed Bravo', () => {
