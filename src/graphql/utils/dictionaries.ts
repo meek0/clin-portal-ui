@@ -314,6 +314,7 @@ export const dictionaries: Record<string, string[]> = {
     'BS1',
     'BS2',
     'BS3',
+    'BS4',
     'BP1',
     'BP3',
     'BP4',
