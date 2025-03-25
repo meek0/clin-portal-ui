@@ -120,7 +120,15 @@ const externalFreqColumns = [
     dataIndex: 'cohort',
     render: (cohort: { cohortName: string; link?: string }) => {
       const cohortName = cohort.cohortName;
-      if (['TopMed', 'gnomAD Genome (v3)', 'gnomAD Genome (v4)'].includes(cohortName)) {
+      if (
+        [
+          'TopMed',
+          'gnomAD Genome (v3)',
+          'gnomAD Joint (v4)',
+          'gnomAD Genome (v4)',
+          'gnomAD Exome (v4)',
+        ].includes(cohortName)
+      ) {
         return (
           <ExternalLink
             href={cohort.link!}
@@ -187,6 +195,8 @@ const makeRowForExternalFreq = (
   }
 
   const topmed = frequencies.topmed_bravo || {};
+  const gnomadJoint4 = frequencies.gnomad_joint_4 || {};
+  const gnomadExomes4 = frequencies.gnomad_exomes_4 || {};
   const gnomadGenomes4 = frequencies.gnomad_genomes_4 || {};
   const gnomadGenomes3 = frequencies.gnomad_genomes_3_0 || {};
   const gnomadGenomes2_1_1 = frequencies.gnomad_genomes_2_1_1 || {};
@@ -196,6 +206,14 @@ const makeRowForExternalFreq = (
   return [
     createExternalFreqRow(topmed, 'TopMed', {
       link: `https://bravo.sph.umich.edu/freeze8/hg38/variant/snv/${locus}`,
+    }),
+    createExternalFreqRow(gnomadJoint4, 'Gnomad Joint (v4)', {
+      link: `https://gnomad.broadinstitute.org/variant/${locus}?dataset=gnomad_r4`,
+      name: 'gnomAD Joint (v4)',
+    }),
+    createExternalFreqRow(gnomadExomes4, 'Gnomad Exomes (v4)', {
+      link: `https://gnomad.broadinstitute.org/variant/${locus}?dataset=gnomad_r4`,
+      name: 'gnomAD Exome (v4)',
     }),
     createExternalFreqRow(gnomadGenomes4, 'Gnomad Genomes (v4)', {
       link: `https://gnomad.broadinstitute.org/variant/${locus}?dataset=gnomad_r4`,
