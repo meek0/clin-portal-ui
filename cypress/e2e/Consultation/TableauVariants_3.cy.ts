@@ -44,7 +44,7 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.sortTableAndIntercept('gnomAD ALT', 1);
     cy.validateTableFirstRow('-', 10, true);
     cy.sortTableAndIntercept('gnomAD ALT', 1);
-    cy.validateTableFirstRow('152 430', 10, true);
+    cy.validateTableFirstRow('1 614 178', 10, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM G', () => {

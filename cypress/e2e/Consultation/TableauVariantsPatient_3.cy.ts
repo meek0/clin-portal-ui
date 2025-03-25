@@ -105,7 +105,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.sortTableAndIntercept('gnomAD ALT', 1);
     cy.validateTableFirstRow('-', 18, true);
     cy.sortTableAndIntercept('gnomAD ALT', 1);
-    cy.validateTableFirstRow('152 430', 18, true);
+    cy.validateTableFirstRow('1 614 178', 18, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM G', () => {
@@ -205,7 +205,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.sortTableAndIntercept('gnomAD', 1);
     cy.sortTableAndIntercept('Gène', 1);
     cy.sortTableAndIntercept('Gène', 1);
-    cy.validateTableFirstRow(/(ZNHIT1|ZNF875)/, 8, true);
+    cy.validateTableFirstRow(/(ZNHIT1|ZNF875|ZNF83)/, 8, true);
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {

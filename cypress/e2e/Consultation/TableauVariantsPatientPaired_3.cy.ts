@@ -70,14 +70,14 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
     cy.sortTableAndIntercept(/^gnomAD $/, 1);
     cy.validateTableFirstRow('-', 17, true);
     cy.sortTableAndIntercept(/^gnomAD $/, 1);
-    cy.validateTableFirstRow('1.00e+0', 17, true);
+    cy.validateTableFirstRow('9.98e-1', 17, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD ALT', () => {
     cy.sortTableAndIntercept('gnomAD ALT', 1);
     cy.validateTableFirstRow('-', 18, true);
     cy.sortTableAndIntercept('gnomAD ALT', 1);
-    cy.validateTableFirstRow('145 385', 18, true);
+    cy.validateTableFirstRow('1 088 044', 18, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM G', () => {
