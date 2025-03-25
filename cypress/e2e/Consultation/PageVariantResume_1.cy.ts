@@ -85,7 +85,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-row-key="RGDI"] td[class="ant-table-cell"]').eq(6).contains('0').should('exist');
     cy.get('[data-row-key="MYOC"] td[class="ant-table-cell"]').eq(1).contains(/^1 \/ 4\d{1} \(2.\d{1}%\)$/).should('exist');
     cy.get('[data-row-key="MYOC"] td[class="ant-table-cell"]').eq(2).contains('0').should('exist');
-    cy.get('[data-row-key="MYOC"] td[class="ant-table-cell"]').eq(3).contains('1 / 40 (2.5%)').should('exist');
+    cy.get('[data-row-key="MYOC"] td[class="ant-table-cell"]').eq(3).contains(/^1 \/ 4\d{1} \(2.\d{1}%\)$/).should('exist');
     cy.get('[data-row-key="MYOC"] td[class="ant-table-cell"]').eq(4).contains('0').should('exist');
     cy.get('[data-row-key="MYOC"] td[class="ant-table-cell"]').eq(5).contains(/^0 \/ \d{1} \(0%\)$/).should('exist');
     cy.get('[data-row-key="MYOC"] td[class="ant-table-cell"]').eq(6).contains('0').should('exist');

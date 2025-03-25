@@ -18,6 +18,8 @@ beforeEach(() => {
   cy.showColumn('Requérant', 0);
   cy.showColumn('Prénatal', 0);
   cy.showColumn('Dossier', 0);
+
+  cy.typeAndIntercept('[data-cy="PrescriptionsSearch"]', 'MRN-', 'POST', '**/graphql', 16);
 });
 
 describe('Page des prescriptions et requêtes - Consultation du tableau des prescriptions', () => {
