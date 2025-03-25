@@ -1716,7 +1716,7 @@
     "filter": {
       "options": {
         "hasInterpretation": "Interprétation",
-        "none": "Aucun"
+        "none": "Aucune"
       }
     },
     "tooltip_column": "Interprétation clinique",
