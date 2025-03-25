@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import intl from 'react-intl-universal';
-import { Select, Space, Spin, Typography } from 'antd';
+import { InfoCircleFilled } from '@ant-design/icons';
+import { Result, Select, Space, Spin, Typography } from 'antd';
 import { VariantType } from 'graphql/variants/models';
 
 import ContentHeader from 'components/Layout/ContentWithHeader/Header';
@@ -54,7 +55,9 @@ const PrescriptionVariants = () => {
     }
   };
 
-  return (
+  const selectOptions = getRequestOptions(prescription);
+
+  return !prescription || selectOptions.length ? (
     <div>
       <ContentHeader
         title=""
@@ -67,10 +70,11 @@ const PrescriptionVariants = () => {
                 </Typography.Text>
                 <Select
                   size="small"
+                  className={styles.variantSelect}
                   value={formatOptionValue(variantInfo.patientId!, variantInfo.requestId!)}
-                  defaultValue={formatOptionValue(variantInfo.patientId!, variantInfo.requestId!)}
+                  defaultValue={selectOptions[0]?.value}
                   options={getRequestOptions(prescription)}
-                  onChange={(value) => setVariantInfo(extractOptionValue(value))}
+                  onChange={(value) => setVariantInfo(extractOptionValue(value as string))}
                 />
               </Space>
             )}
@@ -91,6 +95,14 @@ const PrescriptionVariants = () => {
           <Spin spinning />
         </div>
       )}
+    </div>
+  ) : (
+    <div className={styles.noRequests}>
+      <Result
+        status={'info'}
+        title={intl.get('result.notfound.request.variants.title')}
+        icon={<InfoCircleFilled />}
+      />
     </div>
   );
 };

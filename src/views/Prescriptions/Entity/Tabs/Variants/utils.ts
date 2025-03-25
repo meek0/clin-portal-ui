@@ -9,6 +9,12 @@ import { PrescriptionEntityVariantInfo } from 'views/Prescriptions/Entity/contex
 
 const SERVICE_REQUEST_CODE_EXTUM = 'EXTUM';
 
+export const SERVICE_REQUEST_CODES = {
+  GERMILE_WXS: '75020',
+  SOMATIC_WXS: '65241',
+  SOMATIC_WTS: '65240',
+};
+
 export const formatServiceRequestTag = (analysisCode?: string, sequencingCode?: string) => {
   let tag = analysisCode || '';
   if (sequencingCode) {
@@ -32,29 +38,34 @@ export const getVariantTypeFromCNVVariantEntity = (variantEntity?: CNVVariantEnt
 
 export const getRequestOptions = (
   serviceRequest: ServiceRequestEntity | undefined,
+  excludeWTS: boolean = true,
 ): DefaultOptionType[] => {
-  const { patientId, requestId } = getPatientAndRequestId(serviceRequest?.subject.resource);
-  const familyCode = getFamilyCode(serviceRequest, patientId!);
-
-  return [
+  const patientsResourcesAndFamilycode = [
     {
-      label: `${familyCode ? intl.get(familyCode) : intl.get('proband')} (${requestId})`,
-      value: formatOptionValue(patientId, requestId),
+      resource: serviceRequest?.subject.resource,
+      familyCode: getFamilyCode(
+        serviceRequest,
+        extractPatientId(serviceRequest?.subject.resource?.id || '')!,
+      ),
     },
-    ...(serviceRequest?.extensions || []).map((ext) => {
-      const code = ext?.extension?.[0]?.valueCoding?.coding?.[0].code;
-      const extensionValueRef = ext?.extension?.[1];
-
-      const { patientId, requestId } = getPatientAndRequestId(
-        extensionValueRef?.valueReference?.resource,
-      );
-
-      return {
-        label: `${code ? intl.get(code) : ''} (${requestId})`,
-        value: formatOptionValue(patientId, requestId),
-      };
-    }),
+    ...(serviceRequest?.extensions || []).map((ext) => ({
+      resource: ext.extension?.[1]?.valueReference?.resource,
+      familyCode: ext?.extension?.[0]?.valueCoding?.coding?.[0].code,
+    })),
   ];
+
+  const options: DefaultOptionType[] = [];
+  patientsResourcesAndFamilycode.forEach(({ resource, familyCode }) => {
+    const { patientId, requestIds } = getPatientAndRequestIds(resource, excludeWTS);
+    for (const requestId of requestIds) {
+      options.push({
+        label: `${familyCode ? intl.get(familyCode) : intl.get('proband')} (${requestId})`,
+        value: formatOptionValue(patientId, requestId),
+      });
+    }
+  });
+
+  return options;
 };
 
 export const getPatientAndRequestId = (
@@ -64,6 +75,22 @@ export const getPatientAndRequestId = (
   requestId: resource ? extractServiceRequestId(resource.requests?.[0]?.id) : '',
   variantType: VariantType.GERMLINE,
 });
+
+export function getPatientAndRequestIds(
+  resource: PatientServiceRequestFragment | undefined,
+  excludeWTS: boolean = true,
+) {
+  const serviceRequests =
+    resource?.requests?.filter((request) =>
+      request.code?.coding.every(
+        (coding) => !excludeWTS || coding.code !== SERVICE_REQUEST_CODES.SOMATIC_WTS,
+      ),
+    ) || [];
+  return {
+    patientId: resource ? extractPatientId(resource.id) : '',
+    requestIds: serviceRequests.map((request) => extractServiceRequestId(request.id)),
+  };
+}
 
 export const formatOptionValue = (patientId: string, requestId: string) =>
   `${patientId},${requestId}`;

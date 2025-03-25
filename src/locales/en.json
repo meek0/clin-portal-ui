@@ -859,6 +859,7 @@
   "result.forbidden.error.title": "403",
   "result.notfound.error.description": "Resource not found",
   "result.notfound.error.title": "Not found",
+  "result.notfound.request.variants.title": "No variants for this request",
   "result.server.error.description": "An error has occured and we are not able to load content at this time.",
   "result.server.error.title": "Server Error",
   "save": "Save",
