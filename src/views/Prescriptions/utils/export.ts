@@ -108,9 +108,9 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderRevelScoreToString(row));
     } else if (key === 'hotspot') {
       return convertToPlain(renderHotspotToString(row));
-    } else if (key === 'external_frequencies.gnomad_genomes_4.af') {
+    } else if (key === 'external_frequencies.gnomad_joint_4.af') {
       return convertToPlain(renderGnomADAFToString(row));
-    } else if (key === 'external_frequencies.gnomad_genomes_4.ac') {
+    } else if (key === 'external_frequencies.gnomad_joint_4.ac') {
       return convertToPlain(renderGnomADACToString(row));
     } else if (key === 'exomiser_max.gene_combined_score') {
       return convertToPlain(renderExomiserScoreToString(row));
