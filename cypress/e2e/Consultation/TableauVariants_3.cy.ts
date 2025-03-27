@@ -111,9 +111,5 @@ describe('Page des variants - Consultation du tableau', () => {
     cy.sortTableAndIntercept('Variant', 1);
     cy.validateTableFirstRow(/^(chrY:g.9906510G>C|chrY:g.9908200A>C)$/, 1, true);
   });
-
-  it('Valider les fonctionnalités du tableau - Pagination', () => {
-    cy.validatePaging('', 0);
-  });
 });
   

@@ -1,0 +1,2855 @@
+{
+    "data": {
+        "Variants": {
+            "hits": {
+                "total": "totalMock",
+                "edges": [
+                    {
+                        "searchAfter": [
+                            0.9641,
+                            3,
+                            "chrX:g.123403094G>A"
+                        ],
+                        "node": {
+                            "id": "e4z9yJUB-uvSvbhqFex-",
+                            "hgvsg": "chrX:g.123403094G>A",
+                            "hash": "4577893f4d3c2463e9fdef3419f7781d00fffdf3",
+                            "locus": "X-123403094-G-A",
+                            "variant_class": "SNV",
+                            "cmc": {
+                                "sample_mutated": 3,
+                                "sample_ratio": 0.00006934171597633136,
+                                "mutation_url": "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=21242198&genome=37",
+                                "tier": "Other",
+                                "cosmic_id": "COSV52051792",
+                                "__typename": "VariantsCmc"
+                            },
+                            "clinvar": {
+                                "clinvar_id": "198752",
+                                "clin_sig": [
+                                    "Benign",
+                                    "Likely_benign"
+                                ],
+                                "__typename": "VariantsClinvar"
+                            },
+                            "panels": [
+                                "POLYM",
+                                "RGDI",
+                                "RGDI+"
+                            ],
+                            "variant_type": [
+                                "germline"
+                            ],
+                            "max_impact_score": 3,
+                            "rsnumber": "rs138817389",
+                            "reference": "G",
+                            "alternate": "A",
+                            "chromosome": "X",
+                            "start": 123403094,
+                            "note": null,
+                            "flags": [],
+                            "interpretation": null,
+                            "end": 123403095,
+                            "hotspot": null,
+                            "exomiser_max": {
+                                "variant_score": 0.9436,
+                                "__typename": "VariantsExomiser_max",
+                                "gene_combined_score": 0.9641,
+                                "acmg_classification": "UNCERTAIN_SIGNIFICANCE"
+                            },
+                            "franklin_max": null,
+                            "consequences": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "GRIA3",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000541091.5:c.1181G>A",
+                                                "aa_change": "p.Arg394Gln",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.1181G>A",
+                                                "ensembl_gene_id": "ENSG00000125675",
+                                                "ensembl_transcript_id": "ENST00000541091",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": null,
+                                                    "fathmm_score": null,
+                                                    "cadd_score": 3.740245,
+                                                    "cadd_phred": 25.6,
+                                                    "dann_score": 0.9972006401826703,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": 0.335,
+                                                    "sift_score": null,
+                                                    "sift_pred": null,
+                                                    "polyphen2_hvar_score": 0.824,
+                                                    "polyphen2_hvar_pred": "P",
+                                                    "phyloP100way_vertebrate": 9.602,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "8",
+                                                    "total": 15,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "GRIA3",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000620581.4:c.1181G>A",
+                                                "aa_change": "p.Arg394Gln",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.1181G>A",
+                                                "ensembl_gene_id": "ENSG00000125675",
+                                                "ensembl_transcript_id": "ENST00000620581",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": null,
+                                                    "fathmm_score": null,
+                                                    "cadd_score": 3.740245,
+                                                    "cadd_phred": 25.6,
+                                                    "dann_score": 0.9972006401826703,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": null,
+                                                    "sift_score": null,
+                                                    "sift_pred": null,
+                                                    "polyphen2_hvar_score": null,
+                                                    "polyphen2_hvar_pred": null,
+                                                    "phyloP100way_vertebrate": 9.602,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "8",
+                                                    "total": 17,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "GRIA3",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000620443.2:c.1181G>A",
+                                                "aa_change": "p.Arg394Gln",
+                                                "picked": true,
+                                                "canonical": true,
+                                                "coding_dna_change": "c.1181G>A",
+                                                "ensembl_gene_id": "ENSG00000125675",
+                                                "ensembl_transcript_id": "ENST00000620443",
+                                                "refseq_mrna_id": [
+                                                    "NM_007325.5"
+                                                ],
+                                                "mane_select": true,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": null,
+                                                    "fathmm_score": null,
+                                                    "cadd_score": 3.740245,
+                                                    "cadd_phred": 25.6,
+                                                    "dann_score": 0.9972006401826703,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": null,
+                                                    "sift_score": null,
+                                                    "sift_pred": null,
+                                                    "polyphen2_hvar_score": 0.915,
+                                                    "polyphen2_hvar_pred": "D",
+                                                    "phyloP100way_vertebrate": 9.602,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "8",
+                                                    "total": 16,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "GRIA3",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000622768.5:c.1181G>A",
+                                                "aa_change": "p.Arg394Gln",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.1181G>A",
+                                                "ensembl_gene_id": "ENSG00000125675",
+                                                "ensembl_transcript_id": "ENST00000622768",
+                                                "refseq_mrna_id": [
+                                                    "NM_000828.5"
+                                                ],
+                                                "mane_select": false,
+                                                "mane_plus": true,
+                                                "predictions": {
+                                                    "fathmm_pred": null,
+                                                    "fathmm_score": null,
+                                                    "cadd_score": 3.740245,
+                                                    "cadd_phred": 25.6,
+                                                    "dann_score": 0.9972006401826703,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": null,
+                                                    "sift_score": null,
+                                                    "sift_pred": null,
+                                                    "polyphen2_hvar_score": 0.824,
+                                                    "polyphen2_hvar_pred": "P",
+                                                    "phyloP100way_vertebrate": 9.602,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "8",
+                                                    "total": 16,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsConsequencesConnection"
+                                },
+                                "__typename": "VariantsConsequences"
+                            },
+                            "frequency_RQDM": {
+                                "total": {
+                                    "pc": 6,
+                                    "pn": 133,
+                                    "pf": 0.045112781954887216,
+                                    "__typename": "VariantsFrequency_rqdmTotal"
+                                },
+                                "affected": {
+                                    "pn": 124,
+                                    "pf": 0.03225806451612903,
+                                    "pc": 4,
+                                    "__typename": "VariantsFrequency_rqdmAffected"
+                                },
+                                "non_affected": {
+                                    "pn": 9,
+                                    "pf": 0.2222222222222222,
+                                    "pc": 2,
+                                    "__typename": "VariantsFrequency_rqdmNon_affected"
+                                },
+                                "__typename": "VariantsFrequency_rqdm"
+                            },
+                            "freq_rqdm_tumor_normal": {
+                                "pc": 0,
+                                "pn": 1,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_normal"
+                            },
+                            "freq_rqdm_tumor_only": {
+                                "pc": 0,
+                                "pn": 3,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_only"
+                            },
+                            "external_frequencies": {
+                                "gnomad_genomes_4": {
+                                    "af": 0.000900435,
+                                    "ac": 101,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_genomes_4"
+                                },
+                                "gnomad_exomes_4": {
+                                    "af": 0.00103704,
+                                    "ac": 959,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_exomes_4"
+                                },
+                                "gnomad_joint_4": {
+                                    "af": 0.00102226,
+                                    "ac": 1060,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_joint_4"
+                                },
+                                "__typename": "VariantsExternal_frequencies"
+                            },
+                            "genes": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "GRIA3",
+                                                "biotype": "protein_coding",
+                                                "omim_gene_id": "305915",
+                                                "ensembl_gene_id": "ENSG00000125675",
+                                                "spliceai": {
+                                                    "ds": 0,
+                                                    "type": null,
+                                                    "__typename": "VariantsGenesSpliceai"
+                                                },
+                                                "gnomad": {
+                                                    "loeuf": 0.193,
+                                                    "pli": 0.99976,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": [
+                                                                        "XLR"
+                                                                    ],
+                                                                    "name": "Intellectual developmental disorder, X-linked syndromic, Wu type",
+                                                                    "omim_id": "300699",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            }
+                                                        ],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsGenesConnection"
+                                },
+                                "__typename": "VariantsGenes"
+                            },
+                            "__typename": "VariantsNode"
+                        },
+                        "__typename": "VariantsEdge"
+                    },
+                    {
+                        "searchAfter": [
+                            0.9107,
+                            3,
+                            "chr2:g.25234286C>T"
+                        ],
+                        "node": {
+                            "id": "EenfyJUBxCfhhAM4_E-8",
+                            "hgvsg": "chr2:g.25234286C>T",
+                            "hash": "033288f9ee8d694e8a38a7642fe34454c5f8959d",
+                            "locus": "2-25234286-C-T",
+                            "variant_class": "SNV",
+                            "cmc": {
+                                "sample_mutated": 1,
+                                "sample_ratio": 0.00002077058884619379,
+                                "mutation_url": "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=22151583&genome=37",
+                                "tier": "Other",
+                                "cosmic_id": "COSV104585302",
+                                "__typename": "VariantsCmc"
+                            },
+                            "clinvar": null,
+                            "panels": [
+                                "POLYM",
+                                "RGDI",
+                                "RGDI+",
+                                "SHEMA"
+                            ],
+                            "variant_type": [
+                                "germline"
+                            ],
+                            "max_impact_score": 3,
+                            "rsnumber": "rs906113912",
+                            "reference": "C",
+                            "alternate": "T",
+                            "chromosome": "2",
+                            "start": 25234286,
+                            "note": null,
+                            "flags": [],
+                            "interpretation": null,
+                            "end": 25234287,
+                            "hotspot": null,
+                            "exomiser_max": {
+                                "variant_score": 0.998,
+                                "__typename": "VariantsExomiser_max",
+                                "gene_combined_score": 0.9107,
+                                "acmg_classification": "PATHOGENIC"
+                            },
+                            "franklin_max": null,
+                            "consequences": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "DNMT3A",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000402667.1:c.2063G>A",
+                                                "aa_change": "p.Cys688Tyr",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.2063C>T",
+                                                "ensembl_gene_id": "ENSG00000119772",
+                                                "ensembl_transcript_id": "ENST00000402667",
+                                                "refseq_mrna_id": [
+                                                    "NM_001320893.1",
+                                                    "NM_001375819.1"
+                                                ],
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "D",
+                                                    "fathmm_score": -3.72,
+                                                    "cadd_score": 3.985537,
+                                                    "cadd_phred": 26.9,
+                                                    "dann_score": 0.9963475143083406,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": 0.936,
+                                                    "sift_score": 0.001,
+                                                    "sift_pred": "D",
+                                                    "polyphen2_hvar_score": null,
+                                                    "polyphen2_hvar_pred": null,
+                                                    "phyloP100way_vertebrate": 7.902,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "18",
+                                                    "total": 18,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "DNMT3A",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000380746.8:c.2165G>A",
+                                                "aa_change": "p.Cys722Tyr",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.2165C>T",
+                                                "ensembl_gene_id": "ENSG00000119772",
+                                                "ensembl_transcript_id": "ENST00000380746",
+                                                "refseq_mrna_id": [
+                                                    "NM_153759.3"
+                                                ],
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "D",
+                                                    "fathmm_score": -3.81,
+                                                    "cadd_score": 3.985537,
+                                                    "cadd_phred": 26.9,
+                                                    "dann_score": 0.9963475143083406,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": 0.936,
+                                                    "sift_score": 0,
+                                                    "sift_pred": "D",
+                                                    "polyphen2_hvar_score": null,
+                                                    "polyphen2_hvar_pred": null,
+                                                    "phyloP100way_vertebrate": 7.902,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "19",
+                                                    "total": 19,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "DNMT3A",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000321117.10:c.2732G>A",
+                                                "aa_change": "p.Cys911Tyr",
+                                                "picked": true,
+                                                "canonical": true,
+                                                "coding_dna_change": "c.2732C>T",
+                                                "ensembl_gene_id": "ENSG00000119772",
+                                                "ensembl_transcript_id": "ENST00000321117",
+                                                "refseq_mrna_id": [
+                                                    "NM_022552.5"
+                                                ],
+                                                "mane_select": true,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "D",
+                                                    "fathmm_score": -3.89,
+                                                    "cadd_score": 3.985537,
+                                                    "cadd_phred": 26.9,
+                                                    "dann_score": 0.9963475143083406,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": 0.936,
+                                                    "sift_score": 0,
+                                                    "sift_pred": "D",
+                                                    "polyphen2_hvar_score": 0.992,
+                                                    "polyphen2_hvar_pred": "D",
+                                                    "phyloP100way_vertebrate": 7.902,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "23",
+                                                    "total": 23,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "DNMT3A",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000264709.7:c.2732G>A",
+                                                "aa_change": "p.Cys911Tyr",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.2732C>T",
+                                                "ensembl_gene_id": "ENSG00000119772",
+                                                "ensembl_transcript_id": "ENST00000264709",
+                                                "refseq_mrna_id": [
+                                                    "NM_175629.2"
+                                                ],
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "D",
+                                                    "fathmm_score": -3.89,
+                                                    "cadd_score": 3.985537,
+                                                    "cadd_phred": 26.9,
+                                                    "dann_score": 0.9963475143083406,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": 0.936,
+                                                    "sift_score": 0,
+                                                    "sift_pred": "D",
+                                                    "polyphen2_hvar_score": 0.992,
+                                                    "polyphen2_hvar_pred": "D",
+                                                    "phyloP100way_vertebrate": 7.902,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "23",
+                                                    "total": 23,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsConsequencesConnection"
+                                },
+                                "__typename": "VariantsConsequences"
+                            },
+                            "frequency_RQDM": {
+                                "total": {
+                                    "pc": 3,
+                                    "pn": 133,
+                                    "pf": 0.022556390977443608,
+                                    "__typename": "VariantsFrequency_rqdmTotal"
+                                },
+                                "affected": {
+                                    "pn": 124,
+                                    "pf": 0.024193548387096774,
+                                    "pc": 3,
+                                    "__typename": "VariantsFrequency_rqdmAffected"
+                                },
+                                "non_affected": {
+                                    "pn": 9,
+                                    "pf": 0,
+                                    "pc": 0,
+                                    "__typename": "VariantsFrequency_rqdmNon_affected"
+                                },
+                                "__typename": "VariantsFrequency_rqdm"
+                            },
+                            "freq_rqdm_tumor_normal": {
+                                "pc": 0,
+                                "pn": 1,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_normal"
+                            },
+                            "freq_rqdm_tumor_only": {
+                                "pc": 0,
+                                "pn": 3,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_only"
+                            },
+                            "external_frequencies": {
+                                "gnomad_genomes_4": {
+                                    "af": 0,
+                                    "ac": 0,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_genomes_4"
+                                },
+                                "gnomad_exomes_4": {
+                                    "af": 0.00000205371,
+                                    "ac": 3,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_exomes_4"
+                                },
+                                "gnomad_joint_4": {
+                                    "af": 0.00000185976,
+                                    "ac": 3,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_joint_4"
+                                },
+                                "__typename": "VariantsExternal_frequencies"
+                            },
+                            "genes": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "DNMT3A",
+                                                "biotype": "protein_coding",
+                                                "omim_gene_id": "602769",
+                                                "ensembl_gene_id": "ENSG00000119772",
+                                                "spliceai": {
+                                                    "ds": 0.01,
+                                                    "type": [
+                                                        "DG"
+                                                    ],
+                                                    "__typename": "VariantsGenesSpliceai"
+                                                },
+                                                "gnomad": {
+                                                    "loeuf": 1.581,
+                                                    "pli": 7.3538e-39,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": [
+                                                                        "AD"
+                                                                    ],
+                                                                    "name": "Heyn-Sproul-Jackson syndrome",
+                                                                    "omim_id": "618724",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            },
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": null,
+                                                                    "name": "Acute myeloid leukemia, somatic",
+                                                                    "omim_id": "601626",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            },
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": [
+                                                                        "AD"
+                                                                    ],
+                                                                    "name": "Tatton-Brown-Rahman syndrome",
+                                                                    "omim_id": "615879",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            }
+                                                        ],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsGenesConnection"
+                                },
+                                "__typename": "VariantsGenes"
+                            },
+                            "__typename": "VariantsNode"
+                        },
+                        "__typename": "VariantsEdge"
+                    },
+                    {
+                        "searchAfter": [
+                            0.8043,
+                            3,
+                            "chr19:g.45217677C>T"
+                        ],
+                        "node": {
+                            "id": "R37fyJUB-uvSvbhqKCKf",
+                            "hgvsg": "chr19:g.45217677C>T",
+                            "hash": "0bb932ea3c82fe24508928adb7610949fb51ef6a",
+                            "locus": "19-45217677-C-T",
+                            "variant_class": "SNV",
+                            "cmc": null,
+                            "clinvar": null,
+                            "panels": [],
+                            "variant_type": [
+                                "germline"
+                            ],
+                            "max_impact_score": 3,
+                            "rsnumber": "rs934969192",
+                            "reference": "C",
+                            "alternate": "T",
+                            "chromosome": "19",
+                            "start": 45217677,
+                            "note": null,
+                            "flags": [],
+                            "interpretation": null,
+                            "end": 45217678,
+                            "hotspot": null,
+                            "exomiser_max": {
+                                "variant_score": 0.9939,
+                                "__typename": "VariantsExomiser_max",
+                                "gene_combined_score": 0.8043,
+                                "acmg_classification": "UNCERTAIN_SIGNIFICANCE"
+                            },
+                            "franklin_max": null,
+                            "consequences": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "EXOC3L2",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000413988.3:c.1849G>A",
+                                                "aa_change": "p.Val617Ile",
+                                                "picked": true,
+                                                "canonical": true,
+                                                "coding_dna_change": "c.1849C>T",
+                                                "ensembl_gene_id": "ENSG00000283632",
+                                                "ensembl_transcript_id": "ENST00000413988",
+                                                "refseq_mrna_id": [
+                                                    "NM_001382422.1"
+                                                ],
+                                                "mane_select": true,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": null,
+                                                    "fathmm_score": null,
+                                                    "cadd_score": 3.681804,
+                                                    "cadd_phred": 25.3,
+                                                    "dann_score": 0.99726419675153,
+                                                    "lrt_pred": "N",
+                                                    "lrt_score": 0.109464,
+                                                    "revel_score": 0.119,
+                                                    "sift_score": null,
+                                                    "sift_pred": null,
+                                                    "polyphen2_hvar_score": null,
+                                                    "polyphen2_hvar_pred": null,
+                                                    "phyloP100way_vertebrate": 3.612,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "10",
+                                                    "total": 12,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsConsequencesConnection"
+                                },
+                                "__typename": "VariantsConsequences"
+                            },
+                            "frequency_RQDM": {
+                                "total": {
+                                    "pc": 3,
+                                    "pn": 133,
+                                    "pf": 0.022556390977443608,
+                                    "__typename": "VariantsFrequency_rqdmTotal"
+                                },
+                                "affected": {
+                                    "pn": 124,
+                                    "pf": 0.024193548387096774,
+                                    "pc": 3,
+                                    "__typename": "VariantsFrequency_rqdmAffected"
+                                },
+                                "non_affected": {
+                                    "pn": 9,
+                                    "pf": 0,
+                                    "pc": 0,
+                                    "__typename": "VariantsFrequency_rqdmNon_affected"
+                                },
+                                "__typename": "VariantsFrequency_rqdm"
+                            },
+                            "freq_rqdm_tumor_normal": {
+                                "pc": 0,
+                                "pn": 1,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_normal"
+                            },
+                            "freq_rqdm_tumor_only": {
+                                "pc": 0,
+                                "pn": 3,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_only"
+                            },
+                            "external_frequencies": {
+                                "gnomad_genomes_4": {
+                                    "af": 0.0000263089,
+                                    "ac": 4,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_genomes_4"
+                                },
+                                "gnomad_exomes_4": {
+                                    "af": 0,
+                                    "ac": 0,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_exomes_4"
+                                },
+                                "gnomad_joint_4": {
+                                    "af": 0.00000285508,
+                                    "ac": 4,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_joint_4"
+                                },
+                                "__typename": "VariantsExternal_frequencies"
+                            },
+                            "genes": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "EXOC3L2",
+                                                "biotype": "protein_coding",
+                                                "omim_gene_id": "616927",
+                                                "ensembl_gene_id": "ENSG00000283632",
+                                                "spliceai": {
+                                                    "ds": 0,
+                                                    "type": null,
+                                                    "__typename": "VariantsGenesSpliceai"
+                                                },
+                                                "gnomad": {
+                                                    "loeuf": 0.434,
+                                                    "pli": 0.76039,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsGenesConnection"
+                                },
+                                "__typename": "VariantsGenes"
+                            },
+                            "__typename": "VariantsNode"
+                        },
+                        "__typename": "VariantsEdge"
+                    },
+                    {
+                        "searchAfter": [
+                            0.7795,
+                            3,
+                            "chrX:g.18324912G>A"
+                        ],
+                        "node": {
+                            "id": "tIz8yJUB-uvSvbhqL2t0",
+                            "hgvsg": "chrX:g.18324912G>A",
+                            "hash": "db3e423226ea8711245942f6df7258ff52b20e11",
+                            "locus": "X-18324912-G-A",
+                            "variant_class": "SNV",
+                            "cmc": null,
+                            "clinvar": null,
+                            "panels": [],
+                            "variant_type": [
+                                "germline"
+                            ],
+                            "max_impact_score": 3,
+                            "rsnumber": "rs757183756",
+                            "reference": "G",
+                            "alternate": "A",
+                            "chromosome": "X",
+                            "start": 18324912,
+                            "note": null,
+                            "flags": [],
+                            "interpretation": null,
+                            "end": 18324913,
+                            "hotspot": null,
+                            "exomiser_max": {
+                                "variant_score": 0.9928,
+                                "__typename": "VariantsExomiser_max",
+                                "gene_combined_score": 0.7795,
+                                "acmg_classification": "UNCERTAIN_SIGNIFICANCE"
+                            },
+                            "franklin_max": null,
+                            "consequences": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "SCML2",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000251900.9:c.157C>T",
+                                                "aa_change": "p.Arg53Cys",
+                                                "picked": true,
+                                                "canonical": true,
+                                                "coding_dna_change": "c.157G>A",
+                                                "ensembl_gene_id": "ENSG00000102098",
+                                                "ensembl_transcript_id": "ENST00000251900",
+                                                "refseq_mrna_id": [
+                                                    "NM_006089.3"
+                                                ],
+                                                "mane_select": true,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "T",
+                                                    "fathmm_score": 0.94,
+                                                    "cadd_score": 3.430623,
+                                                    "cadd_phred": 24.5,
+                                                    "dann_score": 0.9984246210400981,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0.000145,
+                                                    "revel_score": 0.329,
+                                                    "sift_score": 0,
+                                                    "sift_pred": "D",
+                                                    "polyphen2_hvar_score": 0.984,
+                                                    "polyphen2_hvar_pred": "D",
+                                                    "phyloP100way_vertebrate": 1.779,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "4",
+                                                    "total": 15,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsConsequencesConnection"
+                                },
+                                "__typename": "VariantsConsequences"
+                            },
+                            "frequency_RQDM": {
+                                "total": {
+                                    "pc": 6,
+                                    "pn": 133,
+                                    "pf": 0.045112781954887216,
+                                    "__typename": "VariantsFrequency_rqdmTotal"
+                                },
+                                "affected": {
+                                    "pn": 124,
+                                    "pf": 0.03225806451612903,
+                                    "pc": 4,
+                                    "__typename": "VariantsFrequency_rqdmAffected"
+                                },
+                                "non_affected": {
+                                    "pn": 9,
+                                    "pf": 0.2222222222222222,
+                                    "pc": 2,
+                                    "__typename": "VariantsFrequency_rqdmNon_affected"
+                                },
+                                "__typename": "VariantsFrequency_rqdm"
+                            },
+                            "freq_rqdm_tumor_normal": {
+                                "pc": 0,
+                                "pn": 1,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_normal"
+                            },
+                            "freq_rqdm_tumor_only": {
+                                "pc": 0,
+                                "pn": 3,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_only"
+                            },
+                            "external_frequencies": {
+                                "gnomad_genomes_4": {
+                                    "af": 0.0000807856,
+                                    "ac": 9,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_genomes_4"
+                                },
+                                "gnomad_exomes_4": {
+                                    "af": 0.0000642128,
+                                    "ac": 69,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_exomes_4"
+                                },
+                                "gnomad_joint_4": {
+                                    "af": 0.0000657696,
+                                    "ac": 78,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_joint_4"
+                                },
+                                "__typename": "VariantsExternal_frequencies"
+                            },
+                            "genes": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "SCML2",
+                                                "biotype": "protein_coding",
+                                                "omim_gene_id": "300208",
+                                                "ensembl_gene_id": "ENSG00000102098",
+                                                "spliceai": {
+                                                    "ds": 0.04,
+                                                    "type": [
+                                                        "DL"
+                                                    ],
+                                                    "__typename": "VariantsGenesSpliceai"
+                                                },
+                                                "gnomad": {
+                                                    "loeuf": 0.132,
+                                                    "pli": 0.99961,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsGenesConnection"
+                                },
+                                "__typename": "VariantsGenes"
+                            },
+                            "__typename": "VariantsNode"
+                        },
+                        "__typename": "VariantsEdge"
+                    },
+                    {
+                        "searchAfter": [
+                            0.7576,
+                            3,
+                            "chrX:g.67545374_67545385dup"
+                        ],
+                        "node": {
+                            "id": "joz8yJUB-uvSvbhqtbDw",
+                            "hgvsg": "chrX:g.67545374_67545385dup",
+                            "hash": "d45a530aef925e01d69cfde5ac852137904ac6bc",
+                            "locus": "X-67545316-T-TGCAGCAGCAGCA",
+                            "variant_class": "insertion",
+                            "cmc": null,
+                            "clinvar": {
+                                "clinvar_id": "1168151",
+                                "clin_sig": [
+                                    "Benign"
+                                ],
+                                "__typename": "VariantsClinvar"
+                            },
+                            "panels": [
+                                "POLYM",
+                                "SSOLID"
+                            ],
+                            "variant_type": [
+                                "germline"
+                            ],
+                            "max_impact_score": 3,
+                            "rsnumber": "rs1206863775",
+                            "reference": "T",
+                            "alternate": "TGCAGCAGCAGCA",
+                            "chromosome": "X",
+                            "start": 67545316,
+                            "note": null,
+                            "flags": [],
+                            "interpretation": null,
+                            "end": 67545317,
+                            "hotspot": null,
+                            "exomiser_max": {
+                                "variant_score": 0.9512,
+                                "__typename": "VariantsExomiser_max",
+                                "gene_combined_score": 0.7576,
+                                "acmg_classification": "UNCERTAIN_SIGNIFICANCE"
+                            },
+                            "franklin_max": null,
+                            "consequences": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "AR",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "inframe_insertion"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000504326.5:c.228_239dup",
+                                                "aa_change": "p.Leu57LQQQQ",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.170-171T>TGCAGCAGCAGCA",
+                                                "ensembl_gene_id": "ENSG00000169083",
+                                                "ensembl_transcript_id": "ENST00000504326",
+                                                "refseq_mrna_id": [
+                                                    "NM_001348061.1"
+                                                ],
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": {
+                                                    "rank": "1",
+                                                    "total": 4,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "AR",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "inframe_insertion"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000396044.8:c.228_239dup",
+                                                "aa_change": "p.Leu57LQQQQ",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.170-171T>TGCAGCAGCAGCA",
+                                                "ensembl_gene_id": "ENSG00000169083",
+                                                "ensembl_transcript_id": "ENST00000396044",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": {
+                                                    "rank": "1",
+                                                    "total": 5,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "AR",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "inframe_insertion"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000374690.9:c.228_239dup",
+                                                "aa_change": "p.Leu57LQQQQ",
+                                                "picked": true,
+                                                "canonical": true,
+                                                "coding_dna_change": "c.170-171T>TGCAGCAGCAGCA",
+                                                "ensembl_gene_id": "ENSG00000169083",
+                                                "ensembl_transcript_id": "ENST00000374690",
+                                                "refseq_mrna_id": [
+                                                    "NM_000044.6",
+                                                    "NM_001011645.3"
+                                                ],
+                                                "mane_select": true,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": {
+                                                    "rank": "1",
+                                                    "total": 8,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsConsequencesConnection"
+                                },
+                                "__typename": "VariantsConsequences"
+                            },
+                            "frequency_RQDM": {
+                                "total": {
+                                    "pc": 10,
+                                    "pn": 133,
+                                    "pf": 0.07518796992481203,
+                                    "__typename": "VariantsFrequency_rqdmTotal"
+                                },
+                                "affected": {
+                                    "pn": 124,
+                                    "pf": 0.06451612903225806,
+                                    "pc": 8,
+                                    "__typename": "VariantsFrequency_rqdmAffected"
+                                },
+                                "non_affected": {
+                                    "pn": 9,
+                                    "pf": 0.2222222222222222,
+                                    "pc": 2,
+                                    "__typename": "VariantsFrequency_rqdmNon_affected"
+                                },
+                                "__typename": "VariantsFrequency_rqdm"
+                            },
+                            "freq_rqdm_tumor_normal": {
+                                "pc": 0,
+                                "pn": 1,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_normal"
+                            },
+                            "freq_rqdm_tumor_only": {
+                                "pc": 0,
+                                "pn": 3,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_only"
+                            },
+                            "external_frequencies": {
+                                "gnomad_genomes_4": {
+                                    "af": 0.035,
+                                    "ac": 2331,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_genomes_4"
+                                },
+                                "gnomad_exomes_4": {
+                                    "af": 0.0119049,
+                                    "ac": 11056,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_exomes_4"
+                                },
+                                "gnomad_joint_4": {
+                                    "af": 0.0134503,
+                                    "ac": 13387,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_joint_4"
+                                },
+                                "__typename": "VariantsExternal_frequencies"
+                            },
+                            "genes": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "AR",
+                                                "biotype": "protein_coding",
+                                                "omim_gene_id": "313700",
+                                                "ensembl_gene_id": "ENSG00000169083",
+                                                "spliceai": null,
+                                                "gnomad": {
+                                                    "loeuf": 0.291,
+                                                    "pli": 0.98837,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": [
+                                                                        "XLR"
+                                                                    ],
+                                                                    "name": "Hypospadias 1, X-linked",
+                                                                    "omim_id": "300633",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            },
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": [
+                                                                        "XLR"
+                                                                    ],
+                                                                    "name": "Spinal and bulbar muscular atrophy of Kennedy",
+                                                                    "omim_id": "313200",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            },
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": [
+                                                                        "XLR"
+                                                                    ],
+                                                                    "name": "Androgen insensitivity",
+                                                                    "omim_id": "300068",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            },
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": [
+                                                                        "Smu",
+                                                                        "AD"
+                                                                    ],
+                                                                    "name": "Prostate cancer, susceptibility to",
+                                                                    "omim_id": "176807",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            },
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": [
+                                                                        "XLR"
+                                                                    ],
+                                                                    "name": "Androgen insensitivity, partial, with or without breast cancer",
+                                                                    "omim_id": "312300",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            }
+                                                        ],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsGenesConnection"
+                                },
+                                "__typename": "VariantsGenes"
+                            },
+                            "__typename": "VariantsNode"
+                        },
+                        "__typename": "VariantsEdge"
+                    },
+                    {
+                        "searchAfter": [
+                            0.75,
+                            3,
+                            "chr15:g.42147333G>T"
+                        ],
+                        "node": {
+                            "id": "PIn1yJUB-uvSvbhq50e3",
+                            "hgvsg": "chr15:g.42147333G>T",
+                            "hash": "037629c715fccc75d2c77cf7be068723accba265",
+                            "locus": "15-42147333-G-T",
+                            "variant_class": "SNV",
+                            "cmc": null,
+                            "clinvar": null,
+                            "panels": [],
+                            "variant_type": [
+                                "germline"
+                            ],
+                            "max_impact_score": 3,
+                            "rsnumber": "rs1566879384",
+                            "reference": "G",
+                            "alternate": "T",
+                            "chromosome": "15",
+                            "start": 42147333,
+                            "note": null,
+                            "flags": [],
+                            "interpretation": null,
+                            "end": 42147334,
+                            "hotspot": null,
+                            "exomiser_max": {
+                                "variant_score": 0.9942,
+                                "__typename": "VariantsExomiser_max",
+                                "gene_combined_score": 0.75,
+                                "acmg_classification": "UNCERTAIN_SIGNIFICANCE"
+                            },
+                            "franklin_max": null,
+                            "consequences": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "PLA2G4F",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000397272.7:c.1210C>A",
+                                                "aa_change": "p.Leu404Ile",
+                                                "picked": true,
+                                                "canonical": true,
+                                                "coding_dna_change": "c.1210G>T",
+                                                "ensembl_gene_id": "ENSG00000168907",
+                                                "ensembl_transcript_id": "ENST00000397272",
+                                                "refseq_mrna_id": [
+                                                    "NM_213600.4"
+                                                ],
+                                                "mane_select": true,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": null,
+                                                    "fathmm_score": null,
+                                                    "cadd_score": 2.490424,
+                                                    "cadd_phred": 22.4,
+                                                    "dann_score": 0.9908691680419008,
+                                                    "lrt_pred": "N",
+                                                    "lrt_score": 0.001241,
+                                                    "revel_score": 0.066,
+                                                    "sift_score": null,
+                                                    "sift_pred": null,
+                                                    "polyphen2_hvar_score": 0.343,
+                                                    "polyphen2_hvar_pred": "B",
+                                                    "phyloP100way_vertebrate": 1.786,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "13",
+                                                    "total": 20,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsConsequencesConnection"
+                                },
+                                "__typename": "VariantsConsequences"
+                            },
+                            "frequency_RQDM": {
+                                "total": {
+                                    "pc": 3,
+                                    "pn": 133,
+                                    "pf": 0.022556390977443608,
+                                    "__typename": "VariantsFrequency_rqdmTotal"
+                                },
+                                "affected": {
+                                    "pn": 124,
+                                    "pf": 0.024193548387096774,
+                                    "pc": 3,
+                                    "__typename": "VariantsFrequency_rqdmAffected"
+                                },
+                                "non_affected": {
+                                    "pn": 9,
+                                    "pf": 0,
+                                    "pc": 0,
+                                    "__typename": "VariantsFrequency_rqdmNon_affected"
+                                },
+                                "__typename": "VariantsFrequency_rqdm"
+                            },
+                            "freq_rqdm_tumor_normal": {
+                                "pc": 0,
+                                "pn": 1,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_normal"
+                            },
+                            "freq_rqdm_tumor_only": {
+                                "pc": 0,
+                                "pn": 3,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_only"
+                            },
+                            "external_frequencies": {
+                                "gnomad_genomes_4": {
+                                    "af": 0,
+                                    "ac": 0,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_genomes_4"
+                                },
+                                "gnomad_exomes_4": {
+                                    "af": 0,
+                                    "ac": 0,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_exomes_4"
+                                },
+                                "gnomad_joint_4": {
+                                    "af": 0,
+                                    "ac": 0,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_joint_4"
+                                },
+                                "__typename": "VariantsExternal_frequencies"
+                            },
+                            "genes": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "PLA2G4F",
+                                                "biotype": "protein_coding",
+                                                "omim_gene_id": null,
+                                                "ensembl_gene_id": "ENSG00000168907",
+                                                "spliceai": {
+                                                    "ds": 0.1,
+                                                    "type": [
+                                                        "AL"
+                                                    ],
+                                                    "__typename": "VariantsGenesSpliceai"
+                                                },
+                                                "gnomad": {
+                                                    "loeuf": 1.167,
+                                                    "pli": 1.1507e-27,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsGenesConnection"
+                                },
+                                "__typename": "VariantsGenes"
+                            },
+                            "__typename": "VariantsNode"
+                        },
+                        "__typename": "VariantsEdge"
+                    },
+                    {
+                        "searchAfter": [
+                            0.7482,
+                            3,
+                            "chr11:g.82987682T>C"
+                        ],
+                        "node": {
+                            "id": "yYDkyJUB-uvSvbhqMIPg",
+                            "hgvsg": "chr11:g.82987682T>C",
+                            "hash": "d9e8dc54114516503c75aa78552d12e697dc861b",
+                            "locus": "11-82987682-T-C",
+                            "variant_class": "SNV",
+                            "cmc": {
+                                "sample_mutated": 2,
+                                "sample_ratio": 0.00004622781065088757,
+                                "mutation_url": "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=81909431&genome=37",
+                                "tier": "Other",
+                                "cosmic_id": "COSV52626525",
+                                "__typename": "VariantsCmc"
+                            },
+                            "clinvar": null,
+                            "panels": [],
+                            "variant_type": [
+                                "germline"
+                            ],
+                            "max_impact_score": 3,
+                            "rsnumber": "rs1565267609",
+                            "reference": "T",
+                            "alternate": "C",
+                            "chromosome": "11",
+                            "start": 82987682,
+                            "note": null,
+                            "flags": [],
+                            "interpretation": null,
+                            "end": 82987683,
+                            "hotspot": null,
+                            "exomiser_max": {
+                                "variant_score": 0.9992,
+                                "__typename": "VariantsExomiser_max",
+                                "gene_combined_score": 0.7482,
+                                "acmg_classification": "UNCERTAIN_SIGNIFICANCE"
+                            },
+                            "franklin_max": null,
+                            "consequences": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "RAB30",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000533486.5:c.266A>G",
+                                                "aa_change": "p.Tyr89Cys",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.266T>C",
+                                                "ensembl_gene_id": "ENSG00000137502",
+                                                "ensembl_transcript_id": "ENST00000533486",
+                                                "refseq_mrna_id": [
+                                                    "NM_014488.5",
+                                                    "NM_001286059.2"
+                                                ],
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "D",
+                                                    "fathmm_score": -1.8,
+                                                    "cadd_score": 4.37601,
+                                                    "cadd_phred": 31,
+                                                    "dann_score": 0.9983473996776271,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": 0.915,
+                                                    "sift_score": 0,
+                                                    "sift_pred": "D",
+                                                    "polyphen2_hvar_score": 0.998,
+                                                    "polyphen2_hvar_pred": "D",
+                                                    "phyloP100way_vertebrate": 8.017,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "5",
+                                                    "total": 6,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "RAB30",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000527633.6:c.266A>G",
+                                                "aa_change": "p.Tyr89Cys",
+                                                "picked": true,
+                                                "canonical": true,
+                                                "coding_dna_change": "c.266T>C",
+                                                "ensembl_gene_id": "ENSG00000137502",
+                                                "ensembl_transcript_id": "ENST00000527633",
+                                                "refseq_mrna_id": [
+                                                    "NM_001286060.2"
+                                                ],
+                                                "mane_select": true,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "D",
+                                                    "fathmm_score": -1.8,
+                                                    "cadd_score": 4.37601,
+                                                    "cadd_phred": 31,
+                                                    "dann_score": 0.9983473996776271,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": 0.915,
+                                                    "sift_score": 0,
+                                                    "sift_pred": "D",
+                                                    "polyphen2_hvar_score": 0.998,
+                                                    "polyphen2_hvar_pred": "D",
+                                                    "phyloP100way_vertebrate": 8.017,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "4",
+                                                    "total": 5,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "RAB30",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000612684.4:c.266A>G",
+                                                "aa_change": "p.Tyr89Cys",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.266T>C",
+                                                "ensembl_gene_id": "ENSG00000137502",
+                                                "ensembl_transcript_id": "ENST00000612684",
+                                                "refseq_mrna_id": [
+                                                    "NM_001286061.1"
+                                                ],
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": null,
+                                                    "fathmm_score": null,
+                                                    "cadd_score": 4.37601,
+                                                    "cadd_phred": 31,
+                                                    "dann_score": 0.9983473996776271,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": null,
+                                                    "sift_score": null,
+                                                    "sift_pred": null,
+                                                    "polyphen2_hvar_score": 0.998,
+                                                    "polyphen2_hvar_pred": "D",
+                                                    "phyloP100way_vertebrate": 8.017,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "4",
+                                                    "total": 5,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "RAB30",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000534141.5:c.266A>G",
+                                                "aa_change": "p.Tyr89Cys",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.266T>C",
+                                                "ensembl_gene_id": "ENSG00000137502",
+                                                "ensembl_transcript_id": "ENST00000534141",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "D",
+                                                    "fathmm_score": -1.8,
+                                                    "cadd_score": 4.37601,
+                                                    "cadd_phred": 31,
+                                                    "dann_score": 0.9983473996776271,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": 0.915,
+                                                    "sift_score": 0,
+                                                    "sift_pred": "D",
+                                                    "polyphen2_hvar_score": null,
+                                                    "polyphen2_hvar_pred": null,
+                                                    "phyloP100way_vertebrate": 8.017,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "4",
+                                                    "total": 5,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "RAB30",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000260056.6:c.266A>G",
+                                                "aa_change": "p.Tyr89Cys",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.266T>C",
+                                                "ensembl_gene_id": "ENSG00000137502",
+                                                "ensembl_transcript_id": "ENST00000260056",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "D",
+                                                    "fathmm_score": -1.8,
+                                                    "cadd_score": 4.37601,
+                                                    "cadd_phred": 31,
+                                                    "dann_score": 0.9983473996776271,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": 0.915,
+                                                    "sift_score": 0,
+                                                    "sift_pred": "D",
+                                                    "polyphen2_hvar_score": 0.998,
+                                                    "polyphen2_hvar_pred": "D",
+                                                    "phyloP100way_vertebrate": 8.017,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "4",
+                                                    "total": 5,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "RAB30",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000532548.5:c.266A>G",
+                                                "aa_change": "p.Tyr89Cys",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.266T>C",
+                                                "ensembl_gene_id": "ENSG00000137502",
+                                                "ensembl_transcript_id": "ENST00000532548",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "D",
+                                                    "fathmm_score": -1.8,
+                                                    "cadd_score": 4.37601,
+                                                    "cadd_phred": 31,
+                                                    "dann_score": 0.9983473996776271,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": 0.915,
+                                                    "sift_score": 0,
+                                                    "sift_pred": "D",
+                                                    "polyphen2_hvar_score": null,
+                                                    "polyphen2_hvar_pred": null,
+                                                    "phyloP100way_vertebrate": 8.017,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "3",
+                                                    "total": 3,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "RAB30",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000525117.5:c.182A>G",
+                                                "aa_change": "p.Tyr61Cys",
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": "c.182T>C",
+                                                "ensembl_gene_id": "ENSG00000137502",
+                                                "ensembl_transcript_id": "ENST00000525117",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "D",
+                                                    "fathmm_score": -1.8,
+                                                    "cadd_score": 4.37601,
+                                                    "cadd_phred": 31,
+                                                    "dann_score": 0.9983473996776271,
+                                                    "lrt_pred": "D",
+                                                    "lrt_score": 0,
+                                                    "revel_score": 0.915,
+                                                    "sift_score": 0,
+                                                    "sift_pred": "D",
+                                                    "polyphen2_hvar_score": 0.984,
+                                                    "polyphen2_hvar_pred": "D",
+                                                    "phyloP100way_vertebrate": 8.017,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "2",
+                                                    "total": 2,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "AP000893.2",
+                                                "vep_impact": "MODIFIER",
+                                                "consequences": [
+                                                    "intron_variant",
+                                                    "non_coding_transcript_variant"
+                                                ],
+                                                "impact_score": 1,
+                                                "hgvsc": "ENST00000527550.1:n.373-23941A>G",
+                                                "aa_change": null,
+                                                "picked": null,
+                                                "canonical": true,
+                                                "coding_dna_change": null,
+                                                "ensembl_gene_id": "ENSG00000254698",
+                                                "ensembl_transcript_id": "ENST00000527550",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": null,
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsConsequencesConnection"
+                                },
+                                "__typename": "VariantsConsequences"
+                            },
+                            "frequency_RQDM": {
+                                "total": {
+                                    "pc": 3,
+                                    "pn": 133,
+                                    "pf": 0.022556390977443608,
+                                    "__typename": "VariantsFrequency_rqdmTotal"
+                                },
+                                "affected": {
+                                    "pn": 124,
+                                    "pf": 0.024193548387096774,
+                                    "pc": 3,
+                                    "__typename": "VariantsFrequency_rqdmAffected"
+                                },
+                                "non_affected": {
+                                    "pn": 9,
+                                    "pf": 0,
+                                    "pc": 0,
+                                    "__typename": "VariantsFrequency_rqdmNon_affected"
+                                },
+                                "__typename": "VariantsFrequency_rqdm"
+                            },
+                            "freq_rqdm_tumor_normal": {
+                                "pc": 0,
+                                "pn": 1,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_normal"
+                            },
+                            "freq_rqdm_tumor_only": {
+                                "pc": 0,
+                                "pn": 3,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_only"
+                            },
+                            "external_frequencies": {
+                                "gnomad_genomes_4": null,
+                                "gnomad_exomes_4": null,
+                                "gnomad_joint_4": null,
+                                "__typename": "VariantsExternal_frequencies"
+                            },
+                            "genes": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": null,
+                                                "biotype": null,
+                                                "omim_gene_id": null,
+                                                "ensembl_gene_id": null,
+                                                "spliceai": null,
+                                                "gnomad": null,
+                                                "omim": null,
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "RAB30",
+                                                "biotype": "protein_coding",
+                                                "omim_gene_id": "605693",
+                                                "ensembl_gene_id": "ENSG00000137502",
+                                                "spliceai": {
+                                                    "ds": 0,
+                                                    "type": null,
+                                                    "__typename": "VariantsGenesSpliceai"
+                                                },
+                                                "gnomad": {
+                                                    "loeuf": 0.378,
+                                                    "pli": 0.92132,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsGenesConnection"
+                                },
+                                "__typename": "VariantsGenes"
+                            },
+                            "__typename": "VariantsNode"
+                        },
+                        "__typename": "VariantsEdge"
+                    },
+                    {
+                        "searchAfter": [
+                            0.7453,
+                            2,
+                            "chr1:g.152311142T>C"
+                        ],
+                        "node": {
+                            "id": "rnzayJUB-uvSvbhqfCtO",
+                            "hgvsg": "chr1:g.152311142T>C",
+                            "hash": "191e80c92f78b43e08017055b76f34420cac0694",
+                            "locus": "1-152311142-T-C",
+                            "variant_class": "SNV",
+                            "cmc": null,
+                            "clinvar": null,
+                            "panels": [],
+                            "variant_type": [
+                                "germline"
+                            ],
+                            "max_impact_score": 2,
+                            "rsnumber": "rs142170649",
+                            "reference": "T",
+                            "alternate": "C",
+                            "chromosome": "1",
+                            "start": 152311142,
+                            "note": null,
+                            "flags": [],
+                            "interpretation": null,
+                            "end": 152311143,
+                            "hotspot": null,
+                            "exomiser_max": {
+                                "variant_score": 0.5817,
+                                "__typename": "VariantsExomiser_max",
+                                "gene_combined_score": 0.7453,
+                                "acmg_classification": "UNCERTAIN_SIGNIFICANCE"
+                            },
+                            "franklin_max": null,
+                            "consequences": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "FLG-AS1",
+                                                "vep_impact": "MODIFIER",
+                                                "consequences": [
+                                                    "upstream_gene_variant"
+                                                ],
+                                                "impact_score": 1,
+                                                "hgvsc": null,
+                                                "aa_change": null,
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": null,
+                                                "ensembl_gene_id": "ENSG00000237975",
+                                                "ensembl_transcript_id": "ENST00000392688",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": null,
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "FLG-AS1",
+                                                "vep_impact": "MODIFIER",
+                                                "consequences": [
+                                                    "intron_variant",
+                                                    "non_coding_transcript_variant"
+                                                ],
+                                                "impact_score": 1,
+                                                "hgvsc": "ENST00000669830.1:n.359-21441T>C",
+                                                "aa_change": null,
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": null,
+                                                "ensembl_gene_id": "ENSG00000237975",
+                                                "ensembl_transcript_id": "ENST00000669830",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": null,
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "FLG",
+                                                "vep_impact": "LOW",
+                                                "consequences": [
+                                                    "synonymous_variant"
+                                                ],
+                                                "impact_score": 2,
+                                                "hgvsc": "ENST00000368799.2:c.3744A>G",
+                                                "aa_change": "p.Arg1248=",
+                                                "picked": true,
+                                                "canonical": true,
+                                                "coding_dna_change": "c.3744T>C",
+                                                "ensembl_gene_id": "ENSG00000143631",
+                                                "ensembl_transcript_id": "ENST00000368799",
+                                                "refseq_mrna_id": [
+                                                    "NM_002016.2"
+                                                ],
+                                                "mane_select": true,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": {
+                                                    "rank": "3",
+                                                    "total": 3,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "FLG-AS1",
+                                                "vep_impact": "MODIFIER",
+                                                "consequences": [
+                                                    "intron_variant",
+                                                    "non_coding_transcript_variant"
+                                                ],
+                                                "impact_score": 1,
+                                                "hgvsc": "ENST00000653548.1:n.390-21441T>C",
+                                                "aa_change": null,
+                                                "picked": null,
+                                                "canonical": true,
+                                                "coding_dna_change": null,
+                                                "ensembl_gene_id": "ENSG00000237975",
+                                                "ensembl_transcript_id": "ENST00000653548",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": null,
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "FLG-AS1",
+                                                "vep_impact": "MODIFIER",
+                                                "consequences": [
+                                                    "upstream_gene_variant"
+                                                ],
+                                                "impact_score": 1,
+                                                "hgvsc": null,
+                                                "aa_change": null,
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": null,
+                                                "ensembl_gene_id": "ENSG00000237975",
+                                                "ensembl_transcript_id": "ENST00000665223",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": null,
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "FLG-AS1",
+                                                "vep_impact": "MODIFIER",
+                                                "consequences": [
+                                                    "intron_variant",
+                                                    "non_coding_transcript_variant"
+                                                ],
+                                                "impact_score": 1,
+                                                "hgvsc": "ENST00000420707.5:n.463-3764T>C",
+                                                "aa_change": null,
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": null,
+                                                "ensembl_gene_id": "ENSG00000237975",
+                                                "ensembl_transcript_id": "ENST00000420707",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": null,
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsConsequencesConnection"
+                                },
+                                "__typename": "VariantsConsequences"
+                            },
+                            "frequency_RQDM": {
+                                "total": {
+                                    "pc": 6,
+                                    "pn": 133,
+                                    "pf": 0.045112781954887216,
+                                    "__typename": "VariantsFrequency_rqdmTotal"
+                                },
+                                "affected": {
+                                    "pn": 124,
+                                    "pf": 0.04032258064516129,
+                                    "pc": 5,
+                                    "__typename": "VariantsFrequency_rqdmAffected"
+                                },
+                                "non_affected": {
+                                    "pn": 9,
+                                    "pf": 0.1111111111111111,
+                                    "pc": 1,
+                                    "__typename": "VariantsFrequency_rqdmNon_affected"
+                                },
+                                "__typename": "VariantsFrequency_rqdm"
+                            },
+                            "freq_rqdm_tumor_normal": {
+                                "pc": 0,
+                                "pn": 1,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_normal"
+                            },
+                            "freq_rqdm_tumor_only": {
+                                "pc": 0,
+                                "pn": 3,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_only"
+                            },
+                            "external_frequencies": {
+                                "gnomad_genomes_4": {
+                                    "af": 0.000118515,
+                                    "ac": 18,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_genomes_4"
+                                },
+                                "gnomad_exomes_4": {
+                                    "af": 0.000108763,
+                                    "ac": 159,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_exomes_4"
+                                },
+                                "gnomad_joint_4": {
+                                    "af": 0.000109681,
+                                    "ac": 177,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_joint_4"
+                                },
+                                "__typename": "VariantsExternal_frequencies"
+                            },
+                            "genes": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "FLG-AS1",
+                                                "biotype": "ncRNA",
+                                                "omim_gene_id": null,
+                                                "ensembl_gene_id": "ENSG00000237975",
+                                                "spliceai": null,
+                                                "gnomad": {
+                                                    "loeuf": null,
+                                                    "pli": null,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "FLG",
+                                                "biotype": "protein_coding",
+                                                "omim_gene_id": "135940",
+                                                "ensembl_gene_id": "ENSG00000143631",
+                                                "spliceai": {
+                                                    "ds": 0,
+                                                    "type": null,
+                                                    "__typename": "VariantsGenesSpliceai"
+                                                },
+                                                "gnomad": {
+                                                    "loeuf": 1.96,
+                                                    "pli": 0.00028793,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": null,
+                                                                    "name": "Dermatitis, atopic, susceptibility to, 2",
+                                                                    "omim_id": "605803",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            },
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": [
+                                                                        "AD",
+                                                                        "AR"
+                                                                    ],
+                                                                    "name": "Ichthyosis vulgaris",
+                                                                    "omim_id": "146700",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            }
+                                                        ],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsGenesConnection"
+                                },
+                                "__typename": "VariantsGenes"
+                            },
+                            "__typename": "VariantsNode"
+                        },
+                        "__typename": "VariantsEdge"
+                    },
+                    {
+                        "searchAfter": [
+                            0.7385,
+                            3,
+                            "chr4:g.3074933_3074935del"
+                        ],
+                        "node": {
+                            "id": "74XuyJUB-uvSvbhqEFtt",
+                            "hgvsg": "chr4:g.3074933_3074935del",
+                            "hash": "61ee87790acb93545f36f4c44d8d325e52f69dd7",
+                            "locus": "4-3074876-CCAG-C",
+                            "variant_class": "deletion",
+                            "cmc": null,
+                            "clinvar": null,
+                            "panels": [
+                                "RGDI+"
+                            ],
+                            "variant_type": [
+                                "germline"
+                            ],
+                            "max_impact_score": 3,
+                            "rsnumber": "rs757035717",
+                            "reference": "CCAG",
+                            "alternate": "C",
+                            "chromosome": "4",
+                            "start": 3074876,
+                            "note": null,
+                            "flags": [],
+                            "interpretation": null,
+                            "end": 3074880,
+                            "hotspot": null,
+                            "exomiser_max": {
+                                "variant_score": 0.9907,
+                                "__typename": "VariantsExomiser_max",
+                                "gene_combined_score": 0.7385,
+                                "acmg_classification": "LIKELY_PATHOGENIC"
+                            },
+                            "franklin_max": null,
+                            "consequences": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "HTT",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "inframe_deletion"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000355072.10:c.108_110del",
+                                                "aa_change": "p.Gln18-",
+                                                "picked": true,
+                                                "canonical": true,
+                                                "coding_dna_change": "c.52-54CCAG>C",
+                                                "ensembl_gene_id": "ENSG00000197386",
+                                                "ensembl_transcript_id": "ENST00000355072",
+                                                "refseq_mrna_id": [
+                                                    "NM_002111.8"
+                                                ],
+                                                "mane_select": true,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": {
+                                                    "rank": "1",
+                                                    "total": 67,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "AL390065.1",
+                                                "vep_impact": "MODIFIER",
+                                                "consequences": [
+                                                    "downstream_gene_variant"
+                                                ],
+                                                "impact_score": 1,
+                                                "hgvsc": null,
+                                                "aa_change": null,
+                                                "picked": null,
+                                                "canonical": true,
+                                                "coding_dna_change": null,
+                                                "ensembl_gene_id": "ENSG00000274693",
+                                                "ensembl_transcript_id": "ENST00000621529",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": null,
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "HTT",
+                                                "vep_impact": "MODIFIER",
+                                                "consequences": [
+                                                    "intron_variant"
+                                                ],
+                                                "impact_score": 1,
+                                                "hgvsc": "ENST00000680956.1:c.6-12006_6-12004del",
+                                                "aa_change": null,
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": null,
+                                                "ensembl_gene_id": "ENSG00000197386",
+                                                "ensembl_transcript_id": "ENST00000680956",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": null,
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "HTT-AS",
+                                                "vep_impact": "MODIFIER",
+                                                "consequences": [
+                                                    "upstream_gene_variant"
+                                                ],
+                                                "impact_score": 1,
+                                                "hgvsc": null,
+                                                "aa_change": null,
+                                                "picked": null,
+                                                "canonical": true,
+                                                "coding_dna_change": null,
+                                                "ensembl_gene_id": "ENSG00000251075",
+                                                "ensembl_transcript_id": "ENST00000664062",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": null,
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "HTT",
+                                                "vep_impact": "MODIFIER",
+                                                "consequences": [
+                                                    "intron_variant"
+                                                ],
+                                                "impact_score": 1,
+                                                "hgvsc": "ENST00000681528.1:c.6-12006_6-12004del",
+                                                "aa_change": null,
+                                                "picked": null,
+                                                "canonical": false,
+                                                "coding_dna_change": null,
+                                                "ensembl_gene_id": "ENSG00000197386",
+                                                "ensembl_transcript_id": "ENST00000681528",
+                                                "refseq_mrna_id": null,
+                                                "mane_select": false,
+                                                "mane_plus": false,
+                                                "predictions": null,
+                                                "exon": null,
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsConsequencesConnection"
+                                },
+                                "__typename": "VariantsConsequences"
+                            },
+                            "frequency_RQDM": {
+                                "total": {
+                                    "pc": 41,
+                                    "pn": 133,
+                                    "pf": 0.3082706766917293,
+                                    "__typename": "VariantsFrequency_rqdmTotal"
+                                },
+                                "affected": {
+                                    "pn": 124,
+                                    "pf": 0.29838709677419356,
+                                    "pc": 37,
+                                    "__typename": "VariantsFrequency_rqdmAffected"
+                                },
+                                "non_affected": {
+                                    "pn": 9,
+                                    "pf": 0.4444444444444444,
+                                    "pc": 4,
+                                    "__typename": "VariantsFrequency_rqdmNon_affected"
+                                },
+                                "__typename": "VariantsFrequency_rqdm"
+                            },
+                            "freq_rqdm_tumor_normal": {
+                                "pc": 0,
+                                "pn": 1,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_normal"
+                            },
+                            "freq_rqdm_tumor_only": {
+                                "pc": 0,
+                                "pn": 3,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_only"
+                            },
+                            "external_frequencies": {
+                                "gnomad_genomes_4": {
+                                    "af": 0.138938,
+                                    "ac": 18302,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_genomes_4"
+                                },
+                                "gnomad_exomes_4": {
+                                    "af": 0.144282,
+                                    "ac": 175611,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_exomes_4"
+                                },
+                                "gnomad_joint_4": {
+                                    "af": 0.14376,
+                                    "ac": 193913,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_joint_4"
+                                },
+                                "__typename": "VariantsExternal_frequencies"
+                            },
+                            "genes": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": null,
+                                                "biotype": null,
+                                                "omim_gene_id": null,
+                                                "ensembl_gene_id": null,
+                                                "spliceai": null,
+                                                "gnomad": null,
+                                                "omim": null,
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "HTT-AS",
+                                                "biotype": "ncRNA",
+                                                "omim_gene_id": null,
+                                                "ensembl_gene_id": null,
+                                                "spliceai": null,
+                                                "gnomad": {
+                                                    "loeuf": null,
+                                                    "pli": null,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        },
+                                        {
+                                            "node": {
+                                                "symbol": "HTT",
+                                                "biotype": "protein_coding",
+                                                "omim_gene_id": "613004",
+                                                "ensembl_gene_id": "ENSG00000197386",
+                                                "spliceai": {
+                                                    "ds": 0,
+                                                    "type": null,
+                                                    "__typename": "VariantsGenesSpliceai"
+                                                },
+                                                "gnomad": {
+                                                    "loeuf": 0.176,
+                                                    "pli": 1,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": [
+                                                                        "AD"
+                                                                    ],
+                                                                    "name": "Huntington disease",
+                                                                    "omim_id": "143100",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            },
+                                                            {
+                                                                "node": {
+                                                                    "inheritance_code": [
+                                                                        "AR"
+                                                                    ],
+                                                                    "name": "Lopes-Maciel-Rodan syndrome",
+                                                                    "omim_id": "617435",
+                                                                    "__typename": "VariantsGenesOmimNode"
+                                                                },
+                                                                "__typename": "VariantsGenesOmimEdge"
+                                                            }
+                                                        ],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsGenesConnection"
+                                },
+                                "__typename": "VariantsGenes"
+                            },
+                            "__typename": "VariantsNode"
+                        },
+                        "__typename": "VariantsEdge"
+                    },
+                    {
+                        "searchAfter": [
+                            0.7175,
+                            3,
+                            "chr3:g.52513896C>G"
+                        ],
+                        "node": {
+                            "id": "3n_jyJUB-uvSvbhqC-9D",
+                            "hgvsg": "chr3:g.52513896C>G",
+                            "hash": "11529cf90f08bdf17f3000a9de1c2584cfb01861",
+                            "locus": "3-52513896-C-G",
+                            "variant_class": "SNV",
+                            "cmc": null,
+                            "clinvar": {
+                                "clinvar_id": "3450119",
+                                "clin_sig": [
+                                    "Uncertain_significance"
+                                ],
+                                "__typename": "VariantsClinvar"
+                            },
+                            "panels": [],
+                            "variant_type": [
+                                "germline"
+                            ],
+                            "max_impact_score": 3,
+                            "rsnumber": "rs746203685",
+                            "reference": "C",
+                            "alternate": "G",
+                            "chromosome": "3",
+                            "start": 52513896,
+                            "note": null,
+                            "flags": [],
+                            "interpretation": null,
+                            "end": 52513897,
+                            "hotspot": null,
+                            "exomiser_max": {
+                                "variant_score": 0.9793,
+                                "__typename": "VariantsExomiser_max",
+                                "gene_combined_score": 0.7175,
+                                "acmg_classification": "UNCERTAIN_SIGNIFICANCE"
+                            },
+                            "franklin_max": null,
+                            "consequences": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "STAB1",
+                                                "vep_impact": "MODERATE",
+                                                "consequences": [
+                                                    "missense_variant"
+                                                ],
+                                                "impact_score": 3,
+                                                "hgvsc": "ENST00000321725.10:c.3362C>G",
+                                                "aa_change": "p.Pro1121Arg",
+                                                "picked": true,
+                                                "canonical": true,
+                                                "coding_dna_change": "c.3362C>G",
+                                                "ensembl_gene_id": "ENSG00000010327",
+                                                "ensembl_transcript_id": "ENST00000321725",
+                                                "refseq_mrna_id": [
+                                                    "NM_015136.3"
+                                                ],
+                                                "mane_select": true,
+                                                "mane_plus": false,
+                                                "predictions": {
+                                                    "fathmm_pred": "D",
+                                                    "fathmm_score": -3.05,
+                                                    "cadd_score": 1.670856,
+                                                    "cadd_phred": 16.83,
+                                                    "dann_score": 0.14148032203401692,
+                                                    "lrt_pred": "N",
+                                                    "lrt_score": 0.027899,
+                                                    "revel_score": 0.257,
+                                                    "sift_score": 0.7,
+                                                    "sift_pred": "T",
+                                                    "polyphen2_hvar_score": 0.025,
+                                                    "polyphen2_hvar_pred": "B",
+                                                    "phyloP100way_vertebrate": 1.258,
+                                                    "__typename": "VariantsConsequencesPredictions"
+                                                },
+                                                "exon": {
+                                                    "rank": "32",
+                                                    "total": 69,
+                                                    "__typename": "VariantsConsequencesExon"
+                                                },
+                                                "__typename": "VariantsConsequencesNode"
+                                            },
+                                            "__typename": "VariantsConsequencesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsConsequencesConnection"
+                                },
+                                "__typename": "VariantsConsequences"
+                            },
+                            "frequency_RQDM": {
+                                "total": {
+                                    "pc": 3,
+                                    "pn": 133,
+                                    "pf": 0.022556390977443608,
+                                    "__typename": "VariantsFrequency_rqdmTotal"
+                                },
+                                "affected": {
+                                    "pn": 124,
+                                    "pf": 0.024193548387096774,
+                                    "pc": 3,
+                                    "__typename": "VariantsFrequency_rqdmAffected"
+                                },
+                                "non_affected": {
+                                    "pn": 9,
+                                    "pf": 0,
+                                    "pc": 0,
+                                    "__typename": "VariantsFrequency_rqdmNon_affected"
+                                },
+                                "__typename": "VariantsFrequency_rqdm"
+                            },
+                            "freq_rqdm_tumor_normal": {
+                                "pc": 0,
+                                "pn": 1,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_normal"
+                            },
+                            "freq_rqdm_tumor_only": {
+                                "pc": 0,
+                                "pn": 3,
+                                "pf": 0,
+                                "__typename": "VariantsFreq_rqdm_tumor_only"
+                            },
+                            "external_frequencies": {
+                                "gnomad_genomes_4": {
+                                    "af": 0,
+                                    "ac": 0,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_genomes_4"
+                                },
+                                "gnomad_exomes_4": {
+                                    "af": 0.00000275404,
+                                    "ac": 4,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_exomes_4"
+                                },
+                                "gnomad_joint_4": {
+                                    "af": 0.00000249258,
+                                    "ac": 4,
+                                    "__typename": "VariantsExternal_frequenciesGnomad_joint_4"
+                                },
+                                "__typename": "VariantsExternal_frequencies"
+                            },
+                            "genes": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "symbol": "STAB1",
+                                                "biotype": "protein_coding",
+                                                "omim_gene_id": "608560",
+                                                "ensembl_gene_id": "ENSG00000010327",
+                                                "spliceai": {
+                                                    "ds": 0.01,
+                                                    "type": [
+                                                        "AL"
+                                                    ],
+                                                    "__typename": "VariantsGenesSpliceai"
+                                                },
+                                                "gnomad": {
+                                                    "loeuf": 0.805,
+                                                    "pli": 0,
+                                                    "__typename": "VariantsGenesGnomad"
+                                                },
+                                                "omim": {
+                                                    "hits": {
+                                                        "edges": [],
+                                                        "__typename": "VariantsGenesOmimConnection"
+                                                    },
+                                                    "__typename": "VariantsGenesOmim"
+                                                },
+                                                "__typename": "VariantsGenesNode"
+                                            },
+                                            "__typename": "VariantsGenesEdge"
+                                        }
+                                    ],
+                                    "__typename": "VariantsGenesConnection"
+                                },
+                                "__typename": "VariantsGenes"
+                            },
+                            "__typename": "VariantsNode"
+                        },
+                        "__typename": "VariantsEdge"
+                    }
+                ],
+                "__typename": "VariantsConnection"
+            },
+            "__typename": "Variants"
+        }
+    }
+}

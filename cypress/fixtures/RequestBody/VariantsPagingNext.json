@@ -1,0 +1,30 @@
+{
+    "operationName": "VariantInformation",
+    "variables": {
+        "first": 50,
+        "offset": 0,
+        "searchAfter": [
+            "-Infinity",
+            4,
+            "chr10:g.114246519_114246526del"
+        ],
+        "sqon": {
+            "content": [],
+            "op": "and"
+        },
+        "sort": [
+            {
+                "field": "donors.exomiser.gene_combined_score",
+                "order": "desc"
+            },
+            {
+                "field": "max_impact_score",
+                "order": "desc"
+            },
+            {
+                "field": "hgvsg",
+                "order": "asc"
+            }
+        ]
+    }
+}

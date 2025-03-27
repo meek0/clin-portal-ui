@@ -22,47 +22,14 @@ describe('Page des CNVs d\'un patient - Valider la requête graphql', () => {
     cy.get('[data-cy="Apply_Type de variant"]').click({force: true});
 
     cy.wait('@postGraphql').then((interception) => {
-      expect(interception.request.body).to.deep.equal({
-        query: `\n  query CnvCount($sqon: JSON) {\n    cnv {\n      hits(filters: $sqon, first: 0) {\n        total\n      }\n    }\n  }\n`,
-        variables: {
-          sqon: {
-            content: [
-              {
-                content: [
-                  {
-                    content: {
-                      field: 'patient_id',
-                      value: [epCHUSJ_ldmCHUSJ.patientProbId],
-                    },
-                    op: 'in',
-                  },
-                  {
-                    content: {
-                      field: 'analysis_service_request_id',
-                      value: [epCHUSJ_ldmCHUSJ.prescriptionId],
-                    },
-                    op: 'in',
-                  }
-                ],
-                op: 'and'
-              },
-              {
-                content: [
-                  {
-                    content: {
-                      field: 'type',
-                      index: 'cnv',
-                      value: ['GAIN']
-                    },
-                    op: 'in'
-                  }
-                ],
-                op: 'and'
-            }
-          ],
-          op: 'and'
-          },
-        },
+      cy.fixture('RequestBody/CNVsPatientFacetteStandard.json').then((fixture) => {
+
+      const updatedFixture = JSON.parse(JSON.stringify(fixture)
+        .replace('{{patientProbId}}', epCHUSJ_ldmCHUSJ.patientProbId)
+        .replace('{{prescriptionId}}', epCHUSJ_ldmCHUSJ.prescriptionId)
+      );
+
+      expect(interception.request.body).to.deep.equal(updatedFixture);
       });
     });
   });
@@ -80,60 +47,14 @@ describe('Page des CNVs d\'un patient - Valider la requête graphql', () => {
     cy.get('[data-cy="Button_Apply_Longueur du CNV"]').clickAndWait({force: true});
 
     cy.wait('@postGraphql').then((interception) => {
-      expect(interception.request.body).to.deep.equal({
-        query: `\n  query CnvCount($sqon: JSON) {\n    cnv {\n      hits(filters: $sqon, first: 0) {\n        total\n      }\n    }\n  }\n`,
-        variables: {
-          sqon: {
-            content: [
-              {
-                content: [
-                  {
-                    content: {
-                      field: 'patient_id',
-                      value: [epCHUSJ_ldmCHUSJ.patientProbId]
-                    },
-                    op: 'in'
-                  },
-                  {
-                    content: {
-                      field: 'analysis_service_request_id',
-                      value: [epCHUSJ_ldmCHUSJ.prescriptionId]
-                    },
-                    op: 'in'
-                  }
-                ],
-                op: 'and'
-              },
-              {
-                content: [
-                  {
-                    content: [
-                      {
-                        content: {
-                          field: 'reflen',
-                          index: 'cnv',
-                          value: [1]
-                        },
-                        op: '>='
-                      },
-                      {
-                        content: {
-                          field: 'reflen',
-                          index: 'cnv',
-                          value: ['__missing__']
-                        },
-                        op: 'in'
-                      }
-                    ],
-                    op: 'or'
-                  }
-                ],
-                op: 'and'
-              }
-            ],
-            op: 'and'
-          }
-        },
+      cy.fixture('RequestBody/CNVsPatientFacetteNumerique.json').then((fixture) => {
+
+      const updatedFixture = JSON.parse(JSON.stringify(fixture)
+        .replace('{{patientProbId}}', epCHUSJ_ldmCHUSJ.patientProbId)
+        .replace('{{prescriptionId}}', epCHUSJ_ldmCHUSJ.prescriptionId)
+      );
+
+      expect(interception.request.body).to.deep.equal(updatedFixture);
       });
     });
   });

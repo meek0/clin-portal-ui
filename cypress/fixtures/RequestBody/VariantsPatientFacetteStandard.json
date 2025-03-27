@@ -1,0 +1,33 @@
+{
+  "query": "\n  query getVariantCount($sqon: JSON) {\n    Variants {\n      hits(filters: $sqon, first: 0) {\n        total\n      }\n    }\n  }\n",
+  "variables": {
+    "sqon": {
+      "content": [
+        {
+          "content": {
+            "field": "variant_class",
+            "index": "Variants",
+            "value": ["SNV"]
+          },
+          "op": "in"
+        },
+        {
+          "content": {
+            "field": "donors.patient_id",
+            "value": ["{{patientProbId}}"]
+          },
+          "op": "in"
+        },
+        {
+          "content": {
+            "field": "donors.analysis_service_request_id",
+            "value": ["{{prescriptionId}}"]
+          },
+          "op": "in"
+        }
+      ],
+      "op": "and",
+      "pivot": "donors"
+    }
+  }
+}

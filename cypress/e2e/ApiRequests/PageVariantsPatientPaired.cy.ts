@@ -22,45 +22,14 @@ describe('Page des variants d\'un patient (paired) - Valider la requête graphql
     cy.get('[data-cy="Apply_Type de variant"]').click({force: true});
 
     cy.wait('@postGraphql').then((interception) => {
-      expect(interception.request.body).to.deep.equal({
-        query: `\n  query getVariantCount($sqon: JSON) {\n    Variants {\n      hits(filters: $sqon, first: 0) {\n        total\n      }\n    }\n  }\n`,
-        variables: {
-          sqon: {
-            content: [
-              {
-                content: {
-                  field: 'variant_class',
-                  index: 'Variants',
-                  value: ['SNV'],
-                },
-                op: 'in',
-              },
-              {
-                content: {
-                  field: 'donors.patient_id',
-                  value: [presc_PAIRED.patientProbId],
-                },
-                op: 'in',
-              },
-              {
-                content: {
-                  field: 'donors.analysis_service_request_id',
-                  value: [presc_PAIRED.prescriptionId.TEBA],
-                },
-                op: 'in',
-              },
-              {
-                content: {
-                  field: 'donors.bioinfo_analysis_code',
-                  value: ['TNEBA']
-                  },
-                op: 'in'
-              }
-            ],
-            op: 'and',
-            pivot: 'donors',
-          },
-        },
+      cy.fixture('RequestBody/VariantsPatientPairedFacetteStandard.json').then((fixture) => {
+
+      const updatedFixture = JSON.parse(JSON.stringify(fixture)
+        .replace('{{patientProbId}}', presc_PAIRED.patientProbId)
+        .replace('{{prescriptionId}}', presc_PAIRED.prescriptionId.TEBA)
+      );
+
+      expect(interception.request.body).to.deep.equal(updatedFixture);
       });
     });
   });

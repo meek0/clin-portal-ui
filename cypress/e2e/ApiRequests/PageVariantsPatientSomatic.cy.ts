@@ -22,45 +22,14 @@ describe('Page des variants d\'un patient (somatic) - Valider la requête graphq
     cy.get('[data-cy="Apply_Type de variant"]').click({force: true});
 
     cy.wait('@postGraphql').then((interception) => {
-      expect(interception.request.body).to.deep.equal({
-        query: `\n  query getVariantCount($sqon: JSON) {\n    Variants {\n      hits(filters: $sqon, first: 0) {\n        total\n      }\n    }\n  }\n`,
-        variables: {
-          sqon: {
-            content: [
-              {
-                content: {
-                  field: 'variant_class',
-                  index: 'Variants',
-                  value: ['SNV'],
-                },
-                op: 'in',
-              },
-              {
-                content: {
-                  field: 'donors.patient_id',
-                  value: [presc_SOMATIC.patientProbId],
-                },
-                op: 'in',
-              },
-              {
-                content: {
-                  field: 'donors.analysis_service_request_id',
-                  value: [presc_SOMATIC.prescriptionId],
-                },
-                op: 'in',
-              },
-              {
-                content: {
-                  field: 'donors.bioinfo_analysis_code',
-                  value: ['TEBA']
-                  },
-                op: 'in'
-              }
-            ],
-            op: 'and',
-            pivot: 'donors',
-          },
-        },
+      cy.fixture('RequestBody/VariantsPatientSomaticFacetteStandard.json').then((fixture) => {
+
+      const updatedFixture = JSON.parse(JSON.stringify(fixture)
+        .replace('{{patientProbId}}', presc_SOMATIC.patientProbId)
+        .replace('{{prescriptionId}}', presc_SOMATIC.prescriptionId)
+      );
+
+      expect(interception.request.body).to.deep.equal(updatedFixture);
       });
     });
   });

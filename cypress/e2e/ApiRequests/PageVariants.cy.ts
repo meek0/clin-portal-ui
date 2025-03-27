@@ -3,11 +3,11 @@ import '../../support/commands';
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPage();
 });
 
 describe('Page des variants - Valider la requête graphql', () => {
   it('Facette standard', () => {
+    cy.visitVariantsPage();
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
         req.alias = 'postGraphql';
@@ -19,28 +19,14 @@ describe('Page des variants - Valider la requête graphql', () => {
     cy.get('[data-cy="Apply_Type de variant"]').click({force: true});
 
     cy.wait('@postGraphql').then((interception) => {
-      expect(interception.request.body).to.deep.equal({
-        query: `\n  query getVariantCount($sqon: JSON) {\n    Variants {\n      hits(filters: $sqon, first: 0) {\n        total\n      }\n    }\n  }\n`,
-        variables: {
-          sqon: {
-            content: [
-              {
-                content: {
-                  field: 'variant_class',
-                  index: 'Variants',
-                  value: ['SNV'],
-                },
-                op: 'in',
-              },
-            ],
-            op: 'and',
-          },
-        },
+      cy.fixture('RequestBody/VariantsFacetteStandard.json').then((expectedRequestBody) => {
+        expect(interception.request.body).to.deep.equal(expectedRequestBody);
       });
     });
   });
 
   it('Facette numérique ou No Data', () => {
+    cy.visitVariantsPage();
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
         req.alias = 'postGraphql';
@@ -54,36 +40,52 @@ describe('Page des variants - Valider la requête graphql', () => {
     cy.get('[data-cy="Button_Apply_Position"]').clickAndWait({force: true});
 
     cy.wait('@postGraphql').then((interception) => {
-      expect(interception.request.body).to.deep.equal({
-        query: `\n  query getVariantCount($sqon: JSON) {\n    Variants {\n      hits(filters: $sqon, first: 0) {\n        total\n      }\n    }\n  }\n`,
-        variables: {
-          sqon: {
-            content: [
-              {
-                content: [
-                  {
-                    content: {
-                      field: 'start',
-                      index: 'Variants',
-                      value: [1, 2],
-                    },
-                    op: 'between',
-                  },
-                  {
-                    content: {
-                      field: 'start',
-                      index: 'Variants',
-                      value: ['__missing__'],
-                    },
-                    op: 'in',
-                  },
-                ],
-                op: 'or',
-              },
-            ],
-            op: 'and',
-          },
-        },
+      cy.fixture('RequestBody/VariantsFacetteNumerique.json').then((expectedRequestBody) => {
+        expect(interception.request.body).to.deep.equal(expectedRequestBody);
+      });
+    });
+  });
+
+  it('Pagination', () => {
+    cy.intercept('POST', '**/graphql', (req) => {
+      if (req.body.query.includes('VariantInformation')) {
+        req.alias = 'postGraphqlFirst';
+      }
+    });
+
+    cy.visitVariantsPage();
+
+    cy.wait('@postGraphqlFirst').then((interception) => {
+      cy.fixture('RequestBody/VariantsPagingFirst.json').then((expectedRequestBody) => {
+        expect(interception.request.body.variables).to.deep.equal(expectedRequestBody.variables);
+      });
+    });
+
+    cy.intercept('POST', '**/graphql', (req) => {
+      if (req.body.query.includes('VariantInformation')) {
+        req.alias = 'postGraphqlNext';
+      }
+    });
+
+    cy.get('div[class*="Pagination"] button[type="button"]').contains('Suivant').click({force: true});
+
+    cy.wait('@postGraphqlNext').then((interception) => {
+      cy.fixture('RequestBody/VariantsPagingNext.json').then((expectedRequestBody) => {
+        expect(interception.request.body.variables).to.deep.equal(expectedRequestBody.variables);
+      });
+    });
+
+    cy.intercept('POST', '**/graphql', (req) => {
+      if (req.body.query.includes('VariantInformation')) {
+        req.alias = 'postGraphqlPrev';
+      }
+    });
+
+    cy.get('div[class*="Pagination"] button[type="button"]').contains('Précédent').click({force: true});
+
+    cy.wait('@postGraphqlPrev').then((interception) => {
+      cy.fixture('RequestBody/VariantsPagingPrev.json').then((expectedRequestBody) => {
+        expect(interception.request.body.variables).to.deep.equal(expectedRequestBody.variables);
       });
     });
   });

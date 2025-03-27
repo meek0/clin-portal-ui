@@ -22,38 +22,14 @@ describe('Page des variants d\'un patient - Valider la requête graphql', () => 
     cy.get('[data-cy="Apply_Type de variant"]').click({force: true});
 
     cy.wait('@postGraphql').then((interception) => {
-      expect(interception.request.body).to.deep.equal({
-        query: `\n  query getVariantCount($sqon: JSON) {\n    Variants {\n      hits(filters: $sqon, first: 0) {\n        total\n      }\n    }\n  }\n`,
-        variables: {
-          sqon: {
-            content: [
-              {
-                content: {
-                  field: 'variant_class',
-                  index: 'Variants',
-                  value: ['SNV'],
-                },
-                op: 'in',
-              },
-              {
-                content: {
-                  field: 'donors.patient_id',
-                  value: [epCHUSJ_ldmCHUSJ.patientProbId],
-                },
-                op: 'in',
-              },
-              {
-                content: {
-                  field: 'donors.analysis_service_request_id',
-                  value: [epCHUSJ_ldmCHUSJ.prescriptionId],
-                },
-                op: 'in',
-              },
-            ],
-            op: 'and',
-            pivot: 'donors',
-          },
-        },
+      cy.fixture('RequestBody/VariantsPatientFacetteStandard.json').then((fixture) => {
+
+      const updatedFixture = JSON.parse(JSON.stringify(fixture)
+        .replace('{{patientProbId}}', epCHUSJ_ldmCHUSJ.patientProbId)
+        .replace('{{prescriptionId}}', epCHUSJ_ldmCHUSJ.prescriptionId)
+      );
+
+      expect(interception.request.body).to.deep.equal(updatedFixture);
       });
     });
   });

@@ -1,0 +1,25 @@
+{
+  "operationName": "VariantInformation",
+  "variables": {
+      "first": 50,
+      "offset": 0,
+      "sqon": {
+          "content": [],
+          "op": "and"
+      },
+      "sort": [
+          {
+              "field": "donors.exomiser.gene_combined_score",
+              "order": "desc"
+          },
+          {
+              "field": "max_impact_score",
+              "order": "desc"
+          },
+          {
+              "field": "hgvsg",
+              "order": "asc"
+          }
+      ]
+  }
+}

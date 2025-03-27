@@ -1,0 +1,42 @@
+{
+    "query": "\n  query CnvCount($sqon: JSON) {\n    cnv {\n      hits(filters: $sqon, first: 0) {\n        total\n      }\n    }\n  }\n",
+    "variables": {
+      "sqon": {
+        "content": [
+          {
+            "content": [
+              {
+                "content": {
+                  "field": "patient_id",
+                  "value": ["{{patientProbId}}"]
+                },
+                "op": "in"
+              },
+              {
+                "content": {
+                  "field": "analysis_service_request_id",
+                  "value": ["{{prescriptionId}}"]
+                },
+                "op": "in"
+              }
+            ],
+            "op": "and"
+          },
+          {
+            "content": [
+              {
+                "content": {
+                  "field": "type",
+                  "index": "cnv",
+                  "value": ["GAIN"]
+                },
+                "op": "in"
+              }
+            ],
+            "op": "and"
+          }
+        ],
+        "op": "and"
+      }
+    }
+  }
