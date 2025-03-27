@@ -25,48 +25,23 @@ describe('Page des variants d\'un patient - Ordre des facettes', () => {
     cy.validateFacetRank(2, 'Fréq. all. patients non atteints');
   });
 
-  it('Fréquence - gnomAD Exome 2.1.1', () => {
-    cy.openFacet('Fréquence', 'gnomAD Exome 2.1.1');
-    cy.validateFacetRank(3, 'gnomAD Exome 2.1.1');
-  });
-
-  it('Fréquence - gnomAD Genome 2.1.1', () => {
-    cy.openFacet('Fréquence', 'gnomAD Genome 2.1.1');
-    cy.validateFacetRank(4, 'gnomAD Genome 2.1.1');
-  });
-
-  it('Fréquence - gnomAD Genome 3.0', () => {
-    cy.openFacet('Fréquence', 'gnomAD Genome 3.0');
-    cy.validateFacetRank(5, 'gnomAD Genome 3.0');
-  });
-
-  it('Fréquence - gnomAD Genome 3.1.1', () => {
-    cy.openFacet('Fréquence', 'gnomAD Genome 3.1.1');
-    cy.validateFacetRank(6, 'gnomAD Genome 3.1.1');
-  });
-
-  it('Fréquence - gnomAD Genome 3.1.1 ALT', () => {
-    cy.openFacet('Fréquence', 'gnomAD Genome 3.1.1 ALT');
-    cy.validateFacetRank(7, 'gnomAD Genome 3.1.1 ALT');
-  });
-
   it('Fréquence - gnomAD 4.1.0', () => {
     cy.openFacet('Fréquence', 'gnomAD 4.1.0');
-    cy.validateFacetRank(8, 'gnomAD 4.1.0');
+    cy.validateFacetRank(3, 'gnomAD 4.1.0');
   });
 
   it('Fréquence - gnomAD 4.1.0 ALT', () => {
     cy.openFacet('Fréquence', 'gnomAD 4.1.0 ALT');
-    cy.validateFacetRank(9, 'gnomAD 4.1.0 ALT');
+    cy.validateFacetRank(4, 'gnomAD 4.1.0 ALT');
   });
 
   it('Fréquence - TopMed Bravo', () => {
     cy.openFacet('Fréquence', 'TopMed Bravo');
-    cy.validateFacetRank(10, 'TopMed Bravo');
+    cy.validateFacetRank(5, 'TopMed Bravo');
   });
 
   it('Fréquence - 1000 Genome', () => {
     cy.openFacet('Fréquence', '1000 Genome');
-    cy.validateFacetRank(11, '1000 Genome');
+    cy.validateFacetRank(6, '1000 Genome');
   });
 });

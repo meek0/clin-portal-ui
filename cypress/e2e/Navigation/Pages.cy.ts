@@ -28,13 +28,13 @@ describe('Affichage de toutes les pages et modals', () => {
     // Page Prescriptions - Onglet Requêtes
     cy.get('div[id*="tab-requests"]').clickAndWait({force: true});
     cy.contains('Rechercher par numéro de prescription, requête, échantillon, dossier, numéro de patient et numéro de lot:').should('exist');
-    
+
     // Page Archives
     cy.get('[data-cy="HeaderLinkArchives"]').clickAndWait();
     cy.contains('Archives').should('exist');
     cy.contains('Rechercher').should('exist');
     cy.contains('Entrez une valeur dans la barre de recherche').should('exist');
-    
+
     // Page Variants
     cy.get('[data-cy="HeaderLinkVariants"]').clickAndWait();
     cy.contains('Banque de variants du RQDM').should('exist');
@@ -47,7 +47,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Mes filtres').should('exist');
     cy.contains('Utiliser les filtres pour créer une requête').should('exist');
   });
- 
+
   it('Prescription', () => {
     cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
 
@@ -90,7 +90,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Père').should('exist');
     cy.contains('Statut').should('exist');
   });
- 
+
   it('Analyse bioinformatique', () => {
     cy.visitBioinformaticsAnalysisPage(epCHUSJ_ldmCHUSJ.bioAnalProbId);
 
@@ -126,7 +126,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('URL').should('exist');
     cy.contains('Hash').should('exist');
   });
- 
+
   it('Rapports CQ d\'un patient', () => {
     cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
 
@@ -159,7 +159,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Télécharger le rapport').should('exist');
     cy.contains('200 / écran').should('exist');
   });
- 
+
   it('Variants d\'un patient', () => {
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 
@@ -205,7 +205,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Fermer').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
   });
- 
+
   it('CNVs d\'un patient', () => {
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 
@@ -238,7 +238,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('% CNV').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
   });
- 
+
   it('Variant', () => {
     cy.visitVariantEntityPage('10-1096268-T-C', 3);
 
@@ -281,9 +281,6 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Fréquence').should('exist');
     cy.contains('TopMed').should('exist');
     cy.contains('gnomAD Genome (v4)').should('exist');
-    cy.contains('gnomAD Genome (v3)').should('exist');
-    cy.contains('gnomAD Genome (v2.1.1)').should('exist');
-    cy.contains('gnomAD Exome (v2.1.1)').should('exist');
     cy.contains('1000 Genomes').should('exist');
     cy.contains('Associations cliniques').should('exist');
     cy.contains('Interprétation').should('exist');

@@ -479,22 +479,9 @@ export const getFacetsDictionarySNV = () => ({
     zygosity: intl.get('filters.group.donors.zygosity'),
   },
   external_frequencies: {
-    gnomad_genomes_2_1_1: {
-      af: intl.get('filters.group.external_frequencies.gnomad_genomes_2_1_1.af'),
-    },
-    gnomad_genomes_3_0: {
-      af: intl.get('filters.group.external_frequencies.gnomad_genomes_3_0.af'),
-    },
-    gnomad_genomes_3_1_1: {
-      af: intl.get('filters.group.external_frequencies.gnomad_genomes_3_1_1.af'),
-      ac: intl.get('filters.group.external_frequencies.gnomad_genomes_3_1_1.ac'),
-    },
     gnomad_joint_4: {
       af: intl.get('filters.group.external_frequencies.gnomad_joint_4.af'),
       ac: intl.get('filters.group.external_frequencies.gnomad_joint_4.ac'),
-    },
-    gnomad_exomes_2_1_1: {
-      af: intl.get('filters.group.external_frequencies.gnomad_exomes_2_1_1.af'),
     },
     topmed_bravo: {
       af: intl.get('filters.group.external_frequencies.topmed_bravo.af'),
@@ -589,15 +576,6 @@ export const getFacetsDictionarySNV = () => ({
       transmission: intl.get('filters.group.donors.transmission.tooltip'),
     },
     external_frequencies: {
-      gnomad_genomes_2_1_1: {
-        af: intl.get('filters.group.external_frequencies.gnomad_genomes_2_1_1.af.tooltip'),
-      },
-      gnomad_genomes_3_0: {
-        af: intl.get('filters.group.external_frequencies.gnomad_genomes_3_0.af.tooltip'),
-      },
-      gnomad_genomes_3_1_1: {
-        af: intl.get('filters.group.external_frequencies.gnomad_genomes_3_1_1.af.tooltip'),
-      },
       gnomad_joint_4: {
         af: intl.get('filters.group.external_frequencies.gnomad_joint_4.af.tooltip'),
       },

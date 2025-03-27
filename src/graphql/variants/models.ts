@@ -25,10 +25,6 @@ export enum BioinfoAnalysisCode {
 export type ExternalFrequenciesEntity = {
   topmed_bravo: BoundType;
   thousand_genomes: BoundType;
-  gnomad_exomes_2_1_1: BoundType;
-  gnomad_genomes_2_1_1: BoundType;
-  gnomad_genomes_3_0: BoundType;
-  gnomad_genomes_3_1_1: BoundType;
   gnomad_genomes_4: BoundType;
   gnomad_exomes_4: BoundType;
   gnomad_joint_4: BoundType;

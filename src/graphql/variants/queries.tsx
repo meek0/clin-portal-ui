@@ -117,16 +117,6 @@ const VARIANT_QUERY_BASE_FIELDS = `
   }
 
   external_frequencies {
-    gnomad_exomes_2_1_1 {
-      af
-    }
-    gnomad_genomes_2_1_1 {
-      af
-    }
-    gnomad_genomes_3_1_1 {
-      af
-      ac
-    }
     gnomad_genomes_4 {
       af
       ac
@@ -373,24 +363,6 @@ export const TAB_FREQUENCIES_QUERY = gql`
                 ac
                 af
                 an
-              }
-              gnomad_exomes_2_1_1 {
-                ac
-                af
-                an
-                hom
-              }
-              gnomad_genomes_2_1_1 {
-                ac
-                af
-                an
-                hom
-              }
-              gnomad_genomes_3_0 {
-                ac
-                af
-                an
-                hom
               }
               gnomad_genomes_4 {
                 ac

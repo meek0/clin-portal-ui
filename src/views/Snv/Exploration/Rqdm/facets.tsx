@@ -237,32 +237,12 @@ const filterGroups: {
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.publiccohorts'),
         facets: [
-          'external_frequencies__gnomad_exomes_2_1_1__af',
-          'external_frequencies__gnomad_genomes_2_1_1__af',
-          'external_frequencies__gnomad_genomes_3_0__af',
-          'external_frequencies__gnomad_genomes_3_1_1__af',
-          'external_frequencies__gnomad_genomes_3_1_1__ac',
           'external_frequencies__gnomad_joint_4__af',
           'external_frequencies__gnomad_joint_4__ac',
           'external_frequencies__topmed_bravo__af',
           'external_frequencies__thousand_genomes__af',
         ],
         defaults: {
-          external_frequencies__gnomad_exomes_2_1_1__af: {
-            operator: RangeOperators['<='],
-          },
-          external_frequencies__gnomad_genomes_2_1_1__af: {
-            operator: RangeOperators['<='],
-          },
-          external_frequencies__gnomad_genomes_3_0__af: {
-            operator: RangeOperators['<='],
-          },
-          external_frequencies__gnomad_genomes_3_1_1__af: {
-            operator: RangeOperators['<='],
-          },
-          external_frequencies__gnomad_genomes_3_1_1__ac: {
-            operator: RangeOperators['<='],
-          },
           external_frequencies__gnomad_joint_4__af: {
             operator: RangeOperators['<='],
           },
@@ -277,9 +257,6 @@ const filterGroups: {
           },
         },
         tooltips: [
-          'external_frequencies__gnomad_genomes_2_1_1__af',
-          'external_frequencies__gnomad_genomes_3_0__af',
-          'external_frequencies__gnomad_genomes_3_1_1__af',
           'external_frequencies__gnomad_joint_4__af',
           'external_frequencies__topmed_bravo__af',
           'external_frequencies__thousand_genomes__af',
@@ -570,32 +547,12 @@ const filterGroupsEditionPill: {
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.publiccohorts'),
         facets: [
-          'external_frequencies__gnomad_exomes_2_1_1__af',
-          'external_frequencies__gnomad_genomes_2_1_1__af',
-          'external_frequencies__gnomad_genomes_3_0__af',
-          'external_frequencies__gnomad_genomes_3_1_1__af',
-          'external_frequencies__gnomad_genomes_3_1_1__ac',
           'external_frequencies__gnomad_joint_4__af',
           'external_frequencies__gnomad_joint_4__ac',
           'external_frequencies__topmed_bravo__af',
           'external_frequencies__thousand_genomes__af',
         ],
         defaults: {
-          external_frequencies__gnomad_exomes_2_1_1__af: {
-            operator: RangeOperators['<='],
-          },
-          external_frequencies__gnomad_genomes_2_1_1__af: {
-            operator: RangeOperators['<='],
-          },
-          external_frequencies__gnomad_genomes_3_0__af: {
-            operator: RangeOperators['<='],
-          },
-          external_frequencies__gnomad_genomes_3_1_1__af: {
-            operator: RangeOperators['<='],
-          },
-          external_frequencies__gnomad_genomes_3_1_1__ac: {
-            operator: RangeOperators['<='],
-          },
           external_frequencies__gnomad_joint_4__af: {
             operator: RangeOperators['<='],
           },
@@ -610,9 +567,6 @@ const filterGroupsEditionPill: {
           },
         },
         tooltips: [
-          'external_frequencies__gnomad_genomes_2_1_1__af',
-          'external_frequencies__gnomad_genomes_3_0__af',
-          'external_frequencies__gnomad_genomes_3_1_1__af',
           'external_frequencies__gnomad_joint_4__af',
           'external_frequencies__topmed_bravo__af',
           'external_frequencies__thousand_genomes__af',

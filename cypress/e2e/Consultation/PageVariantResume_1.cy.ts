@@ -24,7 +24,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-cy="Summary_FreqRQDMTotalAf"]').contains(/^\d{1}.\d{2}e-3$/).should('exist');
     cy.get('[data-cy="Summary_LastAnnotation"]').contains(/^\d{4}-\d{2}-\d{2}$/).should('exist');
   });
-  
+
   it('Panneau Conséquences géniques', () => {
     cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('PRDX1').should('exist');
     cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('Omim').should('exist');
@@ -75,7 +75,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-cy="Consequences_MMACHC_Space"]').contains('1 autres transcrits +').should('exist');
     cy.get('[data-cy="Consequences_MMACHC_Space"] tr[class*="ant-table-row"]').eq(1).should('not.exist');
   });
-  
+
   it('Panneau Cohortes du RQDM', () => {
     cy.get('[data-row-key="RGDI"] td[class="ant-table-cell"]').eq(1).contains(/^0 \/ \d{2,3}| \(0%\)$/).should('exist');
     cy.get('[data-row-key="RGDI"] td[class="ant-table-cell"]').eq(2).contains('0').should('exist');
@@ -102,7 +102,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-cy="FrequencyCard_RQDM_Row_Summary"] td[class="ant-table-cell"]').eq(5).contains(/^0 \/ \d{1,2} \(0%\)$/).should('exist');
     cy.get('[data-cy="FrequencyCard_RQDM_Row_Summary"] td[class="ant-table-cell"]').eq(6).contains('0').should('exist');
   });
-  
+
   it('Panneau Cohortes publiques', () => {
     cy.get('[data-row-key="FrequencyCard_Cohort_TopMed"] td[class="ant-table-cell"]').eq(1).contains('3').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_TopMed"] td[class="ant-table-cell"]').eq(2).contains('125 568').should('exist');
@@ -112,24 +112,12 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v4)"] td[class="ant-table-cell"]').eq(2).contains('152 148').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v4)"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v4)"] td[class="ant-table-cell"]').eq(4).contains('3.94e-5').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v3)"] td[class="ant-table-cell"]').eq(1).contains('9').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v3)"] td[class="ant-table-cell"]').eq(2).contains('143 248').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v3)"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v3)"] td[class="ant-table-cell"]').eq(4).contains('6.28e-5').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v2.1.1)"] td[class="ant-table-cell"]').eq(1).contains('2').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v2.1.1)"] td[class="ant-table-cell"]').eq(2).contains('31 370').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v2.1.1)"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v2.1.1)"] td[class="ant-table-cell"]').eq(4).contains('6.38e-5').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Exome (v2.1.1)"] td[class="ant-table-cell"]').eq(1).contains('5').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Exome (v2.1.1)"] td[class="ant-table-cell"]').eq(2).contains('249 386').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Exome (v2.1.1)"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
-    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Exome (v2.1.1)"] td[class="ant-table-cell"]').eq(4).contains('2.00e-5').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_1000 Genomes"] td[class="ant-table-cell"]').eq(1).contains('-').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_1000 Genomes"] td[class="ant-table-cell"]').eq(2).contains('-').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_1000 Genomes"] td[class="ant-table-cell"]').eq(3).contains('-').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_1000 Genomes"] td[class="ant-table-cell"]').eq(4).contains('-').should('exist');
   });
-  
+
   it('Panneau ClinVar', () => {
     cy.get('[data-cy="ClinicalCard_ClinVar_95703_ExternalLink"]').contains('95703').should('exist');
     cy.get('[data-cy="ClinicalCard_ClinVar_95703_ExternalLink"] svg[class*="anticon"]').should('exist');
@@ -146,7 +134,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-row-key*="ClinicalCard_ClinVar_1"] td[class="ant-table-cell"]').eq(1).contains('MMACHC-related disorder').should('exist');
     cy.get('[data-row-key*="ClinicalCard_ClinVar_1"] td[class="ant-table-cell"]').eq(2).contains('germline').should('exist');
   });
-  
+
   it('Panneau Gène - Phénotype', () => {
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_Orphanet_MMACHC"] td[class="ant-table-cell"]').eq(0).contains('Orphanet').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_Orphanet_MMACHC"] td[class="ant-table-cell"]').eq(1).contains('MMACHC').should('exist');
