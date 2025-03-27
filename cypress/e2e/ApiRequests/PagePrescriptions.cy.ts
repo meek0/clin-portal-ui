@@ -14,7 +14,7 @@ describe('Page des prescriptions et requêtes - Valider la requête graphql', ()
       }
     });
 
-    cy.get('[data-cy="PrescriptionsSearch"]').type('t');
+    cy.get('[data-cy="PrescriptionsSearch"]').type('t', {force: true});
 
     cy.wait('@postGraphql').then((interception) => {
       expect(interception.request.body).to.deep.equal({
@@ -178,7 +178,7 @@ describe('Page des prescriptions et requêtes - Valider la requête graphql', ()
       }
     });
 
-    cy.get('[data-cy="PrescriptionsSearch"]').type('t');
+    cy.get('[data-cy="PrescriptionsSearch"]').type('t', {force: true});
 
     cy.wait('@postGraphql').then((interception) => {
       expect(interception.request.body).to.deep.equal({

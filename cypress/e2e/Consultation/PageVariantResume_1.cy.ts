@@ -108,6 +108,14 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-row-key="FrequencyCard_Cohort_TopMed"] td[class="ant-table-cell"]').eq(2).contains('125 568').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_TopMed"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_TopMed"] td[class="ant-table-cell"]').eq(4).contains('2.39e-5').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Joint (v4)"] td[class="ant-table-cell"]').eq(1).contains('28').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Joint (v4)"] td[class="ant-table-cell"]').eq(2).contains('1 614 020').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Joint (v4)"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Joint (v4)"] td[class="ant-table-cell"]').eq(4).contains('1.73e-5').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Exome (v4)"] td[class="ant-table-cell"]').eq(1).contains('22').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Exome (v4)"] td[class="ant-table-cell"]').eq(2).contains('1 461 872').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Exome (v4)"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
+    cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Exome (v4)"] td[class="ant-table-cell"]').eq(4).contains('1.50e-5').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v4)"] td[class="ant-table-cell"]').eq(1).contains('6').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v4)"] td[class="ant-table-cell"]').eq(2).contains('152 148').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_gnomAD Genome (v4)"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
