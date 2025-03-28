@@ -149,8 +149,4 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
     cy.sortTableAndIntercept('Variant', 1);
     cy.validateTableFirstRow('chrY:g.56712379G>A', 5, true);
   });
-
-  it('Valider les fonctionnalités du tableau - Pagination', () => {
-    cy.validatePaging('', 1);
-  });
 });

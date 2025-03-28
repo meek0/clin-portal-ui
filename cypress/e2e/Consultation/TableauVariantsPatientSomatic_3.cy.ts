@@ -150,8 +150,4 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.sortTableAndIntercept('Variant', 1);
     cy.validateTableFirstRow('chr1:g.77633035C>T', 5, true);
   });
-
-  it('Valider les fonctionnalités du tableau - Pagination', () => {
-    cy.validatePaging('', 1);
-  });
 });

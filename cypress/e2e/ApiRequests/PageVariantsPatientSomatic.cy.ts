@@ -6,11 +6,11 @@ let presc_SOMATIC: any;
 beforeEach(() => {
   presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
 });
 
 describe('Page des variants d\'un patient (somatic) - Valider la requête graphql', () => {
   it('Facette standard', () => {
+    cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
         req.alias = 'postGraphql';
@@ -35,6 +35,7 @@ describe('Page des variants d\'un patient (somatic) - Valider la requête graphq
   });
 
   it('Facette numérique ou No Data', () => {
+    cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
         req.alias = 'postGraphql';
@@ -132,6 +133,68 @@ describe('Page des variants d\'un patient (somatic) - Valider la requête graphq
             op: 'and'
           }
         },
+      });
+    });
+  });
+
+  it('Pagination', () => {
+    cy.intercept('POST', '**/graphql', (req) => {
+      if (req.body.query.includes('VariantInformation')) {
+        req.alias = 'postGraphqlFirst';
+      }
+    });
+
+    cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+
+    cy.wait('@postGraphqlFirst').then((interception) => {
+      cy.fixture('RequestBody/VariantsPatientSomaticPagingFirst.json').then((fixture) => {
+
+      const updatedFixture = JSON.parse(JSON.stringify(fixture)
+        .replace('{{patientProbId}}', presc_SOMATIC.patientProbId)
+        .replace('{{prescriptionId}}', presc_SOMATIC.prescriptionId)
+      );
+
+      expect(interception.request.body.variables).to.deep.equal(updatedFixture.variables);
+      });
+    });
+
+    cy.intercept('POST', '**/graphql', (req) => {
+      if (req.body.query.includes('VariantInformation')) {
+        req.alias = 'postGraphqlNext';
+      }
+    });
+
+    cy.get('div[class*="Pagination"] button[type="button"]').contains('Suivant').click({force: true});
+
+    cy.wait('@postGraphqlNext').then((interception) => {
+      cy.fixture('RequestBody/VariantsPatientSomaticPagingNext.json').then((fixture) => {
+
+      const updatedFixture = JSON.parse(JSON.stringify(fixture)
+        .replace('{{patientProbId}}', presc_SOMATIC.patientProbId)
+        .replace('{{prescriptionId}}', presc_SOMATIC.prescriptionId)
+      );
+
+      expect(interception.request.body.variables).to.deep.equal(updatedFixture.variables);
+      });
+    });
+
+    cy.intercept('POST', '**/graphql', (req) => {
+      if (req.body.query.includes('VariantInformation')) {
+        req.alias = 'postGraphqlPrev';
+      }
+    });
+
+    cy.get('div[class*="Pagination"] button[type="button"]').contains('Précédent').click({force: true});
+
+    cy.wait('@postGraphqlPrev').then((interception) => {
+      cy.fixture('RequestBody/VariantsPatientSomaticPagingPrev.json').then((fixture) => {
+
+      const updatedFixture = JSON.parse(JSON.stringify(fixture)
+        .replace('{{patientProbId}}', presc_SOMATIC.patientProbId)
+        .replace('{{prescriptionId}}', presc_SOMATIC.prescriptionId)
+      );
+
+      expect(interception.request.body.variables).to.deep.equal(updatedFixture.variables);
       });
     });
   });

@@ -6,11 +6,11 @@ let presc_PAIRED: any;
 beforeEach(() => {
   presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
 });
 
 describe('Page des variants d\'un patient (paired) - Valider la requête graphql', () => {
   it('Facette standard', () => {
+    cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
         req.alias = 'postGraphql';
@@ -35,6 +35,7 @@ describe('Page des variants d\'un patient (paired) - Valider la requête graphql
   });
 
   it('Facette numérique ou No Data', () => {
+    cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
         req.alias = 'postGraphql';
@@ -132,6 +133,68 @@ describe('Page des variants d\'un patient (paired) - Valider la requête graphql
             op: 'and'
           }
         },
+      });
+    });
+  });
+
+  it('Pagination', () => {
+    cy.intercept('POST', '**/graphql', (req) => {
+      if (req.body.query.includes('VariantInformation')) {
+        req.alias = 'postGraphqlFirst';
+      }
+    });
+
+    cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
+
+    cy.wait('@postGraphqlFirst').then((interception) => {
+      cy.fixture('RequestBody/VariantsPatientPairedPagingFirst.json').then((fixture) => {
+
+      const updatedFixture = JSON.parse(JSON.stringify(fixture)
+        .replace('{{patientProbId}}', presc_PAIRED.patientProbId)
+        .replace('{{prescriptionId}}', presc_PAIRED.prescriptionId.TEBA)
+      );
+
+      expect(interception.request.body.variables).to.deep.equal(updatedFixture.variables);
+      });
+    });
+
+    cy.intercept('POST', '**/graphql', (req) => {
+      if (req.body.query.includes('VariantInformation')) {
+        req.alias = 'postGraphqlNext';
+      }
+    });
+
+    cy.get('div[class*="Pagination"] button[type="button"]').contains('Suivant').click({force: true});
+
+    cy.wait('@postGraphqlNext').then((interception) => {
+      cy.fixture('RequestBody/VariantsPatientPairedPagingNext.json').then((fixture) => {
+
+      const updatedFixture = JSON.parse(JSON.stringify(fixture)
+        .replace('{{patientProbId}}', presc_PAIRED.patientProbId)
+        .replace('{{prescriptionId}}', presc_PAIRED.prescriptionId.TEBA)
+      );
+
+      expect(interception.request.body.variables).to.deep.equal(updatedFixture.variables);
+      });
+    });
+
+    cy.intercept('POST', '**/graphql', (req) => {
+      if (req.body.query.includes('VariantInformation')) {
+        req.alias = 'postGraphqlPrev';
+      }
+    });
+
+    cy.get('div[class*="Pagination"] button[type="button"]').contains('Précédent').click({force: true});
+
+    cy.wait('@postGraphqlPrev').then((interception) => {
+      cy.fixture('RequestBody/VariantsPatientPairedPagingPrev.json').then((fixture) => {
+
+      const updatedFixture = JSON.parse(JSON.stringify(fixture)
+        .replace('{{patientProbId}}', presc_PAIRED.patientProbId)
+        .replace('{{prescriptionId}}', presc_PAIRED.prescriptionId.TEBA)
+      );
+
+      expect(interception.request.body.variables).to.deep.equal(updatedFixture.variables);
       });
     });
   });

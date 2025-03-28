@@ -1,0 +1,28 @@
+{
+    "data": {
+        "Variants": {
+            "hits": {
+                "total": "totalMock",
+                "edges": [
+                    {
+                        "searchAfter": [
+                            "-Infinity",
+                            4,
+                            "chr10:g.5906195_5906196del"
+                        ],
+                        "node": {
+                            "id": "XoPqyJUB-uvSvbhqfpe7",
+                            "hgvsg": "chr10:g.5906195_5906196del",
+                            "hash": "bc45cd2e604ca642d299ca47265db318a2bc566f",
+                            "locus": "10-5906194-GGA-G",
+                            "__typename": "VariantsNode"
+                        },
+                        "__typename": "VariantsEdge"
+                    }
+                ],
+                "__typename": "VariantsConnection"
+            },
+            "__typename": "Variants"
+        }
+    }
+}
