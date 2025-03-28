@@ -1,0 +1,46 @@
+{
+    "operationName": "VariantInformation",
+    "variables": {
+        "first": 50,
+        "offset": 0,
+        "sqon": {
+            "content": [
+                {
+                    "content": [
+                        {
+                            "content": {
+                                "field": "donors.patient_id",
+                                "value": ["{{patientProbId}}"]
+                            },
+                            "op": "in"
+                        },
+                        {
+                            "content": {
+                                "field": "donors.analysis_service_request_id",
+                                "value": ["{{prescriptionId}}"]
+                            },
+                            "op": "in"
+                        }
+                    ],
+                    "op": "and",
+                    "pivot": "donors"
+                }
+            ],
+            "op": "and"
+        },
+        "sort": [
+            {
+                "field": "donors.exomiser.gene_combined_score",
+                "order": "desc"
+            },
+            {
+                "field": "max_impact_score",
+                "order": "desc"
+            },
+            {
+                "field": "hgvsg",
+                "order": "asc"
+            }
+        ]
+    }
+}

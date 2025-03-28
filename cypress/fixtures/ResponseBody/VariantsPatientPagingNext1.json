@@ -6,9 +6,9 @@
                 "edges": [
                     {
                         "searchAfter": [
-                            "-Infinity",
-                            4,
-                            "chr10:g.101798155C>A"
+                            0.6133,
+                            3,
+                            "chr3:g.58131983T>C"
                         ],
                         "node": {
                             "id": "e4z9yJUB-uvSvbhqFex-",

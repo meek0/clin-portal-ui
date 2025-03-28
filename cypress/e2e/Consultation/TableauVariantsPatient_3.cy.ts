@@ -207,9 +207,5 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
     cy.sortTableAndIntercept('Gène', 1);
     cy.validateTableFirstRow(/(ZNHIT1|ZNF875|ZNF83)/, 8, true);
   });
-
-  it('Valider les fonctionnalités du tableau - Pagination', () => {
-    cy.validatePaging('', 1);
-  });
 });
   
