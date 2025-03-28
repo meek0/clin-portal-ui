@@ -308,6 +308,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
                   setVariantType={setVariantType}
                   setDownloadTriggered={setDownloadTriggered}
                   setSelectedRows={setSelectedRows}
+                  selectedRows={selectedRows}
                   variantSection={variantSection}
                   isSameLDM={isSameLDM()}
                   setFilterList={handleFilterList}

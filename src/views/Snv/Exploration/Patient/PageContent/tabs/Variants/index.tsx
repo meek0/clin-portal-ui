@@ -1,5 +1,7 @@
 import { Key, useEffect, useState } from 'react';
+import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
+import { DownloadOutlined } from '@ant-design/icons';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
 import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
@@ -12,6 +14,7 @@ import { getVariantTypeFromSNVVariantEntity } from 'views/Prescriptions/Entity/T
 import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import IGVModal from 'views/Snv/components//IGVModal';
 import OccurenceVariant from 'views/Snv/components/OccurenceVariant';
+import ReportButton from 'views/Snv/components/Report/DownloadButton';
 import { getVariantColumns } from 'views/Snv/Exploration/variantColumns';
 import {
   DEFAULT_PAGE_INDEX,
@@ -21,6 +24,7 @@ import {
 
 import FixedSizeTable from 'components/Layout/FixedSizeTable';
 import { useRpt } from 'hooks/useRpt';
+import { ReportNames } from 'store/reports/types';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
 import { formatQuerySortList, scrollToTop } from 'utils/helper';
@@ -39,6 +43,7 @@ type OwnProps = {
   setVariantType: (variantType: VariantType) => void;
   setDownloadTriggered: (value: boolean) => void;
   setSelectedRows: (value: any[]) => void;
+  selectedRows: any[];
   variantSection?: VariantSection;
   isSameLDM?: boolean;
   setFilterList: (columnKeys: Key[]) => void;
@@ -57,6 +62,7 @@ const VariantsTab = ({
   setVariantType,
   setDownloadTriggered,
   setSelectedRows,
+  selectedRows,
   variantSection,
   isSameLDM,
   setFilterList,
@@ -175,6 +181,21 @@ const VariantsTab = ({
             bordered
             enableRowSelection
             headerConfig={{
+              extra: [
+                <ReportButton
+                  key="reportButton"
+                  icon={<DownloadOutlined width={'16'} height={'16'} />}
+                  patientId={patientId!}
+                  variantId={selectedRows.map((row) => row.hgvsg)}
+                  name={ReportNames.transcript}
+                  size={'small'}
+                  tooltipTitle={
+                    selectedRows.length === 0 ? intl.get('protable.report.tooltip') : undefined
+                  }
+                  disabled={selectedRows.length === 0}
+                  buttonText={intl.get('protable.report')}
+                />,
+              ],
               enableTableExport: true,
               tableExportDisabled: (results?.total || 0) === 0,
               itemCount: {

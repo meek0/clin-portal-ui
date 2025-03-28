@@ -10,13 +10,14 @@ import { ReportNames } from 'store/reports/types';
 
 type Props = {
   patientId: string;
-  variantId: string;
+  variantId: string[];
   name: ReportNames;
   iconOnly?: boolean;
   tooltipTitle?: string;
   icon: React.ReactElement;
   size: SizeType;
   buttonText?: string;
+  disabled?: boolean;
 };
 
 const DownloadButton = ({
@@ -27,14 +28,14 @@ const DownloadButton = ({
   iconOnly = false,
   tooltipTitle,
   icon,
+  disabled,
   buttonText = intl.get('download.report'),
 }: Props) => {
   const dispatch = useDispatch();
   const { loadingIds } = useSelector(reportSelector);
-
-  const loading = loadingIds.includes(variantId);
+  const loading = loadingIds.includes(variantId[0]);
   const commonProps = {
-    disabled: loading,
+    disabled: loading || disabled,
     loading,
     icon,
     size,

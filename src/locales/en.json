@@ -742,6 +742,8 @@
   "protable.of": "of",
   "protable.reset": "Reset",
   "protable.columns": "Columns",
+  "protable.report": "Download report CHUSJ",
+  "protable.report.tooltip": "You must select at least 1 item",
   "protable.results": "Results",
   "protable.result": "Result",
   "protable.selectAllResults": "Select all results",

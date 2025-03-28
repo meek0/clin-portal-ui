@@ -63,7 +63,7 @@ const proceedToDownload = async (
   }
 };
 
-const fetchTranscriptsReport = createAsyncThunk<void, { patientId: string; variantId: string }>(
+const fetchTranscriptsReport = createAsyncThunk<void, { patientId: string; variantId: string[] }>(
   'report/fetchTranscriptsReport',
   async ({ patientId, variantId }, thunkApi) => {
     await proceedToDownload(

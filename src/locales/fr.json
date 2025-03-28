@@ -743,6 +743,8 @@
   "protable.of": "de",
   "protable.reset": "Réinitialiser",
   "protable.columns": "Colonnes",
+  "protable.report": "Télécharger rapport CHUSJ",
+  "protable.report.tooltip": "Sélectionnez au moins un élément",
   "protable.results": "Résultats",
   "protable.result": "Résultat",
   "protable.selectAllResults": "Sélectionner tous les résultats",

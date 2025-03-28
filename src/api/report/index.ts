@@ -5,16 +5,12 @@ import EnvironmentVariables from 'utils/EnvVariables';
 
 const ARRANGER_API = EnvironmentVariables.configFor('ARRANGER_API');
 
-const fetchPatientTranscriptsReport = (patientId: string, variantId: string) =>
+const fetchPatientTranscriptsReport = (patientId: string, variantId: string[]) =>
   sendRequestWithRpt({
-    url: `${ARRANGER_API}/report/transcripts/${encodeURIComponent(patientId)}/${encodeURIComponent(
-      variantId,
-    )}`,
-    headers: {
-      'Content-Type': MIME_TYPES.APPLICATION_XLSX,
-    },
+    url: `${ARRANGER_API}/report/transcripts/${encodeURIComponent(patientId)}`,
+    method: 'POST',
     responseType: 'arraybuffer',
-    method: 'GET',
+    data: { variantIds: variantId },
   });
 
 const fetchNanuqSequencingReport = (srIds: string[]) =>
