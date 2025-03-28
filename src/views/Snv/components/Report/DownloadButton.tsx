@@ -10,7 +10,7 @@ import { ReportNames } from 'store/reports/types';
 
 type Props = {
   patientId: string;
-  variantId: string[];
+  variantIds: string[];
   name: ReportNames;
   iconOnly?: boolean;
   tooltipTitle?: string;
@@ -23,7 +23,7 @@ type Props = {
 const DownloadButton = ({
   size,
   patientId,
-  variantId,
+  variantIds,
   name,
   iconOnly = false,
   tooltipTitle,
@@ -33,7 +33,7 @@ const DownloadButton = ({
 }: Props) => {
   const dispatch = useDispatch();
   const { loadingIds } = useSelector(reportSelector);
-  const loading = loadingIds.includes(variantId[0]);
+  const loading = loadingIds.includes(variantIds[0]);
   const commonProps = {
     disabled: loading || disabled,
     loading,
@@ -41,7 +41,7 @@ const DownloadButton = ({
     size,
     onClick: () => {
       if (name === ReportNames.transcript) {
-        dispatch(fetchTranscriptsReport({ patientId, variantId }));
+        dispatch(fetchTranscriptsReport({ patientId, variantIds }));
       }
     },
   };

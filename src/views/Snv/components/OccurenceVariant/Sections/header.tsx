@@ -63,7 +63,7 @@ const Header = ({
           <ReportButton
             icon={<DownloadOutlined width={'16'} height={'16'} />}
             patientId={patientId!}
-            variantId={[record?.hgvsg]}
+            variantIds={[record?.hgvsg]}
             name={ReportNames.transcript}
             size={'small'}
             buttonText={intl.get('screen.patientsnv.drawer.download.report')}

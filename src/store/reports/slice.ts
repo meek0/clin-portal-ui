@@ -19,13 +19,13 @@ const reportSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchTranscriptsReport.pending, (state, action) => {
-      state.loadingIds.push(...action.meta.arg.variantId);
+      state.loadingIds.push(...action.meta.arg.variantIds);
     });
     builder.addCase(fetchTranscriptsReport.rejected, (state, action) => {
-      state.loadingIds = removeIdReport(state, action.meta.arg.variantId);
+      state.loadingIds = removeIdReport(state, action.meta.arg.variantIds);
     });
     builder.addCase(fetchTranscriptsReport.fulfilled, (state, action) => {
-      state.loadingIds = removeIdReport(state, action.meta.arg.variantId);
+      state.loadingIds = removeIdReport(state, action.meta.arg.variantIds);
     });
     builder.addCase(fetchNanuqSequencingReport.pending, (state, action) => {
       state.loadingIds.push(action.meta.arg.srIds.join('-'));

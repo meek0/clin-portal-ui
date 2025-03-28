@@ -186,7 +186,7 @@ const VariantsTab = ({
                   key="reportButton"
                   icon={<DownloadOutlined width={'16'} height={'16'} />}
                   patientId={patientId!}
-                  variantId={selectedRows.map((row) => row.hgvsg)}
+                  variantIds={selectedRows.map((row) => row.hgvsg)}
                   name={ReportNames.transcript}
                   size={'small'}
                   tooltipTitle={
