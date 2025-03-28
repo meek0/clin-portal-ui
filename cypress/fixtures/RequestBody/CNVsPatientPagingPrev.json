@@ -1,0 +1,54 @@
+{
+    "operationName": "Cnv",
+    "variables": {
+        "first": 50,
+        "offset": 0,
+        "searchAfter": [
+            5,
+            801074
+        ],
+        "sqon": {
+            "content": [
+                {
+                    "content": [
+                        {
+                            "content": [
+                                {
+                                    "content": {
+                                        "field": "patient_id",
+                                        "value": ["{{patientProbId}}"]
+                                    },
+                                    "op": "in"
+                                },
+                                {
+                                    "content": {
+                                        "field": "analysis_service_request_id",
+                                        "value": ["{{prescriptionId}}"]
+                                    },
+                                    "op": "in"
+                                }
+                            ],
+                            "op": "and"
+                        },
+                        {
+                            "content": [],
+                            "op": "and"
+                        }
+                    ],
+                    "op": "and"
+                }
+            ],
+            "op": "and"
+        },
+        "sort": [
+            {
+                "field": "sort_chromosome",
+                "order": "desc"
+            },
+            {
+                "field": "start",
+                "order": "desc"
+            }
+        ]
+    }
+}

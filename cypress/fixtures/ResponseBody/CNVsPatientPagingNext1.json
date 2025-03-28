@@ -1,0 +1,25 @@
+{
+    "data": {
+        "cnv": {
+            "hits": {
+                "total": "totalMock",
+                "edges": [
+                    {
+                        "searchAfter": [
+                            1,
+                            168540942
+                        ],
+                        "node": {
+                            "id": "LfMTzpUBxCfhhAM4SMJn",
+                            "hash": "946ec71f1063fcf1cb549565251452df5c3f2d12",
+                            "__typename": "cnvNode"
+                        },
+                        "__typename": "cnvEdge"
+                    }
+                ],
+                "__typename": "cnvConnection"
+            },
+            "__typename": "cnv"
+        }
+    }
+}

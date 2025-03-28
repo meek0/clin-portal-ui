@@ -127,9 +127,5 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.sortTableAndIntercept('Début', 1);
     cy.validateTableFirstRow('207 526 712', 8, true);
   });
-
-  it('Valider les fonctionnalités du tableau - Pagination', () => {
-    cy.validatePaging('196', 1);
-  });
 });
   
