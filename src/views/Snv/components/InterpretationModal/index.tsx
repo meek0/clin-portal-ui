@@ -152,6 +152,7 @@ const InterpretationModal = ({
 
   return (
     <Modal
+      key={sequencingId + record.locus}
       open={isOpen}
       onCancel={() => {
         toggleModal(false);

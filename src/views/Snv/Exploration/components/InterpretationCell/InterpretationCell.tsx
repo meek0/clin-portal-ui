@@ -27,10 +27,10 @@ const InterpretationCell = ({
   const [hasInterpretation, setHasInterpretation] = useState(false);
   useEffect(() => {
     setHasInterpretation(!!interpretationList?.includes(record.hash));
-  }, [interpretationList]);
+  }, [interpretationList, record.hash]);
   return (
     <div className={styles.interpretationCell}>
-      {patientId && (
+      {patientId && isInterpretationModalOpen && (
         <InterpretationModal
           isOpen={isInterpretationModalOpen}
           toggleModal={toggleInterpretationModal}
