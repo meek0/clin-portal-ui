@@ -480,6 +480,7 @@ describe('Page des variants - Dictionnaire', () => {
                          'BA1',
                          'BS1',
                          'BS2',
+                         'BS4',
                          'BP1',
                          'BP3',
                          'BP4',
