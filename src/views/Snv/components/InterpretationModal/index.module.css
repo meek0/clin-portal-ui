@@ -135,3 +135,15 @@
    border-radius: 2px;
    padding: 8px;
 }
+
+.interpretationModal .oncogenic{
+    padding: 8px;
+    cursor: pointer;
+    color: var(--blue-8);
+    position: absolute;
+}
+
+.interpretationModal .oncogenic svg{
+    height: 16px;
+    width: 16px;
+}

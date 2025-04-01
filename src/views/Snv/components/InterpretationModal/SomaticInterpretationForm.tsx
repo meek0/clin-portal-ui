@@ -20,7 +20,11 @@ import { requiredRule } from './utils';
 
 import styles from './index.module.css';
 
-const SomaticInterpretationForm = () => {
+interface ISomaticInterpretationFormProps {
+  setHasChanged: (hasChanged: boolean) => void;
+}
+
+const SomaticInterpretationForm = ({ setHasChanged }: ISomaticInterpretationFormProps) => {
   const form = Form.useFormInstance();
   const [results, setResults] = useState<TMondoAutocompleteHit[]>([]);
 
@@ -118,7 +122,6 @@ const SomaticInterpretationForm = () => {
               />
             }
             name={SomaticInterpFormFields.ONCOGENICITY}
-            rules={[requiredRule]}
             shouldUpdate
           >
             <Radio.Group className={styles.radioButton}>
@@ -159,6 +162,15 @@ const SomaticInterpretationForm = () => {
               <Radio.Button value="benign" className={styles.green}>
                 {intl.get('modal.variant.interpretation.somatic.oncogenicity-options.benign')}
               </Radio.Button>
+              {form.getFieldValue(SomaticInterpFormFields.ONCOGENICITY) && (
+                <CloseOutlined
+                  className={styles.oncogenic}
+                  onClick={() => {
+                    form.setFieldValue(SomaticInterpFormFields.ONCOGENICITY, null);
+                    setHasChanged(true);
+                  }}
+                />
+              )}
             </Radio.Group>
           </Form.Item>
         )}

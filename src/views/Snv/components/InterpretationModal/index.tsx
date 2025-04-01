@@ -237,7 +237,11 @@ const InterpretationModal = ({
                       }
                     }}
                   >
-                    {isSomatic ? <SomaticInterpretationForm /> : <GermlineInterpretationForm />}
+                    {isSomatic ? (
+                      <SomaticInterpretationForm setHasChanged={setHasChanged} />
+                    ) : (
+                      <GermlineInterpretationForm />
+                    )}
                   </Form>
                 }
                 bodyStyle={{ overflow: 'visible' }}

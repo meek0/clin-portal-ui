@@ -1,6 +1,7 @@
 import { sendRequestWithRpt } from 'api';
 
 import EnvironmentVariables from 'utils/EnvVariables';
+
 import {
   TInterpretationGermlineInput,
   TInterpretationOutput,
