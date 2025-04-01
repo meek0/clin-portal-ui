@@ -1,6 +1,7 @@
 import { sendRequestWithRpt } from 'api';
 
 import EnvironmentVariables from 'utils/EnvVariables';
+
 import {
   TInterpretationGermlineInput,
   TInterpretationOutput,
@@ -74,13 +75,14 @@ function fetchPubmed(citationId: string) {
   });
 }
 
-function searchMondo(prefix: string) {
+function searchMondo(prefix: string, isSomatic: boolean = false) {
   return sendRequestWithRpt<TMondoAutocompleteOutput>({
     method: 'GET',
     url: MONDO_AUTOCOMPLETE_API_URL,
     headers: headers(),
     params: {
       prefix,
+      somatic: isSomatic || undefined,
     },
   });
 }
