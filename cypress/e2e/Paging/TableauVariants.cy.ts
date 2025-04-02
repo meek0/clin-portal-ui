@@ -4,6 +4,11 @@ import '../../support/commands';
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitVariantsPage();
+  cy.get('div[class="ant-popover-inner"] div[class="ant-space-item"]').contains('Gène').find('[type="checkbox"]').uncheck({force: true});
+  cy.get('div[class="ant-popover-inner"] div[class="ant-space-item"]').contains('OMIM').find('[type="checkbox"]').uncheck({force: true});
+  cy.get('div[class="ant-popover-inner"] div[class="ant-space-item"]').contains('gnomAD').find('[type="checkbox"]').uncheck({force: true});
+  cy.get('div[class="ant-popover-inner"] div[class="ant-space-item"]').contains('gnomAD ALT').find('[type="checkbox"]').uncheck({force: true});
+  cy.get('div[class="ant-popover-inner"] div[class="ant-space-item"]').contains('RQDM G').find('[type="checkbox"]').uncheck({force: true});
 });
 
 describe('Tableau des variants - Valider avec des mocks', () => {
