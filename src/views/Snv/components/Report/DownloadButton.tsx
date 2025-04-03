@@ -26,7 +26,7 @@ type Props = {
   buttonText?: string;
   operations?: IQueryOperationsConfig;
   disabled?: boolean;
-  allSelected?: boolean;
+  selected?: boolean;
   total?: number;
   queryVariables?: any;
   query?: any;
@@ -46,7 +46,7 @@ const DownloadButton = ({
   icon,
   disabled,
   buttonText = intl.get('download.report'),
-  allSelected,
+  selected,
   total,
   queryVariables,
   query,
@@ -67,7 +67,7 @@ const DownloadButton = ({
         if (total) {
           if (
             data.length > MAX_VARIANTS_REPORT_DOWNLOAD ||
-            (allSelected && total && total > MAX_VARIANTS_REPORT_DOWNLOAD)
+            (data.length === 0 && selected && total && total > MAX_VARIANTS_REPORT_DOWNLOAD)
           ) {
             toggleOpenModal(true);
           } else {

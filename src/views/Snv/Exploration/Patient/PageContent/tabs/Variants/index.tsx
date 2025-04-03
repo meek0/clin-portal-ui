@@ -84,7 +84,7 @@ const VariantsTab = ({
   const { loading: loadingRpt, rpt } = useRpt();
   const [modalOpened, toggleModal] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState<VariantEntity | undefined>(undefined);
-  const [allRowSelected, toggleAllRowSelected] = useState<boolean>(false);
+  const [rowSelected, toggleRowSelected] = useState<boolean>(false);
   const openIgvModal = (record: VariantEntity) => {
     setSelectedVariant(record);
     toggleModal(true);
@@ -201,9 +201,9 @@ const VariantsTab = ({
                   tooltipTitle={
                     selectedRows.length === 0 ? intl.get('protable.report.tooltip') : undefined
                   }
-                  disabled={selectedRows.length === 0 && !allRowSelected}
+                  disabled={selectedRows.length === 0 && !rowSelected}
                   buttonText={intl.get('protable.report')}
-                  allSelected={allRowSelected}
+                  selected={rowSelected}
                   total={results?.total}
                   operations={queryConfig?.operations}
                   getFilterSqon={getFilterSqon}
@@ -221,9 +221,9 @@ const VariantsTab = ({
               enableColumnSort: true,
               onSelectedRowsChange: (key, row) => {
                 if (key.length === 0) {
-                  toggleAllRowSelected(false);
+                  toggleRowSelected(false);
                 } else {
-                  toggleAllRowSelected(true);
+                  toggleRowSelected(true);
                 }
                 setSelectedRows(row);
               },
