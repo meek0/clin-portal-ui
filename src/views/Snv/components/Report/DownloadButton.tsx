@@ -151,7 +151,7 @@ const DownloadButton = ({
       <GenericModal
         type={'warning'}
         title={intl.get('screen.patientsnv.results.table.download.limit.title')}
-        message={intl.get('screen.patientsnv.results.table.download.limit.message', {
+        message={intl.get('screen.patientsnv.results.table.download.report.limit.message', {
           MAX_VARIANTS_DOWNLOAD: MAX_VARIANTS_REPORT_DOWNLOAD,
         })}
         okText={intl.get('screen.patientsnv.results.table.download.limit.button')}
