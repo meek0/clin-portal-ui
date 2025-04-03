@@ -39,7 +39,7 @@ const SomaticInterpretationForm = () => {
 
   const handleSearch = async (searchValue: string) => {
     if (searchValue) {
-      const { data } = await InterpretationApi.searchMondo(searchValue);
+      const { data } = await InterpretationApi.searchMondo(searchValue, true);
       setResults(data?.hits || []);
     } else {
       setResults([]);
