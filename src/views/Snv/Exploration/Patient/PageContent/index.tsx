@@ -314,6 +314,9 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
                   setFilterList={handleFilterList}
                   filtersList={filtersList}
                   isClear={isClear}
+                  getFilterSqon={getFilterSqon}
+                  query={VARIANT_QUERY}
+                  queryVariables={queryVariables}
                 />
                 <DownloadTSVWrapper
                   queryVariables={queryVariables}
