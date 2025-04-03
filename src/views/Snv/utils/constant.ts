@@ -86,4 +86,4 @@ export const ZygosityValue: Record<any, string> = {
   HEM: '1',
 };
 
-export const MAX_VARIANTS_REPORT_DOWNLOAD = 10;
+export const MAX_VARIANTS_REPORT_DOWNLOAD = 100;
