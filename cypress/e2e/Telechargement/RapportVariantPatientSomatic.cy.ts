@@ -18,7 +18,7 @@ beforeEach(() => {
 
 describe('Télécharger le rapport d\'un variant d\'un patient (somatic)', () => {
   it('Valider le nom du fichier', () => {
-    cy.validateFileName(`${presc_SOMATIC.patientProbId}_${presc_SOMATIC.requestProbId}_rs10794716_${strDate}*.xlsx`);
+    cy.validateFileName(`${presc_SOMATIC.patientProbId}_${presc_SOMATIC.requestProbId}_${strDate}*.xlsx`);
   });
 
   it('Valider le contenu du fichier', () => {

@@ -18,7 +18,7 @@ beforeEach(() => {
 
 describe('Télécharger le rapport d\'un variant d\'un patient', () => {
   it('Valider le nom du fichier', () => {
-    cy.validateFileName(`${epCHUSJ_ldmCHUSJ.patientProbId}_${epCHUSJ_ldmCHUSJ.requestProbId}_rs138817389_${strDate}*.xlsx`);
+    cy.validateFileName(`${epCHUSJ_ldmCHUSJ.patientProbId}_${epCHUSJ_ldmCHUSJ.requestProbId}_${strDate}*.xlsx`);
   });
 
   it('Valider le contenu du fichier', () => {
