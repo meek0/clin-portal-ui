@@ -308,11 +308,15 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
                   setVariantType={setVariantType}
                   setDownloadTriggered={setDownloadTriggered}
                   setSelectedRows={setSelectedRows}
+                  selectedRows={selectedRows}
                   variantSection={variantSection}
                   isSameLDM={isSameLDM()}
                   setFilterList={handleFilterList}
                   filtersList={filtersList}
                   isClear={isClear}
+                  getFilterSqon={getFilterSqon}
+                  query={VARIANT_QUERY}
+                  queryVariables={queryVariables}
                 />
                 <DownloadTSVWrapper
                   queryVariables={queryVariables}

@@ -63,13 +63,13 @@ const proceedToDownload = async (
   }
 };
 
-const fetchTranscriptsReport = createAsyncThunk<void, { patientId: string; variantId: string }>(
+const fetchTranscriptsReport = createAsyncThunk<void, { patientId: string; variantIds: string[] }>(
   'report/fetchTranscriptsReport',
-  async ({ patientId, variantId }, thunkApi) => {
+  async ({ patientId, variantIds }, thunkApi) => {
     await proceedToDownload(
       intl.get('report.name.interpretation'),
       `transcripts_${uuid()}.xlsx`,
-      ReportsApi.fetchPatientTranscriptsReport(patientId, variantId),
+      ReportsApi.fetchPatientTranscriptsReport(patientId, variantIds),
       thunkApi.dispatch,
     );
   },

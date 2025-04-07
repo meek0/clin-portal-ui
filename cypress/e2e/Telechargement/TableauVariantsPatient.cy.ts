@@ -12,7 +12,7 @@ beforeEach(() => {
   cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 
   cy.get('div[role="tabpanel"] tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] [type="checkbox"]').check({force: true});
-  cy.get('div[id="content"] svg[data-icon="download"]').clickAndWait({force: true});
+  cy.get('div[id="content"] svg[data-icon="download"]').eq(1).clickAndWait({force: true});
   cy.waitUntilFile(oneMinute);
 });
 
