@@ -26,7 +26,7 @@ describe('Ligne extensible d\'une occurrence (paired)', () => {
     cy.get('[class*="OccurenceVariant_transcript"]').contains('HACD1').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').find('svg[class*="ConsequencesCell_highImpact"]').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').contains('Start Lost').should('exist');
-    cy.get('[class*="OccurenceVariant_transcript"]').contains('p.Met1Arg').should('exist');
+    cy.get('[class*="OccurenceVariant_transcript"]').contains('p.Met1?').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').contains('Ensembl').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').contains('NM_014241.4').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').find('path[d*="M16.7732"]').should('exist'); // C

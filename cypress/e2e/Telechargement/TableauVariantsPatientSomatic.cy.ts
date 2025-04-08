@@ -12,7 +12,7 @@ beforeEach(() => {
   cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
 
   cy.get('div[role="tabpanel"] tr[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"] [type="checkbox"]').check({force: true});
-  cy.get('div[id="content"] svg[data-icon="download"]').clickAndWait({force: true});
+  cy.get('div[id="content"] svg[data-icon="download"]').eq(1).clickAndWait({force: true});
   cy.waitUntilFile(oneMinute);
 });
 

@@ -31,7 +31,7 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 9, 'HACD1');
     cy.validateTableDataRowKeyAttr('2f53f2ed574a720853172ff224c608efc5e3b623', 9, 'data-icon', 'plus');
     cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 10, 'ConsequencesCell_highImpact');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 10, 'Start Lost p.Met1Arg');
+    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 10, 'Start Lost p.Met1?');
     cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(11).find('path[d*="M16.7732"]').should('exist'); // C
     cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(11).find('path[d*="M8.98279"]').should('exist'); // M
     cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(11).find('path[d*="M10.9335"]').should('not.exist'); // P
