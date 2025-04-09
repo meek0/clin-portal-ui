@@ -5,6 +5,7 @@ import { Button, Modal } from 'antd';
 import { ITableGeneEntity, VariantEntity } from 'graphql/cnv/models';
 import { DEFAULT_PAGE_SIZE } from 'views/Cnv/utils/constant';
 
+import { formatDnaLength } from 'utils/formatNumber';
 import { getProTableDictionary } from 'utils/translation';
 
 import { getGeneColumns } from './geneColumns';
@@ -30,7 +31,7 @@ const GenesModal = ({ variantEntity, isOpen = false, toggleModal }: OwnProps) =>
       title={`${intl.get('screen.patientcnv.modal.genes.title')} ${variantEntity?.name
         .split(':')
         .slice(1)
-        .join(':')}`}
+        .join(':')} (${formatDnaLength(variantEntity?.reflen || 0)})`}
       onCancel={() => toggleModal(false)}
       footer={[
         <Button key="close" type="primary" onClick={() => toggleModal(false)}>
