@@ -26,6 +26,9 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Leukemia (Somatic) (SHEMA v3)',
                          'Severe Combined Immune Deficiency (SCID v1)',
                          'Thrombocytopenia (THBP v1)',
+                         'Global Immune Disorders (IEI v1)',
+                         'HLH (HLH v1)',
+                         'VEOIBD (VEOIBD v1)',
                          'No Data'];
 
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd3eefb82-edcc-42f1-a4e6-28808bd06f34');
@@ -261,6 +264,9 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Leukemia (Somatic) (SHEMA v3)',
                          'Severe Combined Immune Deficiency (SCID v1)',
                          'Thrombocytopenia (THBP v1)',
+                         'Global Immune Disorders (IEI v1)',
+                         'HLH (HLH v1)',
+                         'VEOIBD (VEOIBD v1)',
                          'No Data'];
 
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd3eefb82-edcc-42f1-a4e6-28808bd06f34');

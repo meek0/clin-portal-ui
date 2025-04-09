@@ -17,6 +17,9 @@ const panelsDictionaries = [
   'SHEMA',
   'SCID',
   'THBP',
+  'IEI',
+  'HLH',
+  'VEOIBD',
   ArrangerValues.missing,
 ];
 
