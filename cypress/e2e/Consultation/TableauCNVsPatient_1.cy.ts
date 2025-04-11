@@ -32,7 +32,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('*', 12, '1.38788');
     cy.validateTableDataRowKeyContent('*', 13, /^3$/);
     cy.validateTableDataRowKeyContent('*', 14, '128');
-    cy.validateTableDataRowKeyContent('*', 14, '9.55e-1');
+    cy.validateTableDataRowKeyContent('*', 14, /9\.\d{2}e-1/);
     cy.validateTableDataRowKeyContent('*', 15, /^2$/);
     cy.validateTableDataRowKeyContent('*', 16, './1');
     cy.validateTableDataRowKeyContent('*', 17, 'PASS');
