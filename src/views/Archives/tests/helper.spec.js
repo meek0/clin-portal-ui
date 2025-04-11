@@ -15,6 +15,21 @@ describe('extracDocsFromTask', () => {
           id: 'Organization/ownerId',
           alias: 'ownerAlias',
         },
+        basedOn: [
+          {
+            id: ['reference'],
+            extensions: [
+              {
+                code: ['MTH'],
+                reference: 'Patient/foo',
+              },
+              {
+                code: ['FTH'],
+                reference: 'Patient/124',
+              },
+            ],
+          },
+        ],
         focus: {
           request: {
             id: 'id',
@@ -74,6 +89,7 @@ describe('extracDocsFromTask', () => {
         taskOwner: { id: 'Organization/ownerId', alias: 'ownerAlias' },
         taskId: 'taskId',
         patientId: 'foo',
+        relationship: 'MTH',
         hash: 'hash',
         srRef: 'id',
         basedOnSrRef: 'reference',
@@ -107,6 +123,21 @@ describe('extracDocsFromTask', () => {
     const tasks = [
       {
         authoredOn: '2023-03-23T15:37:28+00:00',
+        basedOn: [
+          {
+            id: ['reference'],
+            extensions: [
+              {
+                code: ['MTH'],
+                reference: 'Patient/foo',
+              },
+              {
+                code: ['FTH'],
+                reference: 'Patient/124',
+              },
+            ],
+          },
+        ],
         focus: {
           request: {
             id: 'id',
@@ -148,11 +179,20 @@ describe('extracDocsFromTask', () => {
           { format: 'IGV', attachment: { url: 'title2' } },
           { format: 'IGV', attachment: { url: 'title3' } },
         ],
+        key: undefined,
+        originalSize: undefined,
+        patientId: undefined,
+        relationship: 'proband',
         url: 'title1',
         taskAuthoredOn: '2023-03-23',
+        taskId: undefined,
+        taskOwner: undefined,
+        taskRunAlias: undefined,
+        title: undefined,
         srRef: 'id',
         basedOnSrRef: 'reference',
         size: '0 B',
+        hash: undefined,
         format: 'IGV',
         action: {
           format: 'IGV',
@@ -172,11 +212,20 @@ describe('extracDocsFromTask', () => {
           { format: 'IGV', attachment: { url: 'title2' } },
           { format: 'IGV', attachment: { url: 'title3' } },
         ],
+        key: undefined,
+        originalSize: undefined,
+        patientId: undefined,
+        relationship: 'proband',
         url: 'title2',
         taskAuthoredOn: '2023-03-23',
+        taskId: undefined,
+        taskOwner: undefined,
+        taskRunAlias: undefined,
+        title: undefined,
         srRef: 'id',
         basedOnSrRef: 'reference',
         size: '0 B',
+        hash: undefined,
         format: 'IGV',
         action: {
           format: 'IGV',
@@ -196,11 +245,20 @@ describe('extracDocsFromTask', () => {
           { format: 'IGV', attachment: { url: 'title2' } },
           { format: 'IGV', attachment: { url: 'title3' } },
         ],
+        key: undefined,
+        originalSize: undefined,
+        patientId: undefined,
+        relationship: 'proband',
         url: 'title3',
         taskAuthoredOn: '2023-03-23',
+        taskId: undefined,
+        taskOwner: undefined,
+        taskRunAlias: undefined,
+        title: undefined,
         srRef: 'id',
         basedOnSrRef: 'reference',
         size: '0 B',
+        hash: undefined,
         format: 'IGV',
         action: {
           format: 'IGV',

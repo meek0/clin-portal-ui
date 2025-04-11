@@ -19,6 +19,12 @@ export const extractContentsFromDocs = (docs?: FhirDoc[]) =>
       owner: { id: '', alias: '', email: '' },
       focus: { request: { id: '', basedOn: { reference: '' } } },
       docs: [...(docs || [])],
+      basedOn: [
+        {
+          id: '',
+          extensions: [],
+        },
+      ],
     },
   ]);
 
@@ -30,6 +36,10 @@ export const extractDocsFromTask = (tasks: PatientTaskResults) => {
       doc?.content?.forEach((content) => {
         // ignore index files
         if (!INDEXES_FORMAT.includes(content.format)) {
+          const relationship = task?.basedOn?.[0].extensions?.find((e) =>
+            e.reference.includes(extractPatientId(doc.patientReference)),
+          )?.code[0];
+
           docsList.push({
             ...doc,
             key: content.attachment.title,
@@ -40,8 +50,9 @@ export const extractDocsFromTask = (tasks: PatientTaskResults) => {
             taskId: task.id,
             patientId: extractPatientId(doc.patientReference),
             hash: content.attachment.hash,
+            relationship: relationship ? relationship : 'proband',
             srRef: extractServiceRequestId(task.focus.request.id),
-            basedOnSrRef: extractServiceRequestId(task.focus.request.basedOn.reference),
+            basedOnSrRef: extractServiceRequestId(task?.basedOn?.[0].id[0]),
             size: formatFileSize(Number(content.attachment.size)) as string,
             originalSize: content.attachment.size,
             title: content.attachment.title,
