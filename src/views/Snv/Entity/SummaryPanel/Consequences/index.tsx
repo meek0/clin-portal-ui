@@ -161,7 +161,7 @@ const makeTables = (
 export const makeRows = (consequences: ArrangerEdge<ConsequenceEntity>[]) =>
   consequences.map((consequence: ArrangerEdge<ConsequenceEntity>, index: number) => ({
     key: `${index + 1}`,
-    aa: consequence.node.hgvsp?.split(':')[1],
+    aa: consequence.node.aa_change || undefined,
     consequences: consequence.node.consequences.filter((c) => c || c.length > 0),
     codingDna: consequence.node.hgvsc?.split(':')[1],
     strand: consequence.node.strand,
