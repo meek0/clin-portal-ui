@@ -1,4 +1,5 @@
 import intl from 'react-intl-universal';
+import { SafetyCertificateOutlined } from '@ant-design/icons';
 import { RangeOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { SuggestionType } from 'api/arranger/models';
 import { INDEXES } from 'graphql/constants';
@@ -6,10 +7,10 @@ import { ExtendedMappingResults } from 'graphql/models';
 import { CNV_VARIANT_PATIENT_QB_ID, FilterTypes } from 'views/Cnv/utils/constant';
 
 import GenesUploadIds from 'components/GeneUploadIds';
+import FamiliesIcon from 'components/icons/FamiliesIcon';
 import FrequencyIcon from 'components/icons/FrequencyIcon';
 import GeneIcon from 'components/icons/GeneIcon';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
-import OccurenceIcon from 'components/icons/OccurenceIcon';
 import RqdmIcon from 'components/icons/RqdmIcon';
 import { TCustomFilterMapper } from 'components/uiKit/FilterList';
 import { FilterInfo } from 'components/uiKit/FilterList/types';
@@ -33,7 +34,7 @@ const filterGroups: {
   [FilterTypes.Variant]: {
     groups: [
       {
-        facets: ['type', 'reflen', 'chromosome', 'start', 'end'],
+        facets: ['type', 'cn', 'reflen', 'chromosome', 'start', 'end'],
         defaults: {
           reflen: {
             operator: RangeOperators['>='],
@@ -95,15 +96,19 @@ const filterGroups: {
       },
     ],
   },
-  [FilterTypes.Occurrence]: {
+  [FilterTypes.ParentalAnalysis]: {
     groups: [
       {
-        title: intl.get('screen.patientsnv.category_parental_analysis'),
         facets: ['parental_origin', 'transmission'],
         tooltips: ['transmission'],
       },
+    ],
+  },
+  [FilterTypes.Metric]: {
+    groups: [
       {
-        facets: ['filters', 'qual'],
+        facets: ['filters', 'qual', 'pe', 'sm'],
+        tooltips: ['pe', 'sm'],
         defaults: {
           qual: {
             operator: RangeOperators['>='],
@@ -167,14 +172,26 @@ export const getMenuItems = (
     ),
   },
   {
-    key: 'category_occurrence',
-    title: intl.get('screen.patientsnv.category_occurrence'),
-    icon: <OccurenceIcon className={styles.sideMenuIcon} />,
+    key: 'category_parentalAnalyis',
+    title: intl.get('screen.patientsnv.category_parental_analysis'),
+    icon: <FamiliesIcon className={styles.sideMenuIcon} />,
     panelContent: filtersContainer(
       variantMappingResults,
       INDEXES.CNV,
       CNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Occurrence],
+      filterGroups[FilterTypes.ParentalAnalysis],
+      filterMapper,
+    ),
+  },
+  {
+    key: 'category_metric',
+    title: intl.get('screen.patientsnv.category_metric'),
+    icon: <SafetyCertificateOutlined />,
+    panelContent: filtersContainer(
+      variantMappingResults,
+      INDEXES.CNV,
+      CNV_VARIANT_PATIENT_QB_ID,
+      filterGroups[FilterTypes.Metric],
       filterMapper,
     ),
   },
