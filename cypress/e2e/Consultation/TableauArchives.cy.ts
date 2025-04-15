@@ -20,14 +20,15 @@ describe('Page d\'archives - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 2, 'EXOMISER');
     cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 3, 'TSV');
     cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 4, epCHUSJ_ldmCHUSJ.patientProbId);
-    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 5, epCHUSJ_ldmCHUSJ.requestProbId);
-    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 6, epCHUSJ_ldmCHUSJ.sampleProbId);
-    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 7, epCHUSJ_ldmCHUSJ.bioAnalProbId);
-    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 8, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7));
-    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 9, '30.08 KB');
-    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 10, '-');
-    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 11, 'A00516_0169');
-    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 12, 'Fichier');
+    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 5, 'Cas-index');
+    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 6, epCHUSJ_ldmCHUSJ.requestProbId);
+    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 7, epCHUSJ_ldmCHUSJ.sampleProbId);
+    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 8, epCHUSJ_ldmCHUSJ.bioAnalProbId);
+    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 9, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7));
+    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 10, '30.08 KB');
+    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 11, '-');
+    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 12, 'A00516_0169');
+    cy.validateTableDataRowKeyContent('16774.exomiser.variants.tsv', 13, 'Fichier');
   });
  
   it('Valider les liens disponibles Lien Requête', () => {
@@ -45,11 +46,6 @@ describe('Page d\'archives - Consultation du tableau', () => {
 
     cy.contains('Analyse bioinformatique : '+epCHUSJ_ldmCHUSJ.bioAnalProbId).should('exist');
   });
-  
-  it('Valider les fonctionnalités du tableau - Tri Patient', () => {
-    cy.sortTableAndWait('Patient');
-    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.patientProbId, 4);
-  });
 
   it('Valider les fonctionnalités du tableau - Tri Format', () => {
     cy.sortTableAndWait('Format');
@@ -57,19 +53,31 @@ describe('Page d\'archives - Consultation du tableau', () => {
     cy.sortTableAndWait('Format');
     cy.validateTableFirstRow('VCF', 3);
   });
+  
+  it('Valider les fonctionnalités du tableau - Tri Patient', () => {
+    cy.sortTableAndWait('Patient');
+    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.patientProbId, 4);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri Parenté', () => {
+    cy.sortTableAndWait('Parenté');
+    cy.validateTableFirstRow('Cas-index', 5);
+    cy.sortTableAndWait('Parenté');
+    cy.validateTableFirstRow('Cas-index', 5);
+  });
 
   it('Valider les fonctionnalités du tableau - Tri Requête', () => {
     cy.sortTableAndWait('Requête');
-    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.requestProbId, 5);
+    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.requestProbId, 6);
     cy.sortTableAndWait('Requête');
-    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.requestProbId, 5);
+    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.requestProbId, 6);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Analyse bioinfo', () => {
     cy.sortTableAndWait('Analyse bioinfo');
-    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.bioAnalProbId, 7);
+    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.bioAnalProbId, 8);
     cy.sortTableAndWait('Analyse bioinfo');
-    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.bioAnalProbId, 7);
+    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.bioAnalProbId, 8);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

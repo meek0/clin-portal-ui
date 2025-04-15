@@ -49,6 +49,25 @@ export const SEARCH_PATIENT_FILES_QUERY = (searchValue: string) => gql`
           }
         }
       }
+      basedOn @flatten {
+        basedOn: resource(type: ServiceRequest) {
+            id @first
+            extensions: extension(url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/family-member") {
+              extension(url: "parent-relationship") @flatten {
+                valueCoding @flatten{
+                  coding @flatten {
+                    code 
+                  }
+                }
+              }
+              extension(url: "parent") @flatten{
+                valueReference @flatten  {
+                  reference
+                }
+            }
+          }
+        }
+      }
       authoredOn
       experiment: extension(
           url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/sequencing-experiment"

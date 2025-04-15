@@ -41,42 +41,47 @@ describe('Page d\'archives - Colonnes du tableau', () => {
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(4)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Requête').should('exist');
+      .contains('Parenté').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(5)
-      .contains('Échantillon (LDM)').should('exist');
+      .should('have.class', 'ant-table-column-has-sorters')
+      .contains('Requête').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(6)
+      .contains('Échantillon (LDM)').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]')
+      .find('th[class*="ant-table-cell"]').eq(7)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Analyse bioinfo').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(7)
+      .find('th[class*="ant-table-cell"]').eq(8)
       .should('not.have.class', 'ant-table-column-has-sorters')
       .contains('Date').should('exist');
   
     cy.get('thead[class="ant-table-thead"]')
       .contains('Taille').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(10)
+      .find('div[class="ant-space-item"]').eq(11)
       .contains('Taille').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('Hash').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(11)
+      .find('div[class="ant-space-item"]').eq(12)
       .contains('Hash').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .contains('Lot').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(12)
+      .find('div[class="ant-space-item"]').eq(13)
       .contains('Lot').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(8)
+      .find('th[class*="ant-table-cell"]').eq(9)
       .should('not.have.class', 'ant-table-column-has-sorters')
       .contains('Actions').should('exist');
   });

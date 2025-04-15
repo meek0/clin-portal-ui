@@ -881,6 +881,7 @@
   "screen.archives.table.column.format": "Format",
   "screen.archives.table.column.hash": "Hash",
   "screen.archives.table.column.patient": "Patient",
+  "screen.archives.table.column.relationship": "Relationship",
   "screen.archives.table.column.request": "Request",
   "screen.archives.table.column.run": "Run",
   "screen.archives.table.column.sampleldm": "Sample (LDM)",

@@ -36,6 +36,16 @@ export const getFileTableColumns = (): ProColumnType<DocsWithTaskInfo>[] => [
     defaultSortOrder: 'ascend',
   },
   {
+    key: 'relationship',
+    title: intl.get('screen.archives.table.column.relationship'),
+    render: (record: DocsWithTaskInfo) =>
+      record.relationship === 'proband' ? intl.get('proband') : intl.get(record.relationship),
+    sorter: {
+      compare: (a, b) => (a.relationship || '').localeCompare(b.relationship || ''),
+      multiple: 1,
+    },
+  },
+  {
     key: 'request',
     title: intl.get('screen.prescription.entity.file.table.column.request'),
     render: (record: DocsWithTaskInfo) => (

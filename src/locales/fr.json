@@ -884,6 +884,7 @@
   "screen.archives.table.column.format": "Format",
   "screen.archives.table.column.hash": "Hash",
   "screen.archives.table.column.patient": "Patient",
+  "screen.archives.table.column.relationship": "Parenté",
   "screen.archives.table.column.request": "Requête",
   "screen.archives.table.column.run": "Lot",
   "screen.archives.table.column.sampleldm": "Échantillon (LDM)",

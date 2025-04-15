@@ -76,6 +76,13 @@ export interface FhirTask {
       };
     };
   };
+  basedOn: {
+    id: string;
+    extensions: {
+      code: string[];
+      reference: string;
+    }[];
+  }[];
   owner: FhirOwner;
   runDate: string;
   authoredOn: string;
