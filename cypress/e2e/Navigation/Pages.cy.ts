@@ -220,7 +220,8 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Panel RQDM').should('exist');
     cy.contains('Variant').should('exist');
     cy.contains('Gène').should('exist');
-    cy.contains('Occurrence').should('exist');
+    cy.contains('Analyse parentale').should('exist');
+    cy.contains('Métrique CQ').should('exist');
     cy.contains('Filtre sans titre').should('exist');
     cy.contains('Mes filtres').should('exist');
     cy.contains('Utiliser les filtres pour créer une requête').should('exist');

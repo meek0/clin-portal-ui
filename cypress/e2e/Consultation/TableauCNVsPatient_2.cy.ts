@@ -10,7 +10,7 @@ beforeEach(() => {
   cy.showColumn('GT', 0);
   cy.showColumn('Filtre', 0);
   cy.showColumn('Qual.', 0);
-  cy.showColumn('MS', 0);
+  cy.showColumn('SM', 0);
   cy.showColumn('BC', 0);
   cy.showColumn('PE', 0);
   cy.showColumn('Trans.', 0);
@@ -65,10 +65,10 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow('1.5 Mb', 11, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri MS', () => {
-    cy.sortTableAndIntercept('MS', 1);
+  it('Valider les fonctionnalités du tableau - Tri SM', () => {
+    cy.sortTableAndIntercept('SM', 1);
     cy.validateTableFirstRow('0.00831442', 12, true);
-    cy.sortTableAndIntercept('MS', 1);
+    cy.sortTableAndIntercept('SM', 1);
     cy.validateTableFirstRow('2.7587', 12, true);
   });
 

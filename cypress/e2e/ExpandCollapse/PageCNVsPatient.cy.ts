@@ -22,7 +22,11 @@ describe('Page des CNVs d\'un patient - Valider les liens disponibles', () => {
     cy.validateExpandCollapse('Gène', true);
   });
 
-  it('Occurrence - Expand all/Collapse all', () => {
-    cy.validateExpandCollapse('Occurrence');
+  it('Analyse parentale - Expand all/Collapse all', () => {
+    cy.validateExpandCollapse('Analyse parentale');
+  });
+
+  it('Métrique CQ - Expand all/Collapse all', () => {
+    cy.validateExpandCollapse('Métrique CQ');
   });
 });

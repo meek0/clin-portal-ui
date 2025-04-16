@@ -10,7 +10,7 @@ beforeEach(() => {
   cy.showColumn('GT', 0);
   cy.showColumn('Filtre', 0);
   cy.showColumn('Qual.', 0);
-  cy.showColumn('MS', 0);
+  cy.showColumn('SM', 0);
   cy.showColumn('BC', 0);
   cy.showColumn('PE', 0);
   cy.showColumn('Trans.', 0);
