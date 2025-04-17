@@ -36,6 +36,9 @@ const filterGroups: {
       {
         facets: ['type', 'cn', 'reflen', 'chromosome', 'start', 'end'],
         defaults: {
+          cn: {
+            operator: RangeOperators['>='],
+          },
           reflen: {
             operator: RangeOperators['>='],
           },
@@ -113,6 +116,12 @@ const filterGroups: {
           qual: {
             operator: RangeOperators['>='],
           },
+          pe: {
+            operator: RangeOperators['<'],
+          },
+          sm: {
+            operator: RangeOperators['<'],
+          },
         },
       },
     ],
@@ -185,7 +194,7 @@ export const getMenuItems = (
   },
   {
     key: 'category_metric',
-    title: intl.get('screen.patientsnv.category_metric'),
+    title: intl.get('screen.patientsnv.category_metricQC'),
     icon: <SafetyCertificateOutlined />,
     panelContent: filtersContainer(
       variantMappingResults,
