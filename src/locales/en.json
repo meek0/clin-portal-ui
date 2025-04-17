@@ -1057,7 +1057,7 @@
   "screen.patientsnv.category_metric": "Metrics",
   "screen.patientsnv.category_parental_analysis": "Parental Analysis",
   "screen.patientsnv.category_occurrence": "Occurrence",
-  "screen.patientsnv.category_metricQC": "Metrics QC",
+  "screen.patientsnv.category_metricQC": "Metric QC",
   "screen.patientsnv.category_pathogenicity": "Pathogenicity",
   "screen.patientsnv.category_patient": "Patient",
   "screen.patientsnv.category_rqdm": "RQDM Panel",
