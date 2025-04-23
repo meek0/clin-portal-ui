@@ -10,6 +10,12 @@ beforeEach(() => {
 });
 
 describe('Page des CNVs d\'un patient - Opérateurs par défaut', () => {
+  it('Variant - Nombre de copies', () => {
+    cy.openFacet('Variant', 'Nombre de copies');
+    cy.get(`[data-cy="InputNumber_Min_Nombre de copies"]`).should('exist');
+    cy.get(`[data-cy="InputNumber_Max_Nombre de copies"]`).should('not.exist');
+  });
+
   it('Variant - Longueur du CNV', () => {
     cy.openFacet('Variant', 'Longueur du CNV');
     cy.get(`[data-cy="InputNumber_Min_Longueur du CNV"]`).should('exist');
@@ -34,9 +40,21 @@ describe('Page des CNVs d\'un patient - Opérateurs par défaut', () => {
     cy.get(`[data-cy="InputNumber_Max_Fréq. CNV tous les patients"]`).should('exist');
   });
 
-  it('Occurrence - Qualité du CNV', () => {
-    cy.openFacet('Occurrence', 'Qualité du CNV');
+  it('Métrique CQ - Qualité du CNV', () => {
+    cy.openFacet('Métrique CQ', 'Qualité du CNV');
     cy.get(`[data-cy="InputNumber_Min_Qualité du CNV"]`).should('exist');
     cy.get(`[data-cy="InputNumber_Max_Qualité du CNV"]`).should('not.exist');
+  });
+
+  it('Métrique CQ - PE', () => {
+    cy.openFacet('Métrique CQ', 'PE');
+    cy.get(`[data-cy="InputNumber_Min_PE"]`).should('not.exist');
+    cy.get(`[data-cy="InputNumber_Max_PE"]`).should('exist');
+  });
+
+  it('Métrique CQ - SM', () => {
+    cy.openFacet('Métrique CQ', 'SM');
+    cy.get(`[data-cy="InputNumber_Min_SM"]`).should('not.exist');
+    cy.get(`[data-cy="InputNumber_Max_SM"]`).should('exist');
   });
 });

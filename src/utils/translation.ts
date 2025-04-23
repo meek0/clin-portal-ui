@@ -653,12 +653,17 @@ export const getFacetsDictionaryCNV = () => ({
   },
   filters: intl.get('cnv.filters.group.filters'),
   qual: intl.get('cnv.filters.group.qual'),
+  pe: intl.get('cnv.filters.group.pe'),
+  sm: intl.get('cnv.filters.group.sm'),
   reflen: intl.get('cnv.filters.group.reflen'),
   start: intl.get('cnv.filters.group.start'),
   type: intl.get('cnv.filters.group.type'),
+  cn: intl.get('cnv.filters.group.cn'),
   transmission: intl.get('cnv.filters.group.transmission'),
   parental_origin: intl.get('cnv.filters.group.parental_origin'),
   tooltips: {
     transmission: intl.get('filters.group.donors.transmission.tooltip'),
+    pe: intl.get('cnv.filters.group.pe.tooltip'),
+    sm: intl.get('cnv.filters.group.sm.tooltip'),
   },
 });

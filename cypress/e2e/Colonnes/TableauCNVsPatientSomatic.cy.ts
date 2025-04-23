@@ -69,7 +69,7 @@ describe('Page des CNVs d\'un patient (somatic) - Colonnes du tableau', () => {
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(12)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('MS').should('exist');
+      .contains('SM').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(13)

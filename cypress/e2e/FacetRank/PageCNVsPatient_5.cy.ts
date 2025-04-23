@@ -10,23 +10,13 @@ beforeEach(() => {
 });
 
 describe('Page des CNVs d\'un patient - Ordre des facettes', () => {
-  it('Occurrence - Origine parentale', () => {
-    cy.openFacet('Occurrence', 'Origine parentale');
+  it('Analyse parentale - Origine parentale', () => {
+    cy.openFacet('Analyse parentale', 'Origine parentale');
     cy.validateFacetRank(0, 'Origine parentale');
   });
 
-  it('Occurrence - Transmission', () => {
-    cy.openFacet('Occurrence', 'Transmission');
+  it('Analyse parentale - Transmission', () => {
+    cy.openFacet('Analyse parentale', 'Transmission');
     cy.validateFacetRank(1, 'Transmission');
-  });
-
-  it('Occurrence - Filtre', () => {
-    cy.openFacet('Occurrence', 'Filtre');
-    cy.validateFacetRank(2, 'Filtre');
-  });
-
-  it('Occurrence - Qualité du CNV', () => {
-    cy.openFacet('Occurrence', 'Qualité du CNV');
-    cy.validateFacetRank(3, 'Qualité du CNV');
   });
 });

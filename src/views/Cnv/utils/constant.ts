@@ -34,5 +34,6 @@ export enum FilterTypes {
   Gene,
   Rqdm,
   Frequency,
-  Occurrence,
+  Metric,
+  ParentalAnalysis,
 }

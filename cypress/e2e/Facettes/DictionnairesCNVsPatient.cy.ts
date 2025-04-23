@@ -109,7 +109,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Gène', 'Panel RQDM', dictionnary);
   });
 
-  it('Occurrence - Origine parentale', () => {
+  it('Analyse parentale - Origine parentale', () => {
     const dictionnary = ['Ambiguous',
                          'Both',
                          'Denovo',
@@ -122,13 +122,13 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                          'No Data'];
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
-    cy.validateDictionnaryPresetValues('Occurrence', 'Origine parentale', dictionnary);
+    cy.validateDictionnaryPresetValues('Analyse parentale', 'Origine parentale', dictionnary);
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=f5d9e3d5-6970-49c3-860c-d3ab00a06cdb');
-    cy.validateDictionnaryNewValues('Occurrence', 'Origine parentale', dictionnary);
+    cy.validateDictionnaryNewValues('Analyse parentale', 'Origine parentale', dictionnary);
   });
 
-  it('Occurrence - Transmission', () => {
+  it('Analyse parentale - Transmission', () => {
     const dictionnary = ['Autosomal Dominant De Novo',
                          'Autosomal Dominant',
                          'Autosomal Recessive',
@@ -144,13 +144,13 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                          'No Data'];
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
-    cy.validateDictionnaryPresetValues('Occurrence', 'Transmission', dictionnary);
+    cy.validateDictionnaryPresetValues('Analyse parentale', 'Transmission', dictionnary);
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=f5d9e3d5-6970-49c3-860c-d3ab00a06cdb');
-    cy.validateDictionnaryNewValues('Occurrence', 'Transmission', dictionnary);
+    cy.validateDictionnaryNewValues('Analyse parentale', 'Transmission', dictionnary);
   });
 
-  it('Occurrence - Filtre', () => {
+  it('Métrique CQ - Filtre', () => {
     const dictionnary = ['PASS',
                          'CnvQual',
                          'CnvCopyRatio',
@@ -160,9 +160,9 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                          'No Data'];
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
-    cy.validateDictionnaryPresetValues('Occurrence', 'Filtre', dictionnary);
+    cy.validateDictionnaryPresetValues('Métrique CQ', 'Filtre', dictionnary);
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=f5d9e3d5-6970-49c3-860c-d3ab00a06cdb');
-    cy.validateDictionnaryNewValues('Occurrence', 'Filtre', dictionnary);
+    cy.validateDictionnaryNewValues('Métrique CQ', 'Filtre', dictionnary);
   });
 });

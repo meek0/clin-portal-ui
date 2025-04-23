@@ -66,10 +66,10 @@ describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
       .contains('Longueur').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
-      .contains('MS').should('not.exist');
+      .contains('SM').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
       .find('div[class="ant-space-item"]').eq(9)
-      .contains('MS').should('exist');
+      .contains('SM').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(12)
