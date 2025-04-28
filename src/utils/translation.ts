@@ -647,6 +647,7 @@ export const getFacetsDictionaryCNV = () => ({
       hpo_term_label: intl.get('filters.group.genes.hpo.hpo_term_label'),
     },
     panels: intl.get('filters.group.genes.panels'),
+    location: intl.get('filters.group.genes.location'),
   },
   frequency_RQDM: {
     pf: intl.get('cnv.filters.group.frequency_RQDM.pf'),

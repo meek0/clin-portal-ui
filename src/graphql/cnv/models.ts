@@ -68,6 +68,7 @@ export type GeneEntity = {
   overlap_exons: number;
   overlap_gene_ratio: number;
   symbol: string;
+  location: string;
   panels: string[];
   orphanet: ArrangerResultsTree<OrphanetEntity>;
   omim: ArrangerResultsTree<OmimEntity>;

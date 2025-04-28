@@ -157,6 +157,35 @@ export const getVariantColumns = (
           <>{TABLE_EMPTY_PLACE_HOLDER}</>
         ),
     },
+    {
+      title: intl.get('screen.variantDetails.summaryTab.summaryTable.cytoband'),
+      key: 'location',
+      width: 160,
+      render: (variant: VariantEntity) => {
+        const values = [
+          ...new Set(
+            variant.genes.hits.edges
+              .slice(0, 3)
+              .map((gene) => gene.node.location)
+              .filter((location) => location),
+          ),
+        ];
+
+        return variant.genes.hits.edges.some((gene) => gene.node.symbol) && values.length > 0 ? (
+          <a
+            onClick={(e) => {
+              e.preventDefault();
+              openGenesModal(variant);
+            }}
+          >
+            {values.join(', ')}
+            {values.length > 3 ? '...' : ''}
+          </a>
+        ) : (
+          <>{TABLE_EMPTY_PLACE_HOLDER}</>
+        );
+      },
+    },
   );
 
   columns.push(
@@ -416,6 +445,9 @@ const renderCNVByKey = (key: string, variant: VariantEntity) => {
     return formatGenotype(variant?.calls);
   } else if (key === 'genes') {
     const genesSymbol = variant.genes?.hits?.edges?.map((gene) => gene.node.symbol).join(', ');
+    return genesSymbol;
+  } else if (key === 'location') {
+    const genesSymbol = variant.genes?.hits?.edges?.map((gene) => gene.node.location).join(', ');
     return genesSymbol;
   }
   return <></>;

@@ -228,6 +228,7 @@
   "filters.group.genes.omim.inheritance_code": "OMIM (Inheritance)",
   "filters.group.genes.orphanet.panel": "ORPHANET",
   "filters.group.genes.panels": "RQDM Panel",
+  "filters.group.genes.location": "Cytoband",
   "filters.group.genes.spliceai.ds": "SpliceAI",
   "filters.group.genes.gnomad.pli": "gnomAD pLi",
   "filters.group.genes.gnomad.loeuf": "gnomAD LOEUF",

@@ -32,6 +32,12 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
       ),
     },
     {
+      title: intl.get('screen.variantDetails.summaryTab.summaryTable.cytoband'),
+      key: 'location',
+      dataIndex: 'location',
+      render: (location: string) => (location ? location : TABLE_EMPTY_PLACE_HOLDER),
+    },
+    {
       title: intl.get('screen.patientcnv.results.table.clingen'),
       key: 'clinGen',
       dataIndex: 'symbol',
