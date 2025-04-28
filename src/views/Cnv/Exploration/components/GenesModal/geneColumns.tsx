@@ -52,14 +52,14 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
         multiple: 1,
       },
       render: (record: GeneEntity) => {
+        if (!record.omim || record.omim.hits.edges.length === 0) {
+          return TABLE_EMPTY_PLACE_HOLDER;
+        }
         const inheritance = record.omim.hits.edges
           .reduce<string[]>((prev, curr) => [...prev, ...(curr.node.inheritance_code || [])], [])
           .filter((item, pos, self) => self.indexOf(item) == pos);
 
         const omimLink = `https://www.omim.org/entry/${record.omim_gene_id}`;
-        if (record.omim.hits.edges.length === 0) {
-          return TABLE_EMPTY_PLACE_HOLDER;
-        }
         return (
           <StackLayout horizontal>
             <Space size={4} className={style.variantSnvOmimCellItem}>
