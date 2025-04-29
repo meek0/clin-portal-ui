@@ -48,7 +48,15 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
       title: intl.get('filters.group.genes.omim.name'),
       key: 'inheritance_code',
       sorter: {
-        compare: (a: ITableGeneEntity, b: ITableGeneEntity) => a.symbol.localeCompare(b.symbol),
+        compare: (a: ITableGeneEntity, b: ITableGeneEntity) => {
+          const inheritanceA = a.omim.hits.edges
+            .reduce<string[]>((prev, curr) => [...prev, ...(curr.node.inheritance_code || [])], [])
+            .filter((item, pos, self) => self.indexOf(item) == pos);
+          const inheritanceB = b.omim.hits.edges
+            .reduce<string[]>((prev, curr) => [...prev, ...(curr.node.inheritance_code || [])], [])
+            .filter((item, pos, self) => self.indexOf(item) == pos);
+          return inheritanceA.toString().localeCompare(inheritanceB.toString());
+        },
         multiple: 1,
       },
       render: (record: GeneEntity) => {
