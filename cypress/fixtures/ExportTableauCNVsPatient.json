@@ -1,6 +1,7 @@
 {
   "headers": ["flags",
               "genes",
+              "location",
               "name",
               "chromosome",
               "start",
@@ -24,6 +25,7 @@
               "LOC105378878",
               "AMY1A",
               "AMY1B",
+              "1q31.3",
               "DRAGEN:GAIN:chr1:103618861-103758667",
               "1",
               "103618860",

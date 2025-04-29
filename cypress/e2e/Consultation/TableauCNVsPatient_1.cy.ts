@@ -22,25 +22,26 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyClass('*', 1, 'FlagDropdown');
     cy.validateTableDataRowKeyContent('*', 4, 'CFHR1');
     cy.validateTableDataRowKeyContent('*', 4, 'CFHR3');
-    cy.validateTableDataRowKeyContent('*', 5, 'GAIN:chr1:196774873-196832007');
-    cy.validateTableDataRowKeyClass('*', 6, 'anticon');
-    cy.validateTableDataRowKeyContent('*', 7, /^1$/);
-    cy.validateTableDataRowKeyContent('*', 8, '196 774 872');
-    cy.validateTableDataRowKeyContent('*', 9, '196 832 006');
-    cy.validateTableDataRowKeyContent('*', 10, /^GAIN$/);
-    cy.validateTableDataRowKeyContent('*', 11, '57.1 kb');
-    cy.validateTableDataRowKeyContent('*', 12, '1.38788');
-    cy.validateTableDataRowKeyContent('*', 13, /^3$/);
-    cy.validateTableDataRowKeyContent('*', 14, '128');
-    cy.validateTableDataRowKeyContent('*', 14, /9\.\d{2}e-1/);
-    cy.validateTableDataRowKeyContent('*', 15, /^2$/);
-    cy.validateTableDataRowKeyContent('*', 16, './1');
-    cy.validateTableDataRowKeyContent('*', 17, 'PASS');
-    cy.validateTableDataRowKeyContent('*', 18, /^75$/);
-    cy.validateTableDataRowKeyContent('*', 19, /^22$/);
-    cy.validateTableDataRowKeyContent('*', 20, '3, 0');
-    cy.validateTableDataRowKeyContent('*', 21, '-');
+    cy.validateTableDataRowKeyContent('*', 5, '1q31.3');
+    cy.validateTableDataRowKeyContent('*', 6, 'GAIN:chr1:196774873-196832007');
+    cy.validateTableDataRowKeyClass('*', 7, 'anticon');
+    cy.validateTableDataRowKeyContent('*', 8, /^1$/);
+    cy.validateTableDataRowKeyContent('*', 9, '196 774 872');
+    cy.validateTableDataRowKeyContent('*', 10, '196 832 006');
+    cy.validateTableDataRowKeyContent('*', 11, /^GAIN$/);
+    cy.validateTableDataRowKeyContent('*', 12, '57.1 kb');
+    cy.validateTableDataRowKeyContent('*', 13, '1.38788');
+    cy.validateTableDataRowKeyContent('*', 14, /^3$/);
+    cy.validateTableDataRowKeyContent('*', 15, '128');
+    cy.validateTableDataRowKeyContent('*', 15, /9\.\d{2}e-1/);
+    cy.validateTableDataRowKeyContent('*', 16, /^2$/);
+    cy.validateTableDataRowKeyContent('*', 17, './1');
+    cy.validateTableDataRowKeyContent('*', 18, 'PASS');
+    cy.validateTableDataRowKeyContent('*', 19, /^75$/);
+    cy.validateTableDataRowKeyContent('*', 20, /^22$/);
+    cy.validateTableDataRowKeyContent('*', 21, '3, 0');
     cy.validateTableDataRowKeyContent('*', 22, '-');
+    cy.validateTableDataRowKeyContent('*', 23, '-');
   });
  
   it('Valider la fonctionnalité du radio bouton SNV-CNV', () => {
@@ -51,22 +52,30 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
  
   it('Valider les liens disponibles Lien Gènes', () => {
-    cy.get('tr').contains(/^2$/).clickAndWait({force: true});
-    cy.contains('GAIN:chr1:196774873-196832007').should('exist');
-    cy.get('button[class="ant-modal-close"]').invoke('click');
-
     cy.get('tr').contains('CFHR1').clickAndWait({force: true});
     cy.contains('GAIN:chr1:196774873-196832007').should('exist');
     cy.get('button[class="ant-modal-close"]').invoke('click');
   });
  
+  it('Valider les liens disponibles Lien Cytobande', () => {
+    cy.get('tr').contains('1q31.3').clickAndWait({force: true});
+    cy.contains('GAIN:chr1:196774873-196832007').should('exist');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
+  });
+ 
   it('Valider les liens disponibles Lien Variant', () => {
-    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(5).find('a[href]')
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(6).find('a[href]')
       .should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/sv/chr1-196774872-196832006-DUP-HG38');
   });
  
   it('Valider les liens disponibles Lien ClinGen', () => {
-    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(6).find('a[href]')
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(7).find('a[href]')
       .should('have.attr', 'href', 'https://search.clinicalgenome.org/kb/regions?page=1&type=GRCh38&region=chr1%3A196774872-196832006&size=25&search=');
+  });
+ 
+  it('Valider les liens disponibles Lien #Gènes', () => {
+    cy.get('tr').contains(/^2$/).clickAndWait({force: true});
+    cy.contains('GAIN:chr1:196774873-196832007').should('exist');
+    cy.get('button[class="ant-modal-close"]').invoke('click');
   });
 });

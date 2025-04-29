@@ -65,6 +65,7 @@ export const VARIANT_QUERY = gql`
                     overlap_cnv_ratio
                     overlap_exons
                     overlap_gene_ratio
+                    location
                     symbol
                     panels
                     omim {

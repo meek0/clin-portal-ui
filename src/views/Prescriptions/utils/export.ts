@@ -167,7 +167,7 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderAllAnalysisToString(key, findDonorById(row.donors, patientId)));
     }
   } else if (prefix === 'CNV') {
-    if (['calls', 'genes'].includes(key)) {
+    if (['calls', 'genes', 'location'].includes(key)) {
       return renderCNVToString(key, row);
     } else if (key === 'flags') {
       return convertToPlain(renderFlagToString(row));

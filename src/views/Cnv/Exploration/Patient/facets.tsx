@@ -72,6 +72,9 @@ const filterGroups: {
     ],
     groups: [
       {
+        facets: ['genes__location'],
+      },
+      {
         title: intl.get('screen.patientsnv.filter.grouptitle.genepanel'),
         facets: [
           'genes__panels',
