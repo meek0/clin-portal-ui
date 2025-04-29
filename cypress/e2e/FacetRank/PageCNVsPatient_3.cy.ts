@@ -10,33 +10,38 @@ beforeEach(() => {
 });
 
 describe('Page des CNVs d\'un patient - Ordre des facettes', () => {
+  it('Gène - Cytobande', () => {
+    cy.openFacet('Gène', 'Cytobande');
+    cy.validateFacetRank(0, 'Cytobande');
+  });
+
   it('Gène - Panel RQDM', () => {
     cy.openFacet('Gène', 'Panel RQDM');
-    cy.validateFacetRank(0, 'Panel RQDM');
+    cy.validateFacetRank(1, 'Panel RQDM');
   });
 
   it('Gène - HPO', () => {
     cy.openFacet('Gène', 'HPO');
-    cy.validateFacetRank(1, 'HPO');
+    cy.validateFacetRank(2, 'HPO');
   });
 
   it('Gène - ORPHANET', () => {
     cy.openFacet('Gène', 'ORPHANET');
-    cy.validateFacetRank(2, 'ORPHANET');
+    cy.validateFacetRank(3, 'ORPHANET');
   });
 
   it('Gène - OMIM', () => {
     cy.openFacet('Gène', 'OMIM');
-    cy.validateFacetRank(3, 'OMIM');
+    cy.validateFacetRank(4, 'OMIM');
   });
 
   it('Gène - DDD', () => {
     cy.openFacet('Gène', 'DDD');
-    cy.validateFacetRank(4, 'DDD');
+    cy.validateFacetRank(5, 'DDD');
   });
 
   it('Gène - COSMIC', () => {
     cy.openFacet('Gène', 'COSMIC');
-    cy.validateFacetRank(5, 'COSMIC');
+    cy.validateFacetRank(6, 'COSMIC');
   });
 });

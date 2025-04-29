@@ -1,6 +1,7 @@
 {
   "headers": ["flags",
               "genes",
+              "location",
               "name",
               "chromosome",
               "start",
@@ -26,6 +27,7 @@
               "PRAMEF26",
               "PRAMEF25",
               "HNRNPCL2",
+              "1p36.21",
               "DRAGEN:LOSS:chr1:13061316-13223983",
               "1",
               "13061315",

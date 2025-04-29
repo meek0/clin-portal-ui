@@ -21,23 +21,24 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
   it('Vérifier les informations affichées', () => {
     cy.validateTableDataRowKeyClass('*', 1, 'FlagDropdown');
     cy.validateTableDataRowKeyContent('*', 4, /^[^,]+,[^,]+,[^,]+...$/);
-    cy.validateTableDataRowKeyContent('*', 5, 'LOSS:chr1:450731-7249626');
-    cy.validateTableDataRowKeyClass('*', 6, 'anticon');
-    cy.validateTableDataRowKeyContent('*', 7, /^1$/);
-    cy.validateTableDataRowKeyContent('*', 8, '450 730');
-    cy.validateTableDataRowKeyContent('*', 9, '7 249 625');
-    cy.validateTableDataRowKeyContent('*', 10, /^LOSS$/);
-    cy.validateTableDataRowKeyContent('*', 11, '6.8 Mb');
-    cy.validateTableDataRowKeyContent('*', 12, '1.04404');
-    cy.validateTableDataRowKeyContent('*', 13, '-');
-    cy.validateTableDataRowKeyContent('*', 14, /^191$/);
-    cy.validateTableDataRowKeyContent('*', 15, '0/1');
-    cy.validateTableDataRowKeyContent('*', 16, 'CnvCopyRatio, LoDFail');
-    cy.validateTableDataRowKeyContent('*', 17, /^128$/);
-    cy.validateTableDataRowKeyContent('*', 18, '1979');
-    cy.validateTableDataRowKeyContent('*', 19, '25, 7');
-    cy.validateTableDataRowKeyContent('*', 20, '-');
+    cy.validateTableDataRowKeyContent('*', 5, '1p36.33, 1p36.31, 1p36.32');
+    cy.validateTableDataRowKeyContent('*', 6, 'LOSS:chr1:450731-7249626');
+    cy.validateTableDataRowKeyClass('*', 7, 'anticon');
+    cy.validateTableDataRowKeyContent('*', 8, /^1$/);
+    cy.validateTableDataRowKeyContent('*', 9, '450 730');
+    cy.validateTableDataRowKeyContent('*', 10, '7 249 625');
+    cy.validateTableDataRowKeyContent('*', 11, /^LOSS$/);
+    cy.validateTableDataRowKeyContent('*', 12, '6.8 Mb');
+    cy.validateTableDataRowKeyContent('*', 13, '1.04404');
+    cy.validateTableDataRowKeyContent('*', 14, '-');
+    cy.validateTableDataRowKeyContent('*', 15, /^191$/);
+    cy.validateTableDataRowKeyContent('*', 16, '0/1');
+    cy.validateTableDataRowKeyContent('*', 17, 'CnvCopyRatio, LoDFail');
+    cy.validateTableDataRowKeyContent('*', 18, /^128$/);
+    cy.validateTableDataRowKeyContent('*', 19, '1979');
+    cy.validateTableDataRowKeyContent('*', 20, '25, 7');
     cy.validateTableDataRowKeyContent('*', 21, '-');
+    cy.validateTableDataRowKeyContent('*', 22, '-');
   });
  
   it('Valider la fonctionnalité du radio bouton SNV (TO)-CNV (TO)', () => {
