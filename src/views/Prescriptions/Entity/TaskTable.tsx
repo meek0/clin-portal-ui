@@ -95,7 +95,7 @@ const TaskTable = ({ requestId }: OwnProps) => {
       dataSource={task?.map((data, index) => ({ ...data, key: index }))}
       bordered
       locale={{
-        emptyText: <Empty description="Aucune requêtes" />,
+        emptyText: <Empty description="Aucune requête" />,
       }}
       pagination={{
         hideOnSinglePage: true,

@@ -936,7 +936,7 @@
   "screen.bioinfo.analysis.relatedAnalyses.authoredOn": "Date",
   "screen.bioinfo.analysis.relatedAnalyses.basedOn": "Prescription",
   "screen.bioinfo.analysis.relatedAnalyses.code": "Type d’analyse",
-  "screen.bioinfo.analysis.relatedAnalyses.noData": "Aucune analyses connexes",
+  "screen.bioinfo.analysis.relatedAnalyses.noData": "Aucune analyse connexe",
   "screen.bioinfo.analysis.samples.noData": "Aucun échantillon",
   "screen.bioinfo.analysis.samples.sampleldm": "Échantillon (LDM)",
   "screen.bioinfo.analysis.samples.specimen.type": "Type de spécimen",
