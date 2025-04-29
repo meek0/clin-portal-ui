@@ -29,25 +29,25 @@ const ExperimentCard = ({ task, loading }: OwnProps) => (
             {task.experiment.protocol || EMPTY_FIELD}
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.bioinfo.analysis.experiment.runName')}>
-            {task.experiment.name}
+            {task.experiment.name || EMPTY_FIELD}
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.bioinfo.analysis.experiment.runAlias')}>
-            {task.experiment.alias}
+            {task.experiment.alias || EMPTY_FIELD}
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.bioinfo.analysis.experiment.platform')}>
-            {task.experiment.platform}
+            {task.experiment.platform || EMPTY_FIELD}
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.bioinfo.analysis.experiment.captureKit')}>
-            {task.experiment.captureKit}
+            {task.experiment.captureKit || EMPTY_FIELD}
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.bioinfo.analysis.experiment.sequencer')}>
-            {task.experiment.sequencerId}
+            {task.experiment.sequencerId || EMPTY_FIELD}
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.bioinfo.analysis.experiment.date')}>
             {formatDate(task.experiment.runDate)}
           </Descriptions.Item>
           <Descriptions.Item label={intl.get('screen.bioinfo.analysis.experiment.aliquot')}>
-            {task.experiment.aliquotId}
+            {task.experiment.aliquotId || EMPTY_FIELD}
           </Descriptions.Item>
         </Descriptions>
       )}
