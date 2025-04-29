@@ -311,7 +311,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Gène', 'Référence externe', dictionnary);
   });
 
-  it('Gène - RQDM', () => {
+  it('Gène - RQDM [CLIN-4430]', () => {
     const dictionnary = ['Malignant Hyperthermia (HYPM v1)',
                          'Congenital Myopathies (MYOC v1)',
                          'Global Developmental Delay / Intellectual Disability (Trio) (RGDI v3)',
