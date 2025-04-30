@@ -343,6 +343,7 @@ export const getQueryBuilderDictionary = (
         'genes.panels': {
           MMG: intl.get('filters.options.panels.MMG.query'),
           DYSM: intl.get('filters.options.panels.DYSM.query'),
+          EPILEP: intl.get('filters.options.panels.EPILEP.query'),
           RHAB: intl.get('filters.options.panels.RHAB.query'),
           MYAC: intl.get('filters.options.panels.MYAC.query'),
           MYOC: intl.get('filters.options.panels.MYOC.query'),
@@ -350,6 +351,7 @@ export const getQueryBuilderDictionary = (
           MITN: intl.get('filters.options.panels.MITN.query'),
           RGDI: intl.get('filters.options.panels.RGDI.query'),
           'RGDI+': intl.get('filters.options.panels.RGDI+.query'),
+          RGDIEP: intl.get('filters.options.panels.RGDIEP.query'),
           POLYM: intl.get('filters.options.panels.POLYM.query'),
           TUPED: intl.get('filters.options.panels.TUPED.query'),
           TUHEM: intl.get('filters.options.panels.TUHEM.query'),
@@ -364,6 +366,7 @@ export const getQueryBuilderDictionary = (
         panels: {
           MMG: intl.get('filters.options.panels.MMG.query'),
           DYSM: intl.get('filters.options.panels.DYSM.query'),
+          EPILEP: intl.get('filters.options.panels.EPILEP.query'),
           RHAB: intl.get('filters.options.panels.RHAB.query'),
           MYAC: intl.get('filters.options.panels.MYAC.query'),
           MYOC: intl.get('filters.options.panels.MYOC.query'),
@@ -371,6 +374,7 @@ export const getQueryBuilderDictionary = (
           MITN: intl.get('filters.options.panels.MITN.query'),
           RGDI: intl.get('filters.options.panels.RGDI.query'),
           'RGDI+': intl.get('filters.options.panels.RGDI+.query'),
+          RGDIEP: intl.get('filters.options.panels.RGDIEP.query'),
           POLYM: intl.get('filters.options.panels.POLYM.query'),
           TUPED: intl.get('filters.options.panels.TUPED.query'),
           TUHEM: intl.get('filters.options.panels.TUHEM.query'),
