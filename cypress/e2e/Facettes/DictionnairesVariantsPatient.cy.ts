@@ -15,9 +15,9 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Global Developmental Delay / Intellectual Disability (Trio) (RGDI v3)',
                          'Hematological Malignancies Predisposition (TUHEM v3)',
                          'Congenital Myasthenia (MYAC v1)',
-                         'Global Muscular Diseases (MMG v1)',
+                         'Global Muscular Diseases (MMG v2)',
                          'Muscular Dystrophies (DYSM v1)',
-                         'Nuclear Mitochondriopathies (MITN v3)',
+                         'Nuclear Mitochondriopathies (MITN v4)',
                          'Pediatric Cancer Predisposition (TUPED v3)',
                          'Polymalformation (POLYM v1)',
                          'RGDI+ (RGDI+ v6)',
@@ -29,6 +29,8 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Global Immune Disorders (IEI v1)',
                          'HLH (HLH v1)',
                          'VEOIBD (VEOIBD v1)',
+                         'Epilepsy (EPILEP v1)',
+                         'Neurodevelopmental disorders (RGDIEP v1)',
                          'No Data'];
 
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd3eefb82-edcc-42f1-a4e6-28808bd06f34');
@@ -253,9 +255,9 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Global Developmental Delay / Intellectual Disability (Trio) (RGDI v3)',
                          'Hematological Malignancies Predisposition (TUHEM v3)',
                          'Congenital Myasthenia (MYAC v1)',
-                         'Global Muscular Diseases (MMG v1)',
+                         'Global Muscular Diseases (MMG v2)',
                          'Muscular Dystrophies (DYSM v1)',
-                         'Nuclear Mitochondriopathies (MITN v3)',
+                         'Nuclear Mitochondriopathies (MITN v4)',
                          'Pediatric Cancer Predisposition (TUPED v3)',
                          'Polymalformation (POLYM v1)',
                          'RGDI+ (RGDI+ v6)',
@@ -267,6 +269,8 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Global Immune Disorders (IEI v1)',
                          'HLH (HLH v1)',
                          'VEOIBD (VEOIBD v1)',
+                         'Epilepsy (EPILEP v1)',
+                         'Neurodevelopmental disorders (RGDIEP v1)',
                          'No Data'];
 
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd3eefb82-edcc-42f1-a4e6-28808bd06f34');
