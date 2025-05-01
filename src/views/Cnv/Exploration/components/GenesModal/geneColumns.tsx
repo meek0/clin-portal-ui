@@ -12,7 +12,7 @@ import Type3Icon from 'components/icons/geneOverlapType/Type3Icon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDnaLength, formatNumber, formatRatio } from 'utils/formatNumber';
 
-import { GeneOverlapType, getGeneOverlapType } from './utils';
+import { GeneOverlapType, getGeneOverlapType, NRT } from './utils';
 
 import style from './geneColumns.module.css';
 
@@ -49,24 +49,39 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
       key: 'inheritance_code',
       sorter: {
         compare: (a: ITableGeneEntity, b: ITableGeneEntity) => {
-          const inheritanceA = a.omim
-            ? a.omim.hits.edges
-                .reduce<string[]>(
-                  (prev, curr) => [...prev, ...(curr.node.inheritance_code || [])],
-                  [],
-                )
-                .filter((item, pos, self) => self.indexOf(item) == pos)
-            : [];
-          const inheritanceB = b.omim
-            ? b.omim?.hits?.edges
-                .reduce<string[]>(
-                  (prev, curr) => [...prev, ...(curr.node.inheritance_code || [])],
-                  [],
-                )
-                .filter((item, pos, self) => self.indexOf(item) == pos)
-            : [];
+          const inheritanceA =
+            a.omim && a.omim.hits?.edges.length > 0
+              ? a.omim.hits?.edges
+                  .reduce<string[]>(
+                    (prev, curr) => [...prev, ...(curr.node.inheritance_code || [])],
+                    [],
+                  )
+                  .filter((item, pos, self) => self.indexOf(item) == pos)
+              : undefined;
 
-          return inheritanceA.toString().localeCompare(inheritanceB.toString());
+          const inheritanceB =
+            b.omim && b.omim.hits?.edges.length > 0
+              ? b.omim.hits?.edges
+                  .reduce<string[]>(
+                    (prev, curr) => [...prev, ...(curr.node.inheritance_code || [])],
+                    [],
+                  )
+                  .filter((item, pos, self) => self.indexOf(item) == pos)
+              : undefined;
+
+          const valueA = inheritanceA
+            ? inheritanceA?.length > 0
+              ? inheritanceA.toString()
+              : NRT
+            : '';
+
+          const valueB = inheritanceB
+            ? inheritanceB?.length > 0
+              ? inheritanceB.toString()
+              : NRT
+            : '';
+
+          return valueA.localeCompare(valueB);
         },
         multiple: 1,
       },
@@ -92,7 +107,7 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
                 ))
               ) : (
                 <Tooltip title={intl.get(`inheritant.code.NRT`)}>
-                  <ExternalLink href={omimLink}>NRT</ExternalLink>
+                  <ExternalLink href={omimLink}>{NRT}</ExternalLink>
                 </Tooltip>
               )}
             </Space>
