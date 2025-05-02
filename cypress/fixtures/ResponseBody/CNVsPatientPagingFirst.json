@@ -12,6 +12,20 @@
                         "node": {
                             "id": "HBHjY5YBpMtxgMQopiCX",
                             "hash": "291aedce7a69655ca40cd37297b2280753a2e063",
+                            "genes": {
+                                "hits": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "__typename": "cnvGenesNode"
+                                            },
+                                            "__typename": "cnvGenesEdge"
+                                        }
+                                    ],
+                                    "__typename": "cnvGenesConnection"
+                                },
+                                "__typename": "cnvGenes"
+                            },
                             "__typename": "cnvNode"
                         },
                         "__typename": "cnvEdge"
