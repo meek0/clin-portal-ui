@@ -88,10 +88,6 @@ export const getTransmissionModes = (): (DefaultOptionType & {
     value: 'unknown_proband_genotype',
     title: '',
   },
-  {
-    label: '-',
-    value: null,
-  },
 ];
 
 export const classificationCriterias: (DefaultOptionType & {
@@ -263,11 +259,6 @@ export const classificationCriterias: (DefaultOptionType & {
     label: 'BP7',
     value: 'BP7',
     color: 'blue',
-    title: '',
-  },
-  {
-    label: '-',
-    value: null,
     title: '',
   },
 ];
