@@ -55,7 +55,10 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
       tooltip: intl.get('screen.patientcnv.modal.genes.table.panel.tooltip'),
       key: 'panels',
       dataIndex: 'panels',
-      render: (panels: string[] | null) => (panels ? panels.join(', ') : TABLE_EMPTY_PLACE_HOLDER),
+      render: (panels: string[] | null) =>
+        panels
+          ? panels.map((p) => intl.get(`filters.options.genes.panels.${p}.query`)).join(', ')
+          : TABLE_EMPTY_PLACE_HOLDER,
     },
     {
       title: intl.get('screen.patientcnv.modal.genes.table.length'),

@@ -20,6 +20,8 @@ const panelsDictionaries = [
   'IEI',
   'HLH',
   'VEOIBD',
+  'EPILEP',
+  'RGDIEP',
   ArrangerValues.missing,
 ];
 
