@@ -4,6 +4,8 @@ export enum GeneOverlapType {
   TYPE3 = 'type3',
 }
 
+export const NRT = 'NRT';
+
 /**
  * Type I:  cnvStart <= geneStart & cnvEnd >= geneEnd
  * Type II: cnvStart > geneStart & cnvEnd > geneEnd || cnvStart < geneStart & cnvEnd < geneEnd

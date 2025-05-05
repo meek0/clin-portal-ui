@@ -379,6 +379,7 @@ export type OmimEntity = {
   omim_id: string;
   name: string;
   inheritance: OmimInheritance | undefined | null;
+  inheritance_code: string[] | null;
 };
 
 export enum ClinicalGenesTableSource {

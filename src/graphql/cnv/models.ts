@@ -72,6 +72,7 @@ export type GeneEntity = {
   panels: string[];
   orphanet: ArrangerResultsTree<OrphanetEntity>;
   omim: ArrangerResultsTree<OmimEntity>;
+  omim_gene_id?: string;
   hpo: ArrangerResultsTree<HpoEntity>;
   ddd: ArrangerResultsTree<DddEntity>;
   cosmic: ArrangerResultsTree<CosmicEntity>;

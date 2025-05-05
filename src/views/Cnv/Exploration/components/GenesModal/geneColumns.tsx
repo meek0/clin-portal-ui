@@ -1,7 +1,8 @@
 import intl from 'react-intl-universal';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnsType } from '@ferlab/ui/core/components/ProTable/types';
-import { Tooltip } from 'antd';
+import StackLayout from '@ferlab/ui/core/layout/StackLayout';
+import { Space, Tag, Tooltip } from 'antd';
 import { GeneEntity, ITableGeneEntity } from 'graphql/cnv/models';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
@@ -11,7 +12,9 @@ import Type3Icon from 'components/icons/geneOverlapType/Type3Icon';
 import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
 import { formatDnaLength, formatNumber, formatRatio } from 'utils/formatNumber';
 
-import { GeneOverlapType, getGeneOverlapType } from './utils';
+import { GeneOverlapType, getGeneOverlapType, NRT } from './utils';
+
+import style from './geneColumns.module.css';
 
 export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
   const columns: ProColumnsType<ITableGeneEntity> = [
@@ -23,9 +26,13 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
         compare: (a: ITableGeneEntity, b: ITableGeneEntity) => a.symbol.localeCompare(b.symbol),
         multiple: 1,
       },
-      render: (symbol: string) => (
+      render: (symbol: string, record) => (
         <ExternalLink
-          href={`https://www.omim.org/search?index=entry&start=1&limit=10&sort=score+desc%2C+prefix_sort+desc&search=${symbol}`}
+          href={
+            record.omim_gene_id
+              ? `https://www.omim.org/entry/${record.omim_gene_id}`
+              : `https://www.omim.org/search?index=entry&start=1&limit=10&sort=score+desc%2C+prefix_sort+desc&search=${symbol}`
+          }
         >
           {symbol}
         </ExternalLink>
@@ -36,6 +43,77 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
       key: 'location',
       dataIndex: 'location',
       render: (location: string) => (location ? location : TABLE_EMPTY_PLACE_HOLDER),
+    },
+    {
+      title: intl.get('filters.group.genes.omim.name'),
+      key: 'inheritance_code',
+      sorter: {
+        compare: (a: ITableGeneEntity, b: ITableGeneEntity) => {
+          const inheritanceA =
+            a.omim && a.omim.hits?.edges.length > 0
+              ? a.omim.hits?.edges
+                  .reduce<string[]>(
+                    (prev, curr) => [...prev, ...(curr.node.inheritance_code || [])],
+                    [],
+                  )
+                  .filter((item, pos, self) => self.indexOf(item) == pos)
+              : undefined;
+
+          const inheritanceB =
+            b.omim && b.omim.hits?.edges.length > 0
+              ? b.omim.hits?.edges
+                  .reduce<string[]>(
+                    (prev, curr) => [...prev, ...(curr.node.inheritance_code || [])],
+                    [],
+                  )
+                  .filter((item, pos, self) => self.indexOf(item) == pos)
+              : undefined;
+
+          const valueA = inheritanceA
+            ? inheritanceA?.length > 0
+              ? inheritanceA.toString()
+              : NRT
+            : '';
+
+          const valueB = inheritanceB
+            ? inheritanceB?.length > 0
+              ? inheritanceB.toString()
+              : NRT
+            : '';
+
+          return valueA.localeCompare(valueB);
+        },
+        multiple: 1,
+      },
+      render: (record: GeneEntity) => {
+        if (!record.omim || record.omim.hits.edges.length === 0) {
+          return TABLE_EMPTY_PLACE_HOLDER;
+        }
+        const inheritance = record.omim.hits.edges
+          .reduce<string[]>((prev, curr) => [...prev, ...(curr.node.inheritance_code || [])], [])
+          .filter((item, pos, self) => self.indexOf(item) == pos);
+
+        const omimLink = `https://www.omim.org/entry/${record.omim_gene_id}`;
+        return (
+          <StackLayout horizontal>
+            <Space size={4} className={style.variantSnvOmimCellItem}>
+              {inheritance.length ? (
+                inheritance.map((code) => (
+                  <Tooltip key={code} title={intl.get(`inheritant.code.${code}`)}>
+                    <Tag color={code.includes('?') ? 'default' : 'blue'}>
+                      <ExternalLink href={omimLink}>{code}</ExternalLink>
+                    </Tag>
+                  </Tooltip>
+                ))
+              ) : (
+                <Tooltip title={intl.get(`inheritant.code.NRT`)}>
+                  <ExternalLink href={omimLink}>{NRT}</ExternalLink>
+                </Tooltip>
+              )}
+            </Space>
+          </StackLayout>
+        );
+      },
     },
     {
       title: intl.get('screen.patientcnv.results.table.clingen'),

@@ -61,6 +61,7 @@ export const VARIANT_QUERY = gql`
                 edges {
                   node {
                     gene_length
+                    omim_gene_id
                     overlap_bases
                     overlap_cnv_ratio
                     overlap_exons
@@ -75,6 +76,7 @@ export const VARIANT_QUERY = gql`
                             omim_id
                             name
                             inheritance
+                            inheritance_code
                           }
                         }
                       }
