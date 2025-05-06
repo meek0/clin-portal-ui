@@ -888,7 +888,7 @@
   "save": "Enregistrer",
   "screen.archives.metadata.download.loading.msg": "Veuillez patienter pendant que nous générons votre fichier",
   "screen.archives.search.bar.btntext": "Rechercher",
-  "screen.archives.search.bar.placeholder": "ID de requête, ID du patient",
+  "screen.archives.search.bar.placeholder": "ID de requête, ID du patient, ID d'analyse bioinformatique",
   "screen.archives.search.noresults": "Entrez une valeur dans la barre de recherche",
   "screen.archives.search.title": "Archives",
   "screen.archives.table.column.analysis": "Analyse bioinfo",

@@ -59,4 +59,28 @@ describe('Page d\'archives - Rechercher des fichiers', () => {
     cy.get('body').contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist');
     cy.get('body').contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
   });
+
+  it('Par numéro d\'analyse bioinformatique du cas-index', () => {
+    cy.get('[data-cy="ArchivesSearch"]').type(epCHUSJ_ldmCHUSJ.bioAnalProbId , {force: true});
+    cy.clickAndIntercept('[data-cy="ArchivesSpace"] button', 'POST', '**/$graphql*', 1);
+
+    cy.get('body').contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist');
+    cy.get('body').contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
+  });
+
+  it('Par numéro d\'analyse bioinformatique de la mère', () => {
+    cy.get('[data-cy="ArchivesSearch"]').type(epCHUSJ_ldmCHUSJ.bioAnalMthId , {force: true});
+    cy.clickAndIntercept('[data-cy="ArchivesSpace"] button', 'POST', '**/$graphql*', 1);
+
+    cy.get('body').contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist');
+    cy.get('body').contains(epCHUSJ_ldmCHUSJ.requestMthId).should('exist');
+  });
+
+  it('Par numéro d\'analyse bioinformatique du père', () => {
+    cy.get('[data-cy="ArchivesSearch"]').type(epCHUSJ_ldmCHUSJ.bioAnalFthId , {force: true});
+    cy.clickAndIntercept('[data-cy="ArchivesSpace"] button', 'POST', '**/$graphql*', 1);
+
+    cy.get('body').contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist');
+    cy.get('body').contains(epCHUSJ_ldmCHUSJ.requestFthId).should('exist');
+  });
 });

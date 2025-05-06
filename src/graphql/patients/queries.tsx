@@ -38,7 +38,7 @@ export const PATIENT_FILES_QUERY = (patientID: string) => gql`
 export const SEARCH_PATIENT_FILES_QUERY = (searchValue: string) => gql`
   {
     taskList: TaskList(
-      _filter: "(patient eq ${searchValue}) or (focus eq ${searchValue})"
+      _filter: "(patient eq ${searchValue}) or (focus eq ${searchValue}) or (_id eq ${searchValue})"
     ) {
       id
       focus{
@@ -56,7 +56,7 @@ export const SEARCH_PATIENT_FILES_QUERY = (searchValue: string) => gql`
               extension(url: "parent-relationship") @flatten {
                 valueCoding @flatten{
                   coding @flatten {
-                    code 
+                    code
                   }
                 }
               }
@@ -96,9 +96,9 @@ export const SEARCH_PATIENT_FILES_QUERY = (searchValue: string) => gql`
                 url
                 hash
                 title
-                size: extension(url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/full-size") @flatten @first{ 
+                size: extension(url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/full-size") @flatten @first{
                   size:value
-                } 
+                }
               }
               format @flatten {
                 format: code
@@ -203,9 +203,9 @@ export const SEARCH_PRESCRIPTION_FILES_QUERY = (searchValue: string) => gql`
                 url
                 hash
                 title
-                size: extension(url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/full-size") @flatten @first{ 
+                size: extension(url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/full-size") @flatten @first{
                   size:value
-                } 
+                }
               }
               format @flatten {
                 format: code
