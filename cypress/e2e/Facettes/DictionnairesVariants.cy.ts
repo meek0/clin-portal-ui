@@ -19,7 +19,7 @@ describe('Page des variants - Dictionnaire', () => {
                          'Muscular Dystrophies (DYSM)',
                          'Nuclear Mitochondriopathies (MITN)',
                          'Pediatric Cancer Predisposition (TUPED)',
-                         'Polymalformation (POLYM)',
+                         'Polymalformation postnatal context (POLYM)',
                          'Rhabdomyolysis (RHAB)',
                          'Tumoral Analysis (EXTUM)',
                          'Severe Combined Immune Deficiency (SCID)',
