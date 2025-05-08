@@ -22,7 +22,7 @@ describe('Page d\'une prescription - Valider les liens disponibles', () => {
   });
 
   it('Lien Fichiers du tableau Analyse (Cas-index)', () => {
-    cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestProbId+'"]', 'POST', '**/$graphql*', 1, 1);
+    cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.bioAnalProbId+'"]', 'POST', '**/$graphql*', 1);
     cy.resetColumns(0);
     cy.contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist');
   });
@@ -39,7 +39,7 @@ describe('Page d\'une prescription - Valider les liens disponibles', () => {
   });
 
   it('Lien Fichiers du tableau Analyse (Mère)', () => {
-    cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestMthId+'"]', 'POST', '**/$graphql*', 1, 1);
+    cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.bioAnalMthId+'"]', 'POST', '**/$graphql*', 1);
     cy.resetColumns(0);
     cy.contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist');
   });
@@ -56,7 +56,7 @@ describe('Page d\'une prescription - Valider les liens disponibles', () => {
   });
 
   it('Lien Fichiers du tableau Analyse (Père)', () => {
-    cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.requestFthId+'"]', 'POST', '**/$graphql*', 1, 1);
+    cy.clickAndIntercept('[data-cy="ArchiveLink_'+epCHUSJ_ldmCHUSJ.bioAnalFthId+'"]', 'POST', '**/$graphql*', 1);
     cy.resetColumns(0);
     cy.contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist');
   });

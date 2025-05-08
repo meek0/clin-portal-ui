@@ -58,10 +58,10 @@ const getTaskColumns = (authorizedUser: boolean): TableColumnType<any>[] => {
 
   authorizedUser &&
     columns.push({
-      key: 'request',
-      dataIndex: 'request',
+      key: 'id',
+      dataIndex: 'id',
       title: intl.get('screen.prescription.entity.tasks.links'),
-      render: (request) => <Links prescriptionId={request.id} />,
+      render: (id) => <Links prescriptionId={extractTaskId(id)} />,
     });
   return columns;
 };
