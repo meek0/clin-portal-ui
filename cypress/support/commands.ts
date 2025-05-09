@@ -93,6 +93,9 @@ Cypress.Commands.add('login', (user: string, password: string, restoreSession: b
     cy.get('button[class*="ant-btn-primary ant-btn-lg"]').should('exist');
     cy.get('button[class*="ant-btn-primary ant-btn-lg"]').clickAndWait();
     cy.waitWhileSpin(oneMinute);
+    
+    cy.get('[id="social-CQGC"]').clickAndWait();
+    cy.waitWhileSpin(oneMinute);
 
     cy.get('input[id="username"]').should('exist');
 
