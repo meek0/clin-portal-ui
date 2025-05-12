@@ -100,6 +100,25 @@ const filterGroups: {
         },
         tooltips: ['transmission'],
       },
+      {
+        title: intl.get('screen.patientsnv.filter.grouptitle.publiccohorts'),
+        facets: [
+          'cluster__external_frequencies__gnomad_exomes_4__sf',
+          'cluster__external_frequencies__gnomad_exomes_4__sc',
+        ],
+        defaults: {
+          cluster__external_frequencies__gnomad_exomes_4__sf: {
+            operator: RangeOperators['<='],
+          },
+          cluster__external_frequencies__gnomad_exomes_4__sc: {
+            operator: RangeOperators['<='],
+          },
+        },
+        tooltips: [
+          'cluster__external_frequencies__gnomad_exomes_4__sf',
+          'cluster__external_frequencies__gnomad_exomes_4__sc',
+        ],
+      },
     ],
   },
   [FilterTypes.ParentalAnalysis]: {

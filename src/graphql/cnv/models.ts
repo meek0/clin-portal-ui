@@ -53,6 +53,16 @@ export type VariantEntity = {
   gender: string;
   frequency_RQDM: FrequencyEntity;
   genes: ArrangerResultsTree<GeneEntity>;
+  cluster: ClusterEntity;
+};
+
+export type ClusterEntity = {
+  external_frequencies: {
+    gnomad_exomes_4: {
+      sf: number;
+      sc: number;
+    };
+  };
 };
 
 export type FrequencyEntity = {

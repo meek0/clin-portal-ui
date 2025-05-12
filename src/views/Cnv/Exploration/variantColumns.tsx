@@ -13,6 +13,7 @@ import { VariantType } from 'graphql/variants/models';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import FlagCell from 'views/Snv/Exploration/components/Flag/FlagCell';
 import FlagFilterDropdown from 'views/Snv/Exploration/components/Flag/FlagFilter';
+import GnomadCell from 'views/Snv/Exploration/components/Gnomad/GnomadCell';
 import NoteCell from 'views/Snv/Exploration/components/Note/NoteCell';
 import NoteFilter from 'views/Snv/Exploration/components/Note/NoteFilter';
 
@@ -35,6 +36,12 @@ export const renderPOToString = ({ parental_origin }: VariantEntity) =>
   parental_origin
     ? intl.get(`filters.options.donors.parental_origin.${parental_origin}.abrv`)
     : TABLE_EMPTY_PLACE_HOLDER;
+
+export const renderGnomADSFToString = (variant: any) => {
+  const gnomad = variant.cluster?.external_frequencies?.gnomad_exomes_4?.sf;
+  if (!gnomad && gnomad !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+  return gnomad.toExponential(2).toString();
+};
 
 export type TVariantFilter = { flags: string[]; note: string[]; interpretation?: string[] };
 export const renderRQDMPfToString = ({ frequency_RQDM }: VariantEntity) =>
@@ -286,6 +293,37 @@ export const getVariantColumns = (
       width: 60,
     });
   }
+
+  columns.push(
+    {
+      title: intl.get('screen.variantsearch.table.gnomAd'),
+      tooltip: intl.get('screen.patientcnv.results.table.gnomad.tooltip'),
+      key: 'cluster.external_frequencies.gnomad_exomes_4.sf',
+      sorter: { multiple: 1 },
+      render: (variant: VariantEntity) => {
+        const gnomAd = variant?.cluster?.external_frequencies?.gnomad_exomes_4?.sf;
+        if (!gnomAd && gnomAd !== 0) return TABLE_EMPTY_PLACE_HOLDER;
+        return (
+          <Space direction="horizontal">
+            <GnomadCell underOnePercent={gnomAd < 0.01} />
+            <span>{gnomAd.toExponential(2)}</span>
+          </Space>
+        );
+      },
+      width: 98,
+    },
+    {
+      title: intl.get('screen.variantsearch.table.gnomAdAlt'),
+      tooltip: intl.get('screen.patientcnv.results.table.gnomadAlt.tooltip'),
+      key: 'cluster.external_frequencies.gnomad_exomes_4.sc',
+      sorter: { multiple: 1 },
+      render: (variant: VariantEntity) => {
+        const gnomAd = variant?.cluster?.external_frequencies?.gnomad_exomes_4?.sc;
+        return gnomAd ? formatNumber(gnomAd) : TABLE_EMPTY_PLACE_HOLDER;
+      },
+      width: 120,
+    },
+  );
 
   if (onlyExportTSV) {
     columns.push({

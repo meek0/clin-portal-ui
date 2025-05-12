@@ -52,6 +52,14 @@ export const VARIANT_QUERY = gql`
             transmission
             is_proband
             gender
+            cluster {
+              external_frequencies {
+                gnomad_exomes_4 {
+                  sf
+                  sc
+                }
+              }
+            }
             frequency_RQDM {
               pc
               pf
