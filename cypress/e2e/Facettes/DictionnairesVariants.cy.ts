@@ -321,7 +321,7 @@ describe('Page des variants - Dictionnaire', () => {
                          'Muscular Dystrophies (DYSM v1)',
                          'Nuclear Mitochondriopathies (MITN v4)',
                          'Pediatric Cancer Predisposition (TUPED v3)',
-                         'Polymalformation (POLYM v1)',
+                         'Polymalformation postnatal context (POLYM v1)',
                          'RGDI+ (RGDI+ v6)',
                          'Rhabdomyolysis (RHAB v1)',
                          'Solid Tumor (Somatic) (SSOLID v2)',
