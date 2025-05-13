@@ -1315,7 +1315,7 @@
   "screen.variantdetails.tab.patients": "Patients",
   "screen.variantdetails.tab.summary": "Résumé",
   "screen.variantsearch.rqdm.title": "Banque de variants du RQDM",
-  "screen.variantsearch.table.gnomAd": "gnomAD ",
+  "screen.variantsearch.table.gnomAd": "gnomAD",
   "screen.variantsearch.table.gnomAd.tooltip": "gnomAD Joint 4.1.0 (fréquence)",
   "screen.variantsearch.table.gnomAdAlt": "gnomAD ALT",
   "screen.variantsearch.table.gnomAdAlt.tooltip": "gnomAD Joint 4.1.0 (compte)",
