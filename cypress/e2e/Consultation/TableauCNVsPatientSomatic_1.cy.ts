@@ -31,14 +31,16 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableDataRowKeyContent('*', 12, '6.8 Mb');
     cy.validateTableDataRowKeyContent('*', 13, '1.04404');
     cy.validateTableDataRowKeyContent('*', 14, '-');
-    cy.validateTableDataRowKeyContent('*', 15, /^191$/);
-    cy.validateTableDataRowKeyContent('*', 16, '0/1');
-    cy.validateTableDataRowKeyContent('*', 17, 'CnvCopyRatio, LoDFail');
-    cy.validateTableDataRowKeyContent('*', 18, /^128$/);
-    cy.validateTableDataRowKeyContent('*', 19, '1979');
-    cy.validateTableDataRowKeyContent('*', 20, '25, 7');
-    cy.validateTableDataRowKeyContent('*', 21, '-');
-    cy.validateTableDataRowKeyContent('*', 22, '-');
+    cy.validateTableDataRowKeyContent('*', 15, '-');
+    cy.validateTableDataRowKeyContent('*', 16, '-');
+    cy.validateTableDataRowKeyContent('*', 17, /^191$/);
+    cy.validateTableDataRowKeyContent('*', 18, '0/1');
+    cy.validateTableDataRowKeyContent('*', 19, 'CnvCopyRatio, LoDFail');
+    cy.validateTableDataRowKeyContent('*', 20, /^128$/);
+    cy.validateTableDataRowKeyContent('*', 21, '1979');
+    cy.validateTableDataRowKeyContent('*', 22, '25, 7');
+    cy.validateTableDataRowKeyContent('*', 23, '-');
+    cy.validateTableDataRowKeyContent('*', 24, '-');
   });
  
   it('Valider la fonctionnalité du radio bouton SNV (TO)-CNV (TO)', () => {

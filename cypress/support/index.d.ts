@@ -18,7 +18,7 @@ declare namespace Cypress {
     saveFilterAs(filterName: string): cy & CyEventEmitter;
     showColumn(column: string|RegExp, eq: number): cy & CyEventEmitter;
     sortTableAndIntercept(column: string|RegExp, nbCalls: number, eq: number = 0): cy & CyEventEmitter;
-    sortTableAndWait(column: string, eq: number = 0): cy & CyEventEmitter;
+    sortTableAndWait(column: string|RegExp, eq: number = 0): cy & CyEventEmitter;
     typeAndIntercept(selector: string, text: string, methodHTTP: string, routeMatcher: string, nbCalls: number): cy & CyEventEmitter;
     validateClearAllButton(shouldExist: boolean): cy & CyEventEmitter;
     validateDictionnaryNewValues(section: string, facetTitle: string, dictionnary: (string|RegExp)[], moreButton:boolean = false): cy & CyEventEmitter;

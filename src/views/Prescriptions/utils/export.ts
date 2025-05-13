@@ -7,6 +7,7 @@ import get from 'lodash/get';
 import orderBy from 'lodash/orderBy';
 import {
   renderCNVToString,
+  renderGnomADSFToString,
   renderPOToString,
   renderRQDMPfToString,
   renderTransmissionToString,
@@ -173,6 +174,8 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderFlagToString(row));
     } else if (key === 'transmission') {
       return convertToPlain(renderTransmissionToString(row));
+    } else if (key === 'cluster.external_frequencies.gnomad_exomes_4.sf') {
+      return convertToPlain(renderGnomADSFToString(row));
     } else if (key === 'parental_origin') {
       return convertToPlain(renderPOToString(row));
     } else if (key === 'frequency_RQDM.pf') {

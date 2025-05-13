@@ -32,16 +32,18 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('*', 12, '57.1 kb');
     cy.validateTableDataRowKeyContent('*', 13, '1.38788');
     cy.validateTableDataRowKeyContent('*', 14, /^3$/);
-    cy.validateTableDataRowKeyContent('*', 15, '128');
-    cy.validateTableDataRowKeyContent('*', 15, /9\.\d{2}e-1/);
-    cy.validateTableDataRowKeyContent('*', 16, /^2$/);
-    cy.validateTableDataRowKeyContent('*', 17, './1');
-    cy.validateTableDataRowKeyContent('*', 18, 'PASS');
-    cy.validateTableDataRowKeyContent('*', 19, /^75$/);
-    cy.validateTableDataRowKeyContent('*', 20, /^22$/);
-    cy.validateTableDataRowKeyContent('*', 21, '3, 0');
-    cy.validateTableDataRowKeyContent('*', 22, '-');
-    cy.validateTableDataRowKeyContent('*', 23, '-');
+    cy.validateTableDataRowKeyContent('*', 15, '-');
+    cy.validateTableDataRowKeyContent('*', 16, '-');
+    cy.validateTableDataRowKeyContent('*', 17, '128');
+    cy.validateTableDataRowKeyContent('*', 17, /9\.\d{2}e-1/);
+    cy.validateTableDataRowKeyContent('*', 18, /^2$/);
+    cy.validateTableDataRowKeyContent('*', 19, './1');
+    cy.validateTableDataRowKeyContent('*', 20, 'PASS');
+    cy.validateTableDataRowKeyContent('*', 21, /^75$/);
+    cy.validateTableDataRowKeyContent('*', 22, /^22$/);
+    cy.validateTableDataRowKeyContent('*', 23, '3, 0');
+    cy.validateTableDataRowKeyContent('*', 24, '-');
+    cy.validateTableDataRowKeyContent('*', 25, '-');
   });
  
   it('Valider la fonctionnalité du radio bouton SNV-CNV', () => {

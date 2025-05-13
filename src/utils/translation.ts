@@ -656,6 +656,14 @@ export const getFacetsDictionaryCNV = () => ({
   frequency_RQDM: {
     pf: intl.get('cnv.filters.group.frequency_RQDM.pf'),
   },
+  cluster: {
+    external_frequencies: {
+      gnomad_exomes_4: {
+        sf: intl.get('filters.group.external_frequencies.gnomad_joint_4.af'),
+        sc: intl.get('filters.group.external_frequencies.gnomad_joint_4.ac'),
+      },
+    },
+  },
   filters: intl.get('cnv.filters.group.filters'),
   qual: intl.get('cnv.filters.group.qual'),
   pe: intl.get('cnv.filters.group.pe'),
@@ -669,6 +677,14 @@ export const getFacetsDictionaryCNV = () => ({
   tooltips: {
     transmission: intl.get('filters.group.donors.transmission.tooltip'),
     pe: intl.get('cnv.filters.group.pe.tooltip'),
+    cluster: {
+      external_frequencies: {
+        gnomad_exomes_4: {
+          sf: intl.get('cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sf.tooltip'),
+          sc: intl.get('cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sc.tooltip'),
+        },
+      },
+    },
     sm: intl.get('cnv.filters.group.sm.tooltip'),
   },
 });

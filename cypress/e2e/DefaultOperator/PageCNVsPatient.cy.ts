@@ -40,6 +40,18 @@ describe('Page des CNVs d\'un patient - Opérateurs par défaut', () => {
     cy.get(`[data-cy="InputNumber_Max_Fréq. CNV tous les patients"]`).should('exist');
   });
 
+  it('Fréquence - gnomAD 4.1.0', () => {
+    cy.openFacet('Fréquence', 'gnomAD 4.1.0');
+    cy.get(`[data-cy="InputNumber_Min_gnomAD 4.1.0"]`).should('not.exist');
+    cy.get(`[data-cy="InputNumber_Max_gnomAD 4.1.0"]`).should('exist');
+  });
+
+  it('Fréquence - gnomAD 4.1.0 ALT', () => {
+    cy.openFacet('Fréquence', 'gnomAD 4.1.0 ALT');
+    cy.get(`[data-cy="InputNumber_Min_gnomAD 4.1.0 ALT"]`).should('not.exist');
+    cy.get(`[data-cy="InputNumber_Max_gnomAD 4.1.0 ALT"]`).should('exist');
+  });
+
   it('Métrique CQ - Qualité du CNV', () => {
     cy.openFacet('Métrique CQ', 'Qualité du CNV');
     cy.get(`[data-cy="InputNumber_Min_Qualité du CNV"]`).should('exist');

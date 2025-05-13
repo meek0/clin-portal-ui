@@ -10,6 +10,8 @@
               "reflen",
               "sm",
               "cn",
+              "cluster.external_frequencies.gnomad_exomes_4.sf",
+              "cluster.external_frequencies.gnomad_exomes_4.sc",
               "frequency_RQDM.pc",
               "frequency_RQDM.pf",
               "number_genes",

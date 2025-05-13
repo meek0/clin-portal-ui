@@ -67,9 +67,9 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD', () => {
-    cy.sortTableAndIntercept(/^gnomAD $/, 1);
+    cy.sortTableAndIntercept(/^gnomAD$/, 1);
     cy.validateTableFirstRow('-', 17, true);
-    cy.sortTableAndIntercept(/^gnomAD $/, 1);
+    cy.sortTableAndIntercept(/^gnomAD$/, 1);
     cy.validateTableFirstRow('9.98e-1', 17, true);
   });
 

@@ -191,7 +191,7 @@ Cypress.Commands.add('sortTableAndIntercept', (column: string|RegExp, nbCalls: n
   cy.waitWhileSpin(oneMinute);
 });
 
-Cypress.Commands.add('sortTableAndWait', (column: string, eq: number = 0) => {
+Cypress.Commands.add('sortTableAndWait', (column: string|RegExp, eq: number = 0) => {
   cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).clickAndWait({force: true});
   cy.wait(1000);
 });
