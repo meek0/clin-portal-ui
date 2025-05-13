@@ -14,4 +14,14 @@ describe('Page des CNVs d\'un patient - Ordre des facettes', () => {
     cy.openFacet('Fréquence', 'Fréq. CNV tous les patients');
     cy.validateFacetRank(0, 'Fréq. CNV tous les patients');
   });
+
+  it('Fréquence - gnomAD 4.1.0', () => {
+    cy.openFacet('Fréquence', 'gnomAD 4.1.0');
+    cy.validateFacetRank(1, 'gnomAD 4.1.0');
+  });
+
+  it('Fréquence - gnomAD 4.1.0 ALT', () => {
+    cy.openFacet('Fréquence', 'gnomAD 4.1.0 ALT');
+    cy.validateFacetRank(2, 'gnomAD 4.1.0 ALT');
+  });
 });

@@ -79,46 +79,60 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow(/^6$/, 14, true);
   });
 
+  it('Valider les fonctionnalités du tableau - Tri gnomAD', () => {
+    cy.sortTableAndIntercept(/^gnomAD$/, 1);
+    cy.validateTableFirstRow('-', 15, true);
+    cy.sortTableAndIntercept(/^gnomAD$/, 1)
+    cy.validateTableFirstRow('3.45e-5', 15, true);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri gnomAD ALT', () => {
+    cy.sortTableAndIntercept('gnomAD ALT', 1);
+    cy.validateTableFirstRow('-', 16, true);
+    cy.sortTableAndIntercept('gnomAD ALT', 1)
+    cy.validateTableFirstRow('16', 16, true);
+  });
+
   it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
     cy.sortTableAndIntercept('RQDM', 1);
-    cy.validateTableFirstRow('-', 15, true);
+    cy.validateTableFirstRow('-', 17, true);
     cy.sortTableAndIntercept('RQDM', 1)
-    cy.validateTableFirstRow('131', 15, true);
+    cy.validateTableFirstRow('131', 17, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri # Gènes', () => {
     cy.sortTableAndIntercept('# Gènes', 1);
-    cy.validateTableFirstRow(/^0$/, 16, true);
+    cy.validateTableFirstRow(/^0$/, 18, true);
     cy.sortTableAndIntercept('# Gènes', 1);
-    cy.validateTableFirstRow('38', 16, true);
+    cy.validateTableFirstRow('38', 18, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Qual.', () => {
     cy.sortTableAndIntercept('Qual.', 1);
-    cy.validateTableFirstRow(/^3$/, 19, true);
+    cy.validateTableFirstRow(/^3$/, 21, true);
     cy.sortTableAndIntercept('Qual.', 1);
-    cy.validateTableFirstRow('150', 19, true);
+    cy.validateTableFirstRow('150', 21, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri BC', () => {
     cy.sortTableAndIntercept('BC', 1);
-    cy.validateTableFirstRow(/^1$/, 20, true);
+    cy.validateTableFirstRow(/^1$/, 22, true);
     cy.sortTableAndIntercept('BC', 1);
-    cy.validateTableFirstRow('119', 20, true);
+    cy.validateTableFirstRow('119', 22, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Trans.', () => {
     cy.sortTableAndIntercept('Trans.', 1);
-    cy.validateTableFirstRow('-', 22, true);
+    cy.validateTableFirstRow('-', 24, true);
     cy.sortTableAndIntercept('Trans.', 1);
-    cy.validateTableFirstRow('-', 22, true);
+    cy.validateTableFirstRow('-', 24, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri OP', () => {
     cy.sortTableAndIntercept('OP', 1);
-    cy.validateTableFirstRow('-', 23, true);
+    cy.validateTableFirstRow('-', 25, true);
     cy.sortTableAndIntercept('OP', 1);
-    cy.validateTableFirstRow('MF', 23, true);
+    cy.validateTableFirstRow('MF', 25, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

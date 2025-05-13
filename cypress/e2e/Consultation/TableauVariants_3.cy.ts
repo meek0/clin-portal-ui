@@ -34,9 +34,9 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD', () => {
-    cy.sortTableAndIntercept(/^gnomAD $/, 1);
+    cy.sortTableAndIntercept(/^gnomAD$/, 1);
     cy.validateTableFirstRow('-', 9, true);
-    cy.sortTableAndIntercept(/^gnomAD $/, 1);
+    cy.sortTableAndIntercept(/^gnomAD$/, 1);
     cy.validateTableFirstRow('1.00e+0', 9, true);
   });
 
