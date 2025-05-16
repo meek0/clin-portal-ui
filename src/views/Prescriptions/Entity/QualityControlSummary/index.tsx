@@ -27,11 +27,6 @@ type TQualityControlSummaryProps = {
   showHeader?: boolean;
 };
 
-type TQualityControlSummarySingleProps = {
-  prescriptionId: string;
-  summaryDataItem: TQualityControlSummaryDataItem | null;
-};
-
 const QualityControlSummary = ({
   prescriptionId,
   summaryData,
@@ -42,9 +37,9 @@ const QualityControlSummary = ({
       <CustomDescription>
         {showHeader ? (
           <CustomDescriptionRow>
-            <CustomDescriptionLabel style={{ width: 'unset', fontWeight: 500 }}>
-              {intl.get('pages.quality_control_summary.metric')}
-            </CustomDescriptionLabel>
+            <CustomDescriptionLabel
+              style={{ width: 'unset', fontWeight: 500 }}
+            ></CustomDescriptionLabel>
             {summaryData.map(({ header }, index) => (
               <CustomDescriptionLabel
                 key={`request-${index}-header`}
@@ -150,100 +145,6 @@ const QualityControlSummary = ({
               </Link>
             </CustomDescriptionItemContent>
           ))}
-        </CustomDescriptionRow>
-      </CustomDescription>
-    ) : (
-      <Empty description={intl.get('no.results.found')} />
-    )}
-  </div>
-);
-
-export const QualityControlSummarySingle = ({
-  prescriptionId,
-  summaryDataItem,
-}: TQualityControlSummarySingleProps) => (
-  <div className={styles.qualityControlSummary}>
-    {summaryDataItem ? (
-      <CustomDescription>
-        <CustomDescriptionRow>
-          <CustomDescriptionLabel>
-            {intl.get('pages.quality_control_summary.sex')}
-          </CustomDescriptionLabel>
-          <CustomDescriptionItemContent>
-            {QualityControlUtils.getSexDetail(
-              summaryDataItem.sampleQcReport['DRAGEN_capture_coverage_metrics'][
-                'Average chr Y coverage over QC coverage region'
-              ],
-              summaryDataItem.sampleQcReport['DRAGEN_capture_coverage_metrics'][
-                'Average chr X coverage over QC coverage region'
-              ],
-              summaryDataItem.patientSex,
-            )}
-          </CustomDescriptionItemContent>
-          <CustomDescriptionLabel>
-            {intl.get('pages.quality_control_summary.exome_coverage_15x')}
-          </CustomDescriptionLabel>
-          <CustomDescriptionItemContent>
-            <Link
-              to={`/prescription/entity/${extractServiceRequestId(
-                prescriptionId,
-              )}?qcSection=CouvertureGenique#qc`}
-              className={styles.link}
-            >
-              {QualityControlUtils.getExomeCoverage15xDetail(
-                summaryDataItem.sampleQcReport['DRAGEN_capture_coverage_metrics'][
-                  'PCT of QC coverage region with coverage [  15x: inf)'
-                ],
-              )}
-            </Link>
-          </CustomDescriptionItemContent>
-        </CustomDescriptionRow>
-        <CustomDescriptionRow>
-          <CustomDescriptionLabel>
-            {intl.get('pages.quality_control_summary.contamination')}
-          </CustomDescriptionLabel>
-          <CustomDescriptionItemContent>
-            {QualityControlUtils.getContaminationDetail(
-              summaryDataItem.sampleQcReport['DRAGEN_mapping_metrics'][
-                'Estimated sample contamination'
-              ],
-            )}
-          </CustomDescriptionItemContent>
-          <CustomDescriptionLabel>
-            {intl.get('pages.quality_control_summary.uniformity_coverage')}
-          </CustomDescriptionLabel>
-          <CustomDescriptionItemContent>
-            {QualityControlUtils.getUniformityCoverage40PercDetail(
-              summaryDataItem.sampleQcReport['DRAGEN_capture_coverage_metrics'][
-                'Uniformity of coverage (PCT > 0.4*mean) over QC coverage region'
-              ],
-            )}
-          </CustomDescriptionItemContent>
-        </CustomDescriptionRow>
-        <CustomDescriptionRow>
-          <CustomDescriptionLabel>
-            {intl.get('pages.quality_control_summary.exome_avg_coverage')}
-          </CustomDescriptionLabel>
-          <CustomDescriptionItemContent>
-            {QualityControlUtils.getExomeAvgCoverageDetail(
-              summaryDataItem.sampleQcReport['DRAGEN_capture_coverage_metrics'][
-                'Average alignment coverage over QC coverage region'
-              ],
-            )}
-          </CustomDescriptionItemContent>
-          <CustomDescriptionLabel>
-            {intl.get('pages.quality_control_summary.total_cnvs')}
-          </CustomDescriptionLabel>
-          <CustomDescriptionItemContent>
-            <Link
-              to={`/prescription/entity/${extractServiceRequestId(
-                prescriptionId,
-              )}?variantSection=cnv#variants`}
-              className={styles.link}
-            >
-              {QualityControlUtils.getCnvCountDetail(summaryDataItem.cnvCount)}
-            </Link>
-          </CustomDescriptionItemContent>
         </CustomDescriptionRow>
       </CustomDescription>
     ) : (
