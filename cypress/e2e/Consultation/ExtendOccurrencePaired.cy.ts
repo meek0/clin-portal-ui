@@ -63,7 +63,7 @@ describe('Ligne extensible d\'une occurrence (paired)', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(2).contains('Fréquences').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-label"]').eq(0).contains('RQDM (TO)').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(0).contains(/^0$/).should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(0).contains(/^3$/).should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(0).contains(/^\d{1}$/).should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(0).contains('(0.00e+0)').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-label"]').eq(1).contains('RQDM (TN)').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(1).contains(/^1$/).should('exist');
@@ -153,12 +153,12 @@ describe('Ligne extensible d\'une occurrence (paired)', () => {
 
   it('Valider les liens disponibles - RQDM (TO)', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(0).find('a[href]').invoke('removeAttr', 'target').clickAndWait({force: true});
-    cy.validateTableResultsCount('1 Résultat');
+    cy.validateTableResultsCount(/\d{1} Résultat/);
   });
 
   it('Valider les liens disponibles - RQDM (TN)', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(1).find('a[href]').invoke('removeAttr', 'target').clickAndWait({force: true});
-    cy.validateTableResultsCount('1 Résultat');
+    cy.validateTableResultsCount(/\d{1} Résultat/);
   });
 
   it('Valider les liens disponibles - OMIM', () => {

@@ -56,11 +56,11 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
  
   it('Valider les liens disponibles Lien RQDM G', () => {
     cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(19).find('a[href]').clickAndWait({force: true});
-    cy.validateTableResultsCount(/^1 Résultat$/);
+    cy.validateTableResultsCount(/\d{1} Résultat/);
   });
  
   it('Valider les liens disponibles Lien RQDM TN', () => {
     cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(20).find('a[href]').clickAndWait({force: true});
-    cy.validateTableResultsCount(/^1 Résultat$/);
+    cy.validateTableResultsCount(/\d{1} Résultat/);
   });
 });

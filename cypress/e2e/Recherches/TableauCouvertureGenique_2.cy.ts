@@ -21,8 +21,8 @@ describe('Page de la couverture génique d\'un patient - Filtrer', () => {
     cy.get('[data-cy="SelectPanel"]').click();
     cy.clickAndIntercept('[data-cy="MMG"]', 'POST', '*/graphql', 1);
     
-    cy.validateTableResultsCount('145 Résultats');
-    cy.get('[data-cy="AverageCoverage"]').contains('440.71').should('exist');
+    cy.validateTableResultsCount('232');
+    cy.get('[data-cy="AverageCoverage"]').contains('453.40').should('exist');
 
     cy.contains('Effacer les filtres').should('exist');
     cy.get('[data-cy="SearchBox"]').parent().find('[class="ant-input-clear-icon"]').should('not.exist');

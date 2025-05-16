@@ -252,7 +252,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.contains('2 Résultats').should('exist');
   });
 
-  it('Valider les liens disponibles - Hét. composé potentiel', () => {
+  it('Valider les liens disponibles - Hét. composé potentiel [CLIN-4552]', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql2');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-content"]').eq(2).contains('2').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql2');
