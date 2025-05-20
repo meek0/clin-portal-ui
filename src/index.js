@@ -19,6 +19,7 @@ const reactAppWebRoot = process.env.REACT_APP_WEB_ROOT;
 const SentryDSN = EnvironmentVariables.configFor('SENTRY_API');
 
 Sentry.init({
+  environment: process.env.REACT_APP_ENVIRONMENT,
   dsn: SentryDSN,
   // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
   tracePropagationTargets: ['localhost', reactAppWebRoot],

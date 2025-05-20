@@ -35,4 +35,8 @@ CYPRESS_USERNAME_DG_CHUS="josephine.poirier.pg@chus.org"
 CYPRESS_USERNAME_G_CHUS="paul.parent.g@chus.org"
 CYPRESS_USERNAME_D_CUSM="victor.robitaille.p@cusm.org"
 CYPRESS_USERNAME_R_CHUSJ="sophia.charron.r@chusj.org"
-CYPRESS_PASSWORD="Clin2019!"
+CYPRESS_PASSWORD=
+
+# SENTRY
+REACT_APP_SENTRY_API=
+REACT_APP_ENVIRONMENT=localstack
