@@ -44,7 +44,7 @@ describe('Page des variants - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Patient', 'Statut clinique', dictionnary);
   });
 
-  it('Patient - Sexe', () => {
+  it('Patient - Sexe [CLIN-4566]', () => {
     const dictionnary = ['Féminin',
                          'Masculin',
                          'Autre',

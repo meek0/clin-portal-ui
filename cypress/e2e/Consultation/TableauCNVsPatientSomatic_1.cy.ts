@@ -18,7 +18,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.showColumn('OP', 0);
   });
   
-  it('Vérifier les informations affichées', () => {
+  it('Vérifier les informations affichées [CLIN-4567]', () => {
     cy.validateTableDataRowKeyClass('*', 1, 'FlagDropdown');
     cy.validateTableDataRowKeyContent('*', 4, /^[^,]+,[^,]+,[^,]+...$/);
     cy.validateTableDataRowKeyContent('*', 5, '1p36.33, 1p36.31, 1p36.32');
