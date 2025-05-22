@@ -4,6 +4,7 @@ import { ProColumnsType } from '@ferlab/ui/core/components/ProTable/types';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { Space, Tag, Tooltip } from 'antd';
 import { GeneEntity, ITableGeneEntity } from 'graphql/cnv/models';
+import { dictionaries } from 'graphql/utils/dictionaries';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import Type1Icon from 'components/icons/geneOverlapType/Type1Icon';
@@ -133,6 +134,12 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
       tooltip: intl.get('screen.patientcnv.modal.genes.table.panel.tooltip'),
       key: 'panels',
       dataIndex: 'panels',
+      filters: dictionaries.panels.map((p) => ({
+        text: intl.get(`filters.options.panels.${p}`),
+        value: p,
+      })),
+      onFilter: (value, record: any) =>
+        value === '__missing__' ? !record.panels : record.panels?.includes(value),
       render: (panels: string[] | null) =>
         panels
           ? panels.map((p) => intl.get(`filters.options.genes.panels.${p}.query`)).join(', ')
