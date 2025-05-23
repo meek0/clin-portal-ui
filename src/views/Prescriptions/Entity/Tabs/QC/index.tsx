@@ -153,7 +153,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
 
   useEffect(() => {
     if (prescription) {
-      getSummaryDataForAllRequestIds(prescription)
+      getSummaryDataForAllRequestIds(prescription, variantInfo.variantType)
         .then((data) => setSummaryData(data))
         .finally(() => setLoadingCard(false));
     }
@@ -272,6 +272,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
                       .map(({ code, ...data }) => ({
                         ...data,
                         header: `${intl.get(code)} (${data.requestId})`,
+                        variantType: variantInfo.variantType,
                       }))}
                     showHeader
                   />
