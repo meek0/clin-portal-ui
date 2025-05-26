@@ -12,11 +12,11 @@ import { getSummaryDataForAllRequestIds, TQualityControlSummaryDataWithCode } fr
 const Summary = () => {
   const [loadingCard, setLoadingCard] = useState(true);
   const [summaryData, setSummaryData] = useState<TQualityControlSummaryDataWithCode>([]);
-  const { prescription, loading } = useContext(PrescriptionEntityContext);
+  const { prescription, variantInfo, loading } = useContext(PrescriptionEntityContext);
 
   useEffect(() => {
     if (prescription) {
-      getSummaryDataForAllRequestIds(prescription)
+      getSummaryDataForAllRequestIds(prescription, variantInfo.variantType)
         .then((data) => setSummaryData(data))
         .finally(() => setLoadingCard(false));
     }

@@ -124,6 +124,7 @@ export type TQualityControlSummaryDataWithCode = TQualityControlSummaryData<{ co
 
 export const getSummaryDataForAllRequestIds = async (
   prescription: ServiceRequestEntity | undefined,
+  variantType?: string,
 ): Promise<TQualityControlSummaryDataWithCode> => {
   const requestOptions = getRequestCodeAndValue(prescription);
   const { requestId, patientId } = getPatientAndRequestId(prescription?.subject.resource);
@@ -139,6 +140,7 @@ export const getSummaryDataForAllRequestIds = async (
       code: code || 'unknown',
       sampleQcReport: {},
       cnvCount: 0,
+      variantType: variantType || '',
     },
   ];
 
@@ -158,6 +160,7 @@ export const getSummaryDataForAllRequestIds = async (
       code: code || 'unknown',
       sampleQcReport: {},
       cnvCount: 0,
+      variantType: variantType || '',
     });
   });
 

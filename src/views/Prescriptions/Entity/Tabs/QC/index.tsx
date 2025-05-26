@@ -10,7 +10,6 @@ import { Button, Card, Descriptions, Radio, Select, Skeleton, Space, Typography 
 import { DefaultOptionType } from 'antd/lib/select';
 import Title from 'antd/lib/typography/Title';
 import { FhirApi } from 'api/fhir';
-import { extractServiceRequestId } from 'api/fhir/helper';
 import { isArray } from 'lodash';
 import { GraphqlBackend } from 'providers';
 import ApolloProvider from 'providers/ApolloProvider';
@@ -31,14 +30,13 @@ import ContentHeader from 'components/Layout/ContentWithHeader/Header';
 import Footer from 'components/Layout/Footer';
 import useQueryParams from 'hooks/useQueryParams';
 import { globalActions } from 'store/global';
-import { SexValue } from 'utils/commonTypes';
 
-import { QualityControlSummarySingle } from '../../QualityControlSummary';
+import QualityControlSummary from '../../QualityControlSummary';
 import {
   fetchDocsForRequestId,
-  fetchRequestTotalCnvs,
   fetchSamplesQCReport,
-  getGenderForRequestId,
+  getSummaryDataForAllRequestIds,
+  TQualityControlSummaryDataWithCode,
   TSequencageIndicatorForRequests,
 } from '../../utils';
 
@@ -127,7 +125,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
   const [loadingCard, setLoadingCard] = useState(false);
   const [docs, setDocs] = useState<DocsWithTaskInfo[]>([]);
   const [reportFile, setReportFile] = useState<any>(null);
-  const [totalCnvs, setTotalCnvs] = useState(0);
+  const [summaryData, setSummaryData] = useState<TQualityControlSummaryDataWithCode>([]);
   const { prescription, variantInfo, setVariantInfo, loading } =
     useContext(PrescriptionEntityContext);
   const queryParams = useQueryParams();
@@ -149,15 +147,17 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
             return fetchSamplesQCReport(docs).then((report) => setReportFile(report));
           }
         })
-        .then(() =>
-          fetchRequestTotalCnvs(
-            variantInfo.patientId!,
-            extractServiceRequestId(prescription?.id!),
-          ).then((value) => setTotalCnvs(value)),
-        )
         .finally(() => setLoadingCard(false));
     }
   }, [variantInfo.requestId]);
+
+  useEffect(() => {
+    if (prescription) {
+      getSummaryDataForAllRequestIds(prescription, variantInfo.variantType)
+        .then((data) => setSummaryData(data))
+        .finally(() => setLoadingCard(false));
+    }
+  }, [prescription]);
 
   const downloadFile = async (format = 'JSON', type = 'QCRUN') => {
     const file = docs.find((f) => f.format === format && f.type === type);
@@ -184,9 +184,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
   };
 
   const options = getRequestOptions(prescription, false);
-  const selectOptionLabel = options.find(
-    ({ value }) => value === formatOptionValue(variantInfo.patientId!, variantInfo.requestId!),
-  )?.label;
+
   const optionsWithIndicator = addColorIndicatorToOptions(metricIndicatorByRequest, options);
 
   return (
@@ -259,30 +257,24 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
               <CollapsePanel
                 header={
                   <Skeleton title={{ width: 200 }} paragraph={false} loading={loading} active>
-                    <Title level={4}>
-                      {intl.get('pages.coverage_genic.summary')} : {selectOptionLabel}
-                    </Title>
+                    <Title level={4}>{intl.get('pages.coverage_genic.summary')}</Title>
                   </Skeleton>
                 }
                 loading={loadingCard}
               >
                 {prescription && (
-                  <QualityControlSummarySingle
+                  <QualityControlSummary
                     prescriptionId={prescription.id}
-                    summaryDataItem={
-                      reportFile
-                        ? {
-                            sampleQcReport: reportFile,
-                            patientSex: getGenderForRequestId(
-                              prescription,
-                              variantInfo.requestId!,
-                            ) as SexValue,
-                            patientId: variantInfo.patientId!,
-                            requestId: variantInfo.requestId!,
-                            cnvCount: totalCnvs,
-                          }
-                        : null
-                    }
+                    summaryData={summaryData
+                      .filter(
+                        (data) => data.sampleQcReport && Object.keys(data.sampleQcReport).length,
+                      )
+                      .map(({ code, ...data }) => ({
+                        ...data,
+                        header: `${intl.get(code)} (${data.requestId})`,
+                        variantType: variantInfo.variantType,
+                      }))}
+                    showHeader
                   />
                 )}
               </CollapsePanel>
