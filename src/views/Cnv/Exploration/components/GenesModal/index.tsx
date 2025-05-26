@@ -27,6 +27,7 @@ const GenesModal = ({ variantEntity, isOpen = false, toggleModal }: OwnProps) =>
 
   return (
     <Modal
+      destroyOnClose
       visible={isOpen}
       title={`${intl.get('screen.patientcnv.modal.genes.title')} ${variantEntity?.name
         .split(':')
