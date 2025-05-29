@@ -19,11 +19,23 @@ interface OwnProps {
 const GenesModal = ({ variantEntity, isOpen = false, toggleModal }: OwnProps) => {
   const [pageIndex, setPageIndex] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+  const [filters, setFilters] = useState<string[]>([]);
 
-  const data = variantEntity?.genes.hits.edges.map((gene: any, index: number) => ({
-    key: `${variantEntity?.genes.hits.edges[index].node.symbol}`,
-    ...gene.node,
-  }));
+  const data = variantEntity?.genes.hits.edges
+    .map((gene: any, index: number) => ({
+      key: `${variantEntity?.genes.hits.edges[index].node.symbol}`,
+      ...gene.node,
+    }))
+    .filter((d) => {
+      if (filters.length > 0) {
+        if (!d.panels && filters.includes('__missing__')) {
+          return true;
+        }
+        return d.panels?.some((value: string) => filters.includes(value));
+      } else {
+        return true;
+      }
+    });
 
   return (
     <Modal
@@ -33,9 +45,19 @@ const GenesModal = ({ variantEntity, isOpen = false, toggleModal }: OwnProps) =>
         .split(':')
         .slice(1)
         .join(':')} (${formatDnaLength(variantEntity?.reflen || 0)})`}
-      onCancel={() => toggleModal(false)}
+      onCancel={() => {
+        setFilters([]);
+        toggleModal(false);
+      }}
       footer={[
-        <Button key="close" type="primary" onClick={() => toggleModal(false)}>
+        <Button
+          key="close"
+          type="primary"
+          onClick={() => {
+            setFilters([]);
+            toggleModal(false);
+          }}
+        >
           {intl.get('screen.patientcnv.modal.genes.close')}
         </Button>,
       ]}
@@ -64,9 +86,14 @@ const GenesModal = ({ variantEntity, isOpen = false, toggleModal }: OwnProps) =>
           size: 'small',
         }}
         showSorterTooltip={false}
-        onChange={({ current, pageSize }) => {
+        onChange={({ current, pageSize }, filters) => {
           setPageIndex(current!);
           setPageSize(pageSize!);
+          setFilters(
+            Array.isArray(filters.panels)
+              ? filters.panels.filter((item): item is string => typeof item === 'string')
+              : [],
+          );
         }}
         size="small"
         bordered

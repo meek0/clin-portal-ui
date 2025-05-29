@@ -138,8 +138,6 @@ export const getGeneColumns = (): ProColumnsType<ITableGeneEntity> => {
         text: intl.get(`filters.options.panels.${p}`),
         value: p,
       })),
-      onFilter: (value, record: any) =>
-        value === '__missing__' ? !record.panels : record.panels?.includes(value),
       render: (panels: string[] | null) =>
         panels
           ? panels.map((p) => intl.get(`filters.options.genes.panels.${p}.query`)).join(', ')
