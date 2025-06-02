@@ -416,6 +416,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'BS2',
                          'BS4',
                          'BP1',
+                         'BP2',
                          'BP3',
                          'BP4',
                          'BP6',
