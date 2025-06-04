@@ -6,7 +6,6 @@ import { DownloadOutlined } from '@ant-design/icons';
 import { Button, Divider, Space } from 'antd';
 import { Rpt } from 'auth/types';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
-import { findDonorById } from 'graphql/variants/selector';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { TAB_ID } from 'views/Snv/Entity';
 
@@ -41,8 +40,6 @@ const Header = ({
 }: OwnProps) => {
   const [isInterpretationModalOpen, toggleInterpretationModal] = useState(false);
 
-  const donor = findDonorById(record?.donors, patientId);
-
   return (
     <>
       <Space size={24}>
@@ -67,7 +64,6 @@ const Header = ({
             icon={<DownloadOutlined width={'16'} height={'16'} />}
             patientId={patientId!}
             data={[record]}
-            donor={donor}
             name={ReportNames.transcript}
             size={'small'}
             buttonText={intl.get('screen.patientsnv.drawer.download.report')}
