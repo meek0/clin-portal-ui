@@ -196,6 +196,7 @@ const VariantsTab = ({
                   icon={<DownloadOutlined width={'16'} height={'16'} />}
                   patientId={patientId!}
                   data={selectedRows}
+                  donor={donor}
                   name={ReportNames.transcript}
                   size={'small'}
                   tooltipTitle={

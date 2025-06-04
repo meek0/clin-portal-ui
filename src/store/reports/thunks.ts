@@ -63,17 +63,17 @@ const proceedToDownload = async (
   }
 };
 
-const fetchTranscriptsReport = createAsyncThunk<void, { patientId: string; variantIds: string[] }>(
-  'report/fetchTranscriptsReport',
-  async ({ patientId, variantIds }, thunkApi) => {
-    await proceedToDownload(
-      intl.get('report.name.interpretation'),
-      `transcripts_${uuid()}.xlsx`,
-      ReportsApi.fetchPatientTranscriptsReport(patientId, variantIds),
-      thunkApi.dispatch,
-    );
-  },
-);
+const fetchTranscriptsReport = createAsyncThunk<
+  void,
+  { serviceRequestId: string; variantIds: string[] }
+>('report/fetchTranscriptsReport', async ({ serviceRequestId, variantIds }, thunkApi) => {
+  await proceedToDownload(
+    intl.get('report.name.interpretation'),
+    `transcripts_${uuid()}.xlsx`,
+    ReportsApi.fetchPatientTranscriptsReport(serviceRequestId, variantIds),
+    thunkApi.dispatch,
+  );
+});
 
 const fetchNanuqSequencingReport = createAsyncThunk<void, { srIds: string[] }>(
   'report/fetchNanuqSequencingReport',
