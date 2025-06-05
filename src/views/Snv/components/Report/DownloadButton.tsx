@@ -18,6 +18,7 @@ import { ReportNames } from 'store/reports/types';
 type Props = {
   patientId: string;
   data: any[];
+  donor: any;
   name: ReportNames;
   iconOnly?: boolean;
   tooltipTitle?: string;
@@ -38,8 +39,8 @@ type Props = {
 
 const DownloadButton = ({
   size,
-  patientId,
   data,
+  donor,
   name,
   iconOnly = false,
   tooltipTitle,
@@ -74,7 +75,12 @@ const DownloadButton = ({
             download();
           }
         } else {
-          dispatch(fetchTranscriptsReport({ patientId, variantIds: [data[0].hgvsg] }));
+          dispatch(
+            fetchTranscriptsReport({
+              serviceRequestId: donor.service_request_id,
+              variantIds: [data[0].hgvsg],
+            }),
+          );
         }
       }
     },
@@ -138,10 +144,20 @@ const DownloadButton = ({
     const allIds: string[] = downloaded?.map((d: any) => d.hgvsg as string) || [];
     if (total) {
       if (downloadAll) {
-        dispatch(fetchTranscriptsReport({ patientId, variantIds: allIds }));
+        dispatch(
+          fetchTranscriptsReport({
+            serviceRequestId: donor.service_request_id,
+            variantIds: allIds,
+          }),
+        );
       } else {
         const listIds = data.map((d: any) => d.hgvsg);
-        dispatch(fetchTranscriptsReport({ patientId, variantIds: listIds }));
+        dispatch(
+          fetchTranscriptsReport({
+            serviceRequestId: donor.service_request_id,
+            variantIds: listIds,
+          }),
+        );
       }
     }
   };
