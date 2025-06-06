@@ -90,6 +90,8 @@ const ParentCard = ({ extension, loading, prescription }: OwnProps) => {
                         phenotypeIds={phenotype}
                         generalObervationId={generalObservation}
                         prescriptionCode={prescription.code[0]}
+                        isPrenatal={prescription?.category?.[0]?.coding?.[0].code === 'Prenatal'}
+                        isParent
                       />
                     </>
                   )}

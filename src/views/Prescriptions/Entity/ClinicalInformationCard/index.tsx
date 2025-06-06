@@ -74,6 +74,7 @@ const ClinicalInformation = ({ prescription, prescriptionFormConfig, loading }: 
       familyHistory.push(e.id[0]);
     }
   });
+
   return (
     <CollapsePanel
       header={<Title level={4}>{intl.get('screen.prescription.entity.clinicalInformation')}</Title>}
@@ -90,6 +91,7 @@ const ClinicalInformation = ({ prescription, prescriptionFormConfig, loading }: 
                     phenotypeIds={phenotype}
                     generalObervationId={generalObservation}
                     prescriptionCode={prescription.code[0]}
+                    isPrenatal={prescription?.category?.[0]?.coding?.[0].code === 'Prenatal'}
                   />
                 }
               </Card.Grid>

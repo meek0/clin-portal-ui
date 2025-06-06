@@ -596,6 +596,13 @@ export const ANALYSE_PHENOTYPE_OBSERVATION = (ids: string[]) => gql`
                   code
                 }
               }
+              focus @first {
+                reference
+                resource {
+                  id
+                  gender
+                }
+              }
               valueCodeableConcept{
                 coding @first{
                   code
@@ -634,6 +641,13 @@ export const ANALYSE_GENERALOBS_INDICATION_OBSERVATION = (id: string) => gql`
     Observation(id: $id) {
       id
       valueString
+      focus @first {
+        reference
+        resource {
+          id
+          gender
+        }
+      }
     }
   }
 `;

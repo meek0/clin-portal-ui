@@ -19,6 +19,8 @@ type ClinicalSignOwnProps = {
   phenotypeIds: string[];
   generalObervationId: string | undefined;
   prescriptionCode: string;
+  isPrenatal?: boolean;
+  isParent?: boolean;
 };
 
 type IDOwnProps = {
@@ -55,6 +57,8 @@ export const ClinicalSign = ({
   phenotypeIds,
   generalObervationId,
   prescriptionCode,
+  isPrenatal,
+  isParent,
 }: ClinicalSignOwnProps) => {
   const [hpoList, setHpoList] = useState<IHpoNode[]>([]);
   const [ageList, setAgeList] = useState<IHpoNode[]>([
@@ -86,14 +90,18 @@ export const ClinicalSign = ({
     }
   }, [phenotypeValue]);
 
+  const filterPhenotype = isPrenatal
+    ? phenotypeValue?.filter((p: PhenotypeRequestEntity) => (isParent ? !p.focus : p.focus))
+    : phenotypeValue;
+
   let positive = [];
   let negative = [];
-  if (Array.isArray(phenotypeValue)) {
-    positive = filter(phenotypeValue, (o) => o?.interpretation?.coding?.code === 'POS');
+  if (Array.isArray(filterPhenotype)) {
+    positive = filter(filterPhenotype, (o) => o?.interpretation?.coding?.code === 'POS');
 
-    negative = filter(phenotypeValue, (o) => o?.interpretation?.coding?.code === 'NEG');
+    negative = filter(filterPhenotype, (o) => o?.interpretation?.coding?.code === 'NEG');
   } else {
-    positive = [phenotypeValue];
+    positive = [filterPhenotype];
   }
 
   const displayHpo = (hpo: string, age: string = '') => {
