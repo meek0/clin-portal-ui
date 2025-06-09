@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
-import { oneMinute } from '../../support/utils';
+import { oneMinute } from '../../pom/shared/Utils';
 
 beforeEach(() => {
   cy.visit('/');

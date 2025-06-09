@@ -1,5 +1,7 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
+import { data } from '../../pom/shared/Data';
+import { formatWithSpaceThousands } from '../../pom/shared/Utils';
 
 let epCHUSJ_ldmCHUSJ: any;
 
@@ -28,58 +30,58 @@ beforeEach(() => {
 
 describe('Page des variants d\'un patient - Consultation du tableau', () => {
   it('Vérifier les informations affichées', () => {
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 2, 'FlagDropdown');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 3, 'NoteCell');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 4, 'InterpretationCell');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 5, 'chrX:g.123403094G>A');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 6, 'SNV');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 7, 'anticon');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 8, 'GRIA3');
-    cy.validateTableDataRowKeyAttr('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 8, 'data-icon', 'plus');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 9, 'ConsequencesCell_moderateImpact');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 9, 'Missense p.Arg394Gln');
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(10).find('path[d*="M16.7732"]').should('exist'); // C
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(10).find('path[d*="M8.98279"]').should('exist'); // M
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(10).find('path[d*="M10.9335"]').should('not.exist'); // P
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 11, 'XLR');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 11, 'ant-tag-blue');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 12, /^B$/);
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 12, /^LB$/);
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 12, 'ant-tag-green');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 12, 'ant-tag-lime');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 13, '-');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 14, '0.964');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 15, 'ND');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 15, 'ant-tag');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 16, 'VUS');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 16, 'ant-tag-orange');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 17, '1.02e-3');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 17, 'GnomadCell_gnomadIndicator');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 18, '1 060');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 19, /^6$/);
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 19, /(\d{1}.\d{2}e-2)/);
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 20, '170');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 20, 'GQLine_high');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 21, /^1$/);
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 22, '0/1 : 0');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 23, '-');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 24, '-');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 25, 'XLR');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 26, '0.97');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 27, 'M');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 27, 'ant-tag-blue');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 28, '84');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 29, '84');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 30, '1.00');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 31, 'PASS');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 32, 'PP4, BP6_Strong');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 33, /^3$/);
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 33, '(6.93e-5)');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 34, 'Other');
-    cy.validateTableDataRowKeyClass('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 34, 'ant-tag-default');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 35, '2.56e+1');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 36, '-');
-    cy.validateTableDataRowKeyContent('4577893f4d3c2463e9fdef3419f7781d00fffdf3', 37, '-');
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 2, 'FlagDropdown');
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 3, 'NoteCell');
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 4, 'InterpretationCell');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 5, data.variantGermline.variant);
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 6, data.variantGermline.type);
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 7, 'anticon');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 8, data.variantGermline.gene);
+    cy.validateTableDataRowKeyAttr(data.variantGermline.dataRowKey, 8, 'data-icon', 'plus');
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 9, data.variantGermline.consequenceImpact);
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 9, data.variantGermline.consequence);
+    cy.get(`tr[data-row-key="${data.variantGermline.dataRowKey}"] td`).eq(10).find('path[d*="M16.7732"]').should('exist'); // C
+    cy.get(`tr[data-row-key="${data.variantGermline.dataRowKey}"] td`).eq(10).find('path[d*="M8.98279"]').should('exist'); // M
+    cy.get(`tr[data-row-key="${data.variantGermline.dataRowKey}"] td`).eq(10).find('path[d*="M10.9335"]').should('not.exist'); // P
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 11, data.variantGermline.omim);
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 11, 'ant-tag-blue');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 12, data.variantGermline.clinvar[0]);
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 12, data.variantGermline.clinvar[1]);
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 12, 'ant-tag-green');
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 12, 'ant-tag-lime');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 13, data.variantGermline.max_franklin);
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 14, data.variantGermline.max_exomiser);
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 15, data.variantGermline.acmg_franklin);
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 15, 'ant-tag');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 16, data.variantGermline.acmg_exomiser);
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 16, 'ant-tag-orange');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 17, '1.02e-3');
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 17, 'GnomadCell_gnomadIndicator');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 18, formatWithSpaceThousands(data.variantGermline.gnomad_alt));
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 19, data.variantGermline.rqdmP);
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 19, data.variantGermline.rqdmF);
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 20, '170');
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 20, 'GQLine_high');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 21, /^1$/);
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 22, '0/1 : 0');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 23, '-');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 24, '-');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 25, 'XLR');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 26, '0.97');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 27, 'M');
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 27, 'ant-tag-blue');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 28, '84');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 29, '84');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 30, '1.00');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 31, 'PASS');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 32, 'PP4, BP6_Strong');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 33, /^3$/);
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 33, '(6.93e-5)');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 34, data.variantGermline.tier);
+    cy.validateTableDataRowKeyClass(data.variantGermline.dataRowKey, 34, 'ant-tag-default');
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 35, data.variantGermline.cadd);
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 36, data.variantGermline.revel);
+    cy.validateTableDataRowKeyContent(data.variantGermline.dataRowKey, 37, '-');
   });
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {

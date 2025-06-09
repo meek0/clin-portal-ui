@@ -10,12 +10,19 @@ declare namespace Cypress {
     createFilterIfNotExists(filterName: string): cy & CyEventEmitter;
     deleteFilter(filterName: string): cy & CyEventEmitter;
     deleteFilterIfExists(filterName: string): cy & CyEventEmitter;
+    getColumnHeadCell(columnName: string, eq:number = 0): cy & CyEventEmitter;
+    hideColumn(column: string|RegExp, eq: number = 0): cy & CyEventEmitter;
     login(user: string, password: string, restoreSession: boolean = true): cy & CyEventEmitter;
     logout(): cy & CyEventEmitter;
     openFacet(section: string, facetTitle: string, isRqdmExpand: boolean = false): cy & CyEventEmitter;
     removeFilesFromFolder(folder: string): cy & CyEventEmitter;
     resetColumns(eq: number): cy & CyEventEmitter;
     saveFilterAs(filterName: string): cy & CyEventEmitter;
+    shouldBeSortable(isSortable: boolean): Chainable<Element>;
+    shouldCheckAndUncheck(): Chainable<Element>;
+    shouldHaveActiveTab(): cy & CyEventEmitter;
+    shouldHavePopover(popoverTitle: string, popoverContent: string): cy & CyEventEmitter;
+    shouldHaveTooltip(tooltipContent: string): cy & CyEventEmitter;
     showColumn(column: string|RegExp, eq: number): cy & CyEventEmitter;
     sortTableAndIntercept(column: string|RegExp, nbCalls: number, eq: number = 0): cy & CyEventEmitter;
     sortTableAndWait(column: string|RegExp, eq: number = 0): cy & CyEventEmitter;
@@ -40,7 +47,7 @@ declare namespace Cypress {
     validateSelectedFilterInDropdown(filterName: string): cy & CyEventEmitter;
     validateTableDataRowKeyAttr(dataRowKey: string, eq: number, expectedAttr: string, expectedValue: string): cy & CyEventEmitter;
     validateTableDataRowKeyClass(dataRowKey: string, eq: number, expectedClass: string): cy & CyEventEmitter;
-    validateTableDataRowKeyContent(dataRowKey: string, eq: number, expectedContent: string|RegExp): cy & CyEventEmitter;
+    validateTableDataRowKeyContent(dataRowKey: string, eq: number, expectedContent: string|RegExp|number): cy & CyEventEmitter;
     validateTableFirstRow(expectedValue: string|RegExp, eq: number, hasCheckbox: boolean = false, selector: string = ''): cy & CyEventEmitter;
     validateTableResultsCount(expectedCount: string|RegExp, shouldExist: boolean = true): cy & CyEventEmitter;
     validateTotalSelectedQuery(expectedCount: string|RegExp): cy & CyEventEmitter;

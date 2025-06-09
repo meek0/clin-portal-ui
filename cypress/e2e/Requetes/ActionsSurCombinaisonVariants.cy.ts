@@ -1,9 +1,10 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
+import { SharedFilters } from '../../pom/shared/Filters';
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPage('?sharedFilterId=e9bcdbfa-442f-49bb-96fe-6654f76a743e');
+  cy.visitVariantsPage(SharedFilters.variant.combineQueries);
 });
 
 describe('Page des variants - Requêtes', () => {

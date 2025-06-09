@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
+import { SharedFilters } from '../../pom/shared/Filters';
 
 let epCHUSJ_ldmCHUSJ: any;
 
@@ -25,10 +26,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'Severe Combined Immune Deficiency (SCID)',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Patient', 'Analyse', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Patient', 'Analyse', dictionnary);
   });
 
@@ -37,10 +38,10 @@ describe('Page des variants - Dictionnaire', () => {
                           'Non atteint',
                           'Inconnu'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Patient', 'Statut clinique', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Patient', 'Statut clinique', dictionnary);
   });
 
@@ -50,10 +51,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'Autre',
                          'Indéterminé'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Patient', 'Sexe', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Patient', 'Sexe', dictionnary);
   });
 
@@ -66,10 +67,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'Séquence Altération',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Variant', 'Type de variant', dictionnary, true);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Variant', 'Type de variant', dictionnary);
   });
 
@@ -114,10 +115,10 @@ describe('Page des variants - Dictionnaire', () => {
                           'Feature Truncation',
                           'Intergenic'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Variant', 'Conséquences', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Variant', 'Conséquences', dictionnary);
   });
 
@@ -130,10 +131,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'GnomAD',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Variant', 'Référence externe', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Variant', 'Référence externe', dictionnary);
   });
 
@@ -164,10 +165,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'Y',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Variant', 'Chromosome', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Variant', 'Chromosome', dictionnary);
   });
 
@@ -176,10 +177,10 @@ describe('Page des variants - Dictionnaire', () => {
                           'HEM',
                           'HET'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Variant', 'Zygosité', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Variant', 'Zygosité', dictionnary);
   });
 
@@ -198,10 +199,10 @@ describe('Page des variants - Dictionnaire', () => {
                           'Unknown Proband Genotype',
                           'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Variant', 'Transmission', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Variant', 'Transmission', dictionnary);
   });
 
@@ -209,10 +210,10 @@ describe('Page des variants - Dictionnaire', () => {
     const dictionnary = ['False',
                          'True'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Variant', 'Hét. composé', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Variant', 'Hét. composé', dictionnary);
   });
 
@@ -287,10 +288,10 @@ describe('Page des variants - Dictionnaire', () => {
                           'Bidirectional Promoter LncRNA',
                           'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Gène', 'Type de gène', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Gène', 'Type de gène', dictionnary);
   });
 
@@ -304,10 +305,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'DDD',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Gène', 'Référence externe', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Gène', 'Référence externe', dictionnary);
   });
 
@@ -335,10 +336,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'Neurodevelopmental disorders (RGDIEP v1)',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Gène', 'RQDM', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Gène', 'RQDM', dictionnary);
   });
 
@@ -372,10 +373,10 @@ describe('Page des variants - Dictionnaire', () => {
                          '?YL',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Gène', 'OMIM (transmission)', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Gène', 'OMIM (transmission)', dictionnary);
   });
 
@@ -402,10 +403,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'No Classification for the Single Variant',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'ClinVar', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'ClinVar', dictionnary);
   });
 
@@ -417,10 +418,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'Benign',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'ACMG de Exomiser (max)', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'ACMG de Exomiser (max)', dictionnary);
   });
 
@@ -440,10 +441,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'BP6',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'Critères ACMG de Exomiser (max)', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'Critères ACMG de Exomiser (max)', dictionnary);
   });
 
@@ -459,10 +460,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'Possibly Benign',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'ACMG de Franklin', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'ACMG de Franklin', dictionnary);
   });
 
@@ -494,10 +495,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'BS3',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'Critères ACMG de Franklin', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'Critères ACMG de Franklin', dictionnary);
   });
 
@@ -508,10 +509,10 @@ describe('Page des variants - Dictionnaire', () => {
                           'MODIFIER',
                           'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'VEP', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'VEP', dictionnary);
   });
 
@@ -520,10 +521,10 @@ describe('Page des variants - Dictionnaire', () => {
                           'Tolerated',
                           'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'FATHMM', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'FATHMM', dictionnary);
   });
 
@@ -533,10 +534,10 @@ describe('Page des variants - Dictionnaire', () => {
                           'Unknown',
                           'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'LRT', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'LRT', dictionnary);
   });
 
@@ -546,10 +547,10 @@ describe('Page des variants - Dictionnaire', () => {
                           'Possibily Damaging',
                           'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'Polyphen 2 HVAR', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'Polyphen 2 HVAR', dictionnary);
   });
 
@@ -558,10 +559,10 @@ describe('Page des variants - Dictionnaire', () => {
                           'Tolerated',
                           'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'SIFT', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'SIFT', dictionnary);
   });
 
@@ -572,10 +573,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'Other',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'CMC tier', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'CMC tier', dictionnary);
   });
 
@@ -584,10 +585,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'False',
                          'No Data'];
 
-    cy.visitVariantsPage('?sharedFilterId=b790f57a-cd2d-478b-875b-a19a9c77eb77');
+    cy.visitVariantsPage(SharedFilters.variant.noResults);
     cy.validateDictionnaryPresetValues('Pathogénicité', 'Hotspot', dictionnary);
 
-    cy.visitVariantsPage('?sharedFilterId=0592969c-f83a-413a-b65d-578ab9d751fc');
+    cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
     cy.validateDictionnaryNewValues('Pathogénicité', 'Hotspot', dictionnary);
   });
 });

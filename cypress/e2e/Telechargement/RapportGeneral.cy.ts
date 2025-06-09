@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-import { oneMinute } from '../../support/utils';
+import { oneMinute } from '../../pom/shared/Utils';
 
 let epCHUSJ_ldmCHUSJ: any;
 
@@ -15,11 +15,11 @@ beforeEach(() => {
 });
 
 describe('Télécharger le rapport général', () => {
-  it('Valider le nom du fichier', () => {
+  it('Valider le nom du fichier [CLIN-4632]', () => {
     cy.validateFileName('16774.QC_report.json');
   });
 
-  it('Valider le contenu du fichier', () => {
+  it('Valider le contenu du fichier [CLIN-4632]', () => {
     cy.fixture('DownloadRapportGeneral.json').then((expectedData) => {
       cy.readFile(`${Cypress.config('downloadsFolder')}/16774.QC_report.json`).then((fileContent) => {
         assert.deepEqual(JSON.stringify(fileContent), JSON.stringify(expectedData));

@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-import { oneMinute } from '../../support/utils';
+import { oneMinute } from '../../pom/shared/Utils';
 
 beforeEach(() => {
   cy.removeFilesFromFolder(Cypress.config('downloadsFolder'));

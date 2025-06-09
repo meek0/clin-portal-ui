@@ -1,5 +1,5 @@
 /// <reference types="cypress"/>
-import { getDateTime, oneMinute } from '../../support/utils';
+import { getDateTime, oneMinute } from '../../pom/shared/Utils';
 
 const { strDate } = getDateTime();
 let presc_SOMATIC: any;

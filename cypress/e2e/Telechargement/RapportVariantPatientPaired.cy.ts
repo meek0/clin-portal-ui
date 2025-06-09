@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
-import { Replacement } from '../../support/commands';
-import { getDateTime, oneMinute } from '../../support/utils';
+import { Replacement } from '../../pom/shared/Types';
+import { getDateTime, oneMinute } from '../../pom/shared/Utils';
 
 const { strDate } = getDateTime();
 let presc_PAIRED: any;

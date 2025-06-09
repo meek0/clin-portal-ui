@@ -1,6 +1,7 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
-import { oneMinute } from '../../support/utils';
+import { oneMinute } from '../../pom/shared/Utils';
+import { VariantsTable } from '../../pom/pages/VariantsTable';
 
 let epCHUSJ_ldmCHUSJ: any;
 
@@ -37,7 +38,7 @@ describe('Affichage de toutes les pages et modals', () => {
 
     // Page Variants
     cy.get('[data-cy="HeaderLinkVariants"]').clickAndWait();
-    cy.contains('Banque de variants du RQDM').should('exist');
+    VariantsTable.validations.shouldShowPageTitle();
     cy.contains('Patient').should('exist');
     cy.contains('Variant').should('exist');
     cy.contains('Gène').should('exist');

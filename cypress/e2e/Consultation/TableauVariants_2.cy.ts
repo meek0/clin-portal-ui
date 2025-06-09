@@ -1,65 +1,58 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
+import { data } from '../../pom/shared/Data';
+import { getStartPosition } from '../../pom/shared/Utils';
+import { SharedFilters } from '../../pom/shared/Filters';
+import { VariantsTable } from '../../pom/pages/VariantsTable';
 
 beforeEach(() => {
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPage('?sharedFilterId=ed4de9bb-016e-4869-ac9d-40b11ac3102a');
-  cy.showColumn('Tier', 0);
-  cy.showColumn('Max Fra.', 0);
-  cy.showColumn('Max Exo.', 0);
-  cy.showColumn('CADD', 0);
-  cy.showColumn('REVEL', 0);
+  cy.visitVariantsPage(SharedFilters.variant.chrX_123403094);
+  VariantsTable.actions.showAllColumns();
 });
 
 describe('Page des variants - Consultation du tableau', () => {
   it('Valider les liens disponibles Lien Variant', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"]').contains('chrX:g.123403094G>A').invoke('removeAttr', 'target').clickAndWait({force: true});
-    cy.get('[data-cy="Summary_Start"]').contains('123 403 094').should('exist');
+    VariantsTable.actions.clickTableCellLink(data.variantGermline, 'variant');
+    cy.get('[data-cy="Summary_Start"]').contains(getStartPosition(data.variantGermline)).should('exist');
   });
  
   it('Valider les liens disponibles Lien dbSNP', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(3).find('a[href]')
-      .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/snp/rs138817389');
+    VariantsTable.validations.shouldHaveTableCellLink(data.variantGermline, 'dbsnp');
   });
  
   it('Valider les liens disponibles Lien Gène', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(4).find('a[href]')
-      .should('have.attr', 'href', 'https://www.omim.org/entry/305915');
+    VariantsTable.validations.shouldHaveTableCellLink(data.variantGermline, 'gene');
   });
  
   it('Valider les liens disponibles Lien Gène Plus', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(4).find('[data-icon="plus"]').clickAndWait({force: true});
-    cy.validatePillSelectedQuery('Gène', ['GRIA3']);
+    VariantsTable.actions.clickTableCellLink(data.variantGermline, 'gene', true/*onPlusIcon*/);
+    VariantsTable.validations.shouldHaveSelectedQueryPill(data.variantGermline, 'gene');
   });
  
   it('Valider les liens disponibles Lien OMIM', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(7).find('a[href]')
-      .should('have.attr', 'href', 'https://www.omim.org/entry/305915');
+    VariantsTable.validations.shouldHaveTableCellLink(data.variantGermline, 'omim');
   });
  
   it('Valider les liens disponibles Lien ClinVar', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(8).find('a[href]')
-      .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/198752');
+    VariantsTable.validations.shouldHaveTableCellLink(data.variantGermline, 'clinvar');
   });
  
   it('Valider les liens disponibles Lien RQDM G', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(11).find('a[href]').clickAndWait({force: true});
-    cy.validateTableResultsCount('6 Résultats');
+    VariantsTable.actions.clickTableCellLink(data.variantGermline, 'rqdm');
+    VariantsTable.validations.shouldShowResultsCount(data.variantGermline.rqdmP);
   });
  
   it('Valider les liens disponibles Lien CMC', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(12).find('a[href]')
-      .should('have.attr', 'href', 'https://cancer.sanger.ac.uk/cosmic/search?q=COSV52051792&genome=38#');
+    VariantsTable.validations.shouldHaveTableCellLink(data.variantGermline, 'cmc');
   });
  
   it('Valider les liens disponibles Lien Tier', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(15).find('a[href]')
-      .should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/snpTumor/chrX-123403094-G-A-hg38');
+    VariantsTable.validations.shouldHaveTableCellLink(data.variantGermline, 'tier');
   });
  
   it('Valider les liens disponibles Lien ACMG F.', () => {
-    cy.get('tr[data-row-key="4577893f4d3c2463e9fdef3419f7781d00fffdf3"] td').eq(18).find('a[href]')
-      .should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/snp/chrX-123403094-G-A-HG38');
+    VariantsTable.validations.shouldHaveTableCellLink(data.variantGermline, 'acmg_franklin');
   });
 });
   

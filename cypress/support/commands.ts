@@ -1,10 +1,7 @@
 /// <reference types="cypress"/>
-import { oneMinute } from '../support/utils';
-
-export interface Replacement {
-  placeholder: string;
-  value: string;
-}
+import { CommonSelectors } from '../pom/shared/Selectors';
+import { formatWithSpaceThousands, oneMinute } from '../pom/shared/Utils';
+import { Replacement } from '../pom/shared/Types';
 
 Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: string, value: string, isRqdmExpand: boolean = false) => {
   cy.openFacet(section, facetTitle, isRqdmExpand);
@@ -83,6 +80,48 @@ Cypress.Commands.add('deleteFilterIfExists', (filterName: string) => {
       cy.deleteFilter(filterName);
     };
   });
+});
+
+/**
+ * Returns the table header cell matching the given column name.
+ * @param columnName The name of the column.
+ * @param eq The index of the table (default: 0).
+ */
+Cypress.Commands.add('getColumnHeadCell', (columnName: string, eq: number = 0) => {
+  cy.get(CommonSelectors.tableHead).eq(eq).find(CommonSelectors.tableCell).then(($tableCells) => {
+    let matchedCell: JQuery<HTMLElement> | undefined = undefined;
+    $tableCells.each((_index, cell) => {
+      if (columnName.startsWith('[')) {
+        if (Cypress.$(cell).find(columnName).length > 0) {
+          matchedCell = Cypress.$(cell);
+          return false;
+        };
+      } else {
+        if (cell.textContent?.includes(columnName)) {
+          matchedCell = Cypress.$(cell);
+          return false;
+        };
+      };
+    });
+    if (matchedCell) {
+      return matchedCell;
+    };
+  });
+});
+
+/**
+ * Hides a column in the table by unchecking it in the column selector.
+ * @param column The column name or RegExp to match.
+ * @param eq The index of the table (default: 0).
+ */
+Cypress.Commands.add('hideColumn', (column: string|RegExp, eq: number = 0) => {
+  cy.get('[data-icon="setting"]').eq(eq).clickAndWait({force: true});
+
+  cy.intercept('PUT', '**/user').as('getPOSTuser');
+  cy.get('[class*="ColumnSelector_ProTablePopoverColumnListWrapper"]').contains(column).find('[type="checkbox"]').uncheck();
+  cy.wait('@getPOSTuser', {timeout: oneMinute});
+
+  cy.get('[class*="Header_ProTableHeader"]').eq(eq).clickAndWait({force: true});
 });
 
 Cypress.Commands.add('login', (user: string, password: string, restoreSession: boolean = true) => {
@@ -170,6 +209,56 @@ Cypress.Commands.add('saveFilterAs', (filterName: string) => {
   cy.get('[id="query-builder-header-tools"] [class*="Header_togglerTitle"]').contains(filterName).should('exist');
 });
 
+/**
+ * Asserts that the given element is sortable or not.
+ * @param subject The element to check.
+ * @param isSortable Whether the column should be sortable.
+ */
+Cypress.Commands.add('shouldBeSortable', { prevSubject: 'element' }, (subject, isSortable: boolean) => {
+  const strExpectedSortable = isSortable ? 'have.class' : 'not.have.class';
+  cy.wrap(subject).should(strExpectedSortable, 'ant-table-column-has-sorters');
+});
+
+/**
+ * Checks a checkbox, asserts it is checked, then unchecks it.
+ * @param subject The element containing the checkbox (should be chainable).
+ */
+Cypress.Commands.add('shouldCheckAndUncheck', { prevSubject: 'element' }, (subject) => {
+  cy.wrap(subject).find(CommonSelectors.checkbox).check({ force: true });
+  cy.wrap(subject).find(CommonSelectors.checkbox).should('be.checked');
+  cy.wrap(subject).find(CommonSelectors.checkbox).uncheck({ force: true });
+});
+
+/**
+ * Asserts that the given tab is active.
+ * @param subject The tab element.
+ */
+Cypress.Commands.add('shouldHaveActiveTab', { prevSubject: 'element' }, (subject) => {
+  cy.wrap(subject).should('have.class', 'ant-tabs-tab-active');
+});
+
+/**
+ * Asserts that the given element has a popover with the specified title and content.
+ * @param subject The element to check.
+ * @param popoverTitle The expected popover title.
+ * @param popoverContent The expected popover content.
+ */
+Cypress.Commands.add('shouldHavePopover', { prevSubject: 'element' }, (subject, popoverTitle: string, popoverContent: string) => {
+  cy.wrap(subject).trigger('mouseover', { eventConstructor: 'MouseEvent', force: true });
+  cy.get('[class="ant-popover-title"]').contains(popoverTitle).should('exist');
+  cy.get('[class="ant-popover-inner-content"]').contains(popoverContent).should('exist');
+});
+
+/**
+ * Asserts that the given element has a tooltip with the specified content.
+ * @param subject The element to check.
+ * @param tooltipContent The expected tooltip content.
+ */
+Cypress.Commands.add('shouldHaveTooltip', { prevSubject: 'element' }, (subject, tooltipContent: string) => {
+  cy.wrap(subject).find('[class*="dotted"]').trigger('mouseover', { eventConstructor: 'MouseEvent', force: true });
+  cy.get('body').contains(tooltipContent).should('exist');
+});
+
 Cypress.Commands.add('showColumn', (column: string|RegExp, eq: number) => {
   cy.intercept('PUT', '**/user').as('getPOSTuser');
 
@@ -182,7 +271,11 @@ Cypress.Commands.add('showColumn', (column: string|RegExp, eq: number) => {
 Cypress.Commands.add('sortTableAndIntercept', (column: string|RegExp, nbCalls: number, eq: number = 0) => {
   cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
 
-  cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).clickAndWait({force: true});
+  if (String(column).startsWith('[')) {
+    cy.get('thead[class="ant-table-thead"]').eq(eq).find(String(column)).clickAndWait({force: true});
+  } else {
+    cy.get('thead[class="ant-table-thead"]').eq(eq).contains(column).clickAndWait({force: true});
+  };
 
   for (let i = 0; i < nbCalls; i++) {
     cy.wait('@getPOSTgraphql', {timeout: oneMinute});
@@ -333,7 +426,7 @@ Cypress.Commands.add('validateFileContent', (fixture: string, replacements?: Rep
           arrReplacements.forEach((replacement) => {
             valueWithData = valueWithData.replace(replacement.placeholder, replacement.value);
           });
-          assert.include(fileWithData, valueWithData);
+          assert.include(fileWithData, valueWithData === '-' ? '--' : '-');
         });
       });
     });
@@ -507,12 +600,13 @@ Cypress.Commands.add('validateTableDataRowKeyClass', (dataRowKey: string, eq: nu
   };
 });
 
-Cypress.Commands.add('validateTableDataRowKeyContent', (dataRowKey: string, eq: number, expectedContent: string|RegExp) => {
+Cypress.Commands.add('validateTableDataRowKeyContent', (dataRowKey: string, eq: number, expectedContent: string|RegExp|number) => {
+  const strExpectedContent = typeof expectedContent === 'number' ? formatWithSpaceThousands(expectedContent) : expectedContent;
   if (dataRowKey !== "*") {
-    cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).contains(expectedContent).should('exist');
+    cy.get('tr[data-row-key="'+dataRowKey+'"] td').eq(eq).contains(strExpectedContent).should('exist');
   }
   else {
-    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(eq).contains(expectedContent).should('exist');
+    cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(eq).contains(strExpectedContent).should('exist');
   };
 });
 
@@ -523,9 +617,7 @@ Cypress.Commands.add('validateTableFirstRow', (expectedValue: string|RegExp, eq:
     .then(($firstRow) => {
       cy.wrap($firstRow).find('td').eq(eq).contains(expectedValue).should('exist');
       if (hasCheckbox) {
-        cy.wrap($firstRow).find('[type="checkbox"]').check({force: true});
-        cy.wrap($firstRow).find('[type="checkbox"]').should('be.checked');
-        cy.wrap($firstRow).find('[type="checkbox"]').uncheck({force: true});
+        cy.wrap($firstRow).shouldCheckAndUncheck();
       };
     });
 });
