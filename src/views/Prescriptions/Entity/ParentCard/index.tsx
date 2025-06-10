@@ -98,7 +98,7 @@ const ParentCard = ({ extension, loading, prescription }: OwnProps) => {
             />
             <RequestTable data={extension?.extension[1].valueReference?.resource?.requests ?? []} />
             <TaskTable
-              requestId={extension?.extension[1].valueReference?.resource?.requests[0].id}
+              requestId={extension?.extension[1].valueReference?.resource?.requests?.[0].id}
             />
           </Space>
         </CollapsePanel>
