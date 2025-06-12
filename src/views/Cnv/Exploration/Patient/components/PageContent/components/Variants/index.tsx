@@ -1,10 +1,12 @@
 import { Key, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
 import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 import { IQueryResults } from 'graphql/models';
+import { VariantType } from 'graphql/variants/models';
 import GenesModal from 'views/Cnv/Exploration/components/GenesModal';
 import IGVModal from 'views/Cnv/Exploration/components/IGVModal';
 import { getVariantColumns, TVariantFilter } from 'views/Cnv/Exploration/variantColumns';
@@ -65,15 +67,20 @@ const VariantsTable = ({
     toggleGenesModal(true);
   };
 
+  const history = useHistory();
+
   const openIgvModal = (record: VariantEntity) => {
     setSelectedVariant(record);
     toggleModal(true);
   };
 
-  const initialColumnState = user.config.data_exploration?.tables?.patientCnv?.columns;
-
   const variantType = getVariantTypeFromCNVVariantEntity(results?.data?.[0]);
   setVariantType(variantType);
+
+  const initialColumnState =
+    variantType === VariantType.GERMLINE
+      ? user.config.data_exploration?.tables?.patientCnvGermline?.columns
+      : user.config.data_exploration?.tables?.patientCnvTo?.columns;
 
   return (
     <>
@@ -106,6 +113,8 @@ const VariantsTable = ({
               isClear,
               setFilterList,
               filtersList,
+              false,
+              history,
             )}
             initialColumnState={initialColumnState}
             dataSource={results?.data.map((i) => ({ ...i, key: `${i[VARIANT_KEY]}` }))}
@@ -145,13 +154,21 @@ const VariantsTable = ({
               },
               onColumnSortChange: (columns) => {
                 dispatch(
-                  updateConfig({
-                    data_exploration: {
-                      tables: {
-                        patientCnv: { columns },
-                      },
-                    },
-                  }),
+                  variantType === VariantType.GERMLINE
+                    ? updateConfig({
+                        data_exploration: {
+                          tables: {
+                            patientCnvGermline: { columns },
+                          },
+                        },
+                      })
+                    : updateConfig({
+                        data_exploration: {
+                          tables: {
+                            patientCnvTo: { columns },
+                          },
+                        },
+                      }),
                 );
               },
               hasFilter: filtersList.flags.length > 0 || filtersList.note.length > 0,
@@ -171,16 +188,27 @@ const VariantsTable = ({
               },
               onViewQueryChange: (viewPerQuery: PaginationViewPerQuery) => {
                 dispatch(
-                  updateConfig({
-                    data_exploration: {
-                      tables: {
-                        patientCnv: {
-                          ...user?.config.data_exploration?.tables?.patientCnv,
-                          viewPerQuery,
+                  variantType === VariantType.GERMLINE
+                    ? updateConfig({
+                        data_exploration: {
+                          tables: {
+                            patientCnvGermline: {
+                              ...user?.config.data_exploration?.tables?.patientCnvGermline,
+                              viewPerQuery,
+                            },
+                          },
                         },
-                      },
-                    },
-                  }),
+                      })
+                    : updateConfig({
+                        data_exploration: {
+                          tables: {
+                            patientCnvTo: {
+                              ...user?.config.data_exploration?.tables?.patientCnvTo,
+                              viewPerQuery,
+                            },
+                          },
+                        },
+                      }),
                 );
               },
               searchAfter: results?.searchAfter,

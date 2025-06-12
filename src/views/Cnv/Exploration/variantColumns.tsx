@@ -5,17 +5,25 @@ import intl from 'react-intl-universal';
 import { FilterFilled, FlagOutlined, MessageOutlined } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
+import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Button, Space, Tag, Tooltip, Typography } from 'antd';
 import cx from 'classnames';
 import { FrequencyEntity, ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
+import { INDEXES } from 'graphql/constants';
 import { VariantType } from 'graphql/variants/models';
-import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
+import { PrescriptionEntityTabs } from 'views/Prescriptions/Entity';
+import {
+  VariantSection,
+  VariantSectionKey,
+} from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import FlagCell from 'views/Snv/Exploration/components/Flag/FlagCell';
 import FlagFilterDropdown from 'views/Snv/Exploration/components/Flag/FlagFilter';
 import GnomadCell from 'views/Snv/Exploration/components/Gnomad/GnomadCell';
 import NoteCell from 'views/Snv/Exploration/components/Note/NoteCell';
 import NoteFilter from 'views/Snv/Exploration/components/Note/NoteFilter';
+import { getQueryBuilderID } from 'views/Snv/utils/constant';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
@@ -58,6 +66,7 @@ export const getVariantColumns = (
   setFilterList?: (columnKeys: Key[], filter: string) => void,
   filtersList?: TVariantFilter,
   onlyExportTSV: boolean = false,
+  history?: any,
 ): ProColumnType<ITableVariantEntity>[] => {
   const columns: ProColumnType<ITableVariantEntity>[] = [];
 
@@ -194,6 +203,70 @@ export const getVariantColumns = (
       },
     },
   );
+
+  if (variantSection === VariantSection.CNV) {
+    columns.push({
+      title: intl.get('screen.variantDetails.summaryTab.summaryTable.snvsCount'),
+      key: 'snv_count',
+      tooltip: intl.get('screen.variantDetails.summaryTab.summaryTable.snvsCount.tooltip'),
+      width: 160,
+      sorter: { multiple: 1 },
+      render: (variant: VariantEntity) => {
+        const handleRedirection = (
+          record: VariantEntity,
+          target: VariantSection,
+          { replace, location }: any,
+        ) => {
+          const queryBuilderId = getQueryBuilderID(target);
+          addQuery({
+            queryBuilderId,
+            query: generateQuery({
+              newFilters: [
+                generateValueFilter({
+                  field: 'start',
+                  value: [record.start.toString(), record.end.toString()],
+                  index: INDEXES.VARIANT,
+                  operator: 'between',
+                }),
+                generateValueFilter({
+                  field: 'chromosome',
+                  value: [record.chromosome],
+                  index: INDEXES.VARIANT,
+                }),
+              ],
+            }),
+            setAsActive: true,
+          });
+          replace({
+            ...location,
+            hash: PrescriptionEntityTabs.VARIANTS,
+            search: `?${new URLSearchParams({
+              [VariantSectionKey]: target,
+            }).toString()}`,
+          });
+        };
+
+        return variant.snv_count ? (
+          <Typography.Link>
+            <a
+              id={'cnv'}
+              onClick={() =>
+                handleRedirection(
+                  variant,
+                  variantType === VariantType.GERMLINE ? VariantSection.SNV : VariantSection.SNVTO,
+                  history,
+                )
+              }
+            >
+              {variant.snv_count}
+            </a>
+          </Typography.Link>
+        ) : (
+          '0'
+        );
+      },
+    });
+  }
 
   columns.push(
     {
@@ -371,6 +444,73 @@ export const getVariantColumns = (
           <>{number_genes}</>
         ),
     },
+  );
+
+  if (variantSection === VariantSection.CNVTO) {
+    columns.push({
+      title: intl.get('screen.variantDetails.summaryTab.summaryTable.snvsCount'),
+      tooltip: intl.get('screen.variantDetails.summaryTab.summaryTable.snvsCount.tooltip'),
+      key: 'snv_count',
+      width: 160,
+      sorter: { multiple: 1 },
+      render: (variant: VariantEntity) => {
+        const handleRedirection = (
+          record: VariantEntity,
+          target: VariantSection,
+          { replace, location }: any,
+        ) => {
+          const queryBuilderId = getQueryBuilderID(target);
+          addQuery({
+            queryBuilderId,
+            query: generateQuery({
+              newFilters: [
+                generateValueFilter({
+                  field: 'start',
+                  value: [record.start.toString(), record.end.toString()],
+                  index: INDEXES.VARIANT,
+                  operator: 'between',
+                }),
+                generateValueFilter({
+                  field: 'chromosome',
+                  value: [record.chromosome],
+                  index: INDEXES.VARIANT,
+                }),
+              ],
+            }),
+            setAsActive: true,
+          });
+          replace({
+            ...location,
+            hash: PrescriptionEntityTabs.VARIANTS,
+            search: `?${new URLSearchParams({
+              [VariantSectionKey]: target,
+            }).toString()}`,
+          });
+        };
+
+        return variant.snv_count ? (
+          <Typography.Link>
+            <a
+              id={'cnv'}
+              onClick={() =>
+                handleRedirection(
+                  variant,
+                  variantType === VariantType.GERMLINE ? VariantSection.SNV : VariantSection.SNVTO,
+                  history,
+                )
+              }
+            >
+              {variant.snv_count}
+            </a>
+          </Typography.Link>
+        ) : (
+          '0'
+        );
+      },
+    });
+  }
+
+  columns.push(
     {
       title: intl.get('screen.patientcnv.results.table.genotype'),
       tooltip: intl.get('screen.patientcnv.results.table.genotype.tooltip'),

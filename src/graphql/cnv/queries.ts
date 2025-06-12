@@ -40,6 +40,7 @@ export const VARIANT_QUERY = gql`
             cn
             number_genes
             filters
+            snv_count
             calls
             sm
             bc
