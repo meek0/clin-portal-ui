@@ -30,7 +30,7 @@ type OwnProps = {
 const ClinicalInformation = ({ prescription, prescriptionFormConfig, loading }: OwnProps) => {
   let ethnValue = undefined;
   const phenotype: string[] = [];
-  let generalObservation = undefined;
+  const generalObservation: string[] = [];
   let consanguinity = undefined;
   let indication = undefined;
   const paraclinique: string[] = [];
@@ -53,7 +53,7 @@ const ClinicalInformation = ({ prescription, prescriptionFormConfig, loading }: 
             phenotype.push(e.id[0]);
             break;
           case 'OBSG':
-            generalObservation = e.id;
+            generalObservation.push(e.id[0]);
             break;
           case 'CONS':
             consanguinity = e.id;
@@ -84,12 +84,12 @@ const ClinicalInformation = ({ prescription, prescriptionFormConfig, loading }: 
       {prescription ? (
         <Space direction="vertical" size="middle">
           <div>
-            {(phenotype.length > 0 || generalObservation) && (
+            {(phenotype.length > 0 || generalObservation.length > 0) && (
               <Card.Grid className={styles.cardGrid} hoverable={false}>
                 {
                   <ClinicalSign
                     phenotypeIds={phenotype}
-                    generalObervationId={generalObservation}
+                    generalObervationIds={generalObservation}
                     prescriptionCode={prescription.code[0]}
                     isPrenatal={prescription?.category?.[0]?.coding?.[0].code === 'Prenatal'}
                   />

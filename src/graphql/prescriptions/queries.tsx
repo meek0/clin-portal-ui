@@ -597,10 +597,8 @@ export const ANALYSE_PHENOTYPE_OBSERVATION = (ids: string[]) => gql`
                 }
               }
               focus @first {
-                reference
                 resource {
                   id
-                  gender
                 }
               }
               valueCodeableConcept{
@@ -636,20 +634,21 @@ export const ANALYSE_SOCIAL_HISTORY_OBSERVATION = (id: string) => gql`
   }
 `;
 
-export const ANALYSE_GENERALOBS_INDICATION_OBSERVATION = (id: string) => gql`
-  query GetGeneralObservationObservation($id: String = "${id}") {
-    Observation(id: $id) {
-      id
-      valueString
-      focus @first {
-        reference
-        resource {
+export const ANALYSE_GENERALOBS_INDICATION_OBSERVATION = (ids: string[]) => gql`
+  query GetGeneralObservationObservation {
+    ${ids.map(
+      (id) => `
+        Observation(id: "${id}") {
           id
-          gender
+          valueString
+          focus @first {
+            reference
+          }
         }
-      }
-    }
-  }
+    `,
+    )}
+}
+
 `;
 
 export const ANALYSE_GENERALOBS_GESTATIONAL_OBSERVATION = (id: string) => gql`
