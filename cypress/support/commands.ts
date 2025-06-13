@@ -1,6 +1,6 @@
 /// <reference types="cypress"/>
 import { CommonSelectors } from '../pom/shared/Selectors';
-import { formatWithSpaceThousands, oneMinute } from '../pom/shared/Utils';
+import { formatWithSpaceThousands, oneMinute, stringToRegExp } from '../pom/shared/Utils';
 import { Replacement } from '../pom/shared/Types';
 
 Cypress.Commands.add('checkAndClickApplyFacet', (section: string, facetTitle: string, value: string, isRqdmExpand: boolean = false) => {
@@ -84,7 +84,7 @@ Cypress.Commands.add('deleteFilterIfExists', (filterName: string) => {
 
 /**
  * Returns the table header cell matching the given column name.
- * @param columnName The name of the column.
+ * @param columnName The exact name of the column.
  * @param eq The index of the table (default: 0).
  */
 Cypress.Commands.add('getColumnHeadCell', (columnName: string, eq: number = 0) => {
@@ -97,7 +97,7 @@ Cypress.Commands.add('getColumnHeadCell', (columnName: string, eq: number = 0) =
           return false;
         };
       } else {
-        if (cell.textContent?.includes(columnName)) {
+        if (cell.textContent?.match(stringToRegExp(columnName, true/*exact*/))) {
           matchedCell = Cypress.$(cell);
           return false;
         };

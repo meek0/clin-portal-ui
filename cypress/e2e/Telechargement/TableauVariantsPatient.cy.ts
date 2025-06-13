@@ -1,8 +1,7 @@
 /// <reference types="cypress"/>
 import { data } from '../../pom/shared/Data';
-import { getDateTime, oneMinute } from '../../pom/shared/Utils';
+import { VariantsPatientTable } from '../../pom/pages/VariantsPatientTable';
 
-const { strDate } = getDateTime();
 let epCHUSJ_ldmCHUSJ: any;
 
 beforeEach(() => {
@@ -11,22 +10,20 @@ beforeEach(() => {
 
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
-
-  cy.get(`div[role="tabpanel"] tr[data-row-key="${data.variantGermline.dataRowKey}"] [type="checkbox"]`).check({force: true});
-  cy.get('div[id="content"] svg[data-icon="download"]').eq(1).clickAndWait({force: true});
-  cy.waitUntilFile(oneMinute);
+  VariantsPatientTable.actions.checkRow(data.variantGermline);
+  VariantsPatientTable.actions.clickDownloadButton();
 });
 
 describe('Page des variants d\'un patient - Exporter un variant en TSV', () => {
   it('Valider le nom du fichier', () => {
-    cy.validateFileName('SNV_'+strDate+'T*.tsv');
+    VariantsPatientTable.validations.shouldHaveExportedFileName();
   });
 
   it('Valider les en-têtes du fichier', () => {
-    cy.validateFileHeaders('ExportTableauVariantsPatient.json');
+    VariantsPatientTable.validations.shouldHaveExportedFileHeaders();
   });
 
   it('Valider le contenu du fichier', () => {
-    cy.validateFileContent('ExportTableauVariantsPatient.json');
+    VariantsPatientTable.validations.shouldHaveExportedFileContent(data.variantGermline);
   });
 });

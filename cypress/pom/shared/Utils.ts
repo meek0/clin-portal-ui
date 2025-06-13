@@ -158,3 +158,16 @@ export const scientificToDecimal = (value: string | number): string => {
   if (isNaN(num)) return String(value);
   return num.toString().includes('e') ? num.toFixed(20).replace(/\.?0+$/, '') : String(num);
 };
+
+/**
+ * Converts a string to a RegExp.
+ * Optionally adds ^ and $ to match the whole string.
+ * @param str The string to convert.
+ * @param exact If true, adds ^ and $ to the pattern (default: false).
+ * @returns The constructed RegExp.
+ */
+export const stringToRegExp = (str: string, exact: boolean = false): RegExp => {
+  const replacedStr = str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regexpStr = exact ? `^${replacedStr}$` : replacedStr;
+  return new RegExp(regexpStr);
+};

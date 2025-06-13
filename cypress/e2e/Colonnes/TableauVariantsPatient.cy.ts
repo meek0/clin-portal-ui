@@ -1,5 +1,6 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
+import { VariantsPatientTable } from '../../pom/pages/VariantsPatientTable';
 
 let epCHUSJ_ldmCHUSJ: any;
 
@@ -10,224 +11,31 @@ beforeEach(() => {
 });
 
 describe('Page des variants d\'un patient - Colonnes du tableau', () => {
-  it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(2)
-      .should('not.have.class', 'ant-table-column-has-sorters')
-      .find('[data-icon="flag"]').should('exist');
+  it('Valider l\'affichage par défaut', () => {
+    VariantsPatientTable.validations.shouldMatchDefaultColumnVisibility();
+  });
 
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(3)
-      .should('not.have.class', 'ant-table-column-has-sorters')
-      .find('[data-icon="message"]').should('exist');
+  it('Valider l\'ordre', () => {
+    VariantsPatientTable.validations.shouldShowAllColumns();
+  });
 
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(4)
-      .should('not.have.class', 'ant-table-column-has-sorters')
-      .find('[data-icon="thunderbolt"]').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(5)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Variant').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(6)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Type').should('exist');
+  it('Valider la propriété de tri', () => {
+    VariantsPatientTable.validations.shouldShowSortableColumns();
+  });
   
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(7)
-      .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('dbSNP').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(8)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Gène').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(9)
-      .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('Conséquence').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(10)
-      .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('MANE').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(11)
-      .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('OMIM').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(12)
-      .should('not.have.class', 'ant-table-column-has-sorters')
-      .contains('ClinVar').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(13)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Fra.').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(14)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Exo.').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(15)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('ACMG F.').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(16)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('ACMG E.').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(17)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains(/^gnomAD$/).should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(18)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('gnomAD ALT').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(19)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('RQDM G').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(20)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('QG').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(21)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('# CNVs').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .find('th[class*="ant-table-cell"]').eq(22)
-      .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Zyg.').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('M : P').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(18)
-      .contains('M : P').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('HC').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(19)
-      .contains('HC').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('HCP').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(20)
-      .contains('HCP').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('Transmission').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(21)
-      .contains('Trans.').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('QP').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(22)
-      .contains('QP').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('OP').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(23)
-      .contains('OP').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains(/^A$/).should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(24)
-      .contains(/^A$/).should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('A+R').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(25)
-      .contains('A+R').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('A/(A+R)').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(26)
-      .contains('A/(A+R)').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('Filtre').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(27)
-      .contains('Filtre').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('Crit. Exo.').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(28)
-      .contains('Crit. Exo.').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('CMC').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(29)
-      .contains('CMC').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('Tier').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(30)
-      .contains('Tier').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('CADD').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(31)
-      .contains('CADD').should('exist');
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('REVEL').should('not.exist');
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(32)
-      .contains('REVEL').should('exist');
+  it('Valider le tooltip', () => {
+    VariantsPatientTable.validations.shouldShowColumnTooltips();
   });
 
   it('Masquer une colonne affichée', () => {
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('Type').should('exist');
-
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').contains('Type')
-      .find('[type="checkbox"]').uncheck({force: true});
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('Type').should('not.exist');
+    VariantsPatientTable.validations.shouldDisplayColumn('type');
+    VariantsPatientTable.actions.hideColumn('type');
+    VariantsPatientTable.validations.shouldNotDisplayColumn('type');
   });
 
   it('Afficher une colonne masquée', () => {
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('Tier').should('not.exist');
-
-    cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').contains('Tier')
-      .find('[type="checkbox"]').check({force: true});
-
-    cy.get('thead[class="ant-table-thead"]')
-      .contains('Tier').should('exist');
+    VariantsPatientTable.validations.shouldNotDisplayColumn('tier');
+    VariantsPatientTable.actions.showColumn('tier');
+    VariantsPatientTable.validations.shouldDisplayColumn('tier');
   });
 });

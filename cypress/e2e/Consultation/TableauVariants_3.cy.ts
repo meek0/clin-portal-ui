@@ -43,7 +43,7 @@ describe('Page des variants - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Exo. (var)', () => {
-    VariantsTable.validations.shouldSortColumn('exomiser');
+    VariantsTable.validations.shouldSortColumn('exomiser_var');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Tier', () => {
