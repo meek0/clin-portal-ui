@@ -122,14 +122,12 @@ export const generateTracks = (
   segDoc?.content.forEach(({ format, attachment }) => {
     if (!attachment.title.includes(HYPER_EXOME_FILE_NAME)) {
       let type = '';
-      let graphType = 'bar';
       if (format === FHIR_BED_TYPE) {
         type = 'annotation';
         format = 'bed';
       } else if (format === FHIR_BW_TYPE) {
         type = 'wig';
         format = 'bigWig';
-        graphType = 'points';
       }
 
       newTracks.push({
@@ -138,10 +136,8 @@ export const generateTracks = (
         url: getPresignedUrl(attachment.url!, rpt),
         name: trackName(segDoc, gender, position, attachment.title),
         autoHeight: true,
-        minHeight: 200,
         maxHeight: 500,
         colorBy: 'strand',
-        graphType,
       });
     }
   });
