@@ -14,11 +14,11 @@ describe('Page des variants - Consultation du tableau', () => {
     VariantsTable.validations.shouldSortColumn('variant');
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Type [CLIN-2149]', () => {
+  it('Valider les fonctionnalités du tableau - Tri Type', () => {
     VariantsTable.validations.shouldSortColumn('type');
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Gène [CLIN-2149,CLIN-2287]', () => {
+  it('Valider les fonctionnalités du tableau - Tri Gène', () => {
     VariantsTable.validations.shouldSortColumn('gene');
   });
 

@@ -24,7 +24,7 @@ describe('Page des CNVs d\'un patient (somatic) - Exporter les CNVs en TSV', () 
     cy.validateFileHeaders('ExportTableauCNVsPatientSomatic.json');
   });
 
-  it('Valider le contenu du fichier [CLIN-3886]', () => {
+  it('Valider le contenu du fichier', () => {
     cy.validateFileContent('ExportTableauCNVsPatientSomatic.json');
   });
 });
