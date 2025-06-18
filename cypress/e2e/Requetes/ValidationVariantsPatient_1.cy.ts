@@ -65,13 +65,13 @@ describe('Page des variants d\'un patient - Requêtes', () => {
     cy.validateTableResultsCount('8 139');
   });
 
-  it('Validation Facette standard (None of) ET Facette numérique [CLIN-3863]', () => {
+  it('Validation Facette standard (None of) ET Facette numérique', () => {
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(6).clickAndWait();
     cy.wait('@getPOSTgraphql');
 
     cy.validateTotalSelectedQuery('125K');
-    cy.validateTableResultsCount('124 680');
+    cy.validateTableResultsCount('124 648');
   });
 });
