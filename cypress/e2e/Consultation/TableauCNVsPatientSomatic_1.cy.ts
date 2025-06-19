@@ -34,13 +34,14 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableDataRowKeyContent('*', 15, '-');
     cy.validateTableDataRowKeyContent('*', 16, '-');
     cy.validateTableDataRowKeyContent('*', 17, /^191$/);
-    cy.validateTableDataRowKeyContent('*', 18, '0/1');
-    cy.validateTableDataRowKeyContent('*', 19, 'CnvCopyRatio, LoDFail');
-    cy.validateTableDataRowKeyContent('*', 20, /^128$/);
-    cy.validateTableDataRowKeyContent('*', 21, '1979');
-    cy.validateTableDataRowKeyContent('*', 22, '25, 7');
-    cy.validateTableDataRowKeyContent('*', 23, '-');
+    cy.validateTableDataRowKeyContent('*', 18, /^0$/);
+    cy.validateTableDataRowKeyContent('*', 19, '0/1');
+    cy.validateTableDataRowKeyContent('*', 20, 'CnvCopyRatio, LoDFail');
+    cy.validateTableDataRowKeyContent('*', 21, /^128$/);
+    cy.validateTableDataRowKeyContent('*', 22, '1979');
+    cy.validateTableDataRowKeyContent('*', 23, '25, 7');
     cy.validateTableDataRowKeyContent('*', 24, '-');
+    cy.validateTableDataRowKeyContent('*', 25, '-');
   });
  
   it('Valider la fonctionnalité du radio bouton SNV (TO)-CNV (TO)', () => {

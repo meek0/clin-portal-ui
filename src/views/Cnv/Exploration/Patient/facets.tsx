@@ -34,7 +34,8 @@ const filterGroups: {
   [FilterTypes.Variant]: {
     groups: [
       {
-        facets: ['type', 'cn', 'reflen', 'chromosome', 'start', 'end'],
+        facets: ['type', 'cn', 'reflen', 'chromosome', 'start', 'end', 'snv_count'],
+        tooltips: ['snv_count'],
         defaults: {
           cn: {
             operator: RangeOperators['>='],
@@ -47,6 +48,9 @@ const filterGroups: {
           },
           end: {
             operator: RangeOperators['<='],
+          },
+          snv_count: {
+            operator: RangeOperators['>='],
           },
         },
       },

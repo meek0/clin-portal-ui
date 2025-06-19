@@ -40,6 +40,7 @@ export type VariantEntity = {
   reflen: number;
   number_genes: number;
   filters: string[];
+  snv_count: number;
   calls: number[];
   cn: number;
   sm: number;

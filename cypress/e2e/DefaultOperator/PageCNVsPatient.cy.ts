@@ -34,6 +34,12 @@ describe('Page des CNVs d\'un patient - Opérateurs par défaut', () => {
     cy.get(`[data-cy="InputNumber_Max_Fin du CNV"]`).should('exist');
   });
 
+  it('Variant - Nombre de SNVs', () => {
+    cy.openFacet('Variant', 'Nombre de SNVs');
+    cy.get(`[data-cy="InputNumber_Min_Nombre de SNVs"]`).should('exist');
+    cy.get(`[data-cy="InputNumber_Max_Nombre de SNVs"]`).should('not.exist');
+  });
+
   it('Fréquence - Fréq. CNV tous les patients', () => {
     cy.openFacet('Fréquence', 'Fréq. CNV tous les patients');
     cy.get(`[data-cy="InputNumber_Min_Fréq. CNV tous les patients"]`).should('not.exist');

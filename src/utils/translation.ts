@@ -487,6 +487,7 @@ export const getFacetsDictionarySNV = () => ({
     parental_origin: intl.get('filters.group.donors.parental_origin'),
     transmission: intl.get('filters.group.donors.transmission'),
     zygosity: intl.get('filters.group.donors.zygosity'),
+    cnv_count: intl.get('filters.group.donors.cnv_count'),
   },
   external_frequencies: {
     gnomad_joint_4: {
@@ -584,6 +585,7 @@ export const getFacetsDictionarySNV = () => ({
       gq: intl.get('filters.group.donors.gq.tooltip'),
       qd: intl.get('filters.group.donors.qd.tooltip'),
       transmission: intl.get('filters.group.donors.transmission.tooltip'),
+      cnv_count: intl.get('filters.group.donors.cnv_count.tooltip'),
     },
     external_frequencies: {
       gnomad_joint_4: {
@@ -634,6 +636,7 @@ export const getFacetsDictionarySNV = () => ({
 export const getFacetsDictionaryCNV = () => ({
   chromosome: intl.get('filters.group.chromosome'),
   end: intl.get('cnv.filters.group.end'),
+  snv_count: intl.get('cnv.filters.group.snv_count'),
   genes: {
     cosmic: {
       tumour_types_germline: intl.get('filters.group.genes.cosmic.tumour_types_germline'),
@@ -677,6 +680,7 @@ export const getFacetsDictionaryCNV = () => ({
   tooltips: {
     transmission: intl.get('filters.group.donors.transmission.tooltip'),
     pe: intl.get('cnv.filters.group.pe.tooltip'),
+    snv_count: intl.get('cnv.filters.group.snv_count.tooltip'),
     cluster: {
       external_frequencies: {
         gnomad_exomes_4: {
