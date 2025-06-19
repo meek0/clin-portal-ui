@@ -130,7 +130,7 @@ const TranscriptSection = ({ record: { genes, consequences, rsnumber, locus } }:
           {pickedConsequence && (
             <div>
               {pickImpacBadge(pickedConsequence.node.vep_impact)}
-              {intl.get(`consequences.${pickedConsequence?.node.consequences}`)}
+              {intl.get(`consequences.${pickedConsequence?.node.consequences[0]}`)}
             </div>
           )}
           -{pickedConsequence?.node.aa_change}
