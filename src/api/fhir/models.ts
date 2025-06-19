@@ -429,6 +429,10 @@ export type PhenotypeRequestEntity = {
       code: string;
     };
   };
+  focus: {
+    resource: any;
+    reference: any;
+  };
   valueCodeableConcept: {
     coding: {
       code: string;
