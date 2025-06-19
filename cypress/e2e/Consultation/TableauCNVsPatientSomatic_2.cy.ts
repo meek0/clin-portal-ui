@@ -354,6 +354,29 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow(/^670$/, 17, true);
   });
 
+  it('Valider les fonctionnalités du tableau - Tri Nombre de SNVs', () => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+  
+    cy.showColumn('GT', 0);
+    cy.showColumn('Filtre', 0);
+    cy.showColumn('Qual.', 0);
+    cy.showColumn('BC', 0);
+    cy.showColumn('PE', 0);
+    cy.showColumn('Trans.', 0);
+    cy.showColumn('OP', 0);
+    cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
+    
+    cy.sortTableAndWait('Nombre de SNVs');
+    cy.wait(15*1000);
+    cy.validateTableFirstRow(/^0$/, 18, true);
+    cy.sortTableAndWait('Nombre de SNVs');
+    cy.wait(15*1000);
+    cy.validateTableFirstRow(/^0$/, 18, true);
+  });
+
   it('Valider les fonctionnalités du tableau - Tri Qual.', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
@@ -371,10 +394,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     
     cy.sortTableAndWait('Qual.');
     cy.wait(15*1000);
-    cy.validateTableFirstRow(/^90$/, 20, true);
+    cy.validateTableFirstRow(/^90$/, 21, true);
     cy.sortTableAndWait('Qual.');
     cy.wait(15*1000);
-    cy.validateTableFirstRow(/^200$/, 20, true);
+    cy.validateTableFirstRow(/^200$/, 21, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri BC', () => {
@@ -394,10 +417,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     
     cy.sortTableAndWait('BC');
     cy.wait(15*1000);
-    cy.validateTableFirstRow(/^6$/, 21, true);
+    cy.validateTableFirstRow(/^6$/, 22, true);
     cy.sortTableAndWait('BC');
     cy.wait(15*1000);
-    cy.validateTableFirstRow(/^7553$/, 21, true);
+    cy.validateTableFirstRow(/^7553$/, 22, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Trans.', () => {
@@ -417,10 +440,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     
     cy.sortTableAndWait('Trans.');
     cy.wait(15*1000);
-    cy.validateTableFirstRow('-', 23, true);
+    cy.validateTableFirstRow('-', 24, true);
     cy.sortTableAndWait('Trans.');
     cy.wait(15*1000);
-    cy.validateTableFirstRow('-', 23, true);
+    cy.validateTableFirstRow('-', 24, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri OP', () => {
@@ -440,10 +463,10 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     
     cy.sortTableAndWait('OP');
     cy.wait(15*1000);
-    cy.validateTableFirstRow('-', 24, true);
+    cy.validateTableFirstRow('-', 25, true);
     cy.sortTableAndWait('OP');
     cy.wait(15*1000);
-    cy.validateTableFirstRow('-', 24, true);
+    cy.validateTableFirstRow('-', 25, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

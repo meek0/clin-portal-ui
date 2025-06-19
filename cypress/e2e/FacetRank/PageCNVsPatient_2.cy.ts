@@ -39,4 +39,9 @@ describe('Page des CNVs d\'un patient - Ordre des facettes', () => {
     cy.openFacet('Variant', 'Fin du CNV');
     cy.validateFacetRank(5, 'Fin du CNV');
   });
+
+  it('Variant - Nombre de SNVs', () => {
+    cy.openFacet('Variant', 'Nombre de SNVs');
+    cy.validateFacetRank(6, 'Nombre de SNVs');
+  });
 });
