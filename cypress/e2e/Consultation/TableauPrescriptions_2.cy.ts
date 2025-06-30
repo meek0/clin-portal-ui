@@ -53,7 +53,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
 
   it('Valider les fonctionnalités du tableau - Tri Créée le', () => {
     cy.sortTableAndIntercept('Créée le', 3);
-    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7), 6, true);
+    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4), 6, true);
     cy.sortTableAndIntercept('Créée le', 3);
     cy.validateTableFirstRow(/^\d{4}-\d{2}-\d{2}$/, 6, true);
   });

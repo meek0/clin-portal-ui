@@ -30,7 +30,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 1, epCHUSJ_ldmCHUSJ.requestProbId);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 2, 'Complétée');
     cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.requestProbId, 2, 'ant-tag-green');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 3, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7));
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 3, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4));
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 4, /^\d{4}-\d{2}-\d{2}$/);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 5, epCHUSJ_ldmCHUSJ.sampleProbId);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 6, epCHUSJ_ldmCHUSJ.patientProbId);

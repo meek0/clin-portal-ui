@@ -26,7 +26,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 4, '-');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 5, 'Approuvée');
     cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.prescriptionId, 5, 'ant-tag-green');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 6, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7));
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 6, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4));
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 7, /^\d{4}-\d{2}-\d{2}$/);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 8, 'RGDI');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 9, 'G');

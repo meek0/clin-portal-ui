@@ -22,7 +22,7 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 4, epCHUSJ_ldmCHUSJ.requestFthId);
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 5, epCHUSJ_ldmCHUSJ.sampleFthId);
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 6, epCHUSJ_ldmCHUSJ.bioAnalFthId);
-    cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 7, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7));
+    cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 7, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4));
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 8, 'Fichier');
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 8, 'Index');
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 9, '156.52 MB');
@@ -103,9 +103,9 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');  
     cy.sortTableAndWait('Date');
-    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7), 7);
+    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4), 7);
     cy.sortTableAndWait('Date');
-    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 7), 7);
+    cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4), 7);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Taille', () => {    
