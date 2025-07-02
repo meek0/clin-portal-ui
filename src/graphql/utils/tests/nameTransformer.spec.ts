@@ -27,7 +27,7 @@ describe('transformNameIfNeeded', () => {
     expect(transformNameIfNeeded('', '_variant', 'Variant_foo')).toEqual('_foo');
   });
   test('Should transform Other', () => {
-    expect(transformNameIfNeeded('', 'Other', 'bar')).toEqual('Autre');
+    expect(transformNameIfNeeded('', 'other', 'bar')).toEqual('Autre');
   });
   test('Should transform affected', () => {
     expect(transformNameIfNeeded('', 'affected', 'status')).toEqual('status');

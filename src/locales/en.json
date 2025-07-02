@@ -1036,6 +1036,7 @@
   "screen.patientsearch.table.gender.female": "Féminin",
   "screen.patientsearch.table.gender.male": "Masculin",
   "screen.patientsearch.table.gender.unknown": "Indéterminé",
+  "screen.patientsearch.table.gender.other": "Autre",
   "screen.patientsearch.table.ldm": "Requester (LDM)",
   "screen.patientsearch.table.ldm.tooltip": "Molecular diagnosis laboratory",
   "screen.patientsearch.table.links": "Links",
