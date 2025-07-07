@@ -615,7 +615,8 @@ const filterGroups: {
   [FilterTypes.Occurrence_germline]: {
     groups: [
       {
-        facets: ['donors__zygosity'],
+        facets: ['donors__zygosity', 'donors__cnv_count'],
+        tooltips: ['donors__cnv_count'],
       },
       {
         title: intl.get('screen.patientsnv.category_parental_analysis'),
@@ -672,7 +673,8 @@ const filterGroups: {
   [FilterTypes.Occurrence_somatic_to]: {
     groups: [
       {
-        facets: ['donors__zygosity'],
+        facets: ['donors__zygosity', 'donors__cnv_count'],
+        tooltips: ['donors__cnv_count'],
       },
       {
         title: intl.get('screen.patientsnv.category_metric'),
