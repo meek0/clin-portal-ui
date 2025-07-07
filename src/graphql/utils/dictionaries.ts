@@ -44,7 +44,7 @@ export const dictionaries: Record<string, string[]> = {
     ArrangerValues.missing,
   ],
   'donors.affected_status_code': ['affected', 'not_affected', 'unknown'],
-  'donors.gender': ['Female', 'Male', 'Other', 'unknown'],
+  'donors.gender': ['Female', 'Male', 'other', 'unknown'],
   // Variants
   type: ['GAIN', 'LOSS', 'GAINLOH', 'CNLOH', ArrangerValues.missing],
   variant_class: [

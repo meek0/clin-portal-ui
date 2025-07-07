@@ -95,6 +95,10 @@ export const getPatientPanelColumns = (
         text: intl.get('sex.unknown'),
         value: 'unknown',
       },
+      {
+        text: intl.get('sex.other'),
+        value: 'other',
+      },
     ],
     onFilter: (value, record: DonorsEntity) => value === record.gender,
   },

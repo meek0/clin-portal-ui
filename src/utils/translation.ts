@@ -280,7 +280,7 @@ export const getQueryBuilderDictionary = (
           Male: intl.get(`sex.male`),
           Female: intl.get(`sex.female`),
           unknown: intl.get(`sex.unknown`),
-          Other: intl.get(`sex.other`),
+          other: intl.get(`sex.other`),
         },
         'donors.affected_status_code': {
           affected: intl.get('donors.status.affected'),
