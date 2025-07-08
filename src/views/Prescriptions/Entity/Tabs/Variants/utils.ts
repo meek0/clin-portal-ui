@@ -13,6 +13,7 @@ export const SERVICE_REQUEST_CODES = {
   GERMILE_WXS: '75020',
   SOMATIC_WXS: '65241',
   SOMATIC_WTS: '65240',
+  GERMILE_WGS: '75022',
 };
 
 export const formatServiceRequestTag = (analysisCode?: string, sequencingCode?: string) => {
@@ -39,6 +40,7 @@ export const getVariantTypeFromCNVVariantEntity = (variantEntity?: CNVVariantEnt
 export const getRequestOptions = (
   serviceRequest: ServiceRequestEntity | undefined,
   excludeWTS: boolean = true,
+  excludeWGS: boolean = true,
 ): DefaultOptionType[] => {
   const patientsResourcesAndFamilycode = [
     {
@@ -56,7 +58,7 @@ export const getRequestOptions = (
 
   const options: DefaultOptionType[] = [];
   patientsResourcesAndFamilycode.forEach(({ resource, familyCode }) => {
-    const { patientId, requestIds } = getPatientAndRequestIds(resource, excludeWTS);
+    const { patientId, requestIds } = getPatientAndRequestIds(resource, excludeWTS, excludeWGS);
     for (const requestId of requestIds) {
       options.push({
         label: `${familyCode ? intl.get(familyCode) : intl.get('proband')} (${requestId})`,
@@ -79,11 +81,16 @@ export const getPatientAndRequestId = (
 export function getPatientAndRequestIds(
   resource: PatientServiceRequestFragment | undefined,
   excludeWTS: boolean = true,
+  excludeWGS: boolean = true,
 ) {
   const serviceRequests =
     resource?.requests?.filter((request) =>
       request.code?.coding.every(
-        (coding) => !excludeWTS || coding.code !== SERVICE_REQUEST_CODES.SOMATIC_WTS,
+        (coding) =>
+          !excludeWTS ||
+          !excludeWGS ||
+          (coding.code !== SERVICE_REQUEST_CODES.SOMATIC_WTS &&
+            coding.code !== SERVICE_REQUEST_CODES.GERMILE_WGS),
       ),
     ) || [];
   return {
