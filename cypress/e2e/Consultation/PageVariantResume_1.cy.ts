@@ -135,12 +135,12 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
     cy.get('[data-row-key*="ClinicalCard_ClinVar_0"] td[class="ant-table-cell"]').eq(0).contains('Pathogenic').should('exist');
     cy.get('[data-row-key*="ClinicalCard_ClinVar_0"] td[class="ant-table-cell"]').eq(1).contains('Methylmalonic acidemia with homocystinuria cblC').should('exist');
     cy.get('[data-row-key*="ClinicalCard_ClinVar_0"] td[class="ant-table-cell"]').eq(2).contains('germline').should('exist');
-    cy.get('[data-row-key*="ClinicalCard_ClinVar_3"] td[class="ant-table-cell"]').eq(0).contains('Pathogenic').should('exist');
-    cy.get('[data-row-key*="ClinicalCard_ClinVar_3"] td[class="ant-table-cell"]').eq(1).contains('not provided').should('exist');
-    cy.get('[data-row-key*="ClinicalCard_ClinVar_3"] td[class="ant-table-cell"]').eq(2).contains('germline').should('exist');
     cy.get('[data-row-key*="ClinicalCard_ClinVar_2"] td[class="ant-table-cell"]').eq(0).contains('Pathogenic').should('exist');
-    cy.get('[data-row-key*="ClinicalCard_ClinVar_2"] td[class="ant-table-cell"]').eq(1).contains('MMACHC-related disorder').should('exist');
+    cy.get('[data-row-key*="ClinicalCard_ClinVar_2"] td[class="ant-table-cell"]').eq(1).contains('not provided').should('exist');
     cy.get('[data-row-key*="ClinicalCard_ClinVar_2"] td[class="ant-table-cell"]').eq(2).contains('germline').should('exist');
+    cy.get('[data-row-key*="ClinicalCard_ClinVar_3"] td[class="ant-table-cell"]').eq(0).contains('Pathogenic').should('exist');
+    cy.get('[data-row-key*="ClinicalCard_ClinVar_3"] td[class="ant-table-cell"]').eq(1).contains('MMACHC-related disorder').should('exist');
+    cy.get('[data-row-key*="ClinicalCard_ClinVar_3"] td[class="ant-table-cell"]').eq(2).contains('germline').should('exist');
   });
 
   it('Panneau Gène - Phénotype', () => {
