@@ -28,6 +28,7 @@ const FoetusClinicalInformation = ({
       prescription={prescription}
       loading={loading}
       prescriptionFormConfig={prescriptionFormConfig}
+      isFoetus
     />
   );
 };
