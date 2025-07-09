@@ -385,6 +385,7 @@ export const getQueryBuilderDictionary = (
           IEI: intl.get('filters.options.panels.IEI.query'),
           HLH: intl.get('filters.options.panels.HLH.query'),
           VEOIBD: intl.get('filters.options.panels.VEOIBD.query'),
+          GENOR: intl.get('filters.options.panels.GENOR.query'),
         },
       },
     },

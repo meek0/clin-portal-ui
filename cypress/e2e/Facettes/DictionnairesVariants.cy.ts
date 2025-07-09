@@ -24,6 +24,7 @@ describe('Page des variants - Dictionnaire', () => {
                          'Rhabdomyolysis (RHAB)',
                          'Tumoral Analysis (EXTUM)',
                          'Severe Combined Immune Deficiency (SCID)',
+                         'Normal Genome (GENOR)',
                          'No Data'];
 
     cy.visitVariantsPage(SharedFilters.variant.noResults);

@@ -41,6 +41,7 @@ export const dictionaries: Record<string, string[]> = {
     'TUHEM',
     'SCID',
     'EXTUM',
+    'GENOR',
     ArrangerValues.missing,
   ],
   'donors.affected_status_code': ['affected', 'not_affected', 'unknown'],
