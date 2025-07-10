@@ -138,9 +138,11 @@ export const ClinicalSign = ({
     <Descriptions column={1} size="small" className="label-20">
       <Descriptions.Item label={intl.get('screen.prescription.entity.observed')}>
         <Space direction="vertical">
-          {positive.map((p: PhenotypeRequestEntity) =>
-            displayHpo(p?.valueCodeableConcept?.coding.code, p?.extension?.valueCoding.code),
-          )}
+          {positive.length
+            ? positive.map((p: PhenotypeRequestEntity) =>
+                displayHpo(p?.valueCodeableConcept?.coding.code, p?.extension?.valueCoding.code),
+              )
+            : EMPTY_FIELD}
         </Space>
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('screen.prescription.entity.not.observed')}>
