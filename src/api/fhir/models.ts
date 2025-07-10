@@ -204,6 +204,7 @@ export interface Investigation {
       code?: {
         coding: Coding;
       };
+      focus?: Reference;
     };
     reference: string;
     resource: {
@@ -329,6 +330,7 @@ export interface ServiceRequestEntity {
       item: {
         id: string[];
         resourceType: string;
+        focus?: Reference;
         note: {
           text: string;
         };

@@ -25,9 +25,15 @@ type OwnProps = {
   prescription?: ServiceRequestEntity;
   prescriptionFormConfig?: TFormConfig;
   loading: boolean;
+  isFoetus?: boolean;
 };
 
-const ClinicalInformation = ({ prescription, prescriptionFormConfig, loading }: OwnProps) => {
+const ClinicalInformation = ({
+  prescription,
+  prescriptionFormConfig,
+  loading,
+  isFoetus,
+}: OwnProps) => {
   let ethnValue = undefined;
   const phenotype: string[] = [];
   const generalObservation: string[] = [];
@@ -36,9 +42,12 @@ const ClinicalInformation = ({ prescription, prescriptionFormConfig, loading }: 
   const paraclinique: string[] = [];
   const complexParaclinique: string[] = [];
   const familyHistory: string[] = [];
+  // eslint-disable-next-line complexity
   prescription?.observation?.investigation.item.forEach((e) => {
     if (e.resourceType === 'Observation') {
-      if (e.category?.[0]?.coding?.[0]?.code === 'procedure') {
+      // If it's a foetus some observation must have focus
+      const shouldProcess = !isFoetus || e.focus;
+      if (e.category?.[0]?.coding?.[0]?.code === 'procedure' && shouldProcess) {
         if (e.coding.code === 'BMUS' || e.coding.code === 'EMG' || e.coding.code === 'CGH') {
           complexParaclinique.push(e.id[0]);
         } else {
@@ -50,10 +59,10 @@ const ClinicalInformation = ({ prescription, prescriptionFormConfig, loading }: 
             ethnValue = e.id[0].split('/')[1];
             break;
           case 'PHEN':
-            phenotype.push(e.id[0]);
+            if (shouldProcess) phenotype.push(e.id[0]);
             break;
           case 'OBSG':
-            generalObservation.push(e.id[0]);
+            if (shouldProcess) generalObservation.push(e.id[0]);
             break;
           case 'CONS':
             consanguinity = e.id;
@@ -62,7 +71,7 @@ const ClinicalInformation = ({ prescription, prescriptionFormConfig, loading }: 
             indication = e.id;
             break;
           case 'INVES':
-            paraclinique.push(e.id[0]);
+            if (shouldProcess) paraclinique.push(e.id[0]);
             break;
           case '11778-8':
             break;

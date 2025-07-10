@@ -25,6 +25,7 @@ const ParentCard = ({ extension, loading, prescription }: OwnProps) => {
   const validClinicalImpressions: string[] = get(prescription, 'supportingInfo', []).map((info) =>
     get(info, 'reference'),
   );
+  const patient = extension?.extension?.[1].valueReference?.resource;
   const clinicalImpressions =
     extension?.extension?.[1].valueReference?.resource.clinicalImpressions;
   const phenotype: string[] = [];
@@ -39,6 +40,10 @@ const ParentCard = ({ extension, loading, prescription }: OwnProps) => {
       )
       ?.investigation.forEach((inv) => {
         inv.item.forEach((item) => {
+          const isMother = extension?.extension?.[0]?.valueCoding?.coding?.[0].code === 'MTH';
+          // Exclude observation with focus for mother (it means it's a prenatal request and observation is for the foetus)
+          if (item.item?.focus && isMother) return;
+
           if (get(item, 'item.code.coding.code') === 'DSTA') {
             affectedStatus =
               AFFECTED_STATUS_CODE[
@@ -71,8 +76,8 @@ const ParentCard = ({ extension, loading, prescription }: OwnProps) => {
               content={
                 <>
                   <PatientContent
-                    patient={extension?.extension[1].valueReference?.resource!}
-                    reference={prescription?.subject?.resource?.managingOrganization?.reference}
+                    patient={patient!}
+                    reference={patient?.managingOrganization?.reference}
                     labelClass="label-20"
                   />
                   <Divider />
