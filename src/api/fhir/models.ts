@@ -396,12 +396,10 @@ export interface PatientRequest {
       code: string;
     }[];
   }[];
-  code?: {
-    coding: {
-      code: string;
-      system: string;
-    }[];
-  };
+  coding?: {
+    code: string;
+    system: string;
+  }[];
   authoredOn: string;
   id: string;
   status: string;

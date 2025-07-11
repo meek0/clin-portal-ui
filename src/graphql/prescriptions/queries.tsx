@@ -167,8 +167,8 @@ const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
           }
         }
       }
-      code{
-        coding{
+      code @flatten {
+        coding {
           code
           system
         }
