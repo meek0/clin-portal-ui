@@ -160,6 +160,7 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
         'donors.ad_total',
         'donors.ad_ratio',
         'donors.filters',
+        'donors.cnv_count',
         'donors.franklin_combined_score',
       ].includes(key)
     ) {

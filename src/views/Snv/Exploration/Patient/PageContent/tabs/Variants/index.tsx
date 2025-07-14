@@ -1,6 +1,7 @@
 import { Key, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import { DownloadOutlined } from '@ant-design/icons';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
@@ -118,6 +119,8 @@ const VariantsTab = ({
       : getSomaticColumns();
 
   setVariantType(variantType);
+
+  const history = useHistory();
   const columns = getVariantColumns(
     queryBuilderId,
     variantType,
@@ -131,6 +134,7 @@ const VariantsTab = ({
     filtersList,
     interpretationList,
     changeInterpretationList,
+    history,
   );
   const canExtend = (section: VariantSection) =>
     [VariantSection.SNV, VariantSection.SNVTN, VariantSection.SNVTO].includes(section);

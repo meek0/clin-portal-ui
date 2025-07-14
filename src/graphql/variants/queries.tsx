@@ -197,6 +197,7 @@ export const VARIANT_QUERY = gql`
                     patient_id
                     organization_id
                     gender
+                    cnv_count
                     is_proband
                     family_id
                     zygosity

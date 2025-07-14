@@ -43,6 +43,7 @@ const makeRows = (donors: ArrangerEdge<DonorsEntity>[]): TTableDonorEntity[] =>
     family_id: donor.node.family_id,
     last_update: formatTimestampToISODate(donor.node.last_update as number),
     qd: donor.node.qd,
+    cnv_count: donor.node.cnv_count,
     gq: donor.node.gq,
     sq: donor.node.sq,
     variant_type: donor.node.variant_type,
