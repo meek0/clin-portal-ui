@@ -39,7 +39,7 @@ export const getRequestColumns = (
       defaultHidden: true,
       title: intl.get('screen.prescription.entity.request.name'),
       render: (record: PatientRequestEntity) => {
-        const requestCode = record.code?.coding.find((c) =>
+        const requestCode = record.coding?.find((c) =>
           c.system.includes('sequencing-request-code'),
         );
         return requestCode
@@ -51,7 +51,7 @@ export const getRequestColumns = (
       key: 'code',
       title: intl.get('screen.prescription.entity.request.code'),
       render: (record: PatientRequestEntity) => {
-        const requestCode = record.code?.coding.find((c) =>
+        const requestCode = record.coding?.find((c) =>
           c.system.includes('sequencing-request-code'),
         );
         return requestCode ? requestCode.code : TABLE_EMPTY_PLACE_HOLDER;

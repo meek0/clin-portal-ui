@@ -85,7 +85,7 @@ export function getPatientAndRequestIds(
 ) {
   const serviceRequests =
     resource?.requests?.filter((request) =>
-      request.code?.coding.every(
+      request.coding?.every(
         (coding) =>
           !excludeWTS ||
           !excludeWGS ||
