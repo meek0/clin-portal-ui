@@ -1,7 +1,7 @@
 import intl from 'react-intl-universal';
 import { Descriptions, Divider, Typography } from 'antd';
 import { extractObservationId, extractOrganizationId, extractPatientId } from 'api/fhir/helper';
-import { PatientServiceRequestFragment } from 'api/fhir/models';
+import { PatientServiceRequestFragment, ServiceRequestEntity } from 'api/fhir/models';
 import { formatName, formatRamq } from 'api/fhir/patientHelper';
 import { useGestationalDateObservationEntity } from 'graphql/prescriptions/actions';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
@@ -10,6 +10,7 @@ import { calculateGestationalAgeFromDDM, calculateGestationalAgeFromDPA } from '
 import { formatDate } from 'utils/date';
 
 interface OwnProps {
+  prescription?: ServiceRequestEntity;
   patient: PatientServiceRequestFragment;
   reference?: string;
   isPrenatal?: boolean;
@@ -62,7 +63,13 @@ const GestationalInfo = (gestationalAgeObsReference: string, labelClass: string,
   );
 };
 
-const PatientContent = ({ patient, reference, isPrenatal, labelClass = 'label-35' }: OwnProps) => {
+const PatientContent = ({
+  prescription,
+  patient,
+  reference,
+  isPrenatal,
+  labelClass = 'label-35',
+}: OwnProps) => {
   let folder = <>{patient.mrn ?? EMPTY_FIELD}</>;
   if (patient.mrn && reference) {
     folder = (
@@ -77,7 +84,10 @@ const PatientContent = ({ patient, reference, isPrenatal, labelClass = 'label-35
   let foetusInfo = <></>;
 
   if (isPrenatal) {
-    const observation = patient.clinicalImpressions[0]?.investigation[0]?.item.find(
+    const patientClinicalImpression = prescription?.clinicalImpressions.find((ci) =>
+      patient.id.startsWith(ci.clinicalImpression.subject.reference),
+    );
+    const observation = patientClinicalImpression?.clinicalImpression.investigation[0]?.item.find(
       (i) => i.item?.code?.coding.code === DDM || i.item?.code?.coding.code === DPA,
     );
 
@@ -122,7 +132,7 @@ const PatientContent = ({ patient, reference, isPrenatal, labelClass = 'label-35
           {formatDate(patient.person[0].birthdate)}
         </Descriptions.Item>
         <Descriptions.Item label={intl.get('sex.title')}>
-          {intl.get(`sex.${patient.gender?.toLowerCase()}` ?? 'key')}
+          {intl.get(`sex.${patient.gender?.toLowerCase()}`)}
         </Descriptions.Item>
       </Descriptions>
       {foetusInfo}

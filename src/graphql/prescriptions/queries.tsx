@@ -189,32 +189,6 @@ const ANALYSIS_PATIENT_FRAGMENT = (requestId: string) => gql`
       }
       status
     }
-    clinicalImpressions: ClinicalImpressionList(_reference: patient) {
-      id
-      resourceType
-      investigation {
-        item {
-          reference
-          item: resource(type: Observation) {
-            id
-            resourceType
-            focus {
-              reference
-            }
-            code {
-              coding @first {
-                code
-              }
-            }
-            interpretation @first {
-              coding @first {
-                code
-              }
-            }
-          }
-        }
-      }
-    }
   }
 `;
 
@@ -267,8 +241,36 @@ export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
           }
         }
       }
-      supportingInfo {
-        reference
+      clinicalImpressions: supportingInfo {
+        clinicalImpression: resource @flatten{
+          id
+          resourceType
+          subject {
+            reference
+          }
+          investigation {
+            item {
+              reference
+              item: resource(type: Observation) {
+                id
+                resourceType
+                focus {
+                  reference
+                }
+                code {
+                  coding @first {
+                    code
+                  }
+                }
+                interpretation @first {
+                  coding @first {
+                    code
+                  }
+                }
+              }
+            }
+          }
+        }
       }
       supportingInfo @first @flatten {
         observation: resource {
