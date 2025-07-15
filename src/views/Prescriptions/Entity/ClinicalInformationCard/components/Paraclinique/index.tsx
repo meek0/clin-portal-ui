@@ -39,7 +39,7 @@ const displayComplexParaclinique = (
   const label = find(codeSystemInfo?.designation, (o) => o.language === lang);
   const valueList: string[] = [];
   if (paraclinicValueSet) {
-    value.valueCodeableConcept.coding.forEach((v) => {
+    value.valueCodeableConcept?.coding.forEach((v) => {
       const paraclinicValue = paraclinicValueSet.find((p: CodeListEntity) =>
         p.id?.includes(value.code.toLowerCase()),
       );
@@ -178,7 +178,7 @@ export const Paraclinique = ({ ids, complexIds, prescriptionFormConfig }: OwnPro
     if (allParacliniqueValue) {
       allParacliniqueValue.forEach((element: any) => {
         if (hasHPO(element)) {
-          element.valueCodeableConcept.coding.forEach((c: any) => {
+          element.valueCodeableConcept?.coding.forEach((c: any) => {
             handleHpoSearchTermChanged(c.code);
           });
         }
