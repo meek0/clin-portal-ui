@@ -61,6 +61,7 @@ export const getRequestOptions = (
     const { patientId, requestIds } = getPatientAndRequestIds(resource, excludeWTS, excludeWGS);
     for (const requestId of requestIds) {
       options.push({
+        title: '',
         label: `${familyCode ? intl.get(familyCode) : intl.get('proband')} (${requestId})`,
         value: formatOptionValue(patientId, requestId),
       });

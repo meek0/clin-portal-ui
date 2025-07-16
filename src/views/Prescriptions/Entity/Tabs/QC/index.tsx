@@ -102,6 +102,7 @@ const addColorIndicatorToOptions = (
 
       return {
         ...optionItem,
+        title: '',
         label: (
           <Space size={6}>
             {color === 'red' ? (

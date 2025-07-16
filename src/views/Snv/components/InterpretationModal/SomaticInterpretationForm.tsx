@@ -89,6 +89,7 @@ const SomaticInterpretationForm = ({ setHasChanged }: ISomaticInterpretationForm
             label: <InterpretationMondoOptionItem mondo={mondo} />,
             filter: `${mondo._source.name}${mondo._source.mondo_id}`,
             value: mondo._source.mondo_id,
+            title: '',
           }))}
         />
       </Form.Item>

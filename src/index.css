@@ -1,0 +1,6 @@
+.ant-form-item-label label {
+  pointer-events: none;
+  .ant-form-item-tooltip, .ant-typography-secondary {
+    pointer-events: all;
+  }
+}
