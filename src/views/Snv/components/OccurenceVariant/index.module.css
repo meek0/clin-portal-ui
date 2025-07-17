@@ -19,12 +19,22 @@
   padding-right: 0;
 }
 
+.occurenceVariant .hgvsg {
+  max-width: 500px;
+}
+
 .occurenceVariant .hgvsg :global(.ant-space-item):nth-child(1) {
   line-height: 26px;
 }
+
 .occurenceVariant .hgvsgLink {
   text-decoration: underline;
   font-size: 20px;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  white-space: normal;
+  display: inline-block;
 }
 
 .occurenceVariant .hgvsgLink:hover {
