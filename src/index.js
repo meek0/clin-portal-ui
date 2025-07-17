@@ -3,6 +3,7 @@
 /// <reference types="@welldone-software/why-did-you-render" />
 // import 'utils/wdyr';
 import 'clin-portal-theme/themes/clin/main.css';
+import './index.css';
 
 import './prototypes/number';
 import { createRoot } from 'react-dom/client';

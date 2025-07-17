@@ -53,6 +53,7 @@ const Index = ({ downloadFile }: any) => {
   const getOptions = ({ panels }: any) =>
     panels?.buckets.map((bucket: any) => ({
       label: intl.get(`filters.options.panels.${bucket.key}`),
+      title: '',
       value: bucket.key,
       'data-cy': bucket.key,
     }));
