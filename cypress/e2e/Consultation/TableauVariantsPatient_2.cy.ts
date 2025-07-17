@@ -71,12 +71,12 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
   });
  
   it('Valider les liens disponibles Lien CMC', () => {
-    cy.get(`tr[data-row-key="${data.variantGermline.dataRowKey}"] td`).eq(33).find('a[href]')
+    cy.get(`tr[data-row-key="${data.variantGermline.dataRowKey}"] td`).eq(34).find('a[href]')
       .should('have.attr', 'href', 'https://cancer.sanger.ac.uk/cosmic/search?q=COSV52051792&genome=38#');
   });
  
   it('Valider les liens disponibles Lien Tier', () => {
-    cy.get(`tr[data-row-key="${data.variantGermline.dataRowKey}"] td`).eq(34).find('a[href]')
+    cy.get(`tr[data-row-key="${data.variantGermline.dataRowKey}"] td`).eq(35).find('a[href]')
       .should('have.attr', 'href', 'https://franklin.genoox.com/clinical-db/variant/snpTumor/chrX-123403094-G-A-hg38');
   });
 });
