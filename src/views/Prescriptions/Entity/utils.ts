@@ -201,7 +201,10 @@ export const getSequencageIndicatorForRequests = async (
   const metricIndicatorByRequest: TSequencageIndicatorForRequests['metricIndicatorByRequest'] = {};
 
   summaryData.forEach(({ requestId, sampleQcReport, cnvCount, patientSex }) => {
-    if (typeof sampleQcReport === 'object' && Object.keys(sampleQcReport).length === 0) {
+    if (
+      !sampleQcReport ||
+      (typeof sampleQcReport === 'object' && Object.keys(sampleQcReport).length === 0)
+    ) {
       return false;
     }
 
