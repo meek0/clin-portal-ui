@@ -38,7 +38,7 @@ describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(6)
       .should('have.class', 'ant-table-column-has-sorters')
-      .contains('Nombre de SNVs').should('exist');
+      .contains('# SNVs').should('exist');
 
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(7)

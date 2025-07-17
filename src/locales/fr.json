@@ -1314,7 +1314,7 @@
   "screen.variantDetails.summaryTab.summaryTable.alleleRef": "Allèle REF :",
   "screen.variantDetails.summaryTab.summaryTable.chromosome": "Chromosome :",
   "screen.variantDetails.summaryTab.summaryTable.cytoband": "Cytobande",
-  "screen.variantDetails.summaryTab.summaryTable.snvsCount": "Nombre de SNVs",
+  "screen.variantDetails.summaryTab.summaryTable.snvsCount": "# SNVs",
   "screen.variantDetails.summaryTab.summaryTable.snvsCount.tooltip": "Nombre de SNVs inclus par le CNV",
   "screen.variantDetails.summaryTab.summaryTable.genomeRef": "Génome de référence",
   "screen.variantDetails.summaryTab.summaryTable.start": "Position :",

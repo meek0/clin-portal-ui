@@ -23,10 +23,10 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
   });
   
-  it('Valider les fonctionnalités du tableau - Tri Nombre de SNVs', () => {
-    cy.sortTableAndIntercept('Nombre de SNVs', 1);
+  it('Valider les fonctionnalités du tableau - Tri # SNVs', () => {
+    cy.sortTableAndIntercept('# SNVs', 1);
     cy.validateTableFirstRow(/^0$/, 6, true);
-    cy.sortTableAndIntercept('Nombre de SNVs', 1);
+    cy.sortTableAndIntercept('# SNVs', 1);
     cy.validateTableFirstRow(/^236$/, 6, true);
   });
   
