@@ -92,6 +92,7 @@ export type DonorsEntity = {
   all_analyses?: string[];
   qd: number;
   gq: number;
+  cnv_count: number;
   sq: number;
   variant_type: VariantType;
   bioinfo_analysis_code: BioinfoAnalysisCode;

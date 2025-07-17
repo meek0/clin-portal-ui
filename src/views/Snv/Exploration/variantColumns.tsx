@@ -14,7 +14,11 @@ import {
 } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
-import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import {
+  addQuery,
+  getQueryBuilderState,
+} from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { RangeOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
 import StackLayout from '@ferlab/ui/core/layout/StackLayout';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
@@ -33,9 +37,14 @@ import {
 } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
 import { capitalize } from 'lodash';
+import { v4 } from 'uuid';
 import { TVariantFilter } from 'views/Cnv/Exploration/variantColumns';
+import { PrescriptionEntityTabs } from 'views/Prescriptions/Entity';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
-import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
+import {
+  VariantSection,
+  VariantSectionKey,
+} from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import ConsequencesCell from 'views/Snv/components/ConsequencesCell';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
@@ -48,7 +57,7 @@ import { formatNumber } from 'utils/formatNumber';
 import GqLine from '../components/GQLine';
 import { HcComplementDescription } from '../components/OccurenceVariant/HcDescription';
 import { TAB_ID } from '../Entity';
-import { ZygosityValue } from '../utils/constant';
+import { getQueryBuilderID, ZygosityValue } from '../utils/constant';
 
 import FlagCell from './components/Flag/FlagCell';
 import FlagFilterDropdown from './components/Flag/FlagFilter';
@@ -331,8 +340,103 @@ export const getVariantColumns = (
   filtersList?: TVariantFilter,
   interpretationList?: string[],
   changeInterpretationList?: (hash: string) => void,
+  history?: any,
 ): ProColumnType<ITableVariantEntity>[] => {
   let columns: ProColumnType<ITableVariantEntity>[] = [];
+
+  const cnvCountQueries = (record: VariantEntity, donor?: DonorsEntity) => {
+    const handleRedirection = (
+      record: VariantEntity,
+      target: VariantSection,
+      { replace, location }: any,
+    ) => {
+      const queryBuilderId = getQueryBuilderID(target);
+      const queryBuilderState = getQueryBuilderState(queryBuilderId);
+      const getnbCnvQueries = () => {
+        if (queryBuilderState && queryBuilderState.state && queryBuilderState.state.length > 0) {
+          if (
+            queryBuilderState.state?.[queryBuilderState.state.length - 1]?.content?.length === 0 // check if empty query
+          ) {
+            return queryBuilderState.state.length - 1;
+          }
+          return queryBuilderState.state.length;
+        }
+        return 0;
+      };
+      addQuery({
+        queryBuilderId,
+        query: generateQuery({
+          newFilters: [
+            generateValueFilter({
+              field: 'chromosome',
+              value: [record.chromosome],
+              index: INDEXES.VARIANT,
+            }),
+            generateValueFilter({
+              field: 'start',
+              value: [record.start.toString()],
+              index: INDEXES.VARIANT,
+              operator: RangeOperators['<='],
+            }),
+          ],
+        }),
+        setAsActive: true,
+      });
+      addQuery({
+        queryBuilderId,
+        query: generateQuery({
+          newFilters: [
+            generateValueFilter({
+              field: 'chromosome',
+              value: [record.chromosome],
+              index: INDEXES.VARIANT,
+            }),
+            generateValueFilter({
+              field: 'end',
+              value: [record.start.toString()],
+              index: INDEXES.VARIANT,
+              operator: RangeOperators['>='],
+            }),
+          ],
+        }),
+        setAsActive: true,
+      });
+      addQuery({
+        queryBuilderId,
+        query: {
+          content: [getnbCnvQueries(), getnbCnvQueries() + 1],
+          id: v4(),
+          op: 'and',
+        },
+        setAsActive: true,
+      });
+      replace({
+        ...location,
+        hash: PrescriptionEntityTabs.VARIANTS,
+        search: `?${new URLSearchParams({
+          [VariantSectionKey]: target,
+        }).toString()}`,
+      });
+    };
+
+    return donor?.cnv_count ? (
+      <Typography.Link>
+        <a
+          onClick={() =>
+            handleRedirection(
+              record,
+              variantType === VariantType.GERMLINE ? VariantSection.CNV : VariantSection.CNVTO,
+              history,
+            )
+          }
+        >
+          {donor?.cnv_count}
+        </a>
+      </Typography.Link>
+    ) : (
+      '0'
+    );
+  };
 
   if (patientId && isSameLDM) {
     if (EnvironmentVariables.configFor('SHOW_FLAGS') === 'true') {
@@ -728,6 +832,17 @@ export const getVariantColumns = (
             renderDonorByKey('donors.gq', findDonorById(record.donors, patientId)),
         },
         {
+          title: intl.get('screen.patientsnv.results.table.cnvCount'),
+          tooltip: intl.get('screen.patientsnv.results.table.cnvCount.tooltip'),
+          key: 'donors.cnv_count',
+          width: 160,
+          sorter: { multiple: 1 },
+          render: (record: VariantEntity) => {
+            const donor = findDonorById(record.donors, patientId);
+            return cnvCountQueries(record, donor);
+          },
+        },
+        {
           ...getDonorZygosity(patientId),
         },
         {
@@ -838,18 +953,32 @@ export const getVariantColumns = (
           });
         }
       }
-      columns.push(
-        {
-          key: 'donors.sq',
-          title: intl.get('screen.patientsnv.results.table.sq'),
-          tooltip: intl.get('sq.tooltip'),
-          width: 59,
-          sorter: {
-            multiple: 1,
-          },
-          render: (record: VariantEntity) =>
-            renderDonorByKey('donors.sq', findDonorById(record.donors, patientId)),
+      columns.push({
+        key: 'donors.sq',
+        title: intl.get('screen.patientsnv.results.table.sq'),
+        tooltip: intl.get('sq.tooltip'),
+        width: 59,
+        sorter: {
+          multiple: 1,
         },
+        render: (record: VariantEntity) =>
+          renderDonorByKey('donors.sq', findDonorById(record.donors, patientId)),
+      });
+
+      if (variantSection === VariantSection.SNVTO) {
+        columns.push({
+          title: intl.get('screen.patientsnv.results.table.cnvCount'),
+          tooltip: intl.get('screen.patientsnv.results.table.cnvCount.tooltip'),
+          key: 'donors.cnv_count',
+          width: 160,
+          sorter: { multiple: 1 },
+          render: (record: VariantEntity) => {
+            const donor = findDonorById(record.donors, patientId);
+            return cnvCountQueries(record, donor);
+          },
+        });
+      }
+      columns.push(
         {
           ...getDonorZygosity(patientId),
           sorter: {
@@ -1105,6 +1234,14 @@ export const renderToString = (element: any) => {
     return ReactDOMServer.renderToString(element);
   }
   return '';
+};
+
+export const renderCNVCountToString = (variant: any) => {
+  const pickedConsequenceSymbol = variant.consequences?.hits.edges.find(
+    ({ node }: any) => !!node.picked,
+  )?.node.symbol;
+
+  return renderToString(renderOmim(variant, pickedConsequenceSymbol));
 };
 
 export const renderOmimToString = (variant: any) => {
@@ -1367,6 +1504,8 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
     return (donor?.ad_ratio ?? 0).toFixed(2) ?? TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors.filters') {
     return formatFilters(donor?.filters);
+  } else if (key === 'donors.cnv_count') {
+    return donor?.cnv_count ?? TABLE_EMPTY_PLACE_HOLDER;
   }
   return <></>;
 };

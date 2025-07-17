@@ -1174,7 +1174,7 @@
   "screen.patientsnv.results.table.genotype": "M : P",
   "screen.patientsnv.results.table.genotype.tooltip": "Génotypes (M : P)",
   "screen.patientsnv.results.table.gq": "QG",
-  "screen.patientsnv.results.table.cnvCount": "Nombre de CNVs",
+  "screen.patientsnv.results.table.cnvCount": "# CNVs",
   "screen.patientsnv.results.table.cnvCount.tooltip": "Nombre de CNVs chevauchant le SNV",
   "screen.patientsnv.results.table.sq": "QS",
   "screen.patientsnv.results.table.bioinfo_analysis_code": "Bioinfo",

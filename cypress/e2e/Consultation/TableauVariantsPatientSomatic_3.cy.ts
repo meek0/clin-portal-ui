@@ -101,46 +101,53 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.validateTableFirstRow('81.99', 21, true);
   });
 
+  it('Valider les fonctionnalités du tableau - Tri # CNVs', () => {
+    cy.sortTableAndIntercept('# CNVs', 1);
+    cy.validateTableFirstRow(/^0$/, 22, true);
+    cy.sortTableAndIntercept('# CNVs', 1);
+    cy.validateTableFirstRow(/^0$/, 22, true);
+  });
+
   it('Valider les fonctionnalités du tableau - Tri Zyg.', () => {
     cy.sortTableAndIntercept('Zyg.', 1);
-    cy.validateTableFirstRow('0/1', 22, true);
+    cy.validateTableFirstRow('0/1', 23, true);
     cy.sortTableAndIntercept('Zyg.', 1);
-    cy.validateTableFirstRow('0/1', 22, true);
+    cy.validateTableFirstRow('0/1', 23, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri QP', () => {
     cy.sortTableAndIntercept('QP', 1);
-    cy.validateTableFirstRow('-', 23, true);
+    cy.validateTableFirstRow('-', 24, true);
     cy.sortTableAndIntercept('QP', 1);
-    cy.validateTableFirstRow('-', 23, true);
+    cy.validateTableFirstRow('-', 24, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri A', () => {
     cy.sortTableAndIntercept(/^A$/, 1);
-    cy.validateTableFirstRow(/^3$/, 24, true);
+    cy.validateTableFirstRow(/^3$/, 25, true);
     cy.sortTableAndIntercept(/^A$/, 1);
-    cy.validateTableFirstRow('1489', 24, true);
+    cy.validateTableFirstRow('1489', 25, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri A+R', () => {
     cy.sortTableAndIntercept(/^A\+R$/, 1);
-    cy.validateTableFirstRow(/^3$/, 25, true);
+    cy.validateTableFirstRow(/^3$/, 26, true);
     cy.sortTableAndIntercept(/^A\+R$/, 1);
-    cy.validateTableFirstRow('2553', 25, true);
+    cy.validateTableFirstRow('2553', 26, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri A/(A+R)', () => {
     cy.sortTableAndIntercept('A/(A+R)', 1);
-    cy.validateTableFirstRow('0.01', 26, true);
+    cy.validateTableFirstRow('0.01', 27, true);
     cy.sortTableAndIntercept('A/(A+R)', 1);
-    cy.validateTableFirstRow('1.00', 26, true);
+    cy.validateTableFirstRow('1.00', 27, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Filtre', () => {
     cy.sortTableAndIntercept('Filtre', 1);
-    cy.validateTableFirstRow('PASS', 27, true);
+    cy.validateTableFirstRow('PASS', 28, true);
     cy.sortTableAndIntercept('Filtre', 1);
-    cy.validateTableFirstRow('Weak Evidence', 27, true);
+    cy.validateTableFirstRow('Weak Evidence', 28, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
