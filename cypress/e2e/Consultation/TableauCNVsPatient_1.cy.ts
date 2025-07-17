@@ -66,7 +66,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.get('button[class="ant-modal-close"]').invoke('click');
   });
  
-  it('Valider les liens disponibles Lien Nombre de SNVs', () => {
+  it('Valider les liens disponibles Lien #SNVs', () => {
     cy.get('tr').contains(/^25$/).clickAndWait({force: true});
     cy.validateTotalSelectedQuery('25');
     cy.validatePillSelectedQuery('Position', ['196774872', '196832006']);
