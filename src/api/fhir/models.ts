@@ -237,6 +237,7 @@ export interface ClinicalImpression {
   id?: string;
   resourceType: ResourceType;
   investigation: Investigation[];
+  subject: Reference;
 }
 
 export interface Person {
@@ -359,6 +360,9 @@ export interface ServiceRequestEntity {
     resource: PatientServiceRequestFragment;
   };
   basedOn: { reference: string };
+  clinicalImpressions: {
+    clinicalImpression: ClinicalImpression;
+  }[];
 }
 
 export type ServiceRequestEntityExtension = Extension<{
@@ -417,7 +421,6 @@ export interface PatientServiceRequestFragment {
   gender: string;
   mrn: string;
   managingOrganization: Reference;
-  clinicalImpressions: ClinicalImpression[];
   person: Person[];
   requests: PatientRequest[];
 }

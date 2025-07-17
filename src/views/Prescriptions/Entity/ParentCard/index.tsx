@@ -22,40 +22,33 @@ interface OwnProps {
 }
 
 const ParentCard = ({ extension, loading, prescription }: OwnProps) => {
-  const validClinicalImpressions: string[] = get(prescription, 'supportingInfo', []).map((info) =>
-    get(info, 'reference'),
-  );
   const patient = extension?.extension?.[1].valueReference?.resource;
-  const clinicalImpressions =
-    extension?.extension?.[1].valueReference?.resource.clinicalImpressions;
   const phenotype: string[] = [];
   const generalObservation: string[] = [];
   let affectedStatus = '';
+  const patientClinicalImpression = prescription?.clinicalImpressions.find((ci) =>
+    patient?.id.startsWith(ci.clinicalImpression.subject.reference),
+  )?.clinicalImpression;
 
-  if (clinicalImpressions && clinicalImpressions.length > 0) {
-    clinicalImpressions
-      .find(
-        (impression) =>
-          impression.id && validClinicalImpressions.some((i) => impression.id?.startsWith(i)),
-      )
-      ?.investigation.forEach((inv) => {
-        inv.item.forEach((item) => {
-          const isMother = extension?.extension?.[0]?.valueCoding?.coding?.[0].code === 'MTH';
-          // Exclude observation with focus for mother (it means it's a prenatal request and observation is for the foetus)
-          if (item.item?.focus && isMother) return;
+  if (patientClinicalImpression) {
+    patientClinicalImpression.investigation.forEach((inv) => {
+      inv.item.forEach((item) => {
+        const isMother = extension?.extension?.[0]?.valueCoding?.coding?.[0].code === 'MTH';
+        // Exclude observation with focus for mother (it means it's a prenatal request and observation is for the foetus)
+        if (item.item?.focus && isMother) return;
 
-          if (get(item, 'item.code.coding.code') === 'DSTA') {
-            affectedStatus =
-              AFFECTED_STATUS_CODE[
-                get(item, 'item.interpretation.coding.code', '') as AffectedStatusCode
-              ];
-          } else if (get(item, 'item.code.coding.code') === 'OBSG') {
-            generalObservation.push(item.reference);
-          } else if (get(item, 'item.code.coding.code') === 'PHEN') {
-            phenotype.push(item.reference);
-          }
-        });
+        if (get(item, 'item.code.coding.code') === 'DSTA') {
+          affectedStatus =
+            AFFECTED_STATUS_CODE[
+              get(item, 'item.interpretation.coding.code', '') as AffectedStatusCode
+            ];
+        } else if (get(item, 'item.code.coding.code') === 'OBSG') {
+          generalObservation.push(item.reference);
+        } else if (get(item, 'item.code.coding.code') === 'PHEN') {
+          phenotype.push(item.reference);
+        }
       });
+    });
   }
 
   return (
