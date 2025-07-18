@@ -10,6 +10,12 @@ beforeEach(() => {
 });
 
 describe('Page des variants d\'un patient - Opérateurs par défaut', () => {
+  it('Occurrence - Nombre de CNVs', () => {
+    cy.openFacet('Occurrence', 'Nombre de CNVs');
+    cy.get(`[data-cy="InputNumber_Min_Nombre de CNVs"]`).should('not.exist');
+    cy.get(`[data-cy="InputNumber_Max_Nombre de CNVs"]`).should('exist');
+  });
+
   it('Occurrence - Qualité de profondeur', () => {
     cy.openFacet('Occurrence', 'Qualité de profondeur');
     cy.get(`[data-cy="InputNumber_Min_Qualité de profondeur"]`).should('exist');
