@@ -1,27 +1,37 @@
-import { Key, useState } from 'react';
+import { Key, useContext, useEffect, useState } from 'react';
+import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
 import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
+import { Dropdown, Tooltip } from 'antd';
+import { FhirApi } from 'api/fhir';
 import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 import { IQueryResults } from 'graphql/models';
 import { VariantType } from 'graphql/variants/models';
+import { DocsWithTaskInfo } from 'views/Archives';
+import { extractDocsFromTask } from 'views/Archives/helper';
 import GenesModal from 'views/Cnv/Exploration/components/GenesModal';
 import IGVModal from 'views/Cnv/Exploration/components/IGVModal';
 import { getVariantColumns, TVariantFilter } from 'views/Cnv/Exploration/variantColumns';
 import { DEFAULT_PAGE_INDEX, DEFAULT_SORT_QUERY } from 'views/Cnv/utils/constant';
+import PrescriptionEntityContext from 'views/Prescriptions/Entity/context';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { getVariantTypeFromCNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
+import { getAllRequestIds } from 'views/Prescriptions/Entity/utils';
 import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
 import { SCROLL_WRAPPER_ID } from 'views/Snv/utils/constant';
 
 import FixedSizeTable from 'components/Layout/FixedSizeTable';
 import { useRpt } from 'hooks/useRpt';
+import { globalActions } from 'store/global';
 import { useUser } from 'store/user';
 import { updateConfig } from 'store/user/thunks';
 import { formatQuerySortList, scrollToTop } from 'utils/helper';
 import { getProTableDictionary } from 'utils/translation';
+
+import CnvCallsModal from '../CnvCallsModal';
 
 import style from './index.module.css';
 
@@ -69,6 +79,51 @@ const VariantsTable = ({
 
   const history = useHistory();
 
+  const [isOpenCnvCallsModal, setIsOpenCnvCallsModal] = useState(false);
+  const toggleCnvCallsModal = (open: boolean) => setIsOpenCnvCallsModal(open);
+  const { prescription, variantInfo } = useContext(PrescriptionEntityContext);
+  const [loadingCnvCalls, setLoadingCnvCalls] = useState(false);
+  const [cnvCallsFiles, setCnvCallsFiles] = useState<DocsWithTaskInfo[]>([]);
+  const [cnvCallsFile, setCnvCallsFile] = useState<DocsWithTaskInfo | undefined>(undefined);
+  const allRequestIds = getAllRequestIds(prescription);
+  const allRequestIdsAsString = JSON.stringify(allRequestIds);
+
+  useEffect(() => {
+    const fetchAllFiles = async () => {
+      setLoadingCnvCalls(true);
+      const results = await Promise.all(
+        allRequestIds.map<Promise<DocsWithTaskInfo[]>>((requestId) =>
+          FhirApi.searchPatientFiles(requestId).then(({ data }) => {
+            if (data?.data.taskList) {
+              return extractDocsFromTask(data.data.taskList);
+            } else {
+              return [];
+            }
+          }),
+        ),
+      );
+      setLoadingCnvCalls(false);
+
+      const cnvCallsFiles = results
+        .reduce((a, b) => [...a, ...b], [])
+        .filter((r: DocsWithTaskInfo) => r.type === 'CNVVIS' && r.format === 'PNG');
+
+      setCnvCallsFiles(cnvCallsFiles);
+    };
+
+    if (allRequestIds.length) {
+      fetchAllFiles();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allRequestIdsAsString]);
+
+  useEffect(() => {
+    if (cnvCallsFiles.length > 0 && variantInfo.requestId) {
+      const file = cnvCallsFiles.find((r: DocsWithTaskInfo) => r.srRef === variantInfo.requestId);
+      setCnvCallsFile(file);
+    }
+  }, [cnvCallsFiles, variantInfo.requestId]);
+
   const openIgvModal = (record: VariantEntity) => {
     setSelectedVariant(record);
     toggleModal(true);
@@ -81,6 +136,29 @@ const VariantsTable = ({
     variantType === VariantType.GERMLINE
       ? user.config.data_exploration?.tables?.patientCnvGermline?.columns
       : user.config.data_exploration?.tables?.patientCnvTo?.columns;
+
+  const downloadCnvCalls = async (fileUrl: string) => {
+    FhirApi.getFileURL(fileUrl)
+      .then(({ data }) => {
+        window.open(data?.url, '_blank');
+        dispatch(
+          globalActions.displayNotification({
+            type: 'success',
+            message: intl.get('notification.success'),
+            description: intl.get('notification.success.file.download'),
+          }),
+        );
+      })
+      .catch(() => {
+        dispatch(
+          globalActions.displayNotification({
+            type: 'error',
+            message: intl.get('notification.error'),
+            description: intl.get('notification.error.file.download'),
+          }),
+        );
+      });
+  };
 
   return (
     <>
@@ -142,6 +220,36 @@ const VariantsTable = ({
                 total: results?.total || 0,
               },
               enableColumnSort: true,
+              extra: [
+                <Tooltip
+                  key="cnvCallsTooltip"
+                  title={
+                    loadingCnvCalls || !cnvCallsFile
+                      ? intl.get('screen.patientcnv.cnv_calls.disabledButton')
+                      : ''
+                  }
+                >
+                  <Dropdown.Button
+                    key="cnvCalls"
+                    disabled={loadingCnvCalls || !cnvCallsFile}
+                    menu={{
+                      items: [
+                        {
+                          key: 'downloadPng',
+                          label: intl.get('screen.patientcnv.cnv_calls.download'),
+                        },
+                      ],
+                      onClick: () =>
+                        cnvCallsFile && downloadCnvCalls(cnvCallsFile.action.urls.file),
+                    }}
+                    onClick={() => setIsOpenCnvCallsModal(true)}
+                    size="small"
+                    type="primary"
+                  >
+                    {intl.get('screen.patientcnv.cnv_calls.button')}
+                  </Dropdown.Button>
+                </Tooltip>,
+              ],
 
               onSelectedRowsChange: (key, row) => {
                 setSelectedRows(row);
@@ -217,6 +325,14 @@ const VariantsTable = ({
           />
         )}
       />
+      {isOpenCnvCallsModal && (
+        <CnvCallsModal
+          cnvCallsFile={cnvCallsFile}
+          downloadCnvCalls={downloadCnvCalls}
+          isOpen={isOpenCnvCallsModal}
+          toggleModal={toggleCnvCallsModal}
+        />
+      )}
     </>
   );
 };

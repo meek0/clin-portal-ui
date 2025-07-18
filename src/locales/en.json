@@ -968,6 +968,10 @@
   "screen.patient.tab.requests": "Requests",
   "screen.patientcnv.category_variant": "Variant",
   "screen.patientcnv.category_genomic": "Gene",
+  "screen.patientcnv.cnv_calls.button": "Genome View",
+  "screen.patientcnv.cnv_calls.disabledButton": "File unavailable",
+  "screen.patientcnv.cnv_calls.download": "Download",
+  "screen.patientcnv.cnv_calls.modal.title": "CNV Calls: {sequencingRequestId}",
   "screen.patientcnv.modal.genes.close": "Close",
   "screen.patientcnv.modal.genes.table.gene": "Gene",
   "screen.patientcnv.modal.genes.table.length": "Length",
@@ -1601,7 +1605,7 @@
           "germline": "Germline",
           "somatic": "Somatic"
         },
-        "notification":{
+        "notification": {
           "success": "Interpretation successfully saved",
           "error": {
             "title": "Failed to save interpretation",
@@ -1747,13 +1751,13 @@
   "tier": "CMC tier",
   "pli": "pLi",
   "interpretation_Cell": {
-    "filter":{
-      "options":{
-        "hasInterpretation":"Interpretation",
-        "none":"None"
+    "filter": {
+      "options": {
+        "hasInterpretation": "Interpretation",
+        "none": "None"
       }
     },
     "tooltip_column": "Clinical Interpretation",
-    "tooltip_cell":"Open clinical interpretation"
+    "tooltip_cell": "Open clinical interpretation"
   }
 }

@@ -971,6 +971,10 @@
   "screen.patient.tab.requests": "Requêtes",
   "screen.patientcnv.category_variant": "Variant",
   "screen.patientcnv.category_genomic": "Gène",
+  "screen.patientcnv.cnv_calls.button": "Vue génomique",
+  "screen.patientcnv.cnv_calls.disabledButton": "Fichier non disponible",
+  "screen.patientcnv.cnv_calls.download": "Télécharger",
+  "screen.patientcnv.cnv_calls.modal.title": "Appels de CNV : {sequencingRequestId}",
   "screen.patientcnv.modal.genes.close": "Fermer",
   "screen.patientcnv.modal.genes.table.gene": "Gène",
   "screen.patientcnv.modal.genes.table.length": "Longueur du gène",
@@ -1607,7 +1611,7 @@
           "germline": "Germline",
           "somatic": "Somatic"
         },
-        "notification":{
+        "notification": {
           "success": "Interprétation sauvegardée avec succès",
           "error": {
             "title": "La sauvegarde d'interprétation a échouée",
@@ -1760,6 +1764,6 @@
       }
     },
     "tooltip_column": "Interprétation clinique",
-    "tooltip_cell":"Ouvrir l’interprétation clinique"
+    "tooltip_cell": "Ouvrir l’interprétation clinique"
   }
 }
