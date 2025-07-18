@@ -135,7 +135,7 @@ const formatRqdm = (rqdm: BoundType, variant: VariantEntity) => {
   return (
     <Space size={4}>
       <Link to={`/variant/entity/${variant.locus}/${TAB_ID.PATIENTS}`}>{rqdm.pc}</Link>
-      <Typography.Text>({rqdm.pf.toExponential(2)})</Typography.Text>
+      <Typography.Text>({(rqdm?.pf || 0.0).toExponential(2)})</Typography.Text>
     </Space>
   );
 };
