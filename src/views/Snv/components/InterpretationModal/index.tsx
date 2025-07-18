@@ -47,6 +47,7 @@ type TInterpretationModalProps = {
   patientId: string;
   variantSection?: VariantSection;
   changeInterpretationList?: (hash: string) => void;
+  hasInterpretation: boolean;
 };
 
 const InterpretationModal = ({
@@ -56,6 +57,7 @@ const InterpretationModal = ({
   patientId,
   variantSection,
   changeInterpretationList,
+  hasInterpretation = true,
 }: TInterpretationModalProps) => {
   const [form] = Form.useForm();
   const [saving, setSaving] = useState(false);
@@ -218,7 +220,12 @@ const InterpretationModal = ({
                   <Form
                     form={form}
                     layout="vertical"
-                    initialValues={getInterpretationFormInitialValues(isSomatic, interpretation)}
+                    initialValues={getInterpretationFormInitialValues(
+                      isSomatic,
+                      interpretation,
+                      hasInterpretation,
+                      record.exomiser_max?.acmg_evidence,
+                    )}
                     onFinish={handleFinish}
                     validateMessages={{
                       required: intl.get('this.field.is.required'),

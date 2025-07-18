@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
 import { DownloadOutlined } from '@ant-design/icons';
@@ -28,6 +28,7 @@ interface OwnProps {
   igvModalCb?: (record: VariantEntity) => void;
   variantSection?: VariantSection;
   changeInterpretationList?: (hash: string) => void;
+  interpretationList?: string[];
 }
 
 const Header = ({
@@ -38,8 +39,14 @@ const Header = ({
   igvModalCb,
   variantSection,
   changeInterpretationList,
+  interpretationList = [],
 }: OwnProps) => {
   const [isInterpretationModalOpen, toggleInterpretationModal] = useState(false);
+
+  const [hasInterpretation, setHasInterpretation] = useState(false);
+  useEffect(() => {
+    setHasInterpretation(!!interpretationList?.includes(record.hash));
+  }, [interpretationList, record.hash]);
 
   const donor = findDonorById(record?.donors, patientId);
 
@@ -114,6 +121,7 @@ const Header = ({
         patientId={patientId}
         variantSection={variantSection}
         changeInterpretationList={changeInterpretationList}
+        hasInterpretation={hasInterpretation}
       />
     </>
   );

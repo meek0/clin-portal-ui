@@ -161,6 +161,7 @@ export type VariantEntity = {
     variant_score: number;
     gene_combined_score: number;
     acmg_classification: string;
+    acmg_evidence: string[];
   };
   franklin_max: {
     combined_score: number;

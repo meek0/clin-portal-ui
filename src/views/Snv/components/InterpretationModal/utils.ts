@@ -35,10 +35,11 @@ const getGenericInterpFormInitialValues = (interpretation: TInterpretationOutput
 // TODO add correct type and fill initial form values
 export const getGermlineInterpFormInitialValues = (
   interpretation: TInterpretationGermlineOutput | null,
+  defaultClassificationCriterias: string[],
 ): TInterpretationGermline => ({
   [GermlineInterpFormFields.CLASSIFICATION]: interpretation?.classification,
   [GermlineInterpFormFields.CLASSIFICATION_CRITERIAS]:
-    interpretation?.classification_criterias || [],
+    interpretation?.classification_criterias || defaultClassificationCriterias,
   [GermlineInterpFormFields.CONDITION]: interpretation?.condition,
   [GermlineInterpFormFields.TRANSMISSION_MODES]: interpretation?.transmission_modes || [],
   ...getGenericInterpFormInitialValues(interpretation),
@@ -59,12 +60,26 @@ export const getSimaticInterpFormInitialValues = (
 export const getInterpretationFormInitialValues = (
   isSomatic: boolean,
   interpretation: TInterpretationOutput | null,
-) => ({
-  ...(isSomatic
-    ? getSimaticInterpFormInitialValues(interpretation as TInterpretationSomaticOutput)
-    : getGermlineInterpFormInitialValues(interpretation as TInterpretationGermlineOutput)),
-  ...getGenericInterpFormInitialValues(interpretation),
-});
+  hasInterpretation: boolean,
+  acmgEvidence?: string[],
+) => {
+  const defaultClassificationCriterias: string[] = [];
+  if (!hasInterpretation && !isSomatic && acmgEvidence?.length) {
+    acmgEvidence.forEach((evidence) => {
+      const evidenceOpt = evidence.split('_');
+      defaultClassificationCriterias.push(evidenceOpt[0]);
+    });
+  }
+  return {
+    ...(isSomatic
+      ? getSimaticInterpFormInitialValues(interpretation as TInterpretationSomaticOutput)
+      : getGermlineInterpFormInitialValues(
+          interpretation as TInterpretationGermlineOutput,
+          defaultClassificationCriterias,
+        )),
+    ...getGenericInterpFormInitialValues(interpretation),
+  };
+};
 
 export const requiredRule = {
   required: true,

@@ -38,6 +38,7 @@ const InterpretationCell = ({
           patientId={patientId}
           variantSection={variantSection}
           changeInterpretationList={changeInterpretationList}
+          hasInterpretation={hasInterpretation}
         />
       )}
 

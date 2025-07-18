@@ -174,6 +174,7 @@ const VariantsTab = ({
                         igvModalCb={openIgvModal}
                         variantSection={variantSection}
                         changeInterpretationList={changeInterpretationList}
+                        interpretationList={interpretationList}
                       />
                     ),
                     expandedRowClassName: () => style.expendableTable,
