@@ -75,6 +75,7 @@ const PrescriptionVariants = () => {
                   defaultValue={selectOptions[0]?.value}
                   options={getRequestOptions(prescription)}
                   onChange={(value) => setVariantInfo(extractOptionValue(value as string))}
+                  dropdownStyle={{ minWidth: 200 }}
                 />
               </Space>
             )}

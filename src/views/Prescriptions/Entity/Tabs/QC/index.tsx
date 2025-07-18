@@ -205,6 +205,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
                   defaultValue={formatOptionValue(variantInfo.patientId!, variantInfo.requestId!)}
                   options={optionsWithIndicator}
                   onChange={(value) => setVariantInfo(extractOptionValue(value))}
+                  dropdownStyle={{ minWidth: 200 }}
                 />
                 <Radio.Group
                   key="variant-section"
