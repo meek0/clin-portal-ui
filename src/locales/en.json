@@ -1173,7 +1173,7 @@
   "screen.patientsnv.results.table.genotype": "M : F",
   "screen.patientsnv.results.table.genotype.tooltip": "Genotypes (M : F)",
   "screen.patientsnv.results.table.gq": "GQ",
-  "screen.patientsnv.results.table.cnvCount": "CNVs #",
+  "screen.patientsnv.results.table.cnvCount": "# CNVs",
   "screen.patientsnv.results.table.cnvCount.tooltip": "Number of CNVs overlapping the SNV",
   "screen.patientsnv.results.table.sq": "SQ",
   "screen.patientsnv.results.table.bioinfo_analysis_code": "Bioinfo",
