@@ -1516,30 +1516,24 @@ const renderOmim = (
   },
   pickedConsequenceSymbol: string | undefined,
 ) => {
-  const genesWithOmim = variant.genes.hits.edges.filter(
-    (gene) => gene.node.omim?.hits?.edges?.length,
+  const geneMatchingSymbol = variant.genes.hits.edges.find(
+    (gene) => gene.node.symbol === pickedConsequenceSymbol,
   );
+  const omimId = geneMatchingSymbol?.node.omim_gene_id;
+  if (!omimId) return TABLE_EMPTY_PLACE_HOLDER;
 
-  const pickedConsequenceGeneWithOmim = genesWithOmim.filter(
-    ({ node }) => node.symbol === pickedConsequenceSymbol,
-  );
-
-  if (!genesWithOmim.length || !pickedConsequenceGeneWithOmim.length) {
-    return TABLE_EMPTY_PLACE_HOLDER;
-  }
-
-  const pickedOmim = pickedConsequenceGeneWithOmim[0];
-  const omimLink = `https://www.omim.org/entry/${pickedOmim.node.omim_gene_id}`;
-
-  const omims = pickedOmim.node.omim?.hits?.edges || [];
+  const omims = geneMatchingSymbol?.node.omim?.hits?.edges || [];
   const inheritance = omims
     .reduce<string[]>((prev, curr) => [...prev, ...(curr.node.inheritance_code || [])], [])
     .filter((item, pos, self) => self.indexOf(item) == pos);
 
+  const omimLink = `https://www.omim.org/entry/${omimId}`;
+
   if (!inheritance.length) {
+    const type = !omims.length ? 'NRP' : 'NRT';
     return (
-      <Tooltip title={intl.get(`inheritant.code.NRT`)}>
-        <ExternalLink href={omimLink}>NRT</ExternalLink>
+      <Tooltip title={intl.get(`inheritant.code.${type}`)}>
+        <ExternalLink href={omimLink}>{type}</ExternalLink>
       </Tooltip>
     );
   }

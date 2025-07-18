@@ -1402,6 +1402,7 @@
   "inheritant.code.?AR": "Uncertain Autosomal Recessive",
   "inheritant.code.?Mi": "Uncertain Mitochondrial",
   "inheritant.code.NRT": "No Reported Transmission",
+  "inheritant.code.NRP": "No Reported Phenotype",
   "inheritant.code.IC": "Isolated Cases",
   "inheritant.code.XL": "X-linked",
   "inheritant.code.DR": "Digenic Recessive",
