@@ -3,6 +3,10 @@
 import { Card, Col, Row, Space } from 'antd';
 import { Rpt } from 'auth/types';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
+import {
+  TChangeInterpretationList,
+  TInterpretationList,
+} from 'views/Cnv/Exploration/variantColumns';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 
 import ClassificationSection from './Sections/classifications';
@@ -27,8 +31,8 @@ interface OwnProps {
   patientId: string;
   igvModalCb?: (record: VariantEntity) => void;
   variantSection?: VariantSection;
-  changeInterpretationList?: (hash: string) => void;
-  interpretationList?: string[];
+  changeInterpretationList?: TChangeInterpretationList;
+  interpretationList?: TInterpretationList;
 }
 
 const OccurenceVariant = ({

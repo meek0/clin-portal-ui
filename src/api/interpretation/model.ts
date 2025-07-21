@@ -18,6 +18,11 @@ export type TInterpretationMetadata = {
   };
 };
 
+export type TInterpretationCommon = {
+  hash: string;
+  sequencing_id: string;
+};
+
 export type TInterpretationBase = {
   created_by: string;
   created_by_name: string;

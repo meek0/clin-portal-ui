@@ -7,6 +7,11 @@ import { Button, Divider, Space } from 'antd';
 import { Rpt } from 'auth/types';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
+import {
+  interpretationListHasInterpretation,
+  TChangeInterpretationList,
+  TInterpretationList,
+} from 'views/Cnv/Exploration/variantColumns';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { TAB_ID } from 'views/Snv/Entity';
 
@@ -27,8 +32,8 @@ interface OwnProps {
   rpt: Rpt;
   igvModalCb?: (record: VariantEntity) => void;
   variantSection?: VariantSection;
-  changeInterpretationList?: (hash: string) => void;
-  interpretationList?: string[];
+  changeInterpretationList?: TChangeInterpretationList;
+  interpretationList?: TInterpretationList;
 }
 
 const Header = ({
@@ -42,11 +47,13 @@ const Header = ({
   interpretationList = [],
 }: OwnProps) => {
   const [isInterpretationModalOpen, toggleInterpretationModal] = useState(false);
-
+  const sequencing_id = record.donors?.hits?.edges?.[0]?.node?.service_request_id;
   const [hasInterpretation, setHasInterpretation] = useState(false);
   useEffect(() => {
-    setHasInterpretation(!!interpretationList?.includes(record.hash));
-  }, [interpretationList, record.hash]);
+    setHasInterpretation(
+      interpretationListHasInterpretation(interpretationList, record.hash, sequencing_id),
+    );
+  }, [interpretationList, record.hash, sequencing_id]);
 
   const donor = findDonorById(record?.donors, patientId);
 
@@ -118,7 +125,6 @@ const Header = ({
         isOpen={isInterpretationModalOpen}
         toggleModal={toggleInterpretationModal}
         record={record}
-        patientId={patientId}
         variantSection={variantSection}
         changeInterpretationList={changeInterpretationList}
         hasInterpretation={hasInterpretation}

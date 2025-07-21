@@ -3,6 +3,11 @@ import intl from 'react-intl-universal';
 import { ThunderboltFilled, ThunderboltOutlined } from '@ant-design/icons';
 import { Button, Tooltip } from 'antd';
 import { ITableVariantEntity, VariantEntity } from 'graphql/variants/models';
+import {
+  interpretationListHasInterpretation,
+  TChangeInterpretationList,
+  TInterpretationList,
+} from 'views/Cnv/Exploration/variantColumns';
 import { usePrescriptionEntityContext } from 'views/Prescriptions/Entity/context';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import InterpretationModal from 'views/Snv/components/InterpretationModal';
@@ -12,8 +17,8 @@ import styles from './InterpretationCell.module.css';
 interface OwnProps {
   record: VariantEntity | ITableVariantEntity;
   variantSection?: VariantSection;
-  interpretationList?: string[];
-  changeInterpretationList?: (hash: string) => void;
+  interpretationList?: TInterpretationList;
+  changeInterpretationList?: TChangeInterpretationList;
 }
 
 const InterpretationCell = ({
@@ -23,11 +28,14 @@ const InterpretationCell = ({
   changeInterpretationList,
 }: OwnProps) => {
   const { patientId } = usePrescriptionEntityContext();
+  const sequencing_id = record.donors?.hits?.edges?.[0]?.node?.service_request_id;
   const [isInterpretationModalOpen, toggleInterpretationModal] = useState(false);
   const [hasInterpretation, setHasInterpretation] = useState(false);
   useEffect(() => {
-    setHasInterpretation(!!interpretationList?.includes(record.hash));
-  }, [interpretationList, record.hash]);
+    setHasInterpretation(
+      interpretationListHasInterpretation(interpretationList, record.hash, sequencing_id),
+    );
+  }, [interpretationList, record.hash, sequencing_id]);
   return (
     <div className={styles.interpretationCell}>
       {patientId && isInterpretationModalOpen && (
@@ -35,7 +43,6 @@ const InterpretationCell = ({
           isOpen={isInterpretationModalOpen}
           toggleModal={toggleInterpretationModal}
           record={record as ITableVariantEntity}
-          patientId={patientId}
           variantSection={variantSection}
           changeInterpretationList={changeInterpretationList}
           hasInterpretation={hasInterpretation}
