@@ -22,6 +22,6 @@ describe('Page des variants d\'un patient (somatic) - Ordre des facettes', () =>
 
   it('Occurrence - Qualité somatique', () => {
     cy.openFacet('Occurrence', 'Qualité somatique');
-    cy.validateFacetRank(6, 'Qualité somatique');
+    cy.validateFacetRank(7, 'Qualité somatique');
   });
 });
