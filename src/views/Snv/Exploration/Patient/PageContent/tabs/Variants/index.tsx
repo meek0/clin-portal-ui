@@ -9,7 +9,11 @@ import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { IQueryResults } from 'graphql/models';
 import { ITableVariantEntity, VariantEntity, VariantType } from 'graphql/variants/models';
 import { findDonorById } from 'graphql/variants/selector';
-import { TChangeInterpretationList, TVariantFilter } from 'views/Cnv/Exploration/variantColumns';
+import {
+  formatInterpretationListItem,
+  TChangeInterpretationList,
+  TVariantFilter,
+} from 'views/Cnv/Exploration/variantColumns';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 import { getVariantTypeFromSNVVariantEntity } from 'views/Prescriptions/Entity/Tabs/Variants/utils';
 import { VARIANT_KEY } from 'views/Prescriptions/utils/export';
@@ -92,9 +96,6 @@ const VariantsTab = ({
   };
   const [interpretationList, setInterpretationList] = useState<string[]>([]);
 
-  const formatInterpretationListItem = (hash: String, sequencing_id: String) =>
-    `${hash}_${sequencing_id}`;
-
   const changeInterpretationList: TChangeInterpretationList = (
     hash: string,
     sequencing_id: string,
@@ -110,9 +111,7 @@ const VariantsTab = ({
   useEffect(() => {
     const list = results.data
       .filter((item) => !!item.interpretation)
-      .map((item) =>
-        formatInterpretationListItem(item.hash, item?.interpretation?.sequencing_id || ''),
-      );
+      .map((item) => formatInterpretationListItem(item.hash, item.interpretation!.sequencing_id));
     setInterpretationList([...new Set([...list, ...interpretationList])]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results]);
