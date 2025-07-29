@@ -19,6 +19,7 @@ export const SEQUENCING_QUERY = gql`
             patient_mrn
             prescription_id
             ep
+            priority
             created_on
             timestamp
             requester

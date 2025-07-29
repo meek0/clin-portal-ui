@@ -5,6 +5,7 @@ import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tag, Tooltip } from 'antd';
 import { extractOrganizationId } from 'api/fhir/helper';
 import { ITableSequencingResult, SequencingResult } from 'graphql/sequencing/models';
+import PriorityTag from 'views/Prescriptions/components/PriorityTag';
 import StatusTag from 'views/Prescriptions/components/StatusTag';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 import { getPrescriptionStatusDictionnary, TaskColorMap } from 'views/Prescriptions/utils/constant';
@@ -48,6 +49,30 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     sorter: { multiple: 1 },
   },
   {
+    key: 'patient_id',
+    dataIndex: ['patient_id'],
+    render: (patient_id: string) => patient_id,
+    title: intl.get('screen.patientsearch.table.patient'),
+    sorter: { multiple: 1 },
+  },
+  {
+    key: 'sample',
+    render: (results: SequencingResult) => results?.sample || TABLE_EMPTY_PLACE_HOLDER,
+    title: intl.get('screen.sequencingsearch.table.sample'),
+    tooltip: intl.get('screen.sequencingsearch.table.sample.tooltip'),
+    sorter: { multiple: 1 },
+    width: 200,
+  },
+  {
+    key: 'priority',
+    dataIndex: ['priority'],
+    width: '6em',
+    render: (value: string) =>
+      value ? <PriorityTag priority={value} /> : TABLE_EMPTY_PLACE_HOLDER,
+    title: intl.get('screen.patientsearch.table.priority'),
+    sorter: { multiple: 1 },
+  },
+  {
     key: 'status',
     dataIndex: 'status',
     render: (value: string) =>
@@ -71,20 +96,6 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     tooltip: intl.get('screen.patientsearch.table.updatedOn.tooltip'),
     sorter: { multiple: 1 },
     defaultHidden: true,
-  },
-  {
-    key: 'sample',
-    render: (results: SequencingResult) => results?.sample || TABLE_EMPTY_PLACE_HOLDER,
-    title: intl.get('screen.sequencingsearch.table.sample'),
-    tooltip: intl.get('screen.sequencingsearch.table.sample.tooltip'),
-    sorter: { multiple: 1 },
-  },
-  {
-    key: 'patient_id',
-    dataIndex: ['patient_id'],
-    render: (patient_id: string) => patient_id,
-    title: intl.get('screen.patientsearch.table.patient'),
-    sorter: { multiple: 1 },
   },
   {
     key: 'analysis_code',
@@ -133,6 +144,7 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     title: intl.get('screen.patientsearch.table.ep'),
     tooltip: intl.get('screen.patientsearch.table.ep.tooltip'),
     sorter: { multiple: 1 },
+    defaultHidden: true,
   },
   {
     key: 'patient_disease_status',
