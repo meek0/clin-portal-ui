@@ -45,7 +45,7 @@ const AnnotationsVariantSection = ({ record }: OwnProps) => {
             {freqTO.pn}
           </Link>
           <Tooltip title={intl.get('filters.group.freq_rqdm_tumor_only.pf.tooltip')}>
-            {`(${freqTO.pf.toExponential(2)})`}
+            {`(${(freqTO?.pf || 0.0).toExponential(2)})`}
           </Tooltip>
         </Space>
       </Descriptions.Item>
@@ -61,7 +61,7 @@ const AnnotationsVariantSection = ({ record }: OwnProps) => {
             {freqTN.pn}
           </Link>
           <Tooltip title={intl.get('filters.group.freq_rqdm_tumor_normal.pf.tooltip')}>
-            {`(${freqTN.pf.toExponential(2)})`}
+            {`(${(freqTN?.pf || 0.0).toExponential(2)})`}
           </Tooltip>
         </Space>
       </Descriptions.Item>
@@ -76,14 +76,14 @@ const AnnotationsVariantSection = ({ record }: OwnProps) => {
           <Link target="_blank" to={`/variant/entity/${record.locus}/${TAB_ID.PATIENTS}`}>
             {freqG.pn}
           </Link>
-          {`(${freqG.pf.toExponential(2)})`}
+          {`(${(freqG?.pf || 0.0).toExponential(2)})`}
         </Space>
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('filters.group.genes.cosmic.tumour_types_germline')}>
         {record.cmc ? (
           <Space size={4} className={style.alignRigthSpace}>
             <ExternalLink href={record.cmc.mutation_url}>{record.cmc.sample_mutated}</ExternalLink>
-            {`(${record.cmc.sample_ratio.toExponential(2)})`}
+            {`(${(record?.cmc?.sample_ratio || 0.0).toExponential(2)})`}
           </Space>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
