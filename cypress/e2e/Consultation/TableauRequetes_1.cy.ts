@@ -15,6 +15,7 @@ beforeEach(() => {
   cy.resetColumns(1);
 
   cy.showColumn('Modifiée le', 1);
+  cy.showColumn('EP', 1);
   cy.showColumn('Statut clinique', 1);
   cy.showColumn('Lot', 1);
   cy.showColumn('Prénatal', 1);
@@ -28,24 +29,26 @@ beforeEach(() => {
 describe('Page des prescriptions et requêtes - Consultation du tableau des requêtes', () => {
   it('Vérifier les informations affichées', () => {
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 1, epCHUSJ_ldmCHUSJ.requestProbId);
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 2, 'Complétée');
-    cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.requestProbId, 2, 'ant-tag-green');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 3, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4));
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 4, /^\d{4}-\d{2}-\d{2}$/);
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 5, epCHUSJ_ldmCHUSJ.sampleProbId);
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 6, epCHUSJ_ldmCHUSJ.patientProbId);
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 7, 'RGDI');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 8, epCHUSJ_ldmCHUSJ.prescriptionId);
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 9, 'Cas-index');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 10, 'G');
-    cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.requestProbId, 10, 'ant-tag-green');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 11, 'LDM-CHUSJ');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 12, 'CHUSJ');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 13, 'Atteint');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 14, '1_data_to_import');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 15, 'Non');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 16, epCHUSJ_ldmCHUSJ.mrnProb);
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 17, '-');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 2, epCHUSJ_ldmCHUSJ.patientProbId);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 3, epCHUSJ_ldmCHUSJ.sampleProbId);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 4, 'Routine');
+    cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.requestProbId, 4, 'ant-tag-default');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 5, 'Complétée');
+    cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.requestProbId, 5, 'ant-tag-green');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 6, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4));
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 7, /^\d{4}-\d{2}-\d{2}$/);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 8, 'RGDI');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 9, epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 10, 'Cas-index');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 11, 'G');
+    cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.requestProbId, 11, 'ant-tag-green');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 12, 'LDM-CHUSJ');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 13, 'CHUSJ');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 14, 'Atteint');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 15, '1_data_to_import');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 16, 'Non');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 17, epCHUSJ_ldmCHUSJ.mrnProb);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 18, '-');
   });
 
   it('Valider les liens disponibles Lien Requête', () => {
