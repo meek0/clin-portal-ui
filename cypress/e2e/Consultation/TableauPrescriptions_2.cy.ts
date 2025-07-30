@@ -39,7 +39,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
 
   it('Valider les fonctionnalités du tableau - Tri Priorité', () => {
     cy.sortTableAndIntercept('Priorité', 3);
-    cy.validateTableFirstRow('-', 4, true);
+    cy.validateTableFirstRow('Routine', 4, true);
     cy.sortTableAndIntercept('Priorité', 3);
     cy.validateTableFirstRow(/^(-|(?!-).*)$/, 4, true);
   });

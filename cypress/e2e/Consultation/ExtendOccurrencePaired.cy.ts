@@ -90,7 +90,7 @@ describe('Ligne extensible d\'une occurrence (paired)', () => {
 
   it('Vérifier les informations affichées - Section Associations cliniques (OMIM)', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(5).contains('Associations cliniques (OMIM)').should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-label"]').eq(0).contains('Myopathy, congenital, nonprogressive').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-label"]').eq(0).contains('Congenital myopathy 11').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-content"]').eq(0).contains('AR').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-content"]').eq(0).find('[class*="ant-tag-blue"]').should('exist');
   });

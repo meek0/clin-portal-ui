@@ -23,7 +23,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
   it('Vérifier les informations affichées', () => {
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 2, epCHUSJ_ldmCHUSJ.prescriptionId);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 3, epCHUSJ_ldmCHUSJ.patientProbId);
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 4, '-');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 4, 'Routine');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 5, 'Approuvée');
     cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.prescriptionId, 5, 'ant-tag-green');
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 6, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4));
