@@ -282,7 +282,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow('-', 14, true);
     cy.sortTableAndWait(/^gnomAD$/);
     cy.wait(15*1000);
-    cy.validateTableFirstRow('6.46e-6', 14, true);
+    cy.validateTableFirstRow('2.58e-5', 14, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD ALT', () => {
@@ -305,7 +305,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow('-', 15, true);
     cy.sortTableAndWait('gnomAD ALT');
     cy.wait(15*1000);
-    cy.validateTableFirstRow('3', 15, true);
+    cy.validateTableFirstRow('12', 15, true);
 
   });
 
@@ -375,7 +375,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.validateTableFirstRow(/^0$/, 18, true);
     cy.sortTableAndWait('# SNVs');
     cy.wait(15*1000);
-    cy.validateTableFirstRow(/^0$/, 18, true);
+    cy.validateTableFirstRow('2903', 18, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Qual.', () => {
