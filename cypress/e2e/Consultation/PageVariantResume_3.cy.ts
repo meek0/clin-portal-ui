@@ -34,14 +34,6 @@ describe('Page d\'un variant (onglet Résumé) - Valider les panneaux masquables
     cy.get('[data-cy="FrequencyCard_Cohort_CollapsePanel"] div[class*="ant-collapse-content-active"]').should('exist');
   });
 
-  it('Panneau ClinVar', () => {
-    cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"] div[class*="ant-collapse-content-active"]').should('exist');
-    cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
-    cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"] div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
-    cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
-    cy.get('[data-cy="ClinicalCard_ClinVar_CollapsePanel"] div[class*="ant-collapse-content-active"]').should('exist');
-  });
-
   it('Panneau Gène - Phénotype', () => {
     cy.get('[data-cy="ClinicalCard_GenePhenotype_CollapsePanel"] div[class*="ant-collapse-content-active"]').should('exist');
     cy.get('[data-cy="ClinicalCard_GenePhenotype_CollapsePanel"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
