@@ -619,7 +619,7 @@ const filterGroups: {
         tooltips: ['donors__cnv_count'],
         defaults: {
           donors__cnv_count: {
-            operator: RangeOperators['<='],
+            operator: RangeOperators['>='],
           },
         },
       },
@@ -682,7 +682,7 @@ const filterGroups: {
         tooltips: ['donors__cnv_count'],
         defaults: {
           donors__cnv_count: {
-            operator: RangeOperators['<='],
+            operator: RangeOperators['>='],
           },
         },
       },
