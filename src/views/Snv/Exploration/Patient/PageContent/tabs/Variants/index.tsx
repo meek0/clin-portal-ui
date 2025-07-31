@@ -111,6 +111,8 @@ const VariantsTab = ({
   useEffect(() => {
     if (selectedRows.length > 0) {
       setSelectedVariant(selectedRows[0]);
+    } else {
+      setSelectedVariant(undefined);
     }
   }, [selectedRows]);
 
