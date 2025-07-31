@@ -259,6 +259,7 @@
   "filters.group.variant_class": "Type de variant",
   "filters.group.donors.all_analyses": "Analyse bioinformatique",
   "filters.group.variant_external_reference": "Référence externe",
+  "filters.options.clinvar.clin_sig.conflicting_data_from_submitters": "Conflicting Data from Submitters",
   "filters.options.clinvar.clin_sig.Conflicting_classifications_of_pathogenicity": "Conflicting Classifications of Pathogenicity",
   "filters.options.clinvar.clin_sig.Conflicting_interpretations_of_pathogenicity": "Conflicting Interpretations of Pathogenicity",
   "filters.options.clinvar.clin_sig.no_classification_for_the_single_variant": "No Classification for the Single Variant",
