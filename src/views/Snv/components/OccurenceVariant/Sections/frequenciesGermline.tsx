@@ -43,7 +43,7 @@ const FrequenciesGermlineSection = ({ record }: OwnProps) => {
           <Link target="_blank" to={`/variant/entity/${record.locus}/${TAB_ID.PATIENTS}`}>
             {affected.pn}
           </Link>
-          {`(${affected.pf.toExponential(2)})`}
+          {`(${(affected?.pf || 0.0).toExponential(2)})`}
         </Space>
       </Descriptions.Item>
       <Descriptions.Item
@@ -62,7 +62,7 @@ const FrequenciesGermlineSection = ({ record }: OwnProps) => {
           <Link target="_blank" to={`/variant/entity/${record.locus}/${TAB_ID.PATIENTS}`}>
             {unAffected.pn}
           </Link>
-          {`(${unAffected.pf.toExponential(2)})`}
+          {`(${(unAffected?.pf || 0.0).toExponential(2)})`}
         </Space>
       </Descriptions.Item>
       <Descriptions.Item label={intl.get('screen.variantsearch.table.gnomAd')}>
@@ -71,7 +71,7 @@ const FrequenciesGermlineSection = ({ record }: OwnProps) => {
             className={style.gnomad}
             href={`https://gnomad.broadinstitute.org/variant/${record.locus}?dataset=gnomad_r4`}
           >
-            {record.external_frequencies?.gnomad_joint_4.af?.toExponential(2)}
+            {(record.external_frequencies?.gnomad_joint_4?.af || 0.0).toExponential(2)}
           </ExternalLink>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER

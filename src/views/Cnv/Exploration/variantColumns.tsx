@@ -66,7 +66,7 @@ export const interpretationListHasInterpretation = (
   );
 
 export const renderRQDMPfToString = ({ frequency_RQDM }: VariantEntity) =>
-  frequency_RQDM ? frequency_RQDM.pf.toExponential(2) : TABLE_EMPTY_PLACE_HOLDER;
+  frequency_RQDM ? (frequency_RQDM?.pf || 0.0).toExponential(2) : TABLE_EMPTY_PLACE_HOLDER;
 
 export const getVariantColumns = (
   variantType: VariantType,
@@ -429,7 +429,7 @@ export const getVariantColumns = (
         frequency_RQDM?.pc ? (
           <Space size={4}>
             {frequency_RQDM.pc}
-            <Typography.Text>({frequency_RQDM.pf.toExponential(2)})</Typography.Text>
+            <Typography.Text>({(frequency_RQDM?.pf || 0.0).toExponential(2)})</Typography.Text>
           </Space>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
