@@ -52,6 +52,19 @@ export const renderGnomADSFToString = (variant: any) => {
 };
 
 export type TVariantFilter = { flags: string[]; note: string[]; interpretation?: string[] };
+export type TInterpretationList = string[];
+export type TChangeInterpretationList = (hash: string, sequencing_id: string) => void;
+export const formatInterpretationListItem = (hash: String, sequencing_id: String) =>
+  `${hash}_${sequencing_id}`;
+export const interpretationListHasInterpretation = (
+  interpretationList?: TInterpretationList,
+  hash?: string,
+  sequencing_id?: string,
+) =>
+  !!interpretationList?.some(
+    (item) => hash && sequencing_id && item === formatInterpretationListItem(hash, sequencing_id),
+  );
+
 export const renderRQDMPfToString = ({ frequency_RQDM }: VariantEntity) =>
   frequency_RQDM ? frequency_RQDM.pf.toExponential(2) : TABLE_EMPTY_PLACE_HOLDER;
 

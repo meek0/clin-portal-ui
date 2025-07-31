@@ -12,6 +12,7 @@ import {
 } from 'api/interpretation/model';
 import { format } from 'date-fns';
 import { ITableVariantEntity } from 'graphql/variants/models';
+import { TChangeInterpretationList } from 'views/Cnv/Exploration/variantColumns';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
 
 import { globalActions } from 'store/global';
@@ -44,9 +45,8 @@ type TInterpretationModalProps = {
   isOpen: boolean;
   toggleModal(visible: boolean): void;
   record: ITableVariantEntity;
-  patientId: string;
   variantSection?: VariantSection;
-  changeInterpretationList?: (hash: string) => void;
+  changeInterpretationList?: TChangeInterpretationList;
   hasInterpretation: boolean;
 };
 
@@ -54,7 +54,6 @@ const InterpretationModal = ({
   isOpen,
   toggleModal,
   record,
-  patientId,
   variantSection,
   changeInterpretationList,
   hasInterpretation = true,
@@ -74,6 +73,7 @@ const InterpretationModal = ({
   const transcriptId = record.consequences?.hits?.edges.find(({ node }) => !!node.picked)?.node
     .ensembl_transcript_id!;
   const analysisId = donorNode.analysis_service_request_id!;
+  const patientId = donorNode.patient_id!;
   const variantHash = record.hash;
 
   const handleFinish = async (values: TInterpretationInput) => {
@@ -119,7 +119,7 @@ const InterpretationModal = ({
           );
           setInterpretation(response.data);
           setHasChanged(false);
-          changeInterpretationList?.(record.hash);
+          changeInterpretationList?.(variantHash, sequencingId);
           toggleModal(false);
         }
       })

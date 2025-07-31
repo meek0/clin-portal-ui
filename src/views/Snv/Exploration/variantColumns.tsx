@@ -38,7 +38,11 @@ import {
 import { findDonorById } from 'graphql/variants/selector';
 import { capitalize } from 'lodash';
 import { v4 } from 'uuid';
-import { TVariantFilter } from 'views/Cnv/Exploration/variantColumns';
+import {
+  TChangeInterpretationList,
+  TInterpretationList,
+  TVariantFilter,
+} from 'views/Cnv/Exploration/variantColumns';
 import { PrescriptionEntityTabs } from 'views/Prescriptions/Entity';
 import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 import {
@@ -338,8 +342,8 @@ export const getVariantColumns = (
   isClear?: boolean,
   setFilterList?: (columnKeys: Key[]) => void,
   filtersList?: TVariantFilter,
-  interpretationList?: string[],
-  changeInterpretationList?: (hash: string) => void,
+  interpretationList?: TInterpretationList,
+  changeInterpretationList?: TChangeInterpretationList,
   history?: any,
 ): ProColumnType<ITableVariantEntity>[] => {
   let columns: ProColumnType<ITableVariantEntity>[] = [];

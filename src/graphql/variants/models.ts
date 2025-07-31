@@ -1,3 +1,4 @@
+import { TInterpretationCommon, TInterpretationInput } from 'api/interpretation/model';
 import { ArrangerResultsTree } from 'graphql/models';
 
 export interface IVariantResultTree {
@@ -149,7 +150,7 @@ export type VariantEntity = {
   variant_class: string;
   rsnumber: string;
   flags: string[];
-  interpretation: string;
+  interpretation?: TInterpretationCommon & TInterpretationInput;
   cmc: {
     sample_mutated: number;
     sample_ratio: number;
