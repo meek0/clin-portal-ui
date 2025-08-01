@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Key, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
@@ -35,6 +35,11 @@ interface OwnProps {
   queryConfig: IQueryConfig;
   pageIndex: number;
   setPageIndex: (value: number) => void;
+  hasFilters?: boolean;
+  clearFilter?: () => void;
+  setFilterList: (columnKeys: Key[]) => void;
+  filtersList: { assignments: string[] };
+  isClear: boolean;
 }
 
 const PrescriptionsTable = ({
@@ -45,6 +50,11 @@ const PrescriptionsTable = ({
   pageIndex,
   setPageIndex,
   loading = false,
+  hasFilters = false,
+  clearFilter = () => {},
+  setFilterList,
+  filtersList,
+  isClear,
 }: OwnProps): React.ReactElement => {
   const dispatch = useDispatch();
   const { user } = useUser();
@@ -65,7 +75,7 @@ const PrescriptionsTable = ({
       fixedProTable={(dimension) => (
         <ProTable<ITableAnalysisResult>
           tableId="prescription_table"
-          columns={prescriptionsColumns(practitionerRoles)}
+          columns={prescriptionsColumns(practitionerRoles, filtersList, setFilterList, isClear)}
           initialColumnState={initialColumns}
           dataSource={results?.data.map((i) => ({ ...i, key: i.id }))}
           className={styles.prescriptionTableWrapper}
@@ -117,6 +127,8 @@ const PrescriptionsTable = ({
                 }),
               );
             },
+            hasFilter: hasFilters,
+            clearFilter,
           }}
           size="small"
           scroll={{ x: dimension.x, y: 'max-content' }}

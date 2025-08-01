@@ -32,6 +32,8 @@ interface OwnProps {
   queryConfig: IQueryConfig;
   pageIndex: number;
   setPageIndex: (value: number) => void;
+  hasFilters?: boolean;
+  clearFilter?: () => void;
 }
 
 const SequencingsTable = ({
@@ -42,6 +44,8 @@ const SequencingsTable = ({
   loading = false,
   pageIndex,
   setPageIndex,
+  hasFilters = false,
+  clearFilter,
 }: OwnProps): React.ReactElement => {
   const dispatch = useDispatch();
   const { user } = useUser();
@@ -73,6 +77,8 @@ const SequencingsTable = ({
           pageSize: queryConfig.size,
           total: results?.total || 0,
         },
+        hasFilter: hasFilters,
+        clearFilter,
         enableColumnSort: true,
         onSelectedRowsChange: setSelectedKeys,
 

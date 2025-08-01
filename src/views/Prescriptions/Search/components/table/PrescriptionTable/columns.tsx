@@ -1,6 +1,7 @@
+import { Key } from 'react';
 import intl from 'react-intl-universal';
 import { Link } from 'react-router-dom';
-import { UserOutlined } from '@ant-design/icons';
+import { FilterFilled, UserOutlined } from '@ant-design/icons';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { Tag, Tooltip } from 'antd';
 import { extractOrganizationId } from 'api/fhir/helper';
@@ -18,6 +19,8 @@ import EnvironmentVariables from 'utils/EnvVariables';
 
 import { AssignmentsFilterDropdown } from './components/AssignmentFilter';
 import AssignmentsCell from './components/AssignmentsCell';
+
+import styles from './index.module.css';
 
 export const renderTasksToString = (analyisis: any) => {
   const tasksList = renderTasks(analyisis.tasks);
@@ -55,6 +58,9 @@ const renderTasks = (tasks: string[]) =>
 
 export const prescriptionsColumns = (
   practitionerRolesBundle?: PractitionerBundleType,
+  filtersList?: { assignments: string[] },
+  setFilterList?: (columnKeys: Key[]) => void,
+  isClear?: boolean,
 ): ProColumnType<ITableAnalysisResult>[] => {
   const columns: ProColumnType[] = [
     {
@@ -175,13 +181,20 @@ export const prescriptionsColumns = (
       iconTitle: <UserOutlined style={{ fontSize: '16px' }} />,
       width: 50,
       fixed: 'left',
+      filterIcon: () => {
+        const isFilter = filtersList && filtersList.assignments.length > 0 ? true : false;
+        return <FilterFilled className={isFilter ? styles.activeFilter : styles.unActiveFilter} />;
+      },
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) =>
         practitionerRolesBundle && (
           <AssignmentsFilterDropdown
             confirm={confirm}
             selectedKeys={selectedKeys}
+            setFilterList={setFilterList}
             setSelectedKeys={setSelectedKeys}
             practitionerRolesBundle={practitionerRolesBundle}
+            isClear={isClear}
+            selectedFilter={filtersList?.assignments}
           />
         ),
     });

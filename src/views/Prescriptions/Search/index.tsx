@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { Key, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useLocation } from 'react-router-dom';
 import { MedicineBoxOutlined, SolutionOutlined } from '@ant-design/icons';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
-import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import useQueryBuilderState, {
+  defaultQueryBuilderState,
+  setQueryBuilderState,
+} from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
@@ -111,6 +114,11 @@ const PrescriptionSearch = (): React.ReactElement => {
   const [activeTab, setActiveTab] = useState(TableTabs.Prescriptions);
   const [downloadPrescriptionKeys, setDownloadPrescriptionKeys] = useState<string[]>([]);
   const [downloadSequencingKeys, setDownloadSequencingKeys] = useState<string[]>([]);
+  const [isClear, setIsClear] = useState<boolean>(false);
+  const [filtersList, setFilterList] = useState<{ assignments: string[] }>({
+    assignments: [],
+  });
+  const [hasFilter, toggleHasFilter] = useState<boolean>(false);
   const sequencingActiveQuery = setPrescriptionStatusInActiveQuery(activeQuery);
   const location = useLocation();
 
@@ -192,6 +200,14 @@ const PrescriptionSearch = (): React.ReactElement => {
   }, [prescriptionQueryConfig]);
 
   useEffect(() => {
+    if (queryList[0].content.length > 0 || searchValue.length > 0) {
+      toggleHasFilter(true);
+    } else {
+      toggleHasFilter(false);
+    }
+  }, [queryList, searchValue]);
+
+  useEffect(() => {
     if (
       sequencingQueryConfig.firstPageFlag !== undefined ||
       sequencingQueryConfig.searchAfter === undefined
@@ -204,6 +220,31 @@ const PrescriptionSearch = (): React.ReactElement => {
       firstPageFlag: sequencingQueryConfig.searchAfter,
     });
   }, [sequencingQueryConfig]);
+
+  const clearFilter = () => {
+    setSearchValue('');
+    setFilterList({ assignments: [] });
+    const defaultQBState = defaultQueryBuilderState(PRESCRIPTION_QB_ID);
+    setQueryBuilderState(PRESCRIPTION_QB_ID, defaultQBState);
+  };
+
+  const handleFilterList = (columnKeys: Key[], filter?: string) => {
+    setIsClear(true);
+    const keytoString: string[] =
+      columnKeys.length > 0 ? columnKeys.map((key) => key.toString()) : [];
+    if (filter) {
+      if (filter === 'assignments') {
+        setFilterList({
+          assignments: keytoString,
+        });
+      }
+    } else {
+      setFilterList({
+        assignments: [],
+      });
+      setIsClear(false);
+    }
+  };
 
   useEffect(() => {
     setPrescriptionQueryConfig({
@@ -342,6 +383,11 @@ const PrescriptionSearch = (): React.ReactElement => {
                     loading={prescriptions.loading}
                     pageIndex={prescriptionPageIndex}
                     setPageIndex={setPrescriptionPageIndex}
+                    hasFilters={hasFilter}
+                    clearFilter={clearFilter}
+                    filtersList={filtersList}
+                    setFilterList={handleFilterList}
+                    isClear={isClear}
                   />
                 ),
               },
@@ -363,6 +409,8 @@ const PrescriptionSearch = (): React.ReactElement => {
                     loading={sequencings.loading}
                     pageIndex={sequencingPageIndex}
                     setPageIndex={setSequencingPageIndex}
+                    hasFilters={hasFilter}
+                    clearFilter={clearFilter}
                   />
                 ),
               },
