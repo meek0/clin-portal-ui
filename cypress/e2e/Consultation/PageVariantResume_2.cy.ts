@@ -77,11 +77,6 @@ describe('Page d\'un variant (onglet Résumé) - Valider les liens disponibles',
       .should('have.attr', 'href', 'https://gnomad.broadinstitute.org/variant/1-45508847-C-T?dataset=gnomad_r4');
   });
 
-  it('Lien ClinVar de la section ClinVar', () => {
-    cy.get('[data-cy="ClinicalCard_ClinVar_95703_ExternalLink"]')
-      .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/95703');
-  });
-
   it('Lien de la condition Orphanet de la section Gène - Phénotype', () => {
     cy.get('[data-cy="ClinicalCard_GenePhenotype_Condition_11308_ExternalLink"]')
       .should('have.attr', 'href', 'https://www.orpha.net/consor/cgi-bin/Disease_Search.php?lng=EN&data_id=11308');

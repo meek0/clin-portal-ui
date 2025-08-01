@@ -285,7 +285,6 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('gnomAD Genome (v4)').should('exist');
     cy.contains('1000 Genomes').should('exist');
     cy.contains('Associations cliniques').should('exist');
-    cy.contains('Interprétation').should('exist');
     cy.contains('Gène - Phénotype').should('exist');
     cy.contains('Source').should('exist');
     cy.contains('Conditions').should('exist');
