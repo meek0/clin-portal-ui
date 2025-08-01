@@ -17,11 +17,11 @@ beforeEach(() => {
 });
 
 describe('Télécharger le rapport d\'un variant d\'un patient (somatic)', () => {
-  it('Valider le nom du fichier [CLIN-4924]', () => {
+  it('Valider le nom du fichier', () => {
     cy.validateFileName(`${presc_SOMATIC.patientProbId}_${presc_SOMATIC.requestProbId}_${strDate}*.xlsx`);
   });
 
-  it('Valider le contenu du fichier [CLIN-4924]', () => {
+  it('Valider le contenu du fichier', () => {
     const replacements: Replacement[] = [
       { placeholder: '{{requestProbId}}', value: presc_SOMATIC.requestProbId },
       { placeholder: '{{sampleProbId}}', value: presc_SOMATIC.sampleProbId },

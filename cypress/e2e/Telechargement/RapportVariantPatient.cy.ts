@@ -18,11 +18,11 @@ beforeEach(() => {
 });
 
 describe('Télécharger le rapport d\'un variant d\'un patient', () => {
-  it('Valider le nom du fichier [CLIN-4924]', () => {
+  it('Valider le nom du fichier', () => {
     cy.validateFileName(`${epCHUSJ_ldmCHUSJ.patientProbId}_${epCHUSJ_ldmCHUSJ.requestProbId}_${strDate}*.xlsx`);
   });
 
-  it('Valider le contenu du fichier [CLIN-4924]', () => {
+  it('Valider le contenu du fichier', () => {
     const replacements: Replacement[] = [
       { placeholder: '{{requestProbId}}', value: epCHUSJ_ldmCHUSJ.requestProbId },
       { placeholder: '{{sampleProbId}}', value: epCHUSJ_ldmCHUSJ.sampleProbId },
