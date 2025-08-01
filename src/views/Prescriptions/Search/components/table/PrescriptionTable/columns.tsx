@@ -182,7 +182,7 @@ export const prescriptionsColumns = (
       width: 50,
       fixed: 'left',
       filterIcon: () => {
-        const isFilter = filtersList && filtersList.assignments.length > 0 ? true : false;
+        const isFilter = filtersList && filtersList.assignments.length > 0;
         return <FilterFilled className={isFilter ? styles.activeFilter : styles.unActiveFilter} />;
       },
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) =>
