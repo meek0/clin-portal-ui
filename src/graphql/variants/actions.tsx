@@ -16,6 +16,7 @@ export const useVariants = (
 ): IQueryResults<VariantEntity[]> => {
   const { error, loading, result } = useLazyResultQuery<IVariantResultTree>(query, {
     variables,
+    fetchPolicy: 'no-cache',
   });
 
   return {
