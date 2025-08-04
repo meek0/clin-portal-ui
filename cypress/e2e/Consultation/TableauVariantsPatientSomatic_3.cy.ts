@@ -105,7 +105,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
     cy.sortTableAndIntercept('# CNVs', 1);
     cy.validateTableFirstRow(/^0$/, 22, true);
     cy.sortTableAndIntercept('# CNVs', 1);
-    cy.validateTableFirstRow(/^0$/, 22, true);
+    cy.validateTableFirstRow(/^1$/, 22, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Zyg.', () => {
