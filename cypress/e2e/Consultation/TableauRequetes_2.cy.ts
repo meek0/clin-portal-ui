@@ -29,16 +29,16 @@ beforeEach(() => {
 describe('Page des prescriptions et requêtes - Consultation du tableau des requêtes', () => {
   it('Valider les fonctionnalités du tableau - Tri Requête', () => {
     cy.sortTableAndIntercept('Requête', 3, 1);
-    cy.validateTableFirstRow('1262118', 1, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283831', 17, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('Requête', 3, 1);
-    cy.validateTableFirstRow('1262871', 1, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283900', 17, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Patient', () => {
     cy.sortTableAndIntercept('Patient', 3, 1);
-    cy.validateTableFirstRow('1262122', 2, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283831', 17, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('Patient', 3, 1);
-    cy.validateTableFirstRow('1262875', 2, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283900', 17, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Échantillon', () => {
@@ -86,9 +86,9 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
 
   it('Valider les fonctionnalités du tableau - Tri Prescription', () => {
     cy.sortTableAndIntercept('Prescription', 3, 1);
-    cy.validateTableFirstRow('1262121', 9, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283831', 17, true, '[id="rc-tabs-0-panel-requests"]');
     cy.sortTableAndIntercept('Prescription', 3, 1);
-    cy.validateTableFirstRow('1262874', 9, true, '[id="rc-tabs-0-panel-requests"]');
+    cy.validateTableFirstRow('MRN-283900', 17, true, '[id="rc-tabs-0-panel-requests"]');
   });
 
   it('Valider les fonctionnalités du tableau - Tri Parenté', () => {

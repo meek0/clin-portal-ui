@@ -1,6 +1,7 @@
 {
   "headers": ["request_id",
               "status",
+              "priority",
               "created_on",
               "timestamp",
               "sample",
@@ -18,6 +19,7 @@
               "requester"],
   "content": ["{{requestId}}",
               "completed",
+              "routine",
               "{{stampDate}}",
               "NA24835_A",
               "{{patientId}}",
