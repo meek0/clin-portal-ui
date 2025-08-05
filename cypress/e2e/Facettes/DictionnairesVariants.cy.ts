@@ -422,6 +422,10 @@ describe('Page des variants - Dictionnaire', () => {
                          'Low Penetrance',
                          'Conflicting Classifications of Pathogenicity',
                          'No Classification for the Single Variant',
+                         'Conflicting Data from Submitters',
+                         'Established Risk Allele',
+                         'Likely Pathogenic, Low Penetrance',
+                         'Pathogenic, Low Penetrance',
                          'No Data'];
 
     cy.visitVariantsPage(SharedFilters.variant.noResults);
