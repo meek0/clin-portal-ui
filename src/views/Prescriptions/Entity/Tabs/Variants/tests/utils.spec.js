@@ -1,21 +1,8 @@
 import {
-  formatServiceRequestTag,
   getVariantTypeFromCNVVariantEntity,
   getVariantTypeFromServiceRequest,
   getVariantTypeFromSNVVariantEntity,
 } from '../utils';
-
-describe('formatServiceRequestTag', () => {
-  test('should return empty if not codes', () => {
-    expect(formatServiceRequestTag(null, null)).toEqual('');
-  });
-  test('should return analysis code only', () => {
-    expect(formatServiceRequestTag('foo', null)).toEqual('foo');
-  });
-  test('should return analysis and sequencing codes', () => {
-    expect(formatServiceRequestTag('foo', 'bar')).toEqual('foo | bar');
-  });
-});
 
 describe('getVariantType', () => {
   test('should return germline by default', () => {

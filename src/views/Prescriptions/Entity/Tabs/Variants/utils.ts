@@ -16,14 +16,6 @@ export const SERVICE_REQUEST_CODES = {
   GERMILE_WGS: '75022',
 };
 
-export const formatServiceRequestTag = (analysisCode?: string, sequencingCode?: string) => {
-  let tag = analysisCode || '';
-  if (sequencingCode) {
-    tag += ' | ' + sequencingCode;
-  }
-  return tag;
-};
-
 export const getVariantTypeFromServiceRequest = (
   serviceRequest?: ServiceRequestEntity,
 ): VariantType =>

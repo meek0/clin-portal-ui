@@ -22,8 +22,6 @@ import { useUser } from 'store/user';
 import { formatDate } from 'utils/date';
 import { getAssignmentDictionary } from 'utils/translation';
 
-import { formatServiceRequestTag } from '../Tabs/Variants/utils';
-
 import styles from './index.module.css';
 
 interface OwnProps {
@@ -127,7 +125,6 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
   );
 
   const analysisCode = prescription?.code?.[0] || '';
-  const sequencingCode = prescription?.code?.[1] || '';
 
   return (
     <Card title={intl.get(`screen.prescription.entity.analyse.card.title`)} data-cy="AnalysisCard">
@@ -168,9 +165,7 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
             <Descriptions.Item
               label={intl.get('screen.prescription.entity.analysisCard.askedAnalysis')}
             >
-              <Tag color="geekblue">
-                {formatServiceRequestTag(getAnalysisNameByCode(analysisCode), sequencingCode)}
-              </Tag>
+              <Tag color="geekblue">{getAnalysisNameByCode(analysisCode)}</Tag>
             </Descriptions.Item>
             <Descriptions.Item
               label={intl.get('screen.prescription.entity.analysisCard.reflexpanel')}
