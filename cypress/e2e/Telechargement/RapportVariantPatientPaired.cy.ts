@@ -17,11 +17,11 @@ beforeEach(() => {
 });
 
 describe('Télécharger le rapport d\'un variant d\'un patient (paired)', () => {
-  it('Valider le nom du fichier [CLIN-4924]', () => {
+  it('Valider le nom du fichier', () => {
     cy.validateFileName(`${presc_PAIRED.patientProbId}_${presc_PAIRED.requestProbId.TEBA}_${strDate}*.xlsx`);
   });
 
-  it('Valider le contenu du fichier [CLIN-4924]', () => {
+  it('Valider le contenu du fichier', () => {
     const replacements: Replacement[] = [
       { placeholder: '{{requestProbId}}', value: presc_PAIRED.requestProbId.TEBA },
       { placeholder: '{{sampleProbId}}', value: presc_PAIRED.sampleProbId.TEBA },

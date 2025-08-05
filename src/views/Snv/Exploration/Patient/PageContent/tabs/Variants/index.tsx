@@ -109,6 +109,14 @@ const VariantsTab = ({
   const variantType = getVariantTypeFromSNVVariantEntity(results?.data?.[0]);
 
   useEffect(() => {
+    if (selectedRows.length > 0) {
+      setSelectedVariant(selectedRows[0]);
+    } else {
+      setSelectedVariant(undefined);
+    }
+  }, [selectedRows]);
+
+  useEffect(() => {
     const list = results.data
       .filter((item) => !!item.interpretation)
       .map((item) => formatInterpretationListItem(item.hash, item.interpretation!.sequencing_id));
