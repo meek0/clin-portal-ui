@@ -87,7 +87,7 @@ describe('Page des variants d\'un patient - Consultation du tableau', () => {
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd3eefb82-edcc-42f1-a4e6-28808bd06f34');
-    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
+    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('exist');
     cy.get('[class*="QueryBar_selected"] [class*="anticon-copy"]').should('exist');
   });
  

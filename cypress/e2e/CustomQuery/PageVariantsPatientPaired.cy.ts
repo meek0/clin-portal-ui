@@ -1,0 +1,25 @@
+/// <reference types="cypress"/>
+import '../../support/commands';
+
+let presc_PAIRED: any;
+
+beforeEach(() => {
+  presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
+  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
+});
+
+describe('Page des variants d\'un patient (paired) - Pilule personnalisée', () => {
+  it('Valider la couleur', () => {
+    cy.get(`[data-cy="SidebarMenuItem_Requêtes"]`).clickAndWait({force: true});
+
+    cy.intercept('POST', '**/graphql').as('getRouteMatcher');
+    cy.get('[class*="QueriesSidebar_queryPill"]').contains('Cypress').clickAndWait({force: true});
+    cy.wait('@getRouteMatcher');
+
+    cy.get('[class*="QueryPill_selected"]').should('have.css', 'background-color', 'rgb(35, 164, 215)');
+
+    cy.get('[class*="QueryBar_selected"] [class*="QueryPill_title"]').contains('Cypress').should('exist');
+    cy.get('body').contains(/1 0\d{2} \d{3}/).should('exist');
+  });
+});

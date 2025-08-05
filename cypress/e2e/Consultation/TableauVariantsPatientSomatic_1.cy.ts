@@ -65,7 +65,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'SNV');
-    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
+    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('exist');
     cy.get('[class*="QueryBar_selected"] [class*="anticon-copy"]').should('exist');
   });
  

@@ -13,7 +13,7 @@ beforeEach(() => {
 });
 
 describe('Accès des utilisateurs', () => {
-  it('Docteur (CUSM)', () => {
+  it('Docteur (CUSM) [CLIN-4950]', () => {
     cy.login(Cypress.env('username_D_CUSM'), Cypress.env('password').replace('$', '!'));
     cy.visit('/');
 
@@ -34,7 +34,7 @@ describe('Accès des utilisateurs', () => {
     cy.visit(`/prescription/entity/${epCHUSJ_ldmCHUSJ.prescriptionId}`);
     cy.contains('403').should('exist');
     // Accéder aux variants d'un patient du CHUSJ est impossible
-    cy.visit(`/snv/exploration/patient/${epCHUSJ_ldmCHUSJ.patientProbId}/${epCHUSJ_ldmCHUSJ.prescriptionId}`);
+    cy.visit(`/prescription/entity/${epCHUSJ_ldmCHUSJ.prescriptionId}?variantSection=snv#variants`);
     cy.contains('403').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CHUSJ)
@@ -42,7 +42,7 @@ describe('Accès des utilisateurs', () => {
     cy.contains(epCUSM_ldmCHUSJ.firstNameProb).should('exist');
     cy.contains('Fichiers').eq(1).should('not.exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CHUSJ) est impossible
-    cy.visit(`/snv/exploration/patient/${epCUSM_ldmCHUSJ.patientProbId}/${epCUSM_ldmCHUSJ.prescriptionId}`);
+    cy.visit(`/prescription/entity/${epCUSM_ldmCHUSJ.prescriptionId}?variantSection=snv#variants`);
     cy.contains('403').should('exist');
 
     // Accéder à la page Prescription d'un patient du CUSM (LDM: CUSM)
@@ -50,14 +50,14 @@ describe('Accès des utilisateurs', () => {
     cy.contains(epCUSM_ldmCUSM.firstNameProb).should('exist');
     cy.contains('Fichiers').eq(1).should('not.exist');
     // Accéder aux variants d'un patient du CUSM (LDM: CUSM) est impossible
-    cy.visit(`/snv/exploration/patient/${epCUSM_ldmCUSM.patientProbId}/${epCUSM_ldmCUSM.prescriptionId}`);
+    cy.visit(`/prescription/entity/${epCUSM_ldmCUSM.prescriptionId}?variantSection=snv#variants`);
     cy.contains('403').should('exist');
 
     // Accéder à la page Prescription d'un patient du CHUS est impossible
     cy.visit(`/prescription/entity/${epCHUS_ldmCHUS.prescriptionId}`);
     cy.contains('403').should('exist');
     // Accéder aux variants d'un patient du CHUS est impossible
-    cy.visit(`/snv/exploration/patient/${epCHUS_ldmCHUS.patientProbId}/${epCHUS_ldmCHUS.prescriptionId}`);
+    cy.visit(`/prescription/entity/${epCHUS_ldmCHUS.prescriptionId}?variantSection=snv#variants`);
     cy.contains('403').should('exist');
 
     // Les liens de la footer ne sont pas visibles
