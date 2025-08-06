@@ -1,12 +1,13 @@
 import React, { Key, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { MedicineBoxOutlined, SolutionOutlined } from '@ant-design/icons';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import useQueryBuilderState, {
   defaultQueryBuilderState,
   setQueryBuilderState,
+  updateQueryByTableFilter,
 } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
@@ -121,6 +122,7 @@ const PrescriptionSearch = (): React.ReactElement => {
   const [hasFilter, toggleHasFilter] = useState<boolean>(false);
   const sequencingActiveQuery = setPrescriptionStatusInActiveQuery(activeQuery);
   const location = useLocation();
+  const history = useHistory();
 
   const sequencingsQueryVariables = {
     first: sequencingQueryConfig.size,
@@ -168,6 +170,34 @@ const PrescriptionSearch = (): React.ReactElement => {
   const prescriptions = removeDraftFromAggregations(
     usePrescription(prescriptionsQueryVariables, prescriptionQueryConfig.operations),
   );
+
+  const resetQueryConfig = () => {
+    setPrescriptionQueryConfig({
+      ...prescriptionQueryConfig,
+      sort: DEFAULT_SORT_QUERY,
+      searchAfter: undefined,
+      firstPageFlag: undefined,
+      operations: undefined,
+    });
+    setPrescriptionPageIndex(DEFAULT_PAGE_INDEX);
+    setSequencingQueryConfig({
+      ...sequencingQueryConfig,
+      sort: DEFAULT_SORT_QUERY,
+      searchAfter: undefined,
+      firstPageFlag: undefined,
+      operations: undefined,
+    });
+    setSequencingPageIndex(DEFAULT_PAGE_INDEX);
+  };
+
+  //Reset assignements filter on resfresh
+  useEffect(() => {
+    updateQueryByTableFilter({
+      queryBuilderId: PRESCRIPTION_QB_ID,
+      field: 'assignments',
+      selectedFilters: [],
+    });
+  }, []);
 
   // query is always done, unfortunately but response size is limited if nothing to download
   const prescriptionsToDownload = usePrescription({
@@ -222,10 +252,15 @@ const PrescriptionSearch = (): React.ReactElement => {
   }, [sequencingQueryConfig]);
 
   const clearFilter = () => {
+    history.replace({ search: '' });
     setSearchValue('');
+
     setFilterList({ assignments: [] });
+
     const defaultQBState = defaultQueryBuilderState(PRESCRIPTION_QB_ID);
     setQueryBuilderState(PRESCRIPTION_QB_ID, defaultQBState);
+
+    resetQueryConfig();
   };
 
   const handleFilterList = (columnKeys: Key[], filter?: string) => {
@@ -247,22 +282,7 @@ const PrescriptionSearch = (): React.ReactElement => {
   };
 
   useEffect(() => {
-    setPrescriptionQueryConfig({
-      ...prescriptionQueryConfig,
-      sort: DEFAULT_SORT_QUERY,
-      searchAfter: undefined,
-      firstPageFlag: undefined,
-      operations: undefined,
-    });
-    setPrescriptionPageIndex(DEFAULT_PAGE_INDEX);
-    setSequencingQueryConfig({
-      ...sequencingQueryConfig,
-      sort: DEFAULT_SORT_QUERY,
-      searchAfter: undefined,
-      firstPageFlag: undefined,
-      operations: undefined,
-    });
-    setSequencingPageIndex(DEFAULT_PAGE_INDEX);
+    resetQueryConfig();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
