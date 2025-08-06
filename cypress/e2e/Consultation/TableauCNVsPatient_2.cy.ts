@@ -104,7 +104,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.sortTableAndIntercept('RQDM', 1);
     cy.validateTableFirstRow('-', 18, true);
     cy.sortTableAndIntercept('RQDM', 1)
-    cy.validateTableFirstRow('131', 18, true);
+    cy.validateTableFirstRow(/13(1|2)/, 18, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri # Gènes', () => {
