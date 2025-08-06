@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { Key, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import ProTable from '@ferlab/ui/core/components/ProTable';
 import { PaginationViewPerQuery } from '@ferlab/ui/core/components/ProTable/Pagination/constants';
-import { updateQueryByTableFilter } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { IQueryConfig, TQueryConfigCb } from '@ferlab/ui/core/graphql/types';
 import { GqlResults } from 'graphql/models';
 import { AnalysisResult, ITableAnalysisResult } from 'graphql/prescriptions/models/Prescription';
 import {
   DEFAULT_PAGE_INDEX,
   DEFAULT_SORT_QUERY,
-  PRESCRIPTION_QB_ID,
   PRESCRIPTION_SCROLL_ID,
 } from 'views/Prescriptions/Search/utils/contstant';
 import { ALL_KEYS } from 'views/Prescriptions/utils/export';
@@ -35,6 +33,11 @@ interface OwnProps {
   queryConfig: IQueryConfig;
   pageIndex: number;
   setPageIndex: (value: number) => void;
+  hasFilters?: boolean;
+  clearFilter?: () => void;
+  setFilterList: (columnKeys: Key[]) => void;
+  filtersList: { assignments: string[] };
+  isClear: boolean;
 }
 
 const PrescriptionsTable = ({
@@ -45,27 +48,25 @@ const PrescriptionsTable = ({
   pageIndex,
   setPageIndex,
   loading = false,
+  hasFilters = false,
+  clearFilter = () => {},
+  setFilterList,
+  filtersList,
+  isClear,
 }: OwnProps): React.ReactElement => {
   const dispatch = useDispatch();
   const { user } = useUser();
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const initialColumns = user.config.data_exploration?.tables?.prescriptions?.columns;
   const practitionerRoles = user.practitionerRolesBundle;
-  //Reset assignements filter on resfresh
-  useEffect(() => {
-    updateQueryByTableFilter({
-      queryBuilderId: PRESCRIPTION_QB_ID,
-      field: 'assignments',
-      selectedFilters: [],
-    });
-  }, []);
+
   return (
     <FixedSizeTable
       numberOfColumn={initialColumns || []}
       fixedProTable={(dimension) => (
         <ProTable<ITableAnalysisResult>
           tableId="prescription_table"
-          columns={prescriptionsColumns(practitionerRoles)}
+          columns={prescriptionsColumns(practitionerRoles, filtersList, setFilterList, isClear)}
           initialColumnState={initialColumns}
           dataSource={results?.data.map((i) => ({ ...i, key: i.id }))}
           className={styles.prescriptionTableWrapper}
@@ -117,6 +118,8 @@ const PrescriptionsTable = ({
                 }),
               );
             },
+            hasFilter: hasFilters,
+            clearFilter,
           }}
           size="small"
           scroll={{ x: dimension.x, y: 'max-content' }}

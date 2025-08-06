@@ -4,3 +4,11 @@
 .prescriptionTableWrapper :global(.ant-table-body) {
   overflow: auto !important;
 }
+
+.prescriptionTableWrapper .activeFilter {
+  color: var(--blue-8);
+}
+
+.prescriptionTableWrapper .unActiveFilter {
+  color: var(--gray-6);
+}

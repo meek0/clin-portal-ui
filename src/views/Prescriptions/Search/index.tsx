@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { Key, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { MedicineBoxOutlined, SolutionOutlined } from '@ant-design/icons';
 import ProLabel from '@ferlab/ui/core/components/ProLabel';
 import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
-import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import useQueryBuilderState, {
+  defaultQueryBuilderState,
+  setQueryBuilderState,
+  updateQueryByTableFilter,
+} from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { BooleanOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
@@ -111,8 +115,14 @@ const PrescriptionSearch = (): React.ReactElement => {
   const [activeTab, setActiveTab] = useState(TableTabs.Prescriptions);
   const [downloadPrescriptionKeys, setDownloadPrescriptionKeys] = useState<string[]>([]);
   const [downloadSequencingKeys, setDownloadSequencingKeys] = useState<string[]>([]);
+  const [isClear, setIsClear] = useState<boolean>(false);
+  const [filtersList, setFilterList] = useState<{ assignments: string[] }>({
+    assignments: [],
+  });
+  const [hasFilter, toggleHasFilter] = useState<boolean>(false);
   const sequencingActiveQuery = setPrescriptionStatusInActiveQuery(activeQuery);
   const location = useLocation();
+  const history = useHistory();
 
   const sequencingsQueryVariables = {
     first: sequencingQueryConfig.size,
@@ -161,6 +171,34 @@ const PrescriptionSearch = (): React.ReactElement => {
     usePrescription(prescriptionsQueryVariables, prescriptionQueryConfig.operations),
   );
 
+  const resetQueryConfig = () => {
+    setPrescriptionQueryConfig({
+      ...prescriptionQueryConfig,
+      sort: DEFAULT_SORT_QUERY,
+      searchAfter: undefined,
+      firstPageFlag: undefined,
+      operations: undefined,
+    });
+    setPrescriptionPageIndex(DEFAULT_PAGE_INDEX);
+    setSequencingQueryConfig({
+      ...sequencingQueryConfig,
+      sort: DEFAULT_SORT_QUERY,
+      searchAfter: undefined,
+      firstPageFlag: undefined,
+      operations: undefined,
+    });
+    setSequencingPageIndex(DEFAULT_PAGE_INDEX);
+  };
+
+  //Reset assignements filter on resfresh
+  useEffect(() => {
+    updateQueryByTableFilter({
+      queryBuilderId: PRESCRIPTION_QB_ID,
+      field: 'assignments',
+      selectedFilters: [],
+    });
+  }, []);
+
   // query is always done, unfortunately but response size is limited if nothing to download
   const prescriptionsToDownload = usePrescription({
     ...prescriptionsQueryVariables,
@@ -192,6 +230,21 @@ const PrescriptionSearch = (): React.ReactElement => {
   }, [prescriptionQueryConfig]);
 
   useEffect(() => {
+    if (queryList[0].content.length > 0 || searchValue.length > 0) {
+      const hasAssignmentQuery = queryList[0].content.find(
+        (c: any) => c.content.field === 'assignments',
+      );
+      if ((hasAssignmentQuery && filtersList.assignments.length > 0) || !hasAssignmentQuery) {
+        toggleHasFilter(true);
+      } else {
+        toggleHasFilter(false);
+      }
+    } else {
+      toggleHasFilter(false);
+    }
+  }, [queryList, searchValue]);
+
+  useEffect(() => {
     if (
       sequencingQueryConfig.firstPageFlag !== undefined ||
       sequencingQueryConfig.searchAfter === undefined
@@ -205,23 +258,38 @@ const PrescriptionSearch = (): React.ReactElement => {
     });
   }, [sequencingQueryConfig]);
 
+  const clearFilter = () => {
+    history.replace({ search: '' });
+    setSearchValue('');
+
+    setFilterList({ assignments: [] });
+
+    const defaultQBState = defaultQueryBuilderState(PRESCRIPTION_QB_ID);
+    setQueryBuilderState(PRESCRIPTION_QB_ID, defaultQBState);
+
+    resetQueryConfig();
+  };
+
+  const handleFilterList = (columnKeys: Key[], filter?: string) => {
+    setIsClear(true);
+    const keytoString: string[] =
+      columnKeys.length > 0 ? columnKeys.map((key) => key.toString()) : [];
+    if (filter) {
+      if (filter === 'assignments') {
+        setFilterList({
+          assignments: keytoString,
+        });
+      }
+    } else {
+      setFilterList({
+        assignments: [],
+      });
+      setIsClear(false);
+    }
+  };
+
   useEffect(() => {
-    setPrescriptionQueryConfig({
-      ...prescriptionQueryConfig,
-      sort: DEFAULT_SORT_QUERY,
-      searchAfter: undefined,
-      firstPageFlag: undefined,
-      operations: undefined,
-    });
-    setPrescriptionPageIndex(DEFAULT_PAGE_INDEX);
-    setSequencingQueryConfig({
-      ...sequencingQueryConfig,
-      sort: DEFAULT_SORT_QUERY,
-      searchAfter: undefined,
-      firstPageFlag: undefined,
-      operations: undefined,
-    });
-    setSequencingPageIndex(DEFAULT_PAGE_INDEX);
+    resetQueryConfig();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
@@ -342,6 +410,11 @@ const PrescriptionSearch = (): React.ReactElement => {
                     loading={prescriptions.loading}
                     pageIndex={prescriptionPageIndex}
                     setPageIndex={setPrescriptionPageIndex}
+                    hasFilters={hasFilter}
+                    clearFilter={clearFilter}
+                    filtersList={filtersList}
+                    setFilterList={handleFilterList}
+                    isClear={isClear}
                   />
                 ),
               },
@@ -363,6 +436,8 @@ const PrescriptionSearch = (): React.ReactElement => {
                     loading={sequencings.loading}
                     pageIndex={sequencingPageIndex}
                     setPageIndex={setSequencingPageIndex}
+                    hasFilters={hasFilter}
+                    clearFilter={clearFilter}
                   />
                 ),
               },

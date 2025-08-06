@@ -15,6 +15,10 @@ export type TAssignmentsFilter = {
   confirm: (param?: FilterConfirmProps) => void;
   selectedKeys: React.Key[];
   setSelectedKeys: (selectedKeys: React.Key[]) => void;
+  setColumnFilters?: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedFilter?: string[];
+  isClear?: boolean;
+  setFilterList?: (columnKeys: Key[], filter: string) => void;
 };
 
 const getSqonFiltersList = (selectedKeys: Key[]): IFilter[] =>
@@ -44,6 +48,9 @@ export const AssignmentsFilterDropdown = ({
   confirm,
   selectedKeys,
   setSelectedKeys,
+  setFilterList,
+  selectedFilter,
+  isClear = false,
 }: TAssignmentsFilter) => {
   const { decodedRpt } = useRpt();
 
@@ -65,18 +72,21 @@ export const AssignmentsFilterDropdown = ({
   return (
     <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
       <AssignmentsFilter
-        options={practitionerInfoList}
+        dictionary={getAssignmentDictionary()}
         confirm={() => {
           updateQueryByTableFilter({
             queryBuilderId: PRESCRIPTION_QB_ID,
             field: 'assignments',
             selectedFilters: getSqonFiltersList(selectedKeys),
           });
+          setFilterList && setFilterList(selectedKeys, 'assignments');
           confirm();
         }}
+        options={practitionerInfoList}
         selectedKeys={selectedKeys}
+        selectedFilter={selectedFilter}
         setSelectedKeys={setSelectedKeys}
-        dictionary={getAssignmentDictionary()}
+        isClear={isClear}
       />
     </div>
   );

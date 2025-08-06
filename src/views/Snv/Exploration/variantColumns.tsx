@@ -456,7 +456,7 @@ export const getVariantColumns = (
         tooltip: intl.get('flag.table.tooltip'),
         iconTitle: <FlagOutlined />,
         filterIcon: () => {
-          const isFilter = filtersList && filtersList.flags.length > 0 ? true : false;
+          const isFilter = filtersList && filtersList.flags.length > 0;
           return <FilterFilled className={isFilter ? style.activeFilter : style.unActiveFilter} />;
         },
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm }) => (
