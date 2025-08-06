@@ -230,7 +230,10 @@ const PrescriptionSearch = (): React.ReactElement => {
   }, [prescriptionQueryConfig]);
 
   useEffect(() => {
-    if (queryList[0].content.length > 0 || searchValue.length > 0) {
+    if (
+      (queryList[0].content.length > 0 && filtersList.assignments.length > 0) ||
+      searchValue.length > 0
+    ) {
       toggleHasFilter(true);
     } else {
       toggleHasFilter(false);
