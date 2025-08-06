@@ -18,12 +18,13 @@ import { getQueryBuilderDictionary } from 'utils/translation';
 
 import VariantSearchLayout from '../components/VariantSearchLayout';
 
-import { getMenuItems, getMenuItemsEditionPill } from './facets';
+import { getMenuItems, getRQDMMenuItemsEditionPill } from './facets';
 import PageContent from './PageContent';
 
 const SnvExplorationRqdm = () => {
   const dispatch = useDispatch();
   const [menuItems, setMenuItems] = useState<ISidebarMenuItem[]>([]);
+  const [menuItemsCustomPill, setMenuItemsCustomPill] = useState<ISidebarMenuItem[]>([]);
   const variantMappingResults = useGetExtendedMappings(INDEXES.VARIANT);
   const { isLoading, customPills, fetchError } = useCustomPill();
   const lang = useLang();
@@ -50,12 +51,13 @@ const SnvExplorationRqdm = () => {
 
   useEffect(() => {
     if (!variantMappingResults.loading) {
+      const customPillItems = getRQDMMenuItemsEditionPill(variantMappingResults);
       const items = getMenuItems({
         variantMappingResults,
         customPills: customPills[VARIANT_RQDM_QB_ID_FILTER_TAG],
         hasCustomPillError: fetchError,
         isLoading,
-        menuItemsEditionPill: getMenuItemsEditionPill(variantMappingResults),
+        menuItemsEditionPill: customPillItems,
         deleteCustomPill: handleOnDeleteCustomPill,
         duplicateCustomPill: handleOnDuplicateCustomPill,
         editCustomPill: handleOnUpdateCustomPill,
@@ -64,6 +66,7 @@ const SnvExplorationRqdm = () => {
         queryDictionary: getQueryBuilderDictionary(facetTransResolver, getAnalysisNameByCode),
       });
 
+      setMenuItemsCustomPill(customPillItems);
       setMenuItems(items);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,7 +79,10 @@ const SnvExplorationRqdm = () => {
       }}
       menuItems={menuItems}
     >
-      <PageContent variantMapping={variantMappingResults} />
+      <PageContent
+        variantMapping={variantMappingResults}
+        menuItemsCustomPill={menuItemsCustomPill}
+      />
     </VariantSearchLayout>
   );
 };

@@ -12,7 +12,13 @@ export const SNV_VARIANT_PATIENT_TN_QB_ID = 'patient-variant-tn-repo';
 export const VARIANT_RQDM_QB_ID = 'rqdm-variant-repo';
 export const QUERY_EDITION_QB_ID = 'query-edition';
 
-export const getQueryBuilderID = (variantSection?: VariantSection) => {
+export const getQueryBuilderID = (
+  variantSection?: VariantSection,
+  isCustomPillMenuEdition?: boolean,
+) => {
+  if (isCustomPillMenuEdition) {
+    return QUERY_EDITION_QB_ID;
+  }
   switch (variantSection) {
     case VariantSection.SNV:
       return SNV_VARIANT_PATIENT_QB_ID;

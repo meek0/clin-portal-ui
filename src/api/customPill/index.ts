@@ -14,7 +14,6 @@ const headers = () => ({
   'Content-Type': 'application/json',
 });
 
-// TODO update when back will be ready
 const fetchAll = (tag?: string) =>
   sendRequestWithRpt<TUserSavedFilter[]>({
     method: 'GET',

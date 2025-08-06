@@ -3,6 +3,7 @@ import intl from 'react-intl-universal';
 import { tieBreaker } from '@ferlab/ui/core/components/ProTable/utils';
 import { resetSearchAfterQueryConfig } from '@ferlab/ui/core/components/ProTable/utils';
 import useQueryBuilderState from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Tabs } from 'antd';
@@ -30,9 +31,10 @@ import VariantsTab from './tabs/Variants';
 
 type OwnProps = {
   variantMapping: ExtendedMappingResults;
+  menuItemsCustomPill: ISidebarMenuItem[];
 };
 
-const PageContent = ({ variantMapping }: OwnProps) => {
+const PageContent = ({ variantMapping, menuItemsCustomPill }: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(VARIANT_RQDM_QB_ID);
   const [variantQueryConfig, setVariantQueryConfig] = useState(DEFAULT_QUERY_CONFIG);
   const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
@@ -106,6 +108,7 @@ const PageContent = ({ variantMapping }: OwnProps) => {
         activeQuery={activeQuery}
         variantResults={variantResults}
         getVariantResolvedSqon={getVariantResolvedSqon}
+        menuItemsCustomPill={menuItemsCustomPill}
       >
         <Tabs
           type="card"

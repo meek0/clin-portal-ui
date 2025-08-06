@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import intl from 'react-intl-universal';
-import { useHistory } from 'react-router-dom';
 import QueryBuilder from '@ferlab/ui/core/components/QueryBuilder';
+import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { dotToUnderscore } from '@ferlab/ui/core/data/arranger/formatting';
 import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { isEmptySqon } from '@ferlab/ui/core/data/sqon/utils';
@@ -14,7 +14,6 @@ import { ExtendedMapping, ExtendedMappingResults, IQueryResults } from 'graphql/
 import { IVariantResultTree, VariantEntity } from 'graphql/variants/models';
 import { GET_VARIANT_COUNT } from 'graphql/variants/queries';
 import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
-import { getMenuItemsEditionPill } from 'views/Snv/Exploration/Rqdm/facets';
 import { QUERY_EDITION_QB_ID } from 'views/Snv/utils/constant';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
@@ -23,7 +22,6 @@ import useCustomPillsActions from 'hooks/useCustomPillsActions';
 import useQBStateWithSavedFilters from 'hooks/useQBStateWithSavedFilters';
 import useSavedFiltersActions from 'hooks/useSavedFiltersActions';
 import { useGlobals } from 'store/global';
-import { VARIANT_RQDM_QB_ID_FILTER_TAG } from 'utils/queryBuilder';
 import { getQueryBuilderDictionary } from 'utils/translation';
 
 import styles from './index.module.css';
@@ -37,6 +35,7 @@ interface OwnProps {
   children: React.ReactElement;
   getVariantResolvedSqon: (query: ISyntheticSqon) => ISqonGroupFilter;
   variantSection?: VariantSection;
+  menuItemsCustomPill: ISidebarMenuItem[];
 }
 
 const VariantContentLayout = ({
@@ -48,6 +47,7 @@ const VariantContentLayout = ({
   getVariantResolvedSqon,
   variantSection,
   children,
+  menuItemsCustomPill,
 }: OwnProps) => {
   const { getAnalysisNameByCode } = useGlobals();
   const [selectedFilterContent, setSelectedFilterContent] = useState<
@@ -79,7 +79,6 @@ const VariantContentLayout = ({
       : variantMapping?.data?.find((mapping: ExtendedMapping) => key === mapping.field)
           ?.displayName || key;
   };
-  const history = useHistory();
 
   return (
     <Space direction="vertical" size={24} className={styles.variantPageContent}>
@@ -87,18 +86,21 @@ const VariantContentLayout = ({
         id={queryBuilderId}
         className="variant-patient-repo__query-builder"
         customPillConfig={
-          history.location.pathname.includes('prescription')
-            ? undefined
-            : {
+          variantSection === VariantSection.SNVTO ||
+          variantSection === VariantSection.SNVTN ||
+          variantSection === VariantSection.SNV ||
+          !variantSection // RQDM
+            ? {
                 createCustomPill: handleOnCreateCustomPill,
-                tag: VARIANT_RQDM_QB_ID_FILTER_TAG,
+                tag: savedFilterTag,
                 editPill: handleOnUpdateCustomPill,
                 getFiltersByPill: fetchFiltersByCustomPill,
                 getPillById: fetchSavedFilterById,
-                editMenuItems: getMenuItemsEditionPill(variantMapping),
+                editMenuItems: menuItemsCustomPill,
                 queryEditionQBId: QUERY_EDITION_QB_ID,
                 validateName: CustomPillApi.validateName,
               }
+            : undefined
         }
         headerConfig={{
           showHeader: true,

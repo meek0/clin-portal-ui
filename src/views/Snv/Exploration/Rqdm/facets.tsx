@@ -576,7 +576,7 @@ const filterGroupsEditionPill: {
   },
 };
 
-export const getMenuItemsEditionPill = (
+export const getRQDMMenuItemsEditionPill = (
   variantMappingResults: ExtendedMappingResults,
   filterMapper?: TCustomFilterMapper,
 ) => [

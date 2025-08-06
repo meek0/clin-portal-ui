@@ -1,7 +1,12 @@
 import intl from 'react-intl-universal';
+import { FilterFilled } from '@ant-design/icons';
+import QueriesSidebar from '@ferlab/ui/core/components/CustomPill/QueriesSidebar';
+import { IDictionary, ISavedFilter } from '@ferlab/ui/core/components/QueryBuilder/types';
 import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { RangeOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { SuggestionType } from 'api/arranger/models';
+import { fetchFiltersByCustomPill } from 'api/customPill/customPill.utils';
+import { TUserSavedFilter } from 'api/savedFilter/models';
 import { INDEXES } from 'graphql/constants';
 import { ExtendedMappingResults } from 'graphql/models';
 import { VariantType } from 'graphql/variants/models';
@@ -10,6 +15,7 @@ import {
   FilterTypes,
   GeneSearchFieldsMapping,
   getQueryBuilderID,
+  QUERY_EDITION_QB_ID,
   SNV_VARIANT_PATIENT_QB_ID,
   SNV_VARIANT_PATIENT_TN_QB_ID,
   SNV_VARIANT_PATIENT_TO_QB_ID,
@@ -25,14 +31,23 @@ import RqdmIcon from 'components/icons/RqdmIcon';
 import { TCustomFilterMapper } from 'components/uiKit/FilterList';
 import { FilterInfo } from 'components/uiKit/FilterList/types';
 import VariantGeneSearch from 'components/VariantGeneSearch';
+import { getQueriesSidebarDictionary } from 'utils/customPill';
+import {
+  SNV_EXPLORATION_PATIENT_FILTER_TAG,
+  SNV_EXPLORATION_PATIENT_TN_FILTER_TAG,
+  SNV_EXPLORATION_PATIENT_TO_FILTER_TAG,
+  VARIANT_RQDM_QB_ID_FILTER_TAG,
+} from 'utils/queryBuilder';
 
 import { filtersContainer } from '../components/filtersContainer';
 
 import styles from '../facets.module.css';
 
-const filterGroups: {
+const getFilterGroups = (
+  isCustomPills?: boolean,
+): {
   [type: string]: FilterInfo;
-} = {
+} => ({
   [FilterTypes.Rqdm]: {
     defaultOpenFacets: ['panels'],
     groups: [
@@ -48,7 +63,7 @@ const filterGroups: {
         index={INDEXES.VARIANT}
         fields={GeneSearchFieldsMapping}
         type={SuggestionType.VARIANTS}
-        queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
+        queryBuilderId={isCustomPills ? QUERY_EDITION_QB_ID : SNV_VARIANT_PATIENT_QB_ID}
       />,
     ],
     groups: [
@@ -78,7 +93,7 @@ const filterGroups: {
         index={INDEXES.VARIANT}
         fields={GeneSearchFieldsMapping}
         type={SuggestionType.VARIANTS}
-        queryBuilderId={SNV_VARIANT_PATIENT_TO_QB_ID}
+        queryBuilderId={isCustomPills ? QUERY_EDITION_QB_ID : SNV_VARIANT_PATIENT_TO_QB_ID}
       />,
     ],
     groups: [
@@ -109,7 +124,7 @@ const filterGroups: {
         index={INDEXES.VARIANT}
         fields={GeneSearchFieldsMapping}
         type={SuggestionType.VARIANTS}
-        queryBuilderId={SNV_VARIANT_PATIENT_TN_QB_ID}
+        queryBuilderId={isCustomPills ? QUERY_EDITION_QB_ID : SNV_VARIANT_PATIENT_TN_QB_ID}
       />,
     ],
     groups: [
@@ -140,12 +155,12 @@ const filterGroups: {
         index={INDEXES.VARIANT}
         fields={GeneSearchFieldsMapping}
         type={SuggestionType.GENES}
-        queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
+        queryBuilderId={isCustomPills ? QUERY_EDITION_QB_ID : SNV_VARIANT_PATIENT_QB_ID}
       />,
       <GenesUploadIds
         key="geneIds"
         field="consequences.symbol_id_1"
-        queryBuilderId={SNV_VARIANT_PATIENT_QB_ID}
+        queryBuilderId={isCustomPills ? QUERY_EDITION_QB_ID : SNV_VARIANT_PATIENT_QB_ID}
       />,
     ],
     groups: [
@@ -183,12 +198,12 @@ const filterGroups: {
         index={INDEXES.VARIANT}
         fields={GeneSearchFieldsMapping}
         type={SuggestionType.GENES}
-        queryBuilderId={SNV_VARIANT_PATIENT_TO_QB_ID}
+        queryBuilderId={isCustomPills ? QUERY_EDITION_QB_ID : SNV_VARIANT_PATIENT_TO_QB_ID}
       />,
       <GenesUploadIds
         key="geneIds"
         field="consequences.symbol_id_1"
-        queryBuilderId={SNV_VARIANT_PATIENT_TO_QB_ID}
+        queryBuilderId={isCustomPills ? QUERY_EDITION_QB_ID : SNV_VARIANT_PATIENT_TO_QB_ID}
       />,
     ],
     groups: [
@@ -226,12 +241,12 @@ const filterGroups: {
         index={INDEXES.VARIANT}
         fields={GeneSearchFieldsMapping}
         type={SuggestionType.GENES}
-        queryBuilderId={SNV_VARIANT_PATIENT_TN_QB_ID}
+        queryBuilderId={isCustomPills ? QUERY_EDITION_QB_ID : SNV_VARIANT_PATIENT_TN_QB_ID}
       />,
       <GenesUploadIds
         key="geneIds"
         field="consequences.symbol_id_1"
-        queryBuilderId={SNV_VARIANT_PATIENT_TN_QB_ID}
+        queryBuilderId={isCustomPills ? QUERY_EDITION_QB_ID : SNV_VARIANT_PATIENT_TN_QB_ID}
       />,
     ],
     groups: [
@@ -759,14 +774,25 @@ const filterGroups: {
       },
     ],
   },
+});
+
+export const getSavedFilterID = (variantSection?: VariantSection) => {
+  switch (variantSection) {
+    case VariantSection.SNV:
+      return SNV_EXPLORATION_PATIENT_FILTER_TAG;
+    case VariantSection.SNVTO:
+      return SNV_EXPLORATION_PATIENT_TO_FILTER_TAG;
+    case VariantSection.SNVTN:
+      return SNV_EXPLORATION_PATIENT_TN_FILTER_TAG;
+    default:
+      return VARIANT_RQDM_QB_ID_FILTER_TAG;
+  }
 };
 
-export const getMenuItems = (
-  variantMappingResults: ExtendedMappingResults,
-  filterMapper: TCustomFilterMapper,
-  variantType: VariantType = VariantType.GERMLINE,
+const getFilterTypes = (
   variantSection?: VariantSection,
-): ISidebarMenuItem[] => {
+  variantType: VariantType = VariantType.GERMLINE,
+) => {
   const [filterVariantType, filterGeneType, filterFrequencyType, filterOccType, filterPathType] =
     variantType === VariantType.GERMLINE
       ? [
@@ -792,7 +818,41 @@ export const getMenuItems = (
           FilterTypes.Pathogenicity_somatic_tn,
         ];
 
-  return [
+  return [filterVariantType, filterGeneType, filterFrequencyType, filterOccType, filterPathType];
+};
+
+interface IGetMenuItems {
+  variantMappingResults: ExtendedMappingResults;
+  filterMapper: TCustomFilterMapper;
+  variantSection?: VariantSection;
+  variantType?: VariantType;
+  customPillConfig?: {
+    customPills: TUserSavedFilter[];
+    hasCustomPillError: boolean;
+    isLoading: boolean;
+    menuItemsEditionPill: ISidebarMenuItem[];
+    deleteCustomPill: (id: string, queryBuilderId: string) => any;
+    duplicateCustomPill: (queryPill: ISavedFilter) => any;
+    editCustomPill: (queryPill: ISavedFilter, tag: string, queryBuilderId: string) => any;
+    learnMoreLink?: string;
+    queryDictionary: IDictionary;
+    validateName: (title: string, tag: string) => any;
+  };
+  isCustomPillMenuEdition: boolean;
+}
+
+export const getMenuItems = ({
+  variantMappingResults,
+  filterMapper,
+  variantSection,
+  variantType = VariantType.GERMLINE,
+  customPillConfig,
+  isCustomPillMenuEdition = false,
+}: IGetMenuItems): ISidebarMenuItem[] => {
+  const [filterVariantType, filterGeneType, filterFrequencyType, filterOccType, filterPathType] =
+    getFilterTypes(variantSection, variantType);
+
+  const menuItems = [
     {
       key: 'rqdm',
       title: intl.get('screen.patientsnv.category_rqdm'),
@@ -800,8 +860,8 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        getQueryBuilderID(variantSection),
-        filterGroups[FilterTypes.Rqdm],
+        getQueryBuilderID(variantSection, isCustomPillMenuEdition),
+        getFilterGroups(isCustomPillMenuEdition)[FilterTypes.Rqdm],
         filterMapper,
       ),
     },
@@ -812,8 +872,8 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        getQueryBuilderID(variantSection),
-        filterGroups[filterVariantType],
+        getQueryBuilderID(variantSection, isCustomPillMenuEdition),
+        getFilterGroups(isCustomPillMenuEdition)[filterVariantType],
         filterMapper,
       ),
     },
@@ -824,8 +884,8 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        getQueryBuilderID(variantSection),
-        filterGroups[filterGeneType],
+        getQueryBuilderID(variantSection, isCustomPillMenuEdition),
+        getFilterGroups(isCustomPillMenuEdition)[filterGeneType],
         filterMapper,
       ),
     },
@@ -836,8 +896,8 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        getQueryBuilderID(variantSection),
-        filterGroups[filterFrequencyType],
+        getQueryBuilderID(variantSection, isCustomPillMenuEdition),
+        getFilterGroups(isCustomPillMenuEdition)[filterFrequencyType],
         filterMapper,
       ),
     },
@@ -848,8 +908,8 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        getQueryBuilderID(variantSection),
-        filterGroups[filterPathType],
+        getQueryBuilderID(variantSection, isCustomPillMenuEdition),
+        getFilterGroups(isCustomPillMenuEdition)[filterPathType],
         filterMapper,
       ),
     },
@@ -860,10 +920,39 @@ export const getMenuItems = (
       panelContent: filtersContainer(
         variantMappingResults,
         INDEXES.VARIANT,
-        getQueryBuilderID(variantSection),
-        filterGroups[filterOccType],
+        getQueryBuilderID(variantSection, isCustomPillMenuEdition),
+        getFilterGroups(isCustomPillMenuEdition)[filterOccType],
         filterMapper,
       ),
     },
   ];
+
+  if (!isCustomPillMenuEdition && customPillConfig) {
+    menuItems.push({
+      key: 'custom_pill',
+      title: intl.get('screen.patientsnv.category_queries'),
+      icon: <FilterFilled className={styles.sideMenuIcon} />,
+      panelContent: (
+        <QueriesSidebar
+          customPills={customPillConfig.customPills}
+          hasError={customPillConfig.hasCustomPillError}
+          isLoading={customPillConfig.isLoading}
+          dictionary={getQueriesSidebarDictionary()}
+          learnMoreLink={customPillConfig.learnMoreLink}
+          queryBuilderId={getQueryBuilderID(variantSection)}
+          queryDictionary={customPillConfig.queryDictionary}
+          queryEditionQBId={QUERY_EDITION_QB_ID}
+          editMenuItems={customPillConfig.menuItemsEditionPill}
+          tag={getSavedFilterID(variantSection)}
+          editPill={customPillConfig.editCustomPill}
+          duplicatePill={customPillConfig.duplicateCustomPill}
+          deletePill={customPillConfig.deleteCustomPill}
+          getFiltersByPill={fetchFiltersByCustomPill}
+          validateName={customPillConfig.validateName}
+        />
+      ),
+    });
+  }
+
+  return menuItems;
 };

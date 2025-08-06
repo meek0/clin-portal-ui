@@ -4,6 +4,7 @@ import { resetSearchAfterQueryConfig, tieBreaker } from '@ferlab/ui/core/compone
 import useQueryBuilderState, {
   updateQueryByTableFilter,
 } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Tabs } from 'antd';
@@ -32,15 +33,11 @@ import { wrapSqonWithDonorIdAndSrId } from 'views/Snv/utils/helper';
 import DownloadTSVWrapper from 'components/Download';
 import { useRpt } from 'hooks/useRpt';
 import { resolveSyntheticSqonWithReferences } from 'utils/query';
-import {
-  SNV_EXPLORATION_PATIENT_FILTER_TAG,
-  SNV_EXPLORATION_PATIENT_TN_FILTER_TAG,
-  SNV_EXPLORATION_PATIENT_TO_FILTER_TAG,
-} from 'utils/queryBuilder';
 
 import { flagFilterQuery, noFlagQuery } from '../../components/Flag/FlagFilter';
 import { getInterpretationQuery } from '../../components/InterpretationCell/InterpretationFilter';
 import { getNoteQuery } from '../../components/Note/NoteFilter';
+import { getSavedFilterID } from '../facets';
 
 import VariantsTab from './tabs/Variants';
 
@@ -49,9 +46,16 @@ type OwnProps = {
   patientId?: string;
   prescriptionId?: string;
   variantSection?: VariantSection;
+  menuItemsCustomPill: ISidebarMenuItem[];
 };
 
-const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection }: OwnProps) => {
+const PageContent = ({
+  variantMapping,
+  patientId,
+  prescriptionId,
+  variantSection,
+  menuItemsCustomPill,
+}: OwnProps) => {
   const { decodedRpt } = useRpt();
   const { queryList, activeQuery } = useQueryBuilderState(getQueryBuilderID(variantSection));
   const [variantQueryConfig, setVariantQueryConfig] = useState({
@@ -216,6 +220,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
       field: 'flags',
       selectedFilters: [],
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //Reset Flag filter on clearFilter
@@ -233,6 +238,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
         selectedFilters: [],
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtersList]);
 
   useEffect(() => {
@@ -257,18 +263,6 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   }, [activeQuerySnapshot]);
 
   const [variantType, setVariantType] = useState<VariantType | null>(null);
-  const getSavedFilterID = () => {
-    switch (variantSection) {
-      case VariantSection.SNV:
-        return SNV_EXPLORATION_PATIENT_FILTER_TAG;
-      case VariantSection.SNVTO:
-        return SNV_EXPLORATION_PATIENT_TO_FILTER_TAG;
-      case VariantSection.SNVTN:
-        return SNV_EXPLORATION_PATIENT_TN_FILTER_TAG;
-      default:
-        return SNV_EXPLORATION_PATIENT_FILTER_TAG;
-    }
-  };
 
   const isSameLDM = () => {
     const org = decodedRpt?.fhir_organization_id;
@@ -281,12 +275,13 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
   return (
     <VariantContentLayout
       queryBuilderId={getQueryBuilderID(variantSection)}
-      savedFilterTag={getSavedFilterID()}
+      savedFilterTag={getSavedFilterID(variantSection)}
       variantMapping={variantMapping}
       activeQuery={activeQuery}
       variantResults={variantResultsWithDonorsWithFilter}
       getVariantResolvedSqon={getVariantResolvedSqon}
       variantSection={variantSection}
+      menuItemsCustomPill={menuItemsCustomPill}
     >
       <Tabs
         type="card"
