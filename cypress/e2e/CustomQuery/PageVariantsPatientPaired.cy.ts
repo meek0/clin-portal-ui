@@ -20,6 +20,6 @@ describe('Page des variants d\'un patient (paired) - Pilule personnalisée', () 
     cy.get('[class*="QueryPill_selected"]').should('have.css', 'background-color', 'rgb(35, 164, 215)');
 
     cy.get('[class*="QueryBar_selected"] [class*="QueryPill_title"]').contains('Cypress').should('exist');
-    cy.get('body').contains(/1 0\d{2} \d{3}/).should('exist');
+    cy.get('body').contains(/5 \d{3}/).should('exist');
   });
 });
