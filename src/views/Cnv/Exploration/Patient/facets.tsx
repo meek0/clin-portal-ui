@@ -1,10 +1,18 @@
 import intl from 'react-intl-universal';
-import { SafetyCertificateOutlined } from '@ant-design/icons';
+import { FilterFilled, SafetyCertificateOutlined } from '@ant-design/icons';
+import QueriesSidebar from '@ferlab/ui/core/components/CustomPill/QueriesSidebar';
+import { ISavedFilter } from '@ferlab/ui/core/components/QueryBuilder/types';
+import { IDictionary } from '@ferlab/ui/core/components/QueryBuilder/types';
+import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { RangeOperators } from '@ferlab/ui/core/data/sqon/operators';
 import { SuggestionType } from 'api/arranger/models';
+import { fetchFiltersByCustomPill } from 'api/customPill/customPill.utils';
+import { TUserSavedFilter } from 'api/savedFilter/models';
 import { INDEXES } from 'graphql/constants';
 import { ExtendedMappingResults } from 'graphql/models';
 import { CNV_VARIANT_PATIENT_QB_ID, FilterTypes } from 'views/Cnv/utils/constant';
+import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/components/VariantSectionNav';
+import { QUERY_EDITION_QB_ID } from 'views/Snv/utils/constant';
 
 import GenesUploadIds from 'components/GeneUploadIds';
 import FamiliesIcon from 'components/icons/FamiliesIcon';
@@ -15,14 +23,18 @@ import RqdmIcon from 'components/icons/RqdmIcon';
 import { TCustomFilterMapper } from 'components/uiKit/FilterList';
 import { FilterInfo } from 'components/uiKit/FilterList/types';
 import VariantGeneSearch from 'components/VariantGeneSearch';
+import { getQueriesSidebarDictionary } from 'utils/customPill';
+import { CNV_EXPLORATION_PATIENT_FILTER_TAG } from 'utils/queryBuilder';
 
 import { filtersContainer } from '../components/filtersContainer';
 
 import styles from '../facets.module.css';
 
-const filterGroups: {
+const getFilterGroups = (
+  isCustomPills?: boolean,
+): {
   [type: string]: FilterInfo;
-} = {
+} => ({
   [FilterTypes.Rqdm]: {
     groups: [
       {
@@ -66,12 +78,12 @@ const filterGroups: {
           [SuggestionType.VARIANTS]: '',
         }}
         type={SuggestionType.GENES}
-        queryBuilderId={CNV_VARIANT_PATIENT_QB_ID}
+        queryBuilderId={isCustomPills ? QUERY_EDITION_QB_ID : CNV_VARIANT_PATIENT_QB_ID}
       />,
       <GenesUploadIds
         key="genes_upload_ids"
         field="genes.symbol"
-        queryBuilderId={CNV_VARIANT_PATIENT_QB_ID}
+        queryBuilderId={isCustomPills ? QUERY_EDITION_QB_ID : CNV_VARIANT_PATIENT_QB_ID}
       />,
     ],
     groups: [
@@ -152,82 +164,134 @@ const filterGroups: {
       },
     ],
   },
-};
+});
 
-export const getMenuItems = (
-  variantMappingResults: ExtendedMappingResults,
-  filterMapper?: TCustomFilterMapper,
-) => [
-  {
-    key: 'rqdm',
-    title: intl.get('screen.patientsnv.category_rqdm'),
-    icon: <RqdmIcon className={styles.sideMenuIcon} />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.CNV,
-      CNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Rqdm],
-      filterMapper,
-    ),
-  },
-  {
-    key: 'category_variant',
-    title: intl.get('screen.patientcnv.category_variant'),
-    icon: <LineStyleIcon className={styles.sideMenuIcon} />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.CNV,
-      CNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Variant],
-      filterMapper,
-    ),
-  },
-  {
-    key: 'category_genomic',
-    title: intl.get('screen.patientcnv.category_genomic'),
-    icon: <GeneIcon className={styles.sideMenuIcon} />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.CNV,
-      CNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Gene],
-      filterMapper,
-    ),
-  },
-  {
-    key: 'category_cohort',
-    title: intl.get('screen.patientsnv.category_cohort'),
-    icon: <FrequencyIcon className={styles.sideMenuIcon} />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.CNV,
-      CNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Frequency],
-      filterMapper,
-    ),
-  },
-  {
-    key: 'category_parentalAnalyis',
-    title: intl.get('screen.patientsnv.category_parental_analysis'),
-    icon: <FamiliesIcon className={styles.sideMenuIcon} />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.CNV,
-      CNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.ParentalAnalysis],
-      filterMapper,
-    ),
-  },
-  {
-    key: 'category_metric',
-    title: intl.get('screen.patientsnv.category_metricQC'),
-    icon: <SafetyCertificateOutlined />,
-    panelContent: filtersContainer(
-      variantMappingResults,
-      INDEXES.CNV,
-      CNV_VARIANT_PATIENT_QB_ID,
-      filterGroups[FilterTypes.Metric],
-      filterMapper,
-    ),
-  },
-];
+interface IGetMenuItems {
+  variantMappingResults: ExtendedMappingResults;
+  filterMapper?: TCustomFilterMapper;
+  customPillConfig?: {
+    customPills: TUserSavedFilter[];
+    hasCustomPillError: boolean;
+    isLoading: boolean;
+    menuItemsEditionPill: ISidebarMenuItem[];
+    deleteCustomPill: (id: string, queryBuilderId: string) => any;
+    duplicateCustomPill: (queryPill: ISavedFilter) => any;
+    editCustomPill: (queryPill: ISavedFilter, tag: string, queryBuilderId: string) => any;
+    learnMoreLink?: string;
+    queryDictionary: IDictionary;
+    validateName: (title: string, tag: string) => any;
+    variantSection?: VariantSection;
+  };
+  isCustomPillMenuEdition: boolean;
+}
+
+export const getMenuItems = ({
+  variantMappingResults,
+  filterMapper,
+  customPillConfig,
+  isCustomPillMenuEdition = false,
+}: IGetMenuItems) => {
+  const menuItems = [
+    {
+      key: 'rqdm',
+      title: intl.get('screen.patientsnv.category_rqdm'),
+      icon: <RqdmIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.CNV,
+        isCustomPillMenuEdition ? QUERY_EDITION_QB_ID : CNV_VARIANT_PATIENT_QB_ID,
+        getFilterGroups(isCustomPillMenuEdition)[FilterTypes.Rqdm],
+        filterMapper,
+      ),
+    },
+    {
+      key: 'category_variant',
+      title: intl.get('screen.patientcnv.category_variant'),
+      icon: <LineStyleIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.CNV,
+        isCustomPillMenuEdition ? QUERY_EDITION_QB_ID : CNV_VARIANT_PATIENT_QB_ID,
+        getFilterGroups(isCustomPillMenuEdition)[FilterTypes.Variant],
+        filterMapper,
+      ),
+    },
+    {
+      key: 'category_genomic',
+      title: intl.get('screen.patientcnv.category_genomic'),
+      icon: <GeneIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.CNV,
+        isCustomPillMenuEdition ? QUERY_EDITION_QB_ID : CNV_VARIANT_PATIENT_QB_ID,
+        getFilterGroups(isCustomPillMenuEdition)[FilterTypes.Gene],
+        filterMapper,
+      ),
+    },
+    {
+      key: 'category_cohort',
+      title: intl.get('screen.patientsnv.category_cohort'),
+      icon: <FrequencyIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.CNV,
+        isCustomPillMenuEdition ? QUERY_EDITION_QB_ID : CNV_VARIANT_PATIENT_QB_ID,
+        getFilterGroups(isCustomPillMenuEdition)[FilterTypes.Frequency],
+        filterMapper,
+      ),
+    },
+    {
+      key: 'category_parentalAnalyis',
+      title: intl.get('screen.patientsnv.category_parental_analysis'),
+      icon: <FamiliesIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.CNV,
+        isCustomPillMenuEdition ? QUERY_EDITION_QB_ID : CNV_VARIANT_PATIENT_QB_ID,
+        getFilterGroups(isCustomPillMenuEdition)[FilterTypes.ParentalAnalysis],
+        filterMapper,
+      ),
+    },
+    {
+      key: 'category_metric',
+      title: intl.get('screen.patientsnv.category_metricQC'),
+      icon: <SafetyCertificateOutlined />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.CNV,
+        isCustomPillMenuEdition ? QUERY_EDITION_QB_ID : CNV_VARIANT_PATIENT_QB_ID,
+        getFilterGroups(isCustomPillMenuEdition)[FilterTypes.Metric],
+        filterMapper,
+      ),
+    },
+  ];
+
+  if (!isCustomPillMenuEdition && customPillConfig) {
+    menuItems.push({
+      key: 'custom_pill',
+      title: intl.get('screen.patientsnv.category_queries'),
+      icon: <FilterFilled className={styles.sideMenuIcon} />,
+      panelContent: (
+        <QueriesSidebar
+          customPills={customPillConfig.customPills}
+          hasError={customPillConfig.hasCustomPillError}
+          isLoading={customPillConfig.isLoading}
+          dictionary={getQueriesSidebarDictionary()}
+          learnMoreLink={customPillConfig.learnMoreLink}
+          queryBuilderId={CNV_VARIANT_PATIENT_QB_ID}
+          queryDictionary={customPillConfig.queryDictionary}
+          queryEditionQBId={QUERY_EDITION_QB_ID}
+          editMenuItems={customPillConfig.menuItemsEditionPill}
+          tag={CNV_EXPLORATION_PATIENT_FILTER_TAG}
+          editPill={customPillConfig.editCustomPill}
+          duplicatePill={customPillConfig.duplicateCustomPill}
+          deletePill={customPillConfig.deleteCustomPill}
+          getFiltersByPill={fetchFiltersByCustomPill}
+          validateName={customPillConfig.validateName}
+        />
+      ),
+    });
+  }
+
+  return menuItems;
+};

@@ -20,7 +20,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
 
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'GAIN');
-    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
+    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('exist');
   });
  
   it('Valider les liens disponibles Lien Gènes', () => {

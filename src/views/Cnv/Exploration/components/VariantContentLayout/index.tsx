@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import intl from 'react-intl-universal';
 import QueryBuilder from '@ferlab/ui/core/components/QueryBuilder';
+import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { dotToUnderscore } from '@ferlab/ui/core/data/arranger/formatting';
 import { ISqonGroupFilter, ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { isEmptySqon } from '@ferlab/ui/core/data/sqon/utils';
 import { Space } from 'antd';
 import { ArrangerApi } from 'api/arranger';
+import { CustomPillApi } from 'api/customPill';
+import { fetchFiltersByCustomPill, fetchSavedFilterById } from 'api/customPill/customPill.utils';
 import { IVariantResultTree, VariantEntity } from 'graphql/cnv/models';
 import { GET_VARIANT_COUNT } from 'graphql/cnv/queries';
 import { INDEXES } from 'graphql/constants';
 import { ExtendedMapping, ExtendedMappingResults, IQueryResults } from 'graphql/models';
+import { QUERY_EDITION_QB_ID } from 'views/Snv/utils/constant';
 
 import LineStyleIcon from 'components/icons/LineStyleIcon';
 import GenericFilters from 'components/uiKit/FilterList/GenericFilters';
+import useCustomPillsActions from 'hooks/useCustomPillsActions';
 import useQBStateWithSavedFilters from 'hooks/useQBStateWithSavedFilters';
 import useSavedFiltersActions from 'hooks/useSavedFiltersActions';
 import { useGlobals } from 'store/global';
+import { CNV_EXPLORATION_PATIENT_FILTER_TAG } from 'utils/queryBuilder';
 import { getQueryBuilderDictionary } from 'utils/translation';
 
 import styles from './index.module.css';
@@ -28,6 +34,7 @@ interface OwnProps {
   variantMapping: ExtendedMappingResults;
   children: React.ReactElement;
   getVariantResolvedSqon: (query: ISyntheticSqon) => ISqonGroupFilter;
+  menuItemsCustomPill: ISidebarMenuItem[];
 }
 
 const VariantContentLayout = ({
@@ -38,6 +45,7 @@ const VariantContentLayout = ({
   variantMapping,
   getVariantResolvedSqon,
   children,
+  menuItemsCustomPill,
 }: OwnProps) => {
   const { getAnalysisNameByCode } = useGlobals();
   const [selectedFilterContent, setSelectedFilterContent] = useState<
@@ -49,6 +57,9 @@ const VariantContentLayout = ({
   );
   const { handleOnDeleteFilter, handleOnSaveFilter, handleOnShareFilter, handleOnUpdateFilter } =
     useSavedFiltersActions(savedFilterTag);
+
+  const { handleOnCreateCustomPill, handleOnUpdateCustomPill } =
+    useCustomPillsActions(savedFilterTag);
 
   const facetTransResolver = (key: string) => {
     const title = intl
@@ -67,6 +78,16 @@ const VariantContentLayout = ({
         id={queryBuilderId}
         scrollQueryContainer={true}
         className="variant-patient-repo__query-builder"
+        customPillConfig={{
+          createCustomPill: handleOnCreateCustomPill,
+          tag: CNV_EXPLORATION_PATIENT_FILTER_TAG,
+          editPill: handleOnUpdateCustomPill,
+          getFiltersByPill: fetchFiltersByCustomPill,
+          getPillById: fetchSavedFilterById,
+          editMenuItems: menuItemsCustomPill,
+          queryEditionQBId: QUERY_EDITION_QB_ID,
+          validateName: CustomPillApi.validateName,
+        }}
         headerConfig={{
           showHeader: true,
           showTools: true,

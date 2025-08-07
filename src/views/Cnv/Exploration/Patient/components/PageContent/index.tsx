@@ -4,6 +4,7 @@ import { resetSearchAfterQueryConfig } from '@ferlab/ui/core/components/ProTable
 import useQueryBuilderState, {
   updateQueryByTableFilter,
 } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
+import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
 import { ISyntheticSqon } from '@ferlab/ui/core/data/sqon/types';
 import { SortDirection } from '@ferlab/ui/core/graphql/constants';
 import { Card } from 'antd';
@@ -43,9 +44,16 @@ type OwnProps = {
   patientId?: string;
   prescriptionId?: string;
   variantSection?: VariantSection;
+  menuItemsCustomPill: ISidebarMenuItem[];
 };
 
-const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection }: OwnProps) => {
+const PageContent = ({
+  variantMapping,
+  patientId,
+  prescriptionId,
+  variantSection,
+  menuItemsCustomPill,
+}: OwnProps) => {
   const { queryList, activeQuery } = useQueryBuilderState(CNV_VARIANT_PATIENT_QB_ID);
   const { decodedRpt } = useRpt();
   const { prescription } = usePrescriptionEntityContext();
@@ -109,6 +117,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
         selectedFilters: [],
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtersList]);
 
   const getVariantResolvedSqon = (query: ISyntheticSqon) => {
@@ -233,6 +242,7 @@ const PageContent = ({ variantMapping, patientId, prescriptionId, variantSection
         activeQuery={activeQuery}
         variantResults={variantResultsWithFilter}
         getVariantResolvedSqon={getVariantResolvedSqon}
+        menuItemsCustomPill={menuItemsCustomPill}
       >
         <Card>
           <VariantsTable

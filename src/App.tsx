@@ -39,11 +39,6 @@ const BioInfoAnalysis = loadable(() => import('views/BioInfoAnalysis'), loadable
 const PrescriptionEntity = loadable(() => import('views/Prescriptions/Entity'), loadableProps);
 const PrescriptionSearch = loadable(() => import('views/Prescriptions/Search'), loadableProps);
 const VariantEntity = loadable(() => import('views/Snv/Entity'), loadableProps);
-
-const CnvExplorationPatient = loadable(
-  () => import('views/Cnv/Exploration/Patient'),
-  loadableProps,
-);
 const SnvExplorationRqdm = loadable(() => import('views/Snv/Exploration/Rqdm'), loadableProps);
 const HomePage = loadable(() => import('views/Home'), loadableProps);
 const Archives = loadable(() => import('views/Archives'), loadableProps);
@@ -136,14 +131,6 @@ const App = () => {
                 roles={[Roles.Download]}
               >
                 <BioInfoAnalysis />
-              </ProtectedRoute>
-              <ProtectedRoute
-                exact
-                path={DYNAMIC_ROUTES.CNV_EXPLORATION_PATIENT}
-                layout={PageLayout}
-                roles={[Roles.Variants]}
-              >
-                <CnvExplorationPatient />
               </ProtectedRoute>
               <ProtectedRoute
                 exact

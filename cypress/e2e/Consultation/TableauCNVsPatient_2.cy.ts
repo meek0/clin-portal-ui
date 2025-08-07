@@ -20,7 +20,7 @@ beforeEach(() => {
 describe('Page des CNVs d\'un patient - Consultation du tableau', () => { 
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'GAIN');
-    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('not.exist');
+    cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('exist');
   });
   
   it('Valider les fonctionnalités du tableau - Tri # SNVs', () => {

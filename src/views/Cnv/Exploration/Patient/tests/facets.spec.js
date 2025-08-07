@@ -5,6 +5,8 @@ describe('Facets: getMenuItems', () => {
     const variantMappingResults = {
       loading: true,
     };
-    expect(getMenuItems(variantMappingResults, null)).toBeDefined();
+    expect(
+      getMenuItems({ variantMappingResults, filterMapper: null, customPillConfig: false }),
+    ).toBeDefined();
   });
 });
