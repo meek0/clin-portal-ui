@@ -98,13 +98,17 @@ const GenesUploadIds = ({ queryBuilderId, field }: OwnProps) => (
 
       const matchResults = ids.map((id, index) => {
         const upperCaseId = id.toUpperCase();
-        const gene = genes.find((gene) => {
-          const checkArray = [gene.symbol?.toUpperCase(), gene.ensembl_gene_id?.toUpperCase()];
-          if (Array.isArray(gene.alias) && gene.alias.length > 0) {
-            checkArray.push(...gene.alias.map((a) => a.toUpperCase()));
-          }
-          return checkArray.includes(upperCaseId);
-        });
+        const gene =
+          genes.find((gene) => {
+            if (upperCaseId === gene.symbol?.toUpperCase()) return true;
+          }) ||
+          genes.find((gene) => {
+            const checkArray = [gene.ensembl_gene_id?.toUpperCase()];
+            if (Array.isArray(gene.alias) && gene.alias.length > 0) {
+              checkArray.push(...gene.alias.map((a) => a.toUpperCase()));
+            }
+            return checkArray.includes(upperCaseId);
+          });
         return gene
           ? {
               key: index.toString(),
