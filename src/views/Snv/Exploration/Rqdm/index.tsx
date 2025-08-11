@@ -18,7 +18,7 @@ import { getQueryBuilderDictionary } from 'utils/translation';
 
 import VariantSearchLayout from '../components/VariantSearchLayout';
 
-import { getMenuItems, getRQDMMenuItemsEditionPill } from './facets';
+import { getMenuItems } from './facets';
 import PageContent from './PageContent';
 
 const SnvExplorationRqdm = () => {
@@ -51,19 +51,25 @@ const SnvExplorationRqdm = () => {
 
   useEffect(() => {
     if (!variantMappingResults.loading) {
-      const customPillItems = getRQDMMenuItemsEditionPill(variantMappingResults);
+      const customPillItems = getMenuItems({
+        variantMappingResults,
+        isCustomPillMenuEdition: true,
+      });
       const items = getMenuItems({
         variantMappingResults,
-        customPills: customPills[VARIANT_RQDM_QB_ID_FILTER_TAG],
-        hasCustomPillError: fetchError,
-        isLoading,
-        menuItemsEditionPill: customPillItems,
-        deleteCustomPill: handleOnDeleteCustomPill,
-        duplicateCustomPill: handleOnDuplicateCustomPill,
-        editCustomPill: handleOnUpdateCustomPill,
-        validateName: CustomPillApi.validateName,
-        // learnMoreLink: 'http://www.google.fr', TODO CLIN-2144
-        queryDictionary: getQueryBuilderDictionary(facetTransResolver, getAnalysisNameByCode),
+        isCustomPillMenuEdition: false,
+        customPillConfig: {
+          customPills: customPills[VARIANT_RQDM_QB_ID_FILTER_TAG],
+          hasCustomPillError: fetchError,
+          isLoading,
+          menuItemsEditionPill: customPillItems,
+          deleteCustomPill: handleOnDeleteCustomPill,
+          duplicateCustomPill: handleOnDuplicateCustomPill,
+          editCustomPill: handleOnUpdateCustomPill,
+          validateName: CustomPillApi.validateName,
+          // learnMoreLink: 'http://www.google.fr', TODO CLIN-2144
+          queryDictionary: getQueryBuilderDictionary(facetTransResolver, getAnalysisNameByCode),
+        },
       });
 
       setMenuItemsCustomPill(customPillItems);
