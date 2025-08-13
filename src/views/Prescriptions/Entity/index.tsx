@@ -85,12 +85,14 @@ const PrescriptionEntity = () => {
       : undefined;
     const { requestId } = getPatientAndRequestId(selectedBasedOnRequest?.subject.resource);
     const variantType = getVariantTypeFromServiceRequest(selectedBasedOnRequest);
+    const project_code = prescription?.project_code?.valueString;
 
     return {
       loading: loading || requestLoading,
       patientId,
       prescription,
       prescriptionId,
+      project_code,
       selectedRequest,
       selectedBasedOnRequest,
       setVariantInfo,

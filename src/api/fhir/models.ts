@@ -112,6 +112,7 @@ export interface Extension<TReference = Reference> {
   valueAge?: Age;
   valueCodeableConcept?: CodeableConcept;
   extension?: Extension<TReference>[];
+  valueString?: string;
 
   [key: string]: any;
 }
@@ -355,6 +356,7 @@ export interface ServiceRequestEntity {
   performer: {
     reference: string;
   }[];
+  project_code: Extension;
   subject: {
     reference: string;
     resource: PatientServiceRequestFragment;

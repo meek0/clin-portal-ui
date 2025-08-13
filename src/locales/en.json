@@ -1215,6 +1215,7 @@
   "screen.prescription.entity.analyse.card.title.foetus": "Analysis (prenatal)",
   "screen.prescription.entity.analysisCard.askedAnalysis": "Requested Analysis",
   "screen.prescription.entity.analysisCard.priority": "Priority",
+  "screen.prescription.entity.analysisCard.projectCode": "Research project",
   "screen.prescription.entity.analysisCard.reflexpanel": "Reflex Panel",
   "screen.prescription.entity.comment.card.title": "Comment",
   "screen.prescription.entity.download.documents": "Download files",

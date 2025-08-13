@@ -168,6 +168,11 @@ const AnalysisCard = ({ prescription, loading }: OwnProps) => {
               <Tag color="geekblue">{getAnalysisNameByCode(analysisCode)}</Tag>
             </Descriptions.Item>
             <Descriptions.Item
+              label={intl.get('screen.prescription.entity.analysisCard.projectCode')}
+            >
+              {prescription.project_code?.valueString || EMPTY_FIELD}
+            </Descriptions.Item>
+            <Descriptions.Item
               label={intl.get('screen.prescription.entity.analysisCard.reflexpanel')}
             >
               {prescription.orderDetail ? prescription.orderDetail.text.split(':')[1] : EMPTY_FIELD}

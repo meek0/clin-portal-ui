@@ -6,6 +6,7 @@ export type PrescriptionEntityContextType = {
   patientId: string | undefined;
   prescription: ServiceRequestEntity | undefined;
   prescriptionId: string | undefined;
+  project_code: string | undefined;
 
   selectedRequest: ServiceRequestEntity | undefined;
   selectedBasedOnRequest: ServiceRequestEntity | undefined;
@@ -26,6 +27,7 @@ const PrescriptionEntityContext = React.createContext<PrescriptionEntityContextT
   patientId: undefined,
   prescription: undefined,
   prescriptionId: undefined,
+  project_code: undefined,
 
   selectedRequest: undefined,
   selectedBasedOnRequest: undefined,

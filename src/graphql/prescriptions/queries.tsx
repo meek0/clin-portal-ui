@@ -334,6 +334,11 @@ export const ANALYSIS_ENTITY_QUERY = (requestId: string) => gql`
             }
           }
         }
+      },
+      project_code: extension(url : "http://fhir.cqgc.ferlab.bio/StructureDefinition/project") @first {
+        extension(url: "project") @first @flatten {
+          valueString
+        }
       }
     }
   }
