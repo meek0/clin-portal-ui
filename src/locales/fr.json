@@ -1576,7 +1576,6 @@
       "gene_filter_label": "Gène ",
       "panel_filter_placeholder": "Filtrer par panel du RQDM ",
       "panel_filter_label": "Panel ",
-      "clear_filters": "Effacer les filtres",
       "average_coverage_weighted_label": "Couverture moyenne :",
       "columns": {
         "gene": "Gène",

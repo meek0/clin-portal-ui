@@ -219,7 +219,7 @@ const Index = ({ downloadFile }: any) => {
             <Space style={{ marginLeft: 24 }}>
               <Typography.Link onClick={handleClear}>
                 <CloseOutlined style={{ marginRight: 8 }} />
-                {intl.get('pages.coverage_genic.clear_filters')}
+                {intl.get('protable.clearFilter')}
               </Typography.Link>
             </Space>
           )}

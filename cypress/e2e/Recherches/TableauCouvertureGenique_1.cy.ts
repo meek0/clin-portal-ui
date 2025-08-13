@@ -13,7 +13,7 @@ beforeEach(() => {
 
 describe('Page de la couverture génique d\'un patient - Rechercher', () => {
   it('Gène A1BG', () => {
-    cy.contains('Effacer les filtres').should('not.exist');
+    cy.contains('Réinitialiser les filtres').should('not.exist');
     cy.get('[data-cy="SearchBox"]').parent().find('[class="ant-input-clear-icon"]').should('not.exist');
     cy.get('[data-cy="SelectPanel"] [class="ant-select-clear"]').should('not.exist');
 
@@ -23,7 +23,7 @@ describe('Page de la couverture génique d\'un patient - Rechercher', () => {
     cy.validateTableFirstRow('47.40%', 12);
     cy.get('[data-cy="AverageCoverage"]').contains('538.75').should('exist');
 
-    cy.contains('Effacer les filtres').should('exist');
+    cy.contains('Réinitialiser les filtres').should('exist');
     cy.get('[data-cy="SearchBox"]').parent().find('[class="ant-input-clear-icon"]').should('exist');
     cy.get('[data-cy="SelectPanel"] [class="ant-select-clear"]').should('not.exist');
 
@@ -36,7 +36,7 @@ describe('Page de la couverture génique d\'un patient - Rechercher', () => {
     cy.get('[data-cy="SearchBox"]').parent().find('[class="ant-input-clear-icon"]').click({force:true});
     cy.wait('@getPOSTgraphql');
 
-    cy.contains('Effacer les filtres').should('not.exist');
+    cy.contains('Réinitialiser les filtres').should('not.exist');
     cy.get('[data-cy="SearchBox"]').parent().find('[class="ant-input-clear-icon"]').should('not.exist');
     cy.get('[data-cy="SelectPanel"] [class="ant-select-clear"]').should('not.exist');
 

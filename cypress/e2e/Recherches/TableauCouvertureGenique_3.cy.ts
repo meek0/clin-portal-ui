@@ -13,7 +13,7 @@ beforeEach(() => {
 
 describe('Page de la couverture génique d\'un patient - Rechercher et filtrer', () => {
   it('Panel MMG et gène MYMK', () => {
-    cy.contains('Effacer les filtres').should('not.exist');
+    cy.contains('Réinitialiser les filtres').should('not.exist');
     cy.get('[data-cy="SearchBox"]').parent().find('[class="ant-input-clear-icon"]').should('not.exist');
     cy.get('[data-cy="SelectPanel"] [class="ant-select-clear"]').should('not.exist');
 
@@ -25,15 +25,15 @@ describe('Page de la couverture génique d\'un patient - Rechercher et filtrer',
     cy.validateTableResultsCount(/^1 Résultat$/);
     cy.get('[data-cy="AverageCoverage"]').contains('436.65').should('exist');
 
-    cy.contains('Effacer les filtres').should('exist');
+    cy.contains('Réinitialiser les filtres').should('exist');
     cy.get('[data-cy="SearchBox"]').parent().find('[class="ant-input-clear-icon"]').should('exist');
     cy.get('[data-cy="SelectPanel"] [class="ant-select-clear"]').should('exist');
 
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
-    cy.contains('Effacer les filtres').click({force:true});
+    cy.contains('Réinitialiser les filtres').click({force:true});
     cy.wait('@getPOSTgraphql');
 
-    cy.contains('Effacer les filtres').should('not.exist');
+    cy.contains('Réinitialiser les filtres').should('not.exist');
     cy.get('[data-cy="SearchBox"]').parent().find('[class="ant-input-clear-icon"]').should('not.exist');
     cy.get('[data-cy="SelectPanel"] [class="ant-select-clear"]').should('not.exist');
 
