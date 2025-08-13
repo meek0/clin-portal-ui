@@ -121,7 +121,7 @@ export const ACMGFranklinColorMap: Record<any, string> = {
   POSSIBLY_BENIGN: 'orange',
 };
 
-const ACMGExomiserColorMap: Record<any, string> = {
+export const ACMGExomiserColorMap: Record<any, string> = {
   PATHOGENIC: 'red',
   LIKELY_PATHOGENIC: 'volcano',
   UNCERTAIN_SIGNIFICANCE: 'orange',
@@ -1218,7 +1218,7 @@ const renderFranklinAcmg_Classification = (acmg?: string, link?: string, locus?:
 const renderFranklinAcmg_evidence = (acmg?: string[]) =>
   acmg && acmg.length > 0 ? acmg.join(', ') : TABLE_EMPTY_PLACE_HOLDER;
 
-const renderExomiserAcmg_Classification = (acmg?: string) =>
+export const renderExomiserAcmg_Classification = (acmg?: string) =>
   acmg ? (
     <Tooltip
       title={intl

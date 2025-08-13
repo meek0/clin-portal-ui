@@ -7,6 +7,7 @@ import get from 'lodash/get';
 import orderBy from 'lodash/orderBy';
 import {
   renderCNVToString,
+  renderExomiserCnvAcmg_ClassificationToString,
   renderGnomADSFToString,
   renderPOToString,
   renderRQDMPfToString,
@@ -181,6 +182,10 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderPOToString(row));
     } else if (key === 'frequency_RQDM.pf') {
       return convertToPlain(renderRQDMPfToString(row));
+    } else if (key === 'exomiser.acmg_classification') {
+      return convertToPlain(
+        renderExomiserCnvAcmg_ClassificationToString(row.exomiser?.acmg_classification),
+      );
     }
   } else if (prefix === 'PR' || prefix === 'RQ') {
     if (key === 'tasks') {

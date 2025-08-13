@@ -65,6 +65,11 @@ export const VARIANT_QUERY = gql`
               pc
               pf
             }
+            exomiser {
+              variant_score_category
+              variant_score
+              acmg_classification
+            }
             genes {
               hits {
                 edges {
