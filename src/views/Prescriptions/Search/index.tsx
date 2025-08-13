@@ -190,7 +190,7 @@ const PrescriptionSearch = (): React.ReactElement => {
     setSequencingPageIndex(DEFAULT_PAGE_INDEX);
   };
 
-  //Reset assignements filter on resfresh
+  //Reset assignments filter on refresh
   useEffect(() => {
     updateQueryByTableFilter({
       queryBuilderId: PRESCRIPTION_QB_ID,
@@ -242,6 +242,7 @@ const PrescriptionSearch = (): React.ReactElement => {
     } else {
       toggleHasFilter(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryList, searchValue]);
 
   useEffect(() => {

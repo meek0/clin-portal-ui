@@ -15,6 +15,7 @@ beforeEach(() => {
   cy.resetColumns(1);
 
   cy.showColumn('Modifiée le', 1);
+  cy.showColumn('Projet', 1);
   cy.showColumn('EP', 1);
   cy.showColumn('Statut clinique', 1);
   cy.showColumn('Lot', 1);
@@ -38,17 +39,18 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 6, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4));
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 7, /^\d{4}-\d{2}-\d{2}$/);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 8, 'RGDI');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 9, epCHUSJ_ldmCHUSJ.prescriptionId);
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 10, 'Cas-index');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 11, 'G');
-    cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.requestProbId, 11, 'ant-tag-green');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 12, 'LDM-CHUSJ');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 13, 'CHUSJ');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 14, 'Atteint');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 15, '1_data_to_import');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 16, 'Non');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 17, epCHUSJ_ldmCHUSJ.mrnProb);
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 18, '-');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 9, '-');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 10, epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 11, 'Cas-index');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 12, 'G');
+    cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.requestProbId, 12, 'ant-tag-green');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 13, 'LDM-CHUSJ');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 14, 'CHUSJ');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 15, 'Atteint');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 16, '1_data_to_import');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 17, 'Non');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 18, epCHUSJ_ldmCHUSJ.mrnProb);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 19, '-');
   });
 
   it('Valider les liens disponibles Lien Requête', () => {

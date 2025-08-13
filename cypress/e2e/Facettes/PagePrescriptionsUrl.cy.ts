@@ -31,6 +31,14 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
     cy.get('[class*="ant-checkbox-checked"] [data-cy*="Checkbox"]').its('length').should('eq', 1);
   });
   
+  it('Projet de recherche - Care4Rare-Expand', () => {
+    cy.visitPrescriptionsPage('?project_code=Care4Rare-Expand');
+
+    cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
+    cy.get('[class*="ant-checkbox-checked"] [data-cy="Checkbox_Projet de recherche_Care4Rare-Expand"]').should('exist');
+    cy.get('[class*="ant-checkbox-checked"] [data-cy*="Checkbox"]').its('length').should('eq', 1);
+  });
+  
   it('Analyse - 2 valeurs', () => {
     cy.visitPrescriptionsPage('?analysis_code=myoc&analysis_code=rgdi');
 

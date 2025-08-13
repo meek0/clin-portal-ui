@@ -24,6 +24,7 @@ export const PRESCRIPTIONS_QUERY = gql`
             analysis_code
             status
             priority
+            project_code
             sequencing_requests {
               hits {
                 edges {

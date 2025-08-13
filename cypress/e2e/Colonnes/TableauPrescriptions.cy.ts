@@ -54,6 +54,12 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des prescrip
       .contains('Analyse').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(0)
+      .contains('Projet').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]')
+      .find('div[class="ant-space-item"]').eq(8)
+      .contains('Projet').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]').eq(0)
       .find('th[class*="ant-table-cell"]').eq(8)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Bioinfo').should('exist');
@@ -71,19 +77,19 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des prescrip
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .contains('Requérant').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(11)
+      .find('div[class="ant-space-item"]').eq(12)
       .contains('Requérant').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .contains('Prénatal').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(12)
+      .find('div[class="ant-space-item"]').eq(13)
       .contains('Prénatal').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .contains('Dossier').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
-      .find('div[class="ant-space-item"]').eq(13)
+      .find('div[class="ant-space-item"]').eq(14)
       .contains('Dossier').should('exist');
   });
 

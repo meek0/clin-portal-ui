@@ -16,6 +16,7 @@ export interface SequencingResult extends ArrangerNodeData {
   prenatal: boolean;
   prescription_id: string;
   priority: string;
+  project_code?: string;
   requester: string;
   security_tags: string;
   status: string;

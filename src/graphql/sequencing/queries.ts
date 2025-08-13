@@ -32,6 +32,7 @@ export const SEQUENCING_QUERY = gql`
             prescription_status
             patient_relationship
             patient_disease_status
+            project_code
             task_runname
           }
         }

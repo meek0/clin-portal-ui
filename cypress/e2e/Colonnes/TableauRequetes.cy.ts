@@ -56,6 +56,12 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des requête
       .contains('Analyse').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
+      .contains('Projet').should('not.exist');
+    cy.get('div[class="ant-popover-inner"]').eq(1)
+      .find('div[class="ant-space-item"]').eq(9)
+      .contains('Projet').should('exist');
+
+    cy.get('thead[class="ant-table-thead"]').eq(1)
       .find('th[class*="ant-table-cell"]').eq(8)
       .should('have.class', 'ant-table-column-has-sorters')
       .contains('Prescription').should('exist');
@@ -78,37 +84,37 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des requête
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .contains('EP').should('not.exist');
     cy.get('div[class="ant-popover-inner"]').eq(1)
-      .find('div[class="ant-space-item"]').eq(13)
+      .find('div[class="ant-space-item"]').eq(14)
       .contains('EP').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .contains('Statut clinique').should('not.exist');
     cy.get('div[class="ant-popover-inner"]').eq(1)
-      .find('div[class="ant-space-item"]').eq(14)
+      .find('div[class="ant-space-item"]').eq(15)
       .contains('Statut clinique').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .contains('Lot').should('not.exist');
     cy.get('div[class="ant-popover-inner"]').eq(1)
-      .find('div[class="ant-space-item"]').eq(15)
+      .find('div[class="ant-space-item"]').eq(16)
       .contains('Lot').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .contains('Prénatal').should('not.exist');
     cy.get('div[class="ant-popover-inner"]').eq(1)
-      .find('div[class="ant-space-item"]').eq(16)
+      .find('div[class="ant-space-item"]').eq(17)
       .contains('Prénatal').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .contains('Dossier').should('not.exist');
     cy.get('div[class="ant-popover-inner"]').eq(1)
-      .find('div[class="ant-space-item"]').eq(17)
+      .find('div[class="ant-space-item"]').eq(18)
       .contains('Dossier').should('exist');
 
     cy.get('thead[class="ant-table-thead"]').eq(1)
       .contains('Requérant').should('not.exist');
     cy.get('div[class="ant-popover-inner"]').eq(1)
-      .find('div[class="ant-space-item"]').eq(18)
+      .find('div[class="ant-space-item"]').eq(19)
       .contains('Requérant').should('exist');
   });
 

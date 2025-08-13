@@ -105,6 +105,15 @@ export const sequencingsColumns = (): ProColumnType<ITableSequencingResult>[] =>
     sorter: { multiple: 1 },
   },
   {
+    key: 'project_code',
+    dataIndex: ['project_code'],
+    title: intl.get('screen.patientsearch.table.project_code'),
+    tooltip: intl.get('screen.patientsearch.table.project_code.tooltip'),
+    render: (project_code: string) => project_code || TABLE_EMPTY_PLACE_HOLDER,
+    sorter: { multiple: 1 },
+    defaultHidden: true,
+  },
+  {
     key: 'prescription_id',
     dataIndex: ['prescription_id'],
     render: (prescription_id: string) => (

@@ -14,6 +14,7 @@ beforeEach(() => {
   cy.resetColumns(0);
 
   cy.showColumn('Modifiée le', 0);
+  cy.showColumn('Projet', 0);
   cy.showColumn('Requérant', 0);
   cy.showColumn('Prénatal', 0);
   cy.showColumn('Dossier', 0);
@@ -29,13 +30,14 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 6, epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4));
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 7, /^\d{4}-\d{2}-\d{2}$/);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 8, 'RGDI');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 9, 'G');
-    cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.prescriptionId, 9, 'ant-tag-green');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 10, 'LDM-CHUSJ');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 11, 'CHUSJ');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 12, /(-|PRR000011)/);
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 13, 'Non');
-    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 14, epCHUSJ_ldmCHUSJ.mrnProb);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 9, '-');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 10, 'G');
+    cy.validateTableDataRowKeyClass(epCHUSJ_ldmCHUSJ.prescriptionId, 10, 'ant-tag-green');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 11, 'LDM-CHUSJ');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 12, 'CHUSJ');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 13, /(-|PRR000011)/);
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 14, 'Non');
+    cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 15, epCHUSJ_ldmCHUSJ.mrnProb);
   });
 
   it('Valider les liens disponibles Lien Prescription', () => {

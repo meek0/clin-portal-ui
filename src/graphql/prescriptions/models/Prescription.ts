@@ -28,6 +28,7 @@ export interface AnalysisResult extends ArrangerNodeData {
   prenatal: boolean;
   prescription_id: string;
   priority: string;
+  project_code?: string;
   requester: string;
   security_tags: string;
   status: string;
@@ -75,6 +76,7 @@ export interface AnalysisSequencingRequest {
 export const analysisFields = [
   'priority',
   'analysis_code',
+  'project_code',
   'tasks',
   'status',
   'sequencing_requests__status',
