@@ -288,6 +288,7 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'IC',
                          'Mi',
                          'Mu',
+                         'NRP',
                          'NRT',
                          'SMo',
                          'Smu',

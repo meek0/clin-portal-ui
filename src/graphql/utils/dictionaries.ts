@@ -258,6 +258,7 @@ export const dictionaries: Record<string, string[]> = {
     'Mi',
     'Mu',
     'NRT',
+    'NRP',
     'SMo',
     'Smu',
     'XL',

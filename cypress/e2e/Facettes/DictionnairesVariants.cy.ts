@@ -372,6 +372,7 @@ describe('Page des variants - Dictionnaire', () => {
                          'IC',
                          'Mi',
                          'Mu',
+                         'NRP',
                          'NRT',
                          'SMo',
                          'Smu',
