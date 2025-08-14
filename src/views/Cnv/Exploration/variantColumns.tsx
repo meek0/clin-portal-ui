@@ -422,7 +422,7 @@ export const getVariantColumns = (
           variant.exomiser?.variant_score
             ? variant.exomiser.variant_score
             : TABLE_EMPTY_PLACE_HOLDER,
-        width: 90,
+        width: 100,
       },
       {
         title: intl.get('cnv_exomiser.acmg_classification.table.title'),
