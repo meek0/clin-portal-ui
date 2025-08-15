@@ -35,26 +35,19 @@ export const getRequestColumns = (
       fixed: 'left',
     },
     {
-      key: 'name',
-      defaultHidden: true,
-      title: intl.get('screen.prescription.entity.request.name'),
+      key: 'type',
+      title: intl.get('screen.prescription.entity.request.type'),
+      width: 400,
       render: (record: PatientRequestEntity) => {
         const requestCode = record.coding?.find((c) =>
           c.system.includes('sequencing-request-code'),
         );
-        return requestCode
-          ? intl.get(`screen.prescription.entity.request.code.${requestCode?.code}`)
-          : TABLE_EMPTY_PLACE_HOLDER;
-      },
-    },
-    {
-      key: 'code',
-      title: intl.get('screen.prescription.entity.request.code'),
-      render: (record: PatientRequestEntity) => {
-        const requestCode = record.coding?.find((c) =>
-          c.system.includes('sequencing-request-code'),
-        );
-        return requestCode ? requestCode.code : TABLE_EMPTY_PLACE_HOLDER;
+        if (requestCode) {
+          return `${requestCode.code} - ${intl.get(
+            `screen.prescription.entity.request.code.${requestCode.code}`,
+          )}`;
+        }
+        return TABLE_EMPTY_PLACE_HOLDER;
       },
     },
     {
