@@ -59,7 +59,7 @@ describe('Ligne extensible d\'une occurrence', () => {
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(1).find('[class*="ant-tag-orange"]').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(1).find('[class*="ant-tag-green"]').eq(0).should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(1).find('[class*="ant-tag-green"]').eq(1).should('exist');
-    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(1).find('[class="ant-tag"]').should('exist');
+    cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(1).find('[class*="ant-tag-blue"]').should('exist');
   });
 
   it('Vérifier les informations affichées - Section Gène', () => {
