@@ -418,6 +418,7 @@ export const getVariantColumns = (
         tooltip: intl.get('cnv_exomiser.variant_score.table.tooltip'),
         key: 'exomiser.variant_score',
         sorter: { multiple: 1 },
+        defaultHidden: true,
         render: (variant: VariantEntity) =>
           variant.exomiser?.variant_score
             ? variant.exomiser.variant_score
