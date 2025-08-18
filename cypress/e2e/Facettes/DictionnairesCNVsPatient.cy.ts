@@ -113,6 +113,34 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Gène', 'Panel RQDM', dictionnary);
   });
 
+  it('Pathogénicité - Score Exomiser', () => {
+    const dictionnary = ['High Combined Score (≥0.8)',
+                         'Medium Combined Score (0.5–0.8)',
+                         'Low Combined Score (<0.5)',
+                         'No Data'];
+
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
+    cy.validateDictionnaryPresetValues('Pathogénicité', 'Score Exomiser', dictionnary);
+
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=f5d9e3d5-6970-49c3-860c-d3ab00a06cdb');
+    cy.validateDictionnaryNewValues('Pathogénicité', 'Score Exomiser', dictionnary);
+  });
+  
+  it('Pathogénicité - Critères ACMG', () => {
+    const dictionnary = ['Pathogenic',
+                         'Likely Pathogenic',
+                         'Uncertain Significance',
+                         'Likely Benign',
+                         'Benign',
+                         'No Data'];
+
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
+    cy.validateDictionnaryPresetValues('Pathogénicité', 'Critères ACMG', dictionnary);
+
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=f5d9e3d5-6970-49c3-860c-d3ab00a06cdb');
+    cy.validateDictionnaryNewValues('Pathogénicité', 'Critères ACMG', dictionnary);
+  });
+
   it('Analyse parentale - Origine parentale', () => {
     const dictionnary = ['Ambiguous',
                          'Both',

@@ -22,6 +22,14 @@ describe('Page des CNVs d\'un patient - Valider les liens disponibles', () => {
     cy.validateExpandCollapse('Gène', true);
   });
 
+  it('Fréquence - Expand all/Collapse all', () => {
+    cy.validateExpandCollapse('Fréquence', true);
+  });
+
+  it('Pathogénicité - Expand all/Collapse all', () => {
+    cy.validateExpandCollapse('Pathogénicité', true);
+  });
+
   it('Analyse parentale - Expand all/Collapse all', () => {
     cy.validateExpandCollapse('Analyse parentale');
   });
