@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { DownloadOutlined } from '@ant-design/icons';
 import Empty from '@ferlab/ui/core/components/Empty';
 import ScrollContent from '@ferlab/ui/core/layout/ScrollContent';
@@ -28,7 +29,6 @@ import HighBadgeIcon from 'components/icons/variantBadgeIcons/HighBadgeIcon';
 import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeIcon';
 import ContentHeader from 'components/Layout/ContentWithHeader/Header';
 import Footer from 'components/Layout/Footer';
-import useQueryParams from 'hooks/useQueryParams';
 import { globalActions } from 'store/global';
 
 import QualityControlSummary from '../../QualityControlSummary';
@@ -129,12 +129,20 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
   const [summaryData, setSummaryData] = useState<TQualityControlSummaryDataWithCode>([]);
   const { prescription, variantInfo, setVariantInfo, loading } =
     useContext(PrescriptionEntityContext);
-  const queryParams = useQueryParams();
-  const [activeSection, setActiveSection] = useState(queryParams.get('qcSection') || 'General');
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const qcSection = searchParams.get('qcSection');
+  const [activeSection, setActiveSection] = useState(qcSection || 'General');
+  const [couvertureGeniqueReady, setCouvertureGeniqueReady] = useState(false);
 
   useEffect(() => {
-    setActiveSection(queryParams.get('qcSection') || 'General');
-  }, [queryParams.get('qcSection')]);
+    setActiveSection(qcSection || 'General');
+    if (prescription) {
+      setCouvertureGeniqueReady(
+        qcSection === 'CouvertureGenique' && !!variantInfo.requestId && !!variantInfo.patientId,
+      );
+    }
+  }, [qcSection, variantInfo.requestId, variantInfo.patientId, prescription]);
 
   useEffect(() => {
     if (variantInfo.patientId && variantInfo.requestId) {
@@ -150,7 +158,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
         })
         .finally(() => setLoadingCard(false));
     }
-  }, [variantInfo.requestId]);
+  }, [variantInfo.requestId, variantInfo.patientId]);
 
   useEffect(() => {
     if (prescription) {
@@ -158,7 +166,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
         .then((data) => setSummaryData(data))
         .finally(() => setLoadingCard(false));
     }
-  }, [prescription]);
+  }, [prescription, variantInfo.variantType]);
 
   const downloadFile = async (format = 'JSON', type = 'QCRUN') => {
     const file = docs.find((f) => f.format === format && f.type === type);
@@ -306,7 +314,7 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
               </div>
             </>
           )}
-          {activeSection === 'CouvertureGenique' && (
+          {couvertureGeniqueReady && (
             <ApolloProvider backend={GraphqlBackend.ARRANGER}>
               <GenericCoverage prescription={prescription} downloadFile={downloadFile} />
             </ApolloProvider>

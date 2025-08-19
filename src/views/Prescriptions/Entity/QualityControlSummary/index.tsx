@@ -108,9 +108,11 @@ const QualityControlSummary = ({
             {summaryData.map(({ sampleQcReport, requestId, patientId }, index) => (
               <CustomDescriptionItemContent key={`request-${index}-exome-coverage-15x`}>
                 <Link
-                  to={`/prescription/entity/${extractServiceRequestId(
-                    prescriptionId,
-                  )}?qcSection=CouvertureGenique#qc`}
+                  to={{
+                    pathname: `/prescription/entity/${extractServiceRequestId(prescriptionId)}`,
+                    search: '?qcSection=CouvertureGenique',
+                    hash: '#qc',
+                  }}
                   onClick={() => setVariantInfo(extractOptionValue(`${patientId},${requestId}`))}
                   className={styles.link}
                 >
@@ -144,11 +146,13 @@ const QualityControlSummary = ({
             {summaryData.map(({ cnvCount, patientId, requestId, variantType }, index) => (
               <CustomDescriptionItemContent key={`request-${index}-total-cnvs`}>
                 <Link
-                  to={`/prescription/entity/${extractServiceRequestId(
-                    prescriptionId,
-                  )}?variantSection=${
-                    variantType === VariantType.GERMLINE ? 'cnv' : 'cnv-to'
-                  }#variants`}
+                  to={{
+                    pathname: `/prescription/entity/${extractServiceRequestId(prescriptionId)}`,
+                    search: `?variantSection=${
+                      variantType === VariantType.GERMLINE ? 'cnv' : 'cnv-to'
+                    }`,
+                    hash: '#variants',
+                  }}
                   className={styles.link}
                   onClick={() => setVariantInfo(extractOptionValue(`${patientId},${requestId}`))}
                 >
