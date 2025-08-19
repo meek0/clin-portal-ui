@@ -52,6 +52,11 @@ enum QCTabs {
   PICARD_COLLECTHSMETRICS = 'Picard_CollectHsMetrics',
 }
 
+export enum QCSection {
+  GENERAL = 'General',
+  COUVERTURE_GENIC = 'CouvertureGenique',
+}
+
 const tabList = [
   {
     tab: removeUnderscoreAndCapitalize(QCTabs.DRAGEN_CAPTURE_COVERAGE_METRICS.toLowerCase()),
@@ -132,14 +137,16 @@ const PrescriptionQC = ({ metricIndicatorByRequest }: OwnProps) => {
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const qcSection = searchParams.get('qcSection');
-  const [activeSection, setActiveSection] = useState(qcSection || 'General');
+  const [activeSection, setActiveSection] = useState(qcSection || QCSection.GENERAL);
   const [couvertureGeniqueReady, setCouvertureGeniqueReady] = useState(false);
 
   useEffect(() => {
-    setActiveSection(qcSection || 'General');
+    setActiveSection(qcSection || QCSection.GENERAL);
     if (prescription) {
       setCouvertureGeniqueReady(
-        qcSection === 'CouvertureGenique' && !!variantInfo.requestId && !!variantInfo.patientId,
+        qcSection === QCSection.COUVERTURE_GENIC &&
+          !!variantInfo.requestId &&
+          !!variantInfo.patientId,
       );
     }
   }, [qcSection, variantInfo.requestId, variantInfo.patientId, prescription]);

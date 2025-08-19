@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import Empty from '@ferlab/ui/core/components/Empty';
 import { extractServiceRequestId } from 'api/fhir/helper';
 import { VariantType } from 'graphql/variants/models';
+import { QCSection } from 'views/Prescriptions/Entity/Tabs/QC';
 
+import { VariantType as VariantTypeNav } from 'components/Variant/TypeNav';
 import { SexValue } from 'utils/commonTypes';
 
 import PrescriptionEntityContext from '../context';
@@ -110,7 +112,7 @@ const QualityControlSummary = ({
                 <Link
                   to={{
                     pathname: `/prescription/entity/${extractServiceRequestId(prescriptionId)}`,
-                    search: '?qcSection=CouvertureGenique',
+                    search: `?qcSection=${QCSection.COUVERTURE_GENIC}`,
                     hash: '#qc',
                   }}
                   onClick={() => setVariantInfo(extractOptionValue(`${patientId},${requestId}`))}
@@ -149,7 +151,9 @@ const QualityControlSummary = ({
                   to={{
                     pathname: `/prescription/entity/${extractServiceRequestId(prescriptionId)}`,
                     search: `?variantSection=${
-                      variantType === VariantType.GERMLINE ? 'cnv' : 'cnv-to'
+                      variantType === VariantType.GERMLINE
+                        ? VariantTypeNav.CNV
+                        : VariantTypeNav.CNVTO
                     }`,
                     hash: '#variants',
                   }}
