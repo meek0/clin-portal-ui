@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 import { CommonSelectors } from '../shared/Selectors';
 import { CommonTexts } from '../shared/Texts';
-import { getDateTime, getUrlLink, scientificToDecimal, stringToRegExp } from '../shared/Utils';
+import { getDateTime, getUrlLink, isFerlease, scientificToDecimal, stringToRegExp } from '../shared/Utils';
 import { getColumnName, getColumnPosition } from '../shared/Utils';
 import { oneMinute } from '../shared/Utils';
 import { Replacement } from '../shared/Types';
@@ -210,18 +210,22 @@ export const VariantsTable = {
        * @param onPlusIcon Click on the plus icon (default: false).
        */
       clickTableCellLink(dataVariant: any, columnID: string, onPlusIcon: boolean = false) {
-        switch (columnID) {
-          case 'variant':
-            cy.get(selectors.tableCell(dataVariant)).contains(dataVariant.variant).invoke('removeAttr', 'target').clickAndWait({force: true});
-          break;
-          case 'gene':
-            const selectorToClick = onPlusIcon ? CommonSelectors.plusIcon : CommonSelectors.link;
-            cy.get(selectors.tableCell(dataVariant)).eq(getColumnPosition(tableColumns, columnID)).find(selectorToClick).clickAndWait({force: true});
-          break;
-          default:
-            cy.get(selectors.tableCell(dataVariant)).eq(getColumnPosition(tableColumns, columnID)).find(CommonSelectors.link).clickAndWait({force: true});
-          break;
-        };
+        cy.then(() => getColumnPosition(selectorHead, tableColumns, columnID).then((position) => {
+          if (position !== -1 || !isFerlease()) { // -1 position can only occur in a Ferlease
+            switch (columnID) {
+              case 'variant':
+                cy.get(selectors.tableCell(dataVariant)).contains(dataVariant.variant).invoke('removeAttr', 'target').clickAndWait({force: true});
+              break;
+              case 'gene':
+                const selectorToClick = onPlusIcon ? CommonSelectors.plusIcon : CommonSelectors.link;
+                cy.get(selectors.tableCell(dataVariant)).eq(position).find(selectorToClick).clickAndWait({force: true});
+              break;
+              default:
+                cy.get(selectors.tableCell(dataVariant)).eq(position).find(CommonSelectors.link).clickAndWait({force: true});
+              break;
+            };
+          };
+        }));
       },
       /**
        * Hides a specific column in the table.
@@ -326,7 +330,11 @@ export const VariantsTable = {
        * @param columnID The ID of the column to check.
        */
       shouldHaveFirstRowValue(value: string | RegExp, columnID: string) {
-        cy.validateTableFirstRow(value, getColumnPosition(tableColumns, columnID), true/*hasCheckbox*/);
+        cy.then(() => getColumnPosition(selectorHead, tableColumns, columnID).then((position) => {
+          if (position !== -1 || !isFerlease()) { // -1 position can only occur in a Ferlease
+            cy.validateTableFirstRow(value, position, true/*hasCheckbox*/);
+          };
+        }));
       },
       /**
        * Validates the pill in the selected query.
@@ -343,7 +351,11 @@ export const VariantsTable = {
        * @param columnID The ID of the column.
        */
       shouldHaveTableCellLink(dataVariant: any, columnID: string) {
-        cy.get(selectors.tableCell(dataVariant)).eq(getColumnPosition(tableColumns, columnID)).find(CommonSelectors.link).should('have.attr', 'href', getUrlLink(columnID, dataVariant));
+        cy.then(() => getColumnPosition(selectorHead, tableColumns, columnID).then((position) => {
+          if (position !== -1 || !isFerlease()) { // -1 position can only occur in a Ferlease
+            cy.get(selectors.tableCell(dataVariant)).eq(position).find(CommonSelectors.link).should('have.attr', 'href', getUrlLink(columnID, dataVariant));
+          };
+        }));
       },
       /**
        * Validates the default visibility of each column.
@@ -432,62 +444,66 @@ export const VariantsTable = {
        */
       shouldShowTableContent(dataVariant: any) {
         tableColumns.forEach((column) => {
-          switch (column.id) {
-            case 'dbsnp':
-              cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, column.position, 'anticon');
-              break;
-            case 'gene':
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant[column.id]);
-              cy.validateTableDataRowKeyAttr(dataVariant.dataRowKey, column.position, 'data-icon', 'plus');
-              break;
-            case 'consequence':
-              cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, column.position, dataVariant.consequenceImpact);
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant[column.id]);
-              break;
-            case 'mane':
-              cy.get(`tr[data-row-key="${dataVariant.dataRowKey}"] td`).eq(column.position).find('path[d*="M16.7732"]').should(dataVariant.maneC ? 'exist' : 'not.exist');
-              cy.get(`tr[data-row-key="${dataVariant.dataRowKey}"] td`).eq(column.position).find('path[d*="M8.98279"]').should(dataVariant.maneM ? 'exist' : 'not.exist');
-              cy.get(`tr[data-row-key="${dataVariant.dataRowKey}"] td`).eq(column.position).find('path[d*="M10.9335"]').should(dataVariant.maneP ? 'exist' : 'not.exist');
-              break;
-            case 'omim':
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant[column.id]);
-              cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, column.position, 'ant-tag-blue');
-              break;
-            case 'clinvar':
-              dataVariant[column.id].forEach((value: string | RegExp) => {
-                cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, value);
-              });
-              cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, column.position, 'ant-tag-green');
-              cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, column.position, 'ant-tag-lime');
-              break;
-            case 'gnomad':
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant[column.id]);
-              cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, column.position, 'GnomadCell_gnomadIndicator');
-              break;
-            case 'rqdm':
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant.rqdmP);
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant.rqdmF);
-              break;
-            case 'cmc':
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant.cmcP);
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, `(${dataVariant.cmcF})`);
-              break;
-            case 'tier':
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant[column.id]);
-              cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, column.position, 'ant-tag-default');
-              break;
-            case 'acmg_franklin':
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant[column.id]);
-              cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, column.position, 'ant-tag');
-              break;
-            case 'acmg_exomiser':
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant[column.id]);
-              cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, column.position, 'ant-tag-orange');
-              break;
-            default:
-              cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant[column.id]);
-              break;
-          };
+          cy.then(() => getColumnPosition(selectorHead, tableColumns, column.id).then((position) => {
+            if (position !== -1 || !isFerlease()) { // -1 position can only occur in a Ferlease
+              switch (column.id) {
+                case 'dbsnp':
+                  cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, position, 'anticon');
+                  break;
+                case 'gene':
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, dataVariant[column.id]);
+                  cy.validateTableDataRowKeyAttr(dataVariant.dataRowKey, position, 'data-icon', 'plus');
+                  break;
+                case 'consequence':
+                  cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, position, dataVariant.consequenceImpact);
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, dataVariant[column.id]);
+                  break;
+                case 'mane':
+                  cy.get(`tr[data-row-key="${dataVariant.dataRowKey}"] td`).eq(position).find('path[d*="M16.7732"]').should(dataVariant.maneC ? 'exist' : 'not.exist');
+                  cy.get(`tr[data-row-key="${dataVariant.dataRowKey}"] td`).eq(position).find('path[d*="M8.98279"]').should(dataVariant.maneM ? 'exist' : 'not.exist');
+                  cy.get(`tr[data-row-key="${dataVariant.dataRowKey}"] td`).eq(position).find('path[d*="M10.9335"]').should(dataVariant.maneP ? 'exist' : 'not.exist');
+                  break;
+                case 'omim':
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, dataVariant[column.id]);
+                  cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, position, 'ant-tag-blue');
+                  break;
+                case 'clinvar':
+                  dataVariant[column.id].forEach((value: string | RegExp) => {
+                    cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, value);
+                  });
+                  cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, position, 'ant-tag-green');
+                  cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, position, 'ant-tag-lime');
+                  break;
+                case 'gnomad':
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, dataVariant[column.id]);
+                  cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, position, 'GnomadCell_gnomadIndicator');
+                  break;
+                case 'rqdm':
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, dataVariant.rqdmP);
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, dataVariant.rqdmF);
+                  break;
+                case 'cmc':
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, dataVariant.cmcP);
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, `(${dataVariant.cmcF})`);
+                  break;
+                case 'tier':
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, dataVariant[column.id]);
+                  cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, position, 'ant-tag-default');
+                  break;
+                case 'acmg_franklin':
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, dataVariant[column.id]);
+                  cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, position, 'ant-tag');
+                  break;
+                case 'acmg_exomiser':
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, dataVariant[column.id]);
+                  cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, position, 'ant-tag-orange');
+                  break;
+                default:
+                  cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, position, dataVariant[column.id]);
+                  break;
+              };
+            };
+          }));
         });
       },
       /**
@@ -496,32 +512,35 @@ export const VariantsTable = {
        * @param needIntercept Whether to use an intercept for the sorting action (default: true).
        */
       shouldSortColumn(columnID: string, needIntercept: boolean = true) {
-        const columnIndex = getColumnPosition(tableColumns, columnID);
-        switch (columnID) {
-          case 'hotspot':
-            VariantsTable.actions.sortColumn(columnID, needIntercept);
-            VariantsTable.validations.shouldHaveFirstRowValue('-', 'hotspot');
-            VariantsTable.actions.sortColumn(columnID, needIntercept);
-            cy.get(CommonSelectors.tableRow).eq(0).shouldCheckAndUncheck();
-            cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(columnIndex).find('[class*="hotspotFilled"]').should('exist');
-          break;
-          default:
-            VariantsTable.actions.sortColumn(columnID, needIntercept);
-            cy.get(CommonSelectors.tableRow).eq(0).shouldCheckAndUncheck();
-            cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(columnIndex).invoke('text').then((smallestValue) => {
-              const smallest = smallestValue.trim();
+        cy.then(() => getColumnPosition(selectorHead, tableColumns, columnID).then((position) => {
+          if (position !== -1 || !isFerlease()) { // -1 position can only occur in a Ferlease
+            switch (columnID) {
+              case 'hotspot':
+                VariantsTable.actions.sortColumn(columnID, needIntercept);
+                VariantsTable.validations.shouldHaveFirstRowValue('-', 'hotspot');
+                VariantsTable.actions.sortColumn(columnID, needIntercept);
+                cy.get(CommonSelectors.tableRow).eq(0).shouldCheckAndUncheck();
+                cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(position).find('[class*="hotspotFilled"]').should('exist');
+              break;
+              default:
+                VariantsTable.actions.sortColumn(columnID, needIntercept);
+                cy.get(CommonSelectors.tableRow).eq(0).shouldCheckAndUncheck();
+                cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(position).invoke('text').then((smallestValue) => {
+                  const smallest = smallestValue.trim();
 
-              VariantsTable.actions.sortColumn(columnID);
-              cy.get(CommonSelectors.tableRow).eq(0).shouldCheckAndUncheck();
-              cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(columnIndex).invoke('text').then((biggestValue) => {
-                const biggest = biggestValue.trim();
-                if (biggest.localeCompare(smallest) < 0) {
-                  throw new Error(`Error: "${biggest}" should be >= "${smallest}"`);
-                };
-              });
-            });
-          break;
-        };
+                  VariantsTable.actions.sortColumn(columnID);
+                  cy.get(CommonSelectors.tableRow).eq(0).shouldCheckAndUncheck();
+                  cy.get(CommonSelectors.tableRow).eq(0).find('td').eq(position).invoke('text').then((biggestValue) => {
+                    const biggest = biggestValue.trim();
+                    if (biggest.localeCompare(smallest) < 0) {
+                      throw new Error(`Error: "${biggest}" should be >= "${smallest}"`);
+                    };
+                  });
+                });
+              break;
+            };
+          };
+        }));
       },
     },
   };

@@ -1,5 +1,7 @@
 /// <reference types="cypress"/>
 
+import { CommonSelectors } from "./Selectors";
+
 /**
  * Constant represents one minute
  */
@@ -79,14 +81,28 @@ export const getColumnName = (columns: any, columnID: string) => {
 };
 
 /**
- * Gets the position (index) of a column from a columns array by column ID.
+ * Gets the position (index) of a column in the application table by column ID.
+ * @param tableHead The table head.
  * @param columns The array of column objects.
  * @param columnID The ID of the column.
- * @returns The column position, or -1 if not found.
+ * @returns A Cypress chain containing the column position (0-based) or -1 if not found
  */
-export const getColumnPosition = (columns: any, columnID: string) => {
-  const columnPosition: number | undefined = columns.find((col: { id: string; }) => col.id === columnID)?.position;
-  return columnPosition !== undefined ? columnPosition : -1;
+export const getColumnPosition = (tableHead: string, columns: any, columnID: string) => {
+  const columnName = getColumnName(columns, columnID);
+  return cy.get(`${tableHead} ${CommonSelectors.tableCell}`).then(($cells) => {
+    let position;
+    if (columnName.startsWith('[')) {
+      position = Array.from($cells).findIndex(($cell) => {
+        return Cypress.$($cell).find(columnName).length > 0;
+      });
+    } else {
+      position = Array.from($cells).findIndex(($cell) => 
+        $cell.textContent?.match(stringToRegExp(columnName, true))
+      );
+    };
+    
+    return position;
+  });
 };
 
 /**
@@ -145,6 +161,16 @@ export const getUrlLink = (columnID: string, data: any): string | undefined => {
     default:
       return undefined;
   }
+};
+
+/**
+ * Checks if the current environment is a FERLEASE environment.
+ * Determines this by checking if CYPRESS_BASE_URL contains 'clin-', 'presc-', or 'clice-'.
+ * @returns True if running in a FERLEASE environment, false otherwise.
+ */
+export const isFerlease = (): boolean => {
+  const url = process.env.CYPRESS_BASE_URL !== undefined ? process.env.CYPRESS_BASE_URL : '';
+  return (url.includes('clin-') || url.includes('presc-') || url.includes('clice-'));
 };
 
 /**

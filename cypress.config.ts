@@ -1,10 +1,10 @@
 import { defineConfig } from 'cypress';
-import { getDateTime } from './cypress/pom/shared/Utils';
+import { getDateTime, isFerlease } from './cypress/pom/shared/Utils';
 
 const { strDate, strTime } = getDateTime();
 
 const getName = (url = '', parallel = '') => {
-  if (url.includes('clin-') || url.includes('presc-') || url.includes('clice-')) {
+  if (isFerlease()) {
     return (
       url.replace('https://', '').split('.')[0].split('-').splice(2, 4).join('-') + '/' + parallel
     );
