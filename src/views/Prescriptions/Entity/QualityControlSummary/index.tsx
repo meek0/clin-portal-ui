@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import Empty from '@ferlab/ui/core/components/Empty';
 import { extractServiceRequestId } from 'api/fhir/helper';
 import { VariantType } from 'graphql/variants/models';
+import { QCSection } from 'views/Prescriptions/Entity/Tabs/QC';
 
+import { VariantType as VariantTypeNav } from 'components/Variant/TypeNav';
 import { SexValue } from 'utils/commonTypes';
 
 import PrescriptionEntityContext from '../context';
@@ -108,9 +110,11 @@ const QualityControlSummary = ({
             {summaryData.map(({ sampleQcReport, requestId, patientId }, index) => (
               <CustomDescriptionItemContent key={`request-${index}-exome-coverage-15x`}>
                 <Link
-                  to={`/prescription/entity/${extractServiceRequestId(
-                    prescriptionId,
-                  )}?qcSection=CouvertureGenique#qc`}
+                  to={{
+                    pathname: `/prescription/entity/${extractServiceRequestId(prescriptionId)}`,
+                    search: `?qcSection=${QCSection.COUVERTURE_GENIC}`,
+                    hash: '#qc',
+                  }}
                   onClick={() => setVariantInfo(extractOptionValue(`${patientId},${requestId}`))}
                   className={styles.link}
                 >
@@ -144,11 +148,15 @@ const QualityControlSummary = ({
             {summaryData.map(({ cnvCount, patientId, requestId, variantType }, index) => (
               <CustomDescriptionItemContent key={`request-${index}-total-cnvs`}>
                 <Link
-                  to={`/prescription/entity/${extractServiceRequestId(
-                    prescriptionId,
-                  )}?variantSection=${
-                    variantType === VariantType.GERMLINE ? 'cnv' : 'cnv-to'
-                  }#variants`}
+                  to={{
+                    pathname: `/prescription/entity/${extractServiceRequestId(prescriptionId)}`,
+                    search: `?variantSection=${
+                      variantType === VariantType.GERMLINE
+                        ? VariantTypeNav.CNV
+                        : VariantTypeNav.CNVTO
+                    }`,
+                    hash: '#variants',
+                  }}
                   className={styles.link}
                   onClick={() => setVariantInfo(extractOptionValue(`${patientId},${requestId}`))}
                 >
