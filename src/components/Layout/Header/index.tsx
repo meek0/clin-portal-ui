@@ -3,17 +3,17 @@ import intl from 'react-intl-universal';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
-  BulbOutlined,
+  BugOutlined,
   DownloadOutlined,
   FileTextOutlined,
   HomeOutlined,
   MedicineBoxOutlined,
-  QuestionCircleOutlined,
 } from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
+import ExternalLinkIcon from '@ferlab/ui/core/components/ExternalLink/ExternalLinkIcon';
 import UserAvatar from '@ferlab/ui/core/components/UserAvatar';
 import { useKeycloak } from '@react-keycloak/web';
-import { Button, Dropdown, PageHeader, Space } from 'antd';
+import { Button, Dropdown, PageHeader, Space, Typography } from 'antd';
 import { PanelsApi } from 'api/panels';
 import { getUserFirstName } from 'auth/keycloak';
 
@@ -29,6 +29,7 @@ import { STATIC_ROUTES } from 'utils/routes';
 import { IncludeKeycloakTokenParsed } from 'utils/tokenTypes';
 
 import styles from './index.module.css';
+
 declare const Releasecat: any;
 
 export const getUserGuidelink = (lang: LANG) =>
@@ -123,18 +124,72 @@ const Header = () => {
             onClick={() => handlePanelsFileDownload()}
             loading={downloadPanelsFile.fetching}
           />
-          <HeaderButton
-            key="userGuide"
-            icon={<QuestionCircleOutlined />}
-            tooltip={intl.get('layout.main.menu.documentation.tooltip')}
-            onClick={() => window.open(getUserGuidelink(lang), '_blank')}
-          />
-          <HeaderButton
-            key="releaseNote"
-            icon={<BulbOutlined />}
-            tooltip={intl.get('layout.main.menu.releaseNote.tooltip')}
-            onClick={() => Releasecat.showSidePanel()}
-          />
+          <Dropdown
+            overlayClassName={styles.dropdown}
+            key="resources"
+            trigger={['click']}
+            menu={{
+              items: [
+                {
+                  key: 'userGuide',
+                  label: (
+                    <a
+                      className={styles.link}
+                      href="#"
+                      onClick={() => {
+                        window.open(getUserGuidelink(lang), '_blank');
+                      }}
+                    >
+                      <ExternalLinkIcon />
+                      <Typography.Text className={styles.linkText}>
+                        {intl.get('layout.main.menu.documentation')}
+                      </Typography.Text>
+                    </a>
+                  ),
+                },
+                {
+                  key: 'releaseNote',
+                  label: (
+                    <a className={styles.link} href="#" onClick={() => Releasecat.showSidePanel()}>
+                      <ExternalLinkIcon />
+                      <Typography.Text className={styles.linkText}>
+                        {intl.get('layout.main.menu.releaseNote')}
+                      </Typography.Text>
+                    </a>
+                  ),
+                },
+                {
+                  type: 'divider',
+                },
+                {
+                  key: 'reportBug',
+                  label: (
+                    <a
+                      className={styles.link}
+                      href="#"
+                      onClick={() => {
+                        window.open(
+                          // eslint-disable-next-line max-len
+                          'https://ferlab-crsj.atlassian.net/jira/software/c/form/1e0cf890-06d1-4de7-af92-1778a8b0c7da?atlOrigin=eyJpIjoiYTdmNjMzMTgyZmNmNDkwODk0OTUzN2MwOWZhYjAxYWYiLCJwIjoiaiJ9',
+                          '_blank',
+                        );
+                      }}
+                    >
+                      <BugOutlined />
+                      <Typography.Text className={styles.linkText}>
+                        {intl.get('layout.main.menu.reportBug')}
+                      </Typography.Text>
+                    </a>
+                  ),
+                },
+              ],
+            }}
+          >
+            <a className={styles.resourcesMenuTrigger} onClick={(e) => e.preventDefault()} href="">
+              <span className={styles.resources}>{intl.get('layout.main.menu.resources')}</span>
+              <DownOutlined />
+            </a>
+          </Dropdown>
           <Dropdown
             key="user-menu"
             trigger={['click']}
