@@ -1320,7 +1320,7 @@
   "screen.prescription.entity.request.requester": "Requesting Doctor",
   "screen.prescription.entity.request.sampleid": "Sample",
   "screen.prescription.entity.request.status": "Status",
-  "screen.prescription.entity.tasks.analysis": "Analysis",
+  "screen.prescription.entity.tasks.analysis": "Bioinfo. Analysis",
   "screen.prescription.entity.tasks.type": "Type",
   "screen.prescription.entity.tasks.request": "Request",
   "screen.prescription.entity.tasks.date": "Created on",
