@@ -88,7 +88,7 @@ describe('Page des variants - Dictionnaire', () => {
                          'Séquence Altération',
                          'No Data'];
 
-    cy.visitVariantsPage(SharedFilters.variant.noResults);
+    cy.visitVariantsPage(SharedFilters.variant.noResults2);
     cy.validateDictionnaryPresetValues('Variant', 'Type de variant', dictionnary, true);
 
     cy.visitVariantsPage(SharedFilters.variant.emptyQuery);

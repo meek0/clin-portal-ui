@@ -49,11 +49,11 @@ describe('Page des variants d\'un patient - Dictionnaire', () => {
                          'Séquence Altération',
                          'No Data'];
 
-    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'd3eefb82-edcc-42f1-a4e6-28808bd06f34');
-    cy.validateDictionnaryPresetValues('Variant', 'Type de variant', dictionnary, true);
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, 'a2cfa24e-13b5-479a-9554-c41ab6d5dfc7');
+    cy.validateDictionnaryPresetValues('Variant', 'Type de variant', dictionnary, false);
 
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '4ef31b53-6497-462b-ab09-414218bb057f');
-    cy.validateDictionnaryNewValues('Variant', 'Type de variant', dictionnary, true);
+    cy.validateDictionnaryNewValues('Variant', 'Type de variant', dictionnary, false);
   });
 
   it('Variant - Conséquences', () => {
