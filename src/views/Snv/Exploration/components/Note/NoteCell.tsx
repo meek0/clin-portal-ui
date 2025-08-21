@@ -20,7 +20,7 @@ interface OwnProps {
 
 const NoteCell = ({ note, hash, variantType }: OwnProps) => {
   const dispatch = useDispatch();
-  const { prescription, prescriptionId, patientId } = usePrescriptionEntityContext();
+  const { prescription, prescriptionId, variantInfo } = usePrescriptionEntityContext();
   const [newNote, setNewNote] = useState(note);
   const [text, setText] = useState(newNote);
   const [open, setOpen] = useState(false);
@@ -39,11 +39,15 @@ const NoteCell = ({ note, hash, variantType }: OwnProps) => {
     setText(newNote);
   }, [newNote]);
 
+  useEffect(() => {
+    setNewNote(note);
+  }, [note]);
+
   const handleSave = () => {
     FlagApi.update(
       hash,
       prescriptionId!,
-      patientId!,
+      variantInfo.patientId!,
       extractOrganizationId(getOrganizationReference?.reference!),
       variantType,
       {
