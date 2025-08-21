@@ -11,6 +11,7 @@ beforeEach(() => {
   cy.showColumn('Filtre', 0);
   cy.showColumn('Qual.', 0);
   cy.showColumn('SM', 0);
+  cy.showColumn('Exo. (var)', 0);
   cy.showColumn('BC', 0);
   cy.showColumn('PE', 0);
   cy.showColumn('Trans.', 0);
@@ -33,18 +34,21 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableDataRowKeyContent('*', 13, '57.1 kb');
     cy.validateTableDataRowKeyContent('*', 14, '1.38788');
     cy.validateTableDataRowKeyContent('*', 15, /^3$/);
-    cy.validateTableDataRowKeyContent('*', 16, '-');
+    cy.validateTableDataRowKeyContent('*', 16, 'ND');
     cy.validateTableDataRowKeyContent('*', 17, '-');
-    cy.validateTableDataRowKeyContent('*', 18, /12(8|9)/);
-    cy.validateTableDataRowKeyContent('*', 18, /9\.\d{2}e-1/);
-    cy.validateTableDataRowKeyContent('*', 19, /^2$/);
-    cy.validateTableDataRowKeyContent('*', 20, './1');
-    cy.validateTableDataRowKeyContent('*', 21, 'PASS');
-    cy.validateTableDataRowKeyContent('*', 22, /^75$/);
-    cy.validateTableDataRowKeyContent('*', 23, /^22$/);
-    cy.validateTableDataRowKeyContent('*', 24, '3, 0');
-    cy.validateTableDataRowKeyContent('*', 25, '-');
-    cy.validateTableDataRowKeyContent('*', 26, '-');
+    cy.validateTableDataRowKeyContent('*', 18, 'ND');
+    cy.validateTableDataRowKeyContent('*', 19, '-');
+    cy.validateTableDataRowKeyContent('*', 20, '-');
+    cy.validateTableDataRowKeyContent('*', 21, /12(8|9)/);
+    cy.validateTableDataRowKeyContent('*', 21, /9\.\d{2}e-1/);
+    cy.validateTableDataRowKeyContent('*', 22, /^2$/);
+    cy.validateTableDataRowKeyContent('*', 23, './1');
+    cy.validateTableDataRowKeyContent('*', 24, 'PASS');
+    cy.validateTableDataRowKeyContent('*', 25, /^75$/);
+    cy.validateTableDataRowKeyContent('*', 26, /^22$/);
+    cy.validateTableDataRowKeyContent('*', 27, '3, 0');
+    cy.validateTableDataRowKeyContent('*', 28, '-');
+    cy.validateTableDataRowKeyContent('*', 29, '-');
   });
  
   it('Valider la fonctionnalité du radio bouton SNV-CNV', () => {

@@ -10,23 +10,13 @@ beforeEach(() => {
 });
 
 describe('Page des CNVs d\'un patient - Ordre des facettes', () => {
-  it('Métrique CQ - Filtre', () => {
-    cy.openFacet('Métrique CQ', 'Filtre');
-    cy.validateFacetRank(0, 'Filtre');
+  it('Analyse parentale - Origine parentale', () => {
+    cy.openFacet('Analyse parentale', 'Origine parentale');
+    cy.validateFacetRank(0, 'Origine parentale');
   });
 
-  it('Métrique CQ - Qualité du CNV', () => {
-    cy.openFacet('Métrique CQ', 'Qualité du CNV');
-    cy.validateFacetRank(1, 'Qualité du CNV');
-  });
-
-  it('Métrique CQ - PE', () => {
-    cy.openFacet('Métrique CQ', 'PE');
-    cy.validateFacetRank(2, 'PE');
-  });
-
-  it('Métrique CQ - SM', () => {
-    cy.openFacet('Métrique CQ', 'SM');
-    cy.validateFacetRank(3, 'SM');
+  it('Analyse parentale - Transmission', () => {
+    cy.openFacet('Analyse parentale', 'Transmission');
+    cy.validateFacetRank(1, 'Transmission');
   });
 });

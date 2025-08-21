@@ -377,6 +377,15 @@ export const dictionaries: Record<string, string[]> = {
     'BENIGN',
     ArrangerValues.missing,
   ],
+  'exomiser.variant_score_category': ['HIGH', 'MEDIUM', 'LOW', ArrangerValues.missing],
+  'exomiser.acmg_classification': [
+    'PATHOGENIC',
+    'LIKELY_PATHOGENIC',
+    'UNCERTAIN_SIGNIFICANCE',
+    'LIKELY_BENIGN',
+    'BENIGN',
+    ArrangerValues.missing,
+  ],
   hotspot: ['0', '1', ArrangerValues.missing],
   // Occurrence
   'donors.zygosity': ['HOM', 'HEM', 'HET'],

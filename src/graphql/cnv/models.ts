@@ -54,6 +54,7 @@ export type VariantEntity = {
   gender: string;
   frequency_RQDM: FrequencyEntity;
   genes: ArrangerResultsTree<GeneEntity>;
+  exomiser: ExomiserEntity;
   cluster: ClusterEntity;
 };
 
@@ -69,6 +70,11 @@ export type ClusterEntity = {
 export type FrequencyEntity = {
   pc: number;
   pf: number;
+};
+export type ExomiserEntity = {
+  variant_score_category: string;
+  variant_score: number;
+  acmg_classification: string;
 };
 
 export type GeneEntity = {

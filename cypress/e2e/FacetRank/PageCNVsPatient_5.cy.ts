@@ -10,13 +10,13 @@ beforeEach(() => {
 });
 
 describe('Page des CNVs d\'un patient - Ordre des facettes', () => {
-  it('Analyse parentale - Origine parentale', () => {
-    cy.openFacet('Analyse parentale', 'Origine parentale');
-    cy.validateFacetRank(0, 'Origine parentale');
+  it('Pathogénicité - Score Exomiser', () => {
+    cy.openFacet('Pathogénicité', 'Score Exomiser');
+    cy.validateFacetRank(0, 'Score Exomiser');
   });
 
-  it('Analyse parentale - Transmission', () => {
-    cy.openFacet('Analyse parentale', 'Transmission');
-    cy.validateFacetRank(1, 'Transmission');
+  it('Pathogénicité - Critères ACMG', () => {
+    cy.openFacet('Pathogénicité', 'Critères ACMG');
+    cy.validateFacetRank(1, 'Critères ACMG');
   });
 });

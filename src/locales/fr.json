@@ -181,6 +181,8 @@
   "cnv.filters.group.type": "Type de variant",
   "cnv.filters.group.cn": "Nombre de copies",
   "cnv.filters.group.frequency_RQDM.pf": "Fréq. CNV tous les patients",
+  "cnv.filters.group.exomiser.variant_score_category": "Score Exomiser",
+  "cnv.filters.group.exomiser.acmg_classification": "Critères ACMG",
   "cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sf": "gnomAD 4.1.0",
   "cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sf.tooltip": "Valeurs entre [0-1]. Les variants les plus rares auront une fréquence proche de 0.",
   "cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sc": "gnomAD 4.1.0 ALT",
@@ -449,6 +451,14 @@
   "filters.options.exomiser_max.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
   "filters.options.exomiser_max.acmg_classification.LIKELY_BENIGN": "Likely Benign",
   "filters.options.exomiser_max.acmg_classification.BENIGN": "Benign",
+  "filters.options.exomiser.acmg_classification.PATHOGENIC": "Pathogenic",
+  "filters.options.exomiser.acmg_classification.LIKELY_PATHOGENIC": "Likely Pathogenic",
+  "filters.options.exomiser.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+  "filters.options.exomiser.acmg_classification.LIKELY_BENIGN": "Likely Benign",
+  "filters.options.exomiser.acmg_classification.BENIGN": "Benign",
+  "filters.options.exomiser.variant_score_category.HIGH": "High Combined Score (≥0.8)",
+  "filters.options.exomiser.variant_score_category.MEDIUM": "Medium Combined Score (0.5–0.8)",
+  "filters.options.exomiser.variant_score_category.LOW": "Low Combined Score (<0.5)",
   "filters.options.sequencing_requests.patient_relationship.MTH": "Mère",
   "filters.options.sequencing_requests.patient_relationship.FTH": "Père",
   "filters.options.sequencing_requests.patient_relationship.BRO": "Frère",
@@ -502,6 +512,38 @@
   "folder": "Dossier",
   "footer.navigation.fhir": "Fhir",
   "footer.navigation.zepplin": "Zeppelin",
+  "cnv_exomiser" : {
+    "variant_score_category":{
+      "table": {
+        "title": "Exo.",
+        "tooltip": "Score Exomiser calculé en fonction des caractéristiques du variant et des phénotypes du patient"
+      },
+      "value": {
+        "HIGH": "Élevé",
+        "MEDIUM": "Moyen",
+        "LOW": "Faible",
+        "ND": "ND"
+      },
+      "tooltip": {
+        "HIGH": "Score combiné élevé (≥0.8) signifie souvent que le SNV est à la fois suffisamment rare/dommageable et correspond au phénotype.",
+        "MEDIUM": "Score combiné moyen (0.5–0.8) peut nécessiter une validation supplémentaire (ex : des études fonctionnelles, des analyses de ségrégation).",
+        "LOW": "Score combiné faible (<0.5) indique probablement une correspondance plus faible entre les caractéristiques de la variante et le phénotype ou une variante extrêmement courante.",
+        "ND": "Aucune donnée"
+      }
+    },
+    "variant_score":{
+      "table": {
+        "title": "Exo. (var)",
+        "tooltip": "Max du score Exomiser pour tous les gènes"
+      }
+    },
+    "acmg_classification":{
+      "table": {
+        "title": "ACMG E.",
+        "tooltip": "ACMG de Exomiser"
+      }
+    }
+  },
   "exomiser_max": {
     "table": {
       "title": "Exo. (var)",
@@ -514,17 +556,17 @@
     "acmg_classification": {
       "abrv": {
         "PATHOGENIC": "P",
-        "LIKELY_PATHOGENIC": "LP",
-        "UNCERTAIN_SIGNIFICANCE": "VUS",
-        "LIKELY_BENIGN": "LB",
+        "LIKELY_PATHOGENIC": "PP",
+        "UNCERTAIN_SIGNIFICANCE": "VSI",
+        "LIKELY_BENIGN": "PB",
         "BENIGN": "B"
       },
       "value": {
-        "PATHOGENIC": "Pathogenic",
-        "LIKELY_PATHOGENIC": "Likely Pathogenic",
-        "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
-        "LIKELY_BENIGN": "Likely Benign",
-        "BENIGN": "Benign"
+        "PATHOGENIC": "Pathogénique",
+        "LIKELY_PATHOGENIC": "Probablement pathogénique",
+        "UNCERTAIN_SIGNIFICANCE": "Variant de signification incertaine",
+        "LIKELY_BENIGN": "Probablement bénigne",
+        "BENIGN": "Bénigne"
       },
       "title": "ACMG E.",
       "tooltip": "Classification Exomiser ACMG la plus élevée parmi tous les patients pour ce variant"
@@ -685,7 +727,7 @@
   "name": "Nom",
   "next": "Suivant",
   "no": "Non",
-  "no_data": "No Data",
+  "no_data": "Aucune donnée",
   "no.data.available": "Aucune donnée disponible",
   "no.folder.number": "Aucun numéro de dossier",
   "no.ramq.or.new.born": "Aucun numéro de RAMQ ou nouveau-né",

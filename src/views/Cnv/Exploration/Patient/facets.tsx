@@ -15,6 +15,7 @@ import { VariantSection } from 'views/Prescriptions/Entity/Tabs/Variants/compone
 import { QUERY_EDITION_QB_ID } from 'views/Snv/utils/constant';
 
 import GenesUploadIds from 'components/GeneUploadIds';
+import DiseaseIcon from 'components/icons/DiseaseIcon';
 import FamiliesIcon from 'components/icons/FamiliesIcon';
 import FrequencyIcon from 'components/icons/FrequencyIcon';
 import GeneIcon from 'components/icons/GeneIcon';
@@ -137,6 +138,14 @@ const getFilterGroups = (
       },
     ],
   },
+  [FilterTypes.Pathogenicity]: {
+    groups: [
+      {
+        title: intl.get('exomiser'),
+        facets: ['exomiser__variant_score_category', 'exomiser__acmg_classification'],
+      },
+    ],
+  },
   [FilterTypes.ParentalAnalysis]: {
     groups: [
       {
@@ -237,6 +246,18 @@ export const getMenuItems = ({
         INDEXES.CNV,
         isCustomPillMenuEdition ? QUERY_EDITION_QB_ID : CNV_VARIANT_PATIENT_QB_ID,
         getFilterGroups(isCustomPillMenuEdition)[FilterTypes.Frequency],
+        filterMapper,
+      ),
+    },
+    {
+      key: 'category_pathogenicity',
+      title: intl.get('screen.patientsnv.category_pathogenicity'),
+      icon: <DiseaseIcon className={styles.sideMenuIcon} />,
+      panelContent: filtersContainer(
+        variantMappingResults,
+        INDEXES.CNV,
+        isCustomPillMenuEdition ? QUERY_EDITION_QB_ID : CNV_VARIANT_PATIENT_QB_ID,
+        getFilterGroups(isCustomPillMenuEdition)[FilterTypes.Pathogenicity],
         filterMapper,
       ),
     },

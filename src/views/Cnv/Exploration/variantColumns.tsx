@@ -14,6 +14,7 @@ import { FrequencyEntity, ITableVariantEntity, VariantEntity } from 'graphql/cnv
 import { INDEXES } from 'graphql/constants';
 import { VariantType } from 'graphql/variants/models';
 import { PrescriptionEntityTabs } from 'views/Prescriptions/Entity';
+import { EMPTY_FIELD } from 'views/Prescriptions/Entity/constants';
 import {
   VariantSection,
   VariantSectionKey,
@@ -23,11 +24,12 @@ import FlagFilterDropdown from 'views/Snv/Exploration/components/Flag/FlagFilter
 import GnomadCell from 'views/Snv/Exploration/components/Gnomad/GnomadCell';
 import NoteCell from 'views/Snv/Exploration/components/Note/NoteCell';
 import NoteFilter from 'views/Snv/Exploration/components/Note/NoteFilter';
+import { renderExomiserAcmg_Classification } from 'views/Snv/Exploration/variantColumns';
 import { getQueryBuilderID } from 'views/Snv/utils/constant';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
 import LineStyleIcon from 'components/icons/LineStyleIcon';
-import { TABLE_EMPTY_PLACE_HOLDER } from 'utils/constants';
+import { TABLE_EMPTY_PLACE_HOLDER, TABLE_ND_PLACE_HOLDER } from 'utils/constants';
 import EnvironmentVariables from 'utils/EnvVariables';
 import { formatFilters } from 'utils/formatFilters';
 import { formatGenotype } from 'utils/formatGenotype';
@@ -67,6 +69,12 @@ export const interpretationListHasInterpretation = (
 
 export const renderRQDMPfToString = ({ frequency_RQDM }: VariantEntity) =>
   frequency_RQDM ? (frequency_RQDM?.pf || 0.0).toExponential(2) : TABLE_EMPTY_PLACE_HOLDER;
+
+export const ExomiserColorMap: Record<any, string> = {
+  HIGH: 'red',
+  MEDIUM: 'orange',
+  LOW: 'lime',
+};
 
 export const getVariantColumns = (
   variantType: VariantType,
@@ -369,15 +377,64 @@ export const getVariantColumns = (
   );
 
   if (variantSection === VariantSection.CNV) {
-    columns.push({
-      title: intl.get('screen.patientcnv.results.table.copy_number'),
-      tooltip: intl.get('screen.patientcnv.results.table.copy_number.tooltip'),
-      key: 'cn',
-      dataIndex: 'cn',
-      sorter: { multiple: 1 },
-      render: (cn: number) => cn,
-      width: 60,
-    });
+    columns.push(
+      {
+        title: intl.get('screen.patientcnv.results.table.copy_number'),
+        tooltip: intl.get('screen.patientcnv.results.table.copy_number.tooltip'),
+        key: 'cn',
+        dataIndex: 'cn',
+        sorter: { multiple: 1 },
+        render: (cn: number) => cn,
+        width: 60,
+      },
+      {
+        title: intl.get('cnv_exomiser.variant_score_category.table.title'),
+        tooltip: intl.get('cnv_exomiser.variant_score_category.table.tooltip'),
+        key: 'exomiser.variant_score_category',
+        sorter: { multiple: 1 },
+        render: (variant: VariantEntity) =>
+          variant.exomiser?.variant_score_category ? (
+            <Tooltip
+              placement="topLeft"
+              title={intl.get(
+                `cnv_exomiser.variant_score_category.tooltip.${variant.exomiser?.variant_score_category}`,
+              )}
+            >
+              <Tag color={ExomiserColorMap[variant.exomiser?.variant_score_category]}>
+                {intl.get(
+                  `cnv_exomiser.variant_score_category.value.${variant.exomiser.variant_score_category}`,
+                )}
+              </Tag>
+            </Tooltip>
+          ) : (
+            <Tooltip placement="topLeft" title={intl.get('no_data')}>
+              <Tag>{TABLE_ND_PLACE_HOLDER}</Tag>
+            </Tooltip>
+          ),
+        width: 90,
+      },
+      {
+        title: intl.get('cnv_exomiser.variant_score.table.title'),
+        tooltip: intl.get('cnv_exomiser.variant_score.table.tooltip'),
+        key: 'exomiser.variant_score',
+        sorter: { multiple: 1 },
+        defaultHidden: true,
+        render: (variant: VariantEntity) =>
+          variant.exomiser?.variant_score
+            ? variant.exomiser.variant_score
+            : TABLE_EMPTY_PLACE_HOLDER,
+        width: 100,
+      },
+      {
+        title: intl.get('cnv_exomiser.acmg_classification.table.title'),
+        tooltip: intl.get('cnv_exomiser.acmg_classification.table.tooltip'),
+        key: 'exomiser.acmg_classification',
+        sorter: { multiple: 1 },
+        render: (variant: VariantEntity) =>
+          renderExomiserAcmg_Classification(variant?.exomiser?.acmg_classification),
+        width: 90,
+      },
+    );
   }
 
   columns.push(
@@ -646,4 +703,11 @@ const renderCNVByKey = (key: string, variant: VariantEntity) => {
 export const renderFlagToString = (variant: any) => {
   const flags = variant?.flags;
   return flags && flags.length > 0 ? flags?.join(',') : TABLE_EMPTY_PLACE_HOLDER;
+};
+
+export const renderExomiserCnvAcmg_ClassificationToString = (value: any) => {
+  if (value) {
+    return renderToString(renderExomiserAcmg_Classification(value));
+  }
+  return EMPTY_FIELD;
 };

@@ -367,6 +367,22 @@ export const getQueryBuilderDictionary = (
           LIKELY_BENIGN: intl.get('filters.options.exomiser_max.acmg_classification.LIKELY_BENIGN'),
           BENIGN: intl.get('filters.options.exomiser_max.acmg_classification.BENIGN'),
         },
+        'exomiser.acmg_classification': {
+          PATHOGENIC: intl.get('filters.options.exomiser_max.acmg_classification.PATHOGENIC'),
+          LIKELY_PATHOGENIC: intl.get(
+            'filters.options.exomiser_max.acmg_classification.LIKELY_PATHOGENIC',
+          ),
+          UNCERTAIN_SIGNIFICANCE: intl.get(
+            'filters.options.exomiser_max.acmg_classification.UNCERTAIN_SIGNIFICANCE',
+          ),
+          LIKELY_BENIGN: intl.get('filters.options.exomiser_max.acmg_classification.LIKELY_BENIGN'),
+          BENIGN: intl.get('filters.options.exomiser_max.acmg_classification.BENIGN'),
+        },
+        'exomiser.variant_score_category': {
+          HIGH: intl.get('filters.options.exomiser.variant_score_category.HIGH'),
+          MEDIUM: intl.get('filters.options.exomiser.variant_score_category.MEDIUM'),
+          LOW: intl.get('filters.options.exomiser.variant_score_category.LOW'),
+        },
         'genes.panels': {
           MMG: intl.get('filters.options.panels.MMG.query'),
           DYSM: intl.get('filters.options.panels.DYSM.query'),
@@ -686,6 +702,10 @@ export const getFacetsDictionaryCNV = () => ({
   },
   frequency_RQDM: {
     pf: intl.get('cnv.filters.group.frequency_RQDM.pf'),
+  },
+  exomiser: {
+    variant_score_category: intl.get('cnv.filters.group.exomiser.variant_score_category'),
+    acmg_classification: intl.get('cnv.filters.group.exomiser.acmg_classification'),
   },
   cluster: {
     external_frequencies: {

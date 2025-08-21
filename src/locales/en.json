@@ -180,6 +180,8 @@
   "cnv.filters.group.type": "Variant Type",
   "cnv.filters.group.cn": "Copy Number",
   "cnv.filters.group.frequency_RQDM.pf": "CNV Freq. All Patients",
+  "cnv.filters.group.exomiser.variant_score_category": "Exomiser Score",
+  "cnv.filters.group.exomiser.acmg_classification": "Exomiser ACMG Evidences",
   "cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sf": "gnomAD 4.1.0",
   "cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sf.tooltip": "Values between [0-1]. The rarest variants will have a frequency close to 0.",
   "cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sc": "gnomAD 4.1.0 ALT",
@@ -447,6 +449,14 @@
   "filters.options.exomiser_max.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
   "filters.options.exomiser_max.acmg_classification.LIKELY_BENIGN": "Likely Benign",
   "filters.options.exomiser_max.acmg_classification.BENIGN": "Benign",
+  "filters.options.exomiser.acmg_classification.PATHOGENIC": "Pathogenic",
+  "filters.options.exomiser.acmg_classification.LIKELY_PATHOGENIC": "Likely Pathogenic",
+  "filters.options.exomiser.acmg_classification.UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+  "filters.options.exomiser.acmg_classification.LIKELY_BENIGN": "Likely Benign",
+  "filters.options.exomiser.acmg_classification.BENIGN": "Benign",
+  "filters.options.exomiser.variant_score_category.HIGH": "High Combined Score (≥0.8)",
+  "filters.options.exomiser.variant_score_category.MEDIUM": "Medium Combined Score (0.5–0.8)",
+  "filters.options.exomiser.variant_score_category.LOW": "Low Combined Score (<0.5)",
   "filters.options.sequencing_requests.patient_relationship.MTH": "Mother",
   "filters.options.sequencing_requests.patient_relationship.FTH": "Father",
   "filters.options.sequencing_requests.patient_relationship.BRO": "Brother",
@@ -500,6 +510,38 @@
   "folder": "MRN",
   "footer.navigation.fhir": "Fhir",
   "footer.navigation.zepplin": "Zeppelin",
+  "cnv_exomiser" : {
+    "variant_score_category":{
+      "table": {
+        "title": "Exo.",
+        "tooltip": "Exomiser score based on variant properties and patient phenotypes"
+      },
+      "value": {
+        "HIGH": "High",
+        "MEDIUM": "Medium",
+        "LOW": "Low",
+        "ND": "ND"
+      },
+      "tooltip": {
+        "HIGH": "High Combined Score (≥0.8) often signifies that the variant is both sufficiently rare/damaging, and matches the phenotype.",
+        "MEDIUM": "Medium Combined Score (0.5–0.8) may need further validation (e.g. functional studies, segregation analyses).",
+        "LOW": "Low Combined Score (<0.5) likely indicates weaker alignment between variant features and phenotype or an exceedingly common variant.",
+        "ND": "No Data"
+      }
+    },
+    "variant_score":{
+      "table": {
+        "title": "Exo. (Var)",
+        "tooltip": "Max Exomiser score for all genes"
+      }
+    },
+    "acmg_classification":{
+      "table": {
+        "title": "ACMG E.",
+        "tooltip": "Exomiser ACMG"
+      }
+    }
+  },
   "exomiser_max": {
     "table": {
       "title": "Exo. (Var)",

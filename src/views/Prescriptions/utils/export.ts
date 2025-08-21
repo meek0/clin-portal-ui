@@ -1,4 +1,5 @@
 /* eslint-disable complexity */
+import intl from 'react-intl-universal';
 import { getPractitionnerName } from '@ferlab/ui/core/components/Assignments/AssignmentsFilter';
 import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types';
 import { Practitioner, PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
@@ -7,6 +8,7 @@ import get from 'lodash/get';
 import orderBy from 'lodash/orderBy';
 import {
   renderCNVToString,
+  renderExomiserCnvAcmg_ClassificationToString,
   renderGnomADSFToString,
   renderPOToString,
   renderRQDMPfToString,
@@ -181,6 +183,14 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderPOToString(row));
     } else if (key === 'frequency_RQDM.pf') {
       return convertToPlain(renderRQDMPfToString(row));
+    } else if (key === 'exomiser.acmg_classification') {
+      return convertToPlain(
+        renderExomiserCnvAcmg_ClassificationToString(row.exomiser?.acmg_classification),
+      );
+    } else if (key === 'exomiser.variant_score_category') {
+      return intl.get(
+        `cnv_exomiser.variant_score_category.value.${row.exomiser?.variant_score_category}`,
+      );
     }
   } else if (prefix === 'PR' || prefix === 'RQ') {
     if (key === 'tasks') {
