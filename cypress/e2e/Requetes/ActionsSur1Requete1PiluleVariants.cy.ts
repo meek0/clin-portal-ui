@@ -2,13 +2,14 @@
 import '../../support/commands';
 import { SharedFilters } from '../../pom/shared/Filters';
 
-beforeEach(() => {
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPage(SharedFilters.variant.onePill);
-});
-
 describe('Page des variants - Requêtes', () => {
+  const setupTest = () => {
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPage(SharedFilters.variant.onePill);
+  };
+
   it('Éditer une pilule via la facette', () => {
+    setupTest();
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'insertion');
 
     cy.validatePillSelectedQuery('Type de variant', ['SNV','Insertion']);
@@ -18,6 +19,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Éditer une pilule via son popup', () => {
+    setupTest();
     cy.get('[class*="QueryValues_queryValuesContainer"]').contains('SNV').clickAndWait({force:true});
     cy.get('[class*="filtersDropdown"] input[id="input-insertion"]').check({force: true});
     cy.clickAndIntercept('[class*="filtersDropdown"] [data-cy="Apply_Type de variant"]', 'POST', '**/graphql', 3);
@@ -29,6 +31,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Ajouter une pilule à une requête', () => {
+    setupTest();
     cy.checkAndClickApplyFacet('Variant', 'Chromosome', '19');
 
     cy.validatePillSelectedQuery('Type de variant', ['SNV']);
@@ -40,6 +43,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Construire une deuxième requête', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('button[class*="QueryTools_button"]').contains('Nouvelle requête').clickAndWait({force:true});
     cy.wait('@getPOSTgraphql');
@@ -59,6 +63,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Dupliquer une requête', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('[class*="QueryBar_selected"] [data-icon="copy"]').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql');

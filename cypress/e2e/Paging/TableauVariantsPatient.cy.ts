@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
-});
-
 describe('Tableau des variants d\'un patient - Valider avec des mocks', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+  };
+
   it('Pagination', () => {
+    setupTest();
     cy.fixture('ResponseBody/VariantsPatientPagingFirst.json').then((mockResponseBody) => {
       cy.intercept('POST', '**/graphql', (req) => {
         if (req.body.query.includes('VariantInformation')) {

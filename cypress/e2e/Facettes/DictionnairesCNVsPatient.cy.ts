@@ -1,15 +1,15 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-});
-
 describe('Page des CNVs d\'un patient - Dictionnaire', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  };
+
   it('Panel RQDM - RQDM [CLIN-2971]', () => {
+    setupTest();
     const dictionnary = ['Malignant Hyperthermia (HYPM v1)',
                          'Congenital Myopathies (MYOC v1)',
                          'Global Developmental Delay / Intellectual Disability (Trio) (RGDI v3)',
@@ -38,6 +38,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
   });
 
   it('Variant - Type de variant', () => {
+    setupTest();
     const dictionnary = ['GAIN',
                          'LOSS',
                          'GAINLOH',
@@ -52,6 +53,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
   });
 
   it('Variant - Chromosome', () => {
+    setupTest();
     const dictionnary = [/^1$/,
                          /^2$/,
                          '3',
@@ -86,6 +88,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
   });
 
   it('Gène - Panel RQDM [CLIN-2971]', () => {
+    setupTest();
     const dictionnary = ['Malignant Hyperthermia (HYPM v1)',
                          'Congenital Myopathies (MYOC v1)',
                          'Global Developmental Delay / Intellectual Disability (Trio) (RGDI v3)',
@@ -114,6 +117,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
   });
 
   it('Pathogénicité - Score Exomiser', () => {
+    setupTest();
     const dictionnary = ['High Combined Score (≥0.8)',
                          'Medium Combined Score (0.5–0.8)',
                          'Low Combined Score (<0.5)',
@@ -127,6 +131,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
   });
   
   it('Pathogénicité - ACMG de Exomiser', () => {
+    setupTest();
     const dictionnary = ['Pathogenic',
                          'Likely Pathogenic',
                          'Uncertain Significance',
@@ -142,6 +147,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
   });
 
   it('Analyse parentale - Origine parentale', () => {
+    setupTest();
     const dictionnary = ['Ambiguous',
                          'Both',
                          'Denovo',
@@ -161,6 +167,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
   });
 
   it('Analyse parentale - Transmission', () => {
+    setupTest();
     const dictionnary = ['Autosomal Dominant De Novo',
                          'Autosomal Dominant',
                          'Autosomal Recessive',
@@ -183,6 +190,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
   });
 
   it('Métrique CQ - Filtre', () => {
+    setupTest();
     const dictionnary = ['PASS',
                          'CnvQual',
                          'CnvCopyRatio',

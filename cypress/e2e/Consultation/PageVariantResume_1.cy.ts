@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantEntityPage('1-45508847-C-T', 3);
-});
-
 describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affichées', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantEntityPage('1-45508847-C-T', 3);
+  };
+
   it('Panneau Résumé', () => {
+    setupTest();
     cy.get('[data-cy="Summary_Chromosome"]').contains('1').should('exist');
     cy.get('[data-cy="Summary_Start"]').contains('45 508 847').should('exist');
     cy.get('[data-cy="Summary_AlleleAlt"]').contains('T').should('exist');
@@ -26,6 +26,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
   });
 
   it('Panneau Conséquences géniques', () => {
+    setupTest();
     cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('PRDX1').should('exist');
     cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('Omim').should('exist');
     cy.get('[data-cy="Consequences_PRDX1_Space"]').contains('176763').should('exist');
@@ -77,6 +78,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
   });
 
   it('Panneau Cohortes du RQDM', () => {
+    setupTest();
     cy.get('[data-row-key="RGDI"] td[class="ant-table-cell"]').eq(1).contains(/^0 \/ \d{2,3}| \(0%\)$/).should('exist');
     cy.get('[data-row-key="RGDI"] td[class="ant-table-cell"]').eq(2).contains('0').should('exist');
     cy.get('[data-row-key="RGDI"] td[class="ant-table-cell"]').eq(3).contains(/^0 \/ \d{2,3} \(0%\)$/).should('exist');
@@ -104,6 +106,7 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
   });
 
   it('Panneau Cohortes publiques', () => {
+    setupTest();
     cy.get('[data-row-key="FrequencyCard_Cohort_TopMed"] td[class="ant-table-cell"]').eq(1).contains('3').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_TopMed"] td[class="ant-table-cell"]').eq(2).contains('125 568').should('exist');
     cy.get('[data-row-key="FrequencyCard_Cohort_TopMed"] td[class="ant-table-cell"]').eq(3).contains('0').should('exist');
@@ -127,10 +130,12 @@ describe('Page d\'un variant (onglet Résumé) - Vérifier les informations affi
   });
 
   it('Panneau ClinVar', () => {
+    setupTest();
     cy.get('[data-cy*="ClinicalCard_ClinVar"]').should('not.exist');
   });
 
   it('Panneau Gène - Phénotype', () => {
+    setupTest();
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_Orphanet_MMACHC"] td[class="ant-table-cell"]').eq(0).contains('Orphanet').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_Orphanet_MMACHC"] td[class="ant-table-cell"]').eq(1).contains('MMACHC').should('exist');
     cy.get('[data-row-key="ClinicalCard_GenePhenotype_Orphanet_MMACHC"] td[class="ant-table-cell"]').eq(2).contains('Methylmalonic acidemia with homocystinuria, type cblC').should('exist');

@@ -2,17 +2,17 @@
 import '../../support/commands';
 import { oneMinute } from '../../pom/shared/Utils';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
-  cy.get(`[data-cy="SidebarMenuItem_Variant"]`).clickAndWait({force: true});
-});
-
 describe('Page des variants d\'un patient - Variant', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+    cy.get(`[data-cy="SidebarMenuItem_Variant"]`).clickAndWait({force: true});
+  };
+
   it('Recherche par locus - X-123403094-G-A', () => {
+    setupTest();
     cy.get('[class*="SearchLabel_title"]').contains('Recherche par variant').should('exist'); //data-cy="SearchLabel_Title"
 
     cy.get('[class*="SearchLabel_tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent', force: true}); //data-cy="SearchLabel_InfoCircleOutlined"
@@ -36,6 +36,7 @@ describe('Page des variants d\'un patient - Variant', () => {
   });
 
   it('Recherche par dbSNP ID - rs138817389', () => {
+    setupTest();
     cy.intercept('GET', '**/RS138817389').as('getRouteMatcher');
     cy.get('[class*="SearchAutocomplete_search"]').eq(0).find('input').type('RS138817389', {force: true}); //data-cy="SearchAutocomplete_Select"
     cy.wait('@getRouteMatcher');
@@ -51,6 +52,7 @@ describe('Page des variants d\'un patient - Variant', () => {
   });
 
   it('Recherche par ClinVar ID - 198752', () => {
+    setupTest();
     cy.intercept('GET', '**/198752').as('getRouteMatcher');
     cy.get('[class*="SearchAutocomplete_search"]').eq(0).find('input').type('198752', {force: true}); //data-cy="SearchAutocomplete_Select"
     cy.wait('@getRouteMatcher');

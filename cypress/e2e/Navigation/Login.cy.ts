@@ -2,15 +2,16 @@
 import '../../support/commands';
 import { oneMinute } from '../../pom/shared/Utils';
 
-beforeEach(() => {
-  cy.visit('/');
-  cy.waitWhileSpin(oneMinute);
-  cy.get('button[class*="ant-btn-primary ant-btn-lg"]').should('exist');
-  cy.get('button[class*="ant-btn-primary ant-btn-lg"]').clickAndWait();
-});
-
 describe('Affichage de la page Login', () => {
+  const setupTest = () => {
+    cy.visit('/');
+    cy.waitWhileSpin(oneMinute);
+    cy.get('button[class*="ant-btn-primary ant-btn-lg"]').should('exist');
+    cy.get('button[class*="ant-btn-primary ant-btn-lg"]').clickAndWait();
+  };
+
   it('Vérifier le texte affiché', () => {
+    setupTest();
     cy.get('[id="social-CQGC"]').clickAndWait();
     cy.waitWhileSpin(oneMinute);
 

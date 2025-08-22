@@ -1,12 +1,13 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-beforeEach(() => {
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-});
-
 describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
+  const setupTest = () => {
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  };
+
   it('Priorité - ASAP', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?priority=asap');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -15,6 +16,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
 
   it('Priorité - 2 valeurs', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?priority=asap&priority=routine');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -24,6 +26,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Analyse - Congenital Myopathies (MYOC)', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?analysis_code=myoc');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -32,6 +35,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Projet de recherche - Care4Rare-Expand', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?project_code=Care4Rare-Expand');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -40,6 +44,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Analyse - 2 valeurs', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?analysis_code=myoc&analysis_code=rgdi');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -49,6 +54,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
 
   it('Bioinfo - TN', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?tasks=tneba');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -57,6 +63,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
 
   it('Bioinfo - 2 valeurs', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?tasks=tneba&tasks=geba');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -66,6 +73,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
 
   it('Statut des prescriptions - Approuvée', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?status=active');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -74,6 +82,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
 
   it('Statut des prescriptions - 2 valeurs', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?status=active&status=on-hold');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -83,6 +92,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Statut des requêtes - Complétée', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?sequencing_requests__status=completed');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -91,6 +101,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Statut des requêtes - 2 valeurs', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?sequencing_requests__status=completed&sequencing_requests__status=on-hold');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -100,6 +111,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Laboratoire (LDM) - LDM-CHUSJ', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?ldm=ldm-chusj');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -108,6 +120,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Laboratoire (LDM) - 2 valeurs', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?ldm=ldm-chusj&ldm=ldm-chus');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -117,6 +130,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Établissement prescripteur - CHUSJ', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?ep=chusj');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -125,6 +139,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Établissement prescripteur - 2 valeurs', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?ep=chusj&ep=chus');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -134,6 +149,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Prénatal - False', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?prenatal=false');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', '');
@@ -142,6 +158,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Recherche - mrn-283773', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?s=mrn-283773');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', 'mrn-283773');
@@ -149,6 +166,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Recherche - 2 valeurs', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?s=mrn-283773&s=other');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', 'mrn-283773');
@@ -156,6 +174,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
   });
   
   it('Plusieurs paramètres', () => {
+    setupTest();
     cy.visitPrescriptionsPage('?analysis_code=rgdi&tasks=geba&status=active&sequencing_requests__status=completed&ldm=ldm-chusj&ep=chusj&prenatal=false&s=mrn-283773');
 
     cy.get('[data-cy="PrescriptionsSearch"]').should('have.attr', 'value', 'mrn-283773');

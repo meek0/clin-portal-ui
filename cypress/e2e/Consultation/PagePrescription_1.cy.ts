@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
-});
-
 describe('Page d\'une prescription - Vérifier les informations affichées', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+  };
+
   it('Panneau Analyse', () => {
+    setupTest();
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(2).contains('Routine').should('exist');
     cy.get('[data-cy="AnalysisCard"] [class="ant-descriptions-item-content"]').eq(3).contains('Approuvée').should('exist');
@@ -24,6 +24,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
   });
   
   it('Panneau Patient', () => {
+    setupTest();
     cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist');
     cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(1).contains(epCHUSJ_ldmCHUSJ.mrnProb).should('exist');
     cy.get('[data-cy="PatientCard"] [class="ant-descriptions-item-content"]').eq(1).contains('CHUSJ').should('exist');
@@ -35,6 +36,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
   });
   
   it('Panneau Information clinique', () => {
+    setupTest();
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(0).contains('--').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(1).contains('--').should('exist');
     cy.get('[data-cy="ClinicalInformation_CollapsePanel"] [class*="ClinicalInformationCard"] [class="ant-descriptions-item-content"]').eq(2).contains('--').should('exist');
@@ -55,6 +57,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
   });
   
   it('Panneau Mère', () => {
+    setupTest();
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.patientMthId).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains(epCHUSJ_ldmCHUSJ.mrnMth).should('exist');
     cy.get('[data-cy="ParentCard_Mère_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains('CHUSJ').should('exist');
@@ -80,6 +83,7 @@ describe('Page d\'une prescription - Vérifier les informations affichées', () 
   });
   
   it('Panneau Père', () => {
+    setupTest();
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.patientFthId).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains(epCHUSJ_ldmCHUSJ.mrnFth).should('exist');
     cy.get('[data-cy="ParentCard_Père_CollapsePanel"] [class="ant-descriptions-item-content"]').eq(1).contains('CHUSJ').should('exist');

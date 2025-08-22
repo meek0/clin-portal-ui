@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '48bf4129-3e45-41d6-be4f-63a25c57b71e');
-});
-
 describe('Page des variants d\'un patient - Requêtes', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '48bf4129-3e45-41d6-be4f-63a25c57b71e');
+  };
+
   it('Éditer une pilule via la facette', () => {
+    setupTest();
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'insertion');
 
     cy.validatePillSelectedQuery('Type de variant', ['SNV','Insertion']);
@@ -20,6 +20,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Éditer une pilule via son popup', () => {
+    setupTest();
     cy.get('[class*="QueryValues_queryValuesContainer"]').contains('SNV').clickAndWait({force:true});
     cy.get('[class*="filtersDropdown"] input[id="input-insertion"]').check({force: true});
     cy.clickAndIntercept('[class*="filtersDropdown"] [data-cy="Apply_Type de variant"]', 'POST', '**/graphql', 3);
@@ -31,6 +32,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Ajouter une pilule à une requête', () => {
+    setupTest();
     cy.checkAndClickApplyFacet('Variant', 'Chromosome', '19');
 
     cy.validatePillSelectedQuery('Type de variant', ['SNV']);
@@ -42,6 +44,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Construire une deuxième requête', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('button[class*="QueryTools_button"]').contains('Nouvelle requête').clickAndWait({force:true});
     cy.wait('@getPOSTgraphql');
@@ -61,6 +64,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Dupliquer une requête', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('[class*="QueryBar_selected"] [data-icon="copy"]').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql');

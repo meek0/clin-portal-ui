@@ -2,13 +2,14 @@
 import '../../support/commands';
 import { SharedFilters } from '../../pom/shared/Filters';
 
-beforeEach(() => {
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPage(SharedFilters.variant.twoQueries);
-});
-
 describe('Page des variants - Requêtes', () => {
+  const setupTest = () => {
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPage(SharedFilters.variant.twoQueries);
+  };
+
   it('Sélectionner une requête', () => {
+    setupTest();
     cy.validateTableResultsCount(/1 0\d{2} \d{3}/);
 
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
@@ -20,6 +21,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Afficher/Masquer les champs', () => {
+    setupTest();
     cy.get('button[role="switch"]').clickAndWait({force: true});
 
     cy.validatePillSelectedQuery('', ['SNV']);
@@ -46,6 +48,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Masquer/Afficher le panneau des requêtes', () => {
+    setupTest();
     cy.get('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
 
     cy.get('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
@@ -61,6 +64,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Combiner deux requêtes avec ET', () => {
+    setupTest();
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(0).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryTools"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
@@ -78,6 +82,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Combiner deux requêtes avec OU', () => {
+    setupTest();
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(0).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryTools"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
@@ -95,6 +100,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Combiner deux requêtes avec Combiner', () => {
+    setupTest();
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(0).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
@@ -111,6 +117,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Supprimer une requête avec le bouton et annuler', () => {
+    setupTest();
     cy.get('[class*="QueryBar_selected"] [data-icon="delete"]').clickAndWait({force: true});
     cy.get('[class*="ant-popconfirm"]').should('not.have.class', 'ant-popover-hidden');
 
@@ -124,6 +131,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Supprimer une requête avec le bouton et confirmer', () => {
+    setupTest();
     cy.get('[class*="QueryBar_selected"] [data-icon="delete"]').clickAndWait({force: true});
     cy.get('[class*="ant-popconfirm"]').should('not.have.class', 'ant-popover-hidden');
 
@@ -137,6 +145,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Supprimer l\'unique pilule d\'une requête avec le X', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
     cy.get('[class*="QueryBar_selected"] button[class*="QueryPill_close"]').clickAndWait();
@@ -150,6 +159,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Supprimer toutes les requêtes avec le bouton et annuler', () => {
+    setupTest();
     cy.get('[id="query-builder-header-tools"]').contains('Tout effacer').clickAndWait({force: true});
     cy.get('[class*="ant-modal-confirm"]').should('exist');
 
@@ -163,6 +173,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Supprimer toutes les requêtes avec le bouton et supprimer', () => {
+    setupTest();
     cy.get('[id="query-builder-header-tools"]').contains('Tout effacer').clickAndWait({force: true});
     cy.get('[class*="ant-modal-confirm"]').should('exist');
 

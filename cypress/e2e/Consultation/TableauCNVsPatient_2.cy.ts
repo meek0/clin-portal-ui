@@ -1,30 +1,31 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
-  cy.showColumn('GT', 0);
-  cy.showColumn('Filtre', 0);
-  cy.showColumn('Qual.', 0);
-  cy.showColumn('SM', 0);
-  cy.showColumn('Exo. (var)', 0);
-  cy.showColumn('BC', 0);
-  cy.showColumn('PE', 0);
-  cy.showColumn('Trans.', 0);
-  cy.showColumn('OP', 0);
-});
-
 describe('Page des CNVs d\'un patient - Consultation du tableau', () => { 
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+    cy.showColumn('GT', 0);
+    cy.showColumn('Filtre', 0);
+    cy.showColumn('Qual.', 0);
+    cy.showColumn('SM', 0);
+    cy.showColumn('Exo. (var)', 0);
+    cy.showColumn('BC', 0);
+    cy.showColumn('PE', 0);
+    cy.showColumn('Trans.', 0);
+    cy.showColumn('OP', 0);
+  };
+
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
+    setupTest();
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'GAIN');
     cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('exist');
   });
   
   it('Valider les fonctionnalités du tableau - Tri # SNVs', () => {
+    setupTest();
     cy.sortTableAndIntercept('# SNVs', 1);
     cy.validateTableFirstRow(/^0$/, 6, true);
     cy.sortTableAndIntercept('# SNVs', 1);
@@ -32,6 +33,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
   
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {
+    setupTest();
     cy.sortTableAndIntercept('Variant', 1);
     cy.validateTableFirstRow('GAIN:chr10:126388041-126388160', 7, true);
     cy.sortTableAndIntercept('Variant', 1);
@@ -39,6 +41,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
   
   it('Valider les fonctionnalités du tableau - Tri Chr.', () => {
+    setupTest();
     cy.sortTableAndIntercept('Chr.', 1);
     cy.validateTableFirstRow(/^1$/, 9, true);
     cy.sortTableAndIntercept('Chr.', 1);
@@ -46,6 +49,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Début', () => {
+    setupTest();
     cy.sortTableAndIntercept('Début', 1);
     cy.validateTableFirstRow('14 806', 10, true);
     cy.sortTableAndIntercept('Début', 1);
@@ -53,6 +57,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Fin', () => {
+    setupTest();
     cy.sortTableAndIntercept('Fin', 1);
     cy.validateTableFirstRow('14 939', 11, true);
     cy.sortTableAndIntercept('Fin', 1);
@@ -60,6 +65,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Événement', () => {
+    setupTest();
     cy.sortTableAndIntercept('Événement', 1);
     cy.validateTableFirstRow('GAIN', 12, true);
     cy.sortTableAndIntercept('Événement', 1);
@@ -67,6 +73,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Longueur', () => {
+    setupTest();
     cy.sortTableAndIntercept('Longueur', 1);
     cy.validateTableFirstRow('2 bp', 13, true);
     cy.sortTableAndIntercept('Longueur', 1);
@@ -74,6 +81,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri SM', () => {
+    setupTest();
     cy.sortTableAndIntercept('SM', 1);
     cy.validateTableFirstRow('0.00831442', 14, true);
     cy.sortTableAndIntercept('SM', 1);
@@ -81,6 +89,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri CN', () => {
+    setupTest();
     cy.sortTableAndIntercept('CN', 1);
     cy.validateTableFirstRow(/^0$/, 15, true);
     cy.sortTableAndIntercept('CN', 1)
@@ -88,6 +97,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Exo.', () => {
+    setupTest();
     cy.sortTableAndIntercept(/^Exo.$/, 1);
     cy.validateTableFirstRow('ND', 16, true);
     cy.sortTableAndIntercept(/^Exo.$/, 1)
@@ -95,6 +105,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Exo. (var)', () => {
+    setupTest();
     cy.sortTableAndIntercept('Exo. (var)', 1);
     cy.validateTableFirstRow('-', 17, true);
     cy.sortTableAndIntercept('Exo. (var)', 1)
@@ -102,6 +113,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri ACMG E.', () => {
+    setupTest();
     cy.sortTableAndIntercept('ACMG E.', 1);
     cy.validateTableFirstRow('ND', 18, true);
     cy.sortTableAndIntercept('ACMG E.', 1)
@@ -109,6 +121,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD', () => {
+    setupTest();
     cy.sortTableAndIntercept(/^gnomAD$/, 1);
     cy.validateTableFirstRow('-', 19, true);
     cy.sortTableAndIntercept(/^gnomAD$/, 1)
@@ -116,6 +129,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD ALT', () => {
+    setupTest();
     cy.sortTableAndIntercept('gnomAD ALT', 1);
     cy.validateTableFirstRow('-', 20, true);
     cy.sortTableAndIntercept('gnomAD ALT', 1)
@@ -123,6 +137,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
+    setupTest();
     cy.sortTableAndIntercept('RQDM', 1);
     cy.validateTableFirstRow('-', 21, true);
     cy.sortTableAndIntercept('RQDM', 1)
@@ -130,6 +145,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri # Gènes', () => {
+    setupTest();
     cy.sortTableAndIntercept('# Gènes', 1);
     cy.validateTableFirstRow(/^0$/, 22, true);
     cy.sortTableAndIntercept('# Gènes', 1);
@@ -137,6 +153,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Qual.', () => {
+    setupTest();
     cy.sortTableAndIntercept('Qual.', 1);
     cy.validateTableFirstRow(/^3$/, 25, true);
     cy.sortTableAndIntercept('Qual.', 1);
@@ -144,6 +161,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri BC', () => {
+    setupTest();
     cy.sortTableAndIntercept('BC', 1);
     cy.validateTableFirstRow(/^1$/, 26, true);
     cy.sortTableAndIntercept('BC', 1);
@@ -151,6 +169,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Trans.', () => {
+    setupTest();
     cy.sortTableAndIntercept('Trans.', 1);
     cy.validateTableFirstRow('-', 28, true);
     cy.sortTableAndIntercept('Trans.', 1);
@@ -158,6 +177,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri OP', () => {
+    setupTest();
     cy.sortTableAndIntercept('OP', 1);
     cy.validateTableFirstRow('-', 29, true);
     cy.sortTableAndIntercept('OP', 1);
@@ -165,6 +185,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
+    setupTest();
     cy.sortTableAndIntercept('Chr.', 1);
     cy.sortTableAndIntercept('Début', 0);
     cy.sortTableAndIntercept('Début', 1);

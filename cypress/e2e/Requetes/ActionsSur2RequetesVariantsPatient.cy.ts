@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '7ca94b6e-887a-4031-994c-a11f6752f225');
-});
-
 describe('Page des variants d\'un patient - Requêtes', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '7ca94b6e-887a-4031-994c-a11f6752f225');
+  };
+
   it('Sélectionner une requête', () => {
+    setupTest();
     cy.validateTableResultsCount('157 594');
 
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
@@ -22,6 +22,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Afficher/Masquer les champs', () => {
+    setupTest();
     cy.get('button[role="switch"]').clickAndWait({force: true});
 
     cy.validatePillSelectedQuery('', ['SNV']);
@@ -48,6 +49,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Masquer/Afficher le panneau des requêtes', () => {
+    setupTest();
     cy.get('span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
 
     cy.get('div[class*="ant-collapse-content-inactive ant-collapse-content-hidden"]').should('exist');
@@ -63,6 +65,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Combiner deux requêtes avec ET', () => {
+    setupTest();
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(0).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryTools"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
@@ -80,6 +83,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Combiner deux requêtes avec OU', () => {
+    setupTest();
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(0).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryTools"] button[class*="ant-dropdown-trigger"]').clickAndWait({force: true});
@@ -97,6 +101,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Combiner deux requêtes avec Combiner', () => {
+    setupTest();
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(0).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.get('[class*="QueryBar_queryBarWrapper"]').eq(1).find('input[class="ant-checkbox-input"]').check({force: true});
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
@@ -113,6 +118,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Supprimer une requête avec le bouton et annuler', () => {
+    setupTest();
     cy.get('[class*="QueryBar_selected"] [data-icon="delete"]').clickAndWait({force: true});
     cy.get('[class*="ant-popconfirm"]').should('not.have.class', 'ant-popover-hidden');
 
@@ -126,6 +132,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Supprimer une requête avec le bouton et confirmer', () => {
+    setupTest();
     cy.get('[class*="QueryBar_selected"] [data-icon="delete"]').clickAndWait({force: true});
     cy.get('[class*="ant-popconfirm"]').should('not.have.class', 'ant-popover-hidden');
 
@@ -139,6 +146,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Supprimer l\'unique pilule d\'une requête avec le X', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
     cy.get('[class*="QueryBar_selected"] button[class*="QueryPill_close"]').clickAndWait();
@@ -152,6 +160,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Supprimer toutes les requêtes avec le bouton et annuler', () => {
+    setupTest();
     cy.get('[id="query-builder-header-tools"]').contains('Tout effacer').clickAndWait({force: true});
     cy.get('[class*="ant-modal-confirm"]').should('exist');
 
@@ -165,6 +174,7 @@ describe('Page des variants d\'un patient - Requêtes', () => {
   });
 
   it('Supprimer toutes les requêtes avec le bouton et supprimer', () => {
+    setupTest();
     cy.get('[id="query-builder-header-tools"]').contains('Tout effacer').clickAndWait({force: true});
     cy.get('[class*="ant-modal-confirm"]').should('exist');
 

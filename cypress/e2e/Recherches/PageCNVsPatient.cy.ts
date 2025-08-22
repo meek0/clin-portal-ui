@@ -2,17 +2,17 @@
 import '../../support/commands';
 import { oneMinute } from '../../pom/shared/Utils';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
-  cy.get(`[data-cy="SidebarMenuItem_Gène"]`).clickAndWait({force: true});
-});
-
 describe('Page des CNVs d\'un patient - Gène', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+    cy.get(`[data-cy="SidebarMenuItem_Gène"]`).clickAndWait({force: true});
+  };
+
   it('Recherche par symbole - CFHR1', () => {
+    setupTest();
     cy.get('[class*="SearchLabel_title"]').contains('Recherche par gène').should('exist'); //data-cy="SearchLabel_Title"
 
     cy.get('[class*="SearchLabel_tooltipIcon"]').trigger('mouseover', {eventConstructor: 'MouseEvent', force: true}); //data-cy="SearchLabel_InfoCircleOutlined"
@@ -36,6 +36,7 @@ describe('Page des CNVs d\'un patient - Gène', () => {
   });
 
   it('Recherche par alias - FHR1', () => {
+    setupTest();
     cy.intercept('GET', '**/FHR1').as('getRouteMatcher');
     cy.get('[class*="SearchAutocomplete_search"]').eq(0).find('input').type('fhr1', {force: true}); //data-cy="SearchAutocomplete_Select"
     cy.wait('@getRouteMatcher');
@@ -51,6 +52,7 @@ describe('Page des CNVs d\'un patient - Gène', () => {
   });
 
   it('Recherche par Ensembl ID - ENSG00000244414', () => {
+    setupTest();
     cy.intercept('GET', '**/ENSG00000244414').as('getRouteMatcher');
     cy.get('[class*="SearchAutocomplete_search"]').eq(0).find('input').type('ensg00000244414', {force: true}); //data-cy="SearchAutocomplete_Select"
     cy.wait('@getRouteMatcher');

@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let presc_SOMATIC: any;
-
-beforeEach(() => {
-  presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitBioinformaticsAnalysisPage(presc_SOMATIC.bioAnalProbId);
-});
-
 describe('Page d\'une analyse bioinformatique (somatic) - Vérifier les informations affichées', () => {
+  let presc_SOMATIC: any;
+  const setupTest = () => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitBioinformaticsAnalysisPage(presc_SOMATIC.bioAnalProbId);
+  };
+
   it('Panneau Analyse', () => {
+    setupTest();
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains(presc_SOMATIC.bioAnalProbId).should('exist');
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('Analyse bioinformatique d\'exomes tumoraux (TEBA').should('exist');
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains(presc_SOMATIC.prescriptionId).should('exist');
@@ -21,12 +21,14 @@ describe('Page d\'une analyse bioinformatique (somatic) - Vérifier les informat
   });
   
   it('Panneau Pipeline bioinformatique', () => {
+    setupTest();
     cy.get('[data-cy="BioInfoPipelineCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains('Dragen').should('exist');
     cy.get('[data-cy="BioInfoPipelineCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('3.10.4').should('exist');
     cy.get('[data-cy="BioInfoPipelineCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('GRCh38').should('exist');
   });
   
   it('Panneau Séquençage', () => {
+    setupTest();
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains(presc_SOMATIC.requestProbId).should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('WXS').should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('--').should('exist');
@@ -40,6 +42,7 @@ describe('Page d\'une analyse bioinformatique (somatic) - Vérifier les informat
   });
   
   it('Panneau Échantillons', () => {
+    setupTest();
     cy.get('[data-cy="SamplesCard_Table"] [data-row-key="0"] [class="ant-table-cell"]').eq(0).contains(presc_SOMATIC.sampleProbId).should('exist');
     cy.get('[data-cy="SamplesCard_Table"] [data-row-key="0"] [class="ant-table-cell"]').eq(1).contains('DNA').should('exist');
     cy.get('[data-cy="SamplesCard_Table"] [data-row-key="0"] [class="ant-table-cell"]').eq(2).contains(presc_SOMATIC.specimenProbId).should('exist');
@@ -48,6 +51,7 @@ describe('Page d\'une analyse bioinformatique (somatic) - Vérifier les informat
   });
   
   it('Panneau Fichiers de données', () => {
+    setupTest();
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_SOMATIC.aliquotProbId}.cram"] [class="ant-table-cell"]`).eq(0).contains(presc_SOMATIC.aliquotProbId+'.cram').should('exist');
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_SOMATIC.aliquotProbId}.cram"] [class="ant-table-cell"]`).eq(1).contains('ALIR').should('exist');
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_SOMATIC.aliquotProbId}.cram"] [class="ant-table-cell"]`).eq(2).contains('CRAM').should('exist');
@@ -100,6 +104,7 @@ describe('Page d\'une analyse bioinformatique (somatic) - Vérifier les informat
   });
   
   it('Panneau Analyses connexes', () => {
+    setupTest();
     cy.get('[data-cy="RelatedAnalysesCard_CollapsePanel"]').contains('Aucune donnée disponible').should('exist');
   });
 });

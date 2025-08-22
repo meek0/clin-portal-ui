@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let presc_SOMATIC: any;
-
-beforeEach(() => {
-  presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
-});
-
 describe('Page des variants d\'un patient (somatic) - Colonnes du tableau', () => {
+  let presc_SOMATIC: any;
+  const setupTest = () => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+  };
+
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(2)
       .should('not.have.class', 'ant-table-column-has-sorters')
@@ -166,6 +166,7 @@ describe('Page des variants d\'un patient (somatic) - Colonnes du tableau', () =
   });
 
   it('Masquer une colonne affichée', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .contains('Type').should('exist');
 
@@ -178,6 +179,7 @@ describe('Page des variants d\'un patient (somatic) - Colonnes du tableau', () =
   });
 
   it('Afficher une colonne masquée', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .contains('gnomAD ALT').should('not.exist');
 

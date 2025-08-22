@@ -1,19 +1,17 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-let epCHUS_ldmCHUS: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  epCHUS_ldmCHUS = Cypress.env('globalData').presc_EP_CHUS_LDM_CHUS;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantEntityPage('19-54221872-C-T', 3);
-  cy.get('div[id*="rc-tabs-0-tab-patients"]').clickAndWait({force: true});
-});
-
 describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du tableau', () => {
+  let epCHUS_ldmCHUS: any;
+  const setupTest = () => {
+    epCHUS_ldmCHUS = Cypress.env('globalData').presc_EP_CHUS_LDM_CHUS;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantEntityPage('19-54221872-C-T', 3);
+    cy.get('div[id*="rc-tabs-0-tab-patients"]').clickAndWait({force: true});
+  };
+
   it('Tri Analyse', () => {
+    setupTest();
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('Analyse').clickAndWait({force: true});
     cy.get('[data-cy="VariantPatient_GridCard"] tr[class*="ant-table-row"]').eq(0).contains(/(HYPM|EXTUM)/).should('exist');
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('Analyse').clickAndWait({force: true});
@@ -21,6 +19,7 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
   });
 
   it('Tri QP', () => {
+    setupTest();
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('QP').clickAndWait({force: true});
     cy.get('[data-cy="VariantPatient_GridCard"] tr[class*="ant-table-row"]').eq(0).contains(/(-|3.14)/).should('exist');
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('QP').clickAndWait({force: true});
@@ -28,6 +27,7 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
   });
 
   it('Tri ALT', () => {
+    setupTest();
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('ALT').clickAndWait({force: true});
     cy.get('[data-cy="VariantPatient_GridCard"] tr[class*="ant-table-row"]').eq(0).find('[data-cy="ad_alt"]').contains(/^18$/).should('exist');
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('ALT').clickAndWait({force: true});
@@ -35,6 +35,7 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
   });
 
   it('Tri ALT+REF', () => {
+    setupTest();
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('ALT+REF').clickAndWait({force: true});
     cy.get('[data-cy="VariantPatient_GridCard"] tr[class*="ant-table-row"]').eq(0).find('[data-cy="ad_total"]').contains(/^18$/).should('exist');
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('ALT+REF').clickAndWait({force: true});
@@ -42,6 +43,7 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
   });
 
   it('Tri ALT/(ALT+REF)', () => {
+    setupTest();
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('ALT/(ALT+REF)').clickAndWait({force: true});
     cy.get('[data-cy="VariantPatient_GridCard"] tr[class*="ant-table-row"]').eq(0).contains('0.47').should('exist');
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('ALT/(ALT+REF)').clickAndWait({force: true});
@@ -49,6 +51,7 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
   });
 
   it('Tri QG', () => {
+    setupTest();
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('QG').clickAndWait({force: true});
     cy.get('[data-cy="VariantPatient_GridCard"] tr[class*="ant-table-row"]').eq(0).contains(/^(-|7)$/).should('exist');
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('QG').clickAndWait({force: true});
@@ -56,6 +59,7 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
   });
 
   it('Tri multiple', () => {
+    setupTest();
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('Analyse').clickAndWait({force: true});
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('Analyse').clickAndWait({force: true});
     cy.get('[data-cy="VariantPatient_GridCard"] thead[class="ant-table-thead"]').contains('ALT').clickAndWait({force: true});
@@ -63,6 +67,7 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
   });
 
   it('Filtre Analyse', () => {
+    setupTest();
     cy.get('span[class*="ant-select-selection-item"]').clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
 
@@ -80,6 +85,7 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
   });
 
   it('Filtre Sexe', () => {
+    setupTest();
     cy.get('span[class*="ant-select-selection-item"]').clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
 
@@ -97,6 +103,7 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
   });
 
   it('Filtre Statut', () => {
+    setupTest();
     cy.get('span[class*="ant-select-selection-item"]').clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
 
@@ -114,6 +121,7 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
   });
 
   it('Filtre Filtre', () => {
+    setupTest();
     cy.get('span[class*="ant-select-selection-item"]').clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
     
@@ -131,6 +139,7 @@ describe('Page d\'un variant (onglet Patients) - Valider les fonctionnalités du
   });
 
   it('Pagination', () => {
+    setupTest();
     cy.get('span[class*="ant-select-selection-item"]').clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
     cy.validateTableResultsCount(/8(2|3) Résultats/);

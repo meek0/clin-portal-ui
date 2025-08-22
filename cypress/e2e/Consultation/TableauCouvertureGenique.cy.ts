@@ -1,20 +1,20 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
-  cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
-  cy.resetColumns(0);
-  cy.sortTableAndIntercept('15x', 1);
-  cy.sortTableAndIntercept('15x', 1);
-});
-
 describe('Page de la couverture génique d\'un patient - Consultation du tableau', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
+    cy.resetColumns(0);
+    cy.sortTableAndIntercept('15x', 1);
+    cy.sortTableAndIntercept('15x', 1);
+  };
+
   it('Vérifier les informations affichées', () => {
+    setupTest();
     cy.get('tr[data-row-key]').eq(6).find('td').eq(2).contains('RPL41').should('exist');
     cy.get('tr[data-row-key]').eq(6).find('td').eq(3).contains(/^69$/).should('exist');
     cy.get('tr[data-row-key]').eq(6).find('td').eq(4).contains('86.14').should('exist');
@@ -32,6 +32,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
  
   it('Valider la fonctionnalité du radio bouton Général-Couverture génique', () => {
+    setupTest();
     cy.get('[id*="panel-#qc"] [class*="ant-radio-button-wrapper-checked"]').contains('Couverture génique').should('exist');
   
     cy.get('[id*="panel-#qc"]').contains('Général').clickAndWait({force: true});
@@ -39,6 +40,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
  
   it('Valider les liens disponibles Lien SNV', () => {
+    setupTest();
     cy.get('tr[data-row-key]').eq(6).find('td').eq(1).find('[id="snv"]').clickAndWait({force: true});
     cy.get('[class*="ant-radio-button-wrapper-checked"]').contains('SNV').should('exist');
     cy.get('[class*="QueryBar_selected"] [class*="QueryPill_field"]').contains(/^Gène$/).should('exist');
@@ -47,6 +49,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
  
   it('Valider les liens disponibles Lien CNV', () => {
+    setupTest();
     cy.get('tr[data-row-key]').eq(6).find('td').eq(1).find('[id="cnv"]').clickAndWait({force: true});
     cy.get('[class*="ant-radio-button-wrapper-checked"]').contains('CNV').should('exist');
     cy.get('[class*="QueryBar_selected"] [class*="QueryPill_field"]').contains(/^Gènes$/).should('exist');
@@ -55,11 +58,13 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les liens disponibles Lien Gène', () => {
+    setupTest();
     cy.get('tr[data-row-key]').eq(6).find('td').eq(2).find('a[href]')
       .should('have.attr', 'href', 'https://www.omim.org/entry/613315');
   });
   
   it('Valider les fonctionnalités du tableau - Tri Gène', () => {
+    setupTest();
     cy.sortTableAndIntercept('Gène', 1);
     cy.validateTableFirstRow('A1BG', 2, true);
     cy.sortTableAndIntercept('Gène', 1);
@@ -67,6 +72,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri Longueur', () => {
+    setupTest();
     cy.sortTableAndWait('Longueur');
     cy.validateTableFirstRow(/^18$/, 3, true);
     cy.sortTableAndIntercept('Longueur', 1);
@@ -74,6 +80,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri Couv. Moy.', () => {
+    setupTest();
     cy.sortTableAndIntercept('Couv. Moy.', 1);
     cy.validateTableFirstRow('< 1', 4, true);
     cy.sortTableAndIntercept('Couv. Moy.', 1);
@@ -81,6 +88,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri 5x', () => {
+    setupTest();
     cy.sortTableAndIntercept('5x', 1);
     cy.validateTableFirstRow('< 1%', 5, true);
     cy.sortTableAndIntercept('5x', 1);
@@ -88,6 +96,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri 15x', () => {
+    setupTest();
     cy.sortTableAndIntercept('15x', 1);
     cy.validateTableFirstRow('< 1%', 6, true);
     cy.sortTableAndIntercept('15x', 1);
@@ -95,6 +104,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri 30x', () => {
+    setupTest();
     cy.sortTableAndIntercept('30x', 1);
     cy.validateTableFirstRow('< 1%', 7, true);
     cy.sortTableAndIntercept('30x', 1);
@@ -102,6 +112,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri 50x', () => {
+    setupTest();
     cy.sortTableAndIntercept('50x', 1);
     cy.validateTableFirstRow('< 1%', 8, true);
     cy.sortTableAndIntercept('50x', 1);
@@ -109,6 +120,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri 100x', () => {
+    setupTest();
     cy.sortTableAndIntercept('100x', 1);
     cy.validateTableFirstRow('< 1%', 9, true);
     cy.sortTableAndIntercept('100x', 1);
@@ -116,6 +128,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri 200x', () => {
+    setupTest();
     cy.sortTableAndIntercept('200x', 1);
     cy.validateTableFirstRow('< 1%', 10, true);
     cy.sortTableAndIntercept('200x', 1);
@@ -123,6 +136,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri 300x', () => {
+    setupTest();
     cy.sortTableAndIntercept('300x', 1);
     cy.validateTableFirstRow('< 1%', 11, true);
     cy.sortTableAndIntercept('300x', 1);
@@ -130,6 +144,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri 500x', () => {
+    setupTest();
     cy.sortTableAndIntercept('500x', 1);
     cy.validateTableFirstRow('< 1%', 12, true);
     cy.sortTableAndIntercept('500x', 1);
@@ -137,6 +152,7 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri 1000x', () => {
+    setupTest();
     cy.sortTableAndIntercept('1000x', 1);
     cy.validateTableFirstRow('< 1%', 13, true);
     cy.sortTableAndIntercept('1000x', 1);
@@ -144,12 +160,14 @@ describe('Page de la couverture génique d\'un patient - Consultation du tableau
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
+    setupTest();
     cy.sortTableAndIntercept('5x', 1);
     cy.sortTableAndIntercept('Gène', 1);
     cy.validateTableFirstRow('AC138969.4', 2, true);
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
+    setupTest();
     cy.validatePaging('19 574', 1);
   });
 });

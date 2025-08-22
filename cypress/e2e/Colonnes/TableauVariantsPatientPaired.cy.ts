@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let presc_PAIRED: any;
-
-beforeEach(() => {
-  presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
-});
-
 describe('Page des variants d\'un patient (paired) - Colonnes du tableau', () => {
+  let presc_PAIRED: any;
+  const setupTest = () => {
+    presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
+  };
+
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(2)
       .should('not.have.class', 'ant-table-column-has-sorters')
@@ -161,6 +161,7 @@ describe('Page des variants d\'un patient (paired) - Colonnes du tableau', () =>
   });
 
   it('Masquer une colonne affichée', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .contains('Type').should('exist');
 
@@ -173,6 +174,7 @@ describe('Page des variants d\'un patient (paired) - Colonnes du tableau', () =>
   });
 
   it('Afficher une colonne masquée', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .contains('gnomAD ALT').should('not.exist');
 

@@ -2,15 +2,15 @@
 import '../../support/commands';
 import { SharedFilters } from '../../pom/shared/Filters';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-});
-
 describe('Page des variants - Dictionnaire', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  };
+
   it('Patient - Analyse', () => {
+    setupTest();
     const dictionnary = ['Malignant Hyperthermia (HYPM)',
                          'Congenital Myopathies (MYOC)',
                          'Global Developmental Delay / Intellectual Disability (Trio) (RGDI',
@@ -55,6 +55,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Patient - Statut clinique', () => {
+    setupTest();
     const dictionnary = ['Atteint',
                           'Non atteint',
                           'Inconnu'];
@@ -67,6 +68,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Patient - Sexe', () => {
+    setupTest();
     const dictionnary = ['Féminin',
                          'Masculin',
                          'Autre',
@@ -80,6 +82,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Variant - Type de variant', () => {
+    setupTest();
     const dictionnary = ['Insertion',
                          'Délétion',
                          'SNV',
@@ -89,13 +92,14 @@ describe('Page des variants - Dictionnaire', () => {
                          'No Data'];
 
     cy.visitVariantsPage(SharedFilters.variant.noResults2);
-    cy.validateDictionnaryPresetValues('Variant', 'Type de variant', dictionnary, true);
+    cy.validateDictionnaryPresetValues('Variant', 'Type de variant', dictionnary, false);
 
     cy.visitVariantsPage(SharedFilters.variant.emptyQuery);
-    cy.validateDictionnaryNewValues('Variant', 'Type de variant', dictionnary);
+    cy.validateDictionnaryNewValues('Variant', 'Type de variant', dictionnary, false);
   });
 
   it('Variant - Conséquences', () => {
+    setupTest();
     const dictionnary = ['Transcript Ablation',
                           'Splice Acceptor',
                           'Splice Donor',
@@ -144,6 +148,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Variant - Référence externe', () => {
+    setupTest();
     const dictionnary = ['DBSNP',
                          'Clinvar',
                          'PubMed',
@@ -160,6 +165,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Variant - Chromosome', () => {
+    setupTest();
     const dictionnary = [/^1$/,
                          /^2$/,
                          '3',
@@ -194,6 +200,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Variant - Zygosité', () => {
+    setupTest();
     const dictionnary = ['HOM',
                           'HEM',
                           'HET'];
@@ -206,6 +213,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Variant - Transmission', () => {
+    setupTest();
     const dictionnary = ['Autosomal Dominant De Novo',
                           'Autosomal Dominant',
                           'Autosomal Recessive',
@@ -228,6 +236,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Variant - Hét. composé', () => {
+    setupTest();
     const dictionnary = ['False',
                          'True'];
 
@@ -239,6 +248,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Gène - Type de gène', () => {
+    setupTest();
     const dictionnary = ['IG C Gene',
                           'IG D Gene',
                           'IG J Gene',
@@ -317,6 +327,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Gène - Référence externe', () => {
+    setupTest();
     const dictionnary = ['OMIM',
                          'HPO',
                          'Orphanet',
@@ -334,6 +345,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Gène - RQDM', () => {
+    setupTest();
     const dictionnary = ['Malignant Hyperthermia (HYPM v1)',
                          'Congenital Myopathies (MYOC v1)',
                          'Global Developmental Delay / Intellectual Disability (Trio) (RGDI v3)',
@@ -365,6 +377,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Gène - OMIM (transmission)', () => {
+    setupTest();
     const dictionnary = ['AD',
                          'AR',
                          'DD',
@@ -403,6 +416,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - ClinVar', () => {
+    setupTest();
     const dictionnary = ['Benign',
                          'Likely Benign',
                          'Uncertain Significance',
@@ -437,6 +451,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - ACMG de Exomiser (max)', () => {
+    setupTest();
     const dictionnary = ['Pathogenic',
                          'Likely Pathogenic',
                          'Uncertain Significance',
@@ -452,6 +467,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - Critères ACMG de Exomiser (max) [CLIN-2597]', () => {
+    setupTest();
     const dictionnary = ['PVS1',
                          'PS2',
                          'PM2',
@@ -475,6 +491,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - ACMG de Franklin', () => {
+    setupTest();
     const dictionnary = ['Pathogenic',
                          'Likely Pathogenic',
                          'Uncertain Significance',
@@ -494,6 +511,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - Critères ACMG de Franklin', () => {
+    setupTest();
     const dictionnary = ['PVS1',
                          'PS1',
                          'PS2',
@@ -529,6 +547,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - VEP', () => {
+    setupTest();
     const dictionnary = ['HIGH',
                           'MODERATE',
                           'LOW',
@@ -543,6 +562,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - FATHMM', () => {
+    setupTest();
     const dictionnary = ['Deleterious',
                           'Tolerated',
                           'No Data'];
@@ -555,6 +575,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - LRT', () => {
+    setupTest();
     const dictionnary = ['Deleterious',
                           'Neutral',
                           'Unknown',
@@ -568,6 +589,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - Polyphen 2 HVAR', () => {
+    setupTest();
     const dictionnary = ['Benign',
                           'Damaging',
                           'Possibily Damaging',
@@ -581,6 +603,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - SIFT', () => {
+    setupTest();
     const dictionnary = ['Deleterious',
                           'Tolerated',
                           'No Data'];
@@ -593,6 +616,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - CMC tier', () => {
+    setupTest();
     const dictionnary = ['Tier 1',
                          'Tier 2',
                          'Tier 3',
@@ -607,6 +631,7 @@ describe('Page des variants - Dictionnaire', () => {
   });
 
   it('Pathogénicité - Hotspot', () => {
+    setupTest();
     const dictionnary = ['True',
                          'False',
                          'No Data'];

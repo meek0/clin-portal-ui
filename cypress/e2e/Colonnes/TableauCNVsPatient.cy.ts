@@ -1,15 +1,16 @@
 /// <reference types="cypress" />
 import '../../support/commands';
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
-});
 
 describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+  };
+
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .find('th[class*="ant-table-cell"]').eq(1)
       .should('not.have.class', 'ant-table-column-has-sorters')
@@ -166,6 +167,7 @@ describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
   });
 
   it('Masquer une colonne affichée', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .contains('Chr.').should('exist');
 
@@ -178,6 +180,7 @@ describe('Page des CNVs d\'un patient - Colonnes du tableau', () => {
   });
 
   it('Afficher une colonne masquée', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .contains('GT').should('not.exist');
 

@@ -1,15 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-beforeEach(() => {
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPage();
-  cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').clickAndWait({force: true});
-  cy.createFilterIfNotExists('Cypress_F2');
-});
-
 describe('Page des variants - Filtres', () => {
+  const setupTest = () => {
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPage();
+    cy.get('[id="query-builder-header-tools"] [data-icon="plus"]').clickAndWait({force: true});
+    cy.createFilterIfNotExists('Cypress_F2');
+  };
+
   it('Supprimer un filtre par la querybar', () => {
+    setupTest();
     cy.deleteFilter('Cypress_F2');
     
     cy.get('[id="query-builder-header-tools"] [class*="Header_togglerTitle"]').contains(/^Filtre sans titre$/).should('exist');
@@ -23,6 +24,7 @@ describe('Page des variants - Filtres', () => {
   });
 
   it('Supprimer un filtre par le manager', () => {
+    setupTest();
     cy.get('button[class*="QueryBuilderHeaderTools_queryBuilderHeaderDdb"]').clickAndWait({force: true});
     cy.get('[data-menu-id*="manage-my-filters"]').clickAndWait({force: true});
     cy.get('[class="ant-modal-content"]').contains('Cypress_F2').parentsUntil('li[class*="ListItemWithActions"]').parent().find('[data-icon="delete"]').clickAndWait({force: true});

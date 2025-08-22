@@ -1,19 +1,19 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
-  cy.get('[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
-  cy.get('[class="ant-card-head-title"] button[class*="ant-btn-default"]').eq(1).clickAndWait({force: true});
-  cy.contains('Alignement et variant').should('exist');
-});
-
 describe('Page des variants d\'un patient - IGV à partir du tableau', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+    cy.get('[data-row-key="02fcc26c193333c0ed9f89fdfe6a3f79c5527af3"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
+    cy.get('[class="ant-card-head-title"] button[class*="ant-btn-default"]').eq(1).clickAndWait({force: true});
+    cy.contains('Alignement et variant').should('exist');
+  };
+
   it('Vérifier les informations affichées [CLIN-3112]', () => {
+    setupTest();
     cy.get('[class="igv-track-label"]').eq(0).contains('Refseq Genes').should('exist');
     cy.get('[class="igv-track-label"]').eq(1).contains('HyperExome hg38').should('exist');
     cy.get('[class="igv-track-label"]').eq(2).contains(`CNVs: ${epCHUSJ_ldmCHUSJ.sampleProbId} proband`).should('exist');
@@ -36,6 +36,7 @@ describe('Page des variants d\'un patient - IGV à partir du tableau', () => {
   });
 
   it('Valider les fonctionnalités', () => {
+    setupTest();
     cy.get('[class="igv-windowsize-panel-container"]').should('have.attr', 'style', 'display: block;');
     cy.get('[class="igv-windowsize-panel-container"]').invoke('text').then((strBeforeZoom) => {
       cy.get('[class*="igv-zoom-widget"] path').eq(0).clickAndWait({force: true});

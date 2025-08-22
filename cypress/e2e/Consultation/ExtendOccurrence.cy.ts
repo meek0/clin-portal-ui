@@ -1,17 +1,17 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '1eb2b9a0-9e95-4c77-8a40-8175bef0c25c');
-  cy.get('[data-row-key="e2d4a44c27415d43ae2c0bbb1ce3993affcb600e"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
-});
-
 describe('Ligne extensible d\'une occurrence', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '1eb2b9a0-9e95-4c77-8a40-8175bef0c25c');
+    cy.get('[data-row-key="e2d4a44c27415d43ae2c0bbb1ce3993affcb600e"] button[class*="ant-table-row-expand-icon"]').clickAndWait({force: true});
+  };
+
   it('Vérifier les informations affichées - En-tête', () => {
+    setupTest();
     cy.get('[class="ant-card-head-title"]').contains('chr3:g.58159621T>C').should('exist');
     cy.get('[class="ant-card-head-title"]').find('svg[class*="anticon"]').should('exist');
     cy.get('[class="ant-card-head-title"] button').eq(0).contains('Interpréter').should('exist');
@@ -22,6 +22,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Vérifier les informations affichées - Transcrit', () => {
+    setupTest();
     cy.get('[class*="OccurenceVariant_transcript"]').contains('FLNB').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').find('svg[class*="ConsequencesCell_moderateImpact"]').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').contains('Missense').should('exist');
@@ -39,6 +40,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Vérifier les informations affichées - Section Classifications', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(0).contains('Classifications').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-label"]').eq(0).contains('ClinVar').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(0).contains(/^B$/).should('exist');
@@ -48,6 +50,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Vérifier les informations affichées - Section Prédictions', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(1).contains('Prédictions').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(1).find('[class="ant-descriptions-item-label"]').eq(0).contains('Franklin').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(1).find('[class="ant-descriptions-item-content"]').eq(0).contains('-').should('exist');
@@ -63,6 +66,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Vérifier les informations affichées - Section Gène', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(2).contains('Gène').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-label"]').eq(0).contains('pLi').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(0).contains('6.05e-10').should('exist');
@@ -75,6 +79,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Vérifier les informations affichées - Section Fréquences', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(3).contains('Fréquences').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(0).contains('RQDM').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-label"]').eq(0).find('[class*="OccurenceVariant_affected"]').should('exist');
@@ -91,6 +96,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Vérifier les informations affichées - Section Scores de prédictions', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(4).contains('Scores de prédictions').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(4).find('[class="ant-descriptions-item-label"]').eq(0).contains('SIFT').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(4).find('[class="ant-descriptions-item-content"]').eq(0).contains('Deleterious').should('exist');
@@ -107,6 +113,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Vérifier les informations affichées - Section Zygosité', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(5).contains('Zygosité').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-label"]').eq(0).contains('Zygosité').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-content"]').eq(0).contains('Hétérozygote').should('exist');
@@ -127,6 +134,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Vérifier les informations affichées - Section Associations cliniques (OMIM)', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(6).contains('Associations cliniques (OMIM)').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-label"]').eq(0).contains('Atelosteogenesis, type I').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-content"]').eq(0).contains('AD').should('exist');
@@ -141,6 +149,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Vérifier les informations affichées - Section Famille', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(7).contains('Famille').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(7).find('[class="ant-descriptions-item-label"]').eq(0).contains('Génotype Père').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(7).find('[class="ant-descriptions-item-label"]').eq(0).find('path[d*=M3]').should('exist');
@@ -159,6 +168,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Vérifier les informations affichées - Section Métriques', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-header"]').eq(8).contains('Métriques').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(8).find('[class="ant-descriptions-item-label"]').eq(0).contains('Qualité de profondeur').should('exist');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(8).find('[class="ant-descriptions-item-content"]').eq(0).contains('0.34').should('exist');
@@ -175,76 +185,91 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Valider les liens disponibles - Variant', () => {
+    setupTest();
     cy.get('[class="ant-card-head-title"]').contains('chr3:g.58159621T>C').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.get('[data-cy="Summary_Start"]').contains('58 159 621').should('exist');
   });
 
   it('Valider les liens disponibles - UCSC', () => {
+    setupTest();
    cy.get('[class="ant-card-head-title"] [class*="OccurenceVariant_linkButton"]').eq(0)
      .should('have.attr', 'href', 'https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=chr3%3A58159621-58159622');
   });
 
   it('Valider les liens disponibles - LitVar', () => {
+    setupTest();
     cy.get('[class="ant-card-head-title"] [class*="OccurenceVariant_linkButton"]').eq(1)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/research/litvar2/docsum?text=rs116826041');
   });
 
   it('Valider les liens disponibles - Gène', () => {
+    setupTest();
     cy.get('[class*="OccurenceVariant_transcript"]').find('a[href]').eq(0)
       .should('have.attr', 'href', 'https://www.omim.org/entry/603381');
   });
 
   it('Valider les liens disponibles - Ensembl Gene', () => {
+    setupTest();
     cy.get('[class*="OccurenceVariant_transcript"]').find('a[href]').eq(1)
       .should('have.attr', 'href', 'https://useast.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000136068');
   });
 
   it('Valider les liens disponibles - Ensembl Transcrit', () => {
+    setupTest();
     cy.get('[class*="OccurenceVariant_transcript"]').find('a[href]').eq(2)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/nuccore/NM_001457.4');
   });
 
   it('Valider les liens disponibles - rsnumber', () => {
+    setupTest();
     cy.get('[class*="OccurenceVariant_transcript"]').find('a[href]').eq(3)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/snp/rs116826041');
   });
 
   it('Valider les liens disponibles - ClinVar', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(0).find('[class="ant-descriptions-item-content"]').eq(0).find('a[href]').eq(1)
       .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/clinvar/variation/258120');
   });
 
   it('Valider les liens disponibles - pLi', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(0).find('a[href]')
       .should('have.attr', 'href', 'https://gnomad.broadinstitute.org/gene/ENSG00000136068?dataset=gnomad_r2_1');
   });
 
   it('Valider les liens disponibles - LOEUF', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(1).find('a[href]')
       .should('have.attr', 'href', 'https://gnomad.broadinstitute.org/gene/ENSG00000136068?dataset=gnomad_r2_1');
   });
 
   it('Valider les liens disponibles - SpliceAI', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(2).find('[class="ant-descriptions-item-content"]').eq(2).find('a[href]')
       .should('have.attr', 'href', 'https://spliceailookup.broadinstitute.org/#variant=3-58159621-T-C&hg=38&distance=50&mask=0&precomputed=0');
   });
 
   it('Valider les liens disponibles - RQDM Atteints', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(0).find('a[href]').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.validateTableResultsCount('7 Résultats');
   });
 
   it('Valider les liens disponibles - RQDM Non atteints', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(1).find('a[href]').invoke('removeAttr', 'target').clickAndWait({force: true});
     cy.validateTableResultsCount('7 Résultats');
   });
 
   it('Valider les liens disponibles - gnomAD', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(3).find('[class="ant-descriptions-item-content"]').eq(2).find('a[href]')
       .should('have.attr', 'href', 'https://gnomad.broadinstitute.org/variant/3-58159621-T-C?dataset=gnomad_r4');
   });
 
   it('Valider les liens disponibles - Hét. composé', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql1');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-content"]').eq(1).contains('1').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql1');
@@ -253,6 +278,7 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Valider les liens disponibles - Hét. composé potentiel [CLIN-4552]', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql2');
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(5).find('[class="ant-descriptions-item-content"]').eq(2).contains('2').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql2');
@@ -261,15 +287,18 @@ describe('Ligne extensible d\'une occurrence', () => {
   });
 
   it('Valider les liens disponibles - OMIM', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(6).find('[class="ant-descriptions-item-label"]').eq(0).find('a[href]')
       .should('have.attr', 'href', 'https://www.omim.org/entry/108720');
   });
 
   it('Valider les liens disponibles - OMIM Voir plus', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] a[href="/variant/entity/3-58159621-T-C/summary"]').should('exist');
   });
 
   it('Vérifier les informations affichées des métriques de séquençage parental', () => {
+    setupTest();
     cy.get('[class="ant-card-body"] [class="ant-descriptions-view"]').eq(7).find('[class="ant-descriptions-item-content"]').eq(0).contains('détails').clickAndWait({force: true});
 
     cy.get('[class="ant-modal-title"]').contains('Métriques de séquençage parental').should('exist');

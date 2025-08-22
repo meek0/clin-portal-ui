@@ -1,27 +1,27 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-
-  cy.visitPrescriptionsPage();
-  cy.checkValueFacet('Statut des prescriptions', 'active');
-  cy.checkValueFacet('Analyse', 'RGDI');
-
-  cy.resetColumns(0);
-
-  cy.showColumn('Modifiée le', 0);
-  cy.showColumn('Projet', 0);
-  cy.showColumn('Requérant', 0);
-  cy.showColumn('Prénatal', 0);
-  cy.showColumn('Dossier', 0);
-});
-
 describe('Page des prescriptions et requêtes - Consultation du tableau des prescriptions', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+
+    cy.visitPrescriptionsPage();
+    cy.checkValueFacet('Statut des prescriptions', 'active');
+    cy.checkValueFacet('Analyse', 'RGDI');
+
+    cy.resetColumns(0);
+
+    cy.showColumn('Modifiée le', 0);
+    cy.showColumn('Projet', 0);
+    cy.showColumn('Requérant', 0);
+    cy.showColumn('Prénatal', 0);
+    cy.showColumn('Dossier', 0);
+  };
+
   it('Vérifier les informations affichées', () => {
+    setupTest();
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 2, epCHUSJ_ldmCHUSJ.prescriptionId);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 3, epCHUSJ_ldmCHUSJ.patientProbId);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.prescriptionId, 4, 'Routine');
@@ -41,6 +41,7 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
   });
 
   it('Valider les liens disponibles Lien Prescription', () => {
+    setupTest();
     cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
     cy.get('tr[data-row-key="'+epCHUSJ_ldmCHUSJ.prescriptionId+'"] a[href*="prescription"]').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql');

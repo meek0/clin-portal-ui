@@ -1,25 +1,25 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let presc_SOMATIC: any;
-
-beforeEach(() => {
-  presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
-
-  cy.showColumn('gnomAD ALT', 0);
-  cy.showColumn('QP', 0);
-  cy.showColumn(/^A$/, 0);
-  cy.showColumn('A+R', 0);
-  cy.showColumn('A/(A+R)', 0);
-  cy.showColumn('Filtre', 0);
-  cy.showColumn('CADD', 0);
-  cy.showColumn('REVEL', 0);
-});
-
 describe('Page des variants d\'un patient (somatic) - Consultation du tableau', () => {
+  let presc_SOMATIC: any;
+  const setupTest = () => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+
+    cy.showColumn('gnomAD ALT', 0);
+    cy.showColumn('QP', 0);
+    cy.showColumn(/^A$/, 0);
+    cy.showColumn('A+R', 0);
+    cy.showColumn('A/(A+R)', 0);
+    cy.showColumn('Filtre', 0);
+    cy.showColumn('CADD', 0);
+    cy.showColumn('REVEL', 0);
+  };
+
   it('Vérifier les informations affichées', () => {
+    setupTest();
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 2, 'FlagDropdown');
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 3, 'NoteCell');
     cy.validateTableDataRowKeyClass('02fcc26c193333c0ed9f89fdfe6a3f79c5527af3', 4, 'InterpretationCell');
@@ -64,12 +64,14 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
  
   it('Valider l\'icône de sauvegarde des requêtes personnalisées', () => {
+    setupTest();
     cy.checkAndClickApplyFacet('Variant', 'Type de variant', 'SNV');
     cy.get('[class*="QueryBar_selected"] [class*="anticon-save"]').should('exist');
     cy.get('[class*="QueryBar_selected"] [class*="anticon-copy"]').should('exist');
   });
  
   it('Valider la fonctionnalité du radio bouton SNV (TO)-CNV (TO)', () => {
+    setupTest();
     cy.get('[class*="VariantSectionNav"] [class*="ant-radio-button-wrapper-checked"]').contains('SNV (TO)').should('exist');
 
     cy.get('[class*="VariantSectionNav"]').contains('CNV (TO)').clickAndWait({force: true});

@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitBioinformaticsAnalysisPage(epCHUSJ_ldmCHUSJ.bioAnalProbId);
-});
-
 describe('Page d\'une analyse bioinformatique - Vérifier les informations affichées', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitBioinformaticsAnalysisPage(epCHUSJ_ldmCHUSJ.bioAnalProbId);
+  };
+
   it('Panneau Analyse', () => {
+    setupTest();
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.bioAnalProbId).should('exist');
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('Analyse bioinformatique d\'exomes germinales (GEBA)').should('exist');
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
@@ -21,12 +21,14 @@ describe('Page d\'une analyse bioinformatique - Vérifier les informations affic
   });
   
   it('Panneau Pipeline bioinformatique', () => {
+    setupTest();
     cy.get('[data-cy="BioInfoPipelineCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains('Dragen').should('exist');
     cy.get('[data-cy="BioInfoPipelineCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('3.8.4').should('exist');
     cy.get('[data-cy="BioInfoPipelineCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('GRCh38').should('exist');
   });
   
   it('Panneau Séquençage', () => {
+    setupTest();
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.requestProbId).should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('WXS').should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('--').should('exist');
@@ -40,6 +42,7 @@ describe('Page d\'une analyse bioinformatique - Vérifier les informations affic
   });
   
   it('Panneau Échantillons', () => {
+    setupTest();
     cy.get('[data-cy="SamplesCard_Table"] [data-row-key="0"] [class="ant-table-cell"]').eq(0).contains(new RegExp(`^${epCHUSJ_ldmCHUSJ.sampleProbId}$`)).should('exist');
     cy.get('[data-cy="SamplesCard_Table"] [data-row-key="0"] [class="ant-table-cell"]').eq(1).contains('DNA').should('exist');
     cy.get('[data-cy="SamplesCard_Table"] [data-row-key="0"] [class="ant-table-cell"]').eq(2).contains('SP_'+epCHUSJ_ldmCHUSJ.sampleProbId).should('exist');
@@ -48,6 +51,7 @@ describe('Page d\'une analyse bioinformatique - Vérifier les informations affic
   });
   
   it('Panneau Fichiers de données', () => {
+    setupTest();
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${epCHUSJ_ldmCHUSJ.aliquotProbId}.cram"] [class="ant-table-cell"]`).eq(0).contains(epCHUSJ_ldmCHUSJ.aliquotProbId+'.cram').should('exist');
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${epCHUSJ_ldmCHUSJ.aliquotProbId}.cram"] [class="ant-table-cell"]`).eq(1).contains('ALIR').should('exist');
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${epCHUSJ_ldmCHUSJ.aliquotProbId}.cram"] [class="ant-table-cell"]`).eq(2).contains('CRAM').should('exist');
@@ -122,6 +126,7 @@ describe('Page d\'une analyse bioinformatique - Vérifier les informations affic
   });
   
   it('Panneau Analyses connexes', () => {
+    setupTest();
     cy.get('[data-cy="RelatedAnalysesCard_CollapsePanel"]').contains('Aucune donnée disponible').should('exist');
   });
 });

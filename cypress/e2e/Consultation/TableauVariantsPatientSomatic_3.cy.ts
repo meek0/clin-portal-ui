@@ -1,25 +1,25 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let presc_SOMATIC: any;
+describe('Page des variants d\'un patient (somatic) - Consultation du tableau', () => {
+  let presc_SOMATIC: any;
+  const setupTest = () => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
 
-beforeEach(() => {
-  presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+    cy.showColumn('gnomAD ALT', 0);
+    cy.showColumn('QP', 0);
+    cy.showColumn(/^A$/, 0);
+    cy.showColumn('A+R', 0);
+    cy.showColumn('A/(A+R)', 0);
+    cy.showColumn('Filtre', 0);
+    cy.showColumn('CADD', 0);
+    cy.showColumn('REVEL', 0);
+  };
 
-  cy.showColumn('gnomAD ALT', 0);
-  cy.showColumn('QP', 0);
-  cy.showColumn(/^A$/, 0);
-  cy.showColumn('A+R', 0);
-  cy.showColumn('A/(A+R)', 0);
-  cy.showColumn('Filtre', 0);
-  cy.showColumn('CADD', 0);
-  cy.showColumn('REVEL', 0);
-});
-
-describe('Page des variants d\'un patient (somatic) - Consultation du tableau', () => {  
   it('Valider les fonctionnalités du tableau - Tri Variant', () => {
+    setupTest();
     cy.sortTableAndIntercept('Variant', 1);
     cy.validateTableFirstRow('chr10:g.100063786T>C', 5, true);
     cy.sortTableAndIntercept('Variant', 1);
@@ -27,6 +27,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri Type [CLIN-2149]', () => {
+    setupTest();
     cy.sortTableAndIntercept('Type', 1);
     cy.validateTableFirstRow('Ind', 6, true);
     cy.sortTableAndIntercept('Type', 1);
@@ -34,6 +35,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri Gène', () => {
+    setupTest();
     cy.sortTableAndIntercept('Gène', 1);
     cy.validateTableFirstRow('-', 9, true);
     cy.sortTableAndIntercept('Gène', 1);
@@ -41,6 +43,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri Hotspot', () => {
+    setupTest();
     cy.clickAndIntercept('thead[class="ant-table-thead"] [data-icon="fire"]', 'POST', '**/graphql', 1);
     cy.get('tr[class*="ant-table-row"]').eq(0).find('td').eq(14).find('[class*="hotspotOutlined"]').should('exist');
     cy.get('tr[class*="ant-table-row"]').eq(0).find('[type="checkbox"]').check({force: true});
@@ -53,6 +56,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri Tier', () => {
+    setupTest();
     cy.sortTableAndIntercept('Tier', 1);
     cy.validateTableFirstRow('ND', 15, true);
     cy.sortTableAndIntercept('Tier', 1);
@@ -60,6 +64,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri CMC', () => {
+    setupTest();
     cy.sortTableAndIntercept('CMC', 1);
     cy.validateTableFirstRow('-', 16, true);
     cy.sortTableAndIntercept('CMC', 1);
@@ -67,6 +72,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD', () => {
+    setupTest();
     cy.sortTableAndIntercept(/^gnomAD$/, 1);
     cy.validateTableFirstRow('-', 17, true);
     cy.sortTableAndIntercept(/^gnomAD$/, 1);
@@ -74,6 +80,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri gnomAD ALT', () => {
+    setupTest();
     cy.sortTableAndIntercept('gnomAD ALT', 1);
     cy.validateTableFirstRow('-', 18, true);
     cy.sortTableAndIntercept('gnomAD ALT', 1);
@@ -81,6 +88,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM G', () => {
+    setupTest();
     cy.sortTableAndIntercept('RQDM G', 1);
     cy.validateTableFirstRow('0.00e+0', 19, true);
     cy.sortTableAndIntercept('RQDM G', 1);
@@ -88,6 +96,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri RQDM TO', () => {
+    setupTest();
     cy.sortTableAndIntercept('RQDM TO', 1);
     cy.validateTableFirstRow('1.00e+0', 20, true);
     cy.sortTableAndIntercept('RQDM TO', 1);
@@ -95,6 +104,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri QS', () => {
+    setupTest();
     cy.sortTableAndIntercept('QS', 1);
     cy.validateTableFirstRow(/^0$/, 21, true);
     cy.sortTableAndIntercept('QS', 1);
@@ -102,6 +112,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri # CNVs', () => {
+    setupTest();
     cy.sortTableAndIntercept('# CNVs', 1);
     cy.validateTableFirstRow(/^0$/, 22, true);
     cy.sortTableAndIntercept('# CNVs', 1);
@@ -109,6 +120,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri Zyg.', () => {
+    setupTest();
     cy.sortTableAndIntercept('Zyg.', 1);
     cy.validateTableFirstRow('0/1', 23, true);
     cy.sortTableAndIntercept('Zyg.', 1);
@@ -116,6 +128,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri QP', () => {
+    setupTest();
     cy.sortTableAndIntercept('QP', 1);
     cy.validateTableFirstRow('-', 24, true);
     cy.sortTableAndIntercept('QP', 1);
@@ -123,6 +136,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri A', () => {
+    setupTest();
     cy.sortTableAndIntercept(/^A$/, 1);
     cy.validateTableFirstRow(/^3$/, 25, true);
     cy.sortTableAndIntercept(/^A$/, 1);
@@ -130,6 +144,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri A+R', () => {
+    setupTest();
     cy.sortTableAndIntercept(/^A\+R$/, 1);
     cy.validateTableFirstRow(/^3$/, 26, true);
     cy.sortTableAndIntercept(/^A\+R$/, 1);
@@ -137,6 +152,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri A/(A+R)', () => {
+    setupTest();
     cy.sortTableAndIntercept('A/(A+R)', 1);
     cy.validateTableFirstRow('0.01', 27, true);
     cy.sortTableAndIntercept('A/(A+R)', 1);
@@ -144,6 +160,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri Filtre', () => {
+    setupTest();
     cy.sortTableAndIntercept('Filtre', 1);
     cy.validateTableFirstRow('PASS', 28, true);
     cy.sortTableAndIntercept('Filtre', 1);
@@ -151,6 +168,7 @@ describe('Page des variants d\'un patient (somatic) - Consultation du tableau', 
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
+    setupTest();
     cy.sortTableAndIntercept('Gène', 1);
     cy.sortTableAndIntercept('Gène', 1);
     cy.sortTableAndWait('Variant');

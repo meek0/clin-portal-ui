@@ -2,13 +2,14 @@
 import '../../support/commands';
 import { oneMinute } from '../../pom/shared/Utils';
 
-beforeEach(() => {
-  cy.visit('/');
-  cy.waitWhileSpin(oneMinute);
-});
-
 describe('Affichage de la page Landing', () => {
+  const setupTest = () => {
+    cy.visit('/');
+    cy.waitWhileSpin(oneMinute);
+  };
+
   it('Vérifier le texte affiché', () => {
+    setupTest();
     cy.contains('Analyses et diagnostics').should('exist');
     cy.contains('Le Centre québécois de génomique clinique offre une plateforme clinique de séquençage à haut débit pour le diagnostic moléculaire des patients québécois en partenariat avec les huit laboratoires du Réseau de diagnostic moléculaire du Québec.').should('exist');
     cy.contains('Connexion').should('exist');
@@ -16,6 +17,7 @@ describe('Affichage de la page Landing', () => {
   });
 
   it('Vérifier les images des partenaires', () => {
+    setupTest();
     cy.get('[class*="Landing_logoRow"]').eq(0).find('svg').its('length').should('eq', 4);
     cy.get('[class*="Landing_logoRow"]').eq(1).find('svg').its('length').should('eq', 2);
     cy.get('[class*="Landing_logoRow"]').eq(1).find('img').its('length').should('eq', 2);

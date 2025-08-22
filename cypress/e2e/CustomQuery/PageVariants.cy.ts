@@ -1,13 +1,14 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-beforeEach(() => {
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPage();
-});
-
 describe('Page des variants - Pilule personnalisée', () => {
+  const setupTest = () => {
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPage();
+  };
+
   it('Valider la couleur', () => {
+    setupTest();
     cy.get(`[data-cy="SidebarMenuItem_Mes requêtes"]`).clickAndWait({force: true});
 
     cy.intercept('POST', '**/graphql').as('getRouteMatcher');

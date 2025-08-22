@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let presc_PAIRED: any;
-
-beforeEach(() => {
-  presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
-});
-
 describe('Tableau des variants d\'un patient (paired) - Valider avec des mocks', () => {
+  let presc_PAIRED: any;
+  const setupTest = () => {
+    presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
+  };
+
   it('Pagination', () => {
+    setupTest();
     cy.fixture('ResponseBody/VariantsPatientPairedPagingFirst.json').then((mockResponseBody) => {
       cy.intercept('POST', '**/graphql', (req) => {
         if (req.body.query.includes('VariantInformation')) {

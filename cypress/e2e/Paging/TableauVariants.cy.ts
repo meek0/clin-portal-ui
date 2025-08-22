@@ -2,18 +2,19 @@
 import { VariantsTable } from '../../pom/pages/VariantsTable';
 import '../../support/commands';
 
-beforeEach(() => {
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPage();
-  VariantsTable.actions.hideColumn('gene');
-  VariantsTable.actions.hideColumn('omim');
-  VariantsTable.actions.hideColumn('gnomad');
-  VariantsTable.actions.hideColumn('gnomad_alt');
-  VariantsTable.actions.hideColumn('rqdm');
-});
-
 describe('Tableau des variants - Valider avec des mocks', () => {
+  const setupTest = () => {
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPage();
+    VariantsTable.actions.hideColumn('gene');
+    VariantsTable.actions.hideColumn('omim');
+    VariantsTable.actions.hideColumn('gnomad');
+    VariantsTable.actions.hideColumn('gnomad_alt');
+    VariantsTable.actions.hideColumn('rqdm');
+  };
+
   it('Pagination', () => {
+    setupTest();
     cy.fixture('ResponseBody/VariantsPagingFirst.json').then((mockResponseBody) => {
       cy.intercept('POST', '**/graphql', (req) => {
         if (req.body.query.includes('VariantInformation')) {

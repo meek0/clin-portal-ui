@@ -1,18 +1,18 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
-  cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
-  cy.resetColumns(0);
-});
-
 describe('Page de la couverture génique d\'un patient - Colonnes du tableau', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.get('[data-cy="RadioButton_CouvertureGenique"]').clickAndWait({force: true});
+    cy.resetColumns(0);
+  };
+
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .find('th[class*="ant-table-cell"]').eq(0)
       .should('have.class', 'ant-table-selection-column');
@@ -84,6 +84,7 @@ describe('Page de la couverture génique d\'un patient - Colonnes du tableau', (
   });
 
   it('Masquer/Afficher une colonne', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .contains('Gène').should('exist');
 

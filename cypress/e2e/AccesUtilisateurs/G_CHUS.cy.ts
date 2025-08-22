@@ -1,19 +1,20 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
-let epCHUSJ_ldmCHUSJ: any;
-let epCUSM_ldmCHUSJ: any;
-let epCUSM_ldmCUSM: any;
-let epCHUS_ldmCHUS: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  epCUSM_ldmCHUSJ = Cypress.env('globalData').presc_EP_CUSM_LDM_CHUSJ;
-  epCUSM_ldmCUSM = Cypress.env('globalData').presc_EP_CUSM_LDM_CUSM;
-  epCHUS_ldmCHUS = Cypress.env('globalData').presc_EP_CHUS_LDM_CHUS;
-});
 
 describe('Accès des utilisateurs', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  let epCUSM_ldmCHUSJ: any;
+  let epCUSM_ldmCUSM: any;
+  let epCHUS_ldmCHUS: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    epCUSM_ldmCHUSJ = Cypress.env('globalData').presc_EP_CUSM_LDM_CHUSJ;
+    epCUSM_ldmCUSM = Cypress.env('globalData').presc_EP_CUSM_LDM_CUSM;
+    epCHUS_ldmCHUS = Cypress.env('globalData').presc_EP_CHUS_LDM_CHUS;
+  };
+
   it('Généticien (CHUS)', () => {
+    setupTest();
     cy.login(Cypress.env('username_G_CHUS'), Cypress.env('password').replace('$', '!'));
     cy.visit('/');
 

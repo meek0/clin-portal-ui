@@ -1,20 +1,20 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitFilesPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
-  cy.showColumn('Taille', 0);
-  cy.showColumn('Hash', 0);
-  cy.showColumn('Lot', 0);
-  cy.showColumn('Type', 0);
-});
-
 describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitFilesPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
+    cy.showColumn('Taille', 0);
+    cy.showColumn('Hash', 0);
+    cy.showColumn('Lot', 0);
+    cy.showColumn('Type', 0);
+  };
+
   it('Vérifier les informations affichées', () => {
+    setupTest();
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 0, '16776.hard-filtered.gvcf.gz');
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 1, 'VCF');
     cy.validateTableDataRowKeyContent('16776.hard-filtered.gvcf.gz', 2, epCHUSJ_ldmCHUSJ.patientFthId);
@@ -32,6 +32,7 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
   });
  
   it('Valider les liens disponibles Lien Requête', () => {
+    setupTest();
     cy.get('tr[data-row-key="16776.hard-filtered.gvcf.gz"]').contains(epCHUSJ_ldmCHUSJ.requestFthId).clickAndWait({force: true});
 
     cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
@@ -39,6 +40,7 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
   });
  
   it('Valider les liens disponibles Lien Analyse bioinfo', () => {
+    setupTest();
     cy.intercept('POST', '**/$graphql*').as('getPOSTgraphql');
     cy.get('tr[data-row-key="16776.hard-filtered.gvcf.gz"]').contains(epCHUSJ_ldmCHUSJ.bioAnalFthId).clickAndWait({force: true});
     cy.wait('@getPOSTgraphql');
@@ -47,6 +49,7 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
   });
   
   it('Valider les fonctionnalités du tableau - Tri Format', () => {
+    setupTest();
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Format');
@@ -57,6 +60,7 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Patient', () => {
+    setupTest();
     cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.patientProbId, 2);
     cy.sortTableAndWait('Patient');
     cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.patientFthId, 2);
@@ -64,6 +68,7 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Parenté', () => {
+    setupTest();
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Parenté');
@@ -73,6 +78,7 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Requête', () => {
+    setupTest();
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Requête');
@@ -82,6 +88,7 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri Échantillon (LDM)', () => {
+    setupTest();
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Échantillon (LDM)');
@@ -90,7 +97,8 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow('NA24835_A', 5);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Analyse bioinfo', () => {  
+  it('Valider les fonctionnalités du tableau - Tri Analyse bioinfo', () => {
+    setupTest();  
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');  
     cy.sortTableAndWait('Analyse bioinfo');
@@ -99,7 +107,8 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.bioAnalFthId, 6);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Date', () => {  
+  it('Valider les fonctionnalités du tableau - Tri Date', () => {
+    setupTest();  
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');  
     cy.sortTableAndWait('Date');
@@ -108,7 +117,8 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4), 7);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Taille', () => {    
+  it('Valider les fonctionnalités du tableau - Tri Taille', () => {
+    setupTest();    
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Taille');
@@ -117,7 +127,8 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow('3.11 GB', 9);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Lot', () => {    
+  it('Valider les fonctionnalités du tableau - Tri Lot', () => {
+    setupTest();    
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Lot');
@@ -126,7 +137,8 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow('A00516_0169', 11);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri Type', () => {    
+  it('Valider les fonctionnalités du tableau - Tri Type', () => {
+    setupTest();    
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Type');
@@ -136,12 +148,14 @@ describe('Page des fichiers d\'un patient - Consultation du tableau', () => {
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {
+    setupTest();
     cy.sortTableAndWait('Patient');
     cy.sortTableAndWait('Taille');
     cy.validateTableFirstRow('374 B', 9);
   });
 
   it('Valider les fonctionnalités du tableau - Pagination', () => {
+    setupTest();
     cy.validateTableResultsCount('Résultats 1 - ', false);
   });
 });

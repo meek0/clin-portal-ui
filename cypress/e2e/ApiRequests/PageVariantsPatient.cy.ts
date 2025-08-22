@@ -1,15 +1,15 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-});
-
 describe('Page des variants d\'un patient - Valider la requête graphql', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  };
+
   it('Facette standard', () => {
+    setupTest();
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
@@ -35,6 +35,7 @@ describe('Page des variants d\'un patient - Valider la requête graphql', () => 
   });
 
   it('Facette numérique ou No Data', () => {
+    setupTest();
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
@@ -124,6 +125,7 @@ describe('Page des variants d\'un patient - Valider la requête graphql', () => 
   });
 
   it('Pagination', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('VariantInformation')) {
         req.alias = 'postGraphqlFirst';

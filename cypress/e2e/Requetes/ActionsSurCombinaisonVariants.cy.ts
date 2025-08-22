@@ -2,13 +2,14 @@
 import '../../support/commands';
 import { SharedFilters } from '../../pom/shared/Filters';
 
-beforeEach(() => {
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPage(SharedFilters.variant.combineQueries);
-});
-
 describe('Page des variants - Requêtes', () => {
+  const setupTest = () => {
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPage(SharedFilters.variant.combineQueries);
+  };
+
   it('Supprimer une requête utilisée dans une combinaison', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql1');
     cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
     cy.get('[class*="QueryBar_selected"] button[class*="QueryPill_close"]').clickAndWait();

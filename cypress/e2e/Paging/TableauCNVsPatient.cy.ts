@@ -1,18 +1,18 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
-  cy.get('div[class="ant-popover-inner"] div[class="ant-space-item"]').contains('Gènes').find('[type="checkbox"]').uncheck({force: true});
-  cy.get('div[class="ant-popover-inner"] div[class="ant-space-item"]').contains('Variant').find('[type="checkbox"]').uncheck({force: true});
-});
-
 describe('Tableau des CNVs d\'un patient - Valider avec des mocks', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
+    cy.get('div[class="ant-popover-inner"] div[class="ant-space-item"]').contains('Gènes').find('[type="checkbox"]').uncheck({force: true});
+    cy.get('div[class="ant-popover-inner"] div[class="ant-space-item"]').contains('Variant').find('[type="checkbox"]').uncheck({force: true});
+  };
+
   it('Pagination', () => {
+    setupTest();
     cy.fixture('ResponseBody/CNVsPatientPagingFirst.json').then((mockResponseBody) => {
       cy.intercept('POST', '**/graphql', (req) => {
         if (req.body.query.includes('query Cnv(')) {

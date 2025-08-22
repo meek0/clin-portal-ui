@@ -1,12 +1,13 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-beforeEach(() => {
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-});
-
 describe('Page des variants - Valider la requête graphql', () => {
+  const setupTest = () => {
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  };
+
   it('Facette standard', () => {
+    setupTest();
     cy.visitVariantsPage();
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
@@ -26,6 +27,7 @@ describe('Page des variants - Valider la requête graphql', () => {
   });
 
   it('Facette numérique ou No Data', () => {
+    setupTest();
     cy.visitVariantsPage();
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
@@ -47,6 +49,7 @@ describe('Page des variants - Valider la requête graphql', () => {
   });
 
   it('Pagination', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('VariantInformation')) {
         req.alias = 'postGraphqlFirst';

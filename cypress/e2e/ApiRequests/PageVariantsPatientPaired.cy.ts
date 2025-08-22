@@ -1,15 +1,15 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let presc_PAIRED: any;
-
-beforeEach(() => {
-  presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-});
-
 describe('Page des variants d\'un patient (paired) - Valider la requête graphql', () => {
+  let presc_PAIRED: any;
+  const setupTest = () => {
+    presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  };
+
   it('Facette standard', () => {
+    setupTest();
     cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
@@ -35,6 +35,7 @@ describe('Page des variants d\'un patient (paired) - Valider la requête graphql
   });
 
   it('Facette numérique ou No Data', () => {
+    setupTest();
     cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
@@ -138,6 +139,7 @@ describe('Page des variants d\'un patient (paired) - Valider la requête graphql
   });
 
   it('Pagination', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('VariantInformation')) {
         req.alias = 'postGraphqlFirst';

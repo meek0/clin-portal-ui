@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let presc_SOMATIC: any;
-
-beforeEach(() => {
-  presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
-});
-
 describe('Tableau des variants d\'un patient (somatic) - Valider avec des mocks', () => {
+  let presc_SOMATIC: any;
+  const setupTest = () => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
+  };
+
   it('Pagination', () => {
+    setupTest();
     cy.fixture('ResponseBody/VariantsPatientSomaticPagingFirst.json').then((mockResponseBody) => {
       cy.intercept('POST', '**/graphql', (req) => {
         if (req.body.query.includes('VariantInformation')) {

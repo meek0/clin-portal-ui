@@ -1,19 +1,17 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-let epCHUS_ldmCHUS: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  epCHUS_ldmCHUS = Cypress.env('globalData').presc_EP_CHUS_LDM_CHUS;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantEntityPage('19-54221872-C-T', 3);
-  cy.get('div[id*="rc-tabs-0-tab-patients"]').clickAndWait({force: true});
-});
-
 describe('Page d\'un variant (onglet Patients) - Vérifier les informations affichées', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantEntityPage('19-54221872-C-T', 3);
+    cy.get('div[id*="rc-tabs-0-tab-patients"]').clickAndWait({force: true});
+  };
+
   it('Graphiques', () => {
+    setupTest();
     cy.get('[data-cy="PieChart_Gender"]').contains('Sexe').should('exist');
     cy.get('[data-cy="PieChart_Gender"] path[opacity="1"]').eq(0).trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
     cy.get('[data-cy="PieChart_Gender"] div[style*="pointer-events"]').contains(/(Indéterminé|Masculin|Féminin)/).should('exist');
@@ -45,6 +43,7 @@ describe('Page d\'un variant (onglet Patients) - Vérifier les informations affi
   });
   
   it('Tableau', () => {
+    setupTest();
     cy.get('span[class*="ant-select-selection-item"]').clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
     

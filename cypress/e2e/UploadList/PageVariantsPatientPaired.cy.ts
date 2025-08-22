@@ -1,19 +1,19 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let presc_PAIRED: any;
-
-beforeEach(() => {
-  presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
-  cy.get(`[data-cy="SidebarMenuItem_Gène"]`).clickAndWait({force: true});
-  cy.get('button[class*="UploadIdsButton"]').clickAndWait({force: true});
-  cy.get('[class*="UploadModal"] textarea').type('prdx1,nkefa ensg00000117450\nunknown');
-});
-
 describe('Page des variants d\'un patient (paired) - Téléverser une liste de gènes', () => {
+  let presc_PAIRED: any;
+  const setupTest = () => {
+    presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPairedPatientPage(presc_PAIRED.patientProbId, presc_PAIRED.prescriptionId.TEBA, 3);
+    cy.get(`[data-cy="SidebarMenuItem_Gène"]`).clickAndWait({force: true});
+    cy.get('button[class*="UploadIdsButton"]').clickAndWait({force: true});
+    cy.get('[class*="UploadModal"] textarea').type('prdx1,nkefa ensg00000117450\nunknown');
+  };
+
   it('Vérifier les informations affichées - Popover', () => {
+    setupTest();
     cy.get('[class*="UploadModal"] [class*="anticon-info-circle"]').trigger('mouseover', {eventConstructor: 'MouseEvent', force: true});
 
     cy.get('[class*="GeneUploadIds_geneUploadIdsPopover"]').should('not.have.class', 'ant-popover-hidden');
@@ -29,6 +29,7 @@ describe('Page des variants d\'un patient (paired) - Téléverser une liste de g
   });
 
   it('Valider les fonctionnalités de la modal - Bouton Supprimer', () => {
+    setupTest();
     cy.get('[class*="UploadModal"] textarea').contains('prdx1').should('exist');
     cy.get('[class*="UploadModal"] button[class*="ant-btn-text"]').clickAndWait({force: true});
 
@@ -37,12 +38,14 @@ describe('Page des variants d\'un patient (paired) - Téléverser une liste de g
   });
   
   it('Valider les fonctionnalités de la modal - Bouton Annuler', () => {
+    setupTest();
     cy.get('[class="ant-modal-footer"] button[class*="ant-btn-default"]').clickAndWait({force: true});
 
     cy.get('body').contains('Utiliser les filtres pour créer une requête').should('exist');
   });
 
   it('Valider les fonctionnalités de la modal - Section Résumé masquable', () => {
+    setupTest();
     cy.get('[class*="UploadModal"] [class="ant-collapse-header-text"]').contains('Résumé (3 reconnus, 1 inconnus)').should('exist');
 
     cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
@@ -53,6 +56,7 @@ describe('Page des variants d\'un patient (paired) - Téléverser une liste de g
   });
 
   it('Vérifier les informations affichées - Section Résumé (onglet Reconnus) [CLIN-2904]', () => {
+    setupTest();
     cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
 
     cy.get('[class*="UploadModal_tablesMessages"]').contains('4 identifiants soumis correspondant à 1 identifiants système uniques').should('exist');
@@ -73,6 +77,7 @@ describe('Page des variants d\'un patient (paired) - Téléverser une liste de g
   });
 
   it('Vérifier les informations affichées - Section Résumé (onglet Inconnus)', () => {
+    setupTest();
     cy.get('[class*="UploadModal"] span[class*="ant-collapse-arrow"]').clickAndWait({force: true});
     cy.get('[data-node-key="unmatched"]').clickAndWait({force: true});
 
@@ -86,6 +91,7 @@ describe('Page des variants d\'un patient (paired) - Téléverser une liste de g
   });
   
   it('Valider les fonctionnalités de la modal - Bouton Téléverser', () => {
+    setupTest();
     cy.wait(2000);
     cy.clickAndIntercept('[class="ant-modal-footer"] button[class*="ant-btn-primary"]', 'POST', '**/graphql', 3);
 

@@ -1,34 +1,34 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-
-  cy.visitPrescriptionsPage();
-  cy.checkValueFacet('Statut des prescriptions', 'active');
-  cy.checkValueFacet('Analyse', 'RGDI');
-
-  cy.get('div[id*="tab-requests"]').clickAndWait({force: true});
-  cy.resetColumns(1);
-
-  cy.showColumn('Modifiée le', 1);
-  cy.showColumn('Projet', 1);
-  cy.showColumn('EP', 1);
-  cy.showColumn('Statut clinique', 1);
-  cy.showColumn('Lot', 1);
-  cy.showColumn('Prénatal', 1);
-  cy.showColumn('Dossier', 1);
-  cy.showColumn('Requérant', 1);
-
-  cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
-  cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
-});
-
 describe('Page des prescriptions et requêtes - Consultation du tableau des requêtes', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+
+    cy.visitPrescriptionsPage();
+    cy.checkValueFacet('Statut des prescriptions', 'active');
+    cy.checkValueFacet('Analyse', 'RGDI');
+
+    cy.get('div[id*="tab-requests"]').clickAndWait({force: true});
+    cy.resetColumns(1);
+
+    cy.showColumn('Modifiée le', 1);
+    cy.showColumn('Projet', 1);
+    cy.showColumn('EP', 1);
+    cy.showColumn('Statut clinique', 1);
+    cy.showColumn('Lot', 1);
+    cy.showColumn('Prénatal', 1);
+    cy.showColumn('Dossier', 1);
+    cy.showColumn('Requérant', 1);
+
+    cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
+    cy.get('div[class*="ant-select-item-option-content"]').contains('100').clickAndWait({force: true});
+  };
+
   it('Vérifier les informations affichées', () => {
+    setupTest();
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 1, epCHUSJ_ldmCHUSJ.requestProbId);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 2, epCHUSJ_ldmCHUSJ.patientProbId);
     cy.validateTableDataRowKeyContent(epCHUSJ_ldmCHUSJ.requestProbId, 3, epCHUSJ_ldmCHUSJ.sampleProbId);
@@ -54,11 +54,13 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des requ
   });
 
   it('Valider les liens disponibles Lien Requête', () => {
+    setupTest();
     cy.clickAndIntercept('tr[data-row-key="'+epCHUSJ_ldmCHUSJ.requestProbId+'"] a[href*="prescription"]', 'POST', '**/$graphql*', 1, 0);
     cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
   });
 
   it('Valider les liens disponibles Lien Prescription', () => {
+    setupTest();
     cy.clickAndIntercept('tr[data-row-key="'+epCHUSJ_ldmCHUSJ.requestProbId+'"] a[href*="prescription"]', 'POST', '**/$graphql*', 1, 1);
     cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
   });

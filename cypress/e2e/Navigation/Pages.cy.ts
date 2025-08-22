@@ -3,16 +3,18 @@ import '../../support/commands';
 import { oneMinute } from '../../pom/shared/Utils';
 import { VariantsTable } from '../../pom/pages/VariantsTable';
 
-let epCHUSJ_ldmCHUSJ: any;
-
 describe('Affichage de toutes les pages et modals', () => {
-
-  beforeEach(() => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
     epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  };
+
+  beforeEach(() => {
   });
 
   it('Accueil', () => {
+    setupTest();
     cy.visit('/');
     cy.waitWhileSpin(oneMinute);
     cy.contains('Rechercher une prescription').should('exist');
@@ -50,6 +52,7 @@ describe('Affichage de toutes les pages et modals', () => {
   });
 
   it('Prescription', () => {
+    setupTest();
     cy.visitPrescriptionEntityPage(epCHUSJ_ldmCHUSJ.prescriptionId);
 
     cy.get('div[role="tablist"]').contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
@@ -93,6 +96,7 @@ describe('Affichage de toutes les pages et modals', () => {
   });
 
   it('Analyse bioinformatique', () => {
+    setupTest();
     cy.visitBioinformaticsAnalysisPage(epCHUSJ_ldmCHUSJ.bioAnalProbId);
 
     cy.contains('Analyse bioinformatique : '+epCHUSJ_ldmCHUSJ.bioAnalProbId).should('exist');
@@ -129,6 +133,7 @@ describe('Affichage de toutes les pages et modals', () => {
   });
 
   it('Rapports CQ d\'un patient', () => {
+    setupTest();
     cy.visitCQPatientPage(epCHUSJ_ldmCHUSJ.prescriptionId);
 
     // Rapport général
@@ -162,6 +167,7 @@ describe('Affichage de toutes les pages et modals', () => {
   });
 
   it('Variants d\'un patient', () => {
+    setupTest();
     cy.visitVariantsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 
     cy.contains('Détails').should('exist');
@@ -208,6 +214,7 @@ describe('Affichage de toutes les pages et modals', () => {
   });
 
   it('CNVs d\'un patient', () => {
+    setupTest();
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3);
 
     cy.contains('Détails').should('exist');
@@ -242,6 +249,7 @@ describe('Affichage de toutes les pages et modals', () => {
   });
 
   it('Variant', () => {
+    setupTest();
     cy.visitVariantEntityPage('10-1096268-T-C', 3);
 
     cy.contains('chr10:g.1096268T>C').should('exist');

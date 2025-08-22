@@ -1,15 +1,15 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let presc_SOMATIC: any;
-
-beforeEach(() => {
-  presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-});
-
 describe('Page des variants d\'un patient (somatic) - Valider la requête graphql', () => {
+  let presc_SOMATIC: any;
+  const setupTest = () => {
+    presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+  };
+
   it('Facette standard', () => {
+    setupTest();
     cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
@@ -35,6 +35,7 @@ describe('Page des variants d\'un patient (somatic) - Valider la requête graphq
   });
 
   it('Facette numérique ou No Data', () => {
+    setupTest();
     cy.visitVariantsPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('query getVariantCount')) {
@@ -138,6 +139,7 @@ describe('Page des variants d\'un patient (somatic) - Valider la requête graphq
   });
 
   it('Pagination', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql', (req) => {
       if (req.body.query.includes('VariantInformation')) {
         req.alias = 'postGraphqlFirst';

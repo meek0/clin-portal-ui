@@ -1,16 +1,16 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let presc_PAIRED: any;
-
-beforeEach(() => {
-  presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitBioinformaticsAnalysisPage(presc_PAIRED.bioAnalProbId.TNEBA);
-});
-
 describe('Page d\'une analyse bioinformatique (paired) - Vérifier les informations affichées', () => {
+  let presc_PAIRED: any;
+  const setupTest = () => {
+    presc_PAIRED = Cypress.env('globalData').presc_PAIRED;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitBioinformaticsAnalysisPage(presc_PAIRED.bioAnalProbId.TNEBA);
+  };
+
   it('Panneau Analyse', () => {
+    setupTest();
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains(presc_PAIRED.bioAnalProbId.TNEBA).should('exist');
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('Analyse bioinformatique des exomes tumoraux et normaux (TNEBA)').should('exist');
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains(presc_PAIRED.prescriptionId.TEBA).should('exist');
@@ -21,12 +21,14 @@ describe('Page d\'une analyse bioinformatique (paired) - Vérifier les informati
   });
   
   it('Panneau Pipeline bioinformatique', () => {
+    setupTest();
     cy.get('[data-cy="BioInfoPipelineCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains('Dragen').should('exist');
     cy.get('[data-cy="BioInfoPipelineCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('3.10.4').should('exist');
     cy.get('[data-cy="BioInfoPipelineCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('GRCh38').should('exist');
   });
   
   it('Panneau Séquençage', () => {
+    setupTest();
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains(presc_PAIRED.requestProbId.TEBA).should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('WXS').should('exist');
     cy.get('[data-cy="ExperimentCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains('--').should('exist');
@@ -40,6 +42,7 @@ describe('Page d\'une analyse bioinformatique (paired) - Vérifier les informati
   });
   
   it('Panneau Échantillons', () => {
+    setupTest();
     cy.get('[data-cy="SamplesCard_Table"] [data-row-key="0"] [class="ant-table-cell"]').eq(0).contains(presc_PAIRED.sampleProbId.GEBA).should('exist');
     cy.get('[data-cy="SamplesCard_Table"] [data-row-key="0"] [class="ant-table-cell"]').eq(1).contains('DNA').should('exist');
     cy.get('[data-cy="SamplesCard_Table"] [data-row-key="0"] [class="ant-table-cell"]').eq(2).contains(presc_PAIRED.specimenProbId.GEBA).should('exist');
@@ -53,6 +56,7 @@ describe('Page d\'une analyse bioinformatique (paired) - Vérifier les informati
   });
   
   it('Panneau Fichiers de données', () => {
+    setupTest();
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(0).contains(`${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz`).should('exist');
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(1).contains('SSNV').should('exist');
     cy.get(`[data-cy="FilesCard_Table"] [data-row-key="${presc_PAIRED.aliquotProbId.TEBA}.${presc_PAIRED.aliquotProbId.GEBA}.dragen.WES_somatic-tumor_normal.hard-filtered.norm.VEP.vcf.gz"] [class="ant-table-cell"]`).eq(2).contains('VCF').should('exist');
@@ -63,6 +67,7 @@ describe('Page d\'une analyse bioinformatique (paired) - Vérifier les informati
   });
   
   it('Panneau Analyses connexes', () => {
+    setupTest();
     cy.get('[data-cy="RelatedAnalysesCard_Table"] [class*="ant-table-row"]').eq(0).find('[class="ant-table-cell"]').eq(0).contains(presc_PAIRED.bioAnalProbId.GEBA).should('exist');
     cy.get('[data-cy="RelatedAnalysesCard_Table"] [class*="ant-table-row"]').eq(0).find('[class="ant-table-cell"]').eq(1).contains(presc_PAIRED.stampDate.GEBA).should('exist');
     cy.get('[data-cy="RelatedAnalysesCard_Table"] [class*="ant-table-row"]').eq(0).find('[class="ant-table-cell"]').eq(2).contains(presc_PAIRED.prescriptionId.GEBA).should('exist');

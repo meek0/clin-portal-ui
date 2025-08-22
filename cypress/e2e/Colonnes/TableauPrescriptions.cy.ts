@@ -1,13 +1,14 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-beforeEach(() => {
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitPrescriptionsPage();
-});
-
 describe('Page des prescriptions et requêtes - Colonnes du tableau des prescriptions', () => {
+  const setupTest = () => {
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitPrescriptionsPage();
+  };
+
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .find('th[class*="ant-table-cell"]').eq(0)
       .should('have.class', 'ant-table-selection-column');
@@ -94,6 +95,7 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des prescrip
   });
 
   it('Masquer une colonne affichée', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .contains('Prescription').should('exist');
 
@@ -106,6 +108,7 @@ describe('Page des prescriptions et requêtes - Colonnes du tableau des prescrip
   });
 
   it('Afficher une colonne masquée', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]').eq(0)
       .contains('Modifiée le').should('not.exist');
 

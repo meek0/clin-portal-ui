@@ -2,13 +2,14 @@
 import '../../support/commands';
 import { SharedFilters } from '../../pom/shared/Filters';
 
-beforeEach(() => {
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitVariantsPage(SharedFilters.variant.twoPills);
-});
-
 describe('Page des variants - Requêtes', () => {
+  const setupTest = () => {
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitVariantsPage(SharedFilters.variant.twoPills);
+  };
+
   it('Modifier l\'opérateur d\'une requête', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql1');
     cy.get('[class*="QueryBar_selected"] [class*="Combiner_operator"]').clickAndWait({force: true});
     cy.wait('@getPOSTgraphql1');
@@ -35,6 +36,7 @@ describe('Page des variants - Requêtes', () => {
   });
 
   it('Supprimer une des pilules d\'une requête avec le X', () => {
+    setupTest();
     cy.intercept('POST', '**/graphql').as('getPOSTgraphql');
     cy.get('.simplebar-wrapper').invoke('css', 'overflow', 'visible');
     cy.get('[class*="QueryBar_selected"] button[class*="QueryPill_close"]').eq(0).clickAndWait();

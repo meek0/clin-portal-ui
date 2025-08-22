@@ -1,19 +1,19 @@
 /// <reference types="cypress"/>
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=5747ace3-449a-46bf-9ae9-08842b88bcb5');
-  cy.get('[class*="variantColumns_actionButton"]').click({force: true});
-  cy.get('[data-menu-id*="igv"]').should('be.visible').clickAndWait();
-  cy.contains('Alignement et variant').should('exist');
-});
-
 describe('Page des CNVs d\'un patient - IGV à partir du tableau', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=5747ace3-449a-46bf-9ae9-08842b88bcb5');
+    cy.get('[class*="variantColumns_actionButton"]').click({force: true});
+    cy.get('[data-menu-id*="igv"]').should('be.visible').clickAndWait();
+    cy.contains('Alignement et variant').should('exist');
+  };
+
   it('Vérifier les informations affichées [CLIN-3112]', () => {
+    setupTest();
     cy.get('[class="igv-track-label"]').eq(0).contains('Refseq Genes').should('exist');
     cy.get('[class="igv-track-label"]').eq(1).contains('HyperExome hg38').should('exist');
     cy.get('[class="igv-track-label"]').eq(2).contains(`CNVs: ${epCHUSJ_ldmCHUSJ.sampleProbId} proband`).should('exist');
@@ -36,6 +36,7 @@ describe('Page des CNVs d\'un patient - IGV à partir du tableau', () => {
   });
 
   it('Valider les fonctionnalités', () => {
+    setupTest();
     cy.get('[class="igv-windowsize-panel-container"]').should('have.attr', 'style', 'display: block;');
     cy.get('[class="igv-windowsize-panel-container"]').invoke('text').then((strBeforeZoom) => {
       cy.get('[class*="igv-zoom-widget"] path').eq(0).clickAndWait({force: true});

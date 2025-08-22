@@ -1,16 +1,16 @@
 /// <reference types="cypress" />
 import '../../support/commands';
 
-let epCHUSJ_ldmCHUSJ: any;
-
-beforeEach(() => {
-  epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
-  cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
-  cy.visitArchivesPatientPage(epCHUSJ_ldmCHUSJ.patientProbId);
-});
-
 describe('Page d\'archives - Colonnes du tableau', () => {
+  let epCHUSJ_ldmCHUSJ: any;
+  const setupTest = () => {
+    epCHUSJ_ldmCHUSJ = Cypress.env('globalData').presc_EP_CHUSJ_LDM_CHUSJ;
+    cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
+    cy.visitArchivesPatientPage(epCHUSJ_ldmCHUSJ.patientProbId);
+  };
+
   it('Valider l\'affichage (par défaut/optionnel) et l\'ordre des colonnes', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .contains('URL').should('not.exist');
     cy.get('div[class="ant-popover-inner"]')
@@ -87,6 +87,7 @@ describe('Page d\'archives - Colonnes du tableau', () => {
   });
 
   it('Masquer une colonne affichée', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .contains('Patient').should('exist');
 
@@ -99,6 +100,7 @@ describe('Page d\'archives - Colonnes du tableau', () => {
   });
 
   it('Afficher une colonne masquée', () => {
+    setupTest();
     cy.get('thead[class="ant-table-thead"]')
       .contains('Taille').should('not.exist');
 
