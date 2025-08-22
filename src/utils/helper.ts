@@ -24,8 +24,8 @@ export const formatTimestampToISODate = (timestamp: number) =>
 
 export const downloadText = (text: string, filename: string, contentType = 'text/plain') => {
   if (text && text.length > 0) {
-    const byteArray = new TextEncoder().encode(text);
-    const blob = new Blob([byteArray], { type: contentType });
+    const byteArray = new TextEncoder().encode('\uFEFF' + text);
+    const blob = new Blob([byteArray], { type: `${contentType};charset=utf-8;` });
     downloadFile(blob, filename);
   }
 };

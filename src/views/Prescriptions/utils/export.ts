@@ -247,7 +247,7 @@ export const downloadAsTSV = (
     prefix,
     patientId,
   );
-  downloadText(tsv, `${prefix}_${makeFilenameDatePart()}.tsv`, 'text/csv');
+  downloadText(tsv, `${prefix}_${makeFilenameDatePart()}.tsv`, 'text/tab-separated-values');
 };
 
 export const extractSelectionFromResults = (
