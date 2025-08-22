@@ -182,7 +182,7 @@
   "cnv.filters.group.cn": "Nombre de copies",
   "cnv.filters.group.frequency_RQDM.pf": "Fréq. CNV tous les patients",
   "cnv.filters.group.exomiser.variant_score_category": "Score Exomiser",
-  "cnv.filters.group.exomiser.acmg_classification": "Critères ACMG",
+  "cnv.filters.group.exomiser.acmg_classification": "ACMG de Exomiser",
   "cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sf": "gnomAD 4.1.0",
   "cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sf.tooltip": "Valeurs entre [0-1]. Les variants les plus rares auront une fréquence proche de 0.",
   "cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sc": "gnomAD 4.1.0 ALT",
