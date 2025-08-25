@@ -13,6 +13,7 @@ export const TaskColorMap: Record<any, string> = {
   GEBA: 'green',
   TEBA: 'blue',
   TNEBA: 'red',
+  PEBA: 'orange',
 };
 
 export const commonPrescriptionFilterFields = [

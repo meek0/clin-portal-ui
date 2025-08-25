@@ -21,6 +21,7 @@ export enum BioinfoAnalysisCode {
   GEBA = 'GEBA',
   TEBA = 'TEBA',
   TNBA = 'TNBA',
+  PEBA = 'PEBA',
 }
 
 export type ExternalFrequenciesEntity = {
