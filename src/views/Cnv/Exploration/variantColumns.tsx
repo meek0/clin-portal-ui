@@ -2,13 +2,13 @@
 import { Key } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import intl from 'react-intl-universal';
-import { FilterFilled, FlagOutlined, MessageOutlined } from '@ant-design/icons';
+import { FilterFilled, FlagOutlined, MessageOutlined, MoreOutlined } from '@ant-design/icons';
 import ExternalLink from '@ferlab/ui/core/components/ExternalLink';
 import { ProColumnType } from '@ferlab/ui/core/components/ProTable/types';
 import { addQuery } from '@ferlab/ui/core/components/QueryBuilder/utils/useQueryBuilderState';
 import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/utils';
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
-import { Button, Space, Tag, Tooltip, Typography } from 'antd';
+import { Button, Dropdown, Space, Tag, Tooltip, Typography } from 'antd';
 import cx from 'classnames';
 import { FrequencyEntity, ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 import { INDEXES } from 'graphql/constants';
@@ -28,7 +28,6 @@ import { renderExomiserAcmg_Classification } from 'views/Snv/Exploration/variant
 import { getQueryBuilderID } from 'views/Snv/utils/constant';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
-import LineStyleIcon from 'components/icons/LineStyleIcon';
 import { TABLE_EMPTY_PLACE_HOLDER, TABLE_ND_PLACE_HOLDER } from 'utils/constants';
 import EnvironmentVariables from 'utils/EnvVariables';
 import { formatFilters } from 'utils/formatFilters';
@@ -155,15 +154,47 @@ export const getVariantColumns = (
       fixed: 'left',
       render: (record: VariantEntity) => (
         <Space align={'center'}>
-          <Tooltip title={intl.get('open.in.igv')}>
-            <Button
-              onClick={() => igvModalCb && igvModalCb(record)}
-              className={style.actionButton}
-              icon={<LineStyleIcon />}
-              type={'link'}
-              size={'small'}
-            />
-          </Tooltip>
+          <Dropdown
+            trigger={['click']}
+            menu={{
+              items: [
+                {
+                  key: 'igv',
+                  label: (
+                    <a
+                      className={style.actionLink}
+                      onClick={() => igvModalCb && igvModalCb(record)}
+                    >
+                      <ExternalLinkIcon />
+                      <Typography.Text className={style.actionLinkText}>
+                        {intl.get('open.in.igv')}
+                      </Typography.Text>
+                    </a>
+                  ),
+                },
+                {
+                  key: 'ucsc',
+                  label: (
+                    <a
+                      className={style.actionLink}
+                      href={`https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&position=chr${
+                        record?.chromosome
+                      }%3A${record?.start - 500}-${record?.end + 500}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <ExternalLinkIcon height="16" width="16" />
+                      <Typography.Text className={style.actionLinkText}>
+                        {intl.get('ucsc')}
+                      </Typography.Text>
+                    </a>
+                  ),
+                },
+              ],
+            }}
+          >
+            <Button className={style.actionButton} icon={<MoreOutlined />} size={'small'} />
+          </Dropdown>
         </Space>
       ),
       align: 'center',

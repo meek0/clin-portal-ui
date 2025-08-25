@@ -7,7 +7,8 @@ beforeEach(() => {
   presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
   cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3, '?sharedFilterId=7159fa28-876c-4a46-9a0d-c1e7b88ba5e2');
-  cy.get('tr svg[class="anticon"]').eq(0).clickAndWait({force: true});
+  cy.get('[class*="variantColumns_actionButton"]').click({force: true});
+  cy.get('[data-menu-id*="igv"]').should('be.visible').clickAndWait();
   cy.contains('Alignement et variant').should('exist');
 });
 
