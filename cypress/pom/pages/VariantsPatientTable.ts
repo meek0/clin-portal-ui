@@ -477,7 +477,7 @@ export const VariantsPatientTable = {
         { placeholder: '{{a_r}}', value: dataVariant.a_r },
         { placeholder: '{{a_ratio}}', value: dataVariant.a_ratio },
         { placeholder: '{{filter}}', value: dataVariant.filter },
-        { placeholder: '{{criteria_exomiser}}', value: dataVariant.criteria_exomiser },
+        { placeholder: '{{criteria_exomiser}}', value: dataVariant.criteria_exomiser.join(',') },
         { placeholder: '{{cmcP}}', value: dataVariant.cmcP },
         { placeholder: '{{cmcF}}', value: scientificToDecimal(dataVariant.cmcF) },
         { placeholder: '{{tier}}', value: dataVariant.tier },
@@ -795,6 +795,28 @@ export const VariantsPatientTable = {
               dataVariant.dataRowKey,
               column.position,
               dataVariant.op,
+            );
+            cy.validateTableDataRowKeyClass(
+              dataVariant.dataRowKey,
+              column.position,
+              'ant-tag-blue',
+            );
+            break;
+          case 'criteria_exomiser':
+            cy.validateTableDataRowKeyContent(
+              dataVariant.dataRowKey,
+              column.position,
+              dataVariant.criteria_exomiser[0],
+            );
+            cy.validateTableDataRowKeyContent(
+              dataVariant.dataRowKey,
+              column.position,
+              dataVariant.criteria_exomiser[1],
+            );
+            cy.validateTableDataRowKeyClass(
+              dataVariant.dataRowKey,
+              column.position,
+              'ant-tag-green',
             );
             cy.validateTableDataRowKeyClass(
               dataVariant.dataRowKey,

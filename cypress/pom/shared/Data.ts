@@ -47,6 +47,6 @@ export const data = {
       a_r: '84',
       a_ratio: '1.00',
       filter: 'PASS',
-      criteria_exomiser: 'PP4, BP6_Strong',
+      criteria_exomiser: ['PP4', 'BP6_Strong'],
     },
   };
