@@ -559,17 +559,17 @@
     "acmg_classification": {
       "abrv": {
         "PATHOGENIC": "P",
-        "LIKELY_PATHOGENIC": "PP",
-        "UNCERTAIN_SIGNIFICANCE": "VSI",
-        "LIKELY_BENIGN": "PB",
+        "LIKELY_PATHOGENIC": "LP",
+        "UNCERTAIN_SIGNIFICANCE": "VUS",
+        "LIKELY_BENIGN": "LB",
         "BENIGN": "B"
       },
       "value": {
-        "PATHOGENIC": "Pathogénique",
-        "LIKELY_PATHOGENIC": "Probablement pathogénique",
-        "UNCERTAIN_SIGNIFICANCE": "Variant de signification incertaine",
-        "LIKELY_BENIGN": "Probablement bénigne",
-        "BENIGN": "Bénigne"
+        "PATHOGENIC": "Pathogenic",
+        "LIKELY_PATHOGENIC": "Likely Pathogenic",
+        "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+        "LIKELY_BENIGN": "Likely Benign",
+        "BENIGN": "Benign"
       },
       "title": "ACMG E.",
       "tooltip": "Classification Exomiser ACMG la plus élevée parmi tous les patients pour ce variant"
@@ -596,27 +596,27 @@
     "expendableTable": {
       "abrv": {
         "PATHOGENIC": "P",
-        "LIKELY_PATHOGENIC": "PP",
-        "UNCERTAIN_SIGNIFICANCE": "VSI",
-        "LIKELY_BENIGN": "PB",
+        "LIKELY_PATHOGENIC": "LP",
+        "UNCERTAIN_SIGNIFICANCE": "VUS",
+        "LIKELY_BENIGN": "LB",
         "BENIGN": "B",
         "null": "ND",
-        "POSSIBLY_PATHOGENIC_MODERATE": "VSI",
-        "POSSIBLY_PATHOGENIC_BENIGN": "VSI",
-        "POSSIBLY_PATHOGENIC_LOW": "VSI",
-        "POSSIBLY_BENIGN": "VSI"
+        "POSSIBLY_PATHOGENIC_MODERATE": "VUS",
+        "POSSIBLY_PATHOGENIC_BENIGN": "VUS",
+        "POSSIBLY_PATHOGENIC_LOW": "VUS",
+        "POSSIBLY_BENIGN": "VUS"
       },
       "tooltip": {
-        "PATHOGENIC": "Pathogénique",
-        "LIKELY_PATHOGENIC": "Probablement pathogénique",
-        "UNCERTAIN_SIGNIFICANCE": "Variant de signification incertaine",
-        "LIKELY_BENIGN": "Probablement bénigne",
-        "BENIGN": "Bénigne",
-        "null": "Pas de données",
-        "POSSIBLY_PATHOGENIC_MODERATE": "Variant de signification incertaine",
-        "POSSIBLY_PATHOGENIC_BENIGN": "Variant de signification incertaine",
-        "POSSIBLY_PATHOGENIC_LOW": "Variant de signification incertaine",
-        "POSSIBLY_BENIGN": "Variant de signification incertaine",
+        "PATHOGENIC": "Pathogenic",
+        "LIKELY_PATHOGENIC": "Likely Pathogenic",
+        "UNCERTAIN_SIGNIFICANCE": "Uncertain Significance",
+        "LIKELY_BENIGN": "Likely Benign",
+        "BENIGN": "Benign",
+        "null": "No Data",
+        "POSSIBLY_PATHOGENIC_MODERATE": "VUS, Possibly Pathogenic Moderate",
+        "POSSIBLY_PATHOGENIC_BENIGN": "VUS, Possibly Pathogenic Benign",
+        "POSSIBLY_PATHOGENIC_LOW": "VUS, Possibly Pathogenic Low",
+        "POSSIBLY_BENIGN": "VUS, Possibly Benign",
         "PVS1": "Null variant (nonsense, frameshift, canonical ± 1 or 2 splice sites, initiation codon, single or multiexon deletion) in a gene where LOF (loss of function) is a known mechanism of disease.",
         "PS1": "Same amino acid change as a previously established pathogenic variant regardless of nucleotide change.",
         "PS2": "De novo (both maternity and paternity confirmed) in a patient with the disease and no family history.",
