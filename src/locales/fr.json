@@ -392,7 +392,7 @@
   "filters.options.tasks.GEBA": "G : Germinale",
   "filters.options.tasks.GEBA.abrv": "G",
   "filters.options.tasks.GEBA.tooltip": "Analyse bioinformatique d'exomes germinales",
-  "filters.options.tasks.PEBA": "PG: Pseudogène",
+  "filters.options.tasks.PEBA": "PG : Pseudogène",
   "filters.options.tasks.PEBA.abrv": "PG",
   "filters.options.tasks.PEBA.tooltip": "Analyse bioinformatique des pseudogènes d'exomes germinales",
   "filters.options.tasks.TEBA": "TO : Tumeur seule",
@@ -515,8 +515,8 @@
   "folder": "Dossier",
   "footer.navigation.fhir": "Fhir",
   "footer.navigation.zepplin": "Zeppelin",
-  "cnv_exomiser" : {
-    "variant_score_category":{
+  "cnv_exomiser": {
+    "variant_score_category": {
       "table": {
         "title": "Exo.",
         "tooltip": "Score Exomiser calculé en fonction des caractéristiques du variant et des phénotypes du patient"
@@ -534,13 +534,13 @@
         "ND": "Aucune donnée"
       }
     },
-    "variant_score":{
+    "variant_score": {
       "table": {
         "title": "Exo. (var)",
         "tooltip": "Max du score Exomiser pour tous les gènes"
       }
     },
-    "acmg_classification":{
+    "acmg_classification": {
       "table": {
         "title": "ACMG E.",
         "tooltip": "ACMG de Exomiser"
