@@ -126,7 +126,7 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
     cy.validateDictionnaryNewValues('Pathogénicité', 'Score Exomiser', dictionnary);
   });
   
-  it('Pathogénicité - Critères ACMG', () => {
+  it('Pathogénicité - ACMG de Exomiser', () => {
     const dictionnary = ['Pathogenic',
                          'Likely Pathogenic',
                          'Uncertain Significance',
@@ -135,10 +135,10 @@ describe('Page des CNVs d\'un patient - Dictionnaire', () => {
                          'No Data'];
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=92e4e5c0-5b1e-4521-a140-f4e28b2bf420');
-    cy.validateDictionnaryPresetValues('Pathogénicité', 'Critères ACMG', dictionnary);
+    cy.validateDictionnaryPresetValues('Pathogénicité', 'ACMG de Exomiser', dictionnary);
 
     cy.visitCNVsPatientPage(epCHUSJ_ldmCHUSJ.patientProbId, epCHUSJ_ldmCHUSJ.prescriptionId, 3, '?sharedFilterId=f5d9e3d5-6970-49c3-860c-d3ab00a06cdb');
-    cy.validateDictionnaryNewValues('Pathogénicité', 'Critères ACMG', dictionnary);
+    cy.validateDictionnaryNewValues('Pathogénicité', 'ACMG de Exomiser', dictionnary);
   });
 
   it('Analyse parentale - Origine parentale', () => {

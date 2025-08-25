@@ -15,8 +15,8 @@ describe('Page des CNVs d\'un patient - Ordre des facettes', () => {
     cy.validateFacetRank(0, 'Score Exomiser');
   });
 
-  it('Pathogénicité - Critères ACMG', () => {
-    cy.openFacet('Pathogénicité', 'Critères ACMG');
-    cy.validateFacetRank(1, 'Critères ACMG');
+  it('Pathogénicité - ACMG de Exomiser', () => {
+    cy.openFacet('Pathogénicité', 'ACMG de Exomiser');
+    cy.validateFacetRank(1, 'ACMG de Exomiser');
   });
 });
