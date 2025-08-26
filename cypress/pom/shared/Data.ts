@@ -28,7 +28,7 @@ export const data = {
       max_franklin: '-',
       max_exomiser: '0.964',
       acmg_franklin: 'ND',
-      acmg_exomiser: 'VSI',
+      acmg_exomiser: 'VUS',
       criteria_franklin: '-',
       cadd: '2.56e+1',
       revel: '-',

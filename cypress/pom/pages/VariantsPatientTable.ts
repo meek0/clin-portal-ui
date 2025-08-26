@@ -739,7 +739,7 @@ export const VariantsPatientTable = {
             cy.validateTableDataRowKeyClass(dataVariant.dataRowKey, column.position, 'ant-tag');
             break;
           case 'acmg_exomiser':
-            cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, 'VUS'); //dataVariant.acmg_exomiser
+            cy.validateTableDataRowKeyContent(dataVariant.dataRowKey, column.position, dataVariant.acmg_exomiser);
             cy.validateTableDataRowKeyClass(
               dataVariant.dataRowKey,
               column.position,
