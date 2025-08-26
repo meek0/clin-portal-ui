@@ -513,8 +513,8 @@
   "folder": "MRN",
   "footer.navigation.fhir": "Fhir",
   "footer.navigation.zepplin": "Zeppelin",
-  "cnv_exomiser" : {
-    "variant_score_category":{
+  "cnv_exomiser": {
+    "variant_score_category": {
       "table": {
         "title": "Exo.",
         "tooltip": "Exomiser score based on variant properties and patient phenotypes"
@@ -532,13 +532,13 @@
         "ND": "No Data"
       }
     },
-    "variant_score":{
+    "variant_score": {
       "table": {
         "title": "Exo. (Var)",
         "tooltip": "Max Exomiser score for all genes"
       }
     },
-    "acmg_classification":{
+    "acmg_classification": {
       "table": {
         "title": "ACMG E.",
         "tooltip": "Exomiser ACMG"
@@ -1167,7 +1167,7 @@
   "screen.patientsnv.category_patient": "Patient",
   "screen.patientsnv.category_rqdm": "RQDM Panel",
   "screen.patientsnv.category_variant": "Variant",
-  "screen.patientsnv.category_queries": "Queries",
+  "screen.patientsnv.category_queries": "My Queries",
   "screen.patientsnv.drawer.affected": "Affected",
   "screen.patientsnv.drawer.allprof": "Allele Depth ALT",
   "screen.patientsnv.drawer.allratio": "Allelic Ratio ALT / (ALT+REF)",

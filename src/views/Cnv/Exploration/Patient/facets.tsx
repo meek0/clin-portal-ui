@@ -1,5 +1,5 @@
 import intl from 'react-intl-universal';
-import { FilterFilled, SafetyCertificateOutlined } from '@ant-design/icons';
+import { SafetyCertificateOutlined, StarOutlined } from '@ant-design/icons';
 import QueriesSidebar from '@ferlab/ui/core/components/CustomPill/QueriesSidebar';
 import { ISavedFilter } from '@ferlab/ui/core/components/QueryBuilder/types';
 import { IDictionary } from '@ferlab/ui/core/components/QueryBuilder/types';
@@ -200,7 +200,37 @@ export const getMenuItems = ({
   customPillConfig,
   isCustomPillMenuEdition = false,
 }: IGetMenuItems) => {
-  const menuItems = [
+  const menuItems = [];
+
+  if (!isCustomPillMenuEdition && customPillConfig) {
+    menuItems.push({
+      key: 'custom_pill',
+      title: intl.get('screen.patientsnv.category_queries'),
+      icon: <StarOutlined className={styles.sideMenuIcon} />,
+      panelContent: (
+        <QueriesSidebar
+          customPills={customPillConfig.customPills}
+          hasError={customPillConfig.hasCustomPillError}
+          isLoading={customPillConfig.isLoading}
+          dictionary={getQueriesSidebarDictionary()}
+          learnMoreLink={customPillConfig.learnMoreLink}
+          queryBuilderId={CNV_VARIANT_PATIENT_QB_ID}
+          queryDictionary={customPillConfig.queryDictionary}
+          queryEditionQBId={QUERY_EDITION_QB_ID}
+          editMenuItems={customPillConfig.menuItemsEditionPill}
+          tag={CNV_EXPLORATION_PATIENT_FILTER_TAG}
+          editPill={customPillConfig.editCustomPill}
+          duplicatePill={customPillConfig.duplicateCustomPill}
+          deletePill={customPillConfig.deleteCustomPill}
+          getFiltersByPill={fetchFiltersByCustomPill}
+          validateName={customPillConfig.validateName}
+        />
+      ),
+      followedByDivider: true,
+    });
+  }
+
+  menuItems.push(
     {
       key: 'rqdm',
       title: intl.get('screen.patientsnv.category_rqdm'),
@@ -285,34 +315,7 @@ export const getMenuItems = ({
         filterMapper,
       ),
     },
-  ];
-
-  if (!isCustomPillMenuEdition && customPillConfig) {
-    menuItems.push({
-      key: 'custom_pill',
-      title: intl.get('screen.patientsnv.category_queries'),
-      icon: <FilterFilled className={styles.sideMenuIcon} />,
-      panelContent: (
-        <QueriesSidebar
-          customPills={customPillConfig.customPills}
-          hasError={customPillConfig.hasCustomPillError}
-          isLoading={customPillConfig.isLoading}
-          dictionary={getQueriesSidebarDictionary()}
-          learnMoreLink={customPillConfig.learnMoreLink}
-          queryBuilderId={CNV_VARIANT_PATIENT_QB_ID}
-          queryDictionary={customPillConfig.queryDictionary}
-          queryEditionQBId={QUERY_EDITION_QB_ID}
-          editMenuItems={customPillConfig.menuItemsEditionPill}
-          tag={CNV_EXPLORATION_PATIENT_FILTER_TAG}
-          editPill={customPillConfig.editCustomPill}
-          duplicatePill={customPillConfig.duplicateCustomPill}
-          deletePill={customPillConfig.deleteCustomPill}
-          getFiltersByPill={fetchFiltersByCustomPill}
-          validateName={customPillConfig.validateName}
-        />
-      ),
-    });
-  }
+  );
 
   return menuItems;
 };

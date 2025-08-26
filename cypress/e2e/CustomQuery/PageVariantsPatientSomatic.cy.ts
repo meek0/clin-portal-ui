@@ -11,7 +11,7 @@ beforeEach(() => {
 
 describe('Page des variants d\'un patient (somatic) - Pilule personnalisée', () => {
   it('Valider la couleur', () => {
-    cy.get(`[data-cy="SidebarMenuItem_Requêtes"]`).clickAndWait({force: true});
+    cy.get(`[data-cy="SidebarMenuItem_Mes requêtes"]`).clickAndWait({force: true});
 
     cy.intercept('POST', '**/graphql').as('getRouteMatcher');
     cy.get('[class*="QueriesSidebar_queryPill"]').contains('Cypress').clickAndWait({force: true});

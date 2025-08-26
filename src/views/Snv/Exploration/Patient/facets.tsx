@@ -1,5 +1,5 @@
 import intl from 'react-intl-universal';
-import { FilterFilled } from '@ant-design/icons';
+import { StarOutlined } from '@ant-design/icons';
 import QueriesSidebar from '@ferlab/ui/core/components/CustomPill/QueriesSidebar';
 import { IDictionary, ISavedFilter } from '@ferlab/ui/core/components/QueryBuilder/types';
 import { ISidebarMenuItem } from '@ferlab/ui/core/components/SidebarMenu';
@@ -852,7 +852,37 @@ export const getMenuItems = ({
   const [filterVariantType, filterGeneType, filterFrequencyType, filterOccType, filterPathType] =
     getFilterTypes(variantSection, variantType);
 
-  const menuItems = [
+  const menuItems = [];
+
+  if (!isCustomPillMenuEdition && customPillConfig) {
+    menuItems.push({
+      key: 'custom_pill',
+      title: intl.get('screen.patientsnv.category_queries'),
+      icon: <StarOutlined className={styles.sideMenuIcon} />,
+      panelContent: (
+        <QueriesSidebar
+          customPills={customPillConfig.customPills}
+          hasError={customPillConfig.hasCustomPillError}
+          isLoading={customPillConfig.isLoading}
+          dictionary={getQueriesSidebarDictionary()}
+          learnMoreLink={customPillConfig.learnMoreLink}
+          queryBuilderId={getQueryBuilderID(variantSection)}
+          queryDictionary={customPillConfig.queryDictionary}
+          queryEditionQBId={QUERY_EDITION_QB_ID}
+          editMenuItems={customPillConfig.menuItemsEditionPill}
+          tag={getSavedFilterID(variantSection)}
+          editPill={customPillConfig.editCustomPill}
+          duplicatePill={customPillConfig.duplicateCustomPill}
+          deletePill={customPillConfig.deleteCustomPill}
+          getFiltersByPill={fetchFiltersByCustomPill}
+          validateName={customPillConfig.validateName}
+        />
+      ),
+      followedByDivider: true,
+    });
+  }
+
+  menuItems.push(
     {
       key: 'rqdm',
       title: intl.get('screen.patientsnv.category_rqdm'),
@@ -925,34 +955,7 @@ export const getMenuItems = ({
         filterMapper,
       ),
     },
-  ];
-
-  if (!isCustomPillMenuEdition && customPillConfig) {
-    menuItems.push({
-      key: 'custom_pill',
-      title: intl.get('screen.patientsnv.category_queries'),
-      icon: <FilterFilled className={styles.sideMenuIcon} />,
-      panelContent: (
-        <QueriesSidebar
-          customPills={customPillConfig.customPills}
-          hasError={customPillConfig.hasCustomPillError}
-          isLoading={customPillConfig.isLoading}
-          dictionary={getQueriesSidebarDictionary()}
-          learnMoreLink={customPillConfig.learnMoreLink}
-          queryBuilderId={getQueryBuilderID(variantSection)}
-          queryDictionary={customPillConfig.queryDictionary}
-          queryEditionQBId={QUERY_EDITION_QB_ID}
-          editMenuItems={customPillConfig.menuItemsEditionPill}
-          tag={getSavedFilterID(variantSection)}
-          editPill={customPillConfig.editCustomPill}
-          duplicatePill={customPillConfig.duplicateCustomPill}
-          deletePill={customPillConfig.deleteCustomPill}
-          getFiltersByPill={fetchFiltersByCustomPill}
-          validateName={customPillConfig.validateName}
-        />
-      ),
-    });
-  }
+  );
 
   return menuItems;
 };
