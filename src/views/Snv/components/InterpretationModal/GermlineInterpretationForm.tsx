@@ -20,6 +20,14 @@ import { requiredRule } from './utils';
 
 import styles from './index.module.css';
 
+export const classificationMap: Record<string, string> = {
+  PATHOGENIC: 'LA6668-3',
+  LIKELY_PATHOGENIC: 'LA26332-9',
+  UNCERTAIN_SIGNIFICANCE: 'LA26333-7',
+  LIKELY_BENIGN: 'LA26334-5',
+  BENIGN: 'LA6675-8',
+};
+
 const GermlineInterpretationForm = () => {
   const form = Form.useFormInstance();
   const [results, setResults] = useState<TMondoAutocompleteHit[]>([]);
@@ -121,7 +129,7 @@ const GermlineInterpretationForm = () => {
             shouldUpdate
           >
             <Radio.Group className={styles.radioButton}>
-              <Radio.Button value="LA6668-3" className={styles.red}>
+              <Radio.Button value={classificationMap['PATHOGENIC']} className={styles.red}>
                 {intl.get(
                   'modal.variant.interpretation.germline.classification-options.pathogenic',
                 )}
@@ -131,7 +139,10 @@ const GermlineInterpretationForm = () => {
                   'modal.variant.interpretation.germline.classification-options.likelyPathogenic-tooltip',
                 )}
               >
-                <Radio.Button value="LA26332-9" className={styles.volcano}>
+                <Radio.Button
+                  value={classificationMap['LIKELY_PATHOGENIC']}
+                  className={styles.volcano}
+                >
                   {intl.get(
                     'modal.variant.interpretation.germline.classification-options.likelyPathogenic',
                   )}
@@ -142,7 +153,10 @@ const GermlineInterpretationForm = () => {
                   'modal.variant.interpretation.germline.classification-options.vus-tooltip',
                 )}
               >
-                <Radio.Button value="LA26333-7" className={styles.orange}>
+                <Radio.Button
+                  value={classificationMap['UNCERTAIN_SIGNIFICANCE']}
+                  className={styles.orange}
+                >
                   {intl.get('modal.variant.interpretation.germline.classification-options.vus')}
                 </Radio.Button>
               </Tooltip>
@@ -151,13 +165,13 @@ const GermlineInterpretationForm = () => {
                   'modal.variant.interpretation.germline.classification-options.likelyBenign-tooltip',
                 )}
               >
-                <Radio.Button value="LA26334-5" className={styles.lime}>
+                <Radio.Button value={classificationMap['LIKELY_BENIGN']} className={styles.lime}>
                   {intl.get(
                     'modal.variant.interpretation.germline.classification-options.likelyBenign',
                   )}
                 </Radio.Button>
               </Tooltip>
-              <Radio.Button value="LA6675-8" className={styles.green}>
+              <Radio.Button value={classificationMap['BENIGN']} className={styles.green}>
                 {intl.get('modal.variant.interpretation.germline.classification-options.benign')}
               </Radio.Button>
             </Radio.Group>

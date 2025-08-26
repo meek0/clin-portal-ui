@@ -7,6 +7,7 @@ import {
   TInterpretationSomaticOutput,
 } from 'api/interpretation/model';
 
+import { classificationMap } from './GermlineInterpretationForm';
 import {
   GenericInterpFormFields,
   GermlineInterpFormFields,
@@ -36,8 +37,10 @@ const getGenericInterpFormInitialValues = (interpretation: TInterpretationOutput
 export const getGermlineInterpFormInitialValues = (
   interpretation: TInterpretationGermlineOutput | null,
   defaultClassificationCriterias: string[],
+  defaultClassification: string,
 ): TInterpretationGermline => ({
-  [GermlineInterpFormFields.CLASSIFICATION]: interpretation?.classification,
+  [GermlineInterpFormFields.CLASSIFICATION]:
+    interpretation?.classification || defaultClassification,
   [GermlineInterpFormFields.CLASSIFICATION_CRITERIAS]:
     interpretation?.classification_criterias || defaultClassificationCriterias,
   [GermlineInterpFormFields.CONDITION]: interpretation?.condition,
@@ -62,6 +65,7 @@ export const getInterpretationFormInitialValues = (
   interpretation: TInterpretationOutput | null,
   hasInterpretation: boolean,
   acmgEvidence?: string[],
+  acmgClassification?: string,
 ) => {
   const defaultClassificationCriterias: string[] = [];
   if (!hasInterpretation && !isSomatic && acmgEvidence?.length) {
@@ -70,12 +74,17 @@ export const getInterpretationFormInitialValues = (
       defaultClassificationCriterias.push(evidenceOpt[0]);
     });
   }
+  let defaultClassification = '';
+  if (!hasInterpretation && !isSomatic && acmgClassification) {
+    defaultClassification = classificationMap[acmgClassification];
+  }
   return {
     ...(isSomatic
       ? getSimaticInterpFormInitialValues(interpretation as TInterpretationSomaticOutput)
       : getGermlineInterpFormInitialValues(
           interpretation as TInterpretationGermlineOutput,
           defaultClassificationCriterias,
+          defaultClassification,
         )),
     ...getGenericInterpFormInitialValues(interpretation),
   };
