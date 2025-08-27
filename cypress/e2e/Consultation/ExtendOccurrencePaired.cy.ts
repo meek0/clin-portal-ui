@@ -18,7 +18,7 @@ describe('Ligne extensible d\'une occurrence (paired)', () => {
     cy.get('[class="ant-card-head-title"] button').eq(1).contains('Rapport CHUSJ').should('exist');
     cy.get('[class="ant-card-head-title"] button').eq(2).contains('Ouvrir IGV').should('exist');
     cy.get('[class="ant-card-head-title"]').contains('UCSC').should('exist');
-    cy.get('[class="ant-card-head-title"]').contains('LitVAR').should('not.exist');
+    cy.get('[class="ant-card-head-title"]').contains('LitVAR').should('exist');
   });
 
   it('Vérifier les informations affichées - Transcrit', () => {
@@ -35,7 +35,7 @@ describe('Ligne extensible d\'une occurrence (paired)', () => {
     cy.get('[class*="OccurenceVariant_transcript"]').contains('Exon').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').contains('1 / 7').should('exist');
     cy.get('[class*="OccurenceVariant_transcript"]').contains('c.2T>G').should('exist');
-    cy.get('[class*="OccurenceVariant_transcript"]').contains(/^rs/).should('not.exist');
+    cy.get('[class*="OccurenceVariant_transcript"]').contains('rs1446523366').should('exist');
   });
 
   it('Vérifier les informations affichées - Section Classifications', () => {

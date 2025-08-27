@@ -26,8 +26,8 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
  
   it('Valider les liens disponibles Lien dbSNP', () => {
     setupTest();
-    cy.get('tr[data-row-key="8f11e237271fa6d6c5b0cab036012fe68fba0e7f"] td').eq(8).find('a[href]')
-      .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/snp/rs750458124');
+    cy.get('tr[data-row-key="2f53f2ed574a720853172ff224c608efc5e3b623"] td').eq(8).find('a[href]')
+      .should('have.attr', 'href', 'https://www.ncbi.nlm.nih.gov/snp/rs1446523366');
   });
  
   it('Valider les liens disponibles Lien Gène', () => {

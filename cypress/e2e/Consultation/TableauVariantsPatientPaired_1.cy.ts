@@ -27,7 +27,7 @@ describe('Page des variants d\'un patient (paired) - Consultation du tableau', (
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 6, 'SNV');
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 7, 'TN');
     cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 7, 'ant-tag-red');
-    cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 8, '-');
+    cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 8, 'anticon');
     cy.validateTableDataRowKeyContent('2f53f2ed574a720853172ff224c608efc5e3b623', 9, 'HACD1');
     cy.validateTableDataRowKeyAttr('2f53f2ed574a720853172ff224c608efc5e3b623', 9, 'data-icon', 'plus');
     cy.validateTableDataRowKeyClass('2f53f2ed574a720853172ff224c608efc5e3b623', 10, 'ConsequencesCell_highImpact');
