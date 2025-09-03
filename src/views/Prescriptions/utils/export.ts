@@ -3,6 +3,7 @@ import intl from 'react-intl-universal';
 import { getPractitionnerName } from '@ferlab/ui/core/components/Assignments/AssignmentsFilter';
 import { TPractitionnerInfo } from '@ferlab/ui/core/components/Assignments/types';
 import { Practitioner, PractitionerBundleType, PractitionerRole } from 'api/fhir/models';
+import { VariantEntity } from 'graphql/cnv/models';
 import { findDonorById } from 'graphql/variants/selector';
 import get from 'lodash/get';
 import orderBy from 'lodash/orderBy';
@@ -183,8 +184,22 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderGnomADSFToString(row));
     } else if (key === 'parental_origin') {
       return convertToPlain(renderPOToString(row));
-    } else if (key === 'frequency_RQDM.pf') {
-      return convertToPlain(renderRQDMPfToString(row));
+    } else if (key === 'cluster.frequency_RQDM.germ.total.pf') {
+      return convertToPlain(
+        renderRQDMPfToString((row as VariantEntity).cluster.frequency_RQDM?.germ?.total?.pf),
+      );
+    } else if (key === 'cluster.frequency_RQDM.germ.affected.pf') {
+      return convertToPlain(
+        renderRQDMPfToString((row as VariantEntity).cluster.frequency_RQDM?.germ?.affected?.pf),
+      );
+    } else if (key === 'cluster.frequency_RQDM.germ.non_affected.pf') {
+      return convertToPlain(
+        renderRQDMPfToString((row as VariantEntity).cluster.frequency_RQDM?.germ?.non_affected?.pf),
+      );
+    } else if (key === 'cluster.frequency_RQDM.som.pf') {
+      return convertToPlain(
+        renderRQDMPfToString((row as VariantEntity).cluster.frequency_RQDM?.som?.pf),
+      );
     } else if (key === 'exomiser.acmg_classification') {
       return convertToPlain(
         renderExomiserCnvAcmg_ClassificationToString(row.exomiser?.acmg_classification),

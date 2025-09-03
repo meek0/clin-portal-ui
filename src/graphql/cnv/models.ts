@@ -65,6 +65,14 @@ export type ClusterEntity = {
       sc: number;
     };
   };
+  frequency_RQDM: {
+    germ: {
+      total: FrequencyEntity;
+      affected: FrequencyEntity;
+      non_affected: FrequencyEntity;
+    };
+    som: FrequencyEntity;
+  };
 };
 
 export type FrequencyEntity = {

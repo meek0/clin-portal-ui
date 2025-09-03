@@ -10,7 +10,7 @@ import { generateQuery, generateValueFilter } from '@ferlab/ui/core/data/sqon/ut
 import { removeUnderscoreAndCapitalize } from '@ferlab/ui/core/utils/stringUtils';
 import { Button, Dropdown, Space, Tag, Tooltip, Typography } from 'antd';
 import cx from 'classnames';
-import { FrequencyEntity, ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
+import { ITableVariantEntity, VariantEntity } from 'graphql/cnv/models';
 import { INDEXES } from 'graphql/constants';
 import { VariantType } from 'graphql/variants/models';
 import { PrescriptionEntityTabs } from 'views/Prescriptions/Entity';
@@ -28,6 +28,7 @@ import { renderExomiserAcmg_Classification } from 'views/Snv/Exploration/variant
 import { getQueryBuilderID } from 'views/Snv/utils/constant';
 
 import ExternalLinkIcon from 'components/icons/ExternalLinkIcon';
+import ModerateBadgeIcon from 'components/icons/variantBadgeIcons/ModerateBadgeIcon';
 import { TABLE_EMPTY_PLACE_HOLDER, TABLE_ND_PLACE_HOLDER } from 'utils/constants';
 import EnvironmentVariables from 'utils/EnvVariables';
 import { formatFilters } from 'utils/formatFilters';
@@ -66,8 +67,8 @@ export const interpretationListHasInterpretation = (
     (item) => hash && sequencing_id && item === formatInterpretationListItem(hash, sequencing_id),
   );
 
-export const renderRQDMPfToString = ({ frequency_RQDM }: VariantEntity) =>
-  frequency_RQDM ? (frequency_RQDM?.pf || 0.0).toExponential(2) : TABLE_EMPTY_PLACE_HOLDER;
+export const renderRQDMPfToString = (frequency_RQDM: number) =>
+  frequency_RQDM ? frequency_RQDM.toExponential(2) : TABLE_EMPTY_PLACE_HOLDER;
 
 export const ExomiserColorMap: Record<any, string> = {
   HIGH: 'red',
@@ -499,53 +500,146 @@ export const getVariantColumns = (
     },
   );
 
-  if (onlyExportTSV) {
+  if (variantSection === VariantSection.CNV) {
+    if (onlyExportTSV) {
+      columns.push({
+        key: 'cluster.frequency_RQDM.germ.total.pc',
+        title: intl.get('screen.patientsnv.results.table.rqdm'),
+        defaultHidden: true,
+      });
+    }
     columns.push({
-      key: 'frequency_RQDM.pc',
-      title: intl.get('screen.patientsnv.results.table.rqdm'),
-      defaultHidden: true,
-    });
-  }
-  columns.push(
-    {
-      title: intl.get('screen.patientcnv.results.table.rqdm'),
-      tooltip: intl.get('screen.patientcnv.results.table.rqdm.tooltip'),
-      key: 'frequency_RQDM.pf',
+      title: intl.get('screen.patientcnv.results.table.rqdmG'),
+      tooltip: intl.get('screen.patientcnv.results.table.rqdmG.tooltip'),
+      key: 'cluster.frequency_RQDM.germ.total.pf',
       sorter: { multiple: 1 },
-      dataIndex: 'frequency_RQDM',
-      render: (frequency_RQDM: FrequencyEntity) =>
-        frequency_RQDM?.pc ? (
+      render: (variant: VariantEntity) => {
+        const frequency_RQDM = variant?.cluster?.frequency_RQDM?.germ?.total;
+        return frequency_RQDM?.pc ? (
           <Space size={4}>
             {frequency_RQDM.pc}
             <Typography.Text>({(frequency_RQDM?.pf || 0.0).toExponential(2)})</Typography.Text>
           </Space>
         ) : (
           TABLE_EMPTY_PLACE_HOLDER
-        ),
-      width: 100,
-    },
-    {
-      title: intl.get('screen.patientcnv.results.table.number_genes'),
-      tooltip: intl.get('screen.patientcnv.results.table.number_genes.tooltip'),
-      key: 'number_genes',
-      dataIndex: 'number_genes',
-      width: 85,
+        );
+      },
+      width: 110,
+    });
+    if (onlyExportTSV) {
+      columns.push({
+        key: 'cluster.frequency_RQDM.germ.affected.pc',
+        title: intl.get('screen.patientsnv.results.table.rqdm'),
+        defaultHidden: true,
+      });
+    }
+    columns.push({
+      title: intl.get('screen.patientcnv.results.table.rqdmG_affected'),
+      iconTitle: (
+        <Space>
+          {intl.get('screen.variant.entity.frequencyTab.RQDM.title')}
+          <ModerateBadgeIcon svgClass={`${style.rqdmAffectedIcon}`} />
+        </Space>
+      ),
+      tooltip: intl.get('screen.patientcnv.results.table.rqdmG_affected.tooltip'),
+      key: 'cluster.frequency_RQDM.germ.affected.pf',
       sorter: { multiple: 1 },
-      render: (number_genes: number, variant: VariantEntity) =>
-        number_genes !== 0 ? (
-          <a
-            onClick={(e) => {
-              e.preventDefault();
-              openGenesModal(variant);
-            }}
-          >
-            {number_genes}
-          </a>
+      render: (variant: VariantEntity) => {
+        const frequency_RQDM = variant?.cluster?.frequency_RQDM?.germ?.affected;
+        return frequency_RQDM?.pc ? (
+          <Space size={4}>
+            {frequency_RQDM.pc}
+            <Typography.Text>({(frequency_RQDM?.pf || 0.0).toExponential(2)})</Typography.Text>
+          </Space>
         ) : (
-          <>{number_genes}</>
-        ),
-    },
-  );
+          TABLE_EMPTY_PLACE_HOLDER
+        );
+      },
+      width: 100,
+    });
+    if (onlyExportTSV) {
+      columns.push({
+        key: 'cluster.frequency_RQDM.germ.non_affected.pc',
+        title: intl.get('screen.patientsnv.results.table.rqdm'),
+        defaultHidden: true,
+      });
+    }
+    columns.push({
+      title: intl.get('screen.patientcnv.results.table.rqdmG_nonAffected'),
+      iconTitle: (
+        <Space>
+          {intl.get('screen.variant.entity.frequencyTab.RQDM.title')}
+          <ModerateBadgeIcon svgClass={`${style.rqdmNonAffectedIcon}`} />
+        </Space>
+      ),
+      tooltip: intl.get('screen.patientcnv.results.table.rqdmG_nonAffected.tooltip'),
+      key: 'cluster.frequency_RQDM.germ.non_affected.pf',
+      sorter: { multiple: 1 },
+      defaultHidden: true,
+      render: (variant: VariantEntity) => {
+        const frequency_RQDM = variant?.cluster?.frequency_RQDM?.germ?.non_affected;
+        return frequency_RQDM?.pc ? (
+          <Space size={4}>
+            {frequency_RQDM.pc}
+            <Typography.Text>({(frequency_RQDM?.pf || 0.0).toExponential(2)})</Typography.Text>
+          </Space>
+        ) : (
+          TABLE_EMPTY_PLACE_HOLDER
+        );
+      },
+      width: 100,
+    });
+  }
+
+  if (variantSection === VariantSection.CNVTO) {
+    if (onlyExportTSV) {
+      columns.push({
+        key: 'cluster.frequency_RQDM.som.pc',
+        title: intl.get('screen.patientsnv.results.table.rqdm'),
+        defaultHidden: true,
+      });
+    }
+    columns.push({
+      title: intl.get('screen.patientcnv.results.table.rqdmTO'),
+      tooltip: intl.get('screen.patientcnv.results.table.rqdmG.tooltip'),
+      key: 'cluster.frequency_RQDM.som.pf',
+      sorter: { multiple: 1 },
+      render: (variant: VariantEntity) => {
+        const frequency_RQDM = variant?.cluster?.frequency_RQDM?.som;
+        return frequency_RQDM?.pc ? (
+          <Space size={4}>
+            {frequency_RQDM.pc}
+            <Typography.Text>({(frequency_RQDM?.pf || 0.0).toExponential(2)})</Typography.Text>
+          </Space>
+        ) : (
+          TABLE_EMPTY_PLACE_HOLDER
+        );
+      },
+      width: 110,
+    });
+  }
+
+  columns.push({
+    title: intl.get('screen.patientcnv.results.table.number_genes'),
+    tooltip: intl.get('screen.patientcnv.results.table.number_genes.tooltip'),
+    key: 'number_genes',
+    dataIndex: 'number_genes',
+    width: 85,
+    sorter: { multiple: 1 },
+    render: (number_genes: number, variant: VariantEntity) =>
+      number_genes !== 0 ? (
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            openGenesModal(variant);
+          }}
+        >
+          {number_genes}
+        </a>
+      ) : (
+        <>{number_genes}</>
+      ),
+  });
 
   if (variantSection === VariantSection.CNVTO) {
     columns.push({

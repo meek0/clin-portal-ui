@@ -700,9 +700,6 @@ export const getFacetsDictionaryCNV = () => ({
     panels: intl.get('filters.group.genes.panels'),
     location: intl.get('filters.group.genes.location'),
   },
-  frequency_RQDM: {
-    pf: intl.get('cnv.filters.group.frequency_RQDM.pf'),
-  },
   exomiser: {
     variant_score_category: intl.get('cnv.filters.group.exomiser.variant_score_category'),
     acmg_classification: intl.get('cnv.filters.group.exomiser.acmg_classification'),
@@ -712,6 +709,22 @@ export const getFacetsDictionaryCNV = () => ({
       gnomad_exomes_4: {
         sf: intl.get('filters.group.external_frequencies.gnomad_joint_4.af'),
         sc: intl.get('filters.group.external_frequencies.gnomad_joint_4.ac'),
+      },
+    },
+    frequency_RQDM: {
+      som: {
+        pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.som.pf'),
+      },
+      germ: {
+        total: {
+          pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.total.pf'),
+        },
+        affected: {
+          pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.affected.pf'),
+        },
+        non_affected: {
+          pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.non_affected.pf'),
+        },
       },
     },
   },

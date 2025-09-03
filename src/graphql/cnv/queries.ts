@@ -60,6 +60,26 @@ export const VARIANT_QUERY = gql`
                   sc
                 }
               }
+              frequency_RQDM {
+                germ {
+                  total {
+                    pc
+                    pf
+                  }
+                  affected {
+                    pc
+                    pf
+                  }
+                  non_affected {
+                    pc
+                    pf
+                  }
+                }
+                som {
+                  pc
+                  pf
+                }
+              }
             }
             frequency_RQDM {
               pc

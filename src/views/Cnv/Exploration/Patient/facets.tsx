@@ -109,9 +109,23 @@ const getFilterGroups = (
     groups: [
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.rqdmpatient'),
-        facets: ['frequency_RQDM__pf'],
+        facets: [
+          'cluster__frequency_RQDM__som__pf',
+          'cluster__frequency_RQDM__germ__total__pf',
+          'cluster__frequency_RQDM__germ__affected__pf',
+          'cluster__frequency_RQDM__germ__non_affected__pf',
+        ],
         defaults: {
-          frequency_RQDM__pf: {
+          cluster__frequency_RQDM__som__pf: {
+            operator: RangeOperators['<='],
+          },
+          cluster__frequency_RQDM__germ__total__pf: {
+            operator: RangeOperators['<='],
+          },
+          cluster__frequency_RQDM__germ__affected__pf: {
+            operator: RangeOperators['<='],
+          },
+          cluster__frequency_RQDM__germ__non_affected__pf: {
             operator: RangeOperators['<='],
           },
         },
