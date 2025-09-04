@@ -225,6 +225,7 @@ const InterpretationModal = ({
                       interpretation,
                       hasInterpretation,
                       record.exomiser_max?.acmg_evidence,
+                      record.exomiser_max?.acmg_classification,
                     )}
                     onFinish={handleFinish}
                     validateMessages={{
