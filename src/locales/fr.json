@@ -401,7 +401,7 @@
   "filters.options.tasks.TNEBA": "TN : Tumeur-normal",
   "filters.options.tasks.TNEBA.abrv": "TN",
   "filters.options.tasks.TNEBA.tooltip": "Analyse bioinformatique des exomes tumoraux et normaux",
-  "filters.options.status.active": "Approuvée",
+  "filters.options.status.active": "Complétée",
   "filters.options.status.completed": "Complétée",
   "filters.options.status.draft": "Brouillon",
   "filters.options.status.incomplete": "Incomplète",
