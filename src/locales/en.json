@@ -181,6 +181,7 @@
   "cnv.filters.group.cn": "Copy Number",
   "cnv.filters.group.frequency_RQDM.pf": "CNV Freq. All Patients",
   "cnv.filters.group.exomiser.variant_score_category": "Exomiser Score",
+  "cnv.filters.group.exomiser.variant_score_category.tooltip": "Exomiser’s CNV functionality is intended solely for germline variant prioritization and is not designed for somatic variant analysis.",
   "cnv.filters.group.exomiser.acmg_classification": "Exomiser ACMG",
   "cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sf": "gnomAD 4.1.0",
   "cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sf.tooltip": "Values between [0-1]. The rarest variants will have a frequency close to 0.",

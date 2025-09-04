@@ -143,6 +143,7 @@ const getFilterGroups = (
       {
         title: intl.get('exomiser'),
         facets: ['exomiser__variant_score_category', 'exomiser__acmg_classification'],
+        tooltips: ['exomiser__variant_score_category', 'exomiser__acmg_classification'],
       },
     ],
   },
