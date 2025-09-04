@@ -20,6 +20,7 @@ import {
   renderCaddPhredToString,
   renderClinvarToString,
   renderDonorToString,
+  renderExomiseAcmg_evidenceToString,
   renderExomiserAcmg_ClassificationToString,
   renderExomiserScoreToString,
   renderFlagToString,
@@ -140,6 +141,8 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       return convertToPlain(renderFranklinAcmg_ClassificationToString(row));
     } else if (key === 'franklin_max.acmg_evidence') {
       return convertToPlain(renderFranklinAcmg_evidenceToString(row));
+    } else if (key === 'donors.exomiser.acmg_evidence') {
+      return convertToPlain(renderExomiseAcmg_evidenceToString(row));
     } else if (key === 'MANE') {
       return convertToPlain(renderManeToString(row));
     } else if (key === 'flags') {
@@ -148,7 +151,6 @@ export const customMapping = (prefix: string, key: string, row: any, patientId: 
       [
         'donors.exomiser.gene_combined_score',
         'donors.exomiser.acmg_classification',
-        'donors.exomiser.acmg_evidence',
         'donors.gq',
         'donors.sq',
         'donors.zygosity',

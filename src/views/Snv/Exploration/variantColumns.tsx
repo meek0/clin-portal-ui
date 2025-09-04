@@ -60,6 +60,7 @@ import { formatNumber } from 'utils/formatNumber';
 
 import GqLine from '../components/GQLine';
 import { HcComplementDescription } from '../components/OccurenceVariant/HcDescription';
+import { ACMGEvidenceColorMap } from '../components/OccurenceVariant/Sections/predictions';
 import { TAB_ID } from '../Entity';
 import { getQueryBuilderID, ZygosityValue } from '../utils/constant';
 
@@ -223,8 +224,7 @@ const getFranklinAcmgEvidence = (patientId?: string) => ({
   tooltip: intl.get('franklin.acmg_evidence.tooltip'),
   width: 100,
   defaultHidden: !!patientId,
-  render: (record: VariantEntity) =>
-    renderFranklinAcmg_evidence(record?.franklin_max?.acmg_evidence),
+  render: (record: VariantEntity) => renderAcmg_evidence(record?.franklin_max?.acmg_evidence),
 });
 
 const getExomiserScore = () => ({
@@ -1215,8 +1215,19 @@ const renderFranklinAcmg_Classification = (acmg?: string, link?: string, locus?:
   );
 };
 
-const renderFranklinAcmg_evidence = (acmg?: string[]) =>
-  acmg && acmg.length > 0 ? acmg.join(', ') : TABLE_EMPTY_PLACE_HOLDER;
+const renderAcmg_evidence = (acmg?: string[]) => {
+  if (!acmg || acmg.length === 0) {
+    return TABLE_EMPTY_PLACE_HOLDER;
+  }
+  return acmg.map((e: string) => {
+    const code = e.split('_')[0];
+    return (
+      <Tooltip key={e} title={intl.get(`franklin.expendableTable.tooltip.${code}`)}>
+        <Tag color={ACMGEvidenceColorMap[code]}>{e}</Tag>
+      </Tooltip>
+    );
+  });
+};
 
 export const renderExomiserAcmg_Classification = (acmg?: string) =>
   acmg ? (
@@ -1295,7 +1306,12 @@ export const renderFranklinAcmg_ClassificationToString = (variant: any) => {
 
 export const renderFranklinAcmg_evidenceToString = (variant: any) => {
   const value = variant?.franklin_max?.acmg_evidence;
-  return renderToString(renderFranklinAcmg_evidence(value));
+  return renderToString(value && value.length > 0 ? value.join(', ') : TABLE_EMPTY_PLACE_HOLDER);
+};
+
+export const renderExomiseAcmg_evidenceToString = (variant: any) => {
+  const value = variant?.exomiser_max?.acmg_evidence;
+  return renderToString(value && value.length > 0 ? value.join(', ') : TABLE_EMPTY_PLACE_HOLDER);
 };
 
 export const renderClinvarToString = (variant: any) => {
@@ -1456,7 +1472,7 @@ const renderDonorByKey = (key: string, donor?: DonorsEntity) => {
   } else if (key === 'donors.exomiser.gene_combined_score') {
     return donor?.exomiser?.gene_combined_score.toFixed(3) || TABLE_EMPTY_PLACE_HOLDER;
   } else if (key === 'donors.exomiser.acmg_evidence') {
-    return (donor?.exomiser?.acmg_evidence || [TABLE_EMPTY_PLACE_HOLDER])?.join(', ');
+    return renderAcmg_evidence(donor?.exomiser?.acmg_evidence);
   } else if (key === 'donors.exomiser.acmg_classification') {
     return removeUnderscoreAndCapitalize(
       donor?.exomiser?.acmg_classification.toLowerCase() || '',
@@ -1561,76 +1577,3 @@ const renderOmim = (
     </StackLayout>
   );
 };
-
-/* {
-      key: 'gene.pli',
-      title: intl.get('screen.patientsnv.results.table.pli'),
-      tooltip: `${intl.get('screen.patientsnv.results.table.pli.tooltip')}`,
-      defaultHidden: true,
-      width: 150,
-      render: (variant: { genes: { hits: { edges: Gene[] } } }) => {
-        const genesWithPli = variant.genes.hits.edges.filter((gene: Gene) => gene.node.gnomad);
-        return genesWithPli.length ? (
-          <ExpandableCell<Gene>
-            dataSource={genesWithPli}
-            nOfElementsWhenCollapsed={2}
-            dictionnary={{
-              'see.less': intl.get('see.less'),
-              'see.more': intl.get('see.more'),
-            }}
-            renderItem={(item, id): React.ReactNode => (
-              <StackLayout horizontal>
-                <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
-                  <>
-                    {genesWithPli.length > 1 && <div>{`${item.node.symbol} : `}</div>}
-                    <ExternalLink
-                      href={`https://gnomad.broadinstitute.org/gene/${item.node.ensembl_gene_id}?dataset=gnomad_r2_1`}
-                    >
-                      {item.node.gnomad.pli.toFixed(2)}
-                    </ExternalLink>
-                  </>
-                </Space>
-              </StackLayout>
-            )}
-          />
-        ) : (
-          'ND'
-        );
-      },
-    },
-    {
-      key: 'gene.loeuf',
-      title: intl.get('screen.patientsnv.results.table.loeuf'),
-      tooltip: `${intl.get('screen.patientsnv.results.table.loeuf.tooltip')}`,
-      defaultHidden: true,
-      width: 150,
-      render: (variant: { genes: { hits: { edges: Gene[] } } }) => {
-        const genesWithloeuf = variant.genes.hits.edges.filter((gene: Gene) => gene.node.gnomad);
-        return genesWithloeuf.length ? (
-          <ExpandableCell<Gene>
-            dataSource={genesWithloeuf}
-            nOfElementsWhenCollapsed={2}
-            dictionnary={{
-              'see.less': intl.get('see.less'),
-              'see.more': intl.get('see.more'),
-            }}
-            renderItem={(item, id): React.ReactNode => (
-              <StackLayout horizontal>
-                <Space key={id} align="center" className={style.variantSnvOmimCellItem}>
-                  <>
-                    {genesWithloeuf.length > 1 && <div>{`${item.node.symbol} : `}</div>}
-                    <ExternalLink
-                      href={`https://gnomad.broadinstitute.org/gene/${item.node.ensembl_gene_id}?dataset=gnomad_r2_1`}
-                    >
-                      {item.node.gnomad.loeuf.toFixed(2)}
-                    </ExternalLink>
-                  </>
-                </Space>
-              </StackLayout>
-            )}
-          />
-        ) : (
-          'ND'
-        );
-      },
-    }, */
