@@ -71,7 +71,7 @@ describe('Page d\'une analyse bioinformatique (paired) - Vérifier les informati
     cy.get('[data-cy="RelatedAnalysesCard_Table"] [class*="ant-table-row"]').eq(0).find('[class="ant-table-cell"]').eq(0).contains(presc_PAIRED.bioAnalProbId.GEBA).should('exist');
     cy.get('[data-cy="RelatedAnalysesCard_Table"] [class*="ant-table-row"]').eq(0).find('[class="ant-table-cell"]').eq(1).contains(presc_PAIRED.stampDate.GEBA).should('exist');
     cy.get('[data-cy="RelatedAnalysesCard_Table"] [class*="ant-table-row"]').eq(0).find('[class="ant-table-cell"]').eq(2).contains(presc_PAIRED.prescriptionId.GEBA).should('exist');
-    cy.get('[data-cy="RelatedAnalysesCard_Table"] [class*="ant-table-row"]').eq(0).find('[class="ant-table-cell"]').eq(3).contains('Analyse bioinformatique d\'exomes germinales (GEBA)').should('exist');
+    cy.get('[data-cy="RelatedAnalysesCard_Table"] [class*="ant-table-row"]').eq(0).find('[class="ant-table-cell"]').eq(3).contains('Analyse bioinformatique d\'exomes germinaux (GEBA)').should('exist');
     cy.get('[data-cy="RelatedAnalysesCard_Table"] [class*="ant-table-row"]').eq(1).find('[class="ant-table-cell"]').eq(0).contains(presc_PAIRED.bioAnalProbId.TEBA).should('exist');
     cy.get('[data-cy="RelatedAnalysesCard_Table"] [class*="ant-table-row"]').eq(1).find('[class="ant-table-cell"]').eq(1).contains(presc_PAIRED.stampDate.TEBA).should('exist');
     cy.get('[data-cy="RelatedAnalysesCard_Table"] [class*="ant-table-row"]').eq(1).find('[class="ant-table-cell"]').eq(2).contains(presc_PAIRED.prescriptionId.TEBA).should('exist');

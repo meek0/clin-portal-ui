@@ -12,7 +12,7 @@ describe('Page d\'une analyse bioinformatique - Vérifier les informations affic
   it('Panneau Analyse', () => {
     setupTest();
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(0).contains(epCHUSJ_ldmCHUSJ.bioAnalProbId).should('exist');
-    cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('Analyse bioinformatique d\'exomes germinales (GEBA)').should('exist');
+    cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(1).contains('Analyse bioinformatique d\'exomes germinaux (GEBA)').should('exist');
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(2).contains(epCHUSJ_ldmCHUSJ.prescriptionId).should('exist');
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(3).contains(epCHUSJ_ldmCHUSJ.stampDate.substring(0, 4)).should('exist');
     cy.get('[data-cy="AnalysisCard_Card"] [class="ant-descriptions-item-content"]').eq(4).contains(epCHUSJ_ldmCHUSJ.patientProbId).should('exist');
