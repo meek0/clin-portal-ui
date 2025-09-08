@@ -308,7 +308,7 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
 
   });
 
-  it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
+  it('Valider les fonctionnalités du tableau - Tri RQDM TO', () => {
     presc_SOMATIC = Cypress.env('globalData').presc_SOMATIC;
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
     cy.visitCNVsSomaticPatientPage(presc_SOMATIC.patientProbId, presc_SOMATIC.prescriptionId, 3);
@@ -323,12 +323,12 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.get('span[class*="ant-select-selection-item"]').eq(1).clickAndWait({force: true});
     cy.get('div[class*="ant-select-item-option-content"]').contains('10 ').clickAndWait({force: true});
     
-    cy.sortTableAndWait('RQDM');
+    cy.sortTableAndWait('RQDM TO');
     cy.wait(15*1000);
     cy.validateTableFirstRow('-', 16, true);
-    cy.sortTableAndWait('RQDM');
+    cy.sortTableAndWait('RQDM TO');
     cy.wait(15*1000);
-    cy.validateTableFirstRow('e-', 16, true);
+    cy.validateTableFirstRow(/e(-|\+)/, 16, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri # Gènes', () => {

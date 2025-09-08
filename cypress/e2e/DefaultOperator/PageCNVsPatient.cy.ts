@@ -44,11 +44,32 @@ describe('Page des CNVs d\'un patient - Opérateurs par défaut', () => {
     cy.get(`[data-cy="InputNumber_Max_Nombre de SNVs"]`).should('not.exist');
   });
 
+  it('Fréquence - Fréq. CNV TO tous les patients', () => {
+    setupTest();
+    cy.openFacet('Fréquence', 'Fréq. CNV TO tous les patients');
+    cy.get(`[data-cy="InputNumber_Min_Fréq. CNV TO tous les patients"]`).should('not.exist');
+    cy.get(`[data-cy="InputNumber_Max_Fréq. CNV TO tous les patients"]`).should('exist');
+  });
+
   it('Fréquence - Fréq. CNV tous les patients', () => {
     setupTest();
     cy.openFacet('Fréquence', 'Fréq. CNV tous les patients');
     cy.get(`[data-cy="InputNumber_Min_Fréq. CNV tous les patients"]`).should('not.exist');
     cy.get(`[data-cy="InputNumber_Max_Fréq. CNV tous les patients"]`).should('exist');
+  });
+
+  it('Fréquence - Fréq. CNV patients atteints', () => {
+    setupTest();
+    cy.openFacet('Fréquence', 'Fréq. CNV patients atteints');
+    cy.get(`[data-cy="InputNumber_Min_Fréq. CNV patients atteints"]`).should('not.exist');
+    cy.get(`[data-cy="InputNumber_Max_Fréq. CNV patients atteints"]`).should('exist');
+  });
+
+  it('Fréquence - Fréq. CNV patients non atteints', () => {
+    setupTest();
+    cy.openFacet('Fréquence', 'Fréq. CNV patients non atteints');
+    cy.get(`[data-cy="InputNumber_Min_Fréq. CNV patients non atteints"]`).should('not.exist');
+    cy.get(`[data-cy="InputNumber_Max_Fréq. CNV patients non atteints"]`).should('exist');
   });
 
   it('Fréquence - gnomAD 4.1.0', () => {
