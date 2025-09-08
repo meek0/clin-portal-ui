@@ -129,7 +129,12 @@ const getFilterGroups = (
             operator: RangeOperators['<='],
           },
         },
-        tooltips: ['transmission'],
+        tooltips: [
+          'cluster__frequency_RQDM__som__pf',
+          'cluster__frequency_RQDM__germ__total__pf',
+          'cluster__frequency_RQDM__germ__affected__pf',
+          'cluster__frequency_RQDM__germ__non_affected__pf',
+        ],
       },
       {
         title: intl.get('screen.patientsnv.filter.grouptitle.publiccohorts'),

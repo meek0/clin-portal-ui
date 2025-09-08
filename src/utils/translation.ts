@@ -749,6 +749,22 @@ export const getFacetsDictionaryCNV = () => ({
           sc: intl.get('cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sc.tooltip'),
         },
       },
+      frequency_RQDM: {
+        som: {
+          pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.som.pf.tooltip'),
+        },
+        germ: {
+          total: {
+            pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.total.pf.tooltip'),
+          },
+          affected: {
+            pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.affected.pf.tooltip'),
+          },
+          non_affected: {
+            pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.non_affected.pf.tooltip'),
+          },
+        },
+      },
     },
     sm: intl.get('cnv.filters.group.sm.tooltip'),
   },
