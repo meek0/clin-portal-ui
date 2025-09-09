@@ -72,7 +72,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec l\'url', () => {
     cy.get('[class*="ant-checkbox-checked"] [data-cy*="Checkbox"]').its('length').should('eq', 2);
   });
 
-  it('Statut des prescriptions - Approuvée', () => {
+  it('Statut des prescriptions - Complétée', () => {
     setupTest();
     cy.visitPrescriptionsPage('?status=active');
 

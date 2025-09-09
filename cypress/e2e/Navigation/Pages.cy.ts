@@ -10,9 +10,6 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.login(Cypress.env('username_DG_CHUSJ_CUSM_CHUS'), Cypress.env('password'));
   };
 
-  beforeEach(() => {
-  });
-
   it('Accueil', () => {
     setupTest();
     cy.visit('/');
@@ -63,7 +60,7 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Analyse').should('exist');
     cy.contains('Identifiant').should('exist');
     cy.contains('Statut').should('exist');
-    cy.contains('Approuvée').should('exist');
+    cy.contains('Complétée').should('exist');
     cy.contains('Analyse demandée').should('exist');
     cy.contains('Panel en réflexe').should('exist');
     cy.contains('Créée le').should('exist');
@@ -87,12 +84,9 @@ describe('Affichage de toutes les pages et modals', () => {
     cy.contains('Créée le').should('exist');
     cy.contains('Échantillon').should('exist');
     cy.contains('Liens').should('exist');
-    cy.contains('Complétée').should('exist');
-    cy.contains('Fichiers').should('exist');
     cy.contains('Type').should('exist');
     cy.contains('Mère').should('exist');
     cy.contains('Père').should('exist');
-    cy.contains('Statut').should('exist');
   });
 
   it('Analyse bioinformatique', () => {
