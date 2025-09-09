@@ -81,10 +81,6 @@ export const VARIANT_QUERY = gql`
                 }
               }
             }
-            frequency_RQDM {
-              pc
-              pf
-            }
             exomiser {
               variant_score_category
               variant_score
