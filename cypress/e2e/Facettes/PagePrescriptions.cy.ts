@@ -70,7 +70,7 @@ describe('Page des prescriptions et requêtes - Filtrer avec les facettes', () =
     cy.get('[data-node-key="requests"]').contains('Requêtes (1)').should('exist');
   });
 
-  it('Statut des prescriptions - Approuvée', () => {
+  it('Statut des prescriptions - Complétée', () => {
     setupTest();
     cy.get('div[class="Filter_facetCollapse__8Ofdg"]').eq(4).contains('Statut des prescriptions').should('exist');
     cy.checkValueFacet('Statut des prescriptions', 'active');

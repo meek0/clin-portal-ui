@@ -16,9 +16,6 @@ describe('Page des CNVs d\'un patient (somatic) - Consultation du tableau', () =
     cy.showColumn('Trans.', 0);
     cy.showColumn('OP', 0);
   };
-
-  beforeEach(() => {
-  });
   
   it('Vérifier les informations affichées [CLIN-4567]', () => {
     setupTest();

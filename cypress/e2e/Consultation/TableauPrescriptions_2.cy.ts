@@ -50,9 +50,9 @@ describe('Page des prescriptions et requêtes - Consultation du tableau des pres
   it('Valider les fonctionnalités du tableau - Tri Statut', () => {
     setupTest();
     cy.sortTableAndIntercept('Statut', 3);
-    cy.validateTableFirstRow('Approuvée', 5, true);
+    cy.validateTableFirstRow('Complétée', 5, true);
     cy.sortTableAndIntercept('Statut', 3);
-    cy.validateTableFirstRow('Approuvée', 5, true);
+    cy.validateTableFirstRow('Complétée', 5, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Créée le', () => {
