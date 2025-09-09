@@ -12,6 +12,7 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.showColumn('Qual.', 0);
     cy.showColumn('SM', 0);
     cy.showColumn('Exo. (var)', 0);
+    cy.showColumn('RQDM non atteints', 0);
     cy.showColumn('BC', 0);
     cy.showColumn('PE', 0);
     cy.showColumn('Trans.', 0);
@@ -136,52 +137,68 @@ describe('Page des CNVs d\'un patient - Consultation du tableau', () => {
     cy.validateTableFirstRow('16', 20, true);
   });
 
-  it('Valider les fonctionnalités du tableau - Tri RQDM', () => {
+  it('Valider les fonctionnalités du tableau - Tri RQDM G', () => {
     setupTest();
-    cy.sortTableAndIntercept('RQDM', 1);
+    cy.sortTableAndIntercept('RQDM G', 1);
     cy.validateTableFirstRow('-', 21, true);
-    cy.sortTableAndIntercept('RQDM', 1)
+    cy.sortTableAndIntercept('RQDM G', 1)
     cy.validateTableFirstRow(/13\d{1}/, 21, true);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri RQDM atteints', () => {
+    setupTest();
+    cy.clickAndIntercept('thead[class="ant-table-thead"] [class*="rqdmAffectedIcon"]', 'POST', '**/graphql', 1);
+    cy.validateTableFirstRow('-', 22, true);
+    cy.clickAndIntercept('thead[class="ant-table-thead"] [class*="rqdmAffectedIcon"]', 'POST', '**/graphql', 1);
+    cy.validateTableFirstRow(/12\d{1}/, 22, true);
+  });
+
+  it('Valider les fonctionnalités du tableau - Tri RQDM non atteints', () => {
+    setupTest();
+    cy.clickAndIntercept('thead[class="ant-table-thead"] [class*="rqdmNonAffectedIcon"]', 'POST', '**/graphql', 1);
+    cy.validateTableFirstRow('-', 23, true);
+    cy.clickAndIntercept('thead[class="ant-table-thead"] [class*="rqdmNonAffectedIcon"]', 'POST', '**/graphql', 1);
+    cy.validateTableFirstRow('9', 23, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri # Gènes', () => {
     setupTest();
     cy.sortTableAndIntercept('# Gènes', 1);
-    cy.validateTableFirstRow(/^0$/, 22, true);
+    cy.validateTableFirstRow(/^0$/, 24, true);
     cy.sortTableAndIntercept('# Gènes', 1);
-    cy.validateTableFirstRow('38', 22, true);
+    cy.validateTableFirstRow('38', 24, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Qual.', () => {
     setupTest();
     cy.sortTableAndIntercept('Qual.', 1);
-    cy.validateTableFirstRow(/^3$/, 25, true);
+    cy.validateTableFirstRow(/^3$/, 27, true);
     cy.sortTableAndIntercept('Qual.', 1);
-    cy.validateTableFirstRow('150', 25, true);
+    cy.validateTableFirstRow('150', 27, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri BC', () => {
     setupTest();
     cy.sortTableAndIntercept('BC', 1);
-    cy.validateTableFirstRow(/^1$/, 26, true);
+    cy.validateTableFirstRow(/^1$/, 28, true);
     cy.sortTableAndIntercept('BC', 1);
-    cy.validateTableFirstRow('119', 26, true);
+    cy.validateTableFirstRow('119', 28, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri Trans.', () => {
     setupTest();
     cy.sortTableAndIntercept('Trans.', 1);
-    cy.validateTableFirstRow('-', 28, true);
+    cy.validateTableFirstRow('-', 30, true);
     cy.sortTableAndIntercept('Trans.', 1);
-    cy.validateTableFirstRow('-', 28, true);
+    cy.validateTableFirstRow('-', 30, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri OP', () => {
     setupTest();
     cy.sortTableAndIntercept('OP', 1);
-    cy.validateTableFirstRow('-', 29, true);
+    cy.validateTableFirstRow('-', 31, true);
     cy.sortTableAndIntercept('OP', 1);
-    cy.validateTableFirstRow('MF', 29, true);
+    cy.validateTableFirstRow('MF', 31, true);
   });
 
   it('Valider les fonctionnalités du tableau - Tri multiple', () => {

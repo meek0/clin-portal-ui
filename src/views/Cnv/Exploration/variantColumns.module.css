@@ -46,3 +46,10 @@ th.userAffectedBtnCell {
 .unActiveFilter {
   color: var(--gray-6);
 }
+
+.rqdmAffectedIcon {
+  fill: var(--red-7);
+}
+.rqdmNonAffectedIcon {
+  fill: var(--green-7);
+}

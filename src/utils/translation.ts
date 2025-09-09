@@ -700,9 +700,6 @@ export const getFacetsDictionaryCNV = () => ({
     panels: intl.get('filters.group.genes.panels'),
     location: intl.get('filters.group.genes.location'),
   },
-  frequency_RQDM: {
-    pf: intl.get('cnv.filters.group.frequency_RQDM.pf'),
-  },
   exomiser: {
     variant_score_category: intl.get('cnv.filters.group.exomiser.variant_score_category'),
     acmg_classification: intl.get('cnv.filters.group.exomiser.acmg_classification'),
@@ -712,6 +709,22 @@ export const getFacetsDictionaryCNV = () => ({
       gnomad_exomes_4: {
         sf: intl.get('filters.group.external_frequencies.gnomad_joint_4.af'),
         sc: intl.get('filters.group.external_frequencies.gnomad_joint_4.ac'),
+      },
+    },
+    frequency_RQDM: {
+      som: {
+        pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.som.pf'),
+      },
+      germ: {
+        total: {
+          pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.total.pf'),
+        },
+        affected: {
+          pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.affected.pf'),
+        },
+        non_affected: {
+          pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.non_affected.pf'),
+        },
       },
     },
   },
@@ -734,6 +747,22 @@ export const getFacetsDictionaryCNV = () => ({
         gnomad_exomes_4: {
           sf: intl.get('cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sf.tooltip'),
           sc: intl.get('cnv.filters.group.cluster.external_frequencies.gnomad_exomes_4.sc.tooltip'),
+        },
+      },
+      frequency_RQDM: {
+        som: {
+          pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.som.pf.tooltip'),
+        },
+        germ: {
+          total: {
+            pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.total.pf.tooltip'),
+          },
+          affected: {
+            pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.affected.pf.tooltip'),
+          },
+          non_affected: {
+            pf: intl.get('cnv.filters.group.cluster.frequency_RQDM.germ.non_affected.pf.tooltip'),
+          },
         },
       },
     },
