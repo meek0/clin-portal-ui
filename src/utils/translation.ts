@@ -767,5 +767,9 @@ export const getFacetsDictionaryCNV = () => ({
       },
     },
     sm: intl.get('cnv.filters.group.sm.tooltip'),
+    exomiser: {
+      variant_score_category: intl.get('cnv.filters.group.exomiser.variant_score_category.tooltip'),
+      acmg_classification: intl.get('cnv.filters.group.exomiser.variant_score_category.tooltip'),
+    },
   },
 });
